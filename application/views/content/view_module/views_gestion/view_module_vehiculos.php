@@ -35,9 +35,9 @@
                         <div class="form-group col-md-4">
                             <label for="inputTipo">Tipo de Vehiculo</label>
                             <select id="inputTipo" class="form-control">
-                                <option selected>Automovil</option>
-                                <option>Camioneta</option>
-                                <option>Furgon</option>
+                                <option value="Automovil" selected>Automovil</option>
+                                <option value="Camioneta">Camioneta</option>
+                                <option value="Furgon">Furgon</option>
                             </select>
                         </div>
                         <div class="form-group col-md-4">
@@ -47,18 +47,18 @@
                         <div class="form-group col-md-4">
                             <label for="inputSucursal">Sucursal actual</label>
                             <select id="inputSucursal" class="form-control">
-                                <option selected>Talca</option>
-                                <option>Linares</option>
-                                <option>Curico</option>
+                                <option value="Talca" selected>Talca</option>
+                                <option value="Linares">Linares</option>
+                                <option value="Curico">Curico</option>
                             </select>
                         </div>
                         <div class="form-group col-md-5">
                             <label for="inputPropietario">Propietario del Vehiculo</label>
-                            <input maxLength="30" type="text" class="form-control" id="inputPropietario" required>
+                            <input maxLength="50" type="text" class="form-control" id="inputPropietario" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputCompra">Donde se compro</label>
-                            <input maxLength="30" type="text" class="form-control" id="inputCompra" required>
+                            <input maxLength="50" type="text" class="form-control" id="inputCompra" required>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputPrecio">Precio del Vehiculo</label>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <br><br>
-                    <button type="submit" class="btn btn-dark">Registrar Vehiculo</button>
+                    <button type="submit" class="btn btn-dark" id="btn_registrar_vehiculo">Registrar Vehiculo</button>
                 </form>
 
             </div>
@@ -82,9 +82,7 @@
             <!-- Tab con la tabla de los vehiculos -->
             <div class="tab-pane fade" id="nav-vehiculos" role="tabpanel" aria-labelledby="nav-vehiculos-tab">
                 <br><br>
-
-
-                <table id="example" class="table table-striped table-bordered">
+                <table id="tablaVehiculos" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>Patente</th>
@@ -127,15 +125,10 @@
 </div>
 </div>
 
-<!-- importando archivo js vehiculos -->
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>
 
-<!-- importaciones de datatable -->
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
+<!-- Script para validar los campos del formulario -->
 <script>
-// Example starter JavaScript for disabling form submissions if there are invalid fields
 (function() {
     'use strict';
     window.addEventListener('load', function() {
@@ -154,3 +147,6 @@
     }, false);
 })();
 </script>
+
+<!-- importando archivo js vehiculos -->
+<script type="text/javascript" src="<?php echo base_url() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>
