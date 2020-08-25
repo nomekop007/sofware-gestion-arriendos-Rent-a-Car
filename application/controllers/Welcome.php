@@ -15,17 +15,16 @@ class Welcome extends CI_Controller
 		$this->load->view("templates/header");
 		$this->load->view("content/navbars/navbar");
 		$this->load->view("content/sidebars/sidebar_gestion");
-		$this->load->view("principal");
+		$this->load->view("content/view_module/views_gestion/index_gestion");
 		$this->load->view("templates/footer");
 	}
 
 	public function cargaPanelAtencion()
 	{
-
 		$this->load->view("templates/header");
 		$this->load->view("content/navbars/navbar");
 		$this->load->view("content/sidebars/sidebar_atencion");
-		$this->load->view("principal");
+		$this->load->view("content/view_module/views_atencion/index_atencion");
 		$this->load->view("templates/footer");
 	}
 	public function cargaPanelAdministrador()
@@ -33,7 +32,7 @@ class Welcome extends CI_Controller
 		$this->load->view("templates/header");
 		$this->load->view("content/navbars/navbar");
 		$this->load->view("content/sidebars/sidebar_administracion");
-		$this->load->view("principal");
+		$this->load->view("content/view_module/views_administracion/index_administracion");
 		$this->load->view("templates/footer");
 	}
 }

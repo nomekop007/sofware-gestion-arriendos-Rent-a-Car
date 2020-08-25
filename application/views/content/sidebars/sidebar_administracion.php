@@ -17,6 +17,16 @@
                     <span data-feather="users"></span> monitoreo GPS
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span data-feather="users"></span> control de bodega
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span data-feather="users"></span> gestion de llamadas
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

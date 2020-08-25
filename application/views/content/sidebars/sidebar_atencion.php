@@ -17,6 +17,12 @@
                     <span data-feather="users"></span> Modulo daños
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <span data-feather="users"></span> Gestor de cotizaciones
+                </a>
+            </li>
+
         </ul>
     </div>
 </nav>

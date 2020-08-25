@@ -51,10 +51,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 $route['default_controller'] = 'welcome';
 
-
+/*  ruta de carga de los paneles principales  */
 $route['cargarPanelGestion'] = '/Welcome/cargaPrincipal';
 $route['cargaPanelAtencion'] = '/Welcome/cargaPanelAtencion';
 $route['cargaPanelAdministrador'] = '/Welcome/cargaPanelAdministrador';
+
+
+/* ruta de carga de los modulos Gestion */
+$route['modulo_vehiculo'] = '/Session_atencion/cargarModuloVehiculo';
+$route['modulo_cliente'] = '/Session_atencion/cargarModuloCliente';
+$route['modulo_arriendo'] = '/Session_atencion/cargarModuloArriendo';
+
+
 
 
 
