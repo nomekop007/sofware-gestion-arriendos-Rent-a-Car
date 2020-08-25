@@ -4,16 +4,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v4.1.1">
+    <meta name="description" content="sofware de arriendo">
+    <meta name="author" content="nomekop007">
+
     <title>Dashboard Rent a Car</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
 
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url() ?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- libreria del dashboard -->
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+    <link href="<?php echo base_url() ?>/assets/dashboard/dashboard.css" rel="stylesheet">
+
+    <!-- importaciones del jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+
+
+    <!-- estilo de dashboard -->
     <style>
     .bd-placeholder-img {
         font-size: 1.125rem;
@@ -31,7 +39,4 @@
     }
     </style>
 
-
-    <!-- Custom styles for this template -->
-    <link href="<?php echo base_url() ?>/assets/dashboard/dashboard.css" rel="stylesheet">
 </head>

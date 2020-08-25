@@ -10,7 +10,7 @@ class Welcome extends CI_Controller
 		$this->load->view('inicio');
 	}
 
-	public function cargaPrincipal()
+	public function cargaPanelGestion()
 	{
 		$this->load->view("templates/header");
 		$this->load->view("content/navbars/navbar");

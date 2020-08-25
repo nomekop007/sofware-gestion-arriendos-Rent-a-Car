@@ -8,13 +8,13 @@
 </head>
 
 <body>
-  <a href="<?php echo site_url();?>/Welcome/cargaPrincipal">Ir a la plataforma</a>
+    <a href="<?php echo site_url(); ?>cargarPanelGestion">Ir a la plataforma</a>
 
 
-  <br><br>
-  base_url = <?php echo base_url()?>
-  <br><br>
-  site_url = <?php echo site_url() ?>
+    <br><br>
+    base_url = <?php echo base_url() ?>
+    <br><br>
+    site_url = <?php echo site_url() ?>
 
 </body>
 
