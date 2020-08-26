@@ -22,6 +22,7 @@
     <!-- importaciones del jquery -->
     <script src="<?php echo base_url() ?>/assets/js/jquery-3.3.1.min.js"></script>
 
+    <!-- importacion de icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous">
 
 </head>
