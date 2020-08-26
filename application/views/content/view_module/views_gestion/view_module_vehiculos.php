@@ -77,6 +77,7 @@
                     <button type="submit" class="btn btn-dark" id="btn_registrar_vehiculo">Registrar Vehiculo</button>
                 </form>
 
+
             </div>
 
             <!-- Tab con la tabla de los vehiculos -->
@@ -126,8 +127,11 @@
 </div>
 
 
-
+<!-- importando archivo js vehiculos -->
+<script src="<?php echo base_url() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>
 <!-- Script para validar los campos del formulario -->
+
+
 <script>
 (function() {
     'use strict';
@@ -140,7 +144,13 @@
                 if (form.checkValidity() === false) {
                     event.preventDefault();
                     event.stopPropagation();
+
+                } else {
+                    event.preventDefault();
+                    //funcion
+                    //pendiente
                 }
+
                 form.classList.add('was-validated');
             }, false);
         });
@@ -149,8 +159,5 @@
 </script>
 
 <!-- importaciones de datatable -->
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-
-<!-- importando archivo js vehiculos -->
-<script type="text/javascript" src="<?php echo base_url() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>
+<script src="<?php echo base_url() ?>assets/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url() ?>assets/js/dataTables.bootstrap4.min.js"></script>

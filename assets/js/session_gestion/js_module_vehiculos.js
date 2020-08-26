@@ -39,12 +39,7 @@ $(document).ready(() => {
 
 
 
-    //registrar Vehiculo
-    $("#btn_registrar_vehiculo").click((e) => {
-        e.preventDefault();
-        //corregir validacion
-
-
+    $("#btn_registrar_vehiculo").click(() => {
 
         var modelo = $('#inputModelo').val()
         var patente = $('#inputPatente').val()
@@ -58,18 +53,7 @@ $(document).ready(() => {
         var fechaCompra = $('#inputFechaCompra').val()
 
 
-        const data = {
-            modelo,
-            patente,
-            edad,
-            tipo,
-            color,
-            sucursal,
-            propietario,
-            compra,
-            precio,
-            fechaCompra
-        }
+        var data = { modelo, patente, edad, tipo, color, sucursal, propietario, compra, precio, fechaCompra }
 
         $.ajax({
             url: base_url + "registrar_vehiculo",
@@ -78,15 +62,22 @@ $(document).ready(() => {
             data: data,
             success: (e) => {
                 if (e.msg == "404") {
-                    console.log("ocurrio un error al registrar el vehiculo");
+                    Swal.fire('ocurrio un error al registrar el vehiculo');
                 } else {
-                    console.log("vehiculo registrado : ", e.msg);
+                    Swal.fire('Vehiculo registrado')
+                    console.log(e.msg);
                 }
             },
-            error: () => { console.log("error inesperado! "); }
+            error: () => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'A ocurrido un Error!'
+                })
+            }
         })
 
     });
 
 
-});
+})

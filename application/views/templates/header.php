@@ -9,34 +9,19 @@
 
     <title>Dashboard Rent a Car</title>
 
-
     <!-- Bootstrap core CSS -->
     <link href="<?php echo base_url() ?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- sweetalert2 core CSS -->
+    <link href="<?php echo base_url() ?>/assets/css/sweetalert2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/css/animate.min.css" />
+
     <!-- libreria del dashboard -->
-    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
-    <link href="<?php echo base_url() ?>/assets/dashboard/dashboard.css" rel="stylesheet">
+    <link href="<?php echo base_url() ?>/assets/css/dashboard.css" rel="stylesheet">
 
     <!-- importaciones del jquery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="<?php echo base_url() ?>/assets/js/jquery-3.3.1.min.js"></script>
 
-
-    <!-- estilo de dashboard -->
-    <style>
-    .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-        }
-    }
-    </style>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous">
 
 </head>
