@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(() => {
 
     var base_url = "http://localhost/Rentacar/";
 
@@ -41,39 +41,52 @@ $(document).ready(function() {
 
     //registrar Vehiculo
     $("#btn_registrar_vehiculo").click((e) => {
-        //  e.preventDefault();
-        // no funcionan los validadores
-
-
-        // verificar que los datos se estan guardando
-        var data = new FormData();
-        data.append('modelo', $('#inputModelo').val());
-        data.append('patente', $('#inputPatente').val());
-        data.append('edad', $('#inputedad').val());
-        data.append('tipo', $('#inputTipo').val());
-        data.append('color', $('#inputColor').val());
-        data.append('sucursal', $('#inputSucursal').val());
-        data.append('propietario', $('#inputPropietario').val());
-        data.append('compra', $('#inputCompra').val());
-        data.append('precio', $('#inputPrecio').val());
-        data.append('fechaCompra', $('#inputFechaCompra').val());
-        //opcion pendiente
-        data.append('foto', $('#inputFoto').val());
+        e.preventDefault();
+        //corregir validacion
 
 
 
-        console.log(data);
+        var modelo = $('#inputModelo').val()
+        var patente = $('#inputPatente').val()
+        var edad = $('#inputedad').val()
+        var tipo = $('#inputTipo').val()
+        var color = $('#inputColor').val()
+        var sucursal = $('#inputSucursal').val()
+        var propietario = $('#inputPropietario').val()
+        var compra = $('#inputCompra').val()
+        var precio = $('#inputPrecio').val()
+        var fechaCompra = $('#inputFechaCompra').val()
+
+
+        const data = {
+            modelo,
+            patente,
+            edad,
+            tipo,
+            color,
+            sucursal,
+            propietario,
+            compra,
+            precio,
+            fechaCompra
+        }
 
         $.ajax({
             url: base_url + "registrar_vehiculo",
             type: "post",
             dataType: "json",
-            data: { datos: "prueba datos" },
-            success: (e) => { console.log("success: " + e); },
-            error: (e) => { console.log("error: " + e); }
+            data: data,
+            success: (e) => {
+                if (e.msg == "404") {
+                    console.log("ocurrio un error al registrar el vehiculo");
+                } else {
+                    console.log("vehiculo registrado : ", e.msg);
+                }
+            },
+            error: () => { console.log("error inesperado! "); }
         })
 
-    })
+    });
 
 
 });

@@ -18,7 +18,7 @@
             <div class="tab-pane fade show active" id="nav-registrar" role="tabpanel"
                 aria-labelledby="nav-registrar-tab">
                 <br><br>
-                <form method="post" class="needs-validation" novalidate>
+                <form class="needs-validation" novalidate>
                     <div class="form-row">
                         <div class="form-group col-md-5">
                             <label for="inputModelo">Modelo del Vehiculo</label>
@@ -147,6 +147,10 @@
     }, false);
 })();
 </script>
+
+<!-- importaciones de datatable -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
 <!-- importando archivo js vehiculos -->
 <script type="text/javascript" src="<?php echo base_url() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>
