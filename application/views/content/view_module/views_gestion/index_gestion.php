@@ -5,6 +5,8 @@
     </div>
     <div>
         <h5>Bienvenido a la sesion gestion</h5>
+
+        <img class="text-center" src="<?php echo base_url() ?>assets/images/arriendo.jpg" />
     </div>
 </main>
 

@@ -21,16 +21,17 @@
                 <form class="needs-validation" novalidate>
                     <div class="form-row">
                         <div class="form-group col-md-5">
-                            <label for="inputModelo">Modelo del Vehiculo</label>
-                            <input maxLength="50" type="text" class="form-control" id="inputModelo" required>
-                        </div>
-                        <div class="form-group col-md-5">
                             <label for="inputPatente">Patente del Vehiculo</label>
                             <input maxLength="10" type="text" class="form-control" id="inputPatente" required>
                         </div>
+                        <div class="form-group col-md-5">
+                            <label for="inputModelo">Modelo del Vehiculo</label>
+                            <input maxLength="50" type="text" class="form-control" id="inputModelo" required>
+                        </div>
+
                         <div class="form-group col-md-2">
                             <label for="inputedad">Año del Vehiculo</label>
-                            <input type="number" class="form-control" id="inputedad" required>
+                            <input min="1111" max="9999" type="number" class="form-control" id="inputedad" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputTipo">Tipo de Vehiculo</label>
@@ -62,7 +63,7 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputPrecio">Precio del Vehiculo</label>
-                            <input type="number" class="form-control" id="inputPrecio" required>
+                            <input min="0" type="number" class="form-control" id="inputPrecio" required>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputFechaCompra">Fecha de compra</label>
@@ -127,11 +128,8 @@
 </div>
 
 
-<!-- importando archivo js vehiculos -->
-<script src="<?php echo base_url() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>
+
 <!-- Script para validar los campos del formulario -->
-
-
 <script>
 (function() {
     'use strict';
@@ -144,13 +142,9 @@
                 if (form.checkValidity() === false) {
                     event.preventDefault();
                     event.stopPropagation();
-
                 } else {
                     event.preventDefault();
-                    //funcion
-                    //pendiente
                 }
-
                 form.classList.add('was-validated');
             }, false);
         });
@@ -161,3 +155,6 @@
 <!-- importaciones de datatable -->
 <script src="<?php echo base_url() ?>assets/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url() ?>assets/js/dataTables.bootstrap4.min.js"></script>
+
+<!-- importando archivo js vehiculos -->
+<script src="<?php echo base_url() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>
