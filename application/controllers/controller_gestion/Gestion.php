@@ -1,31 +1,55 @@
 <?php
 
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Gestion extends CI_Controller
 {
 
-    //Registrar Vehiculo
+
+    public function cargarSucursales()
+    {
+        $client = new GuzzleHttp\Client();
+        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://localhost:3000/rentacar/sucursales');
+        $promise = $client->sendAsync($request)->then(function ($response) {
+            echo $response->getBody();
+        });
+        $promise->wait();
+    }
+
+    public function cargarVehiculos()
+    {
+        $client = new GuzzleHttp\Client();
+        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://localhost:3000/rentacar/vehiculos');
+        $promise = $client->sendAsync($request)->then(function ($response) {
+            echo $response->getBody();
+        });
+        $promise->wait();
+    }
+
+
     public function registrarVehiculo()
     {
-        $modelo = $this->input->post("modelo");
-        $patente = $this->input->post("patente");
-        $edad = $this->input->post("edad");
-        $tipo = $this->input->post("tipo");
-        $color = $this->input->post("color");
-        $sucursal = $this->input->post("sucursal");
-        $propietario = $this->input->post("propietario");
-        $compra = $this->input->post("compra");
-        $precio = $this->input->post("precio");
-        $fechaCompra = $this->input->post("fechaCompra");
 
-        $arrayVehiculo = [$modelo, $patente, $edad, $tipo, $color, $sucursal, $propietario, $compra, $precio, $fechaCompra];
+        $arrayVehiculo = [
+            "patente" => $this->input->post("patente"),
+            "modelo" => $this->input->post("modelo"),
+            "tipo" => $this->input->post("tipo"),
+            "color" => $this->input->post("color"),
+            "precio" => $this->input->post("precio"),
+            "propietario" => $this->input->post("propietario"),
+            "compra" => $this->input->post("compra"),
+            "fechaCompra" => $this->input->post("fechaCompra"),
+            "edad" => $this->input->post("edad"),
+            "sucursal" => $this->input->post("sucursal")
+        ];
 
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'http://localhost:3000/rentacar/addVehiculos', [
+            'json' => $arrayVehiculo
+        ]);
+        $reason = $response->getReasonPhrase(); //OK
 
-        if (true) {
-            echo json_encode(array("msg" =>  $arrayVehiculo));
-        } else {
-            echo json_encode(array("msg" => "404"));
-        }
+        echo json_encode(array("msg" =>  $reason));
     }
 }

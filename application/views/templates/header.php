@@ -9,20 +9,23 @@
 
     <title>Dashboard Rent a Car</title>
 
+    <!-- Datatable core CSS -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/datatables.min.css" />
+
     <!-- Bootstrap core CSS -->
-    <link href="<?php echo base_url() ?>/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/bootstrap/css/bootstrap.min.css">
 
     <!-- sweetalert2 core CSS -->
-    <link href="<?php echo base_url() ?>/assets/css/sweetalert2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo base_url() ?>/assets/css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/animate.min.css" />
 
-    <!-- libreria del dashboard -->
-    <link href="<?php echo base_url() ?>/assets/css/dashboard.css" rel="stylesheet">
-
-    <!-- importaciones del jquery -->
-    <script src="<?php echo base_url() ?>/assets/js/jquery-3.3.1.min.js"></script>
+    <!-- dashboard core CSS -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/dashboard.css" rel="stylesheet">
 
     <!-- importacion de icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" crossorigin="anonymous">
+
+    <!-- importaciones del jquery -->
+    <script src="<?php echo base_url() ?>/assets/js/jquery-3.3.1.min.js"></script>
 
 </head>

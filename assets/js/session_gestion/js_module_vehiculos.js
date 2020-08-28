@@ -1,9 +1,9 @@
 $(document).ready(() => {
     var base_url = "http://localhost/proyectos/Rentacar/";
 
-    //iniciar el datateble
-    $("#tablaVehiculos").DataTable({
+    var tablaVehiculos = $("#tablaVehiculos").DataTable({
         responsive: true,
+        destroy: true,
         language: {
             decimal: "",
             emptyTable: "No hay datos",
@@ -30,6 +30,50 @@ $(document).ready(() => {
         },
     });
 
+    //cargar sucursales
+    (() => {
+        const url = base_url + "cargar_Sucursales";
+        const select = document.getElementById("inputSucursal");
+        $.getJSON(url, (result) => {
+            if (result.success) {
+                $.each(result.data, (i, o) => {
+                    const option = document.createElement("option");
+                    option.innerHTML = o.nombre_sucursal;
+                    option.value = o.id_sucursal;
+                    select.appendChild(option);
+                });
+            } else {
+                console.log("ah ocurrido un error al cargar sucursales");
+            }
+        });
+    })();
+
+    //cargar Vehiculos en Datatable
+    cargarVehiculos();
+
+    function cargarVehiculos() {
+        const url = base_url + "cargar_Vehiculos";
+        $.getJSON(url, (result) => {
+            if (result.success) {
+                $.each(result.data, (i, o) => {
+                    tablaVehiculos.row
+                        .add([
+                            o.patente_vehiculo,
+                            o.modelo_vehiculo,
+                            o.año_vehiculo,
+                            o.tipo_vehiculo,
+                            o.id_sucursal,
+                            "<a class='btn' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></a><a class='btn' id='btn_editar_vehiculo'><i class='far fa-edit'></i></a>",
+                        ])
+                        .draw(false);
+                });
+            } else {
+                console.log("ah ocurrido un error al cargar sucursales");
+            }
+        });
+    }
+
+    //Registrar Vehiculo
     $("#btn_registrar_vehiculo").click(() => {
         var patente = $("#inputPatente").val();
         var modelo = $("#inputModelo").val();
@@ -69,19 +113,28 @@ $(document).ready(() => {
                     fechaCompra,
                 },
                 success: (e) => {
-                    if (e.msg == "404") {
-                        console.log(e.msg);
-                        Swal.fire("ocurrio un error al registrar el vehiculo");
-                    } else {
+                    if ((e.msg = "OK")) {
                         Swal.fire("Vehiculo registrado");
-                        console.log(e.msg);
+                        $("#inputPatente").val("");
+                        $("#inputModelo").val("");
+                        $("#inputedad").val("");
+                        $("#inputColor").val("");
+                        $("#inputPropietario").val("");
+                        $("#inputCompra").val("");
+                        $("#inputPrecio").val("");
+                        $("#inputFechaCompra").val("");
+
+                        //corregir problema de actualizacion tabla
+                        // cargarVehiculos();
+                    } else {
+                        Swal.fire("El Vehiculo ya existe");
                     }
                 },
                 error: () => {
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
-                        text: "A ocurrido un Error!",
+                        text: "A ocurrido un Error al registrar vehiculo!",
                     });
                 },
             });

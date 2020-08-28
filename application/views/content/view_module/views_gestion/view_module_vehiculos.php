@@ -48,9 +48,7 @@
                         <div class="form-group col-md-4">
                             <label for="inputSucursal">Sucursal actual</label>
                             <select id="inputSucursal" class="form-control">
-                                <option value="Talca" selected>Talca</option>
-                                <option value="Linares">Linares</option>
-                                <option value="Curico">Curico</option>
+
                             </select>
                         </div>
                         <div class="form-group col-md-5">
@@ -84,7 +82,7 @@
             <!-- Tab con la tabla de los vehiculos -->
             <div class="tab-pane fade" id="nav-vehiculos" role="tabpanel" aria-labelledby="nav-vehiculos-tab">
                 <br><br>
-                <table id="tablaVehiculos" class="table table-striped table-bordered">
+                <table id="tablaVehiculos" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                         <tr>
                             <th>Patente</th>
@@ -95,15 +93,8 @@
                             <th>Accion</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>554-v45</td>
-                            <td>Toyota Tercel</td>
-                            <td>1997</td>
-                            <td>automovil</td>
-                            <td>Talca</td>
-                            <td>X</td>
-                        </tr>
+                    <tbody id="vehiculos">
+
                     </tbody>
                     <tfoot>
                         <tr>
@@ -153,8 +144,7 @@
 </script>
 
 <!-- importaciones de datatable -->
-<script src="<?php echo base_url() ?>assets/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url() ?>assets/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?php echo base_url() ?>assets/js/datatables.min.js"></script>
 
 <!-- importando archivo js vehiculos -->
 <script src="<?php echo base_url() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>

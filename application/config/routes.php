@@ -65,6 +65,8 @@ $route['modulo_arriendo'] = '/Session_gestion/cargarModuloArriendo';
 
 /* rutas de modulo vehiculo */
 $route['registrar_vehiculo'] = '/controller_gestion/Gestion/registrarVehiculo';
+$route['cargar_Sucursales'] = '/controller_gestion/Gestion/cargarSucursales';
+$route['cargar_Vehiculos'] = '/controller_gestion/Gestion/cargarVehiculos';
 
 
 
