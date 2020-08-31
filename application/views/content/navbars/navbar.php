@@ -14,7 +14,7 @@
 
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">cerrar Session</a>
+                <a class="nav-link" href="<?php echo base_url(); ?>cerrarSesion">cerrar Session</a>
             </li>
         </ul>
     </nav>

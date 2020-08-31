@@ -30,7 +30,6 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/bootstrap/css/bootstrap.min.css">
 
 <body>
-    <a href="<?php echo site_url(); ?>cargarPanelGestion">Ir a la plataforma</a>
 
     <form class="form-signin">
         <img class="mb-4" src="<?php echo base_url() ?>assets/images/logo.png" alt="" width="100%" height="100%">
@@ -44,7 +43,7 @@
                 <input type="checkbox" value="remember-me"> Recordar
             </label>
         </div>
-        <button class="btn btn-lg btn-dark btn-block" id="btn_login" type="submit">Iniciar Sesion</button>
+        <button class="btn btn-dark btn-block btn_login" type="submit">Iniciar Sesion</button>
         <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
     </form>
 </body>

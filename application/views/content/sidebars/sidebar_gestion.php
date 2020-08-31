@@ -1,6 +1,21 @@
+<?php
+//se extrae la session admin
+$user = $this->session->userdata("administrador");
+?>
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
+
+
+            <li class="nav-item">
+                <div class="nav-link active">
+                    <i class="fas fa-user"></i>
+                    <!--   <?php echo $user[0]->nombre ?> -->
+                    Juanito Perez
+                </div>
+                <br>
+            </li>
+
 
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url() ?>modulo_vehiculo">

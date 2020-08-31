@@ -136,9 +136,9 @@ $(document).ready(() => {
                     precio,
                     fechaCompra,
                 },
-                success: (e) => {
-                    if ((e.msg = "OK")) {
-                        Swal.fire("Vehiculo registrado");
+                success: (response) => {
+                    if (response.success) {
+                        Swal.fire(response.msg);
                         $("#inputPatente").val("");
                         $("#inputModelo").val("");
                         $("#inputedad").val("");
@@ -149,7 +149,7 @@ $(document).ready(() => {
                         $("#inputFechaCompra").val("");
                         cargarUnVehiculo(patente);
                     } else {
-                        Swal.fire("El Vehiculo ya existe");
+                        Swal.fire("El Vehiculo ya existe con esta patente");
                     }
                 },
                 error: () => {

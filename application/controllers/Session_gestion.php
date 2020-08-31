@@ -7,29 +7,44 @@ class Session_gestion extends CI_Controller
 
     public function cargarModuloVehiculo()
     {
+        if ($this->session->userdata("administrador")) {
 
-        $this->load->view("templates/header");
-        $this->load->view("content/navbars/navbar");
-        $this->load->view("content/sidebars/sidebar_gestion");
-        $this->load->view('content/view_module/views_gestion/view_module_vehiculos');
-        $this->load->view("templates/footer");
+            $this->load->view("templates/header");
+            $this->load->view("content/navbars/navbar");
+            $this->load->view("content/sidebars/sidebar_gestion");
+            $this->load->view('content/view_module/views_gestion/view_module_vehiculos');
+            $this->load->view("templates/footer");
+        } else {
+            redirect("/");
+        }
     }
 
     public function cargarModuloCliente()
     {
-        $this->load->view("templates/header");
-        $this->load->view("content/navbars/navbar");
-        $this->load->view("content/sidebars/sidebar_gestion");
-        $this->load->view('content/view_module/views_gestion/view_module_clientes');
-        $this->load->view("templates/footer");
+
+        if ($this->session->userdata("administrador")) {
+
+            $this->load->view("templates/header");
+            $this->load->view("content/navbars/navbar");
+            $this->load->view("content/sidebars/sidebar_gestion");
+            $this->load->view('content/view_module/views_gestion/view_module_clientes');
+            $this->load->view("templates/footer");
+        } else {
+            redirect("/");
+        }
     }
 
     public function cargarModuloArriendo()
     {
-        $this->load->view("templates/header");
-        $this->load->view("content/navbars/navbar");
-        $this->load->view("content/sidebars/sidebar_gestion");
-        $this->load->view('content/view_module/views_gestion/view_module_arriendos');
-        $this->load->view("templates/footer");
+        if ($this->session->userdata("administrador")) {
+
+            $this->load->view("templates/header");
+            $this->load->view("content/navbars/navbar");
+            $this->load->view("content/sidebars/sidebar_gestion");
+            $this->load->view('content/view_module/views_gestion/view_module_arriendos');
+            $this->load->view("templates/footer");
+        } else {
+            redirect("/");
+        }
     }
 }

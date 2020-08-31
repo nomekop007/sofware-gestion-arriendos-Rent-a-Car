@@ -53,6 +53,9 @@ $route['default_controller'] = 'welcome';
 
 /* ruta de login de usuario  */
 $route['iniciarSesion'] = '/Welcome/iniciarSesion';
+$route['cerrarSesion'] = '/Welcome/cerrarSesion';
+$route['irPlataforma'] = '/Welcome/irPlataforma';
+
 
 /* ruta de carga de los paneles principales  */
 $route['cargarPanelGestion'] = '/Welcome/cargaPanelGestion';

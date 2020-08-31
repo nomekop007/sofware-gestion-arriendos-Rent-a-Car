@@ -60,8 +60,7 @@ class Gestion extends CI_Controller
         $response = $client->request('POST', 'http://localhost:3000/rentacar/vehiculos/registrarVehiculo', [
             'json' => $arrayVehiculo
         ]);
-        $reason = $response->getReasonPhrase(); //OK
 
-        echo json_encode(array("msg" =>  $reason));
+        echo  $response->getBody();
     }
 }
