@@ -10,6 +10,12 @@ class Welcome extends CI_Controller
 		$this->load->view('inicio');
 	}
 
+
+	public function iniciarSesion()
+	{
+		# code...
+	}
+
 	public function cargaPanelGestion()
 	{
 		$this->load->view("templates/header");

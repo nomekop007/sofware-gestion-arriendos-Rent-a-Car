@@ -1,7 +1,8 @@
 <body>
     <!-- esto es el navbar del dashboard  -->
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Renta a Car</a>
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">
+            <img src="<?php echo base_url() ?>assets/images/logo.png" alt="" width="170" height="40"></a>
         <a class="nav-link btn btn-outline-secondary" href="<?php echo base_url(); ?>cargarPanelGestion">Gestion</a>
         <a class="nav-link btn btn-outline-secondary" href="<?php echo base_url(); ?>cargaPanelAtencion">Atencion</a>
         <a class="nav-link btn btn-outline-secondary"

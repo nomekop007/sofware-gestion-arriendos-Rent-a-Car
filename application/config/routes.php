@@ -51,6 +51,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 $route['default_controller'] = 'welcome';
 
+/* ruta de login de usuario  */
+$route['iniciarSesion'] = '/Welcome/iniciarSesion';
+
 /* ruta de carga de los paneles principales  */
 $route['cargarPanelGestion'] = '/Welcome/cargaPanelGestion';
 $route['cargaPanelAtencion'] = '/Welcome/cargaPanelAtencion';
