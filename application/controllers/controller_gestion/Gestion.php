@@ -10,7 +10,7 @@ class Gestion extends CI_Controller
     public function cargarSucursales()
     {
         $client = new GuzzleHttp\Client();
-        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://localhost:3000/rentacar/sucursales');
+        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://localhost:3000/rentacar/sucursales/cargarSucursales');
         $promise = $client->sendAsync($request)->then(function ($response) {
             echo $response->getBody();
         });
@@ -20,7 +20,19 @@ class Gestion extends CI_Controller
     public function cargarVehiculos()
     {
         $client = new GuzzleHttp\Client();
-        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://localhost:3000/rentacar/vehiculos');
+        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://localhost:3000/rentacar/vehiculos/cargarVehiculos');
+        $promise = $client->sendAsync($request)->then(function ($response) {
+            echo $response->getBody();
+        });
+        $promise->wait();
+    }
+
+    public function cargarUnVehiculo()
+    {
+        $patente = $this->input->post("patente");
+
+        $client = new GuzzleHttp\Client();
+        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://localhost:3000/rentacar/vehiculos/cargarUnVehiculo/' . $patente);
         $promise = $client->sendAsync($request)->then(function ($response) {
             echo $response->getBody();
         });
@@ -32,20 +44,20 @@ class Gestion extends CI_Controller
     {
 
         $arrayVehiculo = [
-            "patente" => $this->input->post("patente"),
-            "modelo" => $this->input->post("modelo"),
-            "tipo" => $this->input->post("tipo"),
-            "color" => $this->input->post("color"),
-            "precio" => $this->input->post("precio"),
-            "propietario" => $this->input->post("propietario"),
-            "compra" => $this->input->post("compra"),
-            "fechaCompra" => $this->input->post("fechaCompra"),
-            "edad" => $this->input->post("edad"),
-            "sucursal" => $this->input->post("sucursal")
+            "patente_vehiculo" => $this->input->post("patente"),
+            "modelo_vehiculo" => $this->input->post("modelo"),
+            "tipo_vehiculo" => $this->input->post("tipo"),
+            "color_vehiculo" => $this->input->post("color"),
+            "precio_vehiculo" => $this->input->post("precio"),
+            "propietario_vehiculo" => $this->input->post("propietario"),
+            "compra_vehiculo" => $this->input->post("compra"),
+            "fechaCompra_vehiculo" => $this->input->post("fechaCompra"),
+            "año_vehiculo" => $this->input->post("edad"),
+            "id_sucursal" => $this->input->post("sucursal")
         ];
 
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', 'http://localhost:3000/rentacar/addVehiculos', [
+        $response = $client->request('POST', 'http://localhost:3000/rentacar/vehiculos/registrarVehiculo', [
             'json' => $arrayVehiculo
         ]);
         $reason = $response->getReasonPhrase(); //OK

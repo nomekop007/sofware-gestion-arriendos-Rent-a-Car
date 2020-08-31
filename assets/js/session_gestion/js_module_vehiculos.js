@@ -1,6 +1,7 @@
 $(document).ready(() => {
     var base_url = "http://localhost/proyectos/Rentacar/";
 
+    //inicializa datatable
     var tablaVehiculos = $("#tablaVehiculos").DataTable({
         responsive: true,
         destroy: true,
@@ -48,21 +49,19 @@ $(document).ready(() => {
         });
     })();
 
-    //cargar Vehiculos en Datatable
-    cargarVehiculos();
-
-    function cargarVehiculos() {
+    //carga vehiculos en datatable
+    (() => {
         const url = base_url + "cargar_Vehiculos";
         $.getJSON(url, (result) => {
             if (result.success) {
-                $.each(result.data, (i, o) => {
+                $.each(result.data, (i, vehiculo) => {
                     tablaVehiculos.row
                         .add([
-                            o.patente_vehiculo,
-                            o.modelo_vehiculo,
-                            o.año_vehiculo,
-                            o.tipo_vehiculo,
-                            o.id_sucursal,
+                            vehiculo.patente_vehiculo,
+                            vehiculo.modelo_vehiculo,
+                            vehiculo.año_vehiculo,
+                            vehiculo.tipo_vehiculo,
+                            vehiculo.sucursale.nombre_sucursal,
                             "<a class='btn' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></a><a class='btn' id='btn_editar_vehiculo'><i class='far fa-edit'></i></a>",
                         ])
                         .draw(false);
@@ -70,6 +69,32 @@ $(document).ready(() => {
             } else {
                 console.log("ah ocurrido un error al cargar sucursales");
             }
+        });
+    })();
+
+    function cargarUnVehiculo(patente) {
+        $.ajax({
+            url: base_url + "cargar_UnVehiculo",
+            type: "post",
+            dataType: "json",
+            data: { patente },
+            success: (result) => {
+                const vehiculo = result.data[0];
+
+                tablaVehiculos.row
+                    .add([
+                        vehiculo.patente_vehiculo,
+                        vehiculo.modelo_vehiculo,
+                        vehiculo.año_vehiculo,
+                        vehiculo.tipo_vehiculo,
+                        vehiculo.sucursale.nombre_sucursal,
+                        "<a class='btn' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></a><a class='btn' id='btn_editar_vehiculo'><i class='far fa-edit'></i></a>",
+                    ])
+                    .draw(false);
+            },
+            error: () => {
+                console.log("error en cargar el vehiculo");
+            },
         });
     }
 
@@ -85,7 +110,6 @@ $(document).ready(() => {
         var compra = $("#inputCompra").val();
         var precio = $("#inputPrecio").val();
         var fechaCompra = $("#inputFechaCompra").val();
-
         if (
             patente.length != 0 &&
             modelo.length != 0 &&
@@ -123,9 +147,7 @@ $(document).ready(() => {
                         $("#inputCompra").val("");
                         $("#inputPrecio").val("");
                         $("#inputFechaCompra").val("");
-
-                        //corregir problema de actualizacion tabla
-                        // cargarVehiculos();
+                        cargarUnVehiculo(patente);
                     } else {
                         Swal.fire("El Vehiculo ya existe");
                     }

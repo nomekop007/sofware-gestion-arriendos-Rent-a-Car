@@ -57,16 +57,17 @@ $route['cargaPanelAtencion'] = '/Welcome/cargaPanelAtencion';
 $route['cargaPanelAdministrador'] = '/Welcome/cargaPanelAdministrador';
 
 
-/* ruta de carga de los modulos Gestion */
+/* rutas de carga de los modulos Gestion */
 $route['modulo_vehiculo'] = '/Session_gestion/cargarModuloVehiculo';
 $route['modulo_cliente'] = '/Session_gestion/cargarModuloCliente';
 $route['modulo_arriendo'] = '/Session_gestion/cargarModuloArriendo';
 
 
 /* rutas de modulo vehiculo */
-$route['registrar_vehiculo'] = '/controller_gestion/Gestion/registrarVehiculo';
 $route['cargar_Sucursales'] = '/controller_gestion/Gestion/cargarSucursales';
+$route['cargar_UnVehiculo'] = '/controller_gestion/Gestion/cargarUnVehiculo';
 $route['cargar_Vehiculos'] = '/controller_gestion/Gestion/cargarVehiculos';
+$route['registrar_vehiculo'] = '/controller_gestion/Gestion/registrarVehiculo';
 
 
 
