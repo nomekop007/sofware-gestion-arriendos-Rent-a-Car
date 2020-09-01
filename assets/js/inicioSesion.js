@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    var base_url = "http://localhost/proyectos/Rentacar/";
+    var base_route = $("#ruta").val();
 
     $(".btn_login").click((e) => {
         e.preventDefault();
@@ -9,7 +9,7 @@ $(document).ready(() => {
 
         if (correo.length != 0 || clave.length != 0) {
             $.ajax({
-                url: base_url + "iniciarSesion",
+                url: base_route + "iniciarSesion",
                 type: "post",
                 datatype: "json",
                 data: {
@@ -42,7 +42,7 @@ $(document).ready(() => {
 
     function irPlataforma(usuario) {
         $.ajax({
-            url: base_url + "irPlataforma",
+            url: base_route + "irPlataforma",
             type: "post",
             datatype: "json",
             data: {
@@ -54,7 +54,7 @@ $(document).ready(() => {
             success: (e) => {
                 var response = JSON.parse(e);
                 if (response.msg == "OK") {
-                    window.location.href = base_url + "cargarPanelGestion";
+                    window.location.href = base_route + "cargarPanelGestion";
                 } else {
                     Swal.fire({
                         icon: "error",

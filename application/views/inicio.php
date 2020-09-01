@@ -22,17 +22,21 @@
     }
 }
 </style>
-<!-- Custom styles for this template -->
-<!-- sweetalert2 core CSS -->
-<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/sweetalert2.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/css/animate.min.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/css/signin.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>/assets/bootstrap/css/bootstrap.min.css">
+<!-- Helper que contiene variables de entorno INPORTANTE!! -->
+<?php $this->load->helper("urls_helper"); ?>
+<input id="ruta" value="<?php echo base_route(); ?>" hidden />
+
+
+
+<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>/assets/css/sweetalert2.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>/assets/css/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>/assets/css/signin.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>/assets/bootstrap/css/bootstrap.min.css">
 
 <body>
 
     <form class="form-signin">
-        <img class="mb-4" src="<?php echo base_url() ?>assets/images/logo.png" alt="" width="100%" height="100%">
+        <img class="mb-4" src="<?php echo base_route(); ?>assets/images/logo.png" alt="" width="100%" height="100%">
         <h1 class="h3 mb-3 font-weight-normal">Plataforma Rentacar</h1>
         <label for="inputEmail" class="sr-only">Correo Electronico</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="correo Electronico" required autofocus>
@@ -49,9 +53,9 @@
 </body>
 
 <!-- importaciones -->
-<script src="<?php echo base_url() ?>/assets/js/jquery-3.3.1.min.js"></script>
-<script src="<?php echo base_url() ?>/assets/js/inicioSesion.js"></script>
-<script src="<?php echo base_url() ?>/assets/js/sweetalert2.all.min.js"></script>
+<script src="<?php echo base_route(); ?>/assets/js/jquery-3.3.1.min.js"></script>
+<script src="<?php echo base_route(); ?>/assets/js/inicioSesion.js"></script>
+<script src="<?php echo base_route(); ?>/assets/js/sweetalert2.all.min.js"></script>
 
 
 </html>

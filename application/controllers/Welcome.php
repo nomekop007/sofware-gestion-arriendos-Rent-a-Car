@@ -5,6 +5,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Welcome extends CI_Controller
 {
 
+	function __construct()
+	{
+		parent::__construct();
+		$this->load->helper("urls_helper");
+	}
+
 	public function index()
 	{
 		$this->load->view('inicio');
@@ -17,7 +23,7 @@ class Welcome extends CI_Controller
 			"clave_usuario" => $this->input->post("clave")
 		];
 		$client = new \GuzzleHttp\Client();
-		$response = $client->request('POST', 'http://localhost:3000/rentacar/usuarios/login', [
+		$response = $client->request('POST', api_url() . 'usuarios/login', [
 			'json' => $arrayUser
 		]);
 
