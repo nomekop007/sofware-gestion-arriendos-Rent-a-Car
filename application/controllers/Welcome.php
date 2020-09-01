@@ -39,36 +39,24 @@ class Welcome extends CI_Controller
 
 	public function irPlataforma()
 	{
-		$opcion = $this->input->post("id_rol");
+
 		$arrayUser = [
+			"estado" => true,
 			"rol" => $this->input->post("id_rol"),
 			"nombre" => $this->input->post("nombre_usuario"),
 			"email" => $this->input->post("email_usuario"),
 			"usertoken" => $this->input->post("userToken"),
 		];
 
-		switch ($opcion) {
-			case 1:
-				$this->session->set_userdata("administrador", $arrayUser);
-				break;
-			case 2:
-				$this->session->set_userdata("Supervisor", $arrayUser);
-				break;
-			case 3:
-				$this->session->set_userdata("Vendedor", $arrayUser);
-				break;
+		$this->session->set_userdata($arrayUser);
 
-			default:
-				echo json_encode(array("msg" => "error"));
-				break;
-		}
 		echo json_encode(array("msg" => "OK"));
 	}
 
 	//carga los paneles correspondientes
 	public function cargarPanel()
 	{
-		if ($this->session->userdata("administrador")) {
+		if ($this->session->userdata("estado")) {
 			$this->load->view("templates/header");
 			$this->load->view("content/navbars/navbar");
 

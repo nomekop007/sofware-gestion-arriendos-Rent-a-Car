@@ -24,29 +24,34 @@ class Gestion extends CI_Controller
 
     public function cargarVehiculos()
     {
+        $tokenUser = $this->session->userdata('usertoken');
         $client = new GuzzleHttp\Client();
-        $request = new \GuzzleHttp\Psr7\Request('GET', api_url() . 'vehiculos/cargarVehiculos');
-        $promise = $client->sendAsync($request)->then(function ($response) {
-            echo $response->getBody();
-        });
-        $promise->wait();
+        $request = $client->request('GET',  api_url() . 'vehiculos/cargarVehiculos', [
+            'headers' => [
+                'usertoken' => $tokenUser
+            ]
+        ]);
+        echo $request->getBody();
     }
 
     public function cargarUnVehiculo()
     {
+        $tokenUser = $this->session->userdata('usertoken');
         $patente = $this->input->post("patente");
 
         $client = new GuzzleHttp\Client();
-        $request = new \GuzzleHttp\Psr7\Request('GET', api_url() . 'vehiculos/cargarUnVehiculo/' . $patente);
-        $promise = $client->sendAsync($request)->then(function ($response) {
-            echo $response->getBody();
-        });
-        $promise->wait();
+        $request = $client->request('GET', api_url() . 'vehiculos/cargarUnVehiculo/' . $patente, [
+            'headers' => [
+                'usertoken' => $tokenUser
+            ]
+        ]);
+        echo $request->getBody();
     }
 
 
     public function registrarVehiculo()
     {
+        $tokenUser = $this->session->userdata('usertoken');
 
         $arrayVehiculo = [
             "patente_vehiculo" => $this->input->post("patente"),
@@ -63,7 +68,10 @@ class Gestion extends CI_Controller
 
         $client = new \GuzzleHttp\Client();
         $response = $client->request('POST', api_url() . 'vehiculos/registrarVehiculo', [
-            'json' => $arrayVehiculo
+            'json' => $arrayVehiculo,
+            'headers' => [
+                'usertoken' => $tokenUser
+            ]
         ]);
 
         echo  $response->getBody();

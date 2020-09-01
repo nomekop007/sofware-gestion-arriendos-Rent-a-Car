@@ -44,7 +44,7 @@ $(document).ready(() => {
                     select.appendChild(option);
                 });
             } else {
-                console.log("ah ocurrido un error al cargar sucursales");
+                console.log("ah ocurrido un error al cargar las sucursales");
             }
         });
     })();
@@ -67,7 +67,7 @@ $(document).ready(() => {
                         .draw(false);
                 });
             } else {
-                console.log("ah ocurrido un error al cargar sucursales");
+                console.log("ah ocurrido un error al cargar vehiculos");
             }
         });
     })();
@@ -93,7 +93,7 @@ $(document).ready(() => {
                     .draw(false);
             },
             error: () => {
-                console.log("error en cargar el vehiculo");
+                console.log("error en cargar los vehiculos");
             },
         });
     }
@@ -137,6 +137,7 @@ $(document).ready(() => {
                     fechaCompra,
                 },
                 success: (response) => {
+                    console.log(response);
                     if (response.success) {
                         Swal.fire(response.msg);
                         $("#inputPatente").val("");
@@ -149,7 +150,11 @@ $(document).ready(() => {
                         $("#inputFechaCompra").val("");
                         cargarUnVehiculo(patente);
                     } else {
-                        Swal.fire("El Vehiculo ya existe con esta patente");
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: response.msg,
+                        });
                     }
                 },
                 error: () => {
