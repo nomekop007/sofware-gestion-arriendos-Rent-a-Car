@@ -65,7 +65,8 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputFechaCompra">Fecha de compra</label>
-                            <input type="date" class="form-control" id="inputFechaCompra" required>
+                            <input type="datetime-local" class="form-control" id="inputFechaCompra" required>
+
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputFoto">Foto del vehiculo (opcional)</label>
@@ -120,6 +121,45 @@
 </div>
 </div>
 
+<!-- Modal  ver  (PENDIENTE)-->
+<div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Editar Vehiculo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal editar  (PENDIENTE)-->
+<div class="modal fade" id="modal_ver" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Mostrar Vehiculo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- Script para validar los campos del formulario -->

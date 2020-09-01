@@ -62,7 +62,8 @@ $(document).ready(() => {
                             vehiculo.año_vehiculo,
                             vehiculo.tipo_vehiculo,
                             vehiculo.sucursale.nombre_sucursal,
-                            "<a class='btn' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></a><a class='btn' id='btn_editar_vehiculo'><i class='far fa-edit'></i></a>",
+                            "<button data-toggle='modal' data-target='#modal_ver' class='btn' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></button>" +
+                            "<button data-toggle='modal' data-target='#modal_editar' class='btn' id='btn_editar_vehiculo'><i class='far fa-edit'></i></button>",
                         ])
                         .draw(false);
                 });
@@ -88,7 +89,8 @@ $(document).ready(() => {
                         vehiculo.año_vehiculo,
                         vehiculo.tipo_vehiculo,
                         vehiculo.sucursale.nombre_sucursal,
-                        "<a class='btn' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></a><a class='btn' id='btn_editar_vehiculo'><i class='far fa-edit'></i></a>",
+                        "<button data-toggle='modal' data-target='#modal_ver' class='btn' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></button>" +
+                        "<button data-toggle='modal' data-target='#modal_editar' class='btn' id='btn_editar_vehiculo'><i class='far fa-edit'></i></button>",
                     ])
                     .draw(false);
             },
@@ -166,5 +168,12 @@ $(document).ready(() => {
                 },
             });
         }
+    });
+
+    $("#btn_ver_vehiculo").click(() => {
+        Swal.fire("ver vehiculo");
+    });
+    $("#btn_editar_vehiculo").click(() => {
+        Swal.fire("editar vehiculo");
     });
 });
