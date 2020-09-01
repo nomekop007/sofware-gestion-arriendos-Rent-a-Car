@@ -1,30 +1,15 @@
-<?php
-//se extrae la session admin
-$user = $this->session->userdata("administrador");
-?>
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
-
-
+            <br>
             <li class="nav-item">
-                <div class="nav-link active">
-                    <i class="fas fa-user"></i>
-                    <!--   <?php echo $user[0]->nombre ?> -->
-                    Juanito Perez
-                </div>
-                <br>
-            </li>
-
-
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url() ?>modulo_vehiculo">
+                <a class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=1">
                     <i class="fas fa-car"></i> Modulo Vehiculos
                 </a>
                 <br>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_url() ?>modulo_cliente">
+                <a class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-users">
@@ -39,7 +24,7 @@ $user = $this->session->userdata("administrador");
             </li>
             <li class="nav-item">
 
-                <a class="nav-link" href="<?php echo base_url() ?>modulo_arriendo">
+                <a class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=3">
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

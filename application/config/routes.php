@@ -58,16 +58,10 @@ $route['irPlataforma'] = '/Welcome/irPlataforma';
 
 
 /* ruta de carga de los paneles principales  */
-$route['cargarPanelGestion'] = '/Welcome/cargaPanelGestion';
-$route['cargaPanelAtencion'] = '/Welcome/cargaPanelAtencion';
-$route['cargaPanelAdministrador'] = '/Welcome/cargaPanelAdministrador';
+$route['cargarPanel'] = '/Welcome/cargarPanel';
 
-
-/* rutas de carga de los modulos Gestion */
-$route['modulo_vehiculo'] = '/Session_gestion/cargarModuloVehiculo';
-$route['modulo_cliente'] = '/Session_gestion/cargarModuloCliente';
-$route['modulo_arriendo'] = '/Session_gestion/cargarModuloArriendo';
-
+/* rutas de carga de los modulos */
+$route['modulos_gestion'] = '/Session_gestion/cargarModulos';
 
 /* rutas de modulo vehiculo */
 $route['cargar_Sucursales'] = '/controller_gestion/Gestion/cargarSucursales';

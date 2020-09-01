@@ -54,7 +54,7 @@ $(document).ready(() => {
             success: (e) => {
                 var response = JSON.parse(e);
                 if (response.msg == "OK") {
-                    window.location.href = base_route + "cargarPanelGestion";
+                    window.location.href = base_route + "cargarPanel?panel=1";
                 } else {
                     Swal.fire({
                         icon: "error",

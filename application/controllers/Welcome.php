@@ -36,10 +36,9 @@ class Welcome extends CI_Controller
 		redirect("/");
 	}
 
+
 	public function irPlataforma()
 	{
-
-
 		$opcion = $this->input->post("id_rol");
 		$arrayUser = [
 			"rol" => $this->input->post("id_rol"),
@@ -51,57 +50,48 @@ class Welcome extends CI_Controller
 		switch ($opcion) {
 			case 1:
 				$this->session->set_userdata("administrador", $arrayUser);
-				echo json_encode(array("msg" => "OK"));
 				break;
 			case 2:
 				$this->session->set_userdata("Supervisor", $arrayUser);
-				echo json_encode(array("msg" => "OK"));
 				break;
 			case 3:
 				$this->session->set_userdata("Vendedor", $arrayUser);
-				echo json_encode(array("msg" => "OK"));
 				break;
 
 			default:
 				echo json_encode(array("msg" => "error"));
 				break;
 		}
+		echo json_encode(array("msg" => "OK"));
 	}
 
-
-	public function cargaPanelGestion()
+	//carga los paneles correspondientes
+	public function cargarPanel()
 	{
 		if ($this->session->userdata("administrador")) {
 			$this->load->view("templates/header");
 			$this->load->view("content/navbars/navbar");
-			$this->load->view("content/sidebars/sidebar_gestion");
-			$this->load->view("content/view_module/views_gestion/index_gestion");
-			$this->load->view("templates/footer");
-		} else {
-			redirect("/");
-		}
-	}
 
-	public function cargaPanelAtencion()
-	{
-		if ($this->session->userdata("administrador")) {
-			$this->load->view("templates/header");
-			$this->load->view("content/navbars/navbar");
-			$this->load->view("content/sidebars/sidebar_atencion");
-			$this->load->view("content/view_module/views_atencion/index_atencion");
-			$this->load->view("templates/footer");
-		} else {
-			redirect("/");
-		}
-	}
-	public function cargaPanelAdministrador()
-	{
+			$opcion = $_GET["panel"];
 
-		if ($this->session->userdata("administrador")) {
-			$this->load->view("templates/header");
-			$this->load->view("content/navbars/navbar");
-			$this->load->view("content/sidebars/sidebar_administracion");
-			$this->load->view("content/view_module/views_administracion/index_administracion");
+			switch ($opcion) {
+				case 1:
+					$this->load->view("content/sidebars/sidebar_gestion");
+					$this->load->view("content/view_module/views_gestion/index_gestion");
+					break;
+				case 2:
+					$this->load->view("content/sidebars/sidebar_atencion");
+					$this->load->view("content/view_module/views_atencion/index_atencion");
+					break;
+				case 3:
+					$this->load->view("content/sidebars/sidebar_administracion");
+					$this->load->view("content/view_module/views_administracion/index_administracion");
+					break;
+
+				default:
+					redirect("/");
+					break;
+			}
 			$this->load->view("templates/footer");
 		} else {
 			redirect("/");
