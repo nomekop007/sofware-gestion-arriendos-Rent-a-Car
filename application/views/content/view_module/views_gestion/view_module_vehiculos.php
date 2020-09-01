@@ -2,6 +2,7 @@
     <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Modulo Vehiculos</h1>
+
     </div>
     <div>
         <nav>
@@ -143,8 +144,12 @@
 })();
 </script>
 
+
+
+
+
 <!-- importaciones de datatable -->
-<script src="<?php echo base_url() ?>assets/js/datatables.min.js"></script>
+<script src="<?php echo base_route() ?>assets/js/datatables.min.js"></script>
 
 <!-- importando archivo js vehiculos -->
-<script src="<?php echo base_url() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>
+<script src="<?php echo base_route() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>

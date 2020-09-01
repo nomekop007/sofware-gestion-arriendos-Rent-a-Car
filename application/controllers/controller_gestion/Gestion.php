@@ -5,12 +5,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Gestion extends CI_Controller
 {
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->helper("urls_helper");
+    }
 
 
     public function cargarSucursales()
     {
         $client = new GuzzleHttp\Client();
-        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://localhost:3000/rentacar/sucursales/cargarSucursales');
+        $request = new \GuzzleHttp\Psr7\Request('GET', api_url() . 'sucursales/cargarSucursales');
         $promise = $client->sendAsync($request)->then(function ($response) {
             echo $response->getBody();
         });
@@ -20,7 +25,7 @@ class Gestion extends CI_Controller
     public function cargarVehiculos()
     {
         $client = new GuzzleHttp\Client();
-        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://localhost:3000/rentacar/vehiculos/cargarVehiculos');
+        $request = new \GuzzleHttp\Psr7\Request('GET', api_url() . 'vehiculos/cargarVehiculos');
         $promise = $client->sendAsync($request)->then(function ($response) {
             echo $response->getBody();
         });
@@ -32,7 +37,7 @@ class Gestion extends CI_Controller
         $patente = $this->input->post("patente");
 
         $client = new GuzzleHttp\Client();
-        $request = new \GuzzleHttp\Psr7\Request('GET', 'http://localhost:3000/rentacar/vehiculos/cargarUnVehiculo/' . $patente);
+        $request = new \GuzzleHttp\Psr7\Request('GET', api_url() . 'vehiculos/cargarUnVehiculo/' . $patente);
         $promise = $client->sendAsync($request)->then(function ($response) {
             echo $response->getBody();
         });
@@ -57,7 +62,7 @@ class Gestion extends CI_Controller
         ];
 
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', 'http://localhost:3000/rentacar/vehiculos/registrarVehiculo', [
+        $response = $client->request('POST', api_url() . 'vehiculos/registrarVehiculo', [
             'json' => $arrayVehiculo
         ]);
 

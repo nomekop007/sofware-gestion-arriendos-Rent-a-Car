@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    var base_url = "http://localhost/proyectos/Rentacar/";
+    var base_route = $("#ruta").val();
 
     //inicializa datatable
     var tablaVehiculos = $("#tablaVehiculos").DataTable({
@@ -33,7 +33,7 @@ $(document).ready(() => {
 
     //cargar sucursales
     (() => {
-        const url = base_url + "cargar_Sucursales";
+        const url = base_route + "cargar_Sucursales";
         const select = document.getElementById("inputSucursal");
         $.getJSON(url, (result) => {
             if (result.success) {
@@ -51,7 +51,7 @@ $(document).ready(() => {
 
     //carga vehiculos en datatable
     (() => {
-        const url = base_url + "cargar_Vehiculos";
+        const url = base_route + "cargar_Vehiculos";
         $.getJSON(url, (result) => {
             if (result.success) {
                 $.each(result.data, (i, vehiculo) => {
@@ -74,7 +74,7 @@ $(document).ready(() => {
 
     function cargarUnVehiculo(patente) {
         $.ajax({
-            url: base_url + "cargar_UnVehiculo",
+            url: base_route + "cargar_UnVehiculo",
             type: "post",
             dataType: "json",
             data: { patente },
@@ -121,7 +121,7 @@ $(document).ready(() => {
             fechaCompra.length != 0
         ) {
             $.ajax({
-                url: base_url + "registrar_vehiculo",
+                url: base_route + "registrar_vehiculo",
                 type: "post",
                 dataType: "json",
                 data: {
