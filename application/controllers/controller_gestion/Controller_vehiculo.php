@@ -14,12 +14,14 @@ class Controller_vehiculo extends CI_Controller
 
     public function cargarSucursales()
     {
+        $tokenUser = $this->session->userdata('usertoken');
         $client = new GuzzleHttp\Client();
-        $request = new \GuzzleHttp\Psr7\Request('GET', api_url() . 'sucursales/cargarSucursales');
-        $promise = $client->sendAsync($request)->then(function ($response) {
-            echo $response->getBody();
-        });
-        $promise->wait();
+        $request = $client->request('GET',  api_url() . 'sucursales/cargarSucursales', [
+            'headers' => [
+                'usertoken' => $tokenUser
+            ]
+        ]);
+        echo $request->getBody();
     }
 
     public function cargarVehiculos()
@@ -73,7 +75,6 @@ class Controller_vehiculo extends CI_Controller
                 'usertoken' => $tokenUser
             ]
         ]);
-
         echo  $response->getBody();
     }
 }

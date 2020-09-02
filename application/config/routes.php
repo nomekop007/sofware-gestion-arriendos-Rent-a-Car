@@ -70,6 +70,10 @@ $route['cargar_Vehiculos'] = '/controller_gestion/Controller_vehiculo/cargarVehi
 $route['registrar_vehiculo'] = '/controller_gestion/Controller_vehiculo/registrarVehiculo';
 
 
+/* rutas de modulo arriendo */
+$route['cargar_VehiculosPorSucursal'] = '/controller_gestion/Controller_arriendo/cargarVehiculosPorSucursal';
+
+
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

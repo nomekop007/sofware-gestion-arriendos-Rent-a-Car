@@ -6,6 +6,7 @@
 
 <!-- importaciones del Bootstrap -->
 <script src="<?php echo base_route() ?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- importando archivo js vehiculos -->
 
 <script>
 //tranforma todos los campos a mayuscula

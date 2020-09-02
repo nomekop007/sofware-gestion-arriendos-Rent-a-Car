@@ -36,7 +36,7 @@
                         aria-expanded="false" aria-controls="collapseArriendo">
                         Datos Arriendo
                     </a>
-                    <button type="button" class="btn btn-success btn-sm">Guardar Arriendo</button>
+                    <button type="button" id="btn_crear_arriendo" class="btn btn-success btn-sm">Crear Arriendo</button>
                 </p>
                 <div class="collapse" id="collapseCliente">
                     <div class="card card-body">
@@ -91,10 +91,10 @@
                                 <div class="input-group col-md-5">
                                     <select class="custom-select" id="inputSucursal"
                                         aria-label="Example select with button addon">
-                                        <option selected>Seleccione Sucursal</option>
                                     </select>
                                     <div class="input-group-append">
-                                        <bustton class="btn btn-outline-secondary" type="button">Buscar</button>
+                                        <bustton class="btn btn-outline-secondary" id="buscar_vehiculos" type="button">
+                                            Buscar</button>
                                     </div>
                                 </div>
 
@@ -201,24 +201,8 @@
 </div>
 
 
-<!-- importaciones del select2 -->
-<script src="<?php echo base_route() ?>/assets/js/select2.min.js"></script>
-
 
 <script>
-$("#select_vehiculos").select2({
-    placeholder: "Vehiculos disponibles",
-    allowClear: true,
-    language: {
-        noResults: () => {
-            return "No hay resultado";
-        },
-        searching: () => {
-            return "Buscando..";
-        }
-    }
-});
-
 //formatear rut
 function formateaRut(rut) {
     //onblur="this.value=formateaRut(this.value)"
@@ -245,5 +229,8 @@ function formateaRut(rut) {
 }
 </script>
 
-<!-- importando archivo js vehiculos -->
-<script src="<?php echo base_route() ?>assets/js/session_gestion/js_module_arriendos.js"></script>
+<!-- importaciones del select2 -->
+<script src="<?php echo base_route() ?>/assets/js/select2.min.js"></script>
+
+<!-- importaciones del arriendos -->
+<script src="<?php echo base_route() ?>/assets/js/session_gestion/js_module_arriendos.js"></script>
