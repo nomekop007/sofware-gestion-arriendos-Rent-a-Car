@@ -139,12 +139,10 @@ $(document).ready(() => {
                     fechaCompra,
                 },
                 success: (response) => {
-                    console.log(response);
                     if (response.success) {
                         Swal.fire(response.msg);
                         $("#inputPatente").val("");
                         $("#inputModelo").val("");
-                        $("#inputedad").val("");
                         $("#inputColor").val("");
                         $("#inputPropietario").val("");
                         $("#inputCompra").val("");

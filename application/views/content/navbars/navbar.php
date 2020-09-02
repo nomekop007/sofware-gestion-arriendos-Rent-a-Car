@@ -8,12 +8,13 @@
         <div class="dropdown w-100 px-3">
             <button class="btn btn-dark dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Opciones
+                modulos
             </button>
+
             <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="<?php echo base_url(); ?>cargarPanel?panel=1">Gestion</a>
-                <a class="dropdown-item" href="<?php echo base_url(); ?>cargarPanel?panel=2">Atencion</a>
-                <a class="dropdown-item" href="<?php echo base_url(); ?>cargarPanel?panel=3">Administracion</a>
+                <a class="dropdown-item" href="<?php echo base_url(); ?>cargarPanel?panel=1">Modulos Gestion</a>
+                <a class="dropdown-item" href="<?php echo base_url(); ?>cargarPanel?panel=2"> Modulos Atencion</a>
+                <a class="dropdown-item" href="<?php echo base_url(); ?>cargarPanel?panel=3"> Modulos Administracion</a>
             </div>
         </div>
 

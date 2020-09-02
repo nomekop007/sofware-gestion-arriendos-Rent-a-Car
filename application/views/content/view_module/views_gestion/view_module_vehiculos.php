@@ -1,7 +1,14 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
     <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Modulo Vehiculos</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargarPanel?panel=1">Gestion</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Vehiculos</li>
+            </ol>
+        </nav>
+        <h1 class="h3">Modulo Vehiculos</h1>
     </div>
     <div>
         <nav>
@@ -22,28 +29,34 @@
                     <div class="form-row">
                         <div class="form-group col-md-5">
                             <label for="inputPatente">Patente del Vehiculo</label>
-                            <input maxLength="10" type="text" class="form-control" id="inputPatente" required>
+                            <input oninput="mayus(this);" maxLength="10" type="text" class="form-control"
+                                id="inputPatente" required>
                         </div>
                         <div class="form-group col-md-5">
                             <label for="inputModelo">Modelo del Vehiculo</label>
-                            <input maxLength="50" type="text" class="form-control" id="inputModelo" required>
+                            <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                                id="inputModelo" required>
                         </div>
 
                         <div class="form-group col-md-2">
                             <label for="inputedad">Año del Vehiculo</label>
-                            <input min="1111" max="9999" type="number" class="form-control" id="inputedad" required>
+                            <select id="inputedad" class="form-control">
+                            </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputTipo">Tipo de Vehiculo</label>
                             <select id="inputTipo" class="form-control">
-                                <option value="Automovil" selected>Automovil</option>
-                                <option value="Camioneta">Camioneta</option>
-                                <option value="Furgon">Furgon</option>
+                                <option value="AUTOMOVIL" selected>Automovil</option>
+                                <option value="CAMIONETA">Camioneta</option>
+                                <option value="FURGON">Furgon</option>
+                                <option value="SEDAN">Sedan</option>
+
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputColor">Color del Vehiculo</label>
-                            <input maxLength="15" type="text" class="form-control" id="inputColor" required>
+                            <input oninput="mayus(this);" maxLength="15" type="text" class="form-control"
+                                id="inputColor" required>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputSucursal">Sucursal actual</label>
@@ -53,11 +66,13 @@
                         </div>
                         <div class="form-group col-md-5">
                             <label for="inputPropietario">Propietario del Vehiculo</label>
-                            <input maxLength="50" type="text" class="form-control" id="inputPropietario" required>
+                            <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                                id="inputPropietario" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputCompra">Donde se compro</label>
-                            <input maxLength="50" type="text" class="form-control" id="inputCompra" required>
+                            <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                                id="inputCompra" required>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputPrecio">Precio del Vehiculo</label>
@@ -65,7 +80,7 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputFechaCompra">Fecha de compra</label>
-                            <input type="datetime-local" class="form-control" id="inputFechaCompra" required>
+                            <input type="date" class="form-control" id="inputFechaCompra" required>
 
                         </div>
                         <div class="form-group col-md-4">
@@ -113,6 +128,7 @@
             </div>
 
         </div>
+        <br><br>
     </div>
 
 
@@ -162,9 +178,10 @@
 </div>
 
 
-<!-- Script para validar los campos del formulario -->
+
 <script>
-(function() {
+// Script para validar los campos del formulario 
+(() => {
     'use strict';
     window.addEventListener('load', function() {
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -183,14 +200,18 @@
         });
     }, false);
 })();
+
+// Script para cargar año vehiculo
+(() => {
+    var n = (new Date()).getFullYear()
+    var select = document.getElementById("inputedad");
+    for (var i = n; i >= 1970; i--) select.options.add(new Option(i, i));
+})();
 </script>
 
 
 
 
-
-<!-- importaciones de datatable -->
-<script src="<?php echo base_route() ?>assets/js/datatables.min.js"></script>
 
 <!-- importando archivo js vehiculos -->
 <script src="<?php echo base_route() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>

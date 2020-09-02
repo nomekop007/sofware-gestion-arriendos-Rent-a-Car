@@ -14,7 +14,11 @@
     <input id="ruta" value="<?php echo base_route(); ?>" hidden />
 
     <!-- importacion de icons -->
-    <link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <script src="https://kit.fontawesome.com/0c58ee6656.js" crossorigin="anonymous"></script>
+
+
+    <!-- select2 core CSS -->
+    <link rel=" stylesheet" type="text/css" href="<?php echo base_route() ?>/assets/css/select2.min.css" />
 
     <!-- Datatable core CSS -->
     <link rel=" stylesheet" type="text/css" href="<?php echo base_route() ?>/assets/css/datatables.min.css" />

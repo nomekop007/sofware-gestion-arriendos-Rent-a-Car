@@ -64,10 +64,10 @@ $route['cargarPanel'] = '/Welcome/cargarPanel';
 $route['modulos_gestion'] = '/Session_gestion/cargarModulos';
 
 /* rutas de modulo vehiculo */
-$route['cargar_Sucursales'] = '/controller_gestion/Gestion/cargarSucursales';
-$route['cargar_UnVehiculo'] = '/controller_gestion/Gestion/cargarUnVehiculo';
-$route['cargar_Vehiculos'] = '/controller_gestion/Gestion/cargarVehiculos';
-$route['registrar_vehiculo'] = '/controller_gestion/Gestion/registrarVehiculo';
+$route['cargar_Sucursales'] = '/controller_gestion/Controller_vehiculo/cargarSucursales';
+$route['cargar_UnVehiculo'] = '/controller_gestion/Controller_vehiculo/cargarUnVehiculo';
+$route['cargar_Vehiculos'] = '/controller_gestion/Controller_vehiculo/cargarVehiculos';
+$route['registrar_vehiculo'] = '/controller_gestion/Controller_vehiculo/registrarVehiculo';
 
 
 
