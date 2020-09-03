@@ -27,12 +27,17 @@
                 <br><br>
                 <form class="needs-validation" novalidate>
                     <div class="form-row">
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-3">
                             <label for="inputPatente">Patente del Vehiculo</label>
                             <input oninput="mayus(this);" maxLength="10" type="text" class="form-control"
                                 id="inputPatente" required>
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-3">
+                            <label for="inputMarca">Marca del Vehiculo</label>
+                            <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                                id="inputMarca" required>
+                        </div>
+                        <div class="form-group col-md-4">
                             <label for="inputModelo">Modelo del Vehiculo</label>
                             <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputModelo" required>
@@ -43,28 +48,34 @@
                             <select id="inputedad" class="form-control">
                             </select>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <label for="inputTipo">Tipo de Vehiculo</label>
                             <select id="inputTipo" class="form-control">
                                 <option value="AUTOMOVIL" selected>Automovil</option>
                                 <option value="CAMIONETA">Camioneta</option>
                                 <option value="FURGON">Furgon</option>
-                                <option value="SEDAN">Sedan</option>
-
                             </select>
                         </div>
                         <div class="form-group col-md-4">
+                            <label for="inputChasis">Chasis de Vehiculo</label>
+                            <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                                id="inputChasis" required>
+                        </div>
+
+                        <div class="form-group col-md-2">
                             <label for="inputColor">Color del Vehiculo</label>
                             <input oninput="mayus(this);" maxLength="15" type="text" class="form-control"
                                 id="inputColor" required>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputSucursal">Sucursal actual</label>
-                            <select id="inputSucursal" class="form-control">
-
-                            </select>
+                        <div class="form-group col-md-3">
+                            <label for="inputNumeroMotor">Nº Motor del Vehiculo</label>
+                            <input type="text" maxLength="30" class="form-control" id="inputNumeroMotor" required>
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-2">
+                            <label for="inputPrecio">Precio del Vehiculo</label>
+                            <input min="0" type="number" class="form-control" id="inputPrecio" required>
+                        </div>
+                        <div class="form-group col-md-3">
                             <label for="inputPropietario">Propietario del Vehiculo</label>
                             <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputPropietario" required>
@@ -74,9 +85,11 @@
                             <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputCompra" required>
                         </div>
+
                         <div class="form-group col-md-2">
-                            <label for="inputPrecio">Precio del Vehiculo</label>
-                            <input min="0" type="number" class="form-control" id="inputPrecio" required>
+                            <label for="inputSucursal">Sucursal actual</label>
+                            <select id="inputSucursal" class="form-control">
+                            </select>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputFechaCompra">Fecha de compra</label>
@@ -91,8 +104,6 @@
                     <br><br>
                     <button type="submit" class="btn btn-dark" id="btn_registrar_vehiculo">Registrar Vehiculo</button>
                 </form>
-
-
             </div>
 
             <!-- Tab con la tabla de los vehiculos -->
@@ -149,10 +160,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                En Construccion...
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Guardar cambios</button>
             </div>
         </div>
@@ -171,7 +182,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                En Construccion...
             </div>
         </div>
     </div>

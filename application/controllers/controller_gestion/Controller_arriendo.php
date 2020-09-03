@@ -5,11 +5,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Controller_arriendo extends CI_Controller
 {
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->helper("urls_helper");
-    }
 
     public function cargarVehiculosPorSucursal()
     {

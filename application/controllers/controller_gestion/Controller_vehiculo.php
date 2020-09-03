@@ -5,12 +5,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Controller_vehiculo extends CI_Controller
 {
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->helper("urls_helper");
-    }
-
 
     public function cargarSucursales()
     {
@@ -65,7 +59,11 @@ class Controller_vehiculo extends CI_Controller
             "compra_vehiculo" => $this->input->post("compra"),
             "fechaCompra_vehiculo" => $this->input->post("fechaCompra"),
             "año_vehiculo" => $this->input->post("edad"),
-            "id_sucursal" => $this->input->post("sucursal")
+            "id_sucursal" => $this->input->post("sucursal"),
+            "chasis_vehiculo" => $this->input->post("chasis"),
+            "numeroMotor_vehiculo" => $this->input->post("n_motor"),
+            "marca_vehiculo" => $this->input->post("marca"),
+            "estado_vehiculo" => "DISPONIBLE",
         ];
 
         $client = new \GuzzleHttp\Client();

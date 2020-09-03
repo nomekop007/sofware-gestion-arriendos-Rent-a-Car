@@ -9,8 +9,7 @@
 
     <title>Dashboard Rentacar</title>
 
-    <!-- Helper que contiene variables de entorno INPORTANTE!! -->
-    <?php $this->load->helper("urls_helper"); ?>
+    <!-- se envia la url del base_route al js -->
     <input id="ruta" value="<?php echo base_route(); ?>" hidden />
 
     <!-- importacion de icons -->

@@ -112,7 +112,14 @@ $(document).ready(() => {
         var compra = $("#inputCompra").val();
         var precio = $("#inputPrecio").val();
         var fechaCompra = $("#inputFechaCompra").val();
+        var chasis = $("#inputChasis").val();
+        var n_motor = $("#inputNumeroMotor").val();
+        var marca = $("#inputMarca").val();
+
         if (
+            n_motor.length != 0 &&
+            marca.length != 0 &&
+            chasis.length != 0 &&
             patente.length != 0 &&
             modelo.length != 0 &&
             edad.length != 0 &&
@@ -127,6 +134,9 @@ $(document).ready(() => {
                 type: "post",
                 dataType: "json",
                 data: {
+                    chasis,
+                    n_motor,
+                    marca,
                     patente,
                     modelo,
                     edad,
@@ -148,11 +158,15 @@ $(document).ready(() => {
                         $("#inputCompra").val("");
                         $("#inputPrecio").val("");
                         $("#inputFechaCompra").val("");
+                        $("#inputMarca").val("");
+                        $("#inputNumeroMotor").val("");
+                        $("#inputChasis").val("");
+
                         cargarUnVehiculo(patente);
                     } else {
                         Swal.fire({
                             icon: "error",
-                            title: "Oops...",
+                            title: "error registrar vehiculo",
                             text: response.msg,
                         });
                     }
@@ -161,7 +175,7 @@ $(document).ready(() => {
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
-                        text: "A ocurrido un Error al registrar vehiculo!",
+                        text: "A ocurrido un Error Contacte a informatica",
                     });
                 },
             });

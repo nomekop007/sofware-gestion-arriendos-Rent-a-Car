@@ -24,7 +24,7 @@ $(document).ready(() => {
                     } else {
                         Swal.fire({
                             icon: "error",
-                            title: "Oops...",
+                            title: "inicio de Sesion",
                             text: response.msg,
                         });
                     }
@@ -33,7 +33,7 @@ $(document).ready(() => {
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
-                        text: "A ocurrido un Error",
+                        text: "A ocurrido un Error Contacte a informatica",
                     });
                 },
             });
@@ -59,7 +59,7 @@ $(document).ready(() => {
                     Swal.fire({
                         icon: "error",
                         title: "Oops...",
-                        text: "A ocurrido un Error Intente mas Tarde",
+                        text: "A ocurrido un Error Contacte a informatica",
                     });
                 }
             },
@@ -67,7 +67,7 @@ $(document).ready(() => {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "A ocurrido un Error Intente mas Tarde",
+                    text: "A ocurrido un Error Contacte a informatica",
                 });
             },
         });

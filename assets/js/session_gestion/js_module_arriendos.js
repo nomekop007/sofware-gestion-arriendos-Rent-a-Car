@@ -41,15 +41,42 @@ $(document).ready(() => {
             dataType: "json",
             data: { id_sucursal },
             success: (result) => {
-                console.log(result);
+                if (result.success) {
+                    $("#select_vehiculos").empty();
+                    const select = document.getElementById("select_vehiculos");
+                    $.each(result.data.vehiculos, (i, o) => {
+                        const option = document.createElement("option");
+                        option.innerHTML =
+                            "PATENTE: " +
+                            o.patente_vehiculo +
+                            " - MODELO: " +
+                            o.modelo_vehiculo +
+                            "  -  " +
+                            o.año_vehiculo;
+                        option.value = o.patente_vehiculo;
+                        select.appendChild(option);
+                    });
+
+                    $("#select_vehiculos").attr("disabled", false);
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: result.msg,
+                    });
+                }
             },
             error: () => {
                 Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "A ocurrido un Error al registrar vehiculo!",
+                    text: "A ocurrido un Error Contacte a informatica",
                 });
             },
         });
+    });
+
+    $("#btn_crear_arriendo").click(() => {
+        console.log("guardando...");
     });
 });
