@@ -20,7 +20,14 @@ class Session_gestion extends CI_Controller
                     $this->load->view('content/view_module/views_gestion/view_module_clientes');
                     break;
                 case 3:
-                    $this->load->view('content/view_module/views_gestion/view_module_arriendos');
+                    //se subdivide por su gran tamaño
+                    $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_header');
+                    $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_registrar');
+                    $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_activos');
+                    $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_todos');
+                    $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_footer');
+
+
                     break;
                 default:
                     redirect("/");
