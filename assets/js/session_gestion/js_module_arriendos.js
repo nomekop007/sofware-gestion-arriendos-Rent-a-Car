@@ -1,6 +1,38 @@
 $(document).ready(() => {
     var base_route = $("#ruta").val();
 
+    var lenguaje = {
+        responsive: true,
+        destroy: true,
+        language: {
+            decimal: "",
+            emptyTable: "No hay datos",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 registros",
+            infoFiltered: "(Filtro de _MAX_ total registros)",
+            infoPostFix: "",
+            thousands: ",",
+            lengthMenu: "Mostrar _MENU_ registros",
+            loadingRecords: "Cargando...",
+            processing: "Procesando...",
+            search: "Buscar:",
+            zeroRecords: "No se encontraron coincidencias",
+            paginate: {
+                first: "Primero",
+                last: "Ultimo",
+                next: "Próximo",
+                previous: "Anterior",
+            },
+            aria: {
+                sortAscending: ": Activar orden de columna ascendente",
+                sortDescending: ": Activar orden de columna desendente",
+            },
+        },
+    };
+    //se inician los datatable
+    var tablaArriedosActivos = $("#tablaArriendosActivos").DataTable(lenguaje);
+    var tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
+
     //select2 de los vehiculos
     $("#select_vehiculos").select2({
         placeholder: "Vehiculos disponibles",
@@ -14,7 +46,6 @@ $(document).ready(() => {
             },
         },
     });
-
     //cargar sucursales
     (() => {
         const url = base_route + "cargar_Sucursales";
@@ -84,10 +115,15 @@ $(document).ready(() => {
         var inputDireccionCliente = $("#inputDireccionCliente").val();
         var inputCiudadCliente = $("#inputCiudadCliente").val();
         var inputRutCliente = $("#inputRutCliente").val();
-        var inputDireccionComercial = $("#inputDireccionComercial").val();
-        var inputCiudadClienteComercial = $("#inputCiudadClienteComercial").val();
         var inputFechaNacimiento = $("#inputFechaNacimiento").val();
         var inputTelefonoCliente = $("#inputTelefonoCliente").val();
+        //datos empresa
+        var inputNombreEmpresa = $("#inputNombreEmpresa").val();
+        var inputDireccionEmpresa = $("#inputDireccionEmpresa").val();
+        var inputCiudadEmpresa = $("#inputCiudadEmpresa").val();
+        var inputCiudadEmpresa = $("#inputCiudadEmpresa").val();
+        var inputTelefonoEmpresa = $("#inputTelefonoEmpresa").val();
+        var inputCorreoEmpresa = $("#inputCorreoEmpresa").val();
 
         //datos conductor
         var inputNombreConductor = $("#inputNombreConductor").val();
@@ -116,13 +152,11 @@ $(document).ready(() => {
         var inputOtros = $("#inputOtros").val();
 
         //datos arriendo
-        var inputNumeroDias = $("#inputNumeroDias").val();
-        var inputFechaInicio = $("#inputFechaInicio").val();
-        var inputFechaFin = $("#inputFechaFin").val();
-        var inputTipo = $("#inputTipo").val();
         var inputCiudadEntrega = $("#inputCiudadEntrega").val();
         var inputFechaEntrega = $("#inputFechaEntrega").val();
         var inputCiudadRecepcion = $("#inputCiudadRecepcion").val();
         var inputFechaRecepcion = $("#inputFechaRecepcion").val();
+        var inputNumeroDias = $("#inputNumeroDias").val();
+        var inputTipo = $("#inputTipo").val();
     });
 });
