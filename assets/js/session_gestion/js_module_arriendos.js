@@ -117,6 +117,8 @@ $(document).ready(() => {
         var inputRutCliente = $("#inputRutCliente").val();
         var inputFechaNacimiento = $("#inputFechaNacimiento").val();
         var inputTelefonoCliente = $("#inputTelefonoCliente").val();
+        var inputCorreoCliente = $("#inputCorreoCliente").val();
+
         //datos empresa
         var inputNombreEmpresa = $("#inputNombreEmpresa").val();
         var inputDireccionEmpresa = $("#inputDireccionEmpresa").val();
@@ -134,14 +136,10 @@ $(document).ready(() => {
         var inputVCTO = $("#inputVCTO").val();
         var inputMunicipalidad = $("#inputMunicipalidad").val();
         var inputDireccion = $("#inputDireccion").val();
-        var inputDocCarnet = $("#inputDocCarnet").val();
-        var inputDocConducir = $("#inputDocConducir").val();
-        var inputDocDomicilio = $("#inputDocDomicilio").val();
 
         //datos vehiculo
         var select_vehiculos = $("#select_vehiculos").val();
         var inputEntrada = $("#inputEntrada").val();
-        var inputSalida = $("#inputSalida").val();
         var box_traslado = $("#box_traslado").val();
         var box_dedicible = $("#box_dedicible").val();
         var box_bencina = $("#box_bencina").val();
@@ -156,7 +154,11 @@ $(document).ready(() => {
         var inputFechaEntrega = $("#inputFechaEntrega").val();
         var inputCiudadRecepcion = $("#inputCiudadRecepcion").val();
         var inputFechaRecepcion = $("#inputFechaRecepcion").val();
+        var inputObservaciones = $("#inputObservaciones").val();
         var inputNumeroDias = $("#inputNumeroDias").val();
         var inputTipo = $("#inputTipo").val();
+        var inputDocCarnet = $("#inputDocCarnet").val();
+        var inputDocConducir = $("#inputDocConducir").val();
+        var inputDocDomicilio = $("#inputDocDomicilio").val();
     });
 });

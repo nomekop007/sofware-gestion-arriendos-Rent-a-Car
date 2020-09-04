@@ -115,6 +115,7 @@ $(document).ready(() => {
         var chasis = $("#inputChasis").val();
         var n_motor = $("#inputNumeroMotor").val();
         var marca = $("#inputMarca").val();
+        var transmision = $("#inputTransmision").val();
 
         if (
             n_motor.length != 0 &&
@@ -139,6 +140,7 @@ $(document).ready(() => {
                     marca,
                     patente,
                     modelo,
+                    transmision,
                     edad,
                     tipo,
                     color,

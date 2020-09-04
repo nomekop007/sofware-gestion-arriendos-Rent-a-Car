@@ -54,6 +54,28 @@ function formateaRut(rut) {
     return rutPuntos;
 
 }
+
+//cambia el tab cliente de acuerdo al tipo de arriendo
+(tipoArriendo = () => {
+    var a = $("#inputTipo option:selected").val();
+    console.log(a);
+})();
+
+
+
+
+$("#btn-arriendo").click(function() {
+    $(this).toggleClass("btn-dark btn-outline-dark");
+});
+$("#btn-cliente").click(function() {
+    $(this).toggleClass("btn-dark btn-outline-dark");
+});
+$("#btn-conductor").click(function() {
+    $(this).toggleClass("btn-dark btn-outline-dark");
+});
+$("#btn-vehiculo").click(function() {
+    $(this).toggleClass("btn-dark btn-outline-dark");
+});
 </script>
 
 <!-- importaciones del select2 -->

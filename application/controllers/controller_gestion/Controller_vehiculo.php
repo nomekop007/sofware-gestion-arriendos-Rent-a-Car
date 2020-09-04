@@ -51,6 +51,7 @@ class Controller_vehiculo extends CI_Controller
 
         $arrayVehiculo = [
             "patente_vehiculo" => $this->input->post("patente"),
+            "transmision_vehiculo" => $this->input->post("transmision"),
             "modelo_vehiculo" => $this->input->post("modelo"),
             "tipo_vehiculo" => $this->input->post("tipo"),
             "color_vehiculo" => $this->input->post("color"),

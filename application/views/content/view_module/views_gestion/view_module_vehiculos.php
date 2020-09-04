@@ -56,7 +56,14 @@
                                 <option value="FURGON">Furgon</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
+                            <label for="inputTransmision">Transmision del Vehiculo</label>
+                            <select id="inputTransmision" class="form-control">
+                                <option value="AUTOMATICA" selected>Automatica</option>
+                                <option value="MANUAL">Manual</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
                             <label for="inputChasis">Chasis de Vehiculo</label>
                             <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputChasis" required>
@@ -67,7 +74,7 @@
                             <input oninput="mayus(this);" maxLength="15" type="text" class="form-control"
                                 id="inputColor" required>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label for="inputNumeroMotor">Nº Motor del Vehiculo</label>
                             <input type="text" maxLength="30" class="form-control" id="inputNumeroMotor" required>
                         </div>
