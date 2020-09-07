@@ -22,6 +22,8 @@
                 if (form.checkValidity() === false) {
                     event.preventDefault();
                     event.stopPropagation();
+                } else {
+                    event.preventDefault();
                 }
                 form.classList.add('was-validated');
             }, false);
@@ -55,10 +57,49 @@ function formateaRut(rut) {
 
 }
 
+// Script para cargar vigencia Empresa
+(() => {
+    var n = (new Date()).getFullYear()
+    var select = document.getElementById("inputVigencia");
+    for (var i = n; i >= 1970; i--) select.options.add(new Option(i, i));
+})();
+
 //cambia el tab cliente de acuerdo al tipo de arriendo
 (tipoArriendo = () => {
     var a = $("#inputTipo option:selected").val();
-    console.log(a);
+    if (a == 1) {
+        $('#titulo_empresa').hide();
+        $('#form_empresa').hide();
+        $('#form_carnet_empresa').hide();
+        $('#titulo_cliente').show();
+        $('#form_cliente').show();
+
+        $('#form_comprobante_cliente').show();
+        $('#form_licencia_conducir').show();
+        $('#form_carnet_cliente').show();
+
+
+    } else if (a == 2) {
+        $('#titulo_cliente').show();
+        $('#form_cliente').show();
+        $('#titulo_empresa').show();
+        $('#form_empresa').show();
+
+        $('#form_carnet_empresa').show();
+        $('#form_comprobante_cliente').show();
+        $('#form_licencia_conducir').show();
+        $('#form_carnet_cliente').show();
+
+
+    } else {
+        $('#titulo_cliente').hide();
+        $('#form_cliente').hide();
+        $('#form_carnet_cliente').hide();
+        $('#form_comprobante_cliente').hide();
+        $('#titulo_empresa').show();
+        $('#form_empresa').show();
+
+    }
 })();
 
 

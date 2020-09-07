@@ -152,7 +152,8 @@ $(document).ready(() => {
                 },
                 success: (response) => {
                     if (response.success) {
-                        Swal.fire(response.msg);
+                        Swal.fire("Exito", esponse.msg, "success");
+
                         $("#inputPatente").val("");
                         $("#inputModelo").val("");
                         $("#inputColor").val("");
