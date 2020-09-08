@@ -85,7 +85,7 @@
                      <div class="form-group col-md-4">
                          <label for="inputNombreCliente">Nombre</label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
-                             id="inputNombreCliente" name="inputNombreCliente">
+                             id="inputNombreCliente" name="inputNombreCliente" required>
                      </div>
                      <div class="form-group col-md-3">
                          <label for="inputDireccionCliente">Direccion </label>
@@ -125,7 +125,7 @@
                      <div class="form-group col-md-4">
                          <label for="inputNombreEmpresa">Nombre </label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
-                             id="inputNombreEmpresa" name="inputNombreEmpresa">
+                             id="inputNombreEmpresa" name="inputNombreEmpresa" required>
                      </div>
                      <div class="form-group col-md-3">
                          <label for="inputDireccionEmpresa">Direccion</label>
@@ -196,7 +196,7 @@
                      <div class="form-group col-md-6">
                          <label for="inputNombreConductor">Nombre completo </label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
-                             id="inputNombreConductor" name="inputNombreConductor">
+                             id="inputNombreConductor" name="inputNombreConductor" required>
                      </div>
                      <div class="form-group col-md-3">
                          <label for="inputTelefonoConductor">Telefono</label>
@@ -265,36 +265,10 @@
                  </div>
                  <br>
                  <h4>Accesorios</h4>
-                 <div class="form-row">
-                     <div class="form-check form-check-inline">
-                         <input class="form-check-input" type="checkbox" id="box_traslado" name="box_traslado">
-                         <label class="form-check-label" for="box_traslado">Traslado</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                         <input class="form-check-input" type="checkbox" id="box_dedicible" name="box_dedicible">
-                         <label class="form-check-label" for="box_dedicible">Deducible</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                         <input class="form-check-input" type="checkbox" id="box_bencina" name="box_bencina">
-                         <label class="form-check-label" for="box_bencina">Bencina</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                         <input class="form-check-input" type="checkbox" id="box_enganche" name="box_enganche">
-                         <label class="form-check-label" for="box_enganche">Enganche</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                         <input class="form-check-input" type="checkbox" id="box_silla" name="box_silla">
-                         <label class="form-check-label" for="box_silla">Silla para bebe</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                         <input class="form-check-input" type="checkbox" id="box_pase" name="box_pase">
-                         <label class="form-check-label" for="box_pase">Pase diario</label>
-                     </div>
-                     <div class="form-check form-check-inline">
-                         <input class="form-check-input" type="checkbox" id="box_rastreo" name="box_rastreo">
-                         <label class="form-check-label" for="box_rastreo">Rastreo satelital</label>
-                     </div>
+                 <div class="form-row" id="row_accesorios">
 
+                 </div>
+                 <div class="form-row">
                      <div class="form-group col-md-4">
                          <br><br>
                          <div class="input-group">
@@ -304,7 +278,6 @@
                              <input type="text" name="inputOtros" class="form-control" aria-label="Sizing example input"
                                  aria-describedby="inputOtros">
                          </div>
-
                      </div>
                  </div>
              </div>

@@ -64,6 +64,33 @@ $(document).ready(() => {
         });
     })();
 
+    //cargar accesorios
+    (() => {
+        const url = base_route + "cargar_accesorios";
+        $.getJSON(url, (result) => {
+            if (result.success) {
+                $("#row_accesorios").empty();
+                $.each(result.data, (i, o) => {
+                    var fila = "<div class='form-check form-check-inline'>";
+                    fila +=
+                        "<input class='form-check-input' type='checkbox' name='checks[]' value='" +
+                        o.id_accesorio +
+                        "'>";
+                    fila +=
+                        "<label class='form-check-label' for='" +
+                        o.id_accesorio +
+                        "'>" +
+                        o.nombre_accesorio +
+                        "</label>";
+                    fila += "</div>";
+                    $("#row_accesorios").append(fila);
+                });
+            } else {
+                console.log("ah ocurrido un error al cargar los accesorios");
+            }
+        });
+    })();
+
     $("#buscar_vehiculos").click(() => {
         var id_sucursal = $("#inputSucursal").val();
         $.ajax({
@@ -108,33 +135,37 @@ $(document).ready(() => {
     });
 
     $("#btn_crear_arriendo").click(() => {
-        //prueba
-        GuardarArriendo();
-
         var inputRutConductor = $("#inputRutConductor").val();
+        var inputRutCliente = $("#inputrutCliente").val();
+        var inputRutEmpresa = $("#inputRutEmpresa").val();
+        var inputNombreCliente = $("#inputNombreCliente").val();
+        var inputNombreEmpresa = $("#inputNombreEmpresa").val();
+        var inputNombreConductor = $("#inputNombreConductor").val();
+        var inputCorreoCliente = $("#inputCorreoCliente").val();
         var select_vehiculos = $("#select_vehiculos").val();
         var inputCiudadEntrega = $("#inputCiudadEntrega").val();
         var inputFechaEntrega = $("#inputFechaEntrega").val();
         var inputCiudadRecepcion = $("#inputCiudadRecepcion").val();
         var inputFechaRecepcion = $("#inputFechaRecepcion").val();
-
         var inputTipo = $("#inputTipo").val();
-        var inputRutCliente = $("#inputrutCliente").val();
-        var inputCorreoCliente = $("#inputCorreoCliente").val();
-        var inputRutEmpresa = $("#inputRutEmpresa").val();
 
         if (
+            inputRutConductor.length != 0 &&
+            inputNombreConductor.length != 0 &&
             inputCiudadEntrega.length != 0 &&
             inputFechaEntrega.length != 0 &&
             inputCiudadRecepcion.length != 0 &&
             inputFechaRecepcion.length != 0 &&
-            inputRutConductor.length != 0 &&
             select_vehiculos != null
         ) {
             switch (inputTipo) {
                 case "1":
-                    if (inputrutCliente.length != 0 && inputCorreoCliente != 0) {
-                        GuardarArriendo();
+                    if (
+                        inputrutCliente.length != 0 &&
+                        inputNombreCliente.length != 0 &&
+                        inputCorreoCliente != 0
+                    ) {
+                        guardarDatosArriendo();
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -146,9 +177,11 @@ $(document).ready(() => {
                     if (
                         inputRutCliente.length != 0 &&
                         inputCorreoCliente != 0 &&
-                        inputRutEmpresa.length != 0
+                        inputRutEmpresa.length != 0 &&
+                        inputNombreEmpresa.length != 0 &&
+                        inputNombreCliente.length
                     ) {
-                        GuardarArriendo();
+                        guardarDatosArriendo();
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -157,8 +190,8 @@ $(document).ready(() => {
                     }
                     break;
                 case "3":
-                    if (inputRutEmpresa.length != 0) {
-                        GuardarArriendo();
+                    if (inputRutEmpresa.length != 0 && inputNombreEmpresa.length != 0) {
+                        guardarDatosArriendo();
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -178,31 +211,65 @@ $(document).ready(() => {
             });
         }
     });
-});
 
-function GuardarArriendo() {
-    var form = $("#form_registrar_arriendo")[0];
-    var data = new FormData(form);
-    base_route = $("#ruta").val();
-    $.ajax({
-        url: base_route + "registrar_arriendo",
-        type: "post",
-        dataType: "json",
-        data: data,
-        enctype: "multipart/form-data",
-        processData: false,
-        contentType: false,
-        cache: false,
-        timeOut: false,
-        success: (e) => {
-            console.log(e);
-        },
-        error: () => {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "A ocurrido un Error Contacte a informatica",
-            });
-        },
-    });
-}
+    function guardarDatosArriendo() {
+        var form = $("#form_registrar_arriendo")[0];
+        var data = new FormData(form);
+        $.ajax({
+            url: base_route + "registrar_arriendo",
+            type: "post",
+            dataType: "json",
+            data: data,
+            enctype: "multipart/form-data",
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeOut: false,
+            success: (response) => {
+                if (response) {
+                    guardarDatosAccesorios(response.data.id_arriendo);
+                    Swal.fire("Exito", response.msg, "success");
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "error registrar arriendo",
+                        text: response.msg,
+                    });
+                }
+            },
+            error: () => {
+                Swal.fire({
+                    icon: "error",
+                    title: "no se guardo el arriendo",
+                    text: "A ocurrido un Error Contacte a informatica",
+                });
+            },
+        });
+    }
+
+    function guardarDatosAccesorios(idArriendo) {
+        //revisa todos los check y guardas sus valores en un array si estan okey
+        var checks = $('[name="checks[]"]:checked')
+            .map(function() {
+                return this.value;
+            })
+            .get();
+
+        $.ajax({
+            url: base_route + "registrar_arriendoAccesorios",
+            type: "post",
+            dataType: "json",
+            data: { idArriendo, array: JSON.stringify(checks) },
+            success: (response) => {
+                console.log(response);
+            },
+            error: () => {
+                Swal.fire({
+                    icon: "error",
+                    title: "no se guardaron los accesorios",
+                    text: "A ocurrido un Error Contacte a informatica",
+                });
+            },
+        });
+    }
+});

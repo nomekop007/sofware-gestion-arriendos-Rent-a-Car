@@ -5,9 +5,15 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=1">
-                    <i class="fas fa-car"></i> Modulo Vehiculos
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-layers">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                    Modulo Vehiculos
                 </a>
-                <br>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=2">
@@ -21,12 +27,10 @@
                     </svg>
                     Modulo Clientes
                 </a>
-                <br>
+
             </li>
             <li class="nav-item">
-
                 <a class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=3">
-
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="feather feather-shopping-cart">
@@ -36,7 +40,7 @@
                     </svg>
                     Modulo Arriendo
                 </a>
-                <br>
+
             </li>
         </ul>
     </div>

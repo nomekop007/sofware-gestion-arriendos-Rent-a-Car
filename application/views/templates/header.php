@@ -13,7 +13,7 @@
     <input id="ruta" value="<?php echo base_route(); ?>" hidden />
 
     <!-- importacion de icons -->
-    <script src="https://kit.fontawesome.com/0c58ee6656.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://kit.fontawesome.com/0c58ee6656.js" crossorigin="anonymous"></script> -->
 
 
     <!-- select2 core CSS -->

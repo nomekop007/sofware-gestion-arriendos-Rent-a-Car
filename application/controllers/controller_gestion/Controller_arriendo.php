@@ -1,25 +1,10 @@
 <?php
 
-use function GuzzleHttp\json_encode;
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Controller_arriendo extends CI_Controller
 {
-
-
-    function __construct()
-    {
-        parent::__construct();
-
-        $config['upload_path'] = "uploads/";
-        $config['allowed_types'] = "*";
-        $config['max_size'] = "5000";
-        $config['overwrite'] = true;
-
-        $this->load->library('upload', $config);
-    }
-
 
     public function cargarVehiculosPorSucursal()
     {
@@ -36,8 +21,22 @@ class Controller_arriendo extends CI_Controller
     }
 
 
+    public function cargarAccesorios()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        $client = new GuzzleHttp\Client();
+        $request = $client->request('GET',  api_url() . 'accesorios/cargarAccesorios', [
+            'headers' => [
+                'usertoken' => $tokenUser
+            ]
+        ]);
+        echo $request->getBody();
+    }
+
+
     public function registrarArriendo()
     {
+
 
         $arrayForm = [
 
@@ -81,17 +80,19 @@ class Controller_arriendo extends CI_Controller
             //inputs vehiculo
             "patente_vehiculo" => $this->input->post("select_vehiculos"),
             "kilometrosEntrada_arriendo" => $this->input->post("inputEntrada"),
-            "box_traslado" => $this->input->post("box_traslado"),
-            "box_dedicible" => $this->input->post("box_dedicible"),
-            "box_bencina" => $this->input->post("box_bencina"),
-            "box_enganche" => $this->input->post("box_enganche"),
-            "box_silla" => $this->input->post("box_silla"),
-            "box_pase" => $this->input->post("box_pase"),
-            "box_rastreo" => $this->input->post("box_rastreo"),
             "inputOtros" => $this->input->post("inputOtros"),
         ];
 
 
+        //registrar documentos PENDIENTE
+        /* 
+        $config['upload_path'] = "uploads/";
+        $config['allowed_types'] = "*";
+        $config['max_size'] = "5000";
+        $config['overwrite'] = true;
+
+        $this->load->library('upload', $config);
+        
         $ArrayData = ["inputDocCarnet", "inputDocConducir", "inputDocDomicilio", "inputDocCarnetEmpresa"];
         foreach ($ArrayData as $value) {
             if (!$this->upload->do_upload($value)) {
@@ -100,13 +101,34 @@ class Controller_arriendo extends CI_Controller
             }
             //$data = array('upload_data' => $this->upload->data());
         }
-
+         */
 
         $tokenUser = $this->session->userdata('usertoken');
 
         $client = new GuzzleHttp\Client();
         $request = $client->request('POST', api_url() . 'arriendos/registrarArriendo', [
             'json' => $arrayForm,
+            'headers' => [
+                'usertoken' => $tokenUser
+            ]
+        ]);
+        echo $request->getBody();
+    }
+
+    public function registrarArriendoAccesorios()
+    {
+        $Checks = json_decode($_POST['array']);
+        $idArriendo = $this->input->post("idArriendo");
+        $ArrayData = [
+            "ArrayChecks" => $Checks,
+            "id_arriendo" => $idArriendo
+        ];
+
+        $tokenUser = $this->session->userdata('usertoken');
+
+        $client = new GuzzleHttp\Client();
+        $request = $client->request('POST', api_url() . 'arriendos/registrarArriendoAccesorio', [
+            'json' => $ArrayData,
             'headers' => [
                 'usertoken' => $tokenUser
             ]

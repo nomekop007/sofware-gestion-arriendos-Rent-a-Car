@@ -177,7 +177,7 @@ $(document).ready(() => {
                 error: () => {
                     Swal.fire({
                         icon: "error",
-                        title: "Oops...",
+                        title: "no se guardo el vehiculo",
                         text: "A ocurrido un Error Contacte a informatica",
                     });
                 },
