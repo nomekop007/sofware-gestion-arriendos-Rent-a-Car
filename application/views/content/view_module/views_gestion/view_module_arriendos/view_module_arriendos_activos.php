@@ -1,7 +1,6 @@
   <!-- Tab con la tabla de todos los arriendos -->
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-arriendosActivos-tab">
       <br>
-
       <br>
       <table id="tablaArriendosActivos" class="table table-striped table-bordered" style="width:100%">
           <thead>

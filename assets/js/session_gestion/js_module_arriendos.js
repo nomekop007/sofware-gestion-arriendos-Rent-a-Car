@@ -102,7 +102,7 @@ $(document).ready(() => {
                 if (result.success) {
                     $("#select_vehiculos").empty();
                     const select = document.getElementById("select_vehiculos");
-                    $.each(result.data.vehiculos, (i, o) => {
+                    $.each(result.data, (i, o) => {
                         const option = document.createElement("option");
                         option.innerHTML =
                             "PATENTE: " +
@@ -228,7 +228,6 @@ $(document).ready(() => {
             success: (response) => {
                 if (response) {
                     guardarDatosAccesorios(response.data.id_arriendo);
-                    Swal.fire("Exito", response.msg, "success");
                 } else {
                     Swal.fire({
                         icon: "error",
@@ -261,7 +260,7 @@ $(document).ready(() => {
             dataType: "json",
             data: { idArriendo, array: JSON.stringify(checks) },
             success: (response) => {
-                console.log(response);
+                Swal.fire("Exito", response.msg, "success");
             },
             error: () => {
                 Swal.fire({

@@ -186,7 +186,7 @@
          <div class="collapse" id="collapseConductor">
              <div class="card card-body">
                  <br>
-                 <h4>Datos Conductor</h4>
+                 <h4>Datos Conductor asignado</h4>
                  <div class="form-row">
                      <div class="form-group col-md-3">
                          <label for="inputRutConductor">Rut</label>
@@ -258,8 +258,8 @@
                  <div class="form-row">
                      <div class="form-group col-md-3">
                          <label for="inputEntrada">Entrada</label>
-                         <input oninput="mayus(this);" min="0" value="0" type="number" class="form-control"
-                             id="inputEntrada" name="inputEntrada">
+                         <input min="0" value="0" type="number" class="form-control" id="inputEntrada"
+                             name="inputEntrada">
                      </div>
 
                  </div>
@@ -275,8 +275,8 @@
                              <div class="input-group-prepend">
                                  <span class="input-group-text" id="inputOtros">otros</span>
                              </div>
-                             <input type="text" name="inputOtros" class="form-control" aria-label="Sizing example input"
-                                 aria-describedby="inputOtros">
+                             <input type="text" name="inputOtros" oninput="mayus(this);" maxLength="20"
+                                 class="form-control" aria-label="Sizing example input" aria-describedby="inputOtros">
                          </div>
                      </div>
                  </div>
