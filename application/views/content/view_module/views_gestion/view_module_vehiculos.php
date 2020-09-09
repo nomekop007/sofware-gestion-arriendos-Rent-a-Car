@@ -198,27 +198,6 @@
 
 
 <script>
-// Script para validar los campos del formulario 
-(() => {
-    'use strict';
-    window.addEventListener('load', function() {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        var validation = Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                } else {
-                    event.preventDefault();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();
-
 // Script para cargar año vehiculo
 (() => {
     var n = (new Date()).getFullYear()
@@ -228,8 +207,5 @@
 </script>
 
 
-
-
-
 <!-- importando archivo js vehiculos -->
-<script src="<?php echo base_route() ?>assets/js/session_gestion/js_module_vehiculos.js"></script>
+<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_vehiculos.js"></script>

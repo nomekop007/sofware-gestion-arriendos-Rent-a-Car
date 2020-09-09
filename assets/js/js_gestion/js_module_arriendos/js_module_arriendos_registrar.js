@@ -1,38 +1,4 @@
 $(document).ready(() => {
-    var base_route = $("#ruta").val();
-
-    var lenguaje = {
-        responsive: true,
-        destroy: true,
-        language: {
-            decimal: "",
-            emptyTable: "No hay datos",
-            info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
-            infoEmpty: "Mostrando 0 a 0 de 0 registros",
-            infoFiltered: "(Filtro de _MAX_ total registros)",
-            infoPostFix: "",
-            thousands: ",",
-            lengthMenu: "Mostrar _MENU_ registros",
-            loadingRecords: "Cargando...",
-            processing: "Procesando...",
-            search: "Buscar:",
-            zeroRecords: "No se encontraron coincidencias",
-            paginate: {
-                first: "Primero",
-                last: "Ultimo",
-                next: "Próximo",
-                previous: "Anterior",
-            },
-            aria: {
-                sortAscending: ": Activar orden de columna ascendente",
-                sortDescending: ": Activar orden de columna desendente",
-            },
-        },
-    };
-    //se inician los datatable
-    var tablaArriedosActivos = $("#tablaArriendosActivos").DataTable(lenguaje);
-    var tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
-
     //select2 de los vehiculos
     $("#select_vehiculos").select2({
         placeholder: "Vehiculos disponibles",
@@ -46,6 +12,7 @@ $(document).ready(() => {
             },
         },
     });
+
     //cargar sucursales
     (() => {
         const url = base_route + "cargar_Sucursales";
@@ -91,27 +58,108 @@ $(document).ready(() => {
         });
     })();
 
+    $("#btn_buscarCliente").click(() => {
+        var rut_cliente = $("#inputRutCliente").val();
+        if (rut_cliente.length != 0) {
+            $("#spinner_cliente").show();
+            $.getJSON({
+                url: base_route + "cargar_Uncliente",
+                type: "post",
+                dataType: "json",
+                data: { rut_cliente },
+                success: (result) => {
+                    $("#spinner_cliente").hide();
+                    if (result.success) {
+                        var c = result.data;
+                        $("#inputNombreCliente").val(c.nombre_cliente);
+                        $("#inputDireccionCliente").val(c.direccion_cliente);
+                        $("#inputCiudadCliente").val(c.ciudad_cliente);
+                        $("#inputFechaNacimiento").val(
+                            c.fechaNacimiento_cliente ?
+                            c.fechaNacimiento_cliente.substring(0, 10) :
+                            null
+                        );
+                        $("#inputTelefonoCliente").val(c.telefono_cliente);
+                        $("#inputCorreoCliente").val(c.correo_cliente);
+                    } else {
+                        $("#inputNombreCliente").val("");
+                        $("#inputDireccionCliente").val("");
+                        $("#inputCiudadCliente").val("");
+                        $("#inputFechaNacimiento").val("");
+                        $("#inputTelefonoCliente").val("");
+                        $("#inputCorreoCliente").val("");
+                    }
+                },
+                error: () => {
+                    $("#spinner_cliente").hide();
+                    console.log("error");
+                },
+            });
+        }
+    });
+
+    $("#btn_buscarEmpresa").click(() => {
+        var rut_empresa = $("#inputRutEmpresa").val();
+        if (rut_empresa.length != 0) {
+            $("#spinner_empresa").show();
+            $.getJSON({
+                url: base_route + "cargar_UnEmpresa",
+                type: "post",
+                dataType: "json",
+                data: { rut_empresa },
+                success: (result) => {
+                    $("#spinner_empresa").hide();
+                    if (result.success) {
+                        var c = result.data;
+                        $("#inputNombreEmpresa").val(c.nombre_empresa);
+                        $("#inputDireccionEmpresa").val(c.direccion_empresa);
+                        $("#inputCiudadEmpresa").val(c.ciudad_empresa);
+                        $("#inputTelefonoEmpresa").val(c.telefono_empresa);
+                        $("#inputCorreoEmpresa").val(c.correo_empresa);
+                        $("#inputVigencia").val(c.vigencia_empresa);
+                        $("#inputRol").val(c.rol_empresa);
+                    } else {
+                        $("#inputNombreEmpresa").val("");
+                        $("#inputDireccionEmpresa").val("");
+                        $("#inputCiudadEmpresa").val("");
+                        $("#inputTelefonoEmpresa").val("");
+                        $("#inputCorreoEmpresa").val("");
+                        $("#inputVigencia").val("");
+                        $("#inputRol").val("");
+                    }
+                },
+                error: () => {
+                    $("#spinner_empresa").hide();
+                    console.log("error");
+                },
+            });
+        }
+    });
+
     $("#btn_buscarConductor").click(() => {
         var rut_conductor = $("#inputRutConductor").val();
         if (rut_conductor.length != 0) {
+            $("#spinner_conductor").show();
+
             $.getJSON({
-                url: base_route + "cargar_conductor",
+                url: base_route + "cargar_UnConductor",
                 type: "post",
                 dataType: "json",
                 data: { rut_conductor },
                 success: (result) => {
+                    $("#spinner_conductor").hide();
                     if (result.success) {
                         var c = result.data;
-                        console.log(c);
                         $("#inputNombreConductor").val(c.nombre_conductor);
                         $("#inputTelefonoConductor").val(c.telefono_conductor);
                         $("#inputClase").val(c.clase_conductor);
                         $("#inputNumero").val(c.numero_conductor);
-                        $("#inputVCTO").val(c.vcto_conductor);
+                        $("#inputVCTO").val(
+                            c.vcto_conductor ? c.vcto_conductor.substring(0, 10) : null
+                        );
                         $("#inputMunicipalidad").val(c.municipalidad_conductor);
                         $("#inputDireccion").val(c.direccion_conductor);
                     } else {
-                        console.log(result.msg);
                         $("#inputNombreConductor").val("");
                         $("#inputTelefonoConductor").val("");
                         $("#inputClase").val("");
@@ -122,6 +170,7 @@ $(document).ready(() => {
                     }
                 },
                 error: () => {
+                    $("#spinner_conductor").hide();
                     console.log("error");
                 },
             });
@@ -173,7 +222,7 @@ $(document).ready(() => {
 
     $("#btn_crear_arriendo").click(() => {
         var inputRutConductor = $("#inputRutConductor").val();
-        var inputRutCliente = $("#inputrutCliente").val();
+        var inputRutCliente = $("#inputRutCliente").val();
         var inputRutEmpresa = $("#inputRutEmpresa").val();
         var inputNombreCliente = $("#inputNombreCliente").val();
         var inputNombreEmpresa = $("#inputNombreEmpresa").val();
@@ -205,7 +254,7 @@ $(document).ready(() => {
                         guardarDatosArriendo();
                     } else {
                         Swal.fire({
-                            icon: "error",
+                            icon: "warning",
                             title: "Faltan datos del cliente en el formulario!",
                         });
                     }
@@ -221,7 +270,7 @@ $(document).ready(() => {
                         guardarDatosArriendo();
                     } else {
                         Swal.fire({
-                            icon: "error",
+                            icon: "warning",
                             title: "Faltan datos de la empresa o cliente en el formulario!",
                         });
                     }
@@ -231,7 +280,7 @@ $(document).ready(() => {
                         guardarDatosArriendo();
                     } else {
                         Swal.fire({
-                            icon: "error",
+                            icon: "warning",
                             title: "Faltan datos de la empresa en el formulario!",
                         });
                     }
@@ -243,7 +292,7 @@ $(document).ready(() => {
             }
         } else {
             Swal.fire({
-                icon: "error",
+                icon: "warning",
                 title: "Faltan datos en el formulario!",
             });
         }

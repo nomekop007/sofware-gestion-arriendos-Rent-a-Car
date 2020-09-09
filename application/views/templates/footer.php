@@ -2,18 +2,14 @@
 <script src="<?php echo base_route() ?>assets/js/datatables.min.js"></script>
 
 <!-- importacion sweetalert2 -->
-<script src="<?php echo base_route() ?>/assets/js/sweetalert2.all.min.js"></script>
+<script src="<?php echo base_route() ?>assets/js/sweetalert2.all.min.js"></script>
 
 <!-- importaciones del Bootstrap -->
-<script src="<?php echo base_route() ?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- importando archivo js vehiculos -->
+<script src="<?php echo base_route() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<script>
-//tranforma todos los campos a mayuscula
-function mayus(e) {
-    e.value = e.value.toUpperCase();
-}
-</script>
+<!-- importacion utilidades -->
+<script src="<?php echo base_route() ?>assets/js/utilidades.js"></script>
+
 
 </body>
 

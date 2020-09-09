@@ -32,7 +32,7 @@ class Controller_arriendo extends CI_Controller
     {
         $tokenUser = $this->session->userdata('usertoken');
         $rut_cliente = $this->input->post("rut_cliente");
-        echo find_function($rut_cliente, "clientes/cargarUnaEmpresa", $tokenUser);
+        echo find_function($rut_cliente, "clientes/cargarUnCliente", $tokenUser);
     }
 
 
@@ -60,7 +60,7 @@ class Controller_arriendo extends CI_Controller
             "numerosDias_arriendo" => $this->input->post("inputNumeroDias"),
 
             //inputs cliente
-            "rut_cliente" => $this->input->post("inputrutCliente"),
+            "rut_cliente" => $this->input->post("inputRutCliente"),
             "nombre_cliente" => $this->input->post("inputNombreCliente"),
             "direccion_cliente" => $this->input->post("inputDireccionCliente"),
             "ciudad_cliente" => $this->input->post("inputCiudadCliente"),

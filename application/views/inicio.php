@@ -25,10 +25,10 @@
 <!-- se envia la url del base_route al js -->
 <input id="ruta" value="<?php echo base_route(); ?>" hidden />
 
-<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>/assets/css/sweetalert2.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>/assets/css/animate.min.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>/assets/css/signin.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>/assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/sweetalert2.min.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/animate.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/signin.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/bootstrap/css/bootstrap.min.css">
 
 <body>
 
@@ -50,9 +50,9 @@
 </body>
 
 <!-- importaciones -->
-<script src="<?php echo base_route(); ?>/assets/js/jquery-3.3.1.min.js"></script>
-<script src="<?php echo base_route(); ?>/assets/js/inicioSesion.js"></script>
-<script src="<?php echo base_route(); ?>/assets/js/sweetalert2.all.min.js"></script>
+<script src="<?php echo base_route(); ?>assets/js/jquery-3.3.1.min.js"></script>
+<script src="<?php echo base_route(); ?>assets/js/inicioSesion.js"></script>
+<script src="<?php echo base_route(); ?>assets/js/sweetalert2.all.min.js"></script>
 
 
 </html>

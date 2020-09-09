@@ -80,9 +80,9 @@ $route['registrar_arriendo'] = '/controller_gestion/Controller_arriendo/registra
 $route['registrar_arriendoAccesorios'] = '/controller_gestion/Controller_arriendo/registrarArriendoAccesorios';
 $route['cargar_accesorios'] = '/controller_gestion/Controller_arriendo/cargarAccesorios';
 
-$route['cargar_empresa'] = '/controller_gestion/Controller_arriendo/cargarUnaEmpresa';
-$route['cargar_conductor'] = '/controller_gestion/Controller_arriendo/cargarUnConductor';
-$route['cargar_cliente'] = '/controller_gestion/Controller_arriendo/cargarUnCliente';
+$route['cargar_UnEmpresa'] = '/controller_gestion/Controller_arriendo/cargarUnaEmpresa';
+$route['cargar_UnConductor'] = '/controller_gestion/Controller_arriendo/cargarUnConductor';
+$route['cargar_Uncliente'] = '/controller_gestion/Controller_arriendo/cargarUnCliente';
 
 
 

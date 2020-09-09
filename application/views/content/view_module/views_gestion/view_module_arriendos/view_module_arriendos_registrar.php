@@ -67,8 +67,6 @@
                          </select>
                      </div>
                  </div>
-
-
              </div>
          </div>
 
@@ -77,17 +75,26 @@
                  <br>
                  <h4 id="titulo_cliente">Datos Cliente</h4>
                  <div class="form-row" id="form_cliente">
-                     <div class="form-group col-md-3">
+                     <div class="form-group col-md-4">
                          <label for="inputRutCliente">Rut o Pasaporte</label>
-                         <input maxLength="12" onblur=" value ? this.value=formateaRut(this.value) : null" type="text"
-                             class="form-control" id="inputrutCliente" name="inputrutCliente" required>
+                         <div class="input-group">
+                             <input maxLength="12" oninput="mayus(this);"
+                                 onblur=" value ? this.value=formateaRut(this.value) : null" type="text"
+                                 class="form-control" id="inputRutCliente" name="inputRutCliente" required>
+                             <div class="input-group-append">
+                                 <button class="btn btn-outline-secondary" type="button" id="btn_buscarCliente">
+                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                         id="spinner_cliente"></span>
+                                     Buscar</button>
+                             </div>
+                         </div>
                      </div>
                      <div class="form-group col-md-4">
-                         <label for="inputNombreCliente">Nombre</label>
+                         <label for="inputNombreCliente">Nombre completo</label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputNombreCliente" name="inputNombreCliente" required>
                      </div>
-                     <div class="form-group col-md-3">
+                     <div class="form-group col-md-4">
                          <label for="inputDireccionCliente">Direccion </label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputDireccionCliente" name="inputDireccionCliente">
@@ -97,12 +104,12 @@
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputCiudadCliente" name="inputCiudadCliente">
                      </div>
-                     <div class="form-group col-md-4">
+                     <div class="form-group col-md-3">
                          <label for="inputFechaNacimiento">Fecha Nacimiento </label>
                          <input oninput="mayus(this);" maxLength="30" type="date" class="form-control"
                              id="inputFechaNacimiento" name="inputFechaNacimiento">
                      </div>
-                     <div class="form-group col-md-4">
+                     <div class="form-group col-md-3">
                          <label for="inputTelefonoCliente">Telefono </label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputTelefonoCliente" name="inputTelefonoCliente">
@@ -116,18 +123,27 @@
                  <br>
                  <h4 id="titulo_empresa">Datos Empresa</h4>
                  <div class="form-row" id="form_empresa">
-                     <div class="form-group col-md-3">
+                     <div class="form-group col-md-4">
                          <label for="inputRutEmpresa">Rut </label>
-                         <input maxLength="13" onblur=" value ? this.value=formateaRut(this.value) : null"
-                             maxLength="30" type="text" class="form-control" id="inputRutEmpresa" name="inputRutEmpresa"
-                             required>
+                         <div class="input-group">
+                             <input maxLength="13" oninput="mayus(this);"
+                                 onblur=" value ? this.value=formateaRut(this.value) : null" maxLength="30" type="text"
+                                 class="form-control" id="inputRutEmpresa" name="inputRutEmpresa" required>
+                             <div class="input-group-append">
+                                 <button class="btn btn-outline-secondary" type="button" id="btn_buscarEmpresa">
+                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                         id="spinner_empresa"></span>
+                                     Buscar</button>
+                             </div>
+                         </div>
+
                      </div>
                      <div class="form-group col-md-4">
                          <label for="inputNombreEmpresa">Nombre </label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputNombreEmpresa" name="inputNombreEmpresa" required>
                      </div>
-                     <div class="form-group col-md-3">
+                     <div class="form-group col-md-4">
                          <label for="inputDireccionEmpresa">Direccion</label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputDireccionEmpresa" name="inputDireccionEmpresa">
@@ -138,46 +154,24 @@
                              id="inputCiudadEmpresa" name="inputCiudadEmpresa">
                      </div>
                      <div class="form-group col-md-3">
-                         <label for="inputTelefonoEmpresa">Telefono </label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
-                             id="inputTelefonoEmpresa" name="inputTelefonoEmpresa">
-                     </div>
-                     <div class="form-group col-md-4">
                          <label for="inputCorreoEmpresa">Correo </label>
                          <input oninput="mayus(this);" maxLength="30" type="email" class="form-control"
                              id="inputCorreoEmpresa" name="inputCorreoEmpresa">
+                     </div>
+                     <div class="form-group col-md-3">
+                         <label for="inputTelefonoEmpresa">Telefono </label>
+                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
+                             id="inputTelefonoEmpresa" name="inputTelefonoEmpresa">
                      </div>
                      <div class="form-group col-md-2">
                          <label for="inputVigencia">Vigecia</label>
                          <select id="inputVigencia" name="inputVigencia" class="form-control">
                          </select>
                      </div>
-                     <div class="form-group col-md-3">
+                     <div class="form-group col-md-2">
                          <label for="inputRol">Rol</label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control" name="inputRol"
                              id="inputRol">
-                     </div>
-                 </div>
-
-                 <br>
-                 <h4>Documentacion correspondiente</h4>
-                 <div class="form-row">
-                     <div class="form-group col-md-4" id="form_carnet_cliente">
-                         <label for="inputDocCarnet">Carnet de identidad o pasaporte</label>
-                         <input type="file" class="form-control-file" id="inputDocCarnet" name="inputDocCarnet">
-                     </div>
-                     <div class="form-group col-md-4" id="form_licencia_conducir">
-                         <label for="inputDocConducir">Licencia de conducir</label>
-                         <input type="file" class="form-control-file" id="inputDocConducir" name="inputDocConducir">
-                     </div>
-                     <div class="form-group col-md-4" id="form_comprobante_cliente">
-                         <label for="inputDocDomicilio">Comprobante de domicilio</label>
-                         <input type="file" class="form-control-file" id="inputDocDomicilio" name="inputDocDomicilio">
-                     </div>
-                     <div class="form-group col-md-4" id="form_carnet_empresa">
-                         <label for="inputDocCarnetEmpresa">Carnet Representante Legal</label>
-                         <input type="file" class="form-control-file" id="inputDocCarnetEmpresa"
-                             name="inputDocCarnetEmpresa">
                      </div>
                  </div>
              </div>
@@ -188,22 +182,39 @@
                  <br>
                  <h4>Datos Conductor asignado</h4>
                  <div class="form-row">
-                     <div class="form-group  col-md-3">
+                     <div class="form-group  col-md-4">
                          <label for="inputRutConductor">Rut</label>
                          <div class="input-group">
-                             <input type="text" class="form-control"
+                             <input type="text" class="form-control" oninput="mayus(this);"
                                  onblur=" value ? this.value=formateaRut(this.value) : null" id="inputRutConductor"
                                  name="inputRutConductor" required>
                              <div class="input-group-append">
-                                 <button class="btn btn-outline-secondary" type="button"
-                                     id="btn_buscarConductor">Buscar</button>
+
+                                 <button class="btn btn-outline-secondary" type="button" id="btn_buscarConductor">
+                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                         id="spinner_conductor"></span>
+                                     Buscar</button>
                              </div>
                          </div>
                      </div>
-                     <div class="form-group col-md-6">
+                     <div class="form-group col-md-4">
                          <label for="inputNombreConductor">Nombre completo </label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputNombreConductor" name="inputNombreConductor" required>
+                     </div>
+                     <div class="form-group col-md-4">
+                         <label for="inputDireccion">Direccion</label>
+                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
+                             id="inputDireccion" name="inputDireccion">
+                     </div>
+                     <div class="form-group col-md-2">
+                         <label for="inputClase">Clase</label>
+                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control" id="inputClase"
+                             name="inputClase">
+                     </div>
+                     <div class="form-group col-md-3">
+                         <label for="inputVCTO">VCTO</label>
+                         <input maxLength="30" type="date" class="form-control" id="inputVCTO" name="inputVCTO">
                      </div>
                      <div class="form-group col-md-3">
                          <label for="inputTelefonoConductor">Telefono</label>
@@ -211,30 +222,15 @@
                              id="inputTelefonoConductor" name="inputTelefonoConductor">
                      </div>
                      <div class="form-group col-md-2">
-                         <label for="inputClase">Clase</label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control" id="inputClase"
-                             name="inputClase">
-                     </div>
-                     <div class="form-group col-md-2">
                          <label for="inputNumero">Numero</label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control" id="inputNumero"
                              name="inputNumero">
-                     </div>
-                     <div class="form-group col-md-3">
-                         <label for="inputVCTO">VCTO</label>
-                         <input maxLength="30" type="date" class="form-control" id="inputVCTO" name="inputVCTO">
                      </div>
                      <div class="form-group col-md-2">
                          <label for="inputMunicipalidad">Municipalidad</label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputMunicipalidad" name="inputMunicipalidad">
                      </div>
-                     <div class="form-group col-md-3">
-                         <label for="inputDireccion">Direccion</label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
-                             id="inputDireccion" name="inputDireccion">
-                     </div>
-
                  </div>
              </div>
          </div>
@@ -258,7 +254,6 @@
                              name="select_vehiculos" style="width: 100%;">
                          </select>
                      </div>
-
                  </div>
                  <br>
                  <h4>Kilometros</h4>

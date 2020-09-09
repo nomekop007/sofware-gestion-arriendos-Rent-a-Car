@@ -127,4 +127,4 @@
 
 
 <!-- importando archivo js vehiculos -->
-<script src="<?php echo base_route() ?>assets/js/session_gestion/js_module_clientes.js"></script>
+<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_clientes.js"></script>

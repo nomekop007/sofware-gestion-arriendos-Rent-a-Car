@@ -5,8 +5,7 @@
     </div>
     <div>
         <h5>Bienvenido <?php echo $this->session->userdata('nombre'); ?> </h5>
-
-        <img class="text-center" src="<?php echo base_url() ?>assets/images/arriendo.jpg" />
+        <img style="width:30%" class="text-center" src="<?php echo base_url() ?>assets/images/arriendo.jpg" />
     </div>
 </main>
 
