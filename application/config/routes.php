@@ -69,20 +69,20 @@ $route['cargar_UnVehiculo'] = '/controller_gestion/Controller_vehiculo/cargarUnV
 $route['cargar_Vehiculos'] = '/controller_gestion/Controller_vehiculo/cargarVehiculos';
 $route['registrar_vehiculo'] = '/controller_gestion/Controller_vehiculo/registrarVehiculo';
 
-
-
 /* rutas de modulo cliente */
 $route['cargar_clientes'] = '/controller_gestion/Controller_cliente/cargarClientes';
 $route['cargar_conductores'] = '/controller_gestion/Controller_cliente/cargarConductores';
 $route['cargar_empresas'] = '/controller_gestion/Controller_cliente/cargarEmpresas';
-
-
 
 /* rutas de modulo arriendo */
 $route['cargar_VehiculosPorSucursal'] = '/controller_gestion/Controller_arriendo/cargarVehiculosPorSucursal';
 $route['registrar_arriendo'] = '/controller_gestion/Controller_arriendo/registrarArriendo';
 $route['registrar_arriendoAccesorios'] = '/controller_gestion/Controller_arriendo/registrarArriendoAccesorios';
 $route['cargar_accesorios'] = '/controller_gestion/Controller_arriendo/cargarAccesorios';
+
+$route['cargar_empresa'] = '/controller_gestion/Controller_arriendo/cargarUnaEmpresa';
+$route['cargar_conductor'] = '/controller_gestion/Controller_arriendo/cargarUnConductor';
+$route['cargar_cliente'] = '/controller_gestion/Controller_arriendo/cargarUnCliente';
 
 
 

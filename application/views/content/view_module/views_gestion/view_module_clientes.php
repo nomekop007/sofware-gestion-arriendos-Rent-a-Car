@@ -13,7 +13,7 @@
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-link active" id="nav-clientes-tab" data-toggle="tab" href="#nav-clientes" role="tab"
-                    aria-controls="nav-clientes" aria-selected="true">Clientes particulares</a>
+                    aria-controls="nav-clientes" aria-selected="true">Particulares</a>
                 <a class="nav-link" id="nav-empresas-tab" data-toggle="tab" href="#nav-empresas" role="tab"
                     aria-controls="nav-empresas" aria-selected="false">Empresas</a>
                 <a class="nav-link" id="nav-conductores-tab" data-toggle="tab" href="#nav-conductores" role="tab"

@@ -152,7 +152,8 @@ $(document).ready(() => {
                 },
                 success: (response) => {
                     if (response.success) {
-                        Swal.fire("Exito", esponse.msg, "success");
+                        cargarUnVehiculo(patente);
+                        Swal.fire("Exito", response.msg, "success");
 
                         $("#inputPatente").val("");
                         $("#inputModelo").val("");
@@ -164,8 +165,6 @@ $(document).ready(() => {
                         $("#inputMarca").val("");
                         $("#inputNumeroMotor").val("");
                         $("#inputChasis").val("");
-
-                        cargarUnVehiculo(patente);
                     } else {
                         Swal.fire({
                             icon: "error",

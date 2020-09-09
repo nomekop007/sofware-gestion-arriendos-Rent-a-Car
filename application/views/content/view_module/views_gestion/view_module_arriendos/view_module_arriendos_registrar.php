@@ -188,10 +188,17 @@
                  <br>
                  <h4>Datos Conductor asignado</h4>
                  <div class="form-row">
-                     <div class="form-group col-md-3">
+                     <div class="form-group  col-md-3">
                          <label for="inputRutConductor">Rut</label>
-                         <input maxLength="12" onblur=" value ? this.value=formateaRut(this.value) : null" type="text"
-                             class="form-control" id="inputRutConductor" name="inputRutConductor" required>
+                         <div class="input-group">
+                             <input type="text" class="form-control"
+                                 onblur=" value ? this.value=formateaRut(this.value) : null" id="inputRutConductor"
+                                 name="inputRutConductor" required>
+                             <div class="input-group-append">
+                                 <button class="btn btn-outline-secondary" type="button"
+                                     id="btn_buscarConductor">Buscar</button>
+                             </div>
+                         </div>
                      </div>
                      <div class="form-group col-md-6">
                          <label for="inputNombreConductor">Nombre completo </label>

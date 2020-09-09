@@ -9,25 +9,13 @@ class Controller_vehiculo extends CI_Controller
     public function cargarSucursales()
     {
         $tokenUser = $this->session->userdata('usertoken');
-        $client = new GuzzleHttp\Client();
-        $request = $client->request('GET',  api_url() . 'sucursales/cargarSucursales', [
-            'headers' => [
-                'usertoken' => $tokenUser
-            ]
-        ]);
-        echo $request->getBody();
+        echo  get_function('sucursales/cargarSucursales', $tokenUser);
     }
 
     public function cargarVehiculos()
     {
         $tokenUser = $this->session->userdata('usertoken');
-        $client = new GuzzleHttp\Client();
-        $request = $client->request('GET',  api_url() . 'vehiculos/cargarVehiculos', [
-            'headers' => [
-                'usertoken' => $tokenUser
-            ]
-        ]);
-        echo $request->getBody();
+        echo get_function("vehiculos/cargarVehiculos", $tokenUser);
     }
 
     public function cargarUnVehiculo()
@@ -35,13 +23,7 @@ class Controller_vehiculo extends CI_Controller
         $tokenUser = $this->session->userdata('usertoken');
         $patente = $this->input->post("patente");
 
-        $client = new GuzzleHttp\Client();
-        $request = $client->request('GET', api_url() . 'vehiculos/cargarUnVehiculo/' . $patente, [
-            'headers' => [
-                'usertoken' => $tokenUser
-            ]
-        ]);
-        echo $request->getBody();
+        echo find_function($patente, 'vehiculos/cargarUnVehiculo', $tokenUser);
     }
 
 
@@ -67,13 +49,6 @@ class Controller_vehiculo extends CI_Controller
             "estado_vehiculo" => "DISPONIBLE",
         ];
 
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', api_url() . 'vehiculos/registrarVehiculo', [
-            'json' => $arrayVehiculo,
-            'headers' => [
-                'usertoken' => $tokenUser
-            ]
-        ]);
-        echo  $response->getBody();
+        echo post_function($arrayVehiculo, "vehiculos/registrarVehiculo", $tokenUser);
     }
 }

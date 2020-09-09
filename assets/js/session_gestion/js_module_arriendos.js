@@ -91,6 +91,43 @@ $(document).ready(() => {
         });
     })();
 
+    $("#btn_buscarConductor").click(() => {
+        var rut_conductor = $("#inputRutConductor").val();
+        if (rut_conductor.length != 0) {
+            $.getJSON({
+                url: base_route + "cargar_conductor",
+                type: "post",
+                dataType: "json",
+                data: { rut_conductor },
+                success: (result) => {
+                    if (result.success) {
+                        var c = result.data;
+                        console.log(c);
+                        $("#inputNombreConductor").val(c.nombre_conductor);
+                        $("#inputTelefonoConductor").val(c.telefono_conductor);
+                        $("#inputClase").val(c.clase_conductor);
+                        $("#inputNumero").val(c.numero_conductor);
+                        $("#inputVCTO").val(c.vcto_conductor);
+                        $("#inputMunicipalidad").val(c.municipalidad_conductor);
+                        $("#inputDireccion").val(c.direccion_conductor);
+                    } else {
+                        console.log(result.msg);
+                        $("#inputNombreConductor").val("");
+                        $("#inputTelefonoConductor").val("");
+                        $("#inputClase").val("");
+                        $("#inputNumero").val("");
+                        $("#inputVCTO").val("");
+                        $("#inputMunicipalidad").val("");
+                        $("#inputDireccion").val("");
+                    }
+                },
+                error: () => {
+                    console.log("error");
+                },
+            });
+        }
+    });
+
     $("#buscar_vehiculos").click(() => {
         var id_sucursal = $("#inputSucursal").val();
         $.ajax({
@@ -227,7 +264,7 @@ $(document).ready(() => {
             timeOut: false,
             success: (response) => {
                 if (response) {
-                    guardarDatosAccesorios(response.data.id_arriendo);
+                    guardarDatosAccesorios(response.data);
                 } else {
                     Swal.fire({
                         icon: "error",
@@ -253,7 +290,6 @@ $(document).ready(() => {
                 return this.value;
             })
             .get();
-
         $.ajax({
             url: base_route + "registrar_arriendoAccesorios",
             type: "post",

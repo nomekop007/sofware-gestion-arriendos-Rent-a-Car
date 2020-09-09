@@ -31,6 +31,7 @@
     }, false);
 })();
 
+
 //formatear rut
 function formateaRut(rut) {
     //onblur="this.value=formateaRut(this.value)"

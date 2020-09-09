@@ -10,33 +10,44 @@ class Controller_arriendo extends CI_Controller
     {
         $tokenUser = $this->session->userdata('usertoken');
         $id_sucursal = $this->input->post("id_sucursal");
-
-        $client = new GuzzleHttp\Client();
-        $request = $client->request('POST', api_url() . 'sucursales/cargarVehiculos' . $id_sucursal, [
-            'headers' => [
-                'usertoken' => $tokenUser
-            ]
-        ]);
-        echo $request->getBody();
+        echo find_function($id_sucursal, "sucursales/cargarVehiculos", $tokenUser);
     }
 
 
     public function cargarAccesorios()
     {
         $tokenUser = $this->session->userdata('usertoken');
-        $client = new GuzzleHttp\Client();
-        $request = $client->request('GET',  api_url() . 'accesorios/cargarAccesorios', [
-            'headers' => [
-                'usertoken' => $tokenUser
-            ]
-        ]);
-        echo $request->getBody();
+        echo get_function("accesorios/cargarAccesorios", $tokenUser);
+    }
+
+    public function cargarUnaEmpresa()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        $rut_empresa = $this->input->post("rut_empresa");
+        echo find_function($rut_empresa, "empresas/cargarUnaEmpresa", $tokenUser);
+    }
+
+
+    public function cargarUnCliente()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        $rut_cliente = $this->input->post("rut_cliente");
+        echo find_function($rut_cliente, "clientes/cargarUnaEmpresa", $tokenUser);
+    }
+
+
+    public function cargarUnConductor()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        $rut_conductor = $this->input->post("rut_conductor");
+        echo find_function($rut_conductor, "conductores/cargarUnConductor", $tokenUser);
     }
 
 
     public function registrarArriendo()
     {
 
+        $tokenUser = $this->session->userdata('usertoken');
 
         $arrayForm = [
 
@@ -67,7 +78,7 @@ class Controller_arriendo extends CI_Controller
             "vigencia_empresa" => $this->input->post("inputVigencia"),
             "rol_empresa" => $this->input->post("inputRol"),
 
-            //inputs coductor
+            //inputs conductor
             "rut_conductor" => $this->input->post("inputRutConductor"),
             "nombre_conductor" => $this->input->post("inputNombreConductor"),
             "telefono_conductor" => $this->input->post("inputTelefonoConductor"),
@@ -83,6 +94,7 @@ class Controller_arriendo extends CI_Controller
             "inputOtros" => $this->input->post("inputOtros"),
         ];
 
+        echo post_function($arrayForm, "arriendos/registrarArriendo", $tokenUser);
 
         //registrar documentos PENDIENTE
         /* 
@@ -102,37 +114,15 @@ class Controller_arriendo extends CI_Controller
             //$data = array('upload_data' => $this->upload->data());
         }
          */
-
-        $tokenUser = $this->session->userdata('usertoken');
-
-        $client = new GuzzleHttp\Client();
-        $request = $client->request('POST', api_url() . 'arriendos/registrarArriendo', [
-            'json' => $arrayForm,
-            'headers' => [
-                'usertoken' => $tokenUser
-            ]
-        ]);
-        echo $request->getBody();
     }
 
     public function registrarArriendoAccesorios()
     {
-        $Checks = json_decode($_POST['array']);
-        $idArriendo = $this->input->post("idArriendo");
-        $ArrayData = [
-            "ArrayChecks" => $Checks,
-            "id_arriendo" => $idArriendo
-        ];
-
         $tokenUser = $this->session->userdata('usertoken');
-
-        $client = new GuzzleHttp\Client();
-        $request = $client->request('POST', api_url() . 'arriendos/registrarArriendoAccesorio', [
-            'json' => $ArrayData,
-            'headers' => [
-                'usertoken' => $tokenUser
-            ]
-        ]);
-        echo $request->getBody();
+        $ArrayData = [
+            "ArrayChecks" =>  json_decode($_POST['array']),
+            "id_arriendo" => $this->input->post("idArriendo")
+        ];
+        echo post_function($ArrayData, "arriendos/registrarArriendoAccesorio", $tokenUser);
     }
 }
