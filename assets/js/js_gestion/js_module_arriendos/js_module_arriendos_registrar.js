@@ -247,7 +247,7 @@ $(document).ready(() => {
             switch (inputTipo) {
                 case "1":
                     if (
-                        inputrutCliente.length != 0 &&
+                        inputRutCliente.length != 0 &&
                         inputNombreCliente.length != 0 &&
                         inputCorreoCliente != 0
                     ) {

@@ -39,6 +39,7 @@ class Welcome extends CI_Controller
 		$arrayUser = [
 			"estado" => true,
 			"rol" => $this->input->post("id_rol"),
+			"id" => $this->input->post("id_usuario"),
 			"nombre" => $this->input->post("nombre_usuario"),
 			"email" => $this->input->post("email_usuario"),
 			"usertoken" => $this->input->post("userToken"),

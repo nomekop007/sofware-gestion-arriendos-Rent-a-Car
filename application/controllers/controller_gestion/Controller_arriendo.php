@@ -48,8 +48,11 @@ class Controller_arriendo extends CI_Controller
     {
 
         $tokenUser = $this->session->userdata('usertoken');
+        $id_usuario = $this->session->userdata('id');
 
         $arrayForm = [
+            //usuario auntenticado
+            "id_usuario" => $id_usuario,
 
             //inputs arriendo
             "tipo_arriendo" => $this->input->post("inputTipo"),
