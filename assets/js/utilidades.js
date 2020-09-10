@@ -60,6 +60,22 @@ function formateaRut(rut) {
     return rutPuntos;
 }
 
+//funcion para formatear fechas
+function formatearFecha(fecha) {
+    let f = new Date(fecha);
+    let opciones = {
+        weekday: "long",
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+    };
+
+    return (fecha = f.toLocaleDateString("es-MX", opciones));
+}
+
 //lenguaje de los datatable
 var lenguaje = {
     responsive: true,

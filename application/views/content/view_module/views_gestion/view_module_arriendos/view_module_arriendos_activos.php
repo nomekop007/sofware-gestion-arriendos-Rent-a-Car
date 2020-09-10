@@ -3,28 +3,27 @@
       <br>
       <br>
       <table id="tablaArriendosActivos" class="table table-striped table-bordered" style="width:100%">
-          <thead>
+          <thead class="btn-dark">
               <tr>
                   <th>Nº Arriendo</th>
-                  <th>Cliente</th>
-                  <th>Vehiculo</th>
-                  <th>Fecha inicio</th>
-                  <th>Fecha fin</th>
-                  <th>Accion</th>
+                  <th>fecha creacion</th>
+                  <th>tipo arriendo</th>
+                  <th>estado</th>
+                  <th>vendedor</th>
+                  <th></th>
               </tr>
           </thead>
           <tbody>
 
           </tbody>
-          <tfoot>
+          <tfoot class="btn-dark">
               <tr>
                   <th>Nº Arriendo</th>
-                  <th>Cliente</th>
-                  <th>Vehiculo</th>
-                  <th>Fecha inicio</th>
-                  <th>Fecha fin</th>
-                  <th>Accion</th>
-
+                  <th>fecha creacion</th>
+                  <th>tipo arriendo</th>
+                  <th>estado</th>
+                  <th>vendedor</th>
+                  <th></th>
               </tr>
           </tfoot>
       </table>

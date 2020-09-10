@@ -20,8 +20,10 @@
                  Seleccion de Vehiculo
              </a>
 
-             <button type="submit" id="btn_crear_arriendo" class="btn btn-success btn-sm">Crear
-                 Arriendo</button>
+             <button type="submit" id="btn_crear_arriendo" class="btn btn-success btn-sm">
+                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                     id="spinner_btn_registrar"></span>
+                 Crear Arriendo</button>
          </p>
 
 

@@ -14,16 +14,12 @@ class Welcome extends CI_Controller
 
 	public function iniciarSesion()
 	{
+		$token = "no existe token";
 		$arrayUser = [
 			"email_usuario" => $this->input->post("correo"),
 			"clave_usuario" => $this->input->post("clave")
 		];
-		$client = new \GuzzleHttp\Client();
-		$response = $client->request('POST', api_url() . 'usuarios/login', [
-			'json' => $arrayUser
-		]);
-
-		echo $response->getBody();
+		echo post_function($arrayUser, "usuarios/login", $token);
 	}
 
 	public function cerrarSesion()

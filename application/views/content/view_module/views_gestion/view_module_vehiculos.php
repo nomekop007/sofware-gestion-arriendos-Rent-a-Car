@@ -109,7 +109,10 @@
                         </div>
                     </div>
                     <br><br>
-                    <button type="submit" class="btn btn-dark" id="btn_registrar_vehiculo">Registrar Vehiculo</button>
+                    <button type="submit" class="btn btn-dark" id="btn_registrar_vehiculo">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            id="spinner_btn_registrar"></span>
+                        Registrar Vehiculo</button>
                 </form>
             </div>
 
@@ -117,27 +120,27 @@
             <div class="tab-pane fade" id="nav-vehiculos" role="tabpanel" aria-labelledby="nav-vehiculos-tab">
                 <br><br>
                 <table id="tablaVehiculos" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
+                    <thead class="btn-dark">
                         <tr>
                             <th>Patente</th>
                             <th>Modelo</th>
                             <th>año</th>
                             <th>Tipo</th>
                             <th>Sucursal</th>
-                            <th>Accion</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="vehiculos">
 
                     </tbody>
-                    <tfoot>
+                    <tfoot class="btn-dark">
                         <tr>
                             <th>Patente</th>
                             <th>Modelo</th>
                             <th>año</th>
                             <th>Tipo</th>
                             <th>Sucursal</th>
-                            <th>Accion</th>
+                            <th></th>
 
                         </tr>
                     </tfoot>
@@ -204,6 +207,9 @@
     var select = document.getElementById("inputedad");
     for (var i = n; i >= 1970; i--) select.options.add(new Option(i, i));
 })();
+
+//sniper de btn registrar
+$("#spinner_btn_registrar").hide();
 </script>
 
 

@@ -16,7 +16,7 @@ $(document).ready(() => {
                             o.nombre_cliente,
                             o.telefono_cliente,
                             o.correo_cliente,
-                            "<button data-toggle='modal' data-target='#modal_ver' class='btn'><i class='far fa-eye color'></i></button>",
+                            "<button data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
                         ])
                         .draw(false);
                 });
@@ -38,7 +38,7 @@ $(document).ready(() => {
                             o.nombre_empresa,
                             o.rol_empresa,
                             o.correo_empresa,
-                            "<button data-toggle='modal' data-target='#modal_ver' class='btn'><i class='far fa-eye color'></i></button>",
+                            "<button data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
                         ])
                         .draw(false);
                 });
@@ -60,7 +60,7 @@ $(document).ready(() => {
                             o.nombre_conductor,
                             o.clase_conductor,
                             o.telefono_conductor,
-                            "<button data-toggle='modal' data-target='#modal_ver' class='btn'><i class='far fa-eye color'></i></button>",
+                            "<button data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
                         ])
                         .draw(false);
                 });

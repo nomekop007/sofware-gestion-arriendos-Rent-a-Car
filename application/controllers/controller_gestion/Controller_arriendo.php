@@ -128,4 +128,11 @@ class Controller_arriendo extends CI_Controller
         ];
         echo post_function($ArrayData, "arriendos/registrarArriendoAccesorio", $tokenUser);
     }
+
+
+    public function cargarTotalArriendos()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        echo get_function("arriendos/cargarTotalArriendos", $tokenUser);
+    }
 }

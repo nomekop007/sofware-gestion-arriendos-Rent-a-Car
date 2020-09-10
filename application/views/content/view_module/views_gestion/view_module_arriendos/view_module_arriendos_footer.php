@@ -67,6 +67,7 @@ $("#btn-vehiculo").click(function() {
 $("#spinner_conductor").hide();
 $("#spinner_cliente").hide();
 $("#spinner_empresa").hide();
+$("#spinner_btn_registrar").hide();
 </script>
 
 <!-- importaciones del select2 -->

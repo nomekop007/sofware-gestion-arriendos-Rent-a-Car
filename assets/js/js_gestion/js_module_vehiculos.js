@@ -32,8 +32,8 @@ $(document).ready(() => {
                             vehiculo.año_vehiculo,
                             vehiculo.tipo_vehiculo,
                             vehiculo.sucursale.nombre_sucursal,
-                            "<button data-toggle='modal' data-target='#modal_ver' class='btn' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></button>" +
-                            "<button data-toggle='modal' data-target='#modal_editar' class='btn' id='btn_editar_vehiculo'><i class='far fa-edit'></i></button>",
+                            " <button data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></button> " +
+                            " <button data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-primary' id='btn_editar_vehiculo'><i class='far fa-edit'></i></button> ",
                         ])
                         .draw(false);
                 });
@@ -42,33 +42,6 @@ $(document).ready(() => {
             }
         });
     })();
-
-    function cargarUnVehiculo(patente) {
-        $.ajax({
-            url: base_route + "cargar_UnVehiculo",
-            type: "post",
-            dataType: "json",
-            data: { patente },
-            success: (result) => {
-                const vehiculo = result.data[0];
-
-                tablaVehiculos.row
-                    .add([
-                        vehiculo.patente_vehiculo,
-                        vehiculo.modelo_vehiculo,
-                        vehiculo.año_vehiculo,
-                        vehiculo.tipo_vehiculo,
-                        vehiculo.sucursale.nombre_sucursal,
-                        "<button data-toggle='modal' data-target='#modal_ver' class='btn' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></button>" +
-                        "<button data-toggle='modal' data-target='#modal_editar' class='btn' id='btn_editar_vehiculo'><i class='far fa-edit'></i></button>",
-                    ])
-                    .draw(false);
-            },
-            error: () => {
-                console.log("error en cargar los vehiculos");
-            },
-        });
-    }
 
     //Registrar Vehiculo
     $("#btn_registrar_vehiculo").click(() => {
@@ -100,6 +73,8 @@ $(document).ready(() => {
             precio.length != 0 &&
             fechaCompra.length != 0
         ) {
+            $("#btn_registrar_vehiculo").attr("disabled", true);
+            $("#spinner_btn_registrar").show();
             $.ajax({
                 url: base_route + "registrar_vehiculo",
                 type: "post",
@@ -122,8 +97,11 @@ $(document).ready(() => {
                 },
                 success: (response) => {
                     if (response.success) {
-                        cargarUnVehiculo(patente);
+                        cargarVehiculoEnTabla(response.data[0]);
+
                         Swal.fire("Exito", response.msg, "success");
+                        $("#btn_registrar_vehiculo").attr("disabled", false);
+                        $("#spinner_btn_registrar").hide();
 
                         $("#inputPatente").val("");
                         $("#inputModelo").val("");
@@ -136,6 +114,8 @@ $(document).ready(() => {
                         $("#inputNumeroMotor").val("");
                         $("#inputChasis").val("");
                     } else {
+                        $("#btn_registrar_vehiculo").attr("disabled", false);
+                        $("#spinner_btn_registrar").hide();
                         Swal.fire({
                             icon: "error",
                             title: "error registrar vehiculo",
@@ -144,6 +124,8 @@ $(document).ready(() => {
                     }
                 },
                 error: () => {
+                    $("#btn_registrar_vehiculo").attr("disabled", false);
+                    $("#spinner_btn_registrar").hide();
                     Swal.fire({
                         icon: "error",
                         title: "no se guardo el vehiculo",
@@ -154,10 +136,17 @@ $(document).ready(() => {
         }
     });
 
-    $("#btn_ver_vehiculo").click(() => {
-        Swal.fire("ver vehiculo");
-    });
-    $("#btn_editar_vehiculo").click(() => {
-        Swal.fire("editar vehiculo");
-    });
+    function cargarVehiculoEnTabla(vehiculo) {
+        tablaVehiculos.row
+            .add([
+                vehiculo.patente_vehiculo,
+                vehiculo.modelo_vehiculo,
+                vehiculo.año_vehiculo,
+                vehiculo.tipo_vehiculo,
+                vehiculo.sucursale.nombre_sucursal,
+                "<button data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></button>" +
+                "<button data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-primary' id='btn_editar_vehiculo'><i class='far fa-edit'></i></button>",
+            ])
+            .draw(false);
+    }
 });

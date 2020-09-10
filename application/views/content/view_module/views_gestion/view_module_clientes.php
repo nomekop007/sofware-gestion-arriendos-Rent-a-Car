@@ -26,75 +26,75 @@
             <div class="tab-pane fade show active" id="nav-clientes" role="tabpanel" aria-labelledby="nav-clientes-tab">
 
                 <table id="tablaClientes" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
+                    <thead class="btn-dark">
                         <tr>
                             <th>Rut</th>
                             <th>Nombre</th>
                             <th>telefono</th>
                             <th>Correo</th>
-                            <th>Accion</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
 
                     </tbody>
-                    <tfoot>
+                    <tfoot class="btn-dark">
                         <tr>
                             <th>Rut</th>
                             <th>Nombre</th>
                             <th>telefono</th>
                             <th>Correo</th>
-                            <th>Accion</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 </table>
             </div>
             <div class="tab-pane fade" id="nav-empresas" role="tabpanel" aria-labelledby="nav-empresas-tab">
                 <table id="tablaEmpresas" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
+                    <thead class="btn-dark">
                         <tr>
                             <th>Rut</th>
                             <th>Nombre</th>
                             <th>Rol</th>
                             <th>Correo</th>
-                            <th>Accion</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
 
                     </tbody>
-                    <tfoot>
+                    <tfoot class="btn-dark">
                         <tr>
                             <th>Rut</th>
                             <th>Nombre</th>
                             <th>Rol</th>
                             <th>Correo</th>
-                            <th>Accion</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 </table>
             </div>
             <div class="tab-pane fade" id="nav-conductores" role="tabpanel" aria-labelledby="nav-conductores-tab">
                 <table id="tablaConductores" class="table table-striped table-bordered" style="width:100%">
-                    <thead>
+                    <thead class="btn-dark">
                         <tr>
                             <th>Rut</th>
                             <th>Nombre</th>
                             <th>Clase</th>
                             <th>telefono</th>
-                            <th>Accion</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
 
                     </tbody>
-                    <tfoot>
+                    <tfoot class="btn-dark">
                         <tr>
                             <th>Rut</th>
                             <th>Nombre</th>
                             <th>Clase</th>
                             <th>telefono</th>
-                            <th>Accion</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -112,7 +112,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Mostrar Vehiculo</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Mostrar Cliente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

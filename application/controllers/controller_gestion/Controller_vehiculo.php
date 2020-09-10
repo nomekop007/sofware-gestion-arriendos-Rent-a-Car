@@ -18,14 +18,6 @@ class Controller_vehiculo extends CI_Controller
         echo get_function("vehiculos/cargarVehiculos", $tokenUser);
     }
 
-    public function cargarUnVehiculo()
-    {
-        $tokenUser = $this->session->userdata('usertoken');
-        $patente = $this->input->post("patente");
-
-        echo find_function($patente, 'vehiculos/cargarUnVehiculo', $tokenUser);
-    }
-
 
     public function registrarVehiculo()
     {

@@ -299,6 +299,9 @@ $(document).ready(() => {
     });
 
     function guardarDatosArriendo() {
+        $("#btn_crear_arriendo").attr("disabled", true);
+        $("#spinner_btn_registrar").show();
+
         var form = $("#form_registrar_arriendo")[0];
         var data = new FormData(form);
         $.ajax({
@@ -313,13 +316,16 @@ $(document).ready(() => {
             timeOut: false,
             success: (response) => {
                 if (response) {
-                    guardarDatosAccesorios(response.data);
+                    guardarDatosAccesorios(response.data[0].id_arriendo);
+                    cargarArriendoEnTabla(response.data[0]);
                 } else {
                     Swal.fire({
                         icon: "error",
                         title: "error registrar arriendo",
                         text: response.msg,
                     });
+                    $("#btn_crear_arriendo").attr("disabled", false);
+                    $("#spinner_btn_registrar").hide();
                 }
             },
             error: () => {
@@ -328,6 +334,8 @@ $(document).ready(() => {
                     title: "no se guardo el arriendo",
                     text: "A ocurrido un Error Contacte a informatica",
                 });
+                $("#btn_crear_arriendo").attr("disabled", false);
+                $("#spinner_btn_registrar").hide();
             },
         });
     }
@@ -346,6 +354,8 @@ $(document).ready(() => {
             data: { idArriendo, array: JSON.stringify(checks) },
             success: (response) => {
                 Swal.fire("Exito", response.msg, "success");
+                $("#btn_crear_arriendo").attr("disabled", false);
+                $("#spinner_btn_registrar").hide();
             },
             error: () => {
                 Swal.fire({
@@ -353,7 +363,23 @@ $(document).ready(() => {
                     title: "no se guardaron los accesorios",
                     text: "A ocurrido un Error Contacte a informatica",
                 });
+                $("#btn_crear_arriendo").attr("disabled", false);
+                $("#spinner_btn_registrar").hide();
             },
         });
+    }
+
+    function cargarArriendoEnTabla(arriendo) {
+        var tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
+        tablaTotalArriendos.row
+            .add([
+                arriendo.id_arriendo,
+                arriendo.createdAt,
+                arriendo.tipo_arriendo,
+                arriendo.estado_arriendo,
+                arriendo.usuario.nombre_usuario,
+                "<button data-toggle='modal' data-target='#modal_ver' class='btn'><i class='far fa-eye color'></i></button>",
+            ])
+            .draw(false);
     }
 });

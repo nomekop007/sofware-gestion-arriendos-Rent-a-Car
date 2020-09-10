@@ -7,8 +7,6 @@
 <!-- importaciones del Bootstrap -->
 <script src="<?php echo base_route() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- importacion utilidades -->
-<script src="<?php echo base_route() ?>assets/js/utilidades.js"></script>
 
 
 </body>
