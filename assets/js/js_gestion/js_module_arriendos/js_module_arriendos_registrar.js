@@ -16,14 +16,21 @@ $(document).ready(() => {
     //cargar sucursales
     (() => {
         const url = base_route + "cargar_Sucursales";
-        const select = document.getElementById("inputSucursal");
+        //se rellean dos select
+        const select1 = document.getElementById("selectSucursal");
+        const select2 = document.getElementById("inputSucursal");
+
         $.getJSON(url, (result) => {
             if (result.success) {
                 $.each(result.data, (i, o) => {
-                    const option = document.createElement("option");
-                    option.innerHTML = o.nombre_sucursal;
-                    option.value = o.id_sucursal;
-                    select.appendChild(option);
+                    const option1 = document.createElement("option");
+                    const option2 = document.createElement("option");
+                    option1.innerHTML = "SUCURSAL " + o.nombre_sucursal;
+                    option2.innerHTML = "SUCURSAL " + o.nombre_sucursal;
+                    option1.value = o.id_sucursal;
+                    option2.value = o.id_sucursal;
+                    select1.appendChild(option1);
+                    select2.appendChild(option2);
                 });
             } else {
                 console.log("ah ocurrido un error al cargar las sucursales");
@@ -378,7 +385,11 @@ $(document).ready(() => {
                 arriendo.tipo_arriendo,
                 arriendo.estado_arriendo,
                 arriendo.usuario.nombre_usuario,
-                "<button data-toggle='modal' data-target='#modal_ver' class='btn'><i class='far fa-eye color'></i></button>",
+                " <button  onclick='confirmacion(" +
+                o.id_arriendo +
+                ")' data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-check-circle'></i></button>  " +
+                " <button data-toggle='modal' data-target='#modal_bajar_docs' class='btn btn-outline-dark'><i class='far fa-file-alt'></i></button>  " +
+                " <button data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-edit'></i></button>  ",
             ])
             .draw(false);
     }

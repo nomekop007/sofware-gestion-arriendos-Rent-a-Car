@@ -73,6 +73,15 @@ $route['cargar_clientes'] = '/controller_gestion/Controller_cliente/cargarClient
 $route['cargar_conductores'] = '/controller_gestion/Controller_cliente/cargarConductores';
 $route['cargar_empresas'] = '/controller_gestion/Controller_cliente/cargarEmpresas';
 
+/* rutas de modulo usuario */
+$route['cargar_usuarios'] = '/controller_gestion/Controller_usuario/cargarUsuarios';
+$route['cargar_roles'] = '/controller_gestion/Controller_usuario/cargarRoles';
+$route['registrar_usuario'] = '/controller_gestion/Controller_usuario/registrarUsuario';
+
+
+
+
+
 /* rutas de modulo arriendo  */
 /* tab registrar arriendo */
 $route['cargar_VehiculosPorSucursal'] = '/controller_gestion/Controller_arriendo/cargarVehiculosPorSucursal';

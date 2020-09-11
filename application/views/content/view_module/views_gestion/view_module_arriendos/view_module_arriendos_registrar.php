@@ -54,7 +54,7 @@
                          <input type="datetime-local" class="form-control" name="inputFechaRecepcion"
                              id="inputFechaRecepcion" required>
                      </div>
-                     <div class="form-group col-md-3">
+                     <div class="form-group col-md-2">
                          <label for="inputNumeroDias">Numeros de Dias</label>
                          <input min="1" value="1" type="number" class="form-control" name="inputNumeroDias"
                              id="inputNumeroDias" required>
@@ -66,6 +66,12 @@
                              <option value="1" selected>Arriendo persona natural</option>
                              <option value="2">Arriendo remplazo copago</option>
                              <option value="3">Arriendo solo empresa</option>
+                         </select>
+                     </div>
+
+                     <div class="form-group col-md-3">
+                         <label for="selectSucursal">Agencia de Arriendo</label>
+                         <select class="custom-select" id="selectSucursal" name="selectSucursal">
                          </select>
                      </div>
                  </div>

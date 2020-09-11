@@ -61,6 +61,8 @@ class Controller_arriendo extends CI_Controller
             "ciudadRecepcion_arriendo" => $this->input->post("inputCiudadRecepcion"),
             "fechaRecepcion_arriendo" => $this->input->post("inputFechaRecepcion"),
             "numerosDias_arriendo" => $this->input->post("inputNumeroDias"),
+            "id_sucursal" => $this->input->post("selectSucursal"),
+
 
             //inputs cliente
             "rut_cliente" => $this->input->post("inputRutCliente"),
