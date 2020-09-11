@@ -41,4 +41,7 @@
     <!-- importacion utilidades -->
     <script src="<?php echo base_route() ?>assets/js/utilidades.js"></script>
 
+    <script src="<?php echo base_route() ?>assets/js/funcionesAjax.js"></script>
+
+
 </head>

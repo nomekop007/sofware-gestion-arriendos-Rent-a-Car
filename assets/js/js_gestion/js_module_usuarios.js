@@ -1,41 +1,10 @@
 $(document).ready(() => {
     var tablaUsuario = $("#tablaUsuarios").DataTable(lenguaje);
 
-    //cargar sucursales
-    (() => {
-        const url = base_route + "cargar_Sucursales";
-        const select = document.getElementById("inputSucursalUsuario");
-        $.getJSON(url, (result) => {
-            if (result.success) {
-                $.each(result.data, (i, o) => {
-                    const option = document.createElement("option");
-                    option.innerHTML = o.nombre_sucursal;
-                    option.value = o.id_sucursal;
-                    select.appendChild(option);
-                });
-            } else {
-                console.log("ah ocurrido un error al cargar");
-            }
-        });
-    })();
-
-    //cargar roles
-    (() => {
-        const url = base_route + "cargar_roles";
-        const select = document.getElementById("inputRolUsuario");
-        $.getJSON(url, (result) => {
-            if (result.success) {
-                $.each(result.data, (i, o) => {
-                    const option = document.createElement("option");
-                    option.innerHTML = o.nombre_rol;
-                    option.value = o.id_rol;
-                    select.appendChild(option);
-                });
-            } else {
-                console.log("ah ocurrido un error al cargar");
-            }
-        });
-    })();
+    //cargar sucursales  (ruta,select)
+    cargarSelect("cargar_Sucursales", "inputSucursalUsuario");
+    //cargar roles (ruta,select)
+    cargarSelect("cargar_roles", "inputRolUsuario");
 
     //cargar usuarios
     (() => {

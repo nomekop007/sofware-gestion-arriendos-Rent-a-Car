@@ -20,27 +20,34 @@ class Controller_arriendo extends CI_Controller
         echo get_function("accesorios/cargarAccesorios", $tokenUser);
     }
 
-    public function cargarUnaEmpresa()
+    public function buscarEmpresa()
     {
         $tokenUser = $this->session->userdata('usertoken');
         $rut_empresa = $this->input->post("rut_empresa");
-        echo find_function($rut_empresa, "empresas/cargarUnaEmpresa", $tokenUser);
+        echo find_function($rut_empresa, "empresas/buscarEmpresa", $tokenUser);
     }
 
 
-    public function cargarUnCliente()
+    public function buscarCliente()
     {
         $tokenUser = $this->session->userdata('usertoken');
         $rut_cliente = $this->input->post("rut_cliente");
-        echo find_function($rut_cliente, "clientes/cargarUnCliente", $tokenUser);
+        echo find_function($rut_cliente, "clientes/buscarCliente", $tokenUser);
     }
 
 
-    public function cargarUnConductor()
+    public function buscarConductor()
     {
         $tokenUser = $this->session->userdata('usertoken');
         $rut_conductor = $this->input->post("rut_conductor");
-        echo find_function($rut_conductor, "conductores/cargarUnConductor", $tokenUser);
+        echo find_function($rut_conductor, "conductores/buscarConductor", $tokenUser);
+    }
+
+    public function buscarArriendo()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        $id_arriendo = $this->input->post("id_arriendo");
+        echo find_function($id_arriendo, "arriendos/buscarArriendo", $tokenUser);
     }
 
 

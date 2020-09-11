@@ -41,7 +41,22 @@
                       <span aria-hidden="true">&times;</span>
                   </button>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" id="formSpinner">
+                  <div class="text-center">
+                      <div class="spinner-border" role="status">
+                          <span class="sr-only">Loading...</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-body" id="formConfirmacion">
+                  <div class="card">
+                      <div class="form-row card-body text-center">
+                          <span style="width: 50%;" id="textCliente"
+                              class=" text-center input-group-text form-control"></span>
+                          <span style="width: 50%;" id="textVehiculo"
+                              class="  text-center input-group-text form-control"></span>
+                      </div>
+                  </div>
                   <br>
                   <h5>Garantia</h5>
                   <div class="card">
@@ -216,8 +231,74 @@
       </div>
   </div>
 
+
+
+
+
   <script>
-function confirmacion(id_arriendo) {
-    console.log(id_arriendo);
+$("#formConfirmacion").hide();
+
+function confirmacionArriendo(id_arriendo) {
+    $.getJSON({
+        url: base_route + "buscar_arriendo",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_arriendo
+        },
+        success: (e) => {
+            if (e.success) {
+                var arriendo = e.data[0];
+                $("#formAccesorios").empty();
+                $("#formAccesorios").append(
+                    "<span class=' col-md-12 text-center' id='spanAccesorios'>Sin Accesorios</span>");
+
+                $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
+                $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
+
+                switch (arriendo.tipo_arriendo) {
+                    case "PARTICULAR":
+                        $("#textCliente").html(arriendo.cliente.nombre_cliente);
+                        $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
+                        break;
+                    case "REMPLAZO":
+                        $("#textCliente").html(arriendo.cliente.nombre_cliente + " - " +
+                            arriendo.empresa.nombre_empresa);
+                        $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
+                        break;
+                    case "EMPRESA":
+                        $("#textCliente").html(arriendo.empresa.nombre_empresa);
+                        $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
+                        break;
+                    default:
+                        break;
+                }
+
+                $.each(arriendo.accesorios, (i, o) => {
+
+                    var fila = " <div class='input-group col-md-12'>";
+                    fila +=
+                        " <span style='width: 60%;' class='input-group-text form-control'>" + o
+                        .nombre_accesorio + " $</span>";
+                    fila +=
+                        "<input style='width: 40%;' min='0'  value='" +
+                        0 +
+                        "'  type='number' class='form-control'>";
+                    fila += "  </div>";
+                    $("#formAccesorios").append(fila);
+                })
+                //pendiente
+
+
+                $("#formSpinner").hide();
+                $("#formConfirmacion").show();
+            } else {
+                console.log("error al cargar arriendo");
+            }
+        },
+        error: () => {
+            console.log("error al cargar arriendo");
+        }
+    })
 }
   </script>

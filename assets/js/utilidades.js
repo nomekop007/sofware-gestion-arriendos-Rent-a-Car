@@ -1,6 +1,3 @@
-// ruta definitiva
-var base_route = $("#ruta").val();
-
 //funcion que tranforma en mayuscula
 function mayus(e) {
     e.value = e.value.toUpperCase();
@@ -72,7 +69,6 @@ function formatearFecha(fecha) {
         minute: "numeric",
         second: "numeric",
     };
-
     return (fecha = f.toLocaleDateString("es-MX", opciones));
 }
 
@@ -102,6 +98,19 @@ var lenguaje = {
         aria: {
             sortAscending: ": Activar orden de columna ascendente",
             sortDescending: ": Activar orden de columna desendente",
+        },
+    },
+};
+//lenguaje del select 2
+var lenguajeSelect2 = {
+    placeholder: "Vehiculos disponibles",
+    allowClear: true,
+    language: {
+        noResults: () => {
+            return "No hay resultado";
+        },
+        searching: () => {
+            return "Buscando..";
         },
     },
 };

@@ -91,7 +91,7 @@
 
 
 <script>
-//sniper de btn registrar
+//snniper de btn registrar
 $("#spinner_btn_registrar").hide();
 </script>
 

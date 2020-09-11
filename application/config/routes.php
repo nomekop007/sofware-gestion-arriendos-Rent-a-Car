@@ -88,11 +88,12 @@ $route['cargar_VehiculosPorSucursal'] = '/controller_gestion/Controller_arriendo
 $route['registrar_arriendo'] = '/controller_gestion/Controller_arriendo/registrarArriendo';
 $route['registrar_arriendoAccesorios'] = '/controller_gestion/Controller_arriendo/registrarArriendoAccesorios';
 $route['cargar_accesorios'] = '/controller_gestion/Controller_arriendo/cargarAccesorios';
-$route['cargar_UnEmpresa'] = '/controller_gestion/Controller_arriendo/cargarUnaEmpresa';
-$route['cargar_UnConductor'] = '/controller_gestion/Controller_arriendo/cargarUnConductor';
-$route['cargar_Uncliente'] = '/controller_gestion/Controller_arriendo/cargarUnCliente';
+$route['buscar_empresa'] = '/controller_gestion/Controller_arriendo/buscarEmpresa';
+$route['buscar_conductor'] = '/controller_gestion/Controller_arriendo/buscarConductor';
+$route['buscar_cliente'] = '/controller_gestion/Controller_arriendo/buscarCliente';
 /* tab total arriendos */
 $route['cargar_TotalArriendos'] = '/controller_gestion/Controller_arriendo/cargarTotalArriendos';
+$route['buscar_arriendo'] = '/controller_gestion/Controller_arriendo/buscarArriendo';
 
 
 

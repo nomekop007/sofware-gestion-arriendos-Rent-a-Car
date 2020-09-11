@@ -1,23 +1,8 @@
 $(document).ready(() => {
     var tablaVehiculos = $("#tablaVehiculos").DataTable(lenguaje);
 
-    //cargar sucursales
-    (() => {
-        const url = base_route + "cargar_Sucursales";
-        const select = document.getElementById("inputSucursal");
-        $.getJSON(url, (result) => {
-            if (result.success) {
-                $.each(result.data, (i, o) => {
-                    const option = document.createElement("option");
-                    option.innerHTML = o.nombre_sucursal;
-                    option.value = o.id_sucursal;
-                    select.appendChild(option);
-                });
-            } else {
-                console.log("ah ocurrido un error al cargar las sucursales");
-            }
-        });
-    })();
+    //cargar sucursales  (ruta,select)
+    cargarSelect("cargar_Sucursales", "inputSucursal");
 
     //carga vehiculos en datatable
     (() => {

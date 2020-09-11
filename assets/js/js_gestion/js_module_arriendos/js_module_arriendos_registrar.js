@@ -1,42 +1,11 @@
 $(document).ready(() => {
+    //cargar sucursales  (ruta,select)
+    cargarSelect("cargar_Sucursales", "selectSucursal");
+    //cargar sucursales  (ruta,select)
+    cargarSelect("cargar_Sucursales", "inputSucursal");
+
     //select2 de los vehiculos
-    $("#select_vehiculos").select2({
-        placeholder: "Vehiculos disponibles",
-        allowClear: true,
-        language: {
-            noResults: () => {
-                return "No hay resultado";
-            },
-            searching: () => {
-                return "Buscando..";
-            },
-        },
-    });
-
-    //cargar sucursales
-    (() => {
-        const url = base_route + "cargar_Sucursales";
-        //se rellean dos select
-        const select1 = document.getElementById("selectSucursal");
-        const select2 = document.getElementById("inputSucursal");
-
-        $.getJSON(url, (result) => {
-            if (result.success) {
-                $.each(result.data, (i, o) => {
-                    const option1 = document.createElement("option");
-                    const option2 = document.createElement("option");
-                    option1.innerHTML = "SUCURSAL " + o.nombre_sucursal;
-                    option2.innerHTML = "SUCURSAL " + o.nombre_sucursal;
-                    option1.value = o.id_sucursal;
-                    option2.value = o.id_sucursal;
-                    select1.appendChild(option1);
-                    select2.appendChild(option2);
-                });
-            } else {
-                console.log("ah ocurrido un error al cargar las sucursales");
-            }
-        });
-    })();
+    $("#select_vehiculos").select2(lenguajeSelect2);
 
     //cargar accesorios
     (() => {
@@ -70,7 +39,7 @@ $(document).ready(() => {
         if (rut_cliente.length != 0) {
             $("#spinner_cliente").show();
             $.getJSON({
-                url: base_route + "cargar_Uncliente",
+                url: base_route + "buscar_cliente",
                 type: "post",
                 dataType: "json",
                 data: { rut_cliente },
@@ -110,7 +79,7 @@ $(document).ready(() => {
         if (rut_empresa.length != 0) {
             $("#spinner_empresa").show();
             $.getJSON({
-                url: base_route + "cargar_UnEmpresa",
+                url: base_route + "buscar_empresa",
                 type: "post",
                 dataType: "json",
                 data: { rut_empresa },
@@ -149,7 +118,7 @@ $(document).ready(() => {
             $("#spinner_conductor").show();
 
             $.getJSON({
-                url: base_route + "cargar_UnConductor",
+                url: base_route + "buscar_conductor",
                 type: "post",
                 dataType: "json",
                 data: { rut_conductor },
