@@ -5,8 +5,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Welcome extends CI_Controller
 {
 
-
-
 	public function index()
 	{
 		$this->load->view('inicio');
@@ -25,7 +23,7 @@ class Welcome extends CI_Controller
 	public function cerrarSesion()
 	{
 		$this->session->sess_destroy();
-		redirect("/");
+		redirect(base_route());
 	}
 
 
@@ -70,12 +68,12 @@ class Welcome extends CI_Controller
 					break;
 
 				default:
-					redirect("/");
+					redirect(base_route());
 					break;
 			}
 			$this->load->view("templates/footer");
 		} else {
-			redirect("/");
+			redirect(base_route());
 		}
 	}
 }

@@ -31,12 +31,12 @@ class Session_gestion extends CI_Controller
                     $this->load->view('content/view_module/views_gestion/view_module_usuarios');
                     break;
                 default:
-                    redirect("/");
+                    redirect(base_route());
                     break;
             }
             $this->load->view("templates/footer");
         } else {
-            redirect("/");
+            redirect(base_route());
         }
     }
 }
