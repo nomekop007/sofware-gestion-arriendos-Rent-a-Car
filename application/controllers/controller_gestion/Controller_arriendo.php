@@ -128,6 +128,27 @@ class Controller_arriendo extends CI_Controller
          */
     }
 
+    public function crearContrato()
+    {
+        //inputIDArriendo
+        $tokenUser = $this->session->userdata('usertoken');
+        $ArrayData = [
+            "id_arriendo" => $this->input->post("inputIDArriendo"),
+            "estado_pagoArriendo" => "PENDIENTE",
+            "abonoGarantia_pagoArriendo" => $this->input->post("inputAbono"),
+            "tipoFacturacion_pagoArriendo" => $this->input->post("customRadio1"),
+            "neto_pagoArriendo" => $this->input->post("inputNeto"),
+            "iva_pagoArriendo" => $this->input->post("inputIVA"),
+            "descuento_pagoArriendo" => $this->input->post("inputDescuento"),
+            "total_pagoArriendo" => $this->input->post("inputTotal"),
+            "tipoPago_pagoArriendo" => $this->input->post("customRadio2"),
+            "digitador_pagoArriendo" => $this->input->post("inputDigitador"),
+            "observaciones_pagoArriendo" => $this->input->post("inputObservaciones"),
+        ];
+
+        echo  post_function($ArrayData, "pagosArriendos/registrarPagosArriendos", $tokenUser);
+    }
+
     public function registrarArriendoAccesorios()
     {
         $tokenUser = $this->session->userdata('usertoken');

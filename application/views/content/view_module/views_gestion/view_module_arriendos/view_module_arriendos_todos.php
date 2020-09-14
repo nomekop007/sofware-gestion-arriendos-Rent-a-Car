@@ -48,7 +48,8 @@
                       </div>
                   </div>
               </div>
-              <form class="needs-validation" novalidate>
+              <form class="needs-validation" id="formContrato" novalidate>
+                  <input type="text" name="inputIDArriendo" id="inputIDArriendo" hidden />
                   <div class="modal-body" id="formConfirmacion">
 
                       <div class="card">
@@ -82,8 +83,8 @@
                                   <div class="input-group-prepend">
                                       <span class="input-group-text">Abono $</span>
                                   </div>
-                                  <input min="0" value="0" type="number" id="inputAbono" name="inputAbono"
-                                      class="form-control" required>
+                                  <input min="0" type="number" id="inputAbono" name="inputAbono" class="form-control"
+                                      required>
                               </div>
                           </div>
                       </div>
@@ -100,10 +101,10 @@
                                       dias: X</span>
                               </div>
                               <div class="input-group col-md-12">
-                                  <span style="width: 60%;" class="input-group-text form-control">Valor Arriendo
+                                  <span style="width: 60%;" class="input-group-text form-control">Sub total Arriendo
                                       $</span>
-                                  <input style="width: 40%;" id="inputValorArriendo" min="0" value="0" type="number"
-                                      class="form-control" required>
+                                  <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo" min="0"
+                                      value="0" type="number" class="form-control" oninput="calcularValores()" required>
                               </div>
                           </div>
                       </div>
@@ -121,12 +122,12 @@
                       <div class="card">
                           <div class="form-row card-body">
                               <div class="custom-control custom-radio custom-control-inline ">
-                                  <input type="radio" id="radioBoleta" name="customRadio1" class="custom-control-input"
-                                      checked>
+                                  <input type="radio" value="BOLETA" id="radioBoleta" name="customRadio1"
+                                      class="custom-control-input" checked>
                                   <label class="custom-control-label" for="radioBoleta">Boleta</label>
                               </div>
                               <div class="custom-control custom-radio custom-control-inline ">
-                                  <input type="radio" id="radioFactura" name="customRadio1"
+                                  <input type="radio" value="FACTURA" id="radioFactura" name="customRadio1"
                                       class="custom-control-input">
                                   <label class="custom-control-label" for="radioFactura">Factura</label>
                               </div>
@@ -134,37 +135,38 @@
                           <div class="form-row card-body">
                               <div class="input-group col-md-12">
                                   <span style="width: 60%;" class="input-group-text form-control">Total Neto $</span>
-                                  <input style="width: 40%;" id="inputNeto" name="inputNeto" min="0" value="0"
-                                      type="number" class="form-control" required>
+                                  <input oninput="calcularValores()" style="width: 40%;" id="inputNeto" name="inputNeto"
+                                      min="0" type="number" class="form-control" required>
                               </div>
                               <div class="input-group col-md-12">
                                   <span style="width: 60%;" class="input-group-text form-control">IVA $</span>
-                                  <input style="width: 40%;" id="inputIVA" name="inputIVA" min="0" value="0"
-                                      type="number" class="form-control">
+                                  <input style="width: 40%;" id="inputIVA" name="inputIVA" min="0" type="number"
+                                      class="form-control" oninput="calcularValores()">
                               </div>
                               <div class="input-group col-md-12">
                                   <span style="width: 60%;" class="input-group-text form-control">Descuento $</span>
-                                  <input style="width: 40%;" min="0" id="inputDescuento" name="inputDescuento" value="0"
-                                      type="number" class="form-control">
+                                  <input style="width: 40%;" min="0" step="0" id="inputDescuento" name="inputDescuento"
+                                      value="0" type="number" class="form-control" oninput="calcularValores()" required>
                               </div>
                               <div class="input-group col-md-12">
-                                  <span style="width: 60%;" class="input-group-text form-control">A Pagar $</span>
-                                  <input style="width: 40%;" min="0" id="inputTotal" name="inputTotal" value="0"
-                                      type="number" class="form-control" required>
+                                  <span style="width: 60%;" class="input-group-text form-control">Total a Pagar $</span>
+                                  <input style="width: 40%;" id="inputTotal" name="inputTotal" type="number" min="0"
+                                      class="form-control" required oninput="calcularValores()">
                               </div>
                           </div>
                           <div class="form-row card-body">
                               <div class="custom-control custom-radio custom-control-inline ">
-                                  <input type="radio" id="radioEfectivo" name="customRadio2"
+                                  <input type="radio" value="EFECTIVO" id="radioEfectivo" name="customRadio2"
                                       class="custom-control-input" checked>
                                   <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
                               </div>
                               <div class="custom-control custom-radio custom-control-inline ">
-                                  <input type="radio" id="radioCheque" name="customRadio2" class="custom-control-input">
+                                  <input type="radio" value="CHEQUE" id="radioCheque" name="customRadio2"
+                                      class="custom-control-input">
                                   <label class="custom-control-label" for="radioCheque">Cheque</label>
                               </div>
                               <div class="custom-control custom-radio custom-control-inline ">
-                                  <input type="radio" id="radioTarjeta" name="customRadio2"
+                                  <input type="radio" value="TARGETA" id="radioTarjeta" name="customRadio2"
                                       class="custom-control-input">
                                   <label class="custom-control-label" for="radioTarjeta">Tarjeta</label>
                               </div>
@@ -173,11 +175,13 @@
                           <div class="form-row card-body">
                               <div class="form-group col-md-12">
                                   <label for="inputDigitador">Digitado por</label>
-                                  <input type="text" class="form-control" id="inputDigitador" required>
+                                  <input type="text" class="form-control" id="inputDigitador" name="inputDigitador"
+                                      required>
                               </div>
                               <div class="form-group col-md-12">
                                   <label for="inputObservaciones">Observacines</label>
-                                  <textarea class="form-control" id="inputObservaciones" rows="3"></textarea>
+                                  <textarea class="form-control" id="inputObservaciones" name="inputObservaciones"
+                                      rows="3"></textarea>
                               </div>
 
 
@@ -262,6 +266,7 @@ function confirmacionArriendo(id_arriendo) {
                 var arriendo = e.data[0];
 
                 limpiarCampos();
+                $("#inputIDArriendo").val(arriendo.id_arriendo);
                 $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
                 $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
                 $("#inputDigitador").val(arriendo.usuario.nombre_usuario);
@@ -298,7 +303,7 @@ function confirmacionArriendo(id_arriendo) {
                             " <span style='width: 60%;' class='input-group-text form-control'>" + o
                             .nombre_accesorio + " $</span>";
                         fila +=
-                            "<input style='width: 40%;' min='0' name='accesorios[]'  value='" +
+                            "<input style='width: 40%;' min='0' name='accesorios[]'  oninput='calcularValores()' value='" +
                             precio +
                             "'  type='number' class='form-control'>";
                         fila += "  </div>";
@@ -342,7 +347,7 @@ function limpiarCampos() {
     $("#formAccesorios").empty();
     $("#textCliente").val("");
     $("#textVehiculo").val("");
-
+    $("#inputIDArriendo").val("");
     $("#inputNumeroTargeta").val(0);
     $("#inputFechaTargeta").val("");
     $("#inputCheque").val("");
@@ -354,13 +359,17 @@ function limpiarCampos() {
     $("#inputTotal").val(0);
     $("#inputDigitador").val("");
     $("#inputObservaciones").val("");
-
 }
 
-//oninput="calcularNeto(this.value)"
-/* function calcularTotal(valor) {
-    var valorArriendo = valor;
-    var sumaAccesorios = 0;
+
+function calcularValores() {
+    //variables
+    var valorArriendo = Number($("#inputValorArriendo").val());
+    var neto = Number($("#inputNeto").val());
+    var iva = Number($("#inputIVA").val());
+    var descuento = Number($("#inputDescuento").val());
+    var total = Number($("#inputTotal").val());
+
     var TotalNeto = 0;
     //revisa todos los check y guardas sus valores en un array si estan okey
     var ArrayAccesorios = $('[name="accesorios[]"]')
@@ -371,19 +380,14 @@ function limpiarCampos() {
 
     for (let i = 0; i < ArrayAccesorios.length; i++) {
         const element = ArrayAccesorios[i];
-        sumaAccesorios += element;
+        TotalNeto += Number(element);
     }
-    TotalNeto = sumaAccesorios + valorArriendo;
+    TotalNeto = TotalNeto + valorArriendo;
+    iva = TotalNeto * 0.19;
+    total = TotalNeto + iva - descuento;
+
     $("#inputNeto").val(TotalNeto);
-
+    $("#inputIVA").val(Math.round(iva));
+    $("#inputTotal").val(Math.round(total));
 }
-
-function calcularNeto(valor) {
-    var neto = valor;
-    var iva = neto * 0.19;
-    var total = neto + iva;
-
-    $("#inputIVA").val(iva);
-    $("#inputTotal").val(total);
-} */
   </script>

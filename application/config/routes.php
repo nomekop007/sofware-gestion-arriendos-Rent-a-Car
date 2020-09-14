@@ -94,6 +94,7 @@ $route['buscar_cliente'] = '/controller_gestion/Controller_arriendo/buscarClient
 /* tab total arriendos */
 $route['cargar_TotalArriendos'] = '/controller_gestion/Controller_arriendo/cargarTotalArriendos';
 $route['buscar_arriendo'] = '/controller_gestion/Controller_arriendo/buscarArriendo';
+$route['crear_contrato'] = '/controller_gestion/Controller_arriendo/crearContrato';
 
 
 
