@@ -48,138 +48,149 @@
                       </div>
                   </div>
               </div>
-              <div class="modal-body" id="formConfirmacion">
-                  <div class="card">
-                      <div class="form-row card-body text-center">
-                          <span style="width: 50%;" id="textCliente"
-                              class=" text-center input-group-text form-control"></span>
-                          <span style="width: 50%;" id="textVehiculo"
-                              class="  text-center input-group-text form-control"></span>
+              <form class="needs-validation" novalidate>
+                  <div class="modal-body" id="formConfirmacion">
+
+                      <div class="card">
+                          <div class="form-row card-body text-center">
+                              <span style="width: 50%;" id="textCliente"
+                                  class=" text-center input-group-text form-control"></span>
+                              <span style="width: 50%;" id="textVehiculo"
+                                  class="  text-center input-group-text form-control"></span>
+                          </div>
                       </div>
-                  </div>
-                  <br>
-                  <h5>Garantia</h5>
-                  <div class="card">
-                      <div class="form-row card-body">
-                          <div class="form-group col-md-12">
-                              <label for="inputNumeroTargeta">Tarjeta de credito</label>
-                              <div class="input-group">
-                                  <input style="width: 80%;" type="number" class="form-control" id="inputNumeroTargeta"
-                                      name="inputNumeroTargeta">
-                                  <input style="width: 20%;" name="inputFechaTargeta" id="inputFechaTargeta" type="text"
-                                      aria-label="Last name" class="form-control">
+                      <br>
+                      <h5>Garantia</h5>
+                      <div class="card">
+                          <div class="form-row card-body">
+                              <div class="form-group col-md-12">
+                                  <label for="inputNumeroTargeta">Tarjeta de credito</label>
+                                  <div class="input-group">
+                                      <input style="width: 80%;" type="number" class="form-control"
+                                          id="inputNumeroTargeta" name="inputNumeroTargeta">
+                                      <input style="width: 20%;" name="inputFechaTargeta" id="inputFechaTargeta"
+                                          type="text" aria-label="Last name" class="form-control" maxLength="5"
+                                          placeholder="ej: 10/23">
+                                  </div>
+                              </div>
+                              <div class="form-group col-md-12">
+                                  <label for="inputCheque">Cheque</label>
+                                  <input type="text" class="form-control" maxLength="30" id="inputCheque"
+                                      name="inputCheque">
+                              </div>
+                              <div class="input-group col-md-12">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text">Abono $</span>
+                                  </div>
+                                  <input min="0" value="0" type="number" id="inputAbono" name="inputAbono"
+                                      class="form-control" required>
                               </div>
                           </div>
-                          <div class="form-group col-md-12">
-                              <label for="inputCheque">Cheque</label>
-                              <input type="text" class="form-control" id="inputCheque" name="inputCheque">
-                          </div>
-                          <div class="input-group col-md-12">
-                              <div class="input-group-prepend">
-                                  <span class="input-group-text">Abono $</span>
+                      </div>
+                      <br><br>
+                      <h5>Valor Arriendo</h5>
+                      <div class="card">
+                          <div class="form-row card-body">
+                              <div class="input-group col-md-12">
+                                  <span style="width: 50%;" id="textTipo" class="input-group-text form-control">Tipo
+                                      Arriendo:
+                                      Particular</span>
+                                  <span style="width: 50%;" id="textDias" class="input-group-text form-control">Cantidad
+                                      de
+                                      dias: X</span>
                               </div>
-                              <input min="0" value="0" type="number" id="inputAbono" name="inputAbono"
-                                  class="form-control">
+                              <div class="input-group col-md-12">
+                                  <span style="width: 60%;" class="input-group-text form-control">Valor Arriendo
+                                      $</span>
+                                  <input style="width: 40%;" id="inputValorArriendo" min="0" value="0" type="number"
+                                      class="form-control" required>
+                              </div>
                           </div>
                       </div>
-                  </div>
-                  <br><br>
-                  <h5>Valor Arriendo</h5>
-                  <div class="card">
-                      <div class="form-row card-body">
-                          <div class="input-group col-md-12">
-                              <span style="width: 50%;" id="textTipo" class="input-group-text form-control">Tipo
-                                  Arriendo:
-                                  Particular</span>
-                              <span style="width: 50%;" id="textDias" class="input-group-text form-control">Cantidad de
-                                  dias: X</span>
-                          </div>
-                          <div class="input-group col-md-12">
-                              <span style="width: 60%;" class="input-group-text form-control">Valor Arriendo $</span>
-                              <input style="width: 40%;" id="inputValorArriendo" min="0" value="0" type="number"
-                                  class="form-control">
-                          </div>
-                      </div>
-                  </div>
-                  <br><br>
-                  <h5>Accesorios</h5>
-                  <div class="card">
-                      <div class="form-row card-body" id="formAccesorios">
-                          <!-- se muestran los accesorios del arriendo con precio -->
-                          <span class=" col-md-12 text-center" id="spanAccesorios">Sin Accesorios</span>
-                      </div>
-                  </div>
-
-                  <br><br>
-                  <h5>Totales</h5>
-                  <div class="card">
-                      <div class="form-row card-body">
-                          <div class="custom-control custom-radio custom-control-inline ">
-                              <input type="radio" id="radioBoleta" name="customRadio1" class="custom-control-input"
-                                  checked>
-                              <label class="custom-control-label" for="radioBoleta">Boleta</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline ">
-                              <input type="radio" id="radioFactura" name="customRadio1" class="custom-control-input">
-                              <label class="custom-control-label" for="radioFactura">Factura</label>
-                          </div>
-                      </div>
-                      <div class="form-row card-body">
-                          <div class="input-group col-md-12">
-                              <span style="width: 60%;" class="input-group-text form-control">Sub total Neto $</span>
-                              <input style="width: 40%;" id="inputSubTotal" name="inputSubTotal" min="0" value="0"
-                                  type="number" class="form-control">
-                          </div>
-                          <div class="input-group col-md-12">
-                              <span style="width: 60%;" class="input-group-text form-control">IVA $</span>
-                              <input style="width: 40%;" id="inputIVA" name="inputIVA" min="0" value="0" type="number"
-                                  class="form-control">
-                          </div>
-                          <div class="input-group col-md-12">
-                              <span style="width: 60%;" class="input-group-text form-control">Descuento $</span>
-                              <input style="width: 40%;" min="0" id="inputDescuento" name="inputDescuento" value="0"
-                                  type="number" class="form-control">
-                          </div>
-                          <div class="input-group col-md-12">
-                              <span style="width: 60%;" class="input-group-text form-control">A Pagar $</span>
-                              <input style="width: 40%;" min="0" id="inputTotal" name="inputTotal" value="0"
-                                  type="number" class="form-control">
-                          </div>
-                      </div>
-                      <div class="form-row card-body">
-                          <div class="custom-control custom-radio custom-control-inline ">
-                              <input type="radio" id="radioEfectivo" name="customRadio2" class="custom-control-input"
-                                  checked>
-                              <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline ">
-                              <input type="radio" id="radioCheque" name="customRadio2" class="custom-control-input">
-                              <label class="custom-control-label" for="radioCheque">Cheque</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline ">
-                              <input type="radio" id="radioTarjeta" name="customRadio2" class="custom-control-input">
-                              <label class="custom-control-label" for="radioTarjeta">Tarjeta</label>
+                      <br><br>
+                      <h5>Accesorios</h5>
+                      <div class="card">
+                          <div class="form-row card-body" id="formAccesorios">
+                              <!-- se muestran los accesorios del arriendo con precio -->
+                              <span class=" col-md-12 text-center" id="spanAccesorios">Sin Accesorios</span>
                           </div>
                       </div>
 
-                      <div class="form-row card-body">
-                          <div class="form-group col-md-12">
-                              <label for="inputDigitador">Digitado por</label>
-                              <input type="text" class="form-control" id="inputDigitador">
+                      <br><br>
+                      <h5>Totales</h5>
+                      <div class="card">
+                          <div class="form-row card-body">
+                              <div class="custom-control custom-radio custom-control-inline ">
+                                  <input type="radio" id="radioBoleta" name="customRadio1" class="custom-control-input"
+                                      checked>
+                                  <label class="custom-control-label" for="radioBoleta">Boleta</label>
+                              </div>
+                              <div class="custom-control custom-radio custom-control-inline ">
+                                  <input type="radio" id="radioFactura" name="customRadio1"
+                                      class="custom-control-input">
+                                  <label class="custom-control-label" for="radioFactura">Factura</label>
+                              </div>
                           </div>
-                          <div class="form-group col-md-12">
-                              <label for="inputObservaciones">Observacines</label>
-                              <textarea class="form-control" id="inputObservaciones" rows="3"></textarea>
+                          <div class="form-row card-body">
+                              <div class="input-group col-md-12">
+                                  <span style="width: 60%;" class="input-group-text form-control">Total Neto $</span>
+                                  <input style="width: 40%;" id="inputNeto" name="inputNeto" min="0" value="0"
+                                      type="number" class="form-control" required>
+                              </div>
+                              <div class="input-group col-md-12">
+                                  <span style="width: 60%;" class="input-group-text form-control">IVA $</span>
+                                  <input style="width: 40%;" id="inputIVA" name="inputIVA" min="0" value="0"
+                                      type="number" class="form-control">
+                              </div>
+                              <div class="input-group col-md-12">
+                                  <span style="width: 60%;" class="input-group-text form-control">Descuento $</span>
+                                  <input style="width: 40%;" min="0" id="inputDescuento" name="inputDescuento" value="0"
+                                      type="number" class="form-control">
+                              </div>
+                              <div class="input-group col-md-12">
+                                  <span style="width: 60%;" class="input-group-text form-control">A Pagar $</span>
+                                  <input style="width: 40%;" min="0" id="inputTotal" name="inputTotal" value="0"
+                                      type="number" class="form-control" required>
+                              </div>
+                          </div>
+                          <div class="form-row card-body">
+                              <div class="custom-control custom-radio custom-control-inline ">
+                                  <input type="radio" id="radioEfectivo" name="customRadio2"
+                                      class="custom-control-input" checked>
+                                  <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
+                              </div>
+                              <div class="custom-control custom-radio custom-control-inline ">
+                                  <input type="radio" id="radioCheque" name="customRadio2" class="custom-control-input">
+                                  <label class="custom-control-label" for="radioCheque">Cheque</label>
+                              </div>
+                              <div class="custom-control custom-radio custom-control-inline ">
+                                  <input type="radio" id="radioTarjeta" name="customRadio2"
+                                      class="custom-control-input">
+                                  <label class="custom-control-label" for="radioTarjeta">Tarjeta</label>
+                              </div>
                           </div>
 
+                          <div class="form-row card-body">
+                              <div class="form-group col-md-12">
+                                  <label for="inputDigitador">Digitado por</label>
+                                  <input type="text" class="form-control" id="inputDigitador" required>
+                              </div>
+                              <div class="form-group col-md-12">
+                                  <label for="inputObservaciones">Observacines</label>
+                                  <textarea class="form-control" id="inputObservaciones" rows="3"></textarea>
+                              </div>
 
+
+                          </div>
                       </div>
+
+
                   </div>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn btn-primary">Guardar Cambios</button>
-              </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      <button type="submit" id="btn_crear_contrato" class="btn btn-primary">Crear Contrato</button>
+                  </div>
+              </form>
           </div>
       </div>
   </div>
@@ -249,12 +260,11 @@ function confirmacionArriendo(id_arriendo) {
         success: (e) => {
             if (e.success) {
                 var arriendo = e.data[0];
-                $("#formAccesorios").empty();
-                $("#formAccesorios").append(
-                    "<span class=' col-md-12 text-center' id='spanAccesorios'>Sin Accesorios</span>");
 
+                limpiarCampos();
                 $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
                 $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
+                $("#inputDigitador").val(arriendo.usuario.nombre_usuario);
 
                 switch (arriendo.tipo_arriendo) {
                     case "PARTICULAR":
@@ -274,31 +284,106 @@ function confirmacionArriendo(id_arriendo) {
                         break;
                 }
 
-                $.each(arriendo.accesorios, (i, o) => {
 
-                    var fila = " <div class='input-group col-md-12'>";
-                    fila +=
-                        " <span style='width: 60%;' class='input-group-text form-control'>" + o
-                        .nombre_accesorio + " $</span>";
-                    fila +=
-                        "<input style='width: 40%;' min='0'  value='" +
-                        0 +
-                        "'  type='number' class='form-control'>";
-                    fila += "  </div>";
-                    $("#formAccesorios").append(fila);
-                })
-                //pendiente
+                if (arriendo.accesorios.length) {
+                    $.each(arriendo.accesorios, (i, o) => {
 
+                        var precio = 0;
+                        if (o.precio_accesorio != null) {
+                            precio = o.precio_accesorio
+                        }
 
+                        var fila = " <div class='input-group col-md-12'>";
+                        fila +=
+                            " <span style='width: 60%;' class='input-group-text form-control'>" + o
+                            .nombre_accesorio + " $</span>";
+                        fila +=
+                            "<input style='width: 40%;' min='0' name='accesorios[]'  value='" +
+                            precio +
+                            "'  type='number' class='form-control'>";
+                        fila += "  </div>";
+                        $("#formAccesorios").append(fila);
+                    })
+
+                } else {
+                    var sinAccesorios =
+                        " <span class=' col-md-12 text-center' id='spanAccesorios'>Sin Accesorios</span>";
+                    $("#formAccesorios").append(sinAccesorios);
+                }
+
+                //ocultar y mostrar 
                 $("#formSpinner").hide();
                 $("#formConfirmacion").show();
             } else {
+                $("#formSpinner").hide();
+                Swal.fire({
+                    icon: "error",
+                    title: "no se logro cargar el arriend",
+                    text: "A ocurrido un Error Contacte a informatica",
+                });
                 console.log("error al cargar arriendo");
             }
         },
         error: () => {
+            limpiarCampos();
+            Swal.fire({
+                icon: "error",
+                title: "no se logro cargar el arriendo",
+                text: "A ocurrido un Error Contacte a informatica",
+            });
             console.log("error al cargar arriendo");
         }
     })
 }
+
+
+
+function limpiarCampos() {
+    $("#formAccesorios").empty();
+    $("#textCliente").val("");
+    $("#textVehiculo").val("");
+
+    $("#inputNumeroTargeta").val(0);
+    $("#inputFechaTargeta").val("");
+    $("#inputCheque").val("");
+    $("#inputAbono").val(0);
+    $("#inputValorArriendo").val(0);
+    $("#inputNeto").val(0);
+    $("#inputIVA").val(0);
+    $("#inputDescuento").val(0);
+    $("#inputTotal").val(0);
+    $("#inputDigitador").val("");
+    $("#inputObservaciones").val("");
+
+}
+
+//oninput="calcularNeto(this.value)"
+/* function calcularTotal(valor) {
+    var valorArriendo = valor;
+    var sumaAccesorios = 0;
+    var TotalNeto = 0;
+    //revisa todos los check y guardas sus valores en un array si estan okey
+    var ArrayAccesorios = $('[name="accesorios[]"]')
+        .map(function() {
+            return this.value;
+        })
+        .get();
+
+    for (let i = 0; i < ArrayAccesorios.length; i++) {
+        const element = ArrayAccesorios[i];
+        sumaAccesorios += element;
+    }
+    TotalNeto = sumaAccesorios + valorArriendo;
+    $("#inputNeto").val(TotalNeto);
+
+}
+
+function calcularNeto(valor) {
+    var neto = valor;
+    var iva = neto * 0.19;
+    var total = neto + iva;
+
+    $("#inputIVA").val(iva);
+    $("#inputTotal").val(total);
+} */
   </script>

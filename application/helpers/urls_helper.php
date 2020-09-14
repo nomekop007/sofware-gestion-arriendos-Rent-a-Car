@@ -7,6 +7,5 @@ function api_url()
 
 function base_route()
 {
-	return "http://localhost/rentacar/";
-	
+    return "http://localhost/proyectos/Rentacar/";
 }

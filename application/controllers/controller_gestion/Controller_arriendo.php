@@ -135,7 +135,7 @@ class Controller_arriendo extends CI_Controller
             "ArrayChecks" =>  json_decode($_POST['array']),
             "id_arriendo" => $this->input->post("idArriendo")
         ];
-        echo post_function($ArrayData, "arriendos/registrarArriendoAccesorio", $tokenUser);
+        echo post_function($ArrayData, "accesorios/registrarArriendoAccesorio", $tokenUser);
     }
 
 
