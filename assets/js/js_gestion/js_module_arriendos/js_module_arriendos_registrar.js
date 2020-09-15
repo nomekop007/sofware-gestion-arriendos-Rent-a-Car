@@ -292,8 +292,8 @@ $(document).ready(() => {
             timeOut: false,
             success: (response) => {
                 if (response) {
-                    guardarDatosAccesorios(response.data[0].id_arriendo);
-                    cargarArriendoEnTabla(response.data[0]);
+                    guardarDatosAccesorios(response.data.id_arriendo);
+                    cargarArriendoEnTabla(response.data);
                 } else {
                     Swal.fire({
                         icon: "error",

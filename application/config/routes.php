@@ -52,31 +52,31 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'welcome';
 
 /* ruta de login de usuario  */
-$route['iniciarSesion'] = '/Welcome/iniciarSesion';
-$route['cerrarSesion'] = '/Welcome/cerrarSesion';
-$route['irPlataforma'] = '/Welcome/irPlataforma';
+$route['iniciarSesion'] = 'Welcome/iniciarSesion';
+$route['cerrarSesion'] = 'Welcome/cerrarSesion';
+$route['irPlataforma'] = 'Welcome/irPlataforma';
 
 
 /* ruta de carga de los paneles principales  */
-$route['cargarPanel'] = '/Welcome/cargarPanel';
+$route['cargarPanel'] = 'Welcome/cargarPanel';
 
 /* rutas de carga de los modulos */
-$route['modulos_gestion'] = '/Session_gestion/cargarModulos';
+$route['modulos_gestion'] = 'Session_gestion/cargarModulos';
 
 /* rutas de modulo vehiculo */
-$route['cargar_Sucursales'] = '/controller_gestion/Controller_vehiculo/cargarSucursales';
-$route['cargar_Vehiculos'] = '/controller_gestion/Controller_vehiculo/cargarVehiculos';
-$route['registrar_vehiculo'] = '/controller_gestion/Controller_vehiculo/registrarVehiculo';
+$route['cargar_Sucursales'] = 'controller_gestion/Controller_vehiculo/cargarSucursales';
+$route['cargar_Vehiculos'] = 'controller_gestion/Controller_vehiculo/cargarVehiculos';
+$route['registrar_vehiculo'] = 'controller_gestion/Controller_vehiculo/registrarVehiculo';
 
 /* rutas de modulo cliente */
-$route['cargar_clientes'] = '/controller_gestion/Controller_cliente/cargarClientes';
-$route['cargar_conductores'] = '/controller_gestion/Controller_cliente/cargarConductores';
-$route['cargar_empresas'] = '/controller_gestion/Controller_cliente/cargarEmpresas';
+$route['cargar_clientes'] = 'controller_gestion/Controller_cliente/cargarClientes';
+$route['cargar_conductores'] = 'controller_gestion/Controller_cliente/cargarConductores';
+$route['cargar_empresas'] = 'controller_gestion/Controller_cliente/cargarEmpresas';
 
 /* rutas de modulo usuario */
-$route['cargar_usuarios'] = '/controller_gestion/Controller_usuario/cargarUsuarios';
-$route['cargar_roles'] = '/controller_gestion/Controller_usuario/cargarRoles';
-$route['registrar_usuario'] = '/controller_gestion/Controller_usuario/registrarUsuario';
+$route['cargar_usuarios'] = 'controller_gestion/Controller_usuario/cargarUsuarios';
+$route['cargar_roles'] = 'controller_gestion/Controller_usuario/cargarRoles';
+$route['registrar_usuario'] = 'controller_gestion/Controller_usuario/registrarUsuario';
 
 
 
@@ -84,17 +84,18 @@ $route['registrar_usuario'] = '/controller_gestion/Controller_usuario/registrarU
 
 /* rutas de modulo arriendo  */
 /* tab registrar arriendo */
-$route['cargar_VehiculosPorSucursal'] = '/controller_gestion/Controller_arriendo/cargarVehiculosPorSucursal';
-$route['registrar_arriendo'] = '/controller_gestion/Controller_arriendo/registrarArriendo';
-$route['registrar_arriendoAccesorios'] = '/controller_gestion/Controller_arriendo/registrarArriendoAccesorios';
-$route['cargar_accesorios'] = '/controller_gestion/Controller_arriendo/cargarAccesorios';
-$route['buscar_empresa'] = '/controller_gestion/Controller_arriendo/buscarEmpresa';
-$route['buscar_conductor'] = '/controller_gestion/Controller_arriendo/buscarConductor';
-$route['buscar_cliente'] = '/controller_gestion/Controller_arriendo/buscarCliente';
+$route['cargar_VehiculosPorSucursal'] = 'controller_gestion/Controller_arriendo/cargarVehiculosPorSucursal';
+$route['registrar_arriendo'] = 'controller_gestion/Controller_arriendo/registrarArriendo';
+$route['registrar_arriendoAccesorios'] = 'controller_gestion/Controller_arriendo/registrarArriendoAccesorios';
+$route['cargar_accesorios'] = 'controller_gestion/Controller_arriendo/cargarAccesorios';
+$route['buscar_empresa'] = 'controller_gestion/Controller_arriendo/buscarEmpresa';
+$route['buscar_conductor'] = 'controller_gestion/Controller_arriendo/buscarConductor';
+$route['buscar_cliente'] = 'controller_gestion/Controller_arriendo/buscarCliente';
 /* tab total arriendos */
-$route['cargar_TotalArriendos'] = '/controller_gestion/Controller_arriendo/cargarTotalArriendos';
-$route['buscar_arriendo'] = '/controller_gestion/Controller_arriendo/buscarArriendo';
-$route['crear_contrato'] = '/controller_gestion/Controller_arriendo/crearContrato';
+$route['cargar_TotalArriendos'] = 'controller_gestion/Controller_arriendo/cargarTotalArriendos';
+$route['buscar_arriendo'] = 'controller_gestion/Controller_arriendo/buscarArriendo';
+$route['crear_contrato'] = 'controller_gestion/Controller_arriendo/crearContrato';
+$route['generar_pdfContratoArriendo'] = 'Controller_pdf/generarPDFContratoArriendo';
 
 
 

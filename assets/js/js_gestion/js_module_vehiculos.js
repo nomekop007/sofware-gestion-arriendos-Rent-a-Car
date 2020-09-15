@@ -82,7 +82,7 @@ $(document).ready(() => {
                 },
                 success: (response) => {
                     if (response.success) {
-                        cargarVehiculoEnTabla(response.data[0]);
+                        cargarVehiculoEnTabla(response.data);
 
                         Swal.fire("Exito", response.msg, "success");
                         $("#btn_registrar_vehiculo").attr("disabled", false);

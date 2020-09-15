@@ -28,7 +28,11 @@ class Session_gestion extends CI_Controller
                     $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_footer');
                     break;
                 case 4:
-                    $this->load->view('content/view_module/views_gestion/view_module_usuarios');
+                    if ($this->session->userdata("rol") == 1) {
+                        $this->load->view('content/view_module/views_gestion/view_module_usuarios');
+                    } else {
+                        redirect(base_route());
+                    }
                     break;
                 default:
                     redirect(base_route());

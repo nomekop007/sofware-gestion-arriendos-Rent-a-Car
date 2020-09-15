@@ -1,3 +1,8 @@
+<?php
+$rol = $this->session->userdata("rol");
+?>
+
+
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
@@ -10,6 +15,7 @@
                 </a>
                 <br>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=2">
                     <i class="fas fa-address-book fa-2x"></i>
@@ -25,7 +31,7 @@
                 <br>
             </li>
 
-
+            <?php if ($rol == 1) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=4">
                     <i class="fas fa-users-cog fa-2x"></i>
@@ -33,6 +39,7 @@
                 </a>
                 <br>
             </li>
+            <?php } ?>
         </ul>
     </div>
 </nav>

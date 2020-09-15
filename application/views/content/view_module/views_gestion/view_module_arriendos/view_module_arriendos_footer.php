@@ -75,7 +75,7 @@ function cargarArriendoEnTabla(arriendo) {
     tablaTotalArriendos.row
         .add([
             arriendo.id_arriendo,
-            arriendo.createdAt,
+            formatearFecha(arriendo.createdAt),
             arriendo.tipo_arriendo,
             arriendo.estado_arriendo,
             arriendo.usuario.nombre_usuario,

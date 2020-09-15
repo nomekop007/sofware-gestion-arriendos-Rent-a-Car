@@ -263,7 +263,7 @@ function confirmacionArriendo(id_arriendo) {
         },
         success: (e) => {
             if (e.success) {
-                var arriendo = e.data[0];
+                var arriendo = e.data;
 
                 limpiarCampos();
                 $("#inputIDArriendo").val(arriendo.id_arriendo);

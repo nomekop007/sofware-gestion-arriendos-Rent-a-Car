@@ -66,13 +66,13 @@ $(document).ready(() => {
 
 
 
-    function generarPDFContrato(arriendo) {
+    function generarPDFContrato(id_arriendo) {
         var numerTargeta = $("#inputNumeroTargeta").val();
         var fechaTargeta = $("#inputFechaTargeta").val();
         var cheque = $("#inputCheque").val();
         var subTotal = $("#inputValorArriendo").val();
-        console.log(numerTargeta + " " + fechaTargeta + " " + cheque + " " + subTotal);
-        console.log(arriendo);
+        var url = base_route + 'generar_pdfContratoArriendo?id_arriendo=' + id_arriendo + "&num=" + numerTargeta + "&fecha=" + fechaTargeta + "&cheque=" + cheque + "&subtotal=" + subTotal;
+        window.open(url, '_blank');
     }
 
 });
