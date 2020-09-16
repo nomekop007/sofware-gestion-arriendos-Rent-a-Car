@@ -24,7 +24,7 @@
 </style>
 <!-- se envia la url del base_route al js -->
 <input id="ruta" value="<?php echo base_route(); ?>" hidden />
-
+<link rel="shortcut icon" href="<?php echo base_route() ?>assets/images/logo2.png">
 <link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/sweetalert2.min.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/animate.min.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/signin.css">

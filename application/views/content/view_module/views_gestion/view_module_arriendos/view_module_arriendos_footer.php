@@ -68,6 +68,8 @@ $("#spinner_conductor").hide();
 $("#spinner_cliente").hide();
 $("#spinner_empresa").hide();
 $("#spinner_btn_registrar").hide();
+$("#spinner_btn_crearContrato").hide();
+
 
 //carga tablaTotalArriendos
 function cargarArriendoEnTabla(arriendo) {

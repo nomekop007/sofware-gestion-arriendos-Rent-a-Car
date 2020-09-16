@@ -28,6 +28,10 @@ $(document).ready(() => {
         var total = Number($("#inputTotal").val());
 
         if (total >= 0 && digitador.length != 0 && abono.length != 0 && descuento.length != 0 && valor.length != 0) {
+            $("#btn_crear_contrato").attr("disabled", true);
+            $("#spinner_btn_crearContrato").show();
+
+
             $.ajax({
                 url: base_route + "crear_contrato",
                 type: "post",
@@ -46,6 +50,8 @@ $(document).ready(() => {
                             icon: "error",
                             title: "ah ocurrido un error al guardar",
                         });
+                        $("#btn_crear_contrato").attr("disabled", false);
+                        $("#spinner_btn_crearContrato").hide();
                     }
                 },
                 error: () => {
@@ -54,6 +60,8 @@ $(document).ready(() => {
                         title: "no se guardo el contrato",
                         text: "A ocurrido un Error Contacte a informatica",
                     });
+                    $("#btn_crear_contrato").attr("disabled", false);
+                    $("#spinner_btn_crearContrato").hide();
                 }
             });
         } else {
@@ -61,6 +69,8 @@ $(document).ready(() => {
                 icon: "warning",
                 title: "campos vacios y/o valores invalidos",
             });
+            $("#btn_crear_contrato").attr("disabled", false);
+            $("#spinner_btn_crearContrato").hide();
         }
     });
 
@@ -71,8 +81,46 @@ $(document).ready(() => {
         var fechaTargeta = $("#inputFechaTargeta").val();
         var cheque = $("#inputCheque").val();
         var subTotal = $("#inputValorArriendo").val();
-        var url = base_route + 'generar_pdfContratoArriendo?id_arriendo=' + id_arriendo + "&num=" + numerTargeta + "&fecha=" + fechaTargeta + "&cheque=" + cheque + "&subtotal=" + subTotal;
-        window.open(url, '_blank');
+
+
+        $.ajax({
+            url: base_route + "generar_pdfContratoArriendo",
+            type: "post",
+            dataType: "json",
+            data: {
+                id_arriendo,
+                numerTargeta,
+                fechaTargeta,
+                cheque,
+                subTotal
+            },
+            success: (response) => {
+                $("#btn_crear_contrato").attr("disabled", false);
+                $("#spinner_btn_crearContrato").hide();
+                if (response.success) {
+                    //quitar el localhost
+                    window.open(response.data, '_blank');
+
+                } else {
+                    Swal.fire({
+                        icon: "warning",
+                        title: response.msg,
+                    });
+                }
+
+            },
+            error: () => {
+                Swal.fire({
+                    icon: "error",
+                    title: "no se guardo el contrato",
+                    text: "A ocurrido un Error Contacte a informatica",
+                });
+                $("#btn_crear_contrato").attr("disabled", false);
+                $("#spinner_btn_crearContrato").hide();
+            }
+        });
+        /*   var url = base_route + 'generar_pdfContratoArriendo?id_arriendo=' + id_arriendo + "&num=" + numerTargeta + "&fecha=" + fechaTargeta + "&cheque=" + cheque + "&subtotal=" + subTotal;
+          window.open(url, '_blank'); */
     }
 
 });

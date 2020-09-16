@@ -192,7 +192,10 @@
                   </div>
                   <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                      <button type="submit" id="btn_crear_contrato" class="btn btn-primary">Crear Contrato</button>
+                      <button type="submit" id="btn_crear_contrato" class="btn btn-primary">
+                          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                              id="spinner_btn_crearContrato"></span>
+                          Crear Contrato</button>
                   </div>
               </form>
           </div>
@@ -359,6 +362,8 @@ function limpiarCampos() {
     $("#inputTotal").val(0);
     $("#inputDigitador").val("");
     $("#inputObservaciones").val("");
+    $("#btn_crear_contrato").attr("disabled", false);
+    $("#spinner_btn_crearContrato").hide();
 }
 
 
