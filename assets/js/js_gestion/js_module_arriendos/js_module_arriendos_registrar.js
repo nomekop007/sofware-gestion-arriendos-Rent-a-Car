@@ -7,6 +7,7 @@ $(document).ready(() => {
     //select2 de los vehiculos
     $("#select_vehiculos").select2(lenguajeSelect2);
 
+
     //cargar accesorios
     (() => {
         const url = base_route + "cargar_accesorios";
@@ -56,6 +57,7 @@ $(document).ready(() => {
                             null
                         );
                         $("#inputTelefonoCliente").val(c.telefono_cliente);
+                        $("#inputEstadoCivil").val(c.estadoCivil_cliente)
                         $("#inputCorreoCliente").val(c.correo_cliente);
                     } else {
                         $("#inputNombreCliente").val("");

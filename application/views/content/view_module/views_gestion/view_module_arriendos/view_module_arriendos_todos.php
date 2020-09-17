@@ -50,7 +50,7 @@
               </div>
               <form class="needs-validation" id="formContrato" novalidate>
                   <input type="text" name="inputIDArriendo" id="inputIDArriendo" hidden />
-                  <div class="modal-body" id="formConfirmacion">
+                  <div class="modal-body">
 
                       <div class="card">
                           <div class="form-row card-body text-center">
@@ -191,7 +191,7 @@
 
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                       <button type="submit" id="btn_crear_contrato" class="btn btn-primary">
                           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                               id="spinner_btn_crearContrato"></span>
@@ -254,9 +254,10 @@
 
 
   <script>
-$("#formConfirmacion").hide();
+$("#formContrato").hide();
 
-function confirmacionArriendo(id_arriendo) {
+function cargarPagoArriendo(id_arriendo) {
+    limpiarCampos();
     $.getJSON({
         url: base_route + "buscar_arriendo",
         type: "post",
@@ -267,8 +268,6 @@ function confirmacionArriendo(id_arriendo) {
         success: (e) => {
             if (e.success) {
                 var arriendo = e.data;
-
-                limpiarCampos();
                 $("#inputIDArriendo").val(arriendo.id_arriendo);
                 $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
                 $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
@@ -321,25 +320,25 @@ function confirmacionArriendo(id_arriendo) {
 
                 //ocultar y mostrar 
                 $("#formSpinner").hide();
-                $("#formConfirmacion").show();
+                $("#formContrato").show();
             } else {
-                $("#formSpinner").hide();
                 Swal.fire({
                     icon: "error",
                     title: "no se logro cargar el arriend",
                     text: "A ocurrido un Error Contacte a informatica",
                 });
-                console.log("error al cargar arriendo");
+                $("#formSpinner").show();
+                $("#formContrato").hide();
             }
         },
         error: () => {
-            limpiarCampos();
             Swal.fire({
                 icon: "error",
                 title: "no se logro cargar el arriendo",
                 text: "A ocurrido un Error Contacte a informatica",
             });
-            console.log("error al cargar arriendo");
+            $("#formSpinner").show();
+            $("#formContrato").hide();
         }
     })
 }
@@ -364,6 +363,7 @@ function limpiarCampos() {
     $("#inputObservaciones").val("");
     $("#btn_crear_contrato").attr("disabled", false);
     $("#spinner_btn_crearContrato").hide();
+
 }
 
 

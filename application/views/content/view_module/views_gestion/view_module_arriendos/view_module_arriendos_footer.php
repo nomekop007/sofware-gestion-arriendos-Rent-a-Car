@@ -71,6 +71,11 @@ $("#spinner_btn_registrar").hide();
 $("#spinner_btn_crearContrato").hide();
 
 
+
+$(document).ready(() => {
+    $("#tablaTotalArriendos").DataTable(lenguaje);
+});
+
 //carga tablaTotalArriendos
 function cargarArriendoEnTabla(arriendo) {
     var tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
@@ -81,7 +86,7 @@ function cargarArriendoEnTabla(arriendo) {
             arriendo.tipo_arriendo,
             arriendo.estado_arriendo,
             arriendo.usuario.nombre_usuario,
-            " <button  onclick='confirmacionArriendo(" +
+            " <button  onclick='cargarPagoArriendo(" +
             arriendo.id_arriendo +
             ")' data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-check-circle'></i></button>  " +
             " <button data-toggle='modal' data-target='#modal_bajar_docs' class='btn btn-outline-dark'><i class='far fa-file-alt'></i></button>  " +

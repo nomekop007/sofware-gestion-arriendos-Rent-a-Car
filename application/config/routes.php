@@ -77,6 +77,8 @@ $route['cargar_empresas'] = 'controller_gestion/Controller_cliente/cargarEmpresa
 $route['cargar_usuarios'] = 'controller_gestion/Controller_usuario/cargarUsuarios';
 $route['cargar_roles'] = 'controller_gestion/Controller_usuario/cargarRoles';
 $route['registrar_usuario'] = 'controller_gestion/Controller_usuario/registrarUsuario';
+$route['buscar_usuario'] = 'controller_gestion/Controller_usuario/buscarUsuario';
+$route['editar_usuario'] = 'controller_gestion/Controller_usuario/editarUsuario';
 
 
 
@@ -94,7 +96,7 @@ $route['buscar_cliente'] = 'controller_gestion/Controller_arriendo/buscarCliente
 /* tab total arriendos */
 $route['cargar_TotalArriendos'] = 'controller_gestion/Controller_arriendo/cargarTotalArriendos';
 $route['buscar_arriendo'] = 'controller_gestion/Controller_arriendo/buscarArriendo';
-$route['crear_contrato'] = 'controller_gestion/Controller_arriendo/crearContrato';
+$route['registrar_pagoArriendo'] = 'controller_gestion/Controller_arriendo/registrarPagoArriendo';
 $route['generar_pdfContratoArriendo'] = 'Controller_pdf/generarPDFContratoArriendo';
 
 

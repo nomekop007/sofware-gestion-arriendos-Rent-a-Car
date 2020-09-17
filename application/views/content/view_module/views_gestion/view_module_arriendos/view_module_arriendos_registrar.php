@@ -117,12 +117,22 @@
                          <input oninput="mayus(this);" maxLength="30" type="date" class="form-control"
                              id="inputFechaNacimiento" name="inputFechaNacimiento">
                      </div>
-                     <div class="form-group col-md-3">
+                     <div class="form-group col-md-2">
+                         <label for="inputEstadoCivil">Estado Civil</label>
+                         <select name="inputEstadoCivil" id="inputEstadoCivil" class="form-control">
+                             <option value="SOLTERO/A" selected>Soltero/a</option>
+                             <option value="CASADO/A">Casado/a</option>
+                             <option value="VIUDO/A">Viudo/a</option>
+                             <option value="DIVORCIADO/A">Divorciado/a</option>
+                             <option value="SEPARADO/A">Separado/a</option>
+                         </select>
+                     </div>
+                     <div class="form-group col-md-2">
                          <label for="inputTelefonoCliente">Telefono </label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputTelefonoCliente" name="inputTelefonoCliente">
                      </div>
-                     <div class="form-group col-md-4">
+                     <div class="form-group col-md-3">
                          <label for="inputCorreoCliente">Correo </label>
                          <input oninput="mayus(this);" maxLength="30" type="email" class="form-control"
                              id="inputCorreoCliente" name="inputCorreoCliente" required>

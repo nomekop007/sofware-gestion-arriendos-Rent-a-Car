@@ -73,12 +73,14 @@ class Controller_arriendo extends CI_Controller
 
 
             //inputs cliente
+
             "rut_cliente" => $this->input->post("inputRutCliente"),
             "nombre_cliente" => $this->input->post("inputNombreCliente"),
             "direccion_cliente" => $this->input->post("inputDireccionCliente"),
             "ciudad_cliente" => $this->input->post("inputCiudadCliente"),
             "fechaNacimiento_cliente" => $this->input->post("inputFechaNacimiento"),
             "telefono_cliente" => $this->input->post("inputTelefonoCliente"),
+            "estado_civil" => $this->input->post("inputEstadoCivil"),
             "correo_cliente" => $this->input->post("inputCorreoCliente"),
 
             // inputs empresa
@@ -108,30 +110,10 @@ class Controller_arriendo extends CI_Controller
         ];
 
         echo post_function($arrayForm, "arriendos/registrarArriendo", $tokenUser);
-
-        //registrar documentos PENDIENTE
-        /* 
-        $config['upload_path'] = "uploads/";
-        $config['allowed_types'] = "*";
-        $config['max_size'] = "5000";
-        $config['overwrite'] = true;
-
-        $this->load->library('upload', $config);
-        
-        $ArrayData = ["inputDocCarnet", "inputDocConducir", "inputDocDomicilio", "inputDocCarnetEmpresa"];
-        foreach ($ArrayData as $value) {
-            if (!$this->upload->do_upload($value)) {
-                //*** ocurrio un error
-                $data['uploadError'] = $this->upload->display_errors();
-            }
-            //$data = array('upload_data' => $this->upload->data());
-        }
-         */
     }
 
-    public function crearContrato()
+    public function registrarPagoArriendo()
     {
-        //inputIDArriendo
         $tokenUser = $this->session->userdata('usertoken');
         $ArrayData = [
             "id_arriendo" => $this->input->post("inputIDArriendo"),

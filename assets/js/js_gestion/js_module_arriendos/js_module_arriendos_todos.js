@@ -33,7 +33,7 @@ $(document).ready(() => {
 
 
             $.ajax({
-                url: base_route + "crear_contrato",
+                url: base_route + "registrar_pagoArriendo",
                 type: "post",
                 dataType: "json",
                 data: data,
@@ -119,8 +119,6 @@ $(document).ready(() => {
                 $("#spinner_btn_crearContrato").hide();
             }
         });
-        /*   var url = base_route + 'generar_pdfContratoArriendo?id_arriendo=' + id_arriendo + "&num=" + numerTargeta + "&fecha=" + fechaTargeta + "&cheque=" + cheque + "&subtotal=" + subTotal;
-          window.open(url, '_blank'); */
     }
 
 });

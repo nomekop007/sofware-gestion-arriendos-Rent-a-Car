@@ -10,17 +10,7 @@ $(document).ready(() => {
         $.getJSON(url, (result) => {
             if (result.success) {
                 $.each(result.data, (i, vehiculo) => {
-                    tablaVehiculos.row
-                        .add([
-                            vehiculo.patente_vehiculo,
-                            vehiculo.modelo_vehiculo,
-                            vehiculo.año_vehiculo,
-                            vehiculo.tipo_vehiculo,
-                            vehiculo.sucursale.nombre_sucursal,
-                            " <button data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></button> " +
-                            " <button data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-primary' id='btn_editar_vehiculo'><i class='far fa-edit'></i></button> ",
-                        ])
-                        .draw(false);
+                    cargarVehiculoEnTabla(vehiculo);
                 });
             } else {
                 console.log("ah ocurrido un error al cargar vehiculos");
@@ -129,8 +119,8 @@ $(document).ready(() => {
                 vehiculo.año_vehiculo,
                 vehiculo.tipo_vehiculo,
                 vehiculo.sucursale.nombre_sucursal,
-                "<button data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></button>" +
-                "<button data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-primary' id='btn_editar_vehiculo'><i class='far fa-edit'></i></button>",
+                " <button data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info' id='btn_ver_vehiculo'><i class='far fa-eye color'></i></button> " +
+                " <button data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-primary' id='btn_editar_vehiculo'><i class='far fa-edit'></i></button> ",
             ])
             .draw(false);
     }

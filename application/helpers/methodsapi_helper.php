@@ -35,10 +35,19 @@ function post_function($data, $url, $tokenUser)
     return  $response->getBody();
 }
 
-function put_function($id, $url, $tokenUser)
+function put_function($id, $data, $url, $tokenUser)
 {
-    //pendiente
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('PUT', api_url() . $url . "/" . $id, [
+        'json' => $data,
+        'headers' => [
+            'usertoken' => $tokenUser
+        ]
+    ]);
+    return  $response->getBody();
 }
+
+
 
 function delete_function($id, $url, $tokenUser)
 {
