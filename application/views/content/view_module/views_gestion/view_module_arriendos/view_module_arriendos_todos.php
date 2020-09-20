@@ -68,7 +68,7 @@
                                   <label for="inputNumeroTargeta">Tarjeta de credito</label>
                                   <div class="input-group">
                                       <input style="width: 80%;" type="number" class="form-control"
-                                          id="inputNumeroTargeta" name="inputNumeroTargeta">
+                                          id="inputNumeroTargeta" min="0" name="inputNumeroTargeta">
                                       <input style="width: 20%;" name="inputFechaTargeta" id="inputFechaTargeta"
                                           type="text" aria-label="Last name" class="form-control" maxLength="5"
                                           placeholder="ej: 10/23">
@@ -104,7 +104,7 @@
                                   <span style="width: 60%;" class="input-group-text form-control">Sub total Arriendo
                                       $</span>
                                   <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo" min="0"
-                                      value="0" type="number" class="form-control" oninput="calcularValores()" required>
+                                      type="number" class="form-control" oninput="calcularValores()" required>
                               </div>
                           </div>
                       </div>

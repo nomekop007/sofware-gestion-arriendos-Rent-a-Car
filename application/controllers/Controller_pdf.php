@@ -13,10 +13,10 @@ class Controller_pdf extends CI_Controller
         $tokenUser = $this->session->userdata('usertoken');
         $dataArray = array(
             "id_arriendo" => $this->input->post("id_arriendo"),
-            "numero_targeta" => $this->input->post("num"),
-            "fecha_targeta" => $this->input->post("fecha"),
+            "numero_targeta" => $this->input->post("numerTargeta"),
+            "fecha_targeta" => $this->input->post("fechaTargeta"),
             "cheque" => $this->input->post("cheque"),
-            "subtotal" => $this->input->post("subtotal"),
+            "subtotal" => $this->input->post("subTotal"),
         );
         echo post_function($dataArray, "pdf/crearContratoArriendoPDF", $tokenUser);
     }
