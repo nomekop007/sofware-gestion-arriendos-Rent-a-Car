@@ -3,6 +3,7 @@ $(document).ready(() => {
 
     //cargar sucursales  (ruta,select)
     cargarSelect("cargar_Sucursales", "inputSucursal");
+    cargarOlder("inputedad");
 
     //carga vehiculos en datatable
     (() => {

@@ -12,11 +12,14 @@ $(document).ready(() => {
                 $.each(result.data, (i, o) => {
                     tablaCliente.row
                         .add([
-                            o.rut_cliente,
                             o.nombre_cliente,
+                            o.rut_cliente,
                             o.telefono_cliente,
                             o.correo_cliente,
-                            "<button data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
+                            " <button value='" +
+                            o.rut_cliente + "' " +
+                            " onclick='cargarCliente(this.value)'" +
+                            " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
                         ])
                         .draw(false);
                 });
@@ -34,11 +37,14 @@ $(document).ready(() => {
                 $.each(result.data, (i, o) => {
                     tablaEmpresa.row
                         .add([
-                            o.rut_empresa,
                             o.nombre_empresa,
+                            o.rut_empresa,
                             o.rol_empresa,
                             o.correo_empresa,
-                            "<button data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
+                            " <button value='" +
+                            o.rut_empresa + "' " +
+                            " onclick='cargarEmpresa(this.value)'" +
+                            " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
                         ])
                         .draw(false);
                 });
@@ -56,14 +62,18 @@ $(document).ready(() => {
                 $.each(result.data, (i, o) => {
                     tablaConductor.row
                         .add([
-                            o.rut_conductor,
                             o.nombre_conductor,
+                            o.rut_conductor,
                             o.clase_conductor,
                             o.telefono_conductor,
-                            "<button data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
+                            " <button value='" +
+                            o.rut_conductor + "' " +
+                            " onclick='cargarConductor(this.value)'" +
+                            " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
                         ])
                         .draw(false);
                 });
+
             } else {
                 console.log("ah ocurrido un error al cargar conductor");
             }

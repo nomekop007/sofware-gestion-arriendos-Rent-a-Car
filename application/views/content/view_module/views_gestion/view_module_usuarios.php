@@ -184,13 +184,8 @@
 
 
 
-
-
 <script>
-//snniper de btn registrar
 $("#spinner_btn_registrar").hide();
-$("#spinner_btn_editarUsuario").hide();
-$("#formEditarUsuario").hide();
 
 function cargarUsuario(id_usuario) {
     limpiarCampos();
@@ -219,8 +214,6 @@ function cargarUsuario(id_usuario) {
                     $("#btn_cambiarEstado_usuario").addClass("btn btn-success");
 
                 }
-
-
                 //ocultar y mostrar 
                 $("#formSpinner").hide();
                 $("#formEditarUsuario").show();
@@ -263,6 +256,8 @@ function mostrarPassword(idInput) {
 }
 
 function limpiarCampos() {
+    $("#spinner_btn_editarUsuario").hide();
+    $("#formEditarUsuario").hide();
     $("#inputUsuario").val("");
     $("#inputEditNombreUsuario").val("");
     $("#inputEditCorreoUsuario").val("");

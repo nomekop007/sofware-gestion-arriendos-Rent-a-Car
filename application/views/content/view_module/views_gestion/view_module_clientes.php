@@ -28,8 +28,8 @@
                 <table id="tablaClientes" class="table table-striped table-bordered" style="width:100%">
                     <thead class="btn-dark">
                         <tr>
-                            <th>Rut</th>
                             <th>Nombre</th>
+                            <th>Rut</th>
                             <th>telefono</th>
                             <th>Correo</th>
                             <th></th>
@@ -40,8 +40,8 @@
                     </tbody>
                     <tfoot class="btn-dark">
                         <tr>
-                            <th>Rut</th>
                             <th>Nombre</th>
+                            <th>Rut</th>
                             <th>telefono</th>
                             <th>Correo</th>
                             <th></th>
@@ -53,8 +53,8 @@
                 <table id="tablaEmpresas" class="table table-striped table-bordered" style="width:100%">
                     <thead class="btn-dark">
                         <tr>
-                            <th>Rut</th>
                             <th>Nombre</th>
+                            <th>Rut</th>
                             <th>Rol</th>
                             <th>Correo</th>
                             <th></th>
@@ -65,8 +65,8 @@
                     </tbody>
                     <tfoot class="btn-dark">
                         <tr>
-                            <th>Rut</th>
                             <th>Nombre</th>
+                            <th>Rut</th>
                             <th>Rol</th>
                             <th>Correo</th>
                             <th></th>
@@ -78,8 +78,8 @@
                 <table id="tablaConductores" class="table table-striped table-bordered" style="width:100%">
                     <thead class="btn-dark">
                         <tr>
-                            <th>Rut</th>
                             <th>Nombre</th>
+                            <th>Rut</th>
                             <th>Clase</th>
                             <th>telefono</th>
                             <th></th>
@@ -90,8 +90,8 @@
                     </tbody>
                     <tfoot class="btn-dark">
                         <tr>
-                            <th>Rut</th>
                             <th>Nombre</th>
+                            <th>Rut</th>
                             <th>Clase</th>
                             <th>telefono</th>
                             <th></th>
@@ -106,23 +106,319 @@
 </div>
 
 
-<!-- Modal ver  (PENDIENTE)-->
+<!-- Modal particulares-->
 <div class="modal fade" id="modal_ver" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Mostrar Cliente</h5>
+                <h5 class="modal-title" id="form_header">Cliente</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                En Construccion...
+            <div class="modal-body" id="spinner_cliente">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" id="form_cliente">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label for="inputNombreCliente">Nombre Completo</label>
+                                <input disabled type="text" class="form-control" id="inputNombreCliente">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputRutCliente">Rut </label>
+                                <input disabled type="text" class="form-control" id="inputRutCliente">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputEstadoCivilCliente">Estado Civil </label>
+                                <input disabled type="text" class="form-control" id="inputEstadoCivilCliente">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputNacimientoCliente">Fecha de Nacimiento </label>
+                                <input disabled type="text" class="form-control" id="inputNacimientoCliente">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <label for="inputCorreoCliente">Correo electronico </label>
+                                <input disabled type="email" class="form-control" id="inputCorreoCliente">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputTelefonoCliente">Numero contacto </label>
+                                <input disabled type="text" class="form-control" id="inputTelefonoCliente">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputDireccionCliente">Direccion </label>
+                                <input disabled type="text" class="form-control" id="inputDireccionCliente">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCiudadCliente">Ciudad </label>
+                                <input disabled type="text" class="form-control" id="inputCiudadCliente">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCreateAtCliente">Registrado el </label>
+                                <input disabled type="text" class="form-control" id="inputCreateAtCliente">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" id="form_empresa">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-lg-6">
+                                <label for="inputNombreEmpresa">Nombre Empresa</label>
+                                <input disabled type="text" class="form-control" id="inputNombreEmpresa">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputRutEmpresa">Rut</label>
+                                <input disabled type="text" class="form-control" id="inputRutEmpresa">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputRolEmpresa">Rol</label>
+                                <input disabled type="text" class="form-control" id="inputRolEmpresa">
+                            </div>
+                            <div class="form-group col-lg-2">
+                                <label for="inputVigenciaEmpresa">Vigencia</label>
+                                <input disabled type="text" class="form-control" id="inputVigenciaEmpresa">
+                            </div>
+                            <div class="form-group col-lg-5">
+                                <label for="inputDireccionEmpresa">Direccion</label>
+                                <input disabled type="text" class="form-control" id="inputDireccionEmpresa">
+                            </div>
+                            <div class="form-group col-lg-5">
+                                <label for="inputCorreoEmpresa">Correo</label>
+                                <input disabled type="text" class="form-control" id="inputCorreoEmpresa">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCiudadEmpresa">Ciudad</label>
+                                <input disabled type="text" class="form-control" id="inputCiudadEmpresa">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputTelefonoEmpresa">Numero Contacto</label>
+                                <input disabled type="text" class="form-control" id="inputTelefonoEmpresa">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCreateAtEmpresa">Registrado el</label>
+                                <input disabled type="text" class="form-control" id="inputCreateAtEmpresa">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" id="form_conductor">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <div class="form-group col-lg-5">
+                                <label for="inputNombreConductor">Nombre Completo</label>
+                                <input disabled type="text" class="form-control" id="inputNombreConductor">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputRutConductor">Rut</label>
+                                <input disabled type="text" class="form-control" id="inputRutConductor">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputTelefonoConductor">Numero de contacto</label>
+                                <input disabled type="text" class="form-control" id="inputTelefonoConductor">
+                            </div>
+                            <div class="form-group col-lg-5">
+                                <label for="inputDireccionConductor">Direccion</label>
+                                <input disabled type="text" class="form-control" id="inputDireccionConductor">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputClaseConductor">Clase licencia</label>
+                                <input disabled type="text" class="form-control" id="inputClaseConductor">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputNumeroConductor">Numero licencia</label>
+                                <input disabled type="text" class="form-control" id="inputNumeroConductor">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputVCTOconductor">VCTO licencia</label>
+                                <input disabled type="text" class="form-control" id="inputVCTOconductor">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputMunicipalidadConductor">Municipalidad</label>
+                                <input disabled type="text" class="form-control" id="inputMunicipalidadConductor">
+                            </div>
+                            <div class="form-group col-lg-5">
+                                <label for="inputCreateAtConductor">Registrado el</label>
+                                <input disabled type="text" class="form-control" id="inputCreateAtConductor">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+<script>
+function cargarCliente(rut_cliente) {
+    limpiarCampos();
+    $.getJSON({
+        url: base_route + "buscar_cliente",
+        type: "post",
+        dataType: "json",
+        data: {
+            rut_cliente
+        },
+        success: (response) => {
+            if (response.success) {
+                const cliente = response.data;
+                $("#form_header").text("Cliente particular");
+                $("#inputNombreCliente").val(cliente.nombre_cliente);
+                $("#inputRutCliente").val(cliente.rut_cliente);
+                $("#inputEstadoCivilCliente").val(cliente.estadoCivil_cliente);
+                $("#inputNacimientoCliente").val(cliente.fechaNacimiento_cliente ? formatearFecha(cliente
+                    .fechaNacimiento_cliente) : "");
+                $("#inputCorreoCliente").val(cliente.correo_cliente);
+                $("#inputCiudadCliente").val(cliente.ciudad_cliente);
+                $("#inputDireccionCliente").val(cliente.direccion_cliente);
+                $("#inputTelefonoCliente").val(cliente.telefono_cliente);
+                $("#inputCreateAtCliente").val(formatearFechaHora(cliente.createdAt));
+
+                $("#spinner_cliente").hide();
+                $("#form_cliente").show();
+            }
+        },
+        error: () => {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "A ocurrido un Error Contacte a informatica",
+            });
+            limpiarCampos();
+        }
+    });
+}
+
+function cargarEmpresa(rut_empresa) {
+    limpiarCampos();
+    $.getJSON({
+        url: base_route + "buscar_empresa",
+        type: "post",
+        dataType: "json",
+        data: {
+            rut_empresa
+        },
+        success: (response) => {
+            if (response.success) {
+                const empresa = response.data;
+                $("#form_header").text("Cliente Empresa");
+                $("#inputCiudadEmpresa").val(empresa.ciudad_empresa);
+                $("#inputCorreoEmpresa").val(empresa.correo_empresa);
+                $("#inputCreateAtEmpresa").val(formatearFechaHora(empresa.createdAt));
+                $("#inputDireccionEmpresa").val(empresa.direccion_empresa);
+                $("#inputNombreEmpresa").val(empresa.nombre_empresa);
+                $("#inputRolEmpresa").val(empresa.rol_empresa);
+                $("#inputRutEmpresa").val(empresa.rut_empresa);
+                $("#inputTelefonoEmpresa").val(empresa.telefono_empresa);
+                $("#inputVigenciaEmpresa").val(empresa.vigencia_empresa);
+
+                $("#spinner_cliente").hide();
+                $("#form_empresa").show();
+            }
+        },
+        error: () => {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "A ocurrido un Error Contacte a informatica",
+            });
+            limpiarCampos();
+        }
+    });
+}
+
+function cargarConductor(rut_conductor) {
+    limpiarCampos();
+    $.getJSON({
+        url: base_route + "buscar_conductor",
+        type: "post",
+        dataType: "json",
+        data: {
+            rut_conductor
+        },
+        success: (response) => {
+            if (response.success) {
+                const conductor = response.data;
+                $("#form_header").text("Conductor");
+                $("#inputClaseConductor").val(conductor.clase_conductor);
+                $("#inputCreateAtConductor").val(formatearFechaHora(conductor.createdAt));
+                $("#inputDireccionConductor").val(conductor.direccion_conductor);
+                $("#inputMunicipalidadConductor").val(conductor.municipalidad_conductor);
+                $("#inputNombreConductor").val(conductor.nombre_conductor);
+                $("#inputNumeroConductor").val(conductor.numero_conductor);
+                $("#inputRutConductor").val(conductor.rut_conductor);
+                $("#inputTelefonoConductor").val(conductor.telefono_conductor);
+                $("#inputVCTOconductor").val(conductor.vcto_conductor ? formatearFecha(conductor
+                    .vcto_conductor) : "");
+
+                $("#spinner_cliente").hide();
+                $("#form_conductor").show();
+            }
+        },
+        error: () => {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "A ocurrido un Error Contacte a informatica",
+            });
+            limpiarCampos();
+        }
+    });
+}
+
+
+function limpiarCampos() {
+    $("#form_cliente").hide();
+    $("#form_empresa").hide();
+    $("#form_conductor").hide();
+    $("#spinner_cliente").show();
+    $("#form_header").text("");
+
+    $("#inputNombreCliente").val("");
+    $("#inputRutCliente").val("");
+    $("#inputEstadoCivilCliente").val("");
+    $("#inputNacimientoCliente").val("");
+    $("#inputCorreoCliente").val("");
+    $("#inputCiudadCliente").val("");
+    $("#inputDireccionCliente").val("");
+    $("#inputTelefonoCliente").val("");
+    $("#inputCreateAtCliente").val("");
+
+    $("#inputCiudadEmpresa").val("");
+    $("#inputCorreoEmpresa").val("");
+    $("#inputCreateAtEmpresa").val("");
+    $("#inputDireccionEmpresa").val("");
+    $("#inputNombreEmpresa").val("");
+    $("#inputRolEmpresa").val("");
+    $("#inputRutEmpresa").val("");
+    $("#inputTelefonoEmpresa").val("");
+    $("#inputVigenciaEmpresa").val("");
+
+    $("#inputClaseConductor").val("");
+    $("#inputCreateAtConductor").val("");
+    $("#inputDireccionConductor").val("");
+    $("#inputMunicipalidadConductor").val("");
+    $("#inputNombreConductor").val("");
+    $("#inputNumeroConductor").val("");
+    $("#inputRutConductor").val("");
+    $("#inputTelefonoConductor").val("");
+    $("#inputVCTOconductor").val("");
+}
+</script>
 
 
 

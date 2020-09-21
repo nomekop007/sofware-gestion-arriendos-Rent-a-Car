@@ -201,13 +201,6 @@
 
 
 <script>
-// Script para cargar año vehiculo
-(() => {
-    var n = (new Date()).getFullYear()
-    var select = document.getElementById("inputedad");
-    for (var i = n; i >= 1970; i--) select.options.add(new Option(i, i));
-})();
-
 //sniper de btn registrar
 $("#spinner_btn_registrar").hide();
 </script>

@@ -3,6 +3,16 @@ function mayus(e) {
     e.value = e.value.toUpperCase();
 }
 
+
+// Script para cargar año vehiculo
+function cargarOlder(input) {
+    var n = (new Date()).getFullYear()
+    var select = document.getElementById(input);
+    for (var i = n; i >= 1970; i--) select.options.add(new Option(i, i));
+}
+
+
+
 // Script para validar los campos de un formulario
 (() => {
     "use strict";
@@ -58,7 +68,7 @@ function formateaRut(rut) {
 }
 
 //funcion para formatear fechas
-function formatearFecha(fecha) {
+function formatearFechaHora(fecha) {
     let f = new Date(fecha);
     let opciones = {
         weekday: "long",
@@ -68,6 +78,18 @@ function formatearFecha(fecha) {
         hour: "numeric",
         minute: "numeric",
         second: "numeric",
+    };
+    return (fecha = f.toLocaleDateString("es-MX", opciones));
+}
+
+
+//funcion para formatear fechas
+function formatearFecha(fecha) {
+    let f = new Date(fecha);
+    let opciones = {
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
     };
     return (fecha = f.toLocaleDateString("es-MX", opciones));
 }

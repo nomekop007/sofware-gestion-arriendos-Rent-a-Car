@@ -199,10 +199,11 @@ $(document).ready(() => {
                 usuario.email_usuario,
                 usuario.role.nombre_rol,
                 usuario.sucursale.nombre_sucursal,
-                formatearFecha(usuario.createdAt),
+                formatearFechaHora(usuario.createdAt),
                 usuario.estado_usuario ? "<span class='badge badge-pill badge-success'>ACTIVO </span>" : "<span class='badge badge-pill badge-danger'>INACTIVO</span>",
-                " <button  onclick='cargarUsuario(" +
-                usuario.id_usuario + "  )' " +
+                " <button value='" +
+                usuario.id_usuario + "' " +
+                " onclick='cargarUsuario(this.value)'" +
                 " data-toggle='modal' data-target='#modal_editar_usuario' class='btn btn-outline-info'><i class='far fa-edit'></i></button> "
             ])
             .draw(false);

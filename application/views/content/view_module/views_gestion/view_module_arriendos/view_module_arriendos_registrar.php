@@ -305,3 +305,45 @@
 
      </form>
  </div>
+
+
+ <script>
+//espiners de los forms cliente , conductor y empresa
+$("#spinner_conductor").hide();
+$("#spinner_cliente").hide();
+$("#spinner_empresa").hide();
+$("#spinner_btn_registrar").hide();
+$("#spinner_btn_crearContrato").hide();
+
+
+// Script para cambia el tab cliente de acuerdo al tipo de arriendo
+(tipoArriendo = () => {
+    var a = $("#inputTipo option:selected").val();
+    if (a == 1) {
+        $('#titulo_empresa').hide();
+        $('#form_empresa').hide();
+        $('#form_carnet_empresa').hide();
+        $('#titulo_cliente').show();
+        $('#form_cliente').show();
+        $('#form_comprobante_cliente').show();
+        $('#form_licencia_conducir').show();
+        $('#form_carnet_cliente').show();
+    } else if (a == 2) {
+        $('#titulo_cliente').show();
+        $('#form_cliente').show();
+        $('#titulo_empresa').show();
+        $('#form_empresa').show();
+        $('#form_carnet_empresa').show();
+        $('#form_comprobante_cliente').show();
+        $('#form_licencia_conducir').show();
+        $('#form_carnet_cliente').show();
+    } else {
+        $('#titulo_cliente').hide();
+        $('#form_cliente').hide();
+        $('#form_carnet_cliente').hide();
+        $('#form_comprobante_cliente').hide();
+        $('#titulo_empresa').show();
+        $('#form_empresa').show();
+    }
+})();
+ </script>
