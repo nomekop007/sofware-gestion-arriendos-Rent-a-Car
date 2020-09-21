@@ -3,6 +3,7 @@ $(document).ready(() => {
 
     //cargar sucursales  (ruta,select)
     cargarSelect("cargar_Sucursales", "inputSucursal");
+    //cargar año vehiculo (input)
     cargarOlder("inputedad");
 
     //carga vehiculos en datatable
@@ -23,10 +24,7 @@ $(document).ready(() => {
     $("#btn_registrar_vehiculo").click(() => {
         var patente = $("#inputPatente").val();
         var modelo = $("#inputModelo").val();
-        var edad = $("#inputedad").val();
-        var tipo = $("#inputTipo").val();
         var color = $("#inputColor").val();
-        var sucursal = $("#inputSucursal").val();
         var propietario = $("#inputPropietario").val();
         var compra = $("#inputCompra").val();
         var precio = $("#inputPrecio").val();
@@ -34,7 +32,7 @@ $(document).ready(() => {
         var chasis = $("#inputChasis").val();
         var n_motor = $("#inputNumeroMotor").val();
         var marca = $("#inputMarca").val();
-        var transmision = $("#inputTransmision").val();
+
 
         if (
             n_motor.length != 0 &&
@@ -42,7 +40,6 @@ $(document).ready(() => {
             chasis.length != 0 &&
             patente.length != 0 &&
             modelo.length != 0 &&
-            edad.length != 0 &&
             color.length != 0 &&
             propietario.length != 0 &&
             compra.length != 0 &&
@@ -51,26 +48,19 @@ $(document).ready(() => {
         ) {
             $("#btn_registrar_vehiculo").attr("disabled", true);
             $("#spinner_btn_registrar").show();
+
+            var form = $("#form_registrar_vehiculo")[0];
+            var data = new FormData(form);
             $.ajax({
                 url: base_route + "registrar_vehiculo",
                 type: "post",
                 dataType: "json",
-                data: {
-                    chasis,
-                    n_motor,
-                    marca,
-                    patente,
-                    modelo,
-                    transmision,
-                    edad,
-                    tipo,
-                    color,
-                    sucursal,
-                    propietario,
-                    compra,
-                    precio,
-                    fechaCompra,
-                },
+                data: data,
+                enctype: "multipart/form-data",
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeOut: false,
                 success: (response) => {
                     if (response.success) {
                         cargarVehiculoEnTabla(response.data);
