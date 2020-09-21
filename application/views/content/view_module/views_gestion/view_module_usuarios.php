@@ -19,11 +19,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputNombreUsuario">Nombre Completo</label>
-                            <input maxLength="30" type="text" class="form-control" id="inputNombreUsuario" required>
+                            <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
+                                id="inputNombreUsuario" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputCorreoUsuario">correo</label>
-                            <input maxLength="30" type="email" class="form-control" id="inputCorreoUsuario" required>
+                            <input oninput="mayus(this);" maxLength="30" type="email" class="form-control"
+                                id="inputCorreoUsuario" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputRolUsuario">Rol</label>
@@ -39,7 +41,7 @@
                         <div class=" form-group col-md-4">
                             <label for="inputClaveUsuario">Constraseña</label>
                             <div class="input-group">
-                                <input maxLength="30" minlength="8" type="password" class="form-control"
+                                <input maxLength="30" minlength="9" type="password" class="form-control"
                                     id="inputClaveUsuario" required>
                                 <div class="input-group-append">
                                     <button class="btn btn-dark show_password" type="button"
@@ -74,7 +76,7 @@
                             <th>sucursal</th>
                             <th>fecha creacion</th>
                             <th>estado</th>
-                            <th></th>
+                            <th> </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,7 +90,7 @@
                             <th>sucursal</th>
                             <th>fecha creacion</th>
                             <th>estado</th>
-                            <th></th>
+                            <th> </th>
                         </tr>
                     </tfoot>
                 </table>
@@ -128,13 +130,13 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="inputEditNombreUsuario">Nombre Completo</label>
-                                    <input maxLength="30" type="text" class="form-control" id="inputEditNombreUsuario"
-                                        required>
+                                    <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
+                                        id="inputEditNombreUsuario" required>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputEditCorreoUsuario">correo</label>
-                                    <input maxLength="30" type="email" class="form-control" id="inputEditCorreoUsuario"
-                                        required>
+                                    <input oninput="mayus(this);" maxLength="30" type="email" class="form-control"
+                                        id="inputEditCorreoUsuario" required>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputEditRolUsuario">Rol</label>
@@ -166,6 +168,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" id="btn_cambiarEstado_usuario" class="">cambiar estado</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" id="btn_editar_usuario" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
@@ -181,41 +184,13 @@
 
 
 
+
+
 <script>
 //snniper de btn registrar
 $("#spinner_btn_registrar").hide();
 $("#spinner_btn_editarUsuario").hide();
 $("#formEditarUsuario").hide();
-
-
-
-//fusion para ocultar y mostrar constraseñas
-function mostrarPassword(idInput) {
-    var cambio = document.getElementById(idInput);
-    if (cambio.type == "password") {
-        cambio.type = "text";
-        $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-    } else {
-        cambio.type = "password";
-        $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-    }
-}
-$(document).ready(function() {
-    //CheckBox mostrar contraseña
-    $('.ShowPassword').click(function() {
-        $('.Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
-    });
-});
-
-function limpiarCampos() {
-    $("#inputUsuario").val("");
-    $("#inputEditNombreUsuario").val("");
-    $("#inputEditCorreoUsuario").val("");
-    $("#inputEditRolUsuario").val("");
-    $("#inputEditSucursalUsuario").val("");
-    $("#inputEditClaveUsuario").val("");
-
-}
 
 function cargarUsuario(id_usuario) {
     limpiarCampos();
@@ -234,6 +209,16 @@ function cargarUsuario(id_usuario) {
                 $("#inputEditCorreoUsuario").val(usuario.email_usuario);
                 $("#inputEditRolUsuario").val(usuario.id_rol);
                 $("#inputEditSucursalUsuario").val(usuario.id_sucursal);
+
+                if (usuario.estado_usuario) {
+                    $("#btn_cambiarEstado_usuario").text("inhabilitar");
+                    $("#btn_cambiarEstado_usuario").addClass("btn btn-danger");
+
+                } else {
+                    $("#btn_cambiarEstado_usuario").text("habilitar");
+                    $("#btn_cambiarEstado_usuario").addClass("btn btn-success");
+
+                }
 
 
                 //ocultar y mostrar 
@@ -261,30 +246,30 @@ function cargarUsuario(id_usuario) {
     });
 }
 
-function desactivarUsuario(id_usuario) {
-    console.log(id_usuario);
-    Swal.fire({
-        title: 'esta seguro?',
-        text: "esta a punto de desactivar el usuario!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'si, desactivar!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire(
-                'Desactivado!',
-                'se a desactivado el usuario',
-                'success'
-            )
-        }
-    })
+//funcion para ocultar y mostrar constraseñas
+function mostrarPassword(idInput) {
+    var cambio = document.getElementById(idInput);
+    if (cambio.type == "password") {
+        cambio.type = "text";
+        $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+    } else {
+        cambio.type = "password";
+        $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+    }
+    //CheckBox mostrar contraseña
+    $('.ShowPassword').click(function() {
+        $('.Password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+    });
 }
 
-function activarUsuario(id_usuario) {
-    console.log(id_usuario);
-    console.log("activar..");
+function limpiarCampos() {
+    $("#inputUsuario").val("");
+    $("#inputEditNombreUsuario").val("");
+    $("#inputEditCorreoUsuario").val("");
+    $("#inputEditRolUsuario").val("");
+    $("#inputEditSucursalUsuario").val("");
+    $("#inputEditClaveUsuario").val("");
+    $("#btn_cambiarEstado_usuario").removeClass();
 }
 </script>
 

@@ -48,6 +48,7 @@ $(document).ready(() => {
             data: {
                 nombre_usuario: usuario.nombre_usuario,
                 email_usuario: usuario.email_usuario,
+                estado_usuario: usuario.estado_usuario,
                 id_rol: usuario.id_rol,
                 id_usuario: usuario.id_usuario,
                 userToken: usuario.userToken,

@@ -79,6 +79,8 @@ $route['cargar_roles'] = 'controller_gestion/Controller_usuario/cargarRoles';
 $route['registrar_usuario'] = 'controller_gestion/Controller_usuario/registrarUsuario';
 $route['buscar_usuario'] = 'controller_gestion/Controller_usuario/buscarUsuario';
 $route['editar_usuario'] = 'controller_gestion/Controller_usuario/editarUsuario';
+$route['cambiarEstado_usuario'] = 'controller_gestion/Controller_usuario/cambiarEstadoUsuario';
+
 
 
 

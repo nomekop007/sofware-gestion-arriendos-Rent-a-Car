@@ -6,7 +6,7 @@ class Session_gestion extends CI_Controller
 
     public function cargarModulos()
     {
-        if ($this->session->userdata("estado")) {
+        if ($this->session->userdata("estado") === "true") {
             $this->load->view("templates/header");
             $this->load->view("content/navbars/navbar");
             $this->load->view("content/sidebars/sidebar_gestion");

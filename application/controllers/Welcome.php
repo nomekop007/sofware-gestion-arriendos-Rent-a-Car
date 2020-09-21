@@ -31,7 +31,7 @@ class Welcome extends CI_Controller
 	{
 
 		$arrayUser = [
-			"estado" => true,
+			"estado" => $this->input->post("estado_usuario"),
 			"rol" => $this->input->post("id_rol"),
 			"id" => $this->input->post("id_usuario"),
 			"nombre" => $this->input->post("nombre_usuario"),
@@ -47,7 +47,8 @@ class Welcome extends CI_Controller
 	//carga los paneles correspondientes
 	public function cargarPanel()
 	{
-		if ($this->session->userdata("estado")) {
+
+		if ($this->session->userdata("estado") === "true") {
 			$this->load->view("templates/header");
 			$this->load->view("content/navbars/navbar");
 
@@ -73,7 +74,8 @@ class Welcome extends CI_Controller
 			}
 			$this->load->view("templates/footer");
 		} else {
-			redirect(base_route());
+			$this->load->view("errors/error_session");
+			//redirect(base_route());
 		}
 	}
 }

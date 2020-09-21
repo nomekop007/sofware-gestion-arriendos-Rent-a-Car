@@ -13,8 +13,9 @@
 
             <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="<?php echo base_route(); ?>cargarPanel?panel=1">Modulos Gestion</a>
-                <a class="dropdown-item" href="<?php echo base_route(); ?>cargarPanel?panel=2"> Modulos Atencion</a>
-                <a class="dropdown-item" href="<?php echo base_route(); ?>cargarPanel?panel=3"> Modulos
+                <a hidden class="dropdown-item" href="<?php echo base_route(); ?>cargarPanel?panel=2"> Modulos
+                    Atencion</a>
+                <a hidden class="dropdown-item" href="<?php echo base_route(); ?>cargarPanel?panel=3"> Modulos
                     Administracion</a>
             </div>
         </div>

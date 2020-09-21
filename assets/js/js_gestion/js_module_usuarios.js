@@ -7,24 +7,10 @@ $(document).ready(() => {
     //cargar roles (ruta,select)
     cargarSelect("cargar_roles", "inputRolUsuario");
     cargarSelect("cargar_roles", "inputEditRolUsuario");
-
-
-
     //cargar usuarios
     cargarUsuarios();
 
-    function cargarUsuarios() {
-        const url = base_route + "cargar_usuarios";
-        $.getJSON(url, (result) => {
-            if (result.success) {
-                $.each(result.data, (i, usuario) => {
-                    cargarUsuarioEnTabla(usuario);
-                });
-            } else {
-                console.log("ah ocurrido un error al cargar los usuarios");
-            }
-        });
-    }
+
 
     $("#btn_registrar_usuario").click(() => {
         var nombre = $("#inputNombreUsuario").val();
@@ -70,7 +56,6 @@ $(document).ready(() => {
         }
     });
 
-
     $("#btn_editar_usuario").click(() => {
 
         var id_usuario = $("#inputUsuario").val();
@@ -105,10 +90,9 @@ $(document).ready(() => {
                 dataType: "json",
                 data: usuario,
                 success: (response) => {
-
                     Swal.fire("Exito", response.msg, "success");
                     $('#modal_editar_usuario').modal('toggle');
-                    editarUsuarioEnTabla(response.data);
+                    refrescarTabla();
                 },
                 error: () => {
                     Swal.fire({
@@ -122,44 +106,70 @@ $(document).ready(() => {
         }
     });
 
+    $("#btn_cambiarEstado_usuario").click(() => {
+        var accion = $("#btn_cambiarEstado_usuario").text();
+        var id_usuario = $("#inputUsuario").val();
 
-    function cargarUsuarioEnTabla(usuario) {
 
-        var btnEstado = "";
-        if (usuario.estado_usuario == "ACTIVO") {
-            btnEstado =
-                " <button  onclick='desactivarUsuario(" +
-                usuario.id_usuario + "  )' " +
-                "  id='cambiar_estado_usuario' class='btn btn-outline-danger'><i class='fas fa-lock'></i></button> "
-
+        var config = "";
+        if (accion == "inhabilitar") {
+            config = {
+                title: 'esta seguro?',
+                text: "esta a punto de desactivar el usuario!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#FF2E02',
+                confirmButtonText: 'si, desactivar!'
+            }
         } else {
-            btnEstado =
-                " <button  onclick='activarUsuario(" +
-                usuario.id_usuario + "  )' " +
-                "  id='cambiar_estado_usuario' class='btn btn-outline-success'><i class='fas fa-unlock-alt'></i></button> "
+            config = {
+                title: 'esta seguro?',
+                text: "esta a punto de activar el usuario!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#6BDC39',
+                confirmButtonText: 'si, activar!'
+            }
         }
+        Swal.fire(config).then((result) => {
+            if (result.isConfirmed) {
+                $.getJSON({
+                    url: base_route + "cambiarEstado_usuario",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        id_usuario,
+                        accion
+                    },
+                    success: (response) => {
+                        if (response.success) {
+                            Swal.fire(
+                                "Exito",
+                                response.msg,
+                                'success'
+                            )
+                            $('#modal_editar_usuario').modal('toggle');
+                            refrescarTabla();
+                        }
+                    },
+                    error: () => {
+                        Swal.fire({
+                            icon: "error",
+                            title: "no se guardo el usuario",
+                            text: "A ocurrido un Error Contacte a informatica",
+                        });
+                    }
+                })
+            }
+        })
+    })
 
 
 
-        tablaUsuario.row
-            .add([
-                usuario.nombre_usuario,
-                usuario.email_usuario,
-                usuario.role.nombre_rol,
-                usuario.sucursale.nombre_sucursal,
-                formatearFecha(usuario.createdAt),
-                usuario.estado_usuario,
-                " <button  onclick='cargarUsuario(" +
-                usuario.id_usuario + "  )' " +
-                " data-toggle='modal' data-target='#modal_editar_usuario' class='btn btn-outline-info'><i class='far fa-edit'></i></button> " +
-                btnEstado
-            ])
-            .draw(false);
-    }
 
 
-    //BUSCAR MEJOR SOLUCION PARA EDITAR USUARIO
-    function editarUsuarioEnTabla() {
+    //BUSCAR MEJOR SOLUCION PARA EVITAR ACTUALIZAR TABLA 
+    function refrescarTabla() {
         //limpia la tabla
         tablaUsuario.row()
             .clear()
@@ -168,5 +178,35 @@ $(document).ready(() => {
         //carga nuevamente
         cargarUsuarios();
     }
+
+    function cargarUsuarios() {
+        const url = base_route + "cargar_usuarios";
+        $.getJSON(url, (result) => {
+            if (result.success) {
+                $.each(result.data, (i, usuario) => {
+                    cargarUsuarioEnTabla(usuario);
+                });
+            } else {
+                console.log("ah ocurrido un error al cargar los usuarios");
+            }
+        });
+    }
+
+    function cargarUsuarioEnTabla(usuario) {
+        tablaUsuario.row
+            .add([
+                usuario.nombre_usuario,
+                usuario.email_usuario,
+                usuario.role.nombre_rol,
+                usuario.sucursale.nombre_sucursal,
+                formatearFecha(usuario.createdAt),
+                usuario.estado_usuario ? "<span class='badge badge-pill badge-success'>ACTIVO </span>" : "<span class='badge badge-pill badge-danger'>INACTIVO</span>",
+                " <button  onclick='cargarUsuario(" +
+                usuario.id_usuario + "  )' " +
+                " data-toggle='modal' data-target='#modal_editar_usuario' class='btn btn-outline-info'><i class='far fa-edit'></i></button> "
+            ])
+            .draw(false);
+    }
+
 
 });

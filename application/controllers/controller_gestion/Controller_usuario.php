@@ -22,7 +22,7 @@ class Controller_usuario extends CI_Controller
         $tokenUser = $this->session->userdata('usertoken');
         $ArrayData = [
             "nombre_usuario" => $this->input->post("nombre"),
-            "estado_usuario" => "ACTIVO",
+            "estado_usuario" => true,
             "email_usuario" => $this->input->post("correo"),
             "clave_usuario" => $this->input->post("clave"),
             "id_rol" => $this->input->post("rol"),
@@ -50,5 +50,16 @@ class Controller_usuario extends CI_Controller
             "id_sucursal" => $this->input->post("sucursal"),
         ];
         echo put_function($id_usuario, $ArrayData, "usuarios/editarUsuario", $tokenUser);
+    }
+
+    public function cambiarEstadoUsuario()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        $id_usuario = $this->input->post("id_usuario");
+
+        $ArrayData = [
+            "accion" => $this->input->post("accion")
+        ];
+        echo put_function($id_usuario, $ArrayData, "usuarios/cambiarEstado", $tokenUser);
     }
 }
