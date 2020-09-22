@@ -23,19 +23,6 @@ class Controller_vehiculo extends CI_Controller
     {
         $tokenUser = $this->session->userdata('usertoken');
 
-
-
-        //ENVIAR LA IMAGEN AL SERVIDOR EN base64 SI ES POSIBLE
-
-        /*    $path = $_FILES["inputFoto"]["tmp_name"];
-        //se valida que el archivo sea correcto
-        if (is_uploaded_file($path) && !empty($_FILES)) {
-            //se cactura la url de la foto
-            $foto = file_get_contents($path);
-        }
-         */
-
-
         $arrayVehiculo = [
             "patente_vehiculo" => $this->input->post("inputPatente"),
             "transmision_vehiculo" => $this->input->post("inputTransmision"),
@@ -52,7 +39,19 @@ class Controller_vehiculo extends CI_Controller
             "numeroMotor_vehiculo" => $this->input->post("inputNumeroMotor"),
             "marca_vehiculo" => $this->input->post("inputMarca"),
             "estado_vehiculo" => "DISPONIBLE",
+            "foto_vehiculo" => null
         ];
+
+        $path = $_FILES["inputFoto"]["tmp_name"];
+        //se pregunta si se ingreso imagen valida
+        if (is_uploaded_file($path) && !empty($_FILES)) {
+            $type = pathinfo($path, PATHINFO_EXTENSION);
+            $data = file_get_contents($path);
+            $imagen = 'data:image/' . $type . ';base64,' . base64_encode($data);
+            //se agrega la imagen codificada al Array
+            $arrayVehiculo["foto_vehiculo"] = $imagen;
+        }
+
 
         echo post_function($arrayVehiculo, "vehiculos/registrarVehiculo", $tokenUser);
     }
