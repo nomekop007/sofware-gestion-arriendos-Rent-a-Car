@@ -67,6 +67,12 @@ $route['modulos_gestion'] = 'Session_gestion/cargarModulos';
 $route['cargar_Sucursales'] = 'controller_gestion/Controller_vehiculo/cargarSucursales';
 $route['cargar_Vehiculos'] = 'controller_gestion/Controller_vehiculo/cargarVehiculos';
 $route['registrar_vehiculo'] = 'controller_gestion/Controller_vehiculo/registrarVehiculo';
+$route['buscar_vehiculo'] = 'controller_gestion/Controller_vehiculo/buscarVehiculo';
+$route['editar_vehiculo'] = 'controller_gestion/Controller_vehiculo/editarVehiculo';
+$route['guardar_fotoVehiculo'] = 'controller_gestion/Controller_vehiculo/guardarFotoVehiculo';
+
+
+
 
 /* rutas de modulo cliente */
 $route['cargar_clientes'] = 'controller_gestion/Controller_cliente/cargarClientes';

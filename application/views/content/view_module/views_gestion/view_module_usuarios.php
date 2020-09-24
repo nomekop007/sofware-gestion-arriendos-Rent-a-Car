@@ -196,9 +196,9 @@ function cargarUsuario(id_usuario) {
         data: {
             id_usuario
         },
-        success: (e) => {
-            if (e.success) {
-                const usuario = e.data;
+        success: (response) => {
+            if (response.success) {
+                const usuario = response.data;
                 $("#inputUsuario").val(usuario.id_usuario);
                 $("#inputEditNombreUsuario").val(usuario.nombre_usuario);
                 $("#inputEditCorreoUsuario").val(usuario.email_usuario);
@@ -256,6 +256,7 @@ function mostrarPassword(idInput) {
 }
 
 function limpiarCampos() {
+    $("#formSpinner").show();
     $("#spinner_btn_editarUsuario").hide();
     $("#formEditarUsuario").hide();
     $("#inputUsuario").val("");

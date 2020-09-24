@@ -6,6 +6,8 @@ class Session_gestion extends CI_Controller
 
     public function cargarModulos()
     {
+        $rol =  $this->session->userdata("rol");
+
         if ($this->session->userdata("estado") === "true") {
             $this->load->view("templates/header");
             $this->load->view("content/navbars/navbar");
@@ -14,21 +16,33 @@ class Session_gestion extends CI_Controller
             $opcion = $_GET["modulo"];
             switch ($opcion) {
                 case 1:
-                    $this->load->view('content/view_module/views_gestion/view_module_vehiculos');
+                    if ($rol == 1 || $rol == 2) {
+                        $this->load->view('content/view_module/views_gestion/view_module_vehiculos');
+                    } else {
+                        redirect(base_route());
+                    }
                     break;
                 case 2:
-                    $this->load->view('content/view_module/views_gestion/view_module_clientes');
+                    if ($rol == 1 || $rol == 2 || $rol == 3) {
+                        $this->load->view('content/view_module/views_gestion/view_module_clientes');
+                    } else {
+                        redirect(base_route());
+                    }
                     break;
                 case 3:
-                    //se subdivide por su gran tamaño
-                    $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_header');
-                    $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_registrar');
-                    $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_activos');
-                    $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_todos');
-                    $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_footer');
+                    if ($rol == 1 || $rol == 2 || $rol == 3) {
+                        //se subdivide por su gran tamaño
+                        $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_header');
+                        $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_registrar');
+                        $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_activos');
+                        $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_todos');
+                        $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_footer');
+                    } else {
+                        redirect(base_route());
+                    }
                     break;
                 case 4:
-                    if ($this->session->userdata("rol") == 1) {
+                    if ($rol == 1) {
                         $this->load->view('content/view_module/views_gestion/view_module_usuarios');
                     } else {
                         redirect(base_route());

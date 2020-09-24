@@ -42,8 +42,8 @@ function cargarArriendoEnTabla(arriendo) {
             " <button  onclick='cargarPagoArriendo(" +
             arriendo.id_arriendo +
             ")' data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-check-circle'></i></button>  " +
-            " <button data-toggle='modal' data-target='#modal_bajar_docs' class='btn btn-outline-dark'><i class='far fa-file-alt'></i></button>  " +
-            " <button data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-edit'></i></button>  ",
+            " <button data-toggle='modal' data-target='#modal_bajar_docs' class='btn btn-outline-dark'><i class='far fa-file-alt'></i></button>  "
+            /*    " <button data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-edit'></i></button>  ", */
         ])
         .draw(false);
 }

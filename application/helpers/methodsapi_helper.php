@@ -48,6 +48,19 @@ function put_function($id, $data, $url, $tokenUser)
 }
 
 
+function file_function($id, $data, $url, $tokenUser)
+{
+    $client = new \GuzzleHttp\Client();
+    $response = $client->request('POST', api_url() . $url . "/" . $id, [
+        'multipart' =>   $data,
+        'headers' => [
+            'usertoken' => $tokenUser
+        ]
+    ]);
+    return  $response->getBody();
+}
+
+
 
 function delete_function($id, $url, $tokenUser)
 {

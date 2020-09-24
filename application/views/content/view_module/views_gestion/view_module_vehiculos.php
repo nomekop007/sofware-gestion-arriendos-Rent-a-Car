@@ -27,39 +27,40 @@
                 <br><br>
                 <form class="needs-validation" novalidate id="form_registrar_vehiculo">
                     <div class="form-row">
-                        <div class="form-group col-md-3">
-                            <label for="inputPatente">Patente del Vehiculo</label>
+                        <div class="form-group col-md-2">
+                            <label for="inputPatente">Patente</label>
                             <input oninput="mayus(this);" maxLength="10" type="text" class="form-control"
                                 id="inputPatente" name="inputPatente" required>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="inputMarca">Marca del Vehiculo</label>
+                            <label for="inputMarca">Marca</label>
                             <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputMarca" name="inputMarca" required>
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputModelo">Modelo del Vehiculo</label>
+                        <div class="form-group col-md-3">
+                            <label for="inputModelo">Modelo</label>
                             <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputModelo" name="inputModelo" required>
                         </div>
-
                         <div class="form-group col-md-2">
-                            <label for="inputedad">Año del Vehiculo</label>
+                            <label for="inputedad">Año</label>
                             <select id="inputedad" name="inputedad" class="form-control">
                             </select>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputTipo">Tipo de Vehiculo</label>
+                        <div class="form-group col-md-2">
+                            <label for="inputTipo">Tipo</label>
                             <select id="inputTipo" name="inputTipo" class="form-control">
                                 <option value="AUTOMOVIL" selected>Automovil</option>
                                 <option value="CAMIONETA">Camioneta</option>
-                                <option value="FURGON">Furgon</option>
+                                <option value="FURGON">Furgón</option>
+                                <option value="CONVERTIBLE">Convertible</option>
+                                <option value="DOBLE CABINA">Doble Cabina</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="inputTransmision">Transmision del Vehiculo</label>
+                        <div class="form-group col-md-2">
+                            <label for="inputTransmision">Transmision</label>
                             <select id="inputTransmision" name="inputTransmision" class="form-control">
-                                <option value="AUTOMATICA" selected>Automatica</option>
+                                <option value="AUTOMATICO" selected>Automatico</option>
                                 <option value="MANUAL">Manual</option>
                             </select>
                         </div>
@@ -70,22 +71,22 @@
                         </div>
 
                         <div class="form-group col-md-2">
-                            <label for="inputColor">Color del Vehiculo</label>
+                            <label for="inputColor">Color</label>
                             <input oninput="mayus(this);" maxLength="15" type="text" class="form-control"
                                 id="inputColor" name="inputColor" required>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputNumeroMotor">Nº Motor del Vehiculo</label>
+                        <div class="form-group col-md-3">
+                            <label for="inputNumeroMotor">Nº Motor</label>
                             <input type="text" maxLength="30" class="form-control" id="inputNumeroMotor"
                                 name="inputNumeroMotor" required>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputPrecio">Precio del Vehiculo</label>
+                        <div class="form-group col-md-3">
+                            <label for="inputPrecio">Precio</label>
                             <input min="0" type="number" name="inputPrecio" class="form-control" id="inputPrecio"
                                 required>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="inputPropietario">Propietario del Vehiculo</label>
+                            <label for="inputPropietario">Propietario</label>
                             <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputPropietario" name="inputPropietario" required>
                         </div>
@@ -96,8 +97,18 @@
                         </div>
 
                         <div class="form-group col-md-2">
-                            <label for="inputSucursal">Sucursal actual</label>
+                            <label for="inputSucursal">Sucursal</label>
                             <select id="inputSucursal" name="inputSucursal" class="form-control">
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputEstado">Estado</label>
+                            <select id="inputEstado" name="inputEstado" class="form-control">
+                                <option value="DISPONIBLE" selected>Disponible</option>
+                                <option value="INACTIVO">Inactivo</option>
+                                <option value="ARRENDADO">Arrendado</option>
+                                <option value="SINIESTRADO">Siniestrado</option>
+                                <option value="MANTENCION">En mantencion</option>
                             </select>
                         </div>
                         <div class="form-group col-md-2">
@@ -106,8 +117,9 @@
                                 required>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputFoto">Foto del vehiculo (opcional)</label>
-                            <input type="file" class="form-control-file" id="inputFoto" name="inputFoto">
+                            <label for="inputFoto">Foto (opcional)</label>
+                            <input accept="image/.jpeg,.jpg,.png,.gif," type="file" class="form-control-file"
+                                id="inputFoto" name="inputFoto">
                         </div>
                     </div>
                     <br><br>
@@ -128,7 +140,9 @@
                             <th>Modelo</th>
                             <th>año</th>
                             <th>Tipo</th>
+                            <th>transmision</th>
                             <th>Sucursal</th>
+                            <th>Estado</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -141,7 +155,9 @@
                             <th>Modelo</th>
                             <th>año</th>
                             <th>Tipo</th>
+                            <th>transmision</th>
                             <th>Sucursal</th>
+                            <th>Estado</th>
                             <th></th>
 
                         </tr>
@@ -160,10 +176,10 @@
 </div>
 </div>
 
-<!-- Modal  editar  (PENDIENTE)-->
+
 <div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Editar Vehiculo</h5>
@@ -171,40 +187,227 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                En Construccion...
+            <div class="modal-body" id="spinner_vehiculo">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
-            </div>
+            <form class="needs-validation" id="formEditarVehiculo" novalidate>
+                <div class="modal-body" id="modal_vehiculo">
+                    <input type="text" id="inputEditarPatente" name="inputEditarPatente" hidden />
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group col-lg-3">
+                                    <label for="inputEditarMarca">Marca del Vehiculo</label>
+                                    <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                                        id="inputEditarMarca" name="inputEditarMarca" required>
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label for="inputEditarModelo">Modelo del Vehiculo</label>
+                                    <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                                        id="inputEditarModelo" name="inputEditarModelo" required>
+                                </div>
+
+                                <div class="form-group col-lg-2">
+                                    <label for="inputEditarEdad">Año del Vehiculo</label>
+                                    <select id="inputEditarEdad" name="inputEditarEdad" class="form-control">
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="inputEditarTipo">Tipo de Vehiculo</label>
+                                    <select id="inputEditarTipo" name="inputEditarTipo" class="form-control">
+                                        <option value="AUTOMOVIL" selected>Automovil</option>
+                                        <option value="CAMIONETA">Camioneta</option>
+                                        <option value="FURGON">Furgón</option>
+                                        <option value="CONVERTIBLE">Convertible</option>
+                                        <option value="DOBLE CABINA">Doble Cabina</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="inputEditarTransmision">Transmision del Vehiculo</label>
+                                    <select id="inputEditarTransmision" name="inputEditarTransmision"
+                                        class="form-control">
+                                        <option value="AUTOMATICO" selected>Automatico</option>
+                                        <option value="MANUAL">Manual</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="inputEditarChasis">Chasis de Vehiculo</label>
+                                    <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                                        id="inputEditarChasis" name="inputEditarChasis" required>
+                                </div>
+
+                                <div class="form-group col-lg-2">
+                                    <label for="inputEditarColor">Color del Vehiculo</label>
+                                    <input oninput="mayus(this);" maxLength="15" type="text" class="form-control"
+                                        id="inputEditarColor" name="inputEditarColor" required>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="inputEditarNumeroMotor">Nº Motor del Vehiculo</label>
+                                    <input type="text" maxLength="30" class="form-control" id="inputEditarNumeroMotor"
+                                        name="inputEditarNumeroMotor" required>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="inputEditarPrecio">Precio del Vehiculo</label>
+                                    <input min="0" type="number" name="inputEditarPrecio" class="form-control"
+                                        id="inputEditarPrecio" required>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="inputEditarSucursal">Sucursal</label>
+                                    <select id="inputEditarSucursal" name="inputEditarSucursal" class="form-control">
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="inputEditarEstado">Editar estado</label>
+                                    <select id="inputEditarEstado" name="inputEditarEstado" class="form-control">
+                                        <option value="DISPONIBLE" selected>Disponible</option>
+                                        <option value="INACTIVO">Inactivo</option>
+                                        <option value="ARRENDADO">Arrendado</option>
+                                        <option value="SINIESTRADO">Siniestrado</option>
+                                        <option value="MANTENCION">En mantencion</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label for="inputEditarPropietario">Propietario del Vehiculo</label>
+                                    <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                                        id="inputEditarPropietario" name="inputEditarPropietario" required>
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label for="inputEditarCompra">Donde se compro</label>
+                                    <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                                        id="inputEditarCompra" name="inputEditarCompra" required>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="inputEditarFechaCompra">Fecha de compra</label>
+                                    <input type="date" class="form-control" id="inputEditarFechaCompra"
+                                        name="inputEditarFechaCompra" required>
+                                </div>
+
+                                <div class="form-group col-lg-3">
+                                    <label for="inputCreateAt">Registrado El:</label>
+                                    <input disabled type="text" class="form-control" id="inputCreateAt"
+                                        name="inputCreateAt">
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label for="inputEditarFoto">Cambiar foto</label>
+                                    <input type="file" class="form-control-file" id="inputEditarFoto"
+                                        name="inputEditarFoto">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btn_editar_vehiculo" class="btn btn-primary">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            id="spinner_btn_editarVehiculo"></span>
+                        Guardar cambios</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
-<!-- Modal ver  (PENDIENTE)-->
-<div class="modal fade" id="modal_ver" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Mostrar Vehiculo</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                En Construccion...
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 
 <script>
 //sniper de btn registrar
 $("#spinner_btn_registrar").hide();
+
+function cargarVehiculo(patente) {
+    limpiarCampos();
+    $.getJSON({
+        url: base_route + "buscar_vehiculo",
+        type: "post",
+        dataType: "json",
+        data: {
+            patente
+        },
+        success: (response) => {
+            if (response.success) {
+                const vehiculo = response.data;
+                $("#inputEditarPatente").val(vehiculo.patente_vehiculo);
+                $("#exampleModalLongTitle").text("Editar Vehiculo " + vehiculo.patente_vehiculo);
+
+                $("#inputEditarEstado").val(vehiculo.estado_vehiculo);
+                $("#inputEditarMarca").val(vehiculo.marca_vehiculo);
+                $("#inputEditarModelo").val(vehiculo.modelo_vehiculo);
+                $("#inputEditarEdad").val(vehiculo.año_vehiculo);
+                $("#inputEditarTipo").val(vehiculo.tipo_vehiculo);
+                $("#inputEditarTransmision").val(vehiculo.transmision_vehiculo);
+                $("#inputEditarChasis").val(vehiculo.chasis_vehiculo);
+                $("#inputEditarColor").val(vehiculo.color_vehiculo);
+                $("#inputEditarNumeroMotor").val(vehiculo.numeroMotor_vehiculo);
+                $("#inputEditarPrecio").val(vehiculo.precio_vehiculo);
+                $("#inputEditarSucursal").val(vehiculo.id_sucursal);
+                $("#inputEditarCompra").val(vehiculo.compra_vehiculo);
+                $("#inputEditarPropietario").val(vehiculo.propietario_vehiculo);
+                $("#inputEditarFechaCompra").val(
+                    vehiculo.fechaCompra_vehiculo ?
+                    vehiculo.fechaCompra_vehiculo.substring(0, 10) :
+                    null);
+                $("#inputCreateAt").val(formatearFechaHora(vehiculo.createdAt));
+
+                $("#modal_vehiculo").show();
+                $("#spinner_vehiculo").hide();
+
+
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Usuario no encontrado",
+                });
+                $("#modal_vehiculo").show();
+                $("#spinner_vehiculo").hide();
+            }
+        },
+        error: () => {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "A ocurrido un Error Contacte a informatica",
+            });
+
+        },
+    });
+}
+
+
+
+function limpiarCampos() {
+    $("#spinner_vehiculo").show();
+    $("#spinner_btn_editarVehiculo").hide();
+    $("#modal_vehiculo").hide();
+    $("#spinner_vehiculo").show();
+
+
+    $("#inputVehiculo").val("");
+    $("#exampleModalLongTitle").text("");
+
+    $("#inputEditarMarca").val("");
+    $("#inputEditarModelo").val("");
+    $("#inputEditarEdad").val("");
+    $("#inputEditarTipo").val("");
+    $("#inputEditarTransmision").val("");
+    $("#inputEditarChasis").val("");
+    $("#inputEditarColor").val("");
+    $("#inputEditarNumeroMotor").val("");
+    $("#inputEditarPrecio").val("");
+    $("#inputEditarSucursal").val("");
+    $("#inputEditarCompra").val("");
+    $("#inputEditarPropietario").val("");
+    $("#inputEditarFechaCompra").val("");
+    $("#inputCreateAt").val("");
+    $("#inputEditarEstado").val("");
+
+}
 </script>
 
 

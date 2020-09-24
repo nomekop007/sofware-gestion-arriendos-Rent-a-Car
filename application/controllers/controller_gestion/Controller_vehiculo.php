@@ -18,6 +18,13 @@ class Controller_vehiculo extends CI_Controller
         echo get_function("vehiculos/cargarVehiculos", $tokenUser);
     }
 
+    public function buscarVehiculo()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        $patente = $this->input->post("patente");
+        echo find_function($patente, 'vehiculos/buscarVehiculo', $tokenUser);
+    }
+
 
     public function registrarVehiculo()
     {
@@ -38,21 +45,59 @@ class Controller_vehiculo extends CI_Controller
             "chasis_vehiculo" => $this->input->post("inputChasis"),
             "numeroMotor_vehiculo" => $this->input->post("inputNumeroMotor"),
             "marca_vehiculo" => $this->input->post("inputMarca"),
-            "estado_vehiculo" => "DISPONIBLE",
-            "foto_vehiculo" => null
+            "estado_vehiculo" => $this->input->post("inputEstado"),
         ];
 
-        $path = $_FILES["inputFoto"]["tmp_name"];
-        //se pregunta si se ingreso imagen valida
-        if (is_uploaded_file($path) && !empty($_FILES)) {
-            $type = pathinfo($path, PATHINFO_EXTENSION);
-            $data = file_get_contents($path);
-            $imagen = 'data:image/' . $type . ';base64,' . base64_encode($data);
-            //se agrega la imagen codificada al Array
-            $arrayVehiculo["foto_vehiculo"] = $imagen;
-        }
-
-
         echo post_function($arrayVehiculo, "vehiculos/registrarVehiculo", $tokenUser);
+    }
+
+
+
+
+    public function editarVehiculo()
+    {
+
+        $tokenUser = $this->session->userdata('usertoken');
+        $patente = $this->input->post("inputEditarPatente");
+
+        $arrayVehiculo = [
+            "transmision_vehiculo" => $this->input->post("inputEditarTransmision"),
+            "modelo_vehiculo" => $this->input->post("inputEditarModelo"),
+            "tipo_vehiculo" => $this->input->post("inputEditarTipo"),
+            "color_vehiculo" => $this->input->post("inputEditarColor"),
+            "precio_vehiculo" => $this->input->post("inputEditarPrecio"),
+            "propietario_vehiculo" => $this->input->post("inputEditarPropietario"),
+            "compra_vehiculo" => $this->input->post("inputEditarCompra"),
+            "fechaCompra_vehiculo" => $this->input->post("inputEditarFechaCompra"),
+            "año_vehiculo" => $this->input->post("inputEditarEdad"),
+            "id_sucursal" => $this->input->post("inputEditarSucursal"),
+            "chasis_vehiculo" => $this->input->post("inputEditarChasis"),
+            "numeroMotor_vehiculo" => $this->input->post("inputEditarNumeroMotor"),
+            "marca_vehiculo" => $this->input->post("inputEditarMarca"),
+            "estado_vehiculo" => $this->input->post("inputEditarEstado")
+        ];
+
+        echo put_function($patente, $arrayVehiculo, "vehiculos/editarVehiculo", $tokenUser);
+    }
+
+
+    public function guardarFotoVehiculo()
+    {
+
+        $tokenUser = $this->session->userdata('usertoken');
+        $patente =   $this->input->post("inputPatente");
+
+        $path = $_FILES["inputFoto"]["tmp_name"];
+        $name = $_FILES['inputFoto']['name'];
+        $file = file_get_contents($path);
+
+        $data = [
+            [
+                'name'     => 'foto_vehiculo',
+                'contents' => $file,
+                'filename' => $name
+            ],
+        ];
+        echo file_function($patente, $data, "vehiculos/cargarImagen", $tokenUser);
     }
 }

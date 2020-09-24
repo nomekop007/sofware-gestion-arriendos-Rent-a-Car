@@ -7,7 +7,7 @@ $rol = $this->session->userdata("rol");
     <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
             <br>
-
+            <?php if ($rol == 1 || $rol == 2) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=1">
                     <i class="fas fa-car fa-2x"></i>
@@ -15,7 +15,8 @@ $rol = $this->session->userdata("rol");
                 </a>
                 <br>
             </li>
-
+            <?php } ?>
+            <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=2">
                     <i class="fas fa-address-book fa-2x"></i>
@@ -23,6 +24,8 @@ $rol = $this->session->userdata("rol");
                 </a>
                 <br>
             </li>
+            <?php } ?>
+            <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=3">
                     <i class="fas fa-retweet fa-2x"></i>
@@ -30,6 +33,7 @@ $rol = $this->session->userdata("rol");
                 </a>
                 <br>
             </li>
+            <?php } ?>
 
             <?php if ($rol == 1) { ?>
             <li class="nav-item">
