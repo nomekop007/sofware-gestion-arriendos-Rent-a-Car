@@ -91,6 +91,7 @@ class Controller_vehiculo extends CI_Controller
         $name = $_FILES['inputFoto']['name'];
         $file = file_get_contents($path);
 
+
         $data = [
             [
                 'name'     => 'foto_vehiculo',

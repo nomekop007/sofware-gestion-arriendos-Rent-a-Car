@@ -15,6 +15,10 @@
                  role="button" aria-expanded="false" aria-controls="collapseConductor">
                  Datos Conductor
              </a>
+             <a id="btn-documentos" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseDocumentos"
+                 role="button" aria-expanded="false" aria-controls="collapseDocumentos">
+                 Documentos requeridos
+             </a>
              <a id="btn-vehiculo" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseVehiculos"
                  role="button" aria-expanded="false" aria-controls="collapseVehiculos">
                  Seleccion de Vehiculo
@@ -249,6 +253,18 @@
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputMunicipalidad" name="inputMunicipalidad">
                      </div>
+                 </div>
+             </div>
+         </div>
+
+
+         <div class="collapse" id="collapseDocumentos">
+             <div class="card card-body">
+                 <br>
+                 <h4>Documentos requeridos</h4>
+                 <br>
+                 <div class="form-row">
+                     <h6>formualrio..</h6>
                  </div>
              </div>
          </div>

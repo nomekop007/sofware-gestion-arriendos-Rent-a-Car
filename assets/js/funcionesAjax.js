@@ -1,5 +1,6 @@
 // ruta definitiva al helper_url
 var base_route = $("#ruta").val();
+var storage = $("#storage").val();
 
 //cargar selects
 function cargarSelect(ruta, idSelect) {

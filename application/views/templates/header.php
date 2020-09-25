@@ -12,6 +12,9 @@
 
     <!-- se envia la url del base_route al js -->
     <input id="ruta" value="<?php echo base_route(); ?>" hidden />
+    <input id="storage" value="<?php echo api_storage(); ?>" hidden />
+
+
 
     <!-- importacion de icons -->
     <script src="https://kit.fontawesome.com/0c58ee6656.js" crossorigin="anonymous"></script>

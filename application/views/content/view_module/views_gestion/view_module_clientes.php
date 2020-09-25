@@ -48,6 +48,12 @@
                         </tr>
                     </tfoot>
                 </table>
+                <div class="text-center" id="spinner_tablaClientes">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <h6>Cargando Datos...</h6>
+                </div>
             </div>
             <div class="tab-pane fade" id="nav-empresas" role="tabpanel" aria-labelledby="nav-empresas-tab">
                 <table id="tablaEmpresas" class="table table-striped table-bordered" style="width:100%">
@@ -73,6 +79,12 @@
                         </tr>
                     </tfoot>
                 </table>
+                <div class="text-center" id="spinner_tablaEmpresas">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <h6>Cargando Datos...</h6>
+                </div>
             </div>
             <div class="tab-pane fade" id="nav-conductores" role="tabpanel" aria-labelledby="nav-conductores-tab">
                 <table id="tablaConductores" class="table table-striped table-bordered" style="width:100%">
@@ -98,6 +110,12 @@
                         </tr>
                     </tfoot>
                 </table>
+                <div class="text-center" id="spinner_tablaConductores">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <h6>Cargando Datos...</h6>
+                </div>
             </div>
         </div>
     </div>

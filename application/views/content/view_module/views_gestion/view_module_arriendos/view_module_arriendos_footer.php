@@ -23,6 +23,9 @@ $("#btn-conductor").click(function() {
 $("#btn-vehiculo").click(function() {
     $(this).toggleClass("btn-dark btn-outline-dark");
 });
+$("#btn-documentos").click(function() {
+    $(this).toggleClass("btn-dark btn-outline-dark");
+});
 
 
 $(document).ready(() => {

@@ -94,6 +94,12 @@
                         </tr>
                     </tfoot>
                 </table>
+                <div class="text-center" id="spinner_tablaUsuarios">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <h6>Cargando Datos...</h6>
+                </div>
             </div>
         </div>
         <br><br><br>

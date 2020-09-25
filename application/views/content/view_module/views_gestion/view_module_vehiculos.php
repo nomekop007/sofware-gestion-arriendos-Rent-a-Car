@@ -163,7 +163,12 @@
                         </tr>
                     </tfoot>
                 </table>
-
+                <div class="text-center" id="spinner_tablaVehiculos">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <h6>Cargando Datos...</h6>
+                </div>
             </div>
 
         </div>
@@ -199,102 +204,119 @@
                     <input type="text" id="inputEditarPatente" name="inputEditarPatente" hidden />
                     <div class="card">
                         <div class="card-body">
-                            <div class="form-row">
-                                <div class="form-group col-lg-3">
-                                    <label for="inputEditarMarca">Marca del Vehiculo</label>
-                                    <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
-                                        id="inputEditarMarca" name="inputEditarMarca" required>
-                                </div>
-                                <div class="form-group col-lg-3">
-                                    <label for="inputEditarModelo">Modelo del Vehiculo</label>
-                                    <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
-                                        id="inputEditarModelo" name="inputEditarModelo" required>
-                                </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-row">
+                                        <div class="form-group col-lg-6">
+                                            <label for="inputEditarMarca">Marca del Vehiculo</label>
+                                            <input oninput="mayus(this);" maxLength="50" type="text"
+                                                class="form-control" id="inputEditarMarca" name="inputEditarMarca"
+                                                required>
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label for="inputEditarModelo">Modelo del Vehiculo</label>
+                                            <input oninput="mayus(this);" maxLength="50" type="text"
+                                                class="form-control" id="inputEditarModelo" name="inputEditarModelo"
+                                                required>
+                                        </div>
 
-                                <div class="form-group col-lg-2">
-                                    <label for="inputEditarEdad">Año del Vehiculo</label>
-                                    <select id="inputEditarEdad" name="inputEditarEdad" class="form-control">
-                                    </select>
-                                </div>
-                                <div class="form-group col-lg-2">
-                                    <label for="inputEditarTipo">Tipo de Vehiculo</label>
-                                    <select id="inputEditarTipo" name="inputEditarTipo" class="form-control">
-                                        <option value="AUTOMOVIL" selected>Automovil</option>
-                                        <option value="CAMIONETA">Camioneta</option>
-                                        <option value="FURGON">Furgón</option>
-                                        <option value="CONVERTIBLE">Convertible</option>
-                                        <option value="DOBLE CABINA">Doble Cabina</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-lg-2">
-                                    <label for="inputEditarTransmision">Transmision del Vehiculo</label>
-                                    <select id="inputEditarTransmision" name="inputEditarTransmision"
-                                        class="form-control">
-                                        <option value="AUTOMATICO" selected>Automatico</option>
-                                        <option value="MANUAL">Manual</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-lg-2">
-                                    <label for="inputEditarChasis">Chasis de Vehiculo</label>
-                                    <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
-                                        id="inputEditarChasis" name="inputEditarChasis" required>
-                                </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarEdad">Año del Vehiculo</label>
+                                            <select id="inputEditarEdad" name="inputEditarEdad" class="form-control">
+                                            </select>
+                                        </div>
 
-                                <div class="form-group col-lg-2">
-                                    <label for="inputEditarColor">Color del Vehiculo</label>
-                                    <input oninput="mayus(this);" maxLength="15" type="text" class="form-control"
-                                        id="inputEditarColor" name="inputEditarColor" required>
-                                </div>
-                                <div class="form-group col-lg-2">
-                                    <label for="inputEditarNumeroMotor">Nº Motor del Vehiculo</label>
-                                    <input type="text" maxLength="30" class="form-control" id="inputEditarNumeroMotor"
-                                        name="inputEditarNumeroMotor" required>
-                                </div>
-                                <div class="form-group col-lg-2">
-                                    <label for="inputEditarPrecio">Precio del Vehiculo</label>
-                                    <input min="0" type="number" name="inputEditarPrecio" class="form-control"
-                                        id="inputEditarPrecio" required>
-                                </div>
-                                <div class="form-group col-lg-2">
-                                    <label for="inputEditarSucursal">Sucursal</label>
-                                    <select id="inputEditarSucursal" name="inputEditarSucursal" class="form-control">
-                                    </select>
-                                </div>
-                                <div class="form-group col-lg-2">
-                                    <label for="inputEditarEstado">Editar estado</label>
-                                    <select id="inputEditarEstado" name="inputEditarEstado" class="form-control">
-                                        <option value="DISPONIBLE" selected>Disponible</option>
-                                        <option value="INACTIVO">Inactivo</option>
-                                        <option value="ARRENDADO">Arrendado</option>
-                                        <option value="SINIESTRADO">Siniestrado</option>
-                                        <option value="MANTENCION">En mantencion</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-lg-4">
-                                    <label for="inputEditarPropietario">Propietario del Vehiculo</label>
-                                    <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
-                                        id="inputEditarPropietario" name="inputEditarPropietario" required>
-                                </div>
-                                <div class="form-group col-lg-3">
-                                    <label for="inputEditarCompra">Donde se compro</label>
-                                    <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
-                                        id="inputEditarCompra" name="inputEditarCompra" required>
-                                </div>
-                                <div class="form-group col-lg-2">
-                                    <label for="inputEditarFechaCompra">Fecha de compra</label>
-                                    <input type="date" class="form-control" id="inputEditarFechaCompra"
-                                        name="inputEditarFechaCompra" required>
-                                </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarTipo">Tipo de Vehiculo</label>
+                                            <select id="inputEditarTipo" name="inputEditarTipo" class="form-control">
+                                                <option value="AUTOMOVIL" selected>Automovil</option>
+                                                <option value="CAMIONETA">Camioneta</option>
+                                                <option value="FURGON">Furgón</option>
+                                                <option value="CONVERTIBLE">Convertible</option>
+                                                <option value="DOBLE CABINA">Doble Cabina</option>
+                                            </select>
+                                        </div>
 
-                                <div class="form-group col-lg-3">
-                                    <label for="inputCreateAt">Registrado El:</label>
-                                    <input disabled type="text" class="form-control" id="inputCreateAt"
-                                        name="inputCreateAt">
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarTransmision">Transmision del Vehiculo</label>
+                                            <select id="inputEditarTransmision" name="inputEditarTransmision"
+                                                class="form-control">
+                                                <option value="AUTOMATICO" selected>Automatico</option>
+                                                <option value="MANUAL">Manual</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarChasis">Chasis de Vehiculo</label>
+                                            <input oninput="mayus(this);" maxLength="50" type="text"
+                                                class="form-control" id="inputEditarChasis" name="inputEditarChasis"
+                                                required>
+                                        </div>
+
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarColor">Color del Vehiculo</label>
+                                            <input oninput="mayus(this);" maxLength="15" type="text"
+                                                class="form-control" id="inputEditarColor" name="inputEditarColor"
+                                                required>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarNumeroMotor">Nº Motor del Vehiculo</label>
+                                            <input type="text" maxLength="30" class="form-control"
+                                                id="inputEditarNumeroMotor" name="inputEditarNumeroMotor" required>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarPrecio">Precio del Vehiculo</label>
+                                            <input min="0" type="number" name="inputEditarPrecio" class="form-control"
+                                                id="inputEditarPrecio" required>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarSucursal">Sucursal</label>
+                                            <select id="inputEditarSucursal" name="inputEditarSucursal"
+                                                class="form-control">
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarEstado">Editar estado</label>
+                                            <select id="inputEditarEstado" name="inputEditarEstado"
+                                                class="form-control">
+                                                <option value="DISPONIBLE" selected>Disponible</option>
+                                                <option value="INACTIVO">Inactivo</option>
+                                                <option value="ARRENDADO">Arrendado</option>
+                                                <option value="SINIESTRADO">Siniestrado</option>
+                                                <option value="MANTENCION">En mantencion</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-lg-8">
+                                            <label for="inputEditarPropietario">Propietario del Vehiculo</label>
+                                            <input oninput="mayus(this);" maxLength="50" type="text"
+                                                class="form-control" id="inputEditarPropietario"
+                                                name="inputEditarPropietario" required>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarCompra">Donde se compro</label>
+                                            <input oninput="mayus(this);" maxLength="50" type="text"
+                                                class="form-control" id="inputEditarCompra" name="inputEditarCompra"
+                                                required>
+                                        </div>
+                                        <div class="form-group col-lg-6">
+                                            <label for="inputEditarFechaCompra">Fecha de compra</label>
+                                            <input type="date" class="form-control" id="inputEditarFechaCompra"
+                                                name="inputEditarFechaCompra" required>
+                                        </div>
+
+                                        <div class="form-group col-lg-6">
+                                            <label for="inputCreateAt">Registrado El:</label>
+                                            <input disabled type="text" class="form-control" id="inputCreateAt"
+                                                name="inputCreateAt">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group col-lg-3">
+                                <div class="col-md-4">
+                                    <img id="imagen" class="img-fluid rounded float-right" alt="">
+
                                     <label for="inputEditarFoto">Cambiar foto</label>
-                                    <input type="file" class="form-control-file" id="inputEditarFoto"
-                                        name="inputEditarFoto">
+                                    <input accept="image/.jpeg,.jpg,.png,.gif," type="file" class="form-control-file"
+                                        id="inputEditarFoto" name="inputEditarFoto">
+
                                 </div>
                             </div>
                         </div>
@@ -332,6 +354,17 @@ function cargarVehiculo(patente) {
         success: (response) => {
             if (response.success) {
                 const vehiculo = response.data;
+
+                //se pregunta si tiene imagen el vehiculo
+                if (vehiculo.foto_vehiculo) {
+                    //se busca la url del storage
+                    document.getElementById("imagen").src = storage + "fotosVehiculos/" +
+                        vehiculo
+                        .foto_vehiculo;
+                } else {
+                    document.getElementById("imagen").src = base_route + "assets/images/imageDefault.png";
+                }
+
                 $("#inputEditarPatente").val(vehiculo.patente_vehiculo);
                 $("#exampleModalLongTitle").text("Editar Vehiculo " + vehiculo.patente_vehiculo);
 
@@ -406,7 +439,8 @@ function limpiarCampos() {
     $("#inputEditarFechaCompra").val("");
     $("#inputCreateAt").val("");
     $("#inputEditarEstado").val("");
-
+    $("#inputEditarFoto").val("");
+    document.getElementById("imagen").src = "";
 }
 </script>
 

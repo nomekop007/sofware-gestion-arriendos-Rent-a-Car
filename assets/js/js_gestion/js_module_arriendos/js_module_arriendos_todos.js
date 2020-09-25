@@ -1,7 +1,9 @@
 $(document).ready(() => {
     (() => {
+        $("#spinner_tablaTotalArriendos").show();
         const url = base_route + "cargar_TotalArriendos";
         $.getJSON(url, (result) => {
+            $("#spinner_tablaTotalArriendos").hide();
             if (result.success) {
                 $.each(result.data, (i, arriendo) => {
                     cargarArriendoEnTabla(arriendo);

@@ -13,9 +13,11 @@ $(document).ready(() => {
     cargarVehiculos();
 
     function cargarVehiculos() {
+        $("#spinner_tablaVehiculos").show();
         const url = base_route + "cargar_Vehiculos";
         $.getJSON(url, (result) => {
             if (result.success) {
+                $("#spinner_tablaVehiculos").hide();
                 $.each(result.data, (i, vehiculo) => {
                     cargarVehiculoEnTabla(vehiculo);
                 });
@@ -71,7 +73,10 @@ $(document).ready(() => {
 
                         //pregunta si hay imagen para subir
                         if ($("#inputFoto").val().length != 0) {
-                            guardarImagenVehiculo(response.data.patente_vehiculo);
+                            var file = $("#inputFoto")[0].files[0];
+                            var size = $("#inputFoto")[0].files[0].size;
+                            var patente = response.data.patente_vehiculo;
+                            guardarImagenVehiculo(patente, file, size);
                         }
 
                         Swal.fire("Exito", response.msg, "success");
@@ -131,18 +136,25 @@ $(document).ready(() => {
             timeOut: false,
             success: (response) => {
                 if (response.success) {
+                    //pregunta si hay imagen para subir
+                    if ($("#inputEditarFoto").val().length != 0) {
+                        var file = $("#inputEditarFoto")[0].files[0];
+                        var size = $("#inputEditarFoto")[0].files[0].size;
+                        var patente = response.data.patente_vehiculo;
+                        guardarImagenVehiculo(patente, file, size);
+                    }
+
                     Swal.fire("Exito", response.msg, "success");
                     $("#modal_editar").modal("toggle");
                     refrescarTabla();
-                } else {}
-
+                }
                 $("#btn_editar_vehiculo").attr("disabled", false);
                 $("#spinner_btn_editarVehiculo").hide();
             },
             error: () => {
                 Swal.fire({
                     icon: "error",
-                    title: "no se guardo el vehiculo",
+                    title: "no se actualizo el vehiculo",
                     text: "A ocurrido un Error Contacte a informatica",
                 });
                 $("#btn_editar_vehiculo").attr("disabled", false);
@@ -151,14 +163,13 @@ $(document).ready(() => {
         });
     });
 
-    function guardarImagenVehiculo(patente) {
+    //guarda exclusivamente la imagen en el servidor
+    function guardarImagenVehiculo(patente, file, size) {
         var data = new FormData();
         data.append("inputPatente", patente);
-        data.append("inputFoto", $("#inputFoto")[0].files[0]);
+        data.append("inputFoto", file);
 
-        var foto = $("#inputFoto")[0].files[0].size;
-
-        if (foto > 21000000) {
+        if (size > 21000000) {
             Swal.fire({
                 icon: "error",
                 title: "la foto es demaciado grande",
@@ -178,7 +189,7 @@ $(document).ready(() => {
             cache: false,
             timeOut: false,
             success: (response) => {
-                console.log(response.success);
+                console.log(response.msg);
             },
             error: () => {
                 Swal.fire({

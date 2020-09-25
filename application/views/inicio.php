@@ -4,34 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="<?php echo base_route() ?>assets/images/logo2.png">
     <title>Gestino de Arriendos</title>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/signin.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/bootstrap/css/bootstrap.min.css">
 </head>
-<style>
-.bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-@media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-    }
-}
-</style>
-<!-- se envia la url del base_route al js -->
-<input id="ruta" value="<?php echo base_route(); ?>" hidden />
-<link rel="shortcut icon" href="<?php echo base_route() ?>assets/images/logo2.png">
-<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/sweetalert2.min.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/animate.min.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/signin.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/bootstrap/css/bootstrap.min.css">
 
 <body>
-
+    <!-- se envia la url del base_route al js -->
+    <input id="ruta" value="<?php echo base_route(); ?>" hidden />
     <form class="form-signin">
         <img class="mb-4" src="<?php echo base_route(); ?>assets/images/logo.png" alt="" width="100%" height="100%">
         <h1 class="h3 mb-3 font-weight-normal">Plataforma Rentacar</h1>

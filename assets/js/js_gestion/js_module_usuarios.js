@@ -10,8 +10,6 @@ $(document).ready(() => {
     //cargar usuarios
     cargarUsuarios();
 
-
-
     $("#btn_registrar_usuario").click(() => {
         var nombre = $("#inputNombreUsuario").val();
         var correo = $("#inputCorreoUsuario").val();
@@ -57,7 +55,6 @@ $(document).ready(() => {
     });
 
     $("#btn_editar_usuario").click(() => {
-
         var id_usuario = $("#inputUsuario").val();
         var nombre = $("#inputEditNombreUsuario").val();
         var correo = $("#inputEditCorreoUsuario").val();
@@ -71,7 +68,7 @@ $(document).ready(() => {
                 correo,
                 rol,
                 sucursal,
-                clave
+                clave,
             };
 
             if (clave.length != 0) {
@@ -91,7 +88,7 @@ $(document).ready(() => {
                 data: usuario,
                 success: (response) => {
                     Swal.fire("Exito", response.msg, "success");
-                    $('#modal_editar_usuario').modal('toggle');
+                    $("#modal_editar_usuario").modal("toggle");
                     refrescarTabla();
                 },
                 error: () => {
@@ -100,9 +97,8 @@ $(document).ready(() => {
                         title: "no se actualizo el usuario",
                         text: "A ocurrido un Error Contacte a informatica",
                     });
-                }
+                },
             });
-
         }
     });
 
@@ -110,26 +106,25 @@ $(document).ready(() => {
         var accion = $("#btn_cambiarEstado_usuario").text();
         var id_usuario = $("#inputUsuario").val();
 
-
         var config = "";
         if (accion == "inhabilitar") {
             config = {
-                title: 'esta seguro?',
+                title: "esta seguro?",
                 text: "esta a punto de desactivar el usuario!",
-                icon: 'warning',
+                icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: '#FF2E02',
-                confirmButtonText: 'si, desactivar!'
-            }
+                confirmButtonColor: "#FF2E02",
+                confirmButtonText: "si, desactivar!",
+            };
         } else {
             config = {
-                title: 'esta seguro?',
+                title: "esta seguro?",
                 text: "esta a punto de activar el usuario!",
-                icon: 'warning',
+                icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: '#6BDC39',
-                confirmButtonText: 'si, activar!'
-            }
+                confirmButtonColor: "#6BDC39",
+                confirmButtonText: "si, activar!",
+            };
         }
         Swal.fire(config).then((result) => {
             if (result.isConfirmed) {
@@ -139,16 +134,12 @@ $(document).ready(() => {
                     dataType: "json",
                     data: {
                         id_usuario,
-                        accion
+                        accion,
                     },
                     success: (response) => {
                         if (response.success) {
-                            Swal.fire(
-                                "Exito",
-                                response.msg,
-                                'success'
-                            )
-                            $('#modal_editar_usuario').modal('toggle');
+                            Swal.fire("Exito", response.msg, "success");
+                            $("#modal_editar_usuario").modal("toggle");
                             refrescarTabla();
                         }
                     },
@@ -158,30 +149,26 @@ $(document).ready(() => {
                             title: "no se guardo el usuario",
                             text: "A ocurrido un Error Contacte a informatica",
                         });
-                    }
-                })
+                    },
+                });
             }
-        })
-    })
+        });
+    });
 
-
-
-
-
-    //BUSCAR MEJOR SOLUCION PARA EVITAR ACTUALIZAR TABLA 
+    //BUSCAR MEJOR SOLUCION PARA EVITAR ACTUALIZAR TABLA
     function refrescarTabla() {
         //limpia la tabla
-        tablaUsuario.row()
-            .clear()
-            .draw(false);
+        tablaUsuario.row().clear().draw(false);
 
         //carga nuevamente
         cargarUsuarios();
     }
 
     function cargarUsuarios() {
+        $("#spinner_tablaUsuarios").show();
         const url = base_route + "cargar_usuarios";
         $.getJSON(url, (result) => {
+            $("#spinner_tablaUsuarios").hide();
             if (result.success) {
                 $.each(result.data, (i, usuario) => {
                     cargarUsuarioEnTabla(usuario);
@@ -200,14 +187,15 @@ $(document).ready(() => {
                 usuario.role.nombre_rol,
                 usuario.sucursale.nombre_sucursal,
                 formatearFechaHora(usuario.createdAt),
-                usuario.estado_usuario ? "<span class='badge badge-pill badge-success'>ACTIVO </span>" : "<span class='badge badge-pill badge-danger'>INACTIVO</span>",
+                usuario.estado_usuario ?
+                "<span class='badge badge-pill badge-success'>ACTIVO </span>" :
+                "<span class='badge badge-pill badge-danger'>INACTIVO</span>",
                 " <button value='" +
-                usuario.id_usuario + "' " +
+                usuario.id_usuario +
+                "' " +
                 " onclick='cargarUsuario(this.value)'" +
-                " data-toggle='modal' data-target='#modal_editar_usuario' class='btn btn-outline-info'><i class='far fa-edit'></i></button> "
+                " data-toggle='modal' data-target='#modal_editar_usuario' class='btn btn-outline-info'><i class='far fa-edit'></i></button> ",
             ])
             .draw(false);
     }
-
-
 });

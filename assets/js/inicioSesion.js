@@ -27,6 +27,7 @@ $(document).ready(() => {
                             title: "inicio de Sesion",
                             text: response.msg,
                         });
+                        $("#inputclave").val("");
                     }
                 },
                 error: () => {
