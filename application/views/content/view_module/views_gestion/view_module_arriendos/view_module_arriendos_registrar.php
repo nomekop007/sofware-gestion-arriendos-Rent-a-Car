@@ -264,7 +264,31 @@
                  <h4>Documentos requeridos</h4>
                  <br>
                  <div class="form-row">
-                     <h6>formualrio..</h6>
+                     <div class="form-group col-md-6">
+                         <label for="inputCarnet">Celula de identidad</label>
+                         <input data-multiple-caption="{count} files selected" multiple type="file"
+                             class="form-control-file" id="inputCarnet" name="inputCarnet">
+                     </div>
+                     <div class="form-group col-md-6">
+                         <label for="inputComprobanteDomicilio">ComprobanteDomicilio</label>
+                         <input type="file" class="form-control-file" id="inputComprobanteDomicilio"
+                             name="inputComprobanteDomicilio">
+                     </div>
+                     <div class="form-group col-md-6">
+                         <label for="inputLicenciaConducir">Licencia Conducir</label>
+                         <input data-multiple-caption="{count} files selected" multiple type="file"
+                             class="form-control-file" id="inputLicenciaConducir" name="inputLicenciaConducir">
+                     </div>
+                     <div class="form-group col-md-6">
+                         <label for="inputChequeGarantia">Cheque en garantia</label>
+                         <input type="file" class="form-control-file" id="inputChequeGarantia"
+                             name="inputChequeGarantia">
+                     </div>
+                     <div class="form-group col-md-6">
+                         <label for="inputTargetaCredito">Targeta de credito</label>
+                         <input data-multiple-caption="{count} files selected" multiple type="file"
+                             class="form-control-file" id="inputTargetaCredito" name="inputTargetaCredito">
+                     </div>
                  </div>
              </div>
          </div>

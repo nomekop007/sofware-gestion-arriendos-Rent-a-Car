@@ -117,6 +117,7 @@
                                 required>
                         </div>
                         <div class="form-group col-md-4">
+
                             <label for="inputFoto">Foto (opcional)</label>
                             <input accept="image/.jpeg,.jpg,.png,.gif," type="file" class="form-control-file"
                                 id="inputFoto" name="inputFoto">
