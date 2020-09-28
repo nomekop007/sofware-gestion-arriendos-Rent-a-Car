@@ -10,6 +10,9 @@
 
 
 <script>
+$("#m_arriendo").addClass("active");
+$("#l_arriendo").addClass("card");
+
 //funciones para cambiar de color los botones del tab Registrar arriendo
 $("#btn-arriendo").click(function() {
     $(this).toggleClass("btn-dark btn-outline-dark");

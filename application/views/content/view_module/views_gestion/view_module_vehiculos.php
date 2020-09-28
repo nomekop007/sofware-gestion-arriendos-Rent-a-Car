@@ -340,6 +340,10 @@
 
 
 <script>
+$("#m_vehiculo").addClass("active");
+$("#l_vehiculo").addClass("card");
+
+
 //sniper de btn registrar
 $("#spinner_btn_registrar").hide();
 

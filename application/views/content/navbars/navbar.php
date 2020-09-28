@@ -30,10 +30,11 @@
         <div class="dropdown px-3">
             <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span> <?php echo $this->session->userdata('email'); ?> </span>
+                <span> <?php echo $this->session->userdata('nombre'); ?> </span>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="<?php echo base_route(); ?>cerrarSesion">cerrar Session</a>
+                <a class="dropdown-item" href="<?php echo base_route(); ?>cargarPanel?panel=1">Mi perfil</a>
+                <a class="dropdown-item" href="<?php echo base_route(); ?>cerrarSesion">Cerrar Sesion</a>
             </div>
         </div>
 
@@ -42,5 +43,5 @@
     </nav>
 
     <!-- abajo se muestra el drawer de acuerdo a la opcion que se eliga  -->
-    <div class="container-fluid">
-        <div class="row">
+    <div class="container-fluid ">
+        <div class="row ">

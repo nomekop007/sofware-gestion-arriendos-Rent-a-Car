@@ -4,53 +4,23 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class Controller_arriendo extends CI_Controller
+class Arriendo_controller extends CI_Controller
 {
 
-    public function cargarVehiculosPorSucursal()
+
+	public function cargarTotalArriendos()
     {
         $tokenUser = $this->session->userdata('usertoken');
-        $id_sucursal = $this->input->post("id_sucursal");
-        echo find_function($id_sucursal, "sucursales/cargarVehiculos", $tokenUser);
-    }
-
-
-    public function cargarAccesorios()
-    {
-        $tokenUser = $this->session->userdata('usertoken');
-        echo get_function("accesorios/cargarAccesorios", $tokenUser);
-    }
-
-    public function buscarEmpresa()
-    {
-        $tokenUser = $this->session->userdata('usertoken');
-        $rut_empresa = $this->input->post("rut_empresa");
-        echo find_function($rut_empresa, "empresas/buscarEmpresa", $tokenUser);
-    }
-
-
-    public function buscarCliente()
-    {
-        $tokenUser = $this->session->userdata('usertoken');
-        $rut_cliente = $this->input->post("rut_cliente");
-        echo find_function($rut_cliente, "clientes/buscarCliente", $tokenUser);
-    }
-
-
-    public function buscarConductor()
-    {
-        $tokenUser = $this->session->userdata('usertoken');
-        $rut_conductor = $this->input->post("rut_conductor");
-        echo find_function($rut_conductor, "conductores/buscarConductor", $tokenUser);
-    }
-
+        echo get_function("arriendos/cargarTotalArriendos", $tokenUser);
+	}
+	
     public function buscarArriendo()
     {
         $tokenUser = $this->session->userdata('usertoken');
         $id_arriendo = $this->input->post("id_arriendo");
         echo find_function($id_arriendo, "arriendos/buscarArriendo", $tokenUser);
-    }
-
+	}
+	
 
     public function registrarArriendo()
     {
@@ -132,20 +102,4 @@ class Controller_arriendo extends CI_Controller
         echo  post_function($ArrayData, "pagosArriendos/registrarPagosArriendos", $tokenUser);
     }
 
-    public function registrarArriendoAccesorios()
-    {
-        $tokenUser = $this->session->userdata('usertoken');
-        $ArrayData = [
-            "ArrayChecks" =>  json_decode($_POST['array']),
-            "id_arriendo" => $this->input->post("idArriendo")
-        ];
-        echo post_function($ArrayData, "accesorios/registrarArriendoAccesorio", $tokenUser);
-    }
-
-
-    public function cargarTotalArriendos()
-    {
-        $tokenUser = $this->session->userdata('usertoken');
-        echo get_function("arriendos/cargarTotalArriendos", $tokenUser);
-    }
 }

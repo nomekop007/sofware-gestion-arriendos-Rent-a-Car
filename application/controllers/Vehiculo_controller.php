@@ -3,14 +3,8 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Controller_vehiculo extends CI_Controller
+class Vehiculo_controller extends CI_Controller
 {
-
-    public function cargarSucursales()
-    {
-        $tokenUser = $this->session->userdata('usertoken');
-        echo  get_function('sucursales/cargarSucursales', $tokenUser);
-    }
 
     public function cargarVehiculos()
     {
@@ -50,8 +44,6 @@ class Controller_vehiculo extends CI_Controller
 
         echo post_function($arrayVehiculo, "vehiculos/registrarVehiculo", $tokenUser);
     }
-
-
 
 
     public function editarVehiculo()

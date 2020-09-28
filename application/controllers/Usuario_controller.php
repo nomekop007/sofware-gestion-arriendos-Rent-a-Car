@@ -3,18 +3,12 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Controller_usuario extends CI_Controller
+class Usuario_controller extends CI_Controller
 {
     public function cargarUsuarios()
     {
         $tokenUser = $this->session->userdata('usertoken');
         echo get_function("usuarios/cargarUsuarios", $tokenUser);
-    }
-
-    public function cargarRoles()
-    {
-        $tokenUser = $this->session->userdata('usertoken');
-        echo get_function("roles/cargarRoles", $tokenUser);
     }
 
     public function registrarUsuario()

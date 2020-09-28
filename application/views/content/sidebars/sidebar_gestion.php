@@ -8,27 +8,30 @@ $rol = $this->session->userdata("rol");
         <ul class="nav flex-column">
             <br>
             <?php if ($rol == 1 || $rol == 2) { ?>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=1">
-                    <i class="fas fa-car fa-2x"></i>
+            <li class="nav-item " id="l_vehiculo">
+                <br>
+                <a id="m_vehiculo" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=1">
+                    <i class="fas fa-car "></i>
                     Modulo Vehiculos
                 </a>
                 <br>
             </li>
             <?php } ?>
             <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=2">
-                    <i class="fas fa-address-book fa-2x"></i>
+            <li class="nav-item" id="l_cliente">
+                <br>
+                <a id="m_cliente" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=2">
+                    <i class="fas fa-address-book "></i>
                     Modulo Clientes
                 </a>
                 <br>
             </li>
             <?php } ?>
             <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=3">
-                    <i class="fas fa-retweet fa-2x"></i>
+            <li class="nav-item" id="l_arriendo">
+                <br>
+                <a id="m_arriendo" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=3">
+                    <i class="fas fa-retweet "></i>
                     Modulo Arriendo
                 </a>
                 <br>
@@ -36,9 +39,10 @@ $rol = $this->session->userdata("rol");
             <?php } ?>
 
             <?php if ($rol == 1) { ?>
-            <li class="nav-item">
-                <a class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=4">
-                    <i class="fas fa-users-cog fa-2x"></i>
+            <li class="nav-item" id="l_usuario">
+                <br>
+                <a id="m_usuario" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=4">
+                    <i class="fas fa-users-cog "></i>
                     Modulo Usuarios
                 </a>
                 <br>

@@ -5,7 +5,8 @@
     </div>
     <div>
         <h5>Bienvenido <?php echo $this->session->userdata('nombre'); ?> </h5>
-        <img style="width:30%" class="text-center" src="<?php echo base_route() ?>assets/images/arriendo.jpg" />
+        <img style="width:10%" class="text-center" src="<?php echo base_route() ?>assets/images/logo3.png" />
+        <h6>formulario de perfil</h6>
     </div>
 </main>
 

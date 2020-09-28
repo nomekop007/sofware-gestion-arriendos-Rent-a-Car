@@ -41,7 +41,7 @@
                         <div class=" form-group col-md-4">
                             <label for="inputClaveUsuario">Constraseña</label>
                             <div class="input-group">
-                                <input maxLength="30" minlength="9" type="password" class="form-control"
+                                <input maxLength="30" minlength="8" type="password" class="form-control"
                                     id="inputClaveUsuario" required>
                                 <div class="input-group-append">
                                     <button class="btn btn-dark show_password" type="button"
@@ -191,6 +191,8 @@
 
 
 <script>
+$("#m_usuario").addClass("active");
+$("#l_usuario").addClass("card");
 $("#spinner_btn_registrar").hide();
 
 function cargarUsuario(id_usuario) {
@@ -255,6 +257,7 @@ function mostrarPassword(idInput) {
         cambio.type = "password";
         $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
     }
+
     //CheckBox mostrar contraseña
     $('.ShowPassword').click(function() {
         $('.Password').attr('type', $(this).is(':checked') ? 'text' : 'password');

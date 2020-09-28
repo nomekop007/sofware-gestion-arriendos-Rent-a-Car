@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="shortcut icon" href="<?php echo base_route() ?>assets/images/logo2.png">
+    <link rel="shortcut icon" href="<?php echo base_route() ?>assets/images/logo3.png">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="sofware de arriendo">
@@ -35,7 +35,6 @@
 
     <!-- dashboard core CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/dashboard.css" rel="stylesheet">
-
     <!-- Mi estilos css -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/myEstilo.css" rel="stylesheet">
 

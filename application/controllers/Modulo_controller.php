@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Session_gestion extends CI_Controller
+class Modulo_controller extends CI_Controller
 {
 
-    public function cargarModulos()
+    public function cargarModulosGestion()
     {
         $rol =  $this->session->userdata("rol");
 
