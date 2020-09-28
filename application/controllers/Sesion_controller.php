@@ -33,6 +33,7 @@ class Sesion_controller extends CI_Controller
 		$arrayUser = [
 			"estado" => $this->input->post("estado_usuario"),
 			"rol" => $this->input->post("id_rol"),
+			"sucursal" => $this->input->post("id_sucursal"),
 			"id" => $this->input->post("id_usuario"),
 			"nombre" => $this->input->post("nombre_usuario"),
 			"email" => $this->input->post("email_usuario"),

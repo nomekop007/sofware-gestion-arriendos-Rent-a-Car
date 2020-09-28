@@ -9,7 +9,6 @@ $(document).ready(() => {
     //select2 de los vehiculos
     $("#select_vehiculos").select2(lenguajeSelect2);
 
-
     //cargar accesorios
     (() => {
         const url = base_route + "cargar_accesorios";
@@ -59,7 +58,7 @@ $(document).ready(() => {
                             null
                         );
                         $("#inputTelefonoCliente").val(c.telefono_cliente);
-                        $("#inputEstadoCivil").val(c.estadoCivil_cliente)
+                        $("#inputEstadoCivil").val(c.estadoCivil_cliente);
                         $("#inputCorreoCliente").val(c.correo_cliente);
                     } else {
                         $("#inputNombreCliente").val("");
@@ -201,23 +200,48 @@ $(document).ready(() => {
     });
 
     $("#btn_crear_arriendo").click(() => {
-        var inputRutConductor = $("#inputRutConductor").val();
-        var inputRutCliente = $("#inputRutCliente").val();
-        var inputRutEmpresa = $("#inputRutEmpresa").val();
-        var inputNombreCliente = $("#inputNombreCliente").val();
-        var inputNombreEmpresa = $("#inputNombreEmpresa").val();
-        var inputNombreConductor = $("#inputNombreConductor").val();
-        var inputCorreoCliente = $("#inputCorreoCliente").val();
         var select_vehiculos = $("#select_vehiculos").val();
         var inputCiudadEntrega = $("#inputCiudadEntrega").val();
         var inputFechaEntrega = $("#inputFechaEntrega").val();
         var inputCiudadRecepcion = $("#inputCiudadRecepcion").val();
         var inputFechaRecepcion = $("#inputFechaRecepcion").val();
+
+        var inputRutCliente = $("#inputRutCliente").val();
+        var inputNombreCliente = $("#inputNombreCliente").val();
+        var inputTelefonoCliente = $("#inputTelefonoCliente").val();
+        var inputCorreoCliente = $("#inputCorreoCliente").val();
+
+        var inputRutEmpresa = $("#inputRutEmpresa").val();
+        var inputNombreEmpresa = $("#inputNombreEmpresa").val();
+        var inputTelefonoEmpresa = $("#inputTelefonoEmpresa").val();
+        var inputCorreoEmpresa = $("#inputCorreoEmpresa").val();
+
+        var inputRutConductor = $("#inputRutConductor").val();
+        var inputNombreConductor = $("#inputNombreConductor").val();
+        var inputTelefonoConductor = $("#inputTelefonoConductor").val();
+
+        //documentos requeridos
+        var inputCarnetFrontal = $("#inputCarnetFrontal").val();
+        var inputCarnetTrasera = $("#inputCarnetTrasera").val();
+        var inputLicenciaFrontal = $("#inputLicenciaFrontal").val();
+        var inputLicenciatrasera = $("#inputLicenciatrasera").val();
+        var inputTargeta = $("#inputTargeta").val();
+        var inputChequeGarantia = $("#inputChequeGarantia").val();
+        var inputComprobanteDomicilio = $("#inputComprobanteDomicilio").val();
+
         var inputTipo = $("#inputTipo").val();
 
         if (
+            inputCarnetFrontal.length != 0 &&
+            inputCarnetTrasera.length != 0 &&
+            inputLicenciaFrontal.length != 0 &&
+            inputLicenciatrasera.length != 0 &&
+            inputTargeta.length != 0 &&
+            inputChequeGarantia.length != 0 &&
+            inputComprobanteDomicilio.length != 0 &&
             inputRutConductor.length != 0 &&
             inputNombreConductor.length != 0 &&
+            inputTelefonoConductor.length != 0 &&
             inputCiudadEntrega.length != 0 &&
             inputFechaEntrega.length != 0 &&
             inputCiudadRecepcion.length != 0 &&
@@ -229,6 +253,7 @@ $(document).ready(() => {
                     if (
                         inputRutCliente.length != 0 &&
                         inputNombreCliente.length != 0 &&
+                        inputTelefonoCliente.length != 0 &&
                         inputCorreoCliente != 0
                     ) {
                         guardarDatosArriendo();
@@ -242,10 +267,13 @@ $(document).ready(() => {
                 case "2":
                     if (
                         inputRutCliente.length != 0 &&
+                        inputNombreCliente.length != 0 &&
                         inputCorreoCliente != 0 &&
+                        inputTelefonoCliente.length != 0 &&
                         inputRutEmpresa.length != 0 &&
                         inputNombreEmpresa.length != 0 &&
-                        inputNombreCliente.length
+                        inputTelefonoEmpresa.length != 0 &&
+                        inputCorreoEmpresa.length != 0
                     ) {
                         guardarDatosArriendo();
                     } else {
@@ -256,7 +284,12 @@ $(document).ready(() => {
                     }
                     break;
                 case "3":
-                    if (inputRutEmpresa.length != 0 && inputNombreEmpresa.length != 0) {
+                    if (
+                        inputRutEmpresa.length != 0 &&
+                        inputNombreEmpresa.length != 0 &&
+                        inputTelefonoEmpresa.length != 0 &&
+                        inputCorreoEmpresa.length != 0
+                    ) {
                         guardarDatosArriendo();
                     } else {
                         Swal.fire({
@@ -297,6 +330,8 @@ $(document).ready(() => {
             success: (response) => {
                 if (response) {
                     guardarDatosAccesorios(response.data.id_arriendo);
+                    guardarFilesDocumentos(response.data.id_arriendo);
+
                     cargarArriendoEnTabla(response.data);
                 } else {
                     Swal.fire({
@@ -349,5 +384,22 @@ $(document).ready(() => {
         });
     }
 
+    function guardarFilesDocumentos(idArriendo) {
+        //documentos requeridos
+        var inputCarnetFrontal = $("#inputCarnetFrontal").val();
+        var inputCarnetTrasera = $("#inputCarnetTrasera").val();
+        var inputLicenciaFrontal = $("#inputLicenciaFrontal").val();
+        var inputLicenciatrasera = $("#inputLicenciatrasera").val();
+        var inputTargeta = $("#inputTargeta").val();
+        var inputChequeGarantia = $("#inputChequeGarantia").val();
+        var inputComprobanteDomicilio = $("#inputComprobanteDomicilio").val();
+        //registrar_arriendoRequisito
 
+        var data = new FormData();
+        data.append("idArriendo", idArriendo);
+        data.append("inputFoto", file);
+
+        //enviar al controller
+        //ruta : registrar_requisitosArriendo
+    }
 });

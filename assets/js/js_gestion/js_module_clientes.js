@@ -16,7 +16,7 @@ $(document).ready(() => {
                         .add([
                             o.nombre_cliente,
                             o.rut_cliente,
-                            o.telefono_cliente,
+                            "+569 " + o.telefono_cliente,
                             o.correo_cliente,
                             " <button value='" +
                             o.rut_cliente +
@@ -73,7 +73,7 @@ $(document).ready(() => {
                             o.nombre_conductor,
                             o.rut_conductor,
                             o.clase_conductor,
-                            o.telefono_conductor,
+                            "+569 " + o.telefono_conductor,
                             " <button value='" +
                             o.rut_conductor +
                             "' " +

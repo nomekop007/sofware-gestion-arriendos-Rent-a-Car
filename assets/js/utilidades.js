@@ -3,15 +3,26 @@ function mayus(e) {
     e.value = e.value.toUpperCase();
 }
 
+//Script para validar campo solo numeros
+function soloNumeros(evt) {
+    var code = evt.which ? evt.which : evt.keyCode;
+    if (code == 8) {
+        //backspace
+        return true;
+    } else if (code >= 48 && code <= 57) {
+        //is a number
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // Script para cargar año vehiculo
 function cargarOlder(input) {
-    var n = (new Date()).getFullYear()
+    var n = new Date().getFullYear();
     var select = document.getElementById(input);
     for (var i = n; i >= 1970; i--) select.options.add(new Option(i, i));
 }
-
-
 
 // Script para validar los campos de un formulario
 (() => {
@@ -81,7 +92,6 @@ function formatearFechaHora(fecha) {
     };
     return (fecha = f.toLocaleDateString("es-MX", opciones));
 }
-
 
 //funcion para formatear fechas
 function formatearFecha(fecha) {

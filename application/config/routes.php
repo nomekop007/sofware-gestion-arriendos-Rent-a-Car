@@ -105,6 +105,10 @@ $route['cargar_TotalArriendos'] = 'Arriendo_controller/cargarTotalArriendos';
 $route['buscar_arriendo'] = 'Arriendo_controller/buscarArriendo';
 $route['registrar_pagoArriendo'] = 'Arriendo_controller/registrarPagoArriendo';
 
+/* rutas de controller Documento  */
+$route['registrar_requisitosArriendo'] = 'Documento_controller/guardarDocumentosRequistosArriendo';
+
+
 /* rutas de controller PDF  */
 $route['generar_pdfContratoArriendo'] = 'PDF_controller/generarPDFContratoArriendo';
 

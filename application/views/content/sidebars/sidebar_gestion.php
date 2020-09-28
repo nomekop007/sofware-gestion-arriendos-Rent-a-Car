@@ -38,10 +38,21 @@ $rol = $this->session->userdata("rol");
             </li>
             <?php } ?>
 
+            <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
+            <li class="nav-item" id="l_despacho">
+                <br>
+                <a id="m_despacho" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=4">
+                    <i class="fas fa-concierge-bell"></i>
+                    Modulo despacho
+                </a>
+                <br>
+            </li>
+            <?php } ?>
+
             <?php if ($rol == 1) { ?>
             <li class="nav-item" id="l_usuario">
                 <br>
-                <a id="m_usuario" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=4">
+                <a id="m_usuario" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=5">
                     <i class="fas fa-users-cog "></i>
                     Modulo Usuarios
                 </a>

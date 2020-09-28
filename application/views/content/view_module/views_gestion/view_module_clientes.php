@@ -307,7 +307,7 @@ function cargarCliente(rut_cliente) {
                 $("#inputCorreoCliente").val(cliente.correo_cliente);
                 $("#inputCiudadCliente").val(cliente.ciudad_cliente);
                 $("#inputDireccionCliente").val(cliente.direccion_cliente);
-                $("#inputTelefonoCliente").val(cliente.telefono_cliente);
+                $("#inputTelefonoCliente").val("+569 " + cliente.telefono_cliente);
                 $("#inputCreateAtCliente").val(formatearFechaHora(cliente.createdAt));
 
                 $("#spinner_cliente").hide();
@@ -383,7 +383,7 @@ function cargarConductor(rut_conductor) {
                 $("#inputNombreConductor").val(conductor.nombre_conductor);
                 $("#inputNumeroConductor").val(conductor.numero_conductor);
                 $("#inputRutConductor").val(conductor.rut_conductor);
-                $("#inputTelefonoConductor").val(conductor.telefono_conductor);
+                $("#inputTelefonoConductor").val("+569 " + conductor.telefono_conductor);
                 $("#inputVCTOconductor").val(conductor.vcto_conductor ? formatearFecha(conductor
                     .vcto_conductor) : "");
 

@@ -20,12 +20,10 @@
             </div>
         </div>
 
-
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
             data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
 
         <div class="dropdown px-3">
             <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
@@ -33,12 +31,10 @@
                 <span> <?php echo $this->session->userdata('nombre'); ?> </span>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="<?php echo base_route(); ?>cargarPanel?panel=1">Mi perfil</a>
+                <a class="dropdown-item" href="<?php echo base_route(); ?>modulos_gestion?modulo=0">Mi perfil</a>
                 <a class="dropdown-item" href="<?php echo base_route(); ?>cerrarSesion">Cerrar Sesion</a>
             </div>
         </div>
-
-
 
     </nav>
 

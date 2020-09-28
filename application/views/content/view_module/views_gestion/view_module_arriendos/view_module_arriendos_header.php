@@ -15,8 +15,6 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-link  active" id="nav-registrar-tab" data-toggle="tab" href="#nav-home" role="tab"
                     aria-controls="nav-home" aria-selected="true">Registrar Arriendo</a>
-                <a class="nav-link" id="nav-arriendosActivos-tab" data-toggle="tab" href="#nav-profile" role="tab"
-                    aria-controls="nav-profile" aria-selected="false">Ver Arriendos Activos</a>
                 <a class="nav-link" id="nav-arriendosTotales" data-toggle="tab" href="#nav-contact" role="tab"
                     aria-controls="nav-contact" aria-selected="false">Ver Todos los Arriendos</a>
             </div>
