@@ -82,18 +82,7 @@ $(document).ready(() => {
                         Swal.fire("Exito", response.msg, "success");
                         $("#btn_registrar_vehiculo").attr("disabled", false);
                         $("#spinner_btn_registrar").hide();
-
-                        $("#inputPatente").val("");
-                        $("#inputModelo").val("");
-                        $("#inputColor").val("");
-                        $("#inputPropietario").val("");
-                        $("#inputCompra").val("");
-                        $("#inputPrecio").val("");
-                        $("#inputFechaCompra").val("");
-                        $("#inputMarca").val("");
-                        $("#inputNumeroMotor").val("");
-                        $("#inputChasis").val("");
-                        $("#inputFoto").val("");
+                        $("#form_registrar_vehiculo")[0].reset();
                     } else {
                         $("#btn_registrar_vehiculo").attr("disabled", false);
                         $("#spinner_btn_registrar").hide();

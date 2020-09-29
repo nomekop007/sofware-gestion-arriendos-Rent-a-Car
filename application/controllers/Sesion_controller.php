@@ -10,22 +10,11 @@ class Sesion_controller extends CI_Controller
 		$this->load->view('login');
 	}
 
-	public function iniciarSesion()
-	{
-		$token = "no existe token";
-		$arrayUser = [
-			"email_usuario" => $this->input->post("correo"),
-			"clave_usuario" => $this->input->post("clave")
-		];
-		echo post_function($arrayUser, "usuarios/login", $token);
-	}
-
 	public function cerrarSesion()
 	{
 		$this->session->sess_destroy();
 		redirect(base_route());
 	}
-
 
 	public function irPlataforma()
 	{

@@ -1,5 +1,5 @@
 <!-- Tab con la tabla de los arriendos activos -->
-<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-arriendosTotales">
+<div class="tab-pane fade" id="nav-arriendos" role="tabpanel" aria-labelledby="nav-arriendos-tab">
     <br><br>
     <table id="tablaTotalArriendos" class="table table-striped table-bordered" style="width:100%">
         <thead class="btn-dark">
@@ -32,7 +32,9 @@
         </div>
         <h6>Cargando Datos...</h6>
     </div>
+
 </div>
+
 
 
 
@@ -55,7 +57,7 @@
                 </div>
             </div>
             <form class="needs-validation" id="formContrato" novalidate>
-                <input type="text" name="inputIDArriendo" id="inputIDArriendo" hidden />
+                <input type="text" name="inputIdArriendo" id="inputIdArriendo" hidden />
                 <div class="modal-body">
 
                     <div class="card">
@@ -89,8 +91,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Abono $</span>
                                 </div>
-                                <input min="0" type="number" id="inputAbono" name="inputAbono" class="form-control"
-                                    required>
+                                <input min="0" value="0" type="number" id="inputAbono" name="inputAbono"
+                                    class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -109,8 +111,8 @@
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Sub total Arriendo
                                     $</span>
-                                <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo" min="0"
-                                    type="number" class="form-control" oninput="calcularValores()" required>
+                                <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo" value="0"
+                                    min="0" type="number" class="form-control" oninput="calcularValores()" required>
                             </div>
                         </div>
                     </div>
@@ -142,7 +144,7 @@
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Total Neto $</span>
                                 <input oninput="calcularValores()" style="width: 40%;" id="inputNeto" name="inputNeto"
-                                    min="0" type="number" class="form-control" required>
+                                    min="0" value="0" type="number" class="form-control" required>
                             </div>
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">IVA $</span>
@@ -252,7 +254,7 @@ function cargarPagoArriendo(id_arriendo) {
         success: (e) => {
             if (e.success) {
                 var arriendo = e.data;
-                $("#inputIDArriendo").val(arriendo.id_arriendo);
+                $("#inputIdArriendo").val(arriendo.id_arriendo);
                 $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
                 $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
                 $("#inputDigitador").val(arriendo.usuario.nombre_usuario);
@@ -358,20 +360,7 @@ function calcularValores() {
 
 function limpiarCampos() {
     $("#formAccesorios").empty();
-    $("#textCliente").val("");
-    $("#textVehiculo").val("");
-    $("#inputIDArriendo").val("");
-    $("#inputNumeroTargeta").val(0);
-    $("#inputFechaTargeta").val("");
-    $("#inputCheque").val("");
-    $("#inputAbono").val(0);
-    $("#inputValorArriendo").val(0);
-    $("#inputNeto").val(0);
-    $("#inputIVA").val(0);
-    $("#inputDescuento").val(0);
-    $("#inputTotal").val(0);
-    $("#inputDigitador").val("");
-    $("#inputObservaciones").val("");
+    $("#formContrato")[0].reset();
     $("#btn_crear_contrato").attr("disabled", false);
     $("#spinner_btn_crearContrato").hide();
 }

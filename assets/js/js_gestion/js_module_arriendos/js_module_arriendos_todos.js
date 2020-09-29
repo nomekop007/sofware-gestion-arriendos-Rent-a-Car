@@ -18,7 +18,6 @@ $(document).ready(() => {
         var form = $("#formContrato")[0];
         var data = new FormData(form);
 
-        var digitador = $("#inputDigitador").val();
         var abono = $("#inputAbono").val();
         var descuento = $("#inputDescuento").val();
         var valor = $("#inputValorArriendo").val();
@@ -26,7 +25,6 @@ $(document).ready(() => {
 
         if (
             total >= 0 &&
-            digitador.length != 0 &&
             abono.length != 0 &&
             descuento.length != 0 &&
             valor.length != 0
@@ -35,7 +33,7 @@ $(document).ready(() => {
             $("#spinner_btn_crearContrato").show();
 
             $.ajax({
-                url: base_route + "registrar_pagoArriendo",
+                url: base_route + "generar_PDFcontrato",
                 type: "post",
                 dataType: "json",
                 data: data,
@@ -46,76 +44,36 @@ $(document).ready(() => {
                 timeOut: false,
                 success: (response) => {
                     if (response.success) {
-                        generarPDFContrato(response.data);
+                        console.log(response);
+
+                        /* window.location.href =
+                            "data:application/octet-stream;base64," + response.data; */
+
+                        window.open(
+                            "data:application/octet-stream;base64," + response.data
+                        );
                     } else {
                         Swal.fire({
                             icon: "error",
-                            title: "ah ocurrido un error al guardar",
+                            title: "ah ocurrido un error al generar el contrato",
                         });
-                        $("#btn_crear_contrato").attr("disabled", false);
-                        $("#spinner_btn_crearContrato").hide();
                     }
                 },
                 error: () => {
                     Swal.fire({
                         icon: "error",
-                        title: "no se guardo el contrato",
+                        title: "a ocurridov un error al generar el contrato",
                         text: "A ocurrido un Error Contacte a informatica",
                     });
-                    $("#btn_crear_contrato").attr("disabled", false);
-                    $("#spinner_btn_crearContrato").hide();
                 },
             });
+            $("#btn_crear_contrato").attr("disabled", false);
+            $("#spinner_btn_crearContrato").hide();
         } else {
             Swal.fire({
                 icon: "warning",
                 title: "campos vacios y/o valores invalidos",
             });
-            $("#btn_crear_contrato").attr("disabled", false);
-            $("#spinner_btn_crearContrato").hide();
         }
     });
-
-    function generarPDFContrato(id_arriendo) {
-        var numerTargeta = Number($("#inputNumeroTargeta").val());
-        var fechaTargeta = $("#inputFechaTargeta").val();
-        var cheque = $("#inputCheque").val();
-        var subTotal = Number($("#inputValorArriendo").val());
-
-        $.ajax({
-            url: base_route + "generar_pdfContratoArriendo",
-            type: "post",
-            dataType: "json",
-            data: {
-                id_arriendo,
-                numerTargeta,
-                fechaTargeta,
-                cheque,
-                subTotal,
-            },
-            success: (response) => {
-                $("#btn_crear_contrato").attr("disabled", false);
-                $("#spinner_btn_crearContrato").hide();
-                if (response.success) {
-                    window.location.href =
-                        "data:application/octet-stream;base64," + response.data;
-                    //		window.open(response.data, "_blank");
-                } else {
-                    Swal.fire({
-                        icon: "warning",
-                        title: response.msg,
-                    });
-                }
-            },
-            error: () => {
-                Swal.fire({
-                    icon: "error",
-                    title: "no se guardo el contrato",
-                    text: "A ocurrido un Error Contacte a informatica",
-                });
-                $("#btn_crear_contrato").attr("disabled", false);
-                $("#spinner_btn_crearContrato").hide();
-            },
-        });
-    }
 });

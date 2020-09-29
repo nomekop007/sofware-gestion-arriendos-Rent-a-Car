@@ -51,8 +51,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 $route['default_controller'] = 'Sesion_controller';
 
-/* ruta de controller  usuario  */
-$route['iniciarSesion'] = 'Sesion_controller/iniciarSesion';
+/* ruta de controller  session  */
 $route['cerrarSesion'] = 'Sesion_controller/cerrarSesion';
 $route['irPlataforma'] = 'Sesion_controller/irPlataforma';
 $route['cargarPanel'] = 'Sesion_controller/cargarPanel';
@@ -74,6 +73,7 @@ $route['editar_vehiculo'] = 'Vehiculo_controller/editarVehiculo';
 $route['guardar_fotoVehiculo'] = 'Vehiculo_controller/guardarFotoVehiculo';
 
 /* rutas de controller usuario */
+$route['iniciarSesion'] = 'Usuario_controller/iniciarSesion';
 $route['cargar_usuarios'] = 'Usuario_controller/cargarUsuarios';
 $route['registrar_usuario'] = 'Usuario_controller/registrarUsuario';
 $route['buscar_usuario'] = 'Usuario_controller/buscarUsuario';
@@ -88,29 +88,37 @@ $route['registrar_arriendoAccesorios'] = 'Accesorio_controller/registrarArriendo
 $route['cargar_accesorios'] = 'Accesorio_controller/cargarAccesorios';
 
 /* rutas de controller cliente */
+$route['registrar_cliente'] = 'Cliente_controller/crearCliente';
 $route['cargar_clientes'] = 'Cliente_controller/cargarClientes';
 $route['buscar_cliente'] = 'Cliente_controller/buscarCliente';
 
 /* rutas de controller conductor */
+$route['registrar_conductor'] = 'Conductor_controller/crearConductor';
 $route['cargar_conductores'] = 'Conductor_controller/cargarConductores';
 $route['buscar_conductor'] = 'Conductor_controller/buscarConductor';
 
 /* rutas de controller empresa */
+$route['registrar_empresa'] = 'Empresa_controller/crearEmpresa';
 $route['cargar_empresas'] = 'Empresa_controller/cargarEmpresas';
 $route['buscar_empresa'] = 'Empresa_controller/buscarEmpresa';
+
+
+/* rutas de controller requisitos  */
+$route['registrar_requisitosArriendo'] = 'Requisito_controller/guardarDocumentosRequistosArriendo';
+
+/* rutas de controller Contrato */
+$route['generar_PDFcontrato'] = 'Contrato_controller/generarPDFcontrato';
+
 
 /* rutas de controller arriendo  */
 $route['registrar_arriendo'] = 'Arriendo_controller/registrarArriendo';
 $route['cargar_TotalArriendos'] = 'Arriendo_controller/cargarTotalArriendos';
 $route['buscar_arriendo'] = 'Arriendo_controller/buscarArriendo';
-$route['registrar_pagoArriendo'] = 'Arriendo_controller/registrarPagoArriendo';
-
-/* rutas de controller Documento  */
-$route['registrar_requisitosArriendo'] = 'Documento_controller/guardarDocumentosRequistosArriendo';
 
 
-/* rutas de controller PDF  */
-$route['generar_pdfContratoArriendo'] = 'PDF_controller/generarPDFContratoArriendo';
+/* $route['registrar_pagoArriendo'] = 'Arriendo_controller/registrarPagoArriendo'; */
+
+
 
 
 

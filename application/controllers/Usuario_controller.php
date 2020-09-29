@@ -5,6 +5,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Usuario_controller extends CI_Controller
 {
+
+    public function iniciarSesion()
+    {
+        $token = "no existe token";
+        $arrayUser = [
+            "email_usuario" => $this->input->post("correo"),
+            "clave_usuario" => $this->input->post("clave")
+        ];
+        echo post_function($arrayUser, "usuarios/login", $token);
+    }
+
     public function cargarUsuarios()
     {
         $tokenUser = $this->session->userdata('usertoken');

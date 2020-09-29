@@ -8,98 +8,44 @@ class Arriendo_controller extends CI_Controller
 {
 
 
-	public function cargarTotalArriendos()
+    public function cargarTotalArriendos()
     {
         $tokenUser = $this->session->userdata('usertoken');
         echo get_function("arriendos/cargarTotalArriendos", $tokenUser);
-	}
-	
+    }
+
     public function buscarArriendo()
     {
         $tokenUser = $this->session->userdata('usertoken');
         $id_arriendo = $this->input->post("id_arriendo");
         echo find_function($id_arriendo, "arriendos/buscarArriendo", $tokenUser);
-	}
-	
+    }
+
 
     public function registrarArriendo()
     {
-
         $tokenUser = $this->session->userdata('usertoken');
-        $id_usuario = $this->session->userdata('id');
 
         $arrayForm = [
-            //usuario auntenticado
-            "id_usuario" => $id_usuario,
-
-            //inputs arriendo
+            "estado_arriendo" => "PENDIENTE",
             "tipo_arriendo" => $this->input->post("inputTipo"),
             "ciudadEntrega_arriendo" => $this->input->post("inputCiudadEntrega"),
             "fechaEntrega_arriendo" => $this->input->post("inputFechaEntrega"),
             "ciudadRecepcion_arriendo" => $this->input->post("inputCiudadRecepcion"),
             "fechaRecepcion_arriendo" => $this->input->post("inputFechaRecepcion"),
             "numerosDias_arriendo" => $this->input->post("inputNumeroDias"),
-            "id_sucursal" => $this->input->post("selectSucursal"),
-
-
-            //inputs cliente
-
-            "rut_cliente" => $this->input->post("inputRutCliente"),
-            "nombre_cliente" => $this->input->post("inputNombreCliente"),
-            "direccion_cliente" => $this->input->post("inputDireccionCliente"),
-            "ciudad_cliente" => $this->input->post("inputCiudadCliente"),
-            "fechaNacimiento_cliente" => $this->input->post("inputFechaNacimiento"),
-            "telefono_cliente" => $this->input->post("inputTelefonoCliente"),
-            "estado_civil" => $this->input->post("inputEstadoCivil"),
-            "correo_cliente" => $this->input->post("inputCorreoCliente"),
-
-            // inputs empresa
-            "rut_empresa" => $this->input->post("inputRutEmpresa"),
-            "nombre_empresa" => $this->input->post("inputNombreEmpresa"),
-            "direccion_empresa" => $this->input->post("inputDireccionEmpresa"),
-            "ciudad_empresa" => $this->input->post("inputCiudadEmpresa"),
-            "telefono_empresa" => $this->input->post("inputTelefonoEmpresa"),
-            "correo_empresa" => $this->input->post("inputCorreoEmpresa"),
-            "vigencia_empresa" => $this->input->post("inputVigencia"),
-            "rol_empresa" => $this->input->post("inputRol"),
-
-            //inputs conductor
-            "rut_conductor" => $this->input->post("inputRutConductor"),
-            "nombre_conductor" => $this->input->post("inputNombreConductor"),
-            "telefono_conductor" => $this->input->post("inputTelefonoConductor"),
-            "clase_conductor" => $this->input->post("inputClase"),
-            "numero_conductor" => $this->input->post("inputNumero"),
-            "vcto_conductor" => $this->input->post("inputVCTO"),
-            "municipalidad_conductor" => $this->input->post("inputMunicipalidad"),
-            "direccion_conductor" => $this->input->post("inputDireccion"),
-
-            //inputs vehiculo
-            "patente_vehiculo" => $this->input->post("select_vehiculos"),
             "kilometrosEntrada_arriendo" => $this->input->post("inputEntrada"),
             "inputOtros" => $this->input->post("inputOtros"),
+
+            //foraneas
+            "id_usuario" =>  $this->session->userdata('id'),
+            "patente_vehiculo" => $this->input->post("select_vehiculos"),
+            "id_sucursal" => $this->input->post("selectSucursal"),
+            "rut_cliente" => $this->input->post("inputRutCliente"),
+            "rut_empresa" => $this->input->post("inputRutEmpresa"),
+            "rut_conductor" => $this->input->post("inputRutConductor"),
         ];
 
         echo post_function($arrayForm, "arriendos/registrarArriendo", $tokenUser);
     }
-
-    public function registrarPagoArriendo()
-    {
-        $tokenUser = $this->session->userdata('usertoken');
-        $ArrayData = [
-            "id_arriendo" => $this->input->post("inputIDArriendo"),
-            "estado_pagoArriendo" => "PENDIENTE",
-            "abonoGarantia_pagoArriendo" => $this->input->post("inputAbono"),
-            "tipoFacturacion_pagoArriendo" => $this->input->post("customRadio1"),
-            "neto_pagoArriendo" => $this->input->post("inputNeto"),
-            "iva_pagoArriendo" => $this->input->post("inputIVA"),
-            "descuento_pagoArriendo" => $this->input->post("inputDescuento"),
-            "total_pagoArriendo" => $this->input->post("inputTotal"),
-            "tipoPago_pagoArriendo" => $this->input->post("customRadio2"),
-            "digitador_pagoArriendo" => $this->input->post("inputDigitador"),
-            "observaciones_pagoArriendo" => $this->input->post("inputObservaciones"),
-        ];
-
-        echo  post_function($ArrayData, "pagosArriendos/registrarPagosArriendos", $tokenUser);
-    }
-
 }

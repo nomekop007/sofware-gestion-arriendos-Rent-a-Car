@@ -200,6 +200,8 @@ $(document).ready(() => {
     });
 
     $("#btn_crear_arriendo").click(() => {
+        //aqui se valida el formulario completo
+
         var select_vehiculos = $("#select_vehiculos").val();
         var inputCiudadEntrega = $("#inputCiudadEntrega").val();
         var inputFechaEntrega = $("#inputFechaEntrega").val();
@@ -220,6 +222,8 @@ $(document).ready(() => {
         var inputNombreConductor = $("#inputNombreConductor").val();
         var inputTelefonoConductor = $("#inputTelefonoConductor").val();
 
+        var inputTipo = $("#inputTipo").val();
+
         //documentos requeridos
         var inputCarnetFrontal = $("#inputCarnetFrontal").val();
         var inputCarnetTrasera = $("#inputCarnetTrasera").val();
@@ -227,9 +231,6 @@ $(document).ready(() => {
         var inputLicenciatrasera = $("#inputLicenciatrasera").val();
         var inputTargeta = $("#inputTargeta").val();
         var inputChequeGarantia = $("#inputChequeGarantia").val();
-        var inputComprobanteDomicilio = $("#inputComprobanteDomicilio").val();
-
-        var inputTipo = $("#inputTipo").val();
 
         if (
             inputCarnetFrontal.length != 0 &&
@@ -238,7 +239,6 @@ $(document).ready(() => {
             inputLicenciatrasera.length != 0 &&
             inputTargeta.length != 0 &&
             inputChequeGarantia.length != 0 &&
-            inputComprobanteDomicilio.length != 0 &&
             inputRutConductor.length != 0 &&
             inputNombreConductor.length != 0 &&
             inputTelefonoConductor.length != 0 &&
@@ -256,6 +256,8 @@ $(document).ready(() => {
                         inputTelefonoCliente.length != 0 &&
                         inputCorreoCliente != 0
                     ) {
+                        guardarDatosConductor();
+                        guardarDatosCliente();
                         guardarDatosArriendo();
                     } else {
                         Swal.fire({
@@ -275,6 +277,9 @@ $(document).ready(() => {
                         inputTelefonoEmpresa.length != 0 &&
                         inputCorreoEmpresa.length != 0
                     ) {
+                        guardarDatosConductor();
+                        guardarDatosCliente();
+                        guardarDatosEmpresa();
                         guardarDatosArriendo();
                     } else {
                         Swal.fire({
@@ -290,6 +295,8 @@ $(document).ready(() => {
                         inputTelefonoEmpresa.length != 0 &&
                         inputCorreoEmpresa.length != 0
                     ) {
+                        guardarDatosConductor();
+                        guardarDatosEmpresa();
                         guardarDatosArriendo();
                     } else {
                         Swal.fire({
@@ -311,6 +318,72 @@ $(document).ready(() => {
         }
     });
 
+    function guardarDatosCliente() {
+        var form = $("#form_registrar_arriendo")[0];
+        var data = new FormData(form);
+        $.ajax({
+            url: base_route + "registrar_cliente",
+            type: "post",
+            dataType: "json",
+            data: data,
+            enctype: "multipart/form-data",
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeOut: false,
+            success: (e) => {
+                console.log("cliente guardado");
+            },
+            error: () => {
+                console.log("error cliente");
+            },
+        });
+    }
+
+    function guardarDatosEmpresa() {
+        var form = $("#form_registrar_arriendo")[0];
+        var data = new FormData(form);
+        $.ajax({
+            url: base_route + "registrar_empresa",
+            type: "post",
+            dataType: "json",
+            data: data,
+            enctype: "multipart/form-data",
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeOut: false,
+            success: (e) => {
+                console.log("empresa guardado");
+            },
+            error: () => {
+                console.log("error empresa");
+            },
+        });
+    }
+
+    function guardarDatosConductor() {
+        var form = $("#form_registrar_arriendo")[0];
+        var data = new FormData(form);
+        $.ajax({
+            url: base_route + "registrar_conductor",
+            type: "post",
+            dataType: "json",
+            data: data,
+            enctype: "multipart/form-data",
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeOut: false,
+            success: (e) => {
+                console.log("conductor guardado");
+            },
+            error: () => {
+                console.log("error conductor");
+            },
+        });
+    }
+
     function guardarDatosArriendo() {
         $("#btn_crear_arriendo").attr("disabled", true);
         $("#spinner_btn_registrar").show();
@@ -329,28 +402,62 @@ $(document).ready(() => {
             timeOut: false,
             success: (response) => {
                 if (response) {
+                    guardarDocumentosRequistos(response.data.id_arriendo);
                     guardarDatosAccesorios(response.data.id_arriendo);
-                    guardarFilesDocumentos(response.data.id_arriendo);
-
                     cargarArriendoEnTabla(response.data);
+
+                    Swal.fire("Arriendo Registrado", response.msg, "success");
                 } else {
                     Swal.fire({
                         icon: "error",
                         title: "error registrar arriendo",
                         text: response.msg,
                     });
-                    $("#btn_crear_arriendo").attr("disabled", false);
-                    $("#spinner_btn_registrar").hide();
                 }
+                limpiarCampos();
             },
             error: () => {
+                $("#btn_crear_arriendo").attr("disabled", false);
+                $("#spinner_btn_registrar").hide();
                 Swal.fire({
                     icon: "error",
                     title: "no se guardo el arriendo",
                     text: "A ocurrido un Error Contacte a informatica",
                 });
-                $("#btn_crear_arriendo").attr("disabled", false);
-                $("#spinner_btn_registrar").hide();
+            },
+        });
+    }
+
+    function guardarDocumentosRequistos(idArriendo) {
+        //documentos requeridos
+        var data = new FormData();
+        data.append("idArriendo", idArriendo);
+        data.append("inputCarnetFrontal", $("#inputCarnetFrontal")[0].files[0]);
+        data.append("inputCarnetTrasera", $("#inputCarnetTrasera")[0].files[0]);
+        data.append("inputLicenciaFrontal", $("#inputLicenciaFrontal")[0].files[0]);
+        data.append("inputLicenciatrasera", $("#inputLicenciatrasera")[0].files[0]);
+        data.append("inputTargeta", $("#inputTargeta")[0].files[0]);
+        data.append("inputCheque", $("#inputChequeGarantia")[0].files[0]);
+        data.append(
+            "inputComprobante",
+            $("#inputComprobanteDomicilio")[0].files[0]
+        );
+
+        $.ajax({
+            url: base_route + "registrar_requisitosArriendo",
+            type: "post",
+            dataType: "json",
+            data: data,
+            enctype: "multipart/form-data",
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeOut: false,
+            success: (response) => {
+                console.log("se guardaron los documentos requeridos!");
+            },
+            error: () => {
+                console.log("error pero igual se guardan los doc!");
             },
         });
     }
@@ -368,38 +475,21 @@ $(document).ready(() => {
             dataType: "json",
             data: { idArriendo, array: JSON.stringify(checks) },
             success: (response) => {
-                Swal.fire("Exito", response.msg, "success");
-                $("#btn_crear_arriendo").attr("disabled", false);
-                $("#spinner_btn_registrar").hide();
+                console.log("se guardaron los accesorios!");
             },
             error: () => {
                 Swal.fire({
                     icon: "error",
-                    title: "no se guardaron los accesorios",
+                    title: "error en guardar Accesorios",
                     text: "A ocurrido un Error Contacte a informatica",
                 });
-                $("#btn_crear_arriendo").attr("disabled", false);
-                $("#spinner_btn_registrar").hide();
             },
         });
     }
 
-    function guardarFilesDocumentos(idArriendo) {
-        //documentos requeridos
-        var inputCarnetFrontal = $("#inputCarnetFrontal").val();
-        var inputCarnetTrasera = $("#inputCarnetTrasera").val();
-        var inputLicenciaFrontal = $("#inputLicenciaFrontal").val();
-        var inputLicenciatrasera = $("#inputLicenciatrasera").val();
-        var inputTargeta = $("#inputTargeta").val();
-        var inputChequeGarantia = $("#inputChequeGarantia").val();
-        var inputComprobanteDomicilio = $("#inputComprobanteDomicilio").val();
-        //registrar_arriendoRequisito
-
-        var data = new FormData();
-        data.append("idArriendo", idArriendo);
-        data.append("inputFoto", file);
-
-        //enviar al controller
-        //ruta : registrar_requisitosArriendo
+    function limpiarCampos() {
+        $("#btn_crear_arriendo").attr("disabled", false);
+        $("#spinner_btn_registrar").hide();
+        $("#form_registrar_arriendo")[0].reset();
     }
 });

@@ -1,5 +1,5 @@
  <!-- Tab donde se registran los arriendos -->
- <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-registrar-tab">
+ <div class="tab-pane fade show active" id="nav-registrar" role="tabpanel" aria-labelledby="nav-registrar-tab">
      <br>
      <form class="needs-validation" novalidate id="form_registrar_arriendo" name="formulario">
          <p>
@@ -181,12 +181,12 @@
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputDireccionEmpresa" name="inputDireccionEmpresa">
                      </div>
-                     <div class="form-group col-md-2">
+                     <div class="form-group col-md-3">
                          <label for="inputCiudadEmpresa">Ciudad</label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputCiudadEmpresa" name="inputCiudadEmpresa">
                      </div>
-                     <div class="form-group col-md-3">
+                     <div class="form-group col-md-4">
                          <label for="inputCorreoEmpresa">Correo electronico</label>
                          <div class="input-group">
                              <div class="input-group-prepend">
@@ -211,7 +211,7 @@
                          <select id="inputVigencia" name="inputVigencia" class="form-control">
                          </select>
                      </div>
-                     <div class="form-group col-md-2">
+                     <div class="form-group col-md-4">
                          <label for="inputRol">Rol</label>
                          <input oninput="mayus(this);" maxLength="30" type="text" class="form-control" name="inputRol"
                              id="inputRol">
@@ -300,13 +300,13 @@
                              <br>
                              <div class="form-group col-md-6 ">
                                  <label for="inputCarnetFrontal">(frontal)</label>
-                                 <input type="file" class="form-control-file" id="inputCarnetFrontal"
-                                     name="inputCarnetFrontal" required>
+                                 <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
+                                     id="inputCarnetFrontal" name="inputCarnetFrontal" required>
                              </div>
                              <div class="form-group col-md-6 ">
                                  <label for="inputCarnetTrasera">(trasera)</label>
-                                 <input type="file" class="form-control-file" id="inputCarnetTrasera"
-                                     name="inputCarnetTrasera" required>
+                                 <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
+                                     id="inputCarnetTrasera" name="inputCarnetTrasera" required>
                              </div>
                          </div>
                      </div>
@@ -317,14 +317,14 @@
                              <div class="form-group col-md-6">
                                  <br>
                                  <label for="inputLicenciaFrontal">(frontal)</label>
-                                 <input type="file" class="form-control-file" id="inputLicenciaFrontal"
-                                     name="inputLicenciaFrontal" required>
+                                 <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
+                                     id="inputLicenciaFrontal" name="inputLicenciaFrontal" required>
                              </div>
                              <div class="form-group col-md-6">
                                  <br>
                                  <label for="inputLicenciatrasera">(trasera)</label>
-                                 <input type="file" class="form-control-file" id="inputLicenciatrasera"
-                                     name="inputLicenciatrasera" required>
+                                 <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
+                                     id="inputLicenciatrasera" name="inputLicenciatrasera" required>
                              </div>
                          </div>
                      </div>
@@ -333,19 +333,19 @@
                      <div class="form-row">
                          <div class="form-group col-md-12">
                              <label for="inputTargeta">Targeta de credito</label>
-                             <input type="file" class="form-control-file" id="inputTargeta" name="inputTargeta"
-                                 required>
+                             <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
+                                 id="inputTargeta" name="inputTargeta" required>
                          </div>
                          <div class="form-group col-md-12">
                              <label for="inputChequeGarantia">Cheque en garantia</label>
-                             <input type="file" class="form-control-file" id="inputChequeGarantia"
-                                 name="inputChequeGarantia" required>
+                             <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
+                                 id="inputChequeGarantia" name="inputChequeGarantia" required>
                          </div>
 
                          <div id="formComprobanteDomicilio" class="form-group col-md-12">
                              <label for="inputComprobanteDomicilio">Comprobante de domicilio</label>
-                             <input type="file" class="form-control-file" id="inputComprobanteDomicilio"
-                                 name="inputComprobanteDomicilio" required>
+                             <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
+                                 id="inputComprobanteDomicilio" name="inputComprobanteDomicilio" required>
                          </div>
                      </div>
                  </div>
@@ -355,59 +355,62 @@
 
 
          </div>
- </div>
 
- <div class="collapse" id="collapseVehiculos">
-     <div class="card card-body">
-         <br>
-         <h4>Seleccion de Vehiculo</h4>
-         <br>
-         <div class="form-row">
-             <div class="input-group col-md-5">
-                 <select class="custom-select" id="inputSucursal" aria-label="Example select with button addon">
-                 </select>
-                 <div class="input-group-append">
-                     <bustton class="btn btn-outline-secondary" id="buscar_vehiculos" type="button">
-                         Buscar</button>
-                 </div>
-             </div>
-             <div class="input-group col-md-7" required>
-                 <select disabled class="custom-select form-control" id="select_vehiculos" name="select_vehiculos"
-                     style="width: 100%;">
-                 </select>
-             </div>
-         </div>
-         <br>
-         <h4>Kilometros</h4>
-         <div class="form-row">
-             <div class="form-group col-md-3">
-                 <label for="inputEntrada">Entrada</label>
-                 <input min="0" value="0" type="number" class="form-control" id="inputEntrada" name="inputEntrada">
-             </div>
 
-         </div>
-         <br>
-         <h4>Accesorios</h4>
-         <div class="form-row" id="row_accesorios">
-
-         </div>
-         <div class="form-row">
-             <div class="form-group col-md-4">
-                 <br><br>
-                 <div class="input-group">
-                     <div class="input-group-prepend">
-                         <span class="input-group-text" id="inputOtros">otros</span>
+         <div class="collapse" id="collapseVehiculos">
+             <div class="card card-body">
+                 <br>
+                 <h4>Seleccion de Vehiculo</h4>
+                 <br>
+                 <div class="form-row">
+                     <div class="input-group col-md-5">
+                         <select class="custom-select" id="inputSucursal" aria-label="Example select with button addon">
+                         </select>
+                         <div class="input-group-append">
+                             <bustton class="btn btn-outline-secondary" id="buscar_vehiculos" type="button">
+                                 Buscar</button>
+                         </div>
                      </div>
-                     <input type="text" name="inputOtros" oninput="mayus(this);" maxLength="20" class="form-control"
-                         aria-label="Sizing example input" aria-describedby="inputOtros">
+                     <div class="input-group col-md-7" required>
+                         <select disabled class="custom-select form-control" id="select_vehiculos"
+                             name="select_vehiculos" style="width: 100%;">
+                         </select>
+                     </div>
+                 </div>
+                 <br>
+                 <h4>Kilometros</h4>
+                 <div class="form-row">
+                     <div class="form-group col-md-3">
+                         <label for="inputEntrada">Entrada</label>
+                         <input min="0" value="0" type="number" class="form-control" id="inputEntrada"
+                             name="inputEntrada">
+                     </div>
+
+                 </div>
+                 <br>
+                 <h4>Accesorios</h4>
+                 <div class="form-row" id="row_accesorios">
+
+                 </div>
+                 <div class="form-row">
+                     <div class="form-group col-md-4">
+                         <br><br>
+                         <div class="input-group">
+                             <div class="input-group-prepend">
+                                 <span class="input-group-text" id="inputOtros">otros</span>
+                             </div>
+                             <input type="text" name="inputOtros" oninput="mayus(this);" maxLength="20"
+                                 class="form-control" aria-label="Sizing example input" aria-describedby="inputOtros">
+                         </div>
+                     </div>
                  </div>
              </div>
          </div>
-     </div>
+
+     </form>
+
  </div>
 
- </form>
- </div>
 
 
  <script>
