@@ -23,6 +23,13 @@ $(document).ready(() => {
         var valor = $("#inputValorArriendo").val();
         var total = Number($("#inputTotal").val());
 
+        //arrayAccesorios
+        // armar arrays de accesorios
+
+        arryAccesorios = [];
+        var list = $('[name="accesorios[]"]');
+        console.log(list);
+
         if (
             total >= 0 &&
             abono.length != 0 &&
@@ -48,27 +55,28 @@ $(document).ready(() => {
 
                         /* window.location.href =
                             "data:application/octet-stream;base64," + response.data; */
-
                         window.open(
-                            "data:application/octet-stream;base64," + response.data
+                            "data:application/octet-stream;base64," + response.data.url
                         );
                     } else {
                         Swal.fire({
                             icon: "error",
-                            title: "ah ocurrido un error al generar el contrato",
+                            title: response.msg,
                         });
                     }
+                    $("#btn_crear_contrato").attr("disabled", false);
+                    $("#spinner_btn_crearContrato").hide();
                 },
                 error: () => {
                     Swal.fire({
                         icon: "error",
-                        title: "a ocurridov un error al generar el contrato",
+                        title: "a ocurrido un error al generar el contrato",
                         text: "A ocurrido un Error Contacte a informatica",
                     });
+                    $("#btn_crear_contrato").attr("disabled", false);
+                    $("#spinner_btn_crearContrato").hide();
                 },
             });
-            $("#btn_crear_contrato").attr("disabled", false);
-            $("#spinner_btn_crearContrato").hide();
         } else {
             Swal.fire({
                 icon: "warning",

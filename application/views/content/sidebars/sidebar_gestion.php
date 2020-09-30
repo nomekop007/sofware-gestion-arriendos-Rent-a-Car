@@ -12,7 +12,7 @@ $rol = $this->session->userdata("rol");
                 <br>
                 <a id="m_vehiculo" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=1">
                     <i class="fas fa-car "></i>
-                    Modulo Vehiculos
+                    Gestion Vehiculos
                 </a>
                 <br>
             </li>
@@ -22,7 +22,7 @@ $rol = $this->session->userdata("rol");
                 <br>
                 <a id="m_cliente" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=2">
                     <i class="fas fa-address-book "></i>
-                    Modulo Clientes
+                    Gestion Clientes
                 </a>
                 <br>
             </li>
@@ -31,8 +31,8 @@ $rol = $this->session->userdata("rol");
             <li class="nav-item" id="l_arriendo">
                 <br>
                 <a id="m_arriendo" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=3">
-                    <i class="fas fa-retweet "></i>
-                    Modulo Arriendo
+                    <i class="fas fa-retweet"></i>
+                    Gestion Arriendo
                 </a>
                 <br>
             </li>
@@ -43,7 +43,7 @@ $rol = $this->session->userdata("rol");
                 <br>
                 <a id="m_despacho" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=4">
                     <i class="fas fa-concierge-bell"></i>
-                    Modulo despacho
+                    Gestion despacho
                 </a>
                 <br>
             </li>
@@ -54,7 +54,7 @@ $rol = $this->session->userdata("rol");
                 <br>
                 <a id="m_usuario" class="nav-link" href="<?php echo base_route() ?>modulos_gestion?modulo=5">
                     <i class="fas fa-users-cog "></i>
-                    Modulo Usuarios
+                    Gestion Usuarios
                 </a>
                 <br>
             </li>

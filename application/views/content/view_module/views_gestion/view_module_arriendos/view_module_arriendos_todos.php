@@ -4,8 +4,9 @@
     <table id="tablaTotalArriendos" class="table table-striped table-bordered" style="width:100%">
         <thead class="btn-dark">
             <tr>
-                <th>Nº Arriendo</th>
-                <th>fecha creacion</th>
+                <th>Nº</th>
+                <th>Cliente</th>
+                <th>fecha registro</th>
                 <th>tipo arriendo</th>
                 <th>estado</th>
                 <th>vendedor</th>
@@ -17,8 +18,9 @@
         </tbody>
         <tfoot class="btn-dark">
             <tr>
-                <th>Nº Arriendo</th>
-                <th>fecha creacion</th>
+                <th>Nº</th>
+                <th>Cliente</th>
+                <th>fecha registro</th>
                 <th>tipo arriendo</th>
                 <th>estado</th>
                 <th>vendedor</th>
@@ -44,7 +46,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Formulario de contrato</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detalle de contrato</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -142,24 +144,24 @@
                         </div>
                         <div class="form-row card-body">
                             <div class="input-group col-md-12">
+                                <span style="width: 60%;" class="input-group-text form-control">Descuento $</span>
+                                <input style="width: 40%;" min="0" step="0" id="inputDescuento" name="inputDescuento"
+                                    value="0" type="number" class="form-control" oninput="calcularValores()" required>
+                            </div>
+                            <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Total Neto $</span>
                                 <input oninput="calcularValores()" style="width: 40%;" id="inputNeto" name="inputNeto"
                                     min="0" value="0" type="number" class="form-control" required>
                             </div>
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">IVA $</span>
-                                <input style="width: 40%;" id="inputIVA" name="inputIVA" min="0" type="number"
+                                <input style="width: 40%;" id="inputIVA" name="inputIVA" min="0" value="0" type="number"
                                     class="form-control" oninput="calcularValores()">
                             </div>
                             <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Descuento $</span>
-                                <input style="width: 40%;" min="0" step="0" id="inputDescuento" name="inputDescuento"
-                                    value="0" type="number" class="form-control" oninput="calcularValores()" required>
-                            </div>
-                            <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Total a Pagar $</span>
-                                <input style="width: 40%;" id="inputTotal" name="inputTotal" type="number" min="0"
-                                    class="form-control" required oninput="calcularValores()">
+                                <input style="width: 40%;" value="0" id="inputTotal" name="inputTotal" type="number"
+                                    min="0" class="form-control" required oninput="calcularValores()">
                             </div>
                         </div>
                         <div class="form-row card-body">
@@ -203,7 +205,7 @@
                     <button type="submit" id="btn_crear_contrato" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             id="spinner_btn_crearContrato"></span>
-                        Crear Contrato</button>
+                        Generar Contrato</button>
                 </div>
             </form>
         </div>
@@ -214,12 +216,12 @@
 
 
 
-<!-- Modal bajar documentos -->
-<div class="modal fade" id="modal_bajar_docs" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal editar -->
+<div class="modal fade" id="modal_editar_arriendo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">bajar documentos</h5>
+                <h5 class="modal-title" id="exampleModalLabel">modificar arriendo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -242,7 +244,7 @@
 <script>
 $("#formContrato").hide();
 
-function cargarPagoArriendo(id_arriendo) {
+function cargarArriendo(id_arriendo) {
     limpiarCampos();
     $.getJSON({
         url: base_route + "buscar_arriendo",
@@ -277,32 +279,7 @@ function cargarPagoArriendo(id_arriendo) {
                         break;
                 }
 
-
-                if (arriendo.accesorios.length) {
-                    $.each(arriendo.accesorios, (i, o) => {
-
-                        var precio = 0;
-                        if (o.precio_accesorio != null) {
-                            precio = o.precio_accesorio
-                        }
-
-                        var fila = " <div class='input-group col-md-12'>";
-                        fila +=
-                            " <span style='width: 60%;' class='input-group-text form-control'>" + o
-                            .nombre_accesorio + " $</span>";
-                        fila +=
-                            "<input style='width: 40%;' min='0' name='accesorios[]'  oninput='calcularValores()' value='" +
-                            precio +
-                            "'  type='number' class='form-control'>";
-                        fila += "  </div>";
-                        $("#formAccesorios").append(fila);
-                    })
-
-                } else {
-                    var sinAccesorios =
-                        " <span class=' col-md-12 text-center' id='spanAccesorios'>Sin Accesorios</span>";
-                    $("#formAccesorios").append(sinAccesorios);
-                }
+                mostrarAccesorios(arriendo);
 
                 //ocultar y mostrar 
                 $("#formSpinner").hide();
@@ -329,6 +306,34 @@ function cargarPagoArriendo(id_arriendo) {
     })
 }
 
+function mostrarAccesorios(arriendo) {
+    if (arriendo.accesorios.length) {
+        $.each(arriendo.accesorios, (i, o) => {
+
+            var precio = 0;
+            if (o.precio_accesorio != null) {
+                precio = o.precio_accesorio
+            }
+
+            var fila = " <div class='input-group col-md-12'>";
+            fila +=
+                " <span style='width: 60%;' class='input-group-text form-control'>" + o
+                .nombre_accesorio + " $</span>";
+            fila +=
+                "<input style='width: 40%;' min='0' name='accesorios[]'  oninput='calcularValores()' value='" +
+                precio +
+                "'  type='number' class='form-control'>";
+            fila += "  </div>";
+            $("#formAccesorios").append(fila);
+        })
+
+    } else {
+        var sinAccesorios =
+            " <span class=' col-md-12 text-center' id='spanAccesorios'>Sin Accesorios</span>";
+        $("#formAccesorios").append(sinAccesorios);
+    }
+}
+
 function calcularValores() {
     //variables
     var valorArriendo = Number($("#inputValorArriendo").val());
@@ -349,9 +354,9 @@ function calcularValores() {
         const element = ArrayAccesorios[i];
         TotalNeto += Number(element);
     }
-    TotalNeto = TotalNeto + valorArriendo;
+    TotalNeto = TotalNeto + valorArriendo - descuento;
     iva = TotalNeto * 0.19;
-    total = TotalNeto + iva - descuento;
+    total = TotalNeto + iva;
 
     $("#inputNeto").val(TotalNeto);
     $("#inputIVA").val(Math.round(iva));

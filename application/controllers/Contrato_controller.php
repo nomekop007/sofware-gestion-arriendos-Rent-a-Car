@@ -17,7 +17,7 @@ class Contrato_controller extends CI_Controller
             "cheque" => $this->input->post("inputCheque"),
             "abono" => $this->input->post("inputAbono"),
             "subtotal" => $this->input->post("inputValorArriendo"),
-
+            "arrayAccesorios" => $this->input->post("arrayAccesorios"),
             "tipoFacturacion" => $this->input->post("customRadio1"),
             "tipoPago" => $this->input->post("customRadio2"),
             "neto" => $this->input->post("inputNeto"),

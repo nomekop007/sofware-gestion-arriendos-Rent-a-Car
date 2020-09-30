@@ -39,13 +39,18 @@ function cargarArriendoEnTabla(arriendo) {
     tablaTotalArriendos.row
         .add([
             arriendo.id_arriendo,
+            arriendo.cliente ?
+            arriendo.cliente.nombre_cliente :
+            arriendo.empresa.nombre_empresa,
             formatearFechaHora(arriendo.createdAt),
             arriendo.tipo_arriendo,
             arriendo.estado_arriendo,
             arriendo.usuario.nombre_usuario,
-            " <button  onclick='cargarPagoArriendo(" +
+            " <button value='" +
             arriendo.id_arriendo +
-            ")' data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-check-circle'></i></button>  " +
+            "' " +
+            " onclick='cargarArriendo(this.value)'" +
+            " data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-check-circle'></i></button>  " +
             " <button data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-edit'></i></button>  ",
         ])
         .draw(false);
