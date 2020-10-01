@@ -58,12 +58,11 @@
                          <input type="datetime-local" class="form-control" name="inputFechaRecepcion"
                              id="inputFechaRecepcion" required>
                      </div>
-                     <div class="form-group col-md-2">
-                         <label for="inputNumeroDias">Numeros de Dias</label>
-                         <input min="1" value="1" type="number" class="form-control" name="inputNumeroDias"
-                             id="inputNumeroDias" required>
+                     <div class="form-group col-md-3">
+                         <label for="selectSucursal">Agencia de Arriendo</label>
+                         <select class="custom-select" id="selectSucursal" name="selectSucursal">
+                         </select>
                      </div>
-
                      <div class="form-group col-md-4">
                          <label for="inputTipo">Tipo de Arriendo</label>
                          <select oninput="tipoArriendo();" name="inputTipo" id="inputTipo" class="form-control">
@@ -72,11 +71,10 @@
                              <option value="3">Arriendo solo empresa</option>
                          </select>
                      </div>
-
-                     <div class="form-group col-md-3">
-                         <label for="selectSucursal">Agencia de Arriendo</label>
-                         <select class="custom-select" id="selectSucursal" name="selectSucursal">
-                         </select>
+                     <div class="form-group col-md-2">
+                         <label for="inputNumeroDias">Numeros de Dias</label>
+                         <input min="1" value="1" type="number" class="form-control" name="inputNumeroDias"
+                             id="inputNumeroDias" required>
                      </div>
                  </div>
              </div>

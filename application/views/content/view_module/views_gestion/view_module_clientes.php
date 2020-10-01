@@ -345,7 +345,7 @@ function cargarEmpresa(rut_empresa) {
                 $("#inputNombreEmpresa").val(empresa.nombre_empresa);
                 $("#inputRolEmpresa").val(empresa.rol_empresa);
                 $("#inputRutEmpresa").val(empresa.rut_empresa);
-                $("#inputTelefonoEmpresa").val(empresa.telefono_empresa);
+                $("#inputTelefonoEmpresa").val("+569 " + empresa.telefono_empresa);
                 $("#inputVigenciaEmpresa").val(empresa.vigencia_empresa);
 
                 $("#spinner_cliente").hide();

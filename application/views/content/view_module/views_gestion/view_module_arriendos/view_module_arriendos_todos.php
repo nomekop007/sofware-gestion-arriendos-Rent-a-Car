@@ -189,9 +189,9 @@
                                     name="inputDigitador" required>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="inputObservaciones">Observacines</label>
+                                <label for="inputObservaciones">Observaciones</label>
                                 <textarea class="form-control" id="inputObservaciones" name="inputObservaciones"
-                                    rows="3"></textarea>
+                                    rows="3" maxLength="300"></textarea>
                             </div>
 
 
@@ -287,7 +287,7 @@ function cargarArriendo(id_arriendo) {
             } else {
                 Swal.fire({
                     icon: "error",
-                    title: "no se logro cargar el arriend",
+                    title: e.msg,
                     text: "A ocurrido un Error Contacte a informatica",
                 });
                 $("#formSpinner").show();
