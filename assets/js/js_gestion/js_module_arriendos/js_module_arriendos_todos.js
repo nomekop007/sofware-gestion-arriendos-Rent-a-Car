@@ -27,16 +27,12 @@ $(document).ready(() => {
         arrayAccesorios = [];
         var list = $('[name="accesorios[]"]');
         for (let i = 0; i < list.length; i++) {
-            var accesorio = [];
             var element = list[i];
-            accesorio.push(element.id);
-            accesorio.push(element.value);
-            arrayAccesorios.push(accesorio);
+            arrayAccesorios.push(element.id);
+            arrayAccesorios.push(element.value);
         }
-        console.log(arrayAccesorios.length);
         if (arrayAccesorios.length != 0) {
             data.append("arrayAccesorios", arrayAccesorios);
-
         }
 
 
