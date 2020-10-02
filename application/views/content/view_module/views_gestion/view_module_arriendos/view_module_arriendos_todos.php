@@ -320,7 +320,8 @@ function mostrarAccesorios(arriendo) {
                 " <span style='width: 60%;' class='input-group-text form-control'>" + o
                 .nombre_accesorio + " $</span>";
             fila +=
-                "<input style='width: 40%;' min='0' name='accesorios[]'  oninput='calcularValores()' value='" +
+                "<input style='width: 40%;' min='0' id='" + o.nombre_accesorio +
+                "' name='accesorios[]'  oninput='calcularValores()' value='" +
                 precio +
                 "'  type='number' class='form-control'>";
             fila += "  </div>";
