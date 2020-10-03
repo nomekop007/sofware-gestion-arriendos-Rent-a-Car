@@ -8,12 +8,12 @@ class Usuario_controller extends CI_Controller
 
     public function iniciarSesion()
     {
-        $token = "no existe token";
+        $tokenUser = "no existe token";
         $arrayUser = [
             "email_usuario" => $this->input->post("correo"),
             "clave_usuario" => $this->input->post("clave")
         ];
-        echo post_function($arrayUser, "usuarios/login", $token);
+        echo post_function($arrayUser, "usuarios/login", $tokenUser);
     }
 
     public function cargarUsuarios()

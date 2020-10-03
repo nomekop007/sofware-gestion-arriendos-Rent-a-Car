@@ -3,11 +3,11 @@
         align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo base_route(); ?>cargarPanel?panel=1">Gestion</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=1">Gestion</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Arriendos</li>
             </ol>
         </nav>
-        <h1 class="h3">Modulo arriendo</h1>
+        <h1 class="h3">Gestion arriendos</h1>
     </div>
 
 

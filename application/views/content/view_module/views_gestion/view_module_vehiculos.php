@@ -4,11 +4,11 @@
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo base_route(); ?>cargarPanel?panel=1">Gestion</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=1">Gestion</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Vehiculos</li>
             </ol>
         </nav>
-        <h1 class="h3">Modulo Vehiculos</h1>
+        <h1 class="h3">Gestion Vehiculos</h1>
     </div>
     <div>
         <nav>
@@ -350,7 +350,7 @@ $("#spinner_btn_registrar").hide();
 function cargarVehiculo(patente) {
     limpiarCampos();
     $.getJSON({
-        url: base_route + "buscar_vehiculo",
+        url: base_url + "buscar_vehiculo",
         type: "post",
         dataType: "json",
         data: {
@@ -367,7 +367,7 @@ function cargarVehiculo(patente) {
                         vehiculo
                         .foto_vehiculo;
                 } else {
-                    document.getElementById("imagen").src = base_route + "assets/images/imageDefault.png";
+                    document.getElementById("imagen").src = base_url + "assets/images/imageDefault.png";
                 }
 
                 $("#inputEditarPatente").val(vehiculo.patente_vehiculo);
@@ -451,4 +451,4 @@ function limpiarCampos() {
 
 
 <!-- importando archivo js vehiculos -->
-<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_vehiculos.js"></script>
+<script src="<?php echo base_url() ?>assets/js/js_gestion/js_module_vehiculos.js"></script>

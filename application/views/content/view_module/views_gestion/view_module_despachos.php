@@ -3,11 +3,11 @@
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo base_route(); ?>cargarPanel?panel=1">Gestion</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=1">Gestion</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Despacho</li>
             </ol>
         </nav>
-        <h1 class="h3">Modulo Despacho</h1>
+        <h1 class="h3">Gestion Despachos</h1>
     </div>
 
     <nav>
@@ -74,4 +74,4 @@ $("#l_despacho").addClass("card");
 </script>
 
 <!-- importando archivo js usuarios -->
-<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_despacho.js"></script>
+<script src="<?php echo base_url() ?>assets/js/js_gestion/js_module_despacho.js"></script>

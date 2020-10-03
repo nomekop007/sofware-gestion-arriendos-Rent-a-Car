@@ -7,7 +7,8 @@
         <h5>Bienvenido <?php echo $this->session->userdata('nombre'); ?> </h5>
         <div class="row">
             <div class="col-md-12">
-                <img style="width:20%" class="text-center" src="<?php echo base_route() ?>assets/images/logo3.png" />
+                <br>
+                <img style="width:20%" src="<?php echo base_url() ?>assets/images/logo3.png" />
             </div>
         </div>
     </div>

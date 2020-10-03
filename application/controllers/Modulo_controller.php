@@ -19,21 +19,21 @@ class Modulo_controller extends CI_Controller
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
                         $this->load->view('perfil');
                     } else {
-                        redirect(base_route());
+                        redirect(base_url());
                     }
                     break;
                 case 1:
                     if ($rol == 1 || $rol == 2) {
                         $this->load->view('content/view_module/views_gestion/view_module_vehiculos');
                     } else {
-                        redirect(base_route());
+                        redirect(base_url());
                     }
                     break;
                 case 2:
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
                         $this->load->view('content/view_module/views_gestion/view_module_clientes');
                     } else {
-                        redirect(base_route());
+                        redirect(base_url());
                     }
                     break;
                 case 3:
@@ -44,30 +44,30 @@ class Modulo_controller extends CI_Controller
                         $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_todos');
                         $this->load->view('content/view_module/views_gestion/view_module_arriendos/view_module_arriendos_footer');
                     } else {
-                        redirect(base_route());
+                        redirect(base_url());
                     }
                     break;
                 case 4:
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
-                        $this->load->view('content/view_module/views_gestion/view_module_recepcion');
+                        $this->load->view('content/view_module/views_gestion/view_module_despachos');
                     } else {
-                        redirect(base_route());
+                        redirect(base_url());
                     }
                     break;
                 case 5:
                     if ($rol == 1) {
                         $this->load->view('content/view_module/views_gestion/view_module_usuarios');
                     } else {
-                        redirect(base_route());
+                        redirect(base_url());
                     }
                     break;
                 default:
-                    redirect(base_route());
+                    redirect(base_url());
                     break;
             }
             $this->load->view("templates/footer");
         } else {
-            redirect(base_route());
+            redirect(base_url());
         }
     }
 }

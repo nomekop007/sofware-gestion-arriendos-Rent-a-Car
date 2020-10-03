@@ -247,7 +247,7 @@ $("#formContrato").hide();
 function cargarArriendo(id_arriendo) {
     limpiarCampos();
     $.getJSON({
-        url: base_route + "buscar_arriendo",
+        url: base_url + "buscar_arriendo",
         type: "post",
         dataType: "json",
         data: {

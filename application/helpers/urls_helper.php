@@ -8,8 +8,3 @@ function api_storage()
 {
     return "http://localhost:3000/";
 }
-
-function base_route()
-{
-    return "http://localhost/proyectos/rentacar/";
-}

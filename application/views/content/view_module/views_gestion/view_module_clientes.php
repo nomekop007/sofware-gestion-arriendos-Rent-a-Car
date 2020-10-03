@@ -3,11 +3,11 @@
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo base_route(); ?>cargarPanel?panel=1">Gestion</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=1">Gestion</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Clientes</li>
             </ol>
         </nav>
-        <h1 class="h3">Modulo Cliente</h1>
+        <h1 class="h3">Gestion Clientes</h1>
     </div>
     <div>
         <nav>
@@ -289,7 +289,7 @@ $("#l_cliente").addClass("card");
 function cargarCliente(rut_cliente) {
     limpiarCampos();
     $.getJSON({
-        url: base_route + "buscar_cliente",
+        url: base_url + "buscar_cliente",
         type: "post",
         dataType: "json",
         data: {
@@ -328,7 +328,7 @@ function cargarCliente(rut_cliente) {
 function cargarEmpresa(rut_empresa) {
     limpiarCampos();
     $.getJSON({
-        url: base_route + "buscar_empresa",
+        url: base_url + "buscar_empresa",
         type: "post",
         dataType: "json",
         data: {
@@ -366,7 +366,7 @@ function cargarEmpresa(rut_empresa) {
 function cargarConductor(rut_conductor) {
     limpiarCampos();
     $.getJSON({
-        url: base_route + "buscar_conductor",
+        url: base_url + "buscar_conductor",
         type: "post",
         dataType: "json",
         data: {
@@ -445,4 +445,4 @@ function limpiarCampos() {
 
 
 <!-- importando archivo js vehiculos -->
-<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_clientes.js"></script>
+<script src="<?php echo base_url() ?>assets/js/js_gestion/js_module_clientes.js"></script>

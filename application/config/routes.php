@@ -52,9 +52,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'Sesion_controller';
 
 /* ruta de controller  session  */
-$route['cerrarSesion'] = 'Sesion_controller/cerrarSesion';
-$route['irPlataforma'] = 'Sesion_controller/irPlataforma';
-$route['cargarPanel'] = 'Sesion_controller/cargarPanel';
+$route['cerrar_sesion'] = 'Sesion_controller/cerrarSesion';
+$route['crear_sesion'] = 'Sesion_controller/crearSesion';
+$route['cargar_panel'] = 'Sesion_controller/cargarPanel';
 
 /* ruta de controller modulo  */
 $route['modulos_gestion'] = 'Modulo_controller/cargarModulosGestion';

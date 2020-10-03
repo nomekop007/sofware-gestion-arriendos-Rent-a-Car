@@ -13,12 +13,11 @@ class Sesion_controller extends CI_Controller
 	public function cerrarSesion()
 	{
 		$this->session->sess_destroy();
-		redirect(base_route());
+		redirect(base_url());
 	}
 
-	public function irPlataforma()
+	public function crearSesion()
 	{
-
 		$arrayUser = [
 			"estado" => $this->input->post("estado_usuario"),
 			"rol" => $this->input->post("id_rol"),
@@ -28,9 +27,8 @@ class Sesion_controller extends CI_Controller
 			"email" => $this->input->post("email_usuario"),
 			"usertoken" => $this->input->post("userToken"),
 		];
-
+		
 		$this->session->set_userdata($arrayUser);
-
 		echo json_encode(array("msg" => "OK"));
 	}
 
@@ -59,13 +57,14 @@ class Sesion_controller extends CI_Controller
 					break;
 
 				default:
-					redirect(base_route());
+					redirect(base_url());
 					break;
 			}
 			$this->load->view("templates/footer");
-		} else {
+		}  else if($this->session->userdata("estado") === "false") {
 			$this->load->view("errors/error_session");
-			//redirect(base_route());
+		}else{
+			redirect(base_url());
 		}
 	}
 }
