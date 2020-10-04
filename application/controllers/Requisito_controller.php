@@ -25,19 +25,19 @@ class Requisito_controller extends CI_Controller
                 'filename' => $_FILES['inputCarnetTrasera']['name']
             ],
             [
-                'name'     => 'fotoLicenciaFrontal',
-                'contents' => file_get_contents($_FILES["inputLicenciaFrontal"]["tmp_name"]),
-                'filename' => $_FILES['inputLicenciaFrontal']['name']
+                'name'     => 'fotoTarjetaFrontal',
+                'contents' => file_get_contents($_FILES["inputTarjetaFrontal"]["tmp_name"]),
+                'filename' => $_FILES['inputTarjetaFrontal']['name']
             ],
             [
-                'name'     => 'fotoLicenciaTrasera',
-                'contents' => file_get_contents($_FILES["inputLicenciatrasera"]["tmp_name"]),
-                'filename' => $_FILES['inputLicenciatrasera']['name']
+                'name'     => 'fotoTarjetaTrasera',
+                'contents' => file_get_contents($_FILES["inputTarjetaTrasera"]["tmp_name"]),
+                'filename' => $_FILES['inputTarjetaTrasera']['name']
             ],
             [
-                'name'     => 'fotoTargeta',
-                'contents' => file_get_contents($_FILES["inputTargeta"]["tmp_name"]),
-                'filename' => $_FILES['inputTargeta']['name']
+                'name'     => 'fotoLicencia',
+                'contents' => file_get_contents($_FILES["inputLicencia"]["tmp_name"]),
+                'filename' => $_FILES['inputLicencia']['name']
             ],
             [
                 'name'     => 'fotoCheque',

@@ -19,12 +19,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputNombreUsuario">Nombre Completo</label>
-                            <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
+                            <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
                                 id="inputNombreUsuario" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputCorreoUsuario">correo</label>
-                            <input oninput="mayus(this);" maxLength="30" type="email" class="form-control"
+                            <input onblur="mayus(this);" maxLength="30" type="email" class="form-control"
                                 id="inputCorreoUsuario" required>
                         </div>
                         <div class="form-group col-md-3">
@@ -136,12 +136,12 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="inputEditNombreUsuario">Nombre Completo</label>
-                                    <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
+                                    <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
                                         id="inputEditNombreUsuario" required>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputEditCorreoUsuario">correo</label>
-                                    <input oninput="mayus(this);" maxLength="30" type="email" class="form-control"
+                                    <input onblur="mayus(this);" maxLength="30" type="email" class="form-control"
                                         id="inputEditCorreoUsuario" required>
                                 </div>
                                 <div class="form-group col-md-12">

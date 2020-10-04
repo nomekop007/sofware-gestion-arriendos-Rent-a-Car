@@ -32,7 +32,7 @@ $rol = $this->session->userdata("rol");
             <li class="nav-item" id="l_arriendo">
                 <br>
                 <a id="m_arriendo" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=3">
-                    <i class="fas fa-retweet"></i>
+                    <i class="fas fa-file-signature"></i>
                     Gestion Arriendo
                 </a>
                 <br>

@@ -113,8 +113,9 @@
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Sub total Arriendo
                                     $</span>
-                                <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo" value="0"
-                                    min="0" type="number" class="form-control" oninput="calcularValores()" required>
+                                <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo"
+                                    onkeypress="return soloNumeros(event);" maxLength="11" value="0" type="text"
+                                    class="form-control" oninput="calcularValores()" required>
                             </div>
                         </div>
                     </div>
@@ -145,8 +146,9 @@
                         <div class="form-row card-body">
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Descuento $</span>
-                                <input style="width: 40%;" min="0" step="0" id="inputDescuento" name="inputDescuento"
-                                    value="0" type="number" class="form-control" oninput="calcularValores()" required>
+                                <input style="width: 40%;" step="0" id="inputDescuento" name="inputDescuento"
+                                    onkeypress="return soloNumeros(event);" maxLength="11" value="0" type="text" min=0
+                                    class="form-control" oninput="calcularValores()" required>
                             </div>
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Total Neto $</span>
@@ -190,8 +192,8 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="inputObservaciones">Observaciones</label>
-                                <textarea class="form-control" id="inputObservaciones" name="inputObservaciones"
-                                    rows="3" maxLength="300"></textarea>
+                                <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
+                                    name="inputObservaciones" rows="3" maxLength="300"></textarea>
                             </div>
 
 
@@ -320,10 +322,10 @@ function mostrarAccesorios(arriendo) {
                 " <span style='width: 60%;' class='input-group-text form-control'>" + o
                 .nombre_accesorio + " $</span>";
             fila +=
-                "<input style='width: 40%;' min='0' id='" + o.nombre_accesorio +
-                "' name='accesorios[]'  oninput='calcularValores()' value='" +
+                "<input  style='width: 40%;' min='0' id='" + o.nombre_accesorio +
+                "'  onkeypress='return soloNumeros(event);' maxLength='11' name='accesorios[]'  oninput='calcularValores()' value='" +
                 precio +
-                "'  type='number' class='form-control'>";
+                "'  type='text' class='form-control' required>";
             fila += "  </div>";
             $("#formAccesorios").append(fila);
         })

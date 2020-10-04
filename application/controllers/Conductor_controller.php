@@ -26,11 +26,11 @@ class Conductor_controller extends CI_Controller
             "rut_conductor" => $this->input->post("inputRutConductor"),
             "nombre_conductor" => $this->input->post("inputNombreConductor"),
             "telefono_conductor" => $this->input->post("inputTelefonoConductor"),
-            "clase_conductor" => $this->input->post("inputClase"),
-            "numero_conductor" => $this->input->post("inputNumero"),
-            "vcto_conductor" => $this->input->post("inputVCTO"),
-            "municipalidad_conductor" => $this->input->post("inputMunicipalidad"),
-            "direccion_conductor" => $this->input->post("inputDireccion"),
+            "clase_conductor" => $this->input->post("inputClaseConductor"),
+            "numero_conductor" => $this->input->post("inputNumeroConductor"),
+            "vcto_conductor" => $this->input->post("inputVCTOConductor"),
+            "municipalidad_conductor" => $this->input->post("inputMunicipalidadConductor"),
+            "direccion_conductor" => $this->input->post("inputDireccionConductor"),
         ];
         echo post_function($arrayData, "conductores/registrarConductor", $tokenUser);
     }

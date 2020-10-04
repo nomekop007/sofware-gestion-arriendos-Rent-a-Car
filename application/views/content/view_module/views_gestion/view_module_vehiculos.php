@@ -29,17 +29,17 @@
                     <div class="form-row">
                         <div class="form-group col-md-2">
                             <label for="inputPatente">Patente</label>
-                            <input oninput="mayus(this);" maxLength="10" type="text" class="form-control"
+                            <input onblur="mayus(this);" maxLength="10" type="text" class="form-control"
                                 id="inputPatente" name="inputPatente" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputMarca">Marca</label>
-                            <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
-                                id="inputMarca" name="inputMarca" required>
+                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control" id="inputMarca"
+                                name="inputMarca" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputModelo">Modelo</label>
-                            <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputModelo" name="inputModelo" required>
                         </div>
                         <div class="form-group col-md-2">
@@ -66,33 +66,33 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputChasis">Chasis de Vehiculo</label>
-                            <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputChasis" name="inputChasis" required>
                         </div>
 
                         <div class="form-group col-md-2">
                             <label for="inputColor">Color</label>
-                            <input oninput="mayus(this);" maxLength="15" type="text" class="form-control"
-                                id="inputColor" name="inputColor" required>
+                            <input onblur="mayus(this);" maxLength="15" type="text" class="form-control" id="inputColor"
+                                name="inputColor" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputNumeroMotor">Nº Motor</label>
-                            <input type="text" maxLength="30" class="form-control" id="inputNumeroMotor"
-                                name="inputNumeroMotor" required>
+                            <input onblur="mayus(this);" type="text" maxLength="20" class="form-control"
+                                id="inputNumeroMotor" name="inputNumeroMotor" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputPrecio">Precio</label>
-                            <input min="0" type="number" name="inputPrecio" class="form-control" id="inputPrecio"
-                                required>
+                            <input onkeypress="return soloNumeros(event);" maxLength="11" type="text" name="inputPrecio"
+                                class="form-control" id="inputPrecio" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputPropietario">Propietario</label>
-                            <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputPropietario" name="inputPropietario" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputCompra">Donde se compro</label>
-                            <input oninput="mayus(this);" maxLength="50" type="text" class="form-control"
+                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputCompra" name="inputCompra" required>
                         </div>
 
@@ -210,15 +210,13 @@
                                     <div class="form-row">
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarMarca">Marca del Vehiculo</label>
-                                            <input oninput="mayus(this);" maxLength="50" type="text"
-                                                class="form-control" id="inputEditarMarca" name="inputEditarMarca"
-                                                required>
+                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                                id="inputEditarMarca" name="inputEditarMarca" required>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarModelo">Modelo del Vehiculo</label>
-                                            <input oninput="mayus(this);" maxLength="50" type="text"
-                                                class="form-control" id="inputEditarModelo" name="inputEditarModelo"
-                                                required>
+                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                                id="inputEditarModelo" name="inputEditarModelo" required>
                                         </div>
 
                                         <div class="form-group col-lg-4">
@@ -248,16 +246,14 @@
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarChasis">Chasis de Vehiculo</label>
-                                            <input oninput="mayus(this);" maxLength="50" type="text"
-                                                class="form-control" id="inputEditarChasis" name="inputEditarChasis"
-                                                required>
+                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                                id="inputEditarChasis" name="inputEditarChasis" required>
                                         </div>
 
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarColor">Color del Vehiculo</label>
-                                            <input oninput="mayus(this);" maxLength="15" type="text"
-                                                class="form-control" id="inputEditarColor" name="inputEditarColor"
-                                                required>
+                                            <input onblur="mayus(this);" maxLength="15" type="text" class="form-control"
+                                                id="inputEditarColor" name="inputEditarColor" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarNumeroMotor">Nº Motor del Vehiculo</label>
@@ -266,8 +262,9 @@
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarPrecio">Precio del Vehiculo</label>
-                                            <input min="0" type="number" name="inputEditarPrecio" class="form-control"
-                                                id="inputEditarPrecio" required>
+                                            <input onkeypress="return soloNumeros(event);" maxLength="11" type="text"
+                                                name="inputEditarPrecio" class="form-control" id="inputEditarPrecio"
+                                                required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarSucursal">Sucursal</label>
@@ -288,15 +285,13 @@
                                         </div>
                                         <div class="form-group col-lg-8">
                                             <label for="inputEditarPropietario">Propietario del Vehiculo</label>
-                                            <input oninput="mayus(this);" maxLength="50" type="text"
-                                                class="form-control" id="inputEditarPropietario"
-                                                name="inputEditarPropietario" required>
+                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                                id="inputEditarPropietario" name="inputEditarPropietario" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarCompra">Donde se compro</label>
-                                            <input oninput="mayus(this);" maxLength="50" type="text"
-                                                class="form-control" id="inputEditarCompra" name="inputEditarCompra"
-                                                required>
+                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                                id="inputEditarCompra" name="inputEditarCompra" required>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarFechaCompra">Fecha de compra</label>

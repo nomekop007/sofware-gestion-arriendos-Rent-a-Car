@@ -39,7 +39,7 @@
                  <div class="form-row">
                      <div class="form-group col-md-3">
                          <label for="inputCiudadEntrega">Ciudad de Entrega</label>
-                         <input oninput="mayus(this);" type="text" class="form-control" name="inputCiudadEntrega"
+                         <input onblur="mayus(this);" type="text" class="form-control" name="inputCiudadEntrega"
                              id="inputCiudadEntrega" required>
                      </div>
                      <div class="form-group col-md-3">
@@ -50,7 +50,7 @@
 
                      <div class="form-group col-md-3">
                          <label for="inputCiudadRecepcion">Ciudad de Recepcion</label>
-                         <input oninput="mayus(this);" type="text" class="form-control" name="inputCiudadRecepcion"
+                         <input onblur="mayus(this);" type="text" class="form-control" name="inputCiudadRecepcion"
                              id="inputCiudadRecepcion" required>
                      </div>
                      <div class="form-group col-md-3">
@@ -65,7 +65,7 @@
                      </div>
                      <div class="form-group col-md-4">
                          <label for="inputTipo">Tipo de Arriendo</label>
-                         <select oninput="tipoArriendo();" name="inputTipo" id="inputTipo" class="form-control">
+                         <select onblur="tipoArriendo();" name="inputTipo" id="inputTipo" class="form-control">
                              <option value="1" selected>Arriendo persona natural</option>
                              <option value="2">Arriendo remplazo copago</option>
                              <option value="3">Arriendo solo empresa</option>
@@ -88,9 +88,8 @@
                      <div class="form-group col-md-3">
                          <label for="inputRutCliente">Rut o Pasaporte</label>
                          <div class="input-group">
-                             <input maxLength="12" oninput="mayus(this);"
-                                 onblur=" value ? this.value=formateaRut(this.value) : null" type="text"
-                                 class="form-control" id="inputRutCliente" name="inputRutCliente" required>
+                             <input maxLength="9" onblur=" value ? this.value=formateaRut(this.value) : null"
+                                 type="text" class="form-control" id="inputRutCliente" name="inputRutCliente" required>
                              <div class="input-group-append">
                                  <button class="btn btn-outline-secondary" type="button" id="btn_buscarCliente">
                                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
@@ -101,23 +100,23 @@
                      </div>
                      <div class="form-group col-md-4">
                          <label for="inputNombreCliente">Nombre completo</label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
+                         <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputNombreCliente" name="inputNombreCliente" required>
                      </div>
                      <div class="form-group col-md-3">
                          <label for="inputDireccionCliente">Direccion </label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
-                             id="inputDireccionCliente" name="inputDireccionCliente">
+                         <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                             id="inputDireccionCliente" name="inputDireccionCliente" required>
                      </div>
                      <div class="form-group col-md-2">
                          <label for="inputCiudadCliente">Ciudad </label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
-                             id="inputCiudadCliente" name="inputCiudadCliente">
+                         <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                             id="inputCiudadCliente" name="inputCiudadCliente" required>
                      </div>
                      <div class="form-group col-md-3">
                          <label for="inputFechaNacimiento">Fecha Nacimiento </label>
-                         <input oninput="mayus(this);" maxLength="30" type="date" class="form-control"
-                             id="inputFechaNacimiento" name="inputFechaNacimiento">
+                         <input onblur="mayus(this);" maxLength="30" type="date" class="form-control"
+                             id="inputFechaNacimiento" name="inputFechaNacimiento" required>
                      </div>
                      <div class="form-group col-md-2">
                          <label for="inputEstadoCivil">Estado Civil</label>
@@ -146,7 +145,7 @@
                              <div class="input-group-prepend">
                                  <span class="input-group-text">@</span>
                              </div>
-                             <input oninput="mayus(this);" maxLength="30" type="email" class="form-control"
+                             <input onblur="mayus(this);" maxLength="30" type="email" class="form-control"
                                  id="inputCorreoCliente" name="inputCorreoCliente" required>
                          </div>
                      </div>
@@ -157,9 +156,9 @@
                      <div class="form-group col-md-4">
                          <label for="inputRutEmpresa">Rut </label>
                          <div class="input-group">
-                             <input maxLength="13" oninput="mayus(this);"
-                                 onblur=" value ? this.value=formateaRut(this.value) : null" maxLength="30" type="text"
-                                 class="form-control" id="inputRutEmpresa" name="inputRutEmpresa" required>
+                             <input maxLength="10" onblur=" value ? this.value=formateaRut(this.value) : null"
+                                 maxLength="30" type="text" class="form-control" id="inputRutEmpresa"
+                                 name="inputRutEmpresa" required>
                              <div class="input-group-append">
                                  <button class="btn btn-outline-secondary" type="button" id="btn_buscarEmpresa">
                                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
@@ -171,18 +170,18 @@
                      </div>
                      <div class="form-group col-md-4">
                          <label for="inputNombreEmpresa">Nombre </label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
+                         <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputNombreEmpresa" name="inputNombreEmpresa" required>
                      </div>
                      <div class="form-group col-md-4">
-                         <label for="inputDireccionEmpresa">Direccion</label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
-                             id="inputDireccionEmpresa" name="inputDireccionEmpresa">
+                         <label for="inputDireccionEmpresa">Direccion comercial</label>
+                         <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                             id="inputDireccionEmpresa" name="inputDireccionEmpresa" required>
                      </div>
                      <div class="form-group col-md-3">
                          <label for="inputCiudadEmpresa">Ciudad</label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
-                             id="inputCiudadEmpresa" name="inputCiudadEmpresa">
+                         <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                             id="inputCiudadEmpresa" name="inputCiudadEmpresa" required>
                      </div>
                      <div class="form-group col-md-4">
                          <label for="inputCorreoEmpresa">Correo electronico</label>
@@ -190,7 +189,7 @@
                              <div class="input-group-prepend">
                                  <span class="input-group-text">@</span>
                              </div>
-                             <input oninput="mayus(this);" maxLength="30" type="email" class="form-control"
+                             <input onblur="mayus(this);" maxLength="30" type="email" class="form-control"
                                  id="inputCorreoEmpresa" name="inputCorreoEmpresa" required>
                          </div>
                      </div>
@@ -210,9 +209,9 @@
                          </select>
                      </div>
                      <div class="form-group col-md-4">
-                         <label for="inputRol">Rol</label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control" name="inputRol"
-                             id="inputRol">
+                         <label for="inputRol">Rol o rubro</label>
+                         <input onblur="mayus(this);" maxLength="30" type="text" class="form-control" name="inputRol"
+                             id="inputRol" required>
                      </div>
                  </div>
              </div>
@@ -226,7 +225,7 @@
                      <div class="form-group  col-md-4">
                          <label for="inputRutConductor">Rut</label>
                          <div class="input-group">
-                             <input type="text" class="form-control" oninput="mayus(this);"
+                             <input type="text" class="form-control" maxLength="9"
                                  onblur=" value ? this.value=formateaRut(this.value) : null" id="inputRutConductor"
                                  name="inputRutConductor" required>
                              <div class="input-group-append">
@@ -240,13 +239,13 @@
                      </div>
                      <div class="form-group col-md-4">
                          <label for="inputNombreConductor">Nombre completo </label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
+                         <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
                              id="inputNombreConductor" name="inputNombreConductor" required>
                      </div>
                      <div class="form-group col-md-4">
-                         <label for="inputDireccion">Direccion</label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
-                             id="inputDireccion" name="inputDireccion">
+                         <label for="inputDireccionConductor">Direccion</label>
+                         <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                             id="inputDireccionConductor" name="inputDireccionConductor" required>
                      </div>
                      <div class="form-group col-md-3">
                          <label for="inputTelefonoConductor">Telefono </label>
@@ -260,24 +259,35 @@
                          </div>
                      </div>
                      <div class="form-group col-md-2">
-                         <label for="inputClase">Clase</label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control" id="inputClase"
-                             name="inputClase">
+                         <label for="inputClaseConductor">Clase</label>
+                         <select name="inputClaseConductor" id="inputClaseConductor" class="form-control">
+                             <option value="Clase B" selected>Clase B</option>
+                             <option value="Clase C">Clase C</option>
+                             <option value="Clase D">Clase D</option>
+                             <option value="Clase E">Clase E</option>
+                             <option value="Clase F">Clase F</option>
+                             <option value="Clase A1">Clase A1</option>
+                             <option value="Clase A2">Clase A2</option>
+                             <option value="Clase A3">Clase A3</option>
+                             <option value="Clase A4">Clase A4</option>
+                             <option value="Clase A5">Clase A5</option>
+                         </select>
                      </div>
                      <div class="form-group col-md-3">
-                         <label for="inputVCTO">VCTO</label>
-                         <input maxLength="30" type="date" class="form-control" id="inputVCTO" name="inputVCTO">
+                         <label for="inputVCTOConductor">VCTO</label>
+                         <input type="date" class="form-control" id="inputVCTOConductor" name="inputVCTOConductor"
+                             required>
                      </div>
 
                      <div class="form-group col-md-2">
-                         <label for="inputNumero">Numero serie</label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control" id="inputNumero"
-                             name="inputNumero">
+                         <label for="inputNumeroConductor">Numero serie</label>
+                         <input onkeypress="return soloNumeros(event);" maxLength="11" type="text" class="form-control"
+                             id="inputNumeroConductor" name="inputNumeroConductor" required>
                      </div>
                      <div class="form-group col-md-2">
-                         <label for="inputMunicipalidad">Municipalidad</label>
-                         <input oninput="mayus(this);" maxLength="30" type="text" class="form-control"
-                             id="inputMunicipalidad" name="inputMunicipalidad">
+                         <label for="inputMunicipalidadConductor">Municipalidad</label>
+                         <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                             id="inputMunicipalidadConductor" name="inputMunicipalidadConductor" required>
                      </div>
                  </div>
              </div>
@@ -309,20 +319,20 @@
                          </div>
                      </div>
                      <br><br>
-                     <h6>Licencia de conducir</h6>
+                     <h6>Tarjeta de credito</h6>
                      <div class="card">
                          <div class="row text-center">
                              <div class="form-group col-md-6">
                                  <br>
-                                 <label for="inputLicenciaFrontal">(frontal)</label>
+                                 <label for="inputTarjetaFrontal">(frontal)</label>
                                  <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                     id="inputLicenciaFrontal" name="inputLicenciaFrontal" required>
+                                     id="inputTarjetaFrontal" name="inputTarjetaFrontal" required>
                              </div>
                              <div class="form-group col-md-6">
                                  <br>
-                                 <label for="inputLicenciatrasera">(trasera)</label>
+                                 <label for="inputTarjetaTrasera">(trasera)</label>
                                  <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                     id="inputLicenciatrasera" name="inputLicenciatrasera" required>
+                                     id="inputTarjetaTrasera" name="inputTarjetaTrasera" required>
                              </div>
                          </div>
                      </div>
@@ -330,9 +340,9 @@
 
                      <div class="form-row">
                          <div class="form-group col-md-12">
-                             <label for="inputTargeta">Targeta de credito</label>
+                             <label for="inputLicencia">Licencia de conducir</label>
                              <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                 id="inputTargeta" name="inputTargeta" required>
+                                 id="inputLicencia" name="inputLicencia" required>
                          </div>
                          <div class="form-group col-md-12">
                              <label for="inputChequeGarantia">Cheque en garantia</label>
@@ -380,8 +390,8 @@
                  <div class="form-row">
                      <div class="form-group col-md-3">
                          <label for="inputEntrada">Entrada</label>
-                         <input min="0" value="0" type="number" class="form-control" id="inputEntrada"
-                             name="inputEntrada">
+                         <input onkeypress="return soloNumeros(event);" value=0 maxLength="11" type="text"
+                             class="form-control" id="inputEntrada" name="inputEntrada" required>
                      </div>
 
                  </div>
@@ -397,7 +407,7 @@
                              <div class="input-group-prepend">
                                  <span class="input-group-text" id="inputOtros">otros</span>
                              </div>
-                             <input type="text" name="inputOtros" oninput="mayus(this);" maxLength="20"
+                             <input type="text" name="inputOtros" onblur="mayus(this);" maxLength="20"
                                  class="form-control" aria-label="Sizing example input" aria-describedby="inputOtros">
                          </div>
                      </div>
