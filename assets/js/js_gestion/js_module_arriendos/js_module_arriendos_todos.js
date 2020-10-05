@@ -23,7 +23,6 @@ $(document).ready(() => {
         var valor = $("#inputValorArriendo").val();
         var total = Number($("#inputTotal").val());
 
-
         //cacturando los accesorios
         var arrayNombreAccesorios = [];
         var arrayValorAccesorios = [];
@@ -65,11 +64,14 @@ $(document).ready(() => {
                     if (response.success) {
                         console.log(response);
 
-                        /* window.location.href =
-                            "data:application/octet-stream;base64," + response.data; */
-                        window.open(
-                            "data:application/octet-stream;base64," + response.data.url
-                        );
+                        window.open(response.url);
+                        // window.open("data:application/octet-stream;base64," + response.url);
+
+                        /*        $("body").append(
+                            '<iframe src="' +
+                            response.url +
+                            '" style="position: absolute; top: 0; left: 0; height: 320px; width: 240px" />'
+                        ); */
                     } else {
                         Swal.fire({
                             icon: "error",

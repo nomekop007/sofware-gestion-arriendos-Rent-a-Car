@@ -302,7 +302,7 @@
 
                  <div class="container">
                      <h6>Foto Carnet</h6>
-                     <div class="card ">
+                     <div class="card bg-light">
                          <br>
                          <div class="row text-center">
                              <br>
@@ -320,7 +320,7 @@
                      </div>
                      <br><br>
                      <h6>Tarjeta de credito</h6>
-                     <div class="card">
+                     <div class="card bg-light">
                          <div class="row text-center">
                              <div class="form-group col-md-6">
                                  <br>
@@ -339,21 +339,24 @@
                      <br><br>
 
                      <div class="form-row">
-                         <div class="form-group col-md-12">
-                             <label for="inputLicencia">Licencia de conducir</label>
+                         <div class="form-group col-md-12 ">
+                             <h6 for="inputLicencia">Licencia de conducir</h6>
                              <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
                                  id="inputLicencia" name="inputLicencia" required>
+                             <br>
                          </div>
                          <div class="form-group col-md-12">
-                             <label for="inputChequeGarantia">Cheque en garantia</label>
+                             <h6 for="inputChequeGarantia">Cheque en garantia</h6>
                              <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
                                  id="inputChequeGarantia" name="inputChequeGarantia" required>
+                             <br>
                          </div>
 
                          <div id="formComprobanteDomicilio" class="form-group col-md-12">
-                             <label for="inputComprobanteDomicilio">Comprobante de domicilio</label>
+                             <h6 for="inputComprobanteDomicilio">Comprobante de domicilio</h6>
                              <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
                                  id="inputComprobanteDomicilio" name="inputComprobanteDomicilio" required>
+                             <br>
                          </div>
                      </div>
                  </div>

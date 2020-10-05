@@ -75,43 +75,43 @@
                     <div class="card">
                         <div class="form-row card-body">
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="EFECTIVO" id="radioEfectivoGarantia" name="customRadio0"
-                                    class="custom-control-input" checked>
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="EFECTIVO"
+                                    id="radioEfectivoGarantia" name="customRadio0" class="custom-control-input" checked>
                                 <label class="custom-control-label" for="radioEfectivoGarantia">Efectivo</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="CHEQUE" id="radioChequeGarantia" name="customRadio0"
-                                    class="custom-control-input">
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="CHEQUE"
+                                    id="radioChequeGarantia" name="customRadio0" class="custom-control-input">
                                 <label class="custom-control-label" for="radioChequeGarantia">Cheque</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="TARGETA" id="radioTarjetaGarantia" name="customRadio0"
-                                    class="custom-control-input">
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="TARJETA"
+                                    id="radioTarjetaGarantia" name="customRadio0" class="custom-control-input">
                                 <label class="custom-control-label" for="radioTarjetaGarantia">Tarjeta</label>
                             </div>
                         </div>
                         <div class="form-row card-body">
-                            <div class="form-group col-md-12">
-                                <label for="inputNumeroTargeta">Tarjeta de credito</label>
+                            <div class="form-group col-md-12" id="card-tarjeta">
+                                <label for="inputNumeroTarjeta">Tarjeta de credito</label>
                                 <div class="input-group">
-                                    <input onkeypress="return soloNumeros(event);" style="width: 60%;" type="text"
-                                        class="form-control" id="inputNumeroTargeta" name="inputNumeroTargeta"
+                                    <input onkeypress="return soloNumeros(event);" style="width: 50%;" type="text"
+                                        class="form-control" id="inputNumeroTarjeta" name="inputNumeroTarjeta"
                                         maxLength="25" placeholder="Nº Tarjeta de credito">
-                                    <input style="width: 20%;" name="inputFechaTargeta" id="inputFechaTargeta"
+                                    <input style="width: 20%;" name="inputFechaTarjeta" id="inputFechaTarjeta"
                                         type="text" aria-label="Last name" class="form-control" maxLength="5"
                                         placeholder="ej: 10/23">
-                                    <input style="width: 20%;" name="inputCodigoTargeta" id="inputCodigoTargeta"
-                                        type="text" aria-label="Last name" class="form-control" maxLength="3"
-                                        placeholder="codigo cvv">
+                                    <input style="width: 30%;" name="inputCodigoTarjeta" id="inputCodigoTarjeta"
+                                        type="text" aria-label="Last name" class="form-control" maxLength="20"
+                                        placeholder="codigo retencion">
                                 </div>
 
                             </div>
-                            <div class="form-group col-md-12">
-                                <label for="inputCheque">Cheque</label>
+                            <div class="form-group col-md-12" id="card-cheque">
+                                <label for="inputNumeroCheque">Cheque</label>
                                 <div class="input-group">
                                     <input onkeypress="return soloNumeros(event);" style="width: 60%;" type="text"
-                                        class="form-control" id="inputCheque" name="inputCheque" maxLength="25"
-                                        placeholder="Nº Cheque">
+                                        class="form-control" id="inputNumeroCheque" name="inputNumeroCheque"
+                                        maxLength="25" placeholder="Nº Cheque">
 
                                     <input style="width: 40%;" name="inputCodigoCheque" id="inputCodigoCheque"
                                         type="text" aria-label="Last name" class="form-control" maxLength="20"
@@ -248,6 +248,7 @@
             </form>
         </div>
     </div>
+
 </div>
 
 
@@ -282,7 +283,27 @@
 <script>
 $("#formContrato").hide();
 
+
+
+function tipoGarantia(value) {
+    $("#card-tarjeta").hide();
+    $("#card-cheque").hide();
+    if (value == "CHEQUE") {
+        $("#card-tarjeta").hide();
+        $("#card-cheque").show();
+    } else if (value == "TARJETA") {
+        $("#card-tarjeta").show();
+        $("#card-cheque").hide();
+    } else {
+        $("#card-tarjeta").hide();
+        $("#card-cheque").hide();
+    }
+}
+
+
 function cargarArriendo(id_arriendo) {
+    $("#card-tarjeta").hide();
+    $("#card-cheque").hide();
     limpiarCampos();
     $.getJSON({
         url: base_url + "buscar_arriendo",
