@@ -74,27 +74,56 @@
                     <h5>Garantia</h5>
                     <div class="card">
                         <div class="form-row card-body">
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input type="radio" value="EFECTIVO" id="radioEfectivoGarantia" name="customRadio0"
+                                    class="custom-control-input" checked>
+                                <label class="custom-control-label" for="radioEfectivoGarantia">Efectivo</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input type="radio" value="CHEQUE" id="radioChequeGarantia" name="customRadio0"
+                                    class="custom-control-input">
+                                <label class="custom-control-label" for="radioChequeGarantia">Cheque</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input type="radio" value="TARGETA" id="radioTarjetaGarantia" name="customRadio0"
+                                    class="custom-control-input">
+                                <label class="custom-control-label" for="radioTarjetaGarantia">Tarjeta</label>
+                            </div>
+                        </div>
+                        <div class="form-row card-body">
                             <div class="form-group col-md-12">
                                 <label for="inputNumeroTargeta">Tarjeta de credito</label>
                                 <div class="input-group">
-                                    <input style="width: 80%;" type="number" class="form-control"
-                                        id="inputNumeroTargeta" min="0" name="inputNumeroTargeta">
+                                    <input onkeypress="return soloNumeros(event);" style="width: 60%;" type="text"
+                                        class="form-control" id="inputNumeroTargeta" name="inputNumeroTargeta"
+                                        maxLength="25" placeholder="Nº Tarjeta de credito">
                                     <input style="width: 20%;" name="inputFechaTargeta" id="inputFechaTargeta"
                                         type="text" aria-label="Last name" class="form-control" maxLength="5"
                                         placeholder="ej: 10/23">
+                                    <input style="width: 20%;" name="inputCodigoTargeta" id="inputCodigoTargeta"
+                                        type="text" aria-label="Last name" class="form-control" maxLength="3"
+                                        placeholder="codigo cvv">
                                 </div>
+
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="inputCheque">Cheque</label>
-                                <input type="text" class="form-control" maxLength="30" id="inputCheque"
-                                    name="inputCheque">
+                                <div class="input-group">
+                                    <input onkeypress="return soloNumeros(event);" style="width: 60%;" type="text"
+                                        class="form-control" id="inputCheque" name="inputCheque" maxLength="25"
+                                        placeholder="Nº Cheque">
+
+                                    <input style="width: 40%;" name="inputCodigoCheque" id="inputCodigoCheque"
+                                        type="text" aria-label="Last name" class="form-control" maxLength="20"
+                                        placeholder="Codigo autorizacion">
+                                </div>
                             </div>
                             <div class="input-group col-md-12">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Abono $</span>
                                 </div>
-                                <input min="0" value="0" type="number" id="inputAbono" name="inputAbono"
-                                    class="form-control" required>
+                                <input onkeypress="return soloNumeros(event);" maxLength="11" value="0" type="text"
+                                    id="inputAbono" name="inputAbono" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -103,9 +132,10 @@
                     <div class="card">
                         <div class="form-row card-body">
                             <div class="input-group col-md-12">
-                                <span style="width: 50%;" id="textTipo" class="input-group-text form-control">Tipo
+                                <span style="width: 50%;" id="textTipo" value=""
+                                    class="input-group-text form-control">Tipo
                                     Arriendo:
-                                    Particular</span>
+                                </span>
                                 <span style="width: 50%;" id="textDias" class="input-group-text form-control">Cantidad
                                     de
                                     dias: X</span>
@@ -142,6 +172,12 @@
                                     class="custom-control-input">
                                 <label class="custom-control-label" for="radioFactura">Factura</label>
                             </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input onkeypress="return soloNumeros(event);" maxLength="20" id="inputNumFacturacion"
+                                    name="inputNumFacturacion" type="text" class="form-control"
+                                    placeholder="Nº Boleta/Factura" required>
+                            </div>
+
                         </div>
                         <div class="form-row card-body">
                             <div class="input-group col-md-12">
@@ -260,6 +296,7 @@ function cargarArriendo(id_arriendo) {
                 var arriendo = e.data;
                 $("#inputIdArriendo").val(arriendo.id_arriendo);
                 $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
+                $("#textTipo").val(arriendo.tipo_arriendo);
                 $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
                 $("#inputDigitador").val(arriendo.usuario.nombre_usuario);
 
