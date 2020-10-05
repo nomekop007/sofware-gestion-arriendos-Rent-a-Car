@@ -23,15 +23,19 @@ $(document).ready(() => {
 		var valor = $("#inputValorArriendo").val();
 		var total = Number($("#inputTotal").val());
 
-		arrayAccesorios = [];
+		//cacturando los accesorios
+		var arrayNombreAccesorios = [];
+		var arrayValorAccesorios = [];
+
 		var list = $('[name="accesorios[]"]');
 		for (let i = 0; i < list.length; i++) {
 			var element = list[i];
-			arrayAccesorios.push(element.id);
-			arrayAccesorios.push(element.value);
+			arrayNombreAccesorios.push(element.id);
+			arrayValorAccesorios.push(element.value);
 		}
-		if (arrayAccesorios.length != 0) {
-			data.append("arrayAccesorios", arrayAccesorios);
+		if (arrayNombreAccesorios.length != 0) {
+			data.append("arrayNombreAccesorios", arrayNombreAccesorios);
+			data.append("arrayValorAccesorios", arrayValorAccesorios);
 		}
 
 		if (
