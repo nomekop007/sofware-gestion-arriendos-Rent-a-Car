@@ -35,6 +35,7 @@ class Arriendo_controller extends CI_Controller
             "fechaRecepcion_arriendo" => $this->input->post("inputFechaRecepcion"),
             "numerosDias_arriendo" => $this->input->post("inputNumeroDias"),
             "kilometrosEntrada_arriendo" => $this->input->post("inputEntrada"),
+            "kilometrosMantencion_arriendo" => $this->input->post("inputMantencion"),
             "inputOtros" => $this->input->post("inputOtros"),
 
             //foraneas

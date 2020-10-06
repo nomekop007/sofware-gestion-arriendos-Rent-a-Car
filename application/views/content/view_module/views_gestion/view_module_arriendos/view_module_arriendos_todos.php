@@ -118,7 +118,7 @@
                                         placeholder="Codigo autorizacion">
                                 </div>
                             </div>
-                            <div class="input-group col-md-12">
+                            <div class="input-group col-md-12" id="card-abono">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Abono $</span>
                                 </div>
@@ -298,15 +298,19 @@ $("#formContrato").hide();
 function tipoGarantia(value) {
     $("#card-tarjeta").hide();
     $("#card-cheque").hide();
+    $("#card-abono").show();
     if (value == "CHEQUE") {
         $("#card-tarjeta").hide();
         $("#card-cheque").show();
+        $("#card-abono").hide();
     } else if (value == "TARJETA") {
         $("#card-tarjeta").show();
         $("#card-cheque").hide();
+        $("#card-abono").show();
     } else {
         $("#card-tarjeta").hide();
         $("#card-cheque").hide();
+        $("#card-abono").show();
     }
 }
 

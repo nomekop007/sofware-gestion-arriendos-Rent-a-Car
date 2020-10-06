@@ -44,8 +44,8 @@
                      </div>
                      <div class="form-group col-md-3">
                          <label for="inputFechaEntrega">Fecha de entrega</label>
-                         <input type="datetime-local" class="form-control" name="inputFechaEntrega"
-                             id="inputFechaEntrega" required>
+                         <input oninput="calcularDias()" type="datetime-local" class="form-control"
+                             name="inputFechaEntrega" id="inputFechaEntrega" required>
                      </div>
 
                      <div class="form-group col-md-3">
@@ -55,8 +55,8 @@
                      </div>
                      <div class="form-group col-md-3">
                          <label for="inputFechaRecepcion">Fecha de Recepcion</label>
-                         <input type="datetime-local" class="form-control" name="inputFechaRecepcion"
-                             id="inputFechaRecepcion" required>
+                         <input oninput="calcularDias()" type="datetime-local" class="form-control"
+                             name="inputFechaRecepcion" id="inputFechaRecepcion" required>
                      </div>
                      <div class="form-group col-md-3">
                          <label for="selectSucursal">Agencia de Arriendo</label>
@@ -73,8 +73,8 @@
                      </div>
                      <div class="form-group col-md-2">
                          <label for="inputNumeroDias">Numeros de Dias</label>
-                         <input min="1" value="1" type="number" class="form-control" name="inputNumeroDias"
-                             id="inputNumeroDias" required>
+                         <input min="0" oninput="calcularDias()" type="number" class="form-control"
+                             name="inputNumeroDias" id="inputNumeroDias" required>
                      </div>
                  </div>
              </div>
@@ -205,7 +205,7 @@
                      </div>
                      <div class="form-group col-md-2">
                          <label for="inputVigencia">Vigecia</label>
-                         <select id="inputVigencia" name="inputVigencia" class="form-control">
+                         <select id="inputVigencia" name="inputVigencia" class="form-control" required>
                          </select>
                      </div>
                      <div class="form-group col-md-4">
@@ -391,12 +391,21 @@
                  <br>
                  <h4>Kilometros</h4>
                  <div class="form-row">
-                     <div class="form-group col-md-3">
+                     <div class="form-group col-md-2">
                          <label for="inputEntrada">Entrada</label>
                          <input onkeypress="return soloNumeros(event);" value=0 maxLength="11" type="text"
                              class="form-control" id="inputEntrada" name="inputEntrada" required>
                      </div>
-
+                     <div class="form-group col-md-2">
+                         <label for="inputSalida">Salida</label>
+                         <input onkeypress="return soloNumeros(event);" maxLength="11" type="text" class="form-control"
+                             id="inputSalida" name="inputSalida" disabled>
+                     </div>
+                     <div class="form-group col-md-3">
+                         <label for="inputMantencion">kilometros para siguiente mantencion</label>
+                         <input onkeypress="return soloNumeros(event);" value=0 maxLength="11" type="text"
+                             class="form-control" id="inputMantencion" name="inputMantencion" required>
+                     </div>
                  </div>
                  <br>
                  <h4>Accesorios</h4>
@@ -431,6 +440,19 @@ $("#spinner_cliente").hide();
 $("#spinner_empresa").hide();
 $("#spinner_btn_registrar").hide();
 $("#spinner_btn_crearContrato").hide();
+
+
+function calcularDias() {
+    var fechaEntrega = $("#inputFechaEntrega").val();
+    var fechaRecepcion = $("#inputFechaRecepcion").val();
+
+    var fechaini = new Date(fechaEntrega);
+    var fechafin = new Date(fechaRecepcion);
+    var diasdif = fechafin.getTime() - fechaini.getTime();
+    var dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
+    $("#inputNumeroDias").val(dias);
+}
+
 
 
 // Script para cambia el tab cliente de acuerdo al tipo de arriendo

@@ -41,10 +41,5 @@
 
     <!-- importaciones del jquery -->
     <script src="<?php echo base_url() ?>assets/js/jquery-3.3.1.min.js"></script>
-    <!-- importacion utilidades -->
-    <script src="<?php echo base_url() ?>assets/js/utilidades.js"></script>
-
-    <script src="<?php echo base_url() ?>assets/js/funcionesAjax.js"></script>
-
 
 </head>
