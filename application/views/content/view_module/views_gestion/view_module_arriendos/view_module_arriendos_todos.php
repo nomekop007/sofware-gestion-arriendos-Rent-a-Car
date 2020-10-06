@@ -41,8 +41,8 @@
 
 
 <!-- Modal Confirmacion arriendo -->
-<div class="modal fade" id="modal_confirmar_arriendo" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modal_confirmar_arriendo" style="overflow-y: scroll;" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -231,8 +231,6 @@
                                 <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
                                     name="inputObservaciones" rows="3" maxLength="300"></textarea>
                             </div>
-
-
                         </div>
                     </div>
 
@@ -240,6 +238,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_signature">
+                        firmar contrato
+                    </button>
                     <button type="submit" id="btn_crear_contrato" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             id="spinner_btn_crearContrato"></span>
@@ -249,6 +250,15 @@
         </div>
     </div>
 
+</div>
+
+
+<!-- Modal signature-->
+<div class="modal fade" id="modal_signature" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" id="body-signature">
+        </div>
+    </div>
 </div>
 
 
@@ -429,5 +439,9 @@ function limpiarCampos() {
     $("#formContrato")[0].reset();
     $("#btn_crear_contrato").attr("disabled", false);
     $("#spinner_btn_crearContrato").hide();
+
+    $("#body-signature").html(
+        "<br><h6 class='text-center'>Sin contrato cargado</h6><br>"
+    );
 }
 </script>
