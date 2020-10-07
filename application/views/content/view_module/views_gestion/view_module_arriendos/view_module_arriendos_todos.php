@@ -239,7 +239,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_signature">
-                        firmar contrato
+                        firmar contrato <i class="fas fa-feather-alt"></i>
                     </button>
                     <button type="submit" id="btn_crear_contrato" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"

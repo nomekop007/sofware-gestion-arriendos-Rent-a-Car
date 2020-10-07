@@ -48,13 +48,13 @@ $(document).ready(() => {
             valor.length != 0
         ) {
             Swal.fire({
-                title: 'Estas seguro?',
+                title: "Estas seguro?",
                 text: "Estas a punto de generar un nuevo contrato!",
-                icon: 'warning',
+                icon: "warning",
                 showCancelButton: true,
-                confirmButtonText: 'Si, seguro',
-                cancelButtonText: 'No, cancelar!',
-                reverseButtons: true
+                confirmButtonText: "Si, seguro",
+                cancelButtonText: "No, cancelar!",
+                reverseButtons: true,
             }).then((result) => {
                 if (result.isConfirmed) {
                     $("#btn_crear_contrato").attr("disabled", true);
@@ -71,12 +71,15 @@ $(document).ready(() => {
                         timeOut: false,
                         success: (response) => {
                             if (response.success) {
-                                $('#modal_signature').modal({
-                                    show: true
+                                $("#modal_signature").modal({
+                                    show: true,
                                 });
 
                                 $("#body-signature").html(
-                                    '<iframe width="100%" height="700px" src="' + response.url + '" target="_parent"></iframe>');
+                                    '<iframe width="100%" height="700px" src="' +
+                                    response.url +
+                                    '" target="_parent"></iframe>'
+                                );
                             } else {
                                 Swal.fire({
                                     icon: "error",
@@ -96,10 +99,8 @@ $(document).ready(() => {
                             $("#spinner_btn_crearContrato").hide();
                         },
                     });
-
                 }
-            })
-
+            });
         } else {
             Swal.fire({
                 icon: "warning",
@@ -108,42 +109,54 @@ $(document).ready(() => {
         }
     });
 
-
-
-    function guardarContrato(DOCUMENT_ID) {
-        console.log(DOCUMENT_ID);
-    }
-
-    function guardarDatosPago() {
-
-    }
-
-    function guardarDatosGarantia() {
-
-    }
-
-    function guardarFacturacion() {
-
-    }
-
-
-
-
     //funcion anonima que escucha los eventos del iframe signature
     (() => {
-        window.addEventListener('message', (e) => {
+        window.addEventListener("message", async(e) => {
             // e.data.event       = EVENT_TYPE
             // e.data.documentId  = DOCUMENT_ID
             // e.data.signatureId = SIGNATURE_ID
-            if (e.data.event === 'completed') {
+            if (e.data.event === "completed") {
                 //poner spiner
-                guardarContrato(e.data.documentId);
-                guardarDatosPago()
-                guardarDatosGarantia();
-                guardarFacturacion();
+                await guardarContrato(e.data.documentId);
+                await guardarDatosPago();
+                await guardarDatosGarantia();
+                await guardarFacturacion();
+
                 // $('iframe').remove();
             }
-        })
+        });
     })();
 
+    async function guardarContrato(DOCUMENT_ID) {
+        var form = $("#formContrato")[0];
+        var data = new FormData(form);
+        data.append("id_documento", DOCUMENT_ID);
+        await funAjaxGuardar(data, "registrar_contrato");
+    }
+
+    async function guardarDatosPago() {
+        var form = $("#formContrato")[0];
+        var data = new FormData(form);
+        await funAjaxGuardar(data, "registrar_pago");
+    }
+
+    async function guardarDatosGarantia() {
+        var form = $("#formContrato")[0];
+        var data = new FormData(form);
+        await funAjaxGuardar(data, "registrar_garantia");
+    }
+
+    async function guardarFacturacion() {
+        var form = $("#formContrato")[0];
+        var data = new FormData(form);
+
+        //PENDIENTE
+        var facturacion = $("input[name=customRadio1]");
+        console.log(facturacion);
+        if (condition) {
+            await funAjaxGuardar(data, "registrar_boleta");
+        } else {
+            await funAjaxGuardar(data, "registrar_factura");
+        }
+    }
 });

@@ -13,7 +13,58 @@ class Requisito_controller extends CI_Controller
         $tokenUser = $this->session->userdata('usertoken');
         $id_arriendo =   $this->input->post("idArriendo");
 
+        //se valdia que se hayan ingresado estos archivos
+        $tarjetaFrontal = null;
+        $pathTarjetaFrontal = null;
+        if (isset($_FILES['inputTarjetaFrontal'])) {
+            $pathTarjetaFrontal = file_get_contents($_FILES["inputTarjetaFrontal"]["tmp_name"]);
+            $tarjetaFrontal = $_FILES['inputTarjetaFrontal']['name'];
+        }
+        $tarjetaTrasera = null;
+        $pathTarjetaTrasera = null;
+        if (isset($_FILES['inputTarjetaTrasera'])) {
+            $pathTarjetaTrasera = file_get_contents($_FILES["inputTarjetaTrasera"]["tmp_name"]);
+            $tarjetaTrasera = $_FILES['inputTarjetaTrasera']['name'];
+        }
+        $cheque = null;
+        $pathCheque = null;
+        if (isset($_FILES['inputCheque'])) {
+            $pathCheque = file_get_contents($_FILES["inputCheque"]["tmp_name"]);
+            $cheque = $_FILES['inputCheque']['name'];
+        }
+        $comprobante = null;
+        $pathComprobante = null;
+        if (isset($_FILES['inputComprobante'])) {
+            $pathComprobante = file_get_contents($_FILES["inputComprobante"]["tmp_name"]);
+            $comprobante = $_FILES['inputComprobante']['name'];
+        }
+
         $data = [
+            [
+                'name'     => 'fotoTarjetaFrontal',
+                'contents' => $pathTarjetaFrontal,
+                'filename' => $tarjetaFrontal
+            ],
+            [
+                'name'     => 'fotoTarjetaTrasera',
+                'contents' => $pathTarjetaTrasera,
+                'filename' => $tarjetaTrasera
+            ],
+            [
+                'name'     => 'fotoCheque',
+                'contents' => $pathCheque,
+                'filename' => $cheque
+            ],
+            [
+                'name'     => 'fotoComprobante',
+                'contents' => $pathComprobante,
+                'filename' => $comprobante
+            ],
+            [
+                'name'     => 'fotoLicencia',
+                'contents' => file_get_contents($_FILES["inputLicencia"]["tmp_name"]),
+                'filename' => $_FILES['inputLicencia']['name']
+            ],
             [
                 'name'     => 'fotoCarnetFrontal',
                 'contents' => file_get_contents($_FILES["inputCarnetFrontal"]["tmp_name"]),
@@ -24,32 +75,6 @@ class Requisito_controller extends CI_Controller
                 'contents' => file_get_contents($_FILES["inputCarnetTrasera"]["tmp_name"]),
                 'filename' => $_FILES['inputCarnetTrasera']['name']
             ],
-            [
-                'name'     => 'fotoTarjetaFrontal',
-                'contents' => file_get_contents($_FILES["inputTarjetaFrontal"]["tmp_name"]),
-                'filename' => $_FILES['inputTarjetaFrontal']['name']
-            ],
-            [
-                'name'     => 'fotoTarjetaTrasera',
-                'contents' => file_get_contents($_FILES["inputTarjetaTrasera"]["tmp_name"]),
-                'filename' => $_FILES['inputTarjetaTrasera']['name']
-            ],
-            [
-                'name'     => 'fotoLicencia',
-                'contents' => file_get_contents($_FILES["inputLicencia"]["tmp_name"]),
-                'filename' => $_FILES['inputLicencia']['name']
-            ],
-            [
-                'name'     => 'fotoCheque',
-                'contents' => file_get_contents($_FILES["inputCheque"]["tmp_name"]),
-                'filename' => $_FILES['inputCheque']['name']
-            ],
-            [
-                'name'     => 'fotoComprobante',
-                'contents' => file_get_contents($_FILES["inputComprobante"]["tmp_name"]),
-                'filename' => $_FILES['inputComprobante']['name']
-            ]
-
         ];
         echo file_function($id_arriendo, $data, "requisitos/registrarRequisitoArriendo", $tokenUser);
     }

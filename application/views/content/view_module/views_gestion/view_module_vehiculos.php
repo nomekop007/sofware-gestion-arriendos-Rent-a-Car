@@ -81,14 +81,19 @@
                                 id="inputNumeroMotor" name="inputNumeroMotor" required>
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="inputPrecio">Precio</label>
-                            <input onkeypress="return soloNumeros(event);" maxLength="11" type="text" name="inputPrecio"
-                                class="form-control" id="inputPrecio" required>
+                            <label for="inputEstado">Estado</label>
+                            <select id="inputEstado" name="inputEstado" class="form-control">
+                                <option value="DISPONIBLE" selected>Disponible</option>
+                                <option value="INACTIVO">Inactivo</option>
+                                <option value="ARRENDADO">Arrendado</option>
+                                <option value="SINIESTRADO">Siniestrado</option>
+                                <option value="MANTENCION">En mantencion</option>
+                            </select>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label for="inputPropietario">Propietario</label>
-                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                                id="inputPropietario" name="inputPropietario" required>
+                            <select id="inputPropietario" name="inputPropietario" class="form-control">
+                            </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputCompra">Donde se compro</label>
@@ -101,17 +106,8 @@
                             <select id="inputSucursal" name="inputSucursal" class="form-control">
                             </select>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputEstado">Estado</label>
-                            <select id="inputEstado" name="inputEstado" class="form-control">
-                                <option value="DISPONIBLE" selected>Disponible</option>
-                                <option value="INACTIVO">Inactivo</option>
-                                <option value="ARRENDADO">Arrendado</option>
-                                <option value="SINIESTRADO">Siniestrado</option>
-                                <option value="MANTENCION">En mantencion</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-2">
+
+                        <div class="form-group col-md-3">
                             <label for="inputFechaCompra">Fecha de compra</label>
                             <input type="date" class="form-control" id="inputFechaCompra" name="inputFechaCompra"
                                 required>
@@ -138,7 +134,7 @@
                     <thead class="btn-dark">
                         <tr>
                             <th>Patente</th>
-                            <th>Modelo</th>
+                            <th>Marca modelo</th>
                             <th>año</th>
                             <th>Tipo</th>
                             <th>transmision</th>
@@ -153,7 +149,7 @@
                     <tfoot class="btn-dark">
                         <tr>
                             <th>Patente</th>
-                            <th>Modelo</th>
+                            <th>Marca modelo</th>
                             <th>año</th>
                             <th>Tipo</th>
                             <th>transmision</th>
@@ -171,9 +167,9 @@
                     <h6>Cargando Datos...</h6>
                 </div>
             </div>
-
+            <br><br><br><br>
         </div>
-        <br><br>
+
     </div>
 
 
@@ -261,16 +257,15 @@
                                                 id="inputEditarNumeroMotor" name="inputEditarNumeroMotor" required>
                                         </div>
                                         <div class="form-group col-lg-4">
-                                            <label for="inputEditarPrecio">Precio del Vehiculo</label>
-                                            <input onkeypress="return soloNumeros(event);" maxLength="11" type="text"
-                                                name="inputEditarPrecio" class="form-control" id="inputEditarPrecio"
-                                                required>
-                                        </div>
-                                        <div class="form-group col-lg-4">
                                             <label for="inputEditarSucursal">Sucursal</label>
                                             <select id="inputEditarSucursal" name="inputEditarSucursal"
                                                 class="form-control">
                                             </select>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarCompra">Donde se compro</label>
+                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                                id="inputEditarCompra" name="inputEditarCompra" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarEstado">Editar estado</label>
@@ -283,16 +278,14 @@
                                                 <option value="MANTENCION">En mantencion</option>
                                             </select>
                                         </div>
-                                        <div class="form-group col-lg-8">
-                                            <label for="inputEditarPropietario">Propietario del Vehiculo</label>
-                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                                                id="inputEditarPropietario" name="inputEditarPropietario" required>
+                                        <div class="form-group col-lg-12">
+
+                                            <label for="inputEditarPropietario">Propietario</label>
+                                            <select id="inputEditarPropietario" name="inputEditarPropietario"
+                                                class="form-control">
+                                            </select>
                                         </div>
-                                        <div class="form-group col-lg-4">
-                                            <label for="inputEditarCompra">Donde se compro</label>
-                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                                                id="inputEditarCompra" name="inputEditarCompra" required>
-                                        </div>
+
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarFechaCompra">Fecha de compra</label>
                                             <input type="date" class="form-control" id="inputEditarFechaCompra"
@@ -377,10 +370,9 @@ function cargarVehiculo(patente) {
                 $("#inputEditarChasis").val(vehiculo.chasis_vehiculo);
                 $("#inputEditarColor").val(vehiculo.color_vehiculo);
                 $("#inputEditarNumeroMotor").val(vehiculo.numeroMotor_vehiculo);
-                $("#inputEditarPrecio").val(vehiculo.precio_vehiculo);
                 $("#inputEditarSucursal").val(vehiculo.id_sucursal);
                 $("#inputEditarCompra").val(vehiculo.compra_vehiculo);
-                $("#inputEditarPropietario").val(vehiculo.propietario_vehiculo);
+                $("#inputEditarPropietario").val(vehiculo.rut_propietario);
                 $("#inputEditarFechaCompra").val(
                     vehiculo.fechaCompra_vehiculo ?
                     vehiculo.fechaCompra_vehiculo.substring(0, 10) :
@@ -395,7 +387,7 @@ function cargarVehiculo(patente) {
                 Swal.fire({
                     icon: "error",
                     title: "Error",
-                    text: "Usuario no encontrado",
+                    text: "Vehiculo no encontrado",
                 });
                 $("#modal_vehiculo").show();
                 $("#spinner_vehiculo").hide();
@@ -432,7 +424,6 @@ function limpiarCampos() {
     $("#inputEditarChasis").val("");
     $("#inputEditarColor").val("");
     $("#inputEditarNumeroMotor").val("");
-    $("#inputEditarPrecio").val("");
     $("#inputEditarSucursal").val("");
     $("#inputEditarCompra").val("");
     $("#inputEditarPropietario").val("");

@@ -4,6 +4,8 @@ $(document).ready(() => {
 	//cargar sucursales  (ruta,select)
 	cargarSelect("cargar_Sucursales", "inputSucursal");
 	cargarSelect("cargar_Sucursales", "inputEditarSucursal");
+	cargarSelect("cargar_propietarios", "inputPropietario");
+	cargarSelect("cargar_propietarios", "inputEditarPropietario");
 
 	//cargar año vehiculo (input)
 	cargarOlder("inputedad");
@@ -34,7 +36,6 @@ $(document).ready(() => {
 		var color = $("#inputColor").val();
 		var propietario = $("#inputPropietario").val();
 		var compra = $("#inputCompra").val();
-		var precio = $("#inputPrecio").val();
 		var fechaCompra = $("#inputFechaCompra").val();
 		var chasis = $("#inputChasis").val();
 		var n_motor = $("#inputNumeroMotor").val();
@@ -49,7 +50,6 @@ $(document).ready(() => {
 			color.length != 0 &&
 			propietario.length != 0 &&
 			compra.length != 0 &&
-			precio.length != 0 &&
 			fechaCompra.length != 0
 		) {
 			$("#btn_registrar_vehiculo").attr("disabled", true);
@@ -123,14 +123,14 @@ $(document).ready(() => {
 			contentType: false,
 			cache: false,
 			timeOut: false,
-			success: (response) => {
+			success: async (response) => {
 				if (response.success) {
 					//pregunta si hay imagen para subir
 					if ($("#inputEditarFoto").val().length != 0) {
 						var file = $("#inputEditarFoto")[0].files[0];
 						var size = $("#inputEditarFoto")[0].files[0].size;
 						var patente = response.data.patente_vehiculo;
-						guardarImagenVehiculo(patente, file, size);
+						await guardarImagenVehiculo(patente, file, size);
 					}
 
 					Swal.fire("Exito", response.msg, "success");
@@ -153,7 +153,7 @@ $(document).ready(() => {
 	});
 
 	//guarda exclusivamente la imagen en el servidor
-	function guardarImagenVehiculo(patente, file, size) {
+	async function guardarImagenVehiculo(patente, file, size) {
 		var data = new FormData();
 		data.append("inputPatente", patente);
 		data.append("inputFoto", file);
@@ -166,35 +166,13 @@ $(document).ready(() => {
 			});
 			return;
 		}
-
-		$.ajax({
-			url: base_url + "guardar_fotoVehiculo",
-			type: "post",
-			dataType: "json",
-			data: data,
-			enctype: "multipart/form-data",
-			processData: false,
-			contentType: false,
-			cache: false,
-			timeOut: false,
-			success: (response) => {
-				console.log(response.msg);
-			},
-			error: () => {
-				Swal.fire({
-					icon: "error",
-					title: "no se guardo la foto ",
-					text: "A ocurrido un Error Contacte a informatica",
-				});
-			},
-		});
+		await funAjaxGuardar(data, "guardar_fotoVehiculo");
 	}
 
 	//BUSCAR MEJOR SOLUCION PARA EVITAR ACTUALIZAR TABLA
 	function refrescarTabla() {
 		//limpia la tabla
 		tablaVehiculos.row().clear().draw(false);
-
 		//carga nuevamente
 		cargarVehiculos();
 	}
@@ -203,11 +181,11 @@ $(document).ready(() => {
 		tablaVehiculos.row
 			.add([
 				vehiculo.patente_vehiculo,
-				vehiculo.modelo_vehiculo,
+				vehiculo.marca_vehiculo + " " + vehiculo.modelo_vehiculo,
 				vehiculo.año_vehiculo,
 				vehiculo.tipo_vehiculo,
 				vehiculo.transmision_vehiculo,
-				vehiculo.sucursale.nombre_sucursal,
+				vehiculo.sucursale ? vehiculo.sucursale.nombre_sucursal : "",
 				vehiculo.estado_vehiculo,
 				" <button value='" +
 					vehiculo.patente_vehiculo +

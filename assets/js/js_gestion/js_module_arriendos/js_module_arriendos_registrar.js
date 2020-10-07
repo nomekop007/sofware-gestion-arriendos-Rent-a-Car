@@ -199,7 +199,7 @@ $(document).ready(() => {
     });
 
     $("#btn_crear_arriendo").click(async() => {
-        //aqui se valida el formulario completo
+        //AQUI SE VALIDA EL FORMULARIO COMPLETO
 
         //datos arriendo
         var select_vehiculos = $("#select_vehiculos").val();
@@ -210,8 +210,6 @@ $(document).ready(() => {
         var inputNumeroDias = $("#inputNumeroDias").val();
         var inputEntrada = $("#inputEntrada").val();
         var inputMantencion = $("#inputMantencion").val();
-
-
 
         //datos cliente
         var inputRutCliente = $("#inputRutCliente").val();
@@ -242,14 +240,50 @@ $(document).ready(() => {
         var inputMunicipalidadConductor = $("#inputMunicipalidadConductor").val();
 
         //documentos requeridos
-        var inputCarnetFrontal = $("#inputCarnetFrontal").val();
-        var inputCarnetTrasera = $("#inputCarnetTrasera").val();
+        var inputChequeGarantia = $("#inputChequeGarantia").val();
         var inputTarjetaFrontal = $("#inputTarjetaFrontal").val();
         var inputTarjetaTrasera = $("#inputTarjetaTrasera").val();
+
+        var inputCarnetFrontal = $("#inputCarnetFrontal").val();
+        var inputCarnetTrasera = $("#inputCarnetTrasera").val();
         var inputLicencia = $("#inputLicencia").val();
-        var inputChequeGarantia = $("#inputChequeGarantia").val();
+        var inputComprobanteDomicilio = $("#inputComprobanteDomicilio").val();
 
         var inputTipo = $("#inputTipo").val();
+
+        //VALIDACIONES DE LOS DOCUMENTOS REQUERIDOS
+        if (
+            inputCarnetFrontal.length == 0 ||
+            inputCarnetTrasera.length == 0 ||
+            inputLicencia.length == 0
+        ) {
+            Swal.fire({
+                icon: "warning",
+                title: "Faltan Documentacion! ",
+            });
+            return;
+        }
+        if (
+            inputChequeGarantia.length == 0 &&
+            (inputTarjetaFrontal.length == 0 || inputTarjetaTrasera.length == 0)
+        ) {
+            Swal.fire({
+                icon: "warning",
+                title: "Es necesario la tarjeta o cheque como garantia! ",
+            });
+            return;
+        }
+        if (inputTipo == 1 || inputTipo == 2) {
+            if (inputComprobanteDomicilio.length == 0) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Faltan Documentacion! ",
+                });
+                return;
+            }
+        }
+
+        //VALIDACION DEL FORMULARIO ARRIENDO
         if (
             inputRutConductor.length != 0 &&
             inputNombreConductor.length != 0 &&
@@ -258,12 +292,6 @@ $(document).ready(() => {
             inputVCTOConductor.length != 0 &&
             inputNumeroConductor.length != 0 &&
             inputMunicipalidadConductor.length != 0 &&
-            inputCarnetFrontal.length != 0 &&
-            inputCarnetTrasera.length != 0 &&
-            inputTarjetaFrontal.length != 0 &&
-            inputTarjetaTrasera.length != 0 &&
-            inputLicencia.length != 0 &&
-            inputChequeGarantia.length != 0 &&
             inputNumeroDias >= 0 &&
             inputCiudadEntrega.length != 0 &&
             inputFechaEntrega.length != 0 &&
@@ -275,6 +303,7 @@ $(document).ready(() => {
         ) {
             $("#btn_crear_arriendo").attr("disabled", true);
             $("#spinner_btn_registrar").show();
+            //SE VALIDA EL FORMULARIO ´POR TIPO DE ARRIENDO
             switch (inputTipo) {
                 case "1":
                     if (
@@ -364,69 +393,19 @@ $(document).ready(() => {
     async function guardarDatosConductor() {
         var form = $("#form_registrar_arriendo")[0];
         var data = new FormData(form);
-        await $.ajax({
-            url: base_url + "registrar_conductor",
-            type: "post",
-            dataType: "json",
-            data: data,
-            enctype: "multipart/form-data",
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeOut: false,
-            success: (e) => {
-                //uan vez guardado el conducto se guarda el arriendo
-
-                console.log("conductor guardado");
-            },
-            error: () => {
-                console.log("error conductor");
-            },
-        });
+        await funAjaxGuardar(data, "registrar_conductor");
     }
 
     async function guardarDatosCliente() {
         var form = $("#form_registrar_arriendo")[0];
         var data = new FormData(form);
-        await $.ajax({
-            url: base_url + "registrar_cliente",
-            type: "post",
-            dataType: "json",
-            data: data,
-            enctype: "multipart/form-data",
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeOut: false,
-            success: (e) => {
-                console.log("cliente guardado");
-            },
-            error: () => {
-                console.log("error cliente");
-            },
-        });
+        await funAjaxGuardar(data, "registrar_cliente");
     }
 
     async function guardarDatosEmpresa() {
         var form = $("#form_registrar_arriendo")[0];
         var data = new FormData(form);
-        await $.ajax({
-            url: base_url + "registrar_empresa",
-            type: "post",
-            dataType: "json",
-            data: data,
-            enctype: "multipart/form-data",
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeOut: false,
-            success: (e) => {
-                console.log("empresa guardado");
-            },
-            error: () => {
-                console.log("error empresa");
-            },
-        });
+        await funAjaxGuardar(data, "registrar_empresa");
     }
 
     async function guardarDatosArriendo() {
@@ -442,10 +421,10 @@ $(document).ready(() => {
             contentType: false,
             cache: false,
             timeOut: false,
-            success: (response) => {
+            success: async(response) => {
                 if (response) {
-                    guardarDocumentosRequistos(response.data.id_arriendo);
-                    guardarDatosAccesorios(response.data.id_arriendo);
+                    await guardarDocumentosRequistos(response.data.id_arriendo);
+                    await guardarDatosAccesorios(response.data.id_arriendo);
                     cargarArriendoEnTabla(response.data);
 
                     Swal.fire("Arriendo Registrado", response.msg, "success");
@@ -482,24 +461,7 @@ $(document).ready(() => {
             "inputComprobante",
             $("#inputComprobanteDomicilio")[0].files[0]
         );
-
-        await $.ajax({
-            url: base_url + "registrar_requisitosArriendo",
-            type: "post",
-            dataType: "json",
-            data: data,
-            enctype: "multipart/form-data",
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeOut: false,
-            success: (response) => {
-                console.log("se guardaron los documentos requeridos!");
-            },
-            error: () => {
-                console.log("error pero igual se guardan los doc!");
-            },
-        });
+        await funAjaxGuardar(data, "registrar_requisitos");
     }
 
     async function guardarDatosAccesorios(idArriendo) {
@@ -509,22 +471,11 @@ $(document).ready(() => {
                 return this.value;
             })
             .get();
-        await $.ajax({
-            url: base_url + "registrar_arriendoAccesorios",
-            type: "post",
-            dataType: "json",
-            data: { idArriendo, array: JSON.stringify(checks) },
-            success: (response) => {
-                console.log("se guardaron los accesorios!");
-            },
-            error: () => {
-                Swal.fire({
-                    icon: "error",
-                    title: "error en guardar Accesorios",
-                    text: "A ocurrido un Error Contacte a informatica",
-                });
-            },
-        });
+
+        var data = new FormData();
+        data.append("idArriendo", idArriendo);
+        data.append("arrayAccesorios", JSON.stringify(checks));
+        await funAjaxGuardar(data, "registrar_arriendoAccesorios");
     }
 
     function limpiarCampos() {

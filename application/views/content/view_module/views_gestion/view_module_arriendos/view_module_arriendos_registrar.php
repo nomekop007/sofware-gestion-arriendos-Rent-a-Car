@@ -115,7 +115,7 @@
                      </div>
                      <div class="form-group col-md-3">
                          <label for="inputFechaNacimiento">Fecha Nacimiento </label>
-                         <input onblur="mayus(this);" maxLength="30" type="date" class="form-control"
+                         <input onblur="mayus(this);" value="1990-01-01" maxLength="30" type="date" class="form-control"
                              id="inputFechaNacimiento" name="inputFechaNacimiento" required>
                      </div>
                      <div class="form-group col-md-2">

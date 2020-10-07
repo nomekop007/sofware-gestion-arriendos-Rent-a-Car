@@ -50,7 +50,7 @@ function cargarArriendoEnTabla(arriendo) {
             arriendo.id_arriendo +
             "' " +
             " onclick='cargarArriendo(this.value)'" +
-            " data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-check-circle'></i></button>  " +
+            " data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  " +
             " <button disabled data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-edit'></i></button>  ",
         ])
         .draw(false);
