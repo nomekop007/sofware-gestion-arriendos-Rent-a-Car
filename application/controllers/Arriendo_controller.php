@@ -11,7 +11,19 @@ class Arriendo_controller extends CI_Controller
     public function cargarTotalArriendos()
     {
         $tokenUser = $this->session->userdata('usertoken');
-        echo get_function("arriendos/cargarTotalArriendos", $tokenUser);
+        $arrayForm = [
+            "id_sucursal" => $this->session->userdata('sucursal')
+        ];
+        echo post_function($arrayForm, "arriendos/cargarTotalArriendos", $tokenUser);
+    }
+
+    public function cargarArriendosListos()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        $arrayForm = [
+            "id_sucursal" => $this->session->userdata('sucursal')
+        ];
+        echo post_function($arrayForm, "arriendos/cargarArriendosListos", $tokenUser);
     }
 
     public function buscarArriendo()
@@ -41,12 +53,24 @@ class Arriendo_controller extends CI_Controller
             //foraneas
             "id_usuario" =>  $this->session->userdata('id'),
             "patente_vehiculo" => $this->input->post("select_vehiculos"),
-            "id_sucursal" => $this->input->post("selectSucursal"),
+            "id_sucursal" => $this->session->userdata('sucursal'),
             "rut_cliente" => $this->input->post("inputRutCliente"),
             "rut_empresa" => $this->input->post("inputRutEmpresa"),
             "rut_conductor" => $this->input->post("inputRutConductor"),
         ];
 
         echo post_function($arrayForm, "arriendos/registrarArriendo", $tokenUser);
+    }
+
+    public function cambiarEstadoArriendo()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        $idArriendo = $this->input->post("inputIdArriendo");
+        $ArrayData = [
+            "estado_arriendo" => "LISTO",
+            "estado_vehiculo" => "RESERVADO",
+            "patente_vehiculo" => $this->input->post("inputPatenteVehiculo")
+        ];
+        echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo", $tokenUser);
     }
 }

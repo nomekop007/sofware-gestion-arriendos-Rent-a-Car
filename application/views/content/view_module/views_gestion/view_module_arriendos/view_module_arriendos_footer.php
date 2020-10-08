@@ -33,6 +33,7 @@ $(document).ready(() => {
     $("#tablaTotalArriendos").DataTable(lenguaje);
 });
 
+
 //carga tablaTotalArriendos
 function cargarArriendoEnTabla(arriendo) {
     var tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
@@ -46,7 +47,11 @@ function cargarArriendoEnTabla(arriendo) {
             arriendo.tipo_arriendo,
             arriendo.estado_arriendo,
             arriendo.usuario.nombre_usuario,
-            " <button value='" +
+            " <button " +
+            "id='" +
+            arriendo.id_arriendo +
+            "' " +
+            " value='" +
             arriendo.id_arriendo +
             "' " +
             " onclick='cargarArriendo(this.value)'" +
@@ -54,6 +59,10 @@ function cargarArriendoEnTabla(arriendo) {
             " <button disabled data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-edit'></i></button>  ",
         ])
         .draw(false);
+
+    if (arriendo.estado_arriendo != "PENDIENTE") {
+        $(`#${arriendo.id_arriendo}`).attr("disabled", true);
+    }
 }
 </script>
 

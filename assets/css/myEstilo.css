@@ -1,23 +1,23 @@
 a {
-	color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
 }
 
 a:hover {
-	color: rgb(255, 0, 0);
+    color: rgb(255, 0, 0);
 }
 
 .nav-link {
-	color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
 }
 
 .nav-link:hover {
-	color: rgb(255, 0, 0);
+    color: rgb(255, 0, 0);
 }
 
 .card .nav-link {
-	color: rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
 }
 
 .card .nav-link:hover {
-	color: rgb(255, 0, 0);
+    color: rgb(255, 0, 0);
 }

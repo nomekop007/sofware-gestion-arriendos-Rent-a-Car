@@ -64,23 +64,23 @@ $route['registrar_requisitos'] = 'Requisito_controller/guardarDocumentosRequisto
 
 /* rutas de controller Contrato */
 $route['generar_PDFcontrato'] = 'Contrato_controller/generarPDFcontrato';
-
+$route['registrar_contrato'] = 'Contrato_controller/registrarContrato';
 
 /* rutas de controller arriendo  */
 $route['registrar_arriendo'] = 'Arriendo_controller/registrarArriendo';
 $route['cargar_TotalArriendos'] = 'Arriendo_controller/cargarTotalArriendos';
+$route['cargar_arriendosListos'] = 'Arriendo_controller/cargarArriendosListos';
+
 $route['buscar_arriendo'] = 'Arriendo_controller/buscarArriendo';
-
-
-/* rutas de controller... */
-$route['registrar_pago'] = '';
-$route['registrar_contrato'] = '';
-$route['registrar_garantia'] = '';
-$route['registrar_boleta'] = '';
-$route['registrar_factura'] = '';
+$route['cambiarEstado_arriendo'] = 'Arriendo_controller/cambiarEstadoArriendo';
 
 
 
+/* rutas de controller pago */
+$route['registrar_pago'] = 'Pago_controller/registrarPago';
+
+/* rutas de controller garantia */
+$route['registrar_garantia'] = 'Garantia_controller/registrarGarantia';
 
 
 

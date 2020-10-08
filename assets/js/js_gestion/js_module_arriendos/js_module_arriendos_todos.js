@@ -1,18 +1,5 @@
 $(document).ready(() => {
-    (() => {
-        $("#spinner_tablaTotalArriendos").show();
-        const url = base_url + "cargar_TotalArriendos";
-        $.getJSON(url, (result) => {
-            $("#spinner_tablaTotalArriendos").hide();
-            if (result.success) {
-                $.each(result.data, (i, arriendo) => {
-                    cargarArriendoEnTabla(arriendo);
-                });
-            } else {
-                console.log("ah ocurrido un error al cargar los arriendos");
-            }
-        });
-    })();
+    cargarArriendos();
 
     $("#btn_crear_contrato").click(() => {
         var form = $("#formContrato")[0];
@@ -117,26 +104,35 @@ $(document).ready(() => {
             // e.data.signatureId = SIGNATURE_ID
             if (e.data.event === "completed") {
                 //poner spiner
-                await guardarContrato(e.data.documentId);
+                await guardarContrato(e.data.documentId, e.data.signatureId);
                 await guardarDatosPago();
                 await guardarDatosGarantia();
-                await guardarFacturacion();
-
-                // $('iframe').remove();
+                await cambiarEstadoArriendoVehiculo();
+                refrescarTabla();
+                Swal.fire(
+                    "Contrato Firmado!",
+                    "contrato firmado con exito!",
+                    "success"
+                );
+                $("iframe").remove();
+                $("#modal_signature").modal("toggle");
+                $("#modal_confirmar_arriendo").modal("toggle");
             }
         });
     })();
 
-    async function guardarContrato(DOCUMENT_ID) {
+    async function guardarContrato(DOCUMENT_ID, SIGNATURE_ID) {
         var form = $("#formContrato")[0];
         var data = new FormData(form);
         data.append("id_documento", DOCUMENT_ID);
+        data.append("id_signature", SIGNATURE_ID);
         await funAjaxGuardar(data, "registrar_contrato");
     }
 
     async function guardarDatosPago() {
         var form = $("#formContrato")[0];
         var data = new FormData(form);
+        data.append("digitador", $("#inputDigitador").val());
         await funAjaxGuardar(data, "registrar_pago");
     }
 
@@ -146,17 +142,32 @@ $(document).ready(() => {
         await funAjaxGuardar(data, "registrar_garantia");
     }
 
-    async function guardarFacturacion() {
+    async function cambiarEstadoArriendoVehiculo() {
         var form = $("#formContrato")[0];
         var data = new FormData(form);
+        await funAjaxGuardar(data, "cambiarEstado_arriendo");
+    }
 
-        //PENDIENTE
-        var facturacion = $("input[name=customRadio1]");
-        console.log(facturacion);
-        if (condition) {
-            await funAjaxGuardar(data, "registrar_boleta");
-        } else {
-            await funAjaxGuardar(data, "registrar_factura");
-        }
+    //BUSCAR MEJOR SOLUCION PARA EVITAR ACTUALIZAR TABLA
+    function refrescarTabla() {
+        //limpia la tabla
+        $("#tablaTotalArriendos").DataTable(lenguaje).row().clear().draw(false);
+        //carga nuevamente
+        cargarArriendos();
+    }
+
+    function cargarArriendos() {
+        $("#spinner_tablaTotalArriendos").show();
+        const url = base_url + "cargar_TotalArriendos";
+        $.getJSON(url, (result) => {
+            $("#spinner_tablaTotalArriendos").hide();
+            if (result.success) {
+                $.each(result.data, (i, arriendo) => {
+                    cargarArriendoEnTabla(arriendo);
+                });
+            } else {
+                console.log("ah ocurrido un error al cargar los arriendos");
+            }
+        });
     }
 });

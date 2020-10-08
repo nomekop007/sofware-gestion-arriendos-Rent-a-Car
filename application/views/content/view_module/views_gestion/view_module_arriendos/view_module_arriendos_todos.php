@@ -60,6 +60,8 @@
             </div>
             <form class="needs-validation" id="formContrato" novalidate>
                 <input type="text" name="inputIdArriendo" id="inputIdArriendo" hidden />
+                <input type="text" name="inputPatenteVehiculo" id="inputPatenteVehiculo" hidden />
+
                 <div class="modal-body">
 
                     <div class="card">
@@ -255,12 +257,12 @@
 
 <!-- Modal signature-->
 <div class="modal fade" id="modal_signature" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog  modal-xl">
         <div class="modal-content" id="body-signature">
+
         </div>
     </div>
 </div>
-
 
 
 
@@ -278,6 +280,7 @@
             <div class="modal-body">
                 ...
             </div>
+
         </div>
     </div>
 </div>
@@ -330,6 +333,7 @@ function cargarArriendo(id_arriendo) {
             if (e.success) {
                 var arriendo = e.data;
                 $("#inputIdArriendo").val(arriendo.id_arriendo);
+                $("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo)
                 $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
                 $("#textTipo").val(arriendo.tipo_arriendo);
                 $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);

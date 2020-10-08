@@ -1,7 +1,5 @@
 $(document).ready(() => {
     //cargar sucursales  (ruta,select)
-    cargarSelect("cargar_Sucursales", "selectSucursal");
-    //cargar sucursales  (ruta,select)
     cargarSelect("cargar_Sucursales", "inputSucursal");
     //cargar vigencia Empresa (input)
     cargarOlder("inputVigencia");

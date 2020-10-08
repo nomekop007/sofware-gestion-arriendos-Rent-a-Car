@@ -33,4 +33,18 @@ class Contrato_controller extends CI_Controller
         ];
         echo post_function($dataArray, "contratos/generarPDFcontrato", $tokenUser);
     }
+
+
+
+    public function registrarContrato()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+
+        $dataArray = [
+            "id_arriendo" => $this->input->post("inputIdArriendo"),
+            "id_documento" => $this->input->post("id_documento"),
+            "id_signature" => $this->input->post("id_signature"),
+        ];
+        echo post_function($dataArray, "contratos/registrarContrato", $tokenUser);
+    }
 }
