@@ -274,6 +274,7 @@
                                                 <option value="DISPONIBLE" selected>Disponible</option>
                                                 <option value="INACTIVO">Inactivo</option>
                                                 <option value="ARRENDADO">Arrendado</option>
+                                                <option value="RESERVADO">reservado</option>
                                                 <option value="SINIESTRADO">Siniestrado</option>
                                                 <option value="MANTENCION">En mantencion</option>
                                             </select>
