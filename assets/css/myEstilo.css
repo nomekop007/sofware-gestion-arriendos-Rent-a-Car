@@ -21,3 +21,7 @@ a:hover {
 .card .nav-link:hover {
     color: rgb(255, 0, 0);
 }
+
+#canvas-firma {
+    border: 1px solid black;
+}

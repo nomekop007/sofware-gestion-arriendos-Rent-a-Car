@@ -258,7 +258,39 @@
 <!-- Modal signature-->
 <div class="modal fade" id="modal_signature" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl">
-        <div class="modal-content" id="body-signature">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Firmar Contrato </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="body-sinContrato">
+                    <br>
+                    <h6 class='text-center'>Sin contrato cargado</h6><br>
+                </div>
+                <div id="body-documento">
+                    <!-- se carga documento -->
+                </div>
+                <div class="container" id="body-firma">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <canvas id="canvas-firma">
+                            </canvas>
+                            <button type="button" id="limpiar-firma" class="btn btn-secondary">
+                                limpiar</button>
+                            <button type="button" id="btn_firmar_contrato" class="btn btn-success">
+                                firmar contrato</button>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
 
         </div>
     </div>
@@ -278,7 +310,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
             </div>
 
         </div>
@@ -290,12 +321,8 @@
 
 
 
-
-
-
 <script>
 $("#formContrato").hide();
-
 
 
 function tipoGarantia(value) {
@@ -447,9 +474,8 @@ function limpiarCampos() {
     $("#formContrato")[0].reset();
     $("#btn_crear_contrato").attr("disabled", false);
     $("#spinner_btn_crearContrato").hide();
-
-    $("#body-signature").html(
-        "<br><h6 class='text-center'>Sin contrato cargado</h6><br>"
-    );
+    $("#body-documento").hide();
+    $("#body-firma").hide();
+    $("#body-sinContrato").show();
 }
 </script>

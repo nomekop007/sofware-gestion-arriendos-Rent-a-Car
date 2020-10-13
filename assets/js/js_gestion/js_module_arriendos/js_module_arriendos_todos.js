@@ -5,6 +5,20 @@ $(document).ready(() => {
         var form = $("#formContrato")[0];
         var data = new FormData(form);
 
+        generarContrato(data);
+    });
+
+    $("#btn_firmar_contrato").click(() => {
+        var canvas = document.getElementById("canvas-firma");
+
+        var form = $("#formContrato")[0];
+        var data = new FormData(form);
+        data.append("inputFirmaPNG", canvas.toDataURL("image/png"));
+
+        generarContrato(data);
+    });
+
+    function generarContrato(data) {
         var abono = $("#inputAbono").val();
         var descuento = $("#inputDescuento").val();
         var valor = $("#inputValorArriendo").val();
@@ -62,7 +76,11 @@ $(document).ready(() => {
                                     show: true,
                                 });
 
-                                $("#body-signature").html(
+                                $("#body-documento").show();
+                                $("#body-firma").show();
+                                $("#body-sinContrato").hide();
+
+                                $("#body-documento").html(
                                     '<iframe width="100%" height="700px" src="' +
                                     response.url +
                                     '" target="_parent"></iframe>'
@@ -94,9 +112,9 @@ $(document).ready(() => {
                 title: "campos vacios y/o valores invalidos",
             });
         }
-    });
+    }
 
-    //funcion anonima que escucha los eventos del iframe signature
+    /*    //funcion anonima que escucha los eventos del iframe signature
     (() => {
         window.addEventListener("message", async(e) => {
             // e.data.event       = EVENT_TYPE
@@ -120,7 +138,7 @@ $(document).ready(() => {
             }
         });
     })();
-
+ */
     async function guardarContrato(DOCUMENT_ID, SIGNATURE_ID) {
         var form = $("#formContrato")[0];
         var data = new FormData(form);

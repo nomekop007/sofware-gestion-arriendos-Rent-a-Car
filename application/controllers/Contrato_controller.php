@@ -12,6 +12,7 @@ class Contrato_controller extends CI_Controller
 
         $dataArray = [
             "id_arriendo" => $this->input->post("inputIdArriendo"),
+            "firmaPNG" => $this->input->post("inputFirmaPNG"),
             "numero_tarjeta" => $this->input->post("inputNumeroTarjeta"),
             "fecha_tarjeta" => $this->input->post("inputFechaTarjeta"),
             "codigo_tarjeta" => $this->input->post("inputCodigoTarjeta"),

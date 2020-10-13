@@ -1,3 +1,7 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css" media="all"
+    rel="stylesheet" type="text/css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+
 <main role="main" class=" col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -70,15 +74,96 @@
             <h5>Arriendos activos</h5>
         </div>
 
-
-
-
-
 </main>
+
+
+
+
+<!-- Modal despachar -->
+<div class="modal fade" id="modal_despachar_arriendo" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">despachar arriendo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="needs-validation" novalidate>
+                            <div class="form-row">
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal fotos -->
+<div class="modal fade" id="modal_fotos_despacho" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registrar fotos del vehiculo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <form class="needs-validation" novalidate>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <input id="inputFotos" name="input-b3[]" type="file" class="file" multiple
+                                    data-show-upload="false" data-show-caption="true"
+                                    data-msg-placeholder="Select {files} for upload...">
+                            </div>
+
+                            <button type="submit" id="btn_guardar_fotoDespacho" class="btn btn-success col-md-12">
+                                Guardar Fotos</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <script>
 $("#m_despacho").addClass("active");
 $("#l_despacho").addClass("card");
+$("#inputFotos").fileinput();
+
+
+function cargarArriendo(id_arriendo) {
+    $.getJSON({
+        url: base_url + "buscar_arriendo",
+        type: "post",
+        dataType: "json",
+        data: {
+            id_arriendo
+        },
+        success: (e) => {
+            console.log(e);
+        },
+        error: () => {},
+    });
+
+}
 </script>
 
 <!-- importando archivo js usuarios -->

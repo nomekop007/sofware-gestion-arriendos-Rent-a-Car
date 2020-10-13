@@ -67,7 +67,7 @@ class Arriendo_controller extends CI_Controller
         $tokenUser = $this->session->userdata('usertoken');
         $idArriendo = $this->input->post("inputIdArriendo");
         $ArrayData = [
-            "estado_arriendo" => "LISTO",
+            "estado_arriendo" => "FIRMADO",
             "estado_vehiculo" => "RESERVADO",
             "patente_vehiculo" => $this->input->post("inputPatenteVehiculo")
         ];

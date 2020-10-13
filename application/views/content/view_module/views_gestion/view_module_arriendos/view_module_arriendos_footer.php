@@ -75,3 +75,7 @@ function cargarArriendoEnTabla(arriendo) {
 
 <script src="<?php echo base_url() ?>assets/js/js_gestion/js_module_arriendos/js_module_arriendos_todos.js">
 </script>
+
+
+<script src="<?php echo base_url() ?>assets/js/firmaDigital.js">
+</script>
