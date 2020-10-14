@@ -25,7 +25,10 @@ class Usuario_controller extends CI_Controller
     public function registrarUsuario()
     {
         $tokenUser = $this->session->userdata('usertoken');
+        $nameUser = $this->session->userdata('nombre');
+
         $ArrayData = [
+            "userAt" => $nameUser,
             "nombre_usuario" => $this->input->post("nombre"),
             "estado_usuario" => true,
             "email_usuario" => $this->input->post("correo"),
@@ -46,8 +49,11 @@ class Usuario_controller extends CI_Controller
     public function editarUsuario()
     {
         $tokenUser = $this->session->userdata('usertoken');
+        $nameUser = $this->session->userdata('nombre');
+
         $id_usuario = $this->input->post("id_usuario");
         $ArrayData = [
+            "userAt" => $nameUser,
             "nombre_usuario" => $this->input->post("nombre"),
             "email_usuario" => $this->input->post("correo"),
             "clave_usuario" => $this->input->post("clave"),
@@ -60,9 +66,12 @@ class Usuario_controller extends CI_Controller
     public function cambiarEstadoUsuario()
     {
         $tokenUser = $this->session->userdata('usertoken');
+        $nameUser = $this->session->userdata('nombre');
+
         $id_usuario = $this->input->post("id_usuario");
 
         $ArrayData = [
+            "userAt" => $nameUser,
             "accion" => $this->input->post("accion")
         ];
         echo put_function($id_usuario, $ArrayData, "usuarios/cambiarEstado", $tokenUser);

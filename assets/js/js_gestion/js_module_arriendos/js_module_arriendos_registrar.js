@@ -62,7 +62,7 @@ $(document).ready(() => {
                         $("#inputNombreCliente").val("");
                         $("#inputDireccionCliente").val("");
                         $("#inputCiudadCliente").val("");
-                        $("#inputFechaNacimiento").val("");
+
                         $("#inputTelefonoCliente").val("");
                         $("#inputCorreoCliente").val("");
                     }
@@ -101,7 +101,6 @@ $(document).ready(() => {
                         $("#inputCiudadEmpresa").val("");
                         $("#inputTelefonoEmpresa").val("");
                         $("#inputCorreoEmpresa").val("");
-                        $("#inputVigencia").val("");
                         $("#inputRol").val("");
                     }
                 },
@@ -421,6 +420,7 @@ $(document).ready(() => {
             timeOut: false,
             success: async(response) => {
                 if (response) {
+                    console.log("guardado! " + "registrar_arriendo");
                     await guardarDocumentosRequistos(response.data.id_arriendo);
                     await guardarDatosAccesorios(response.data.id_arriendo);
                     cargarArriendoEnTabla(response.data);

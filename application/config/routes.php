@@ -70,7 +70,7 @@ $route['registrar_contrato'] = 'Contrato_controller/registrarContrato';
 $route['registrar_arriendo'] = 'Arriendo_controller/registrarArriendo';
 $route['cargar_TotalArriendos'] = 'Arriendo_controller/cargarTotalArriendos';
 $route['cargar_arriendosListos'] = 'Arriendo_controller/cargarArriendosListos';
-
+$route['enviar_correoArriendo'] = 'Arriendo_controller/enviarCorreoArriendo';
 $route['buscar_arriendo'] = 'Arriendo_controller/buscarArriendo';
 $route['cambiarEstado_arriendo'] = 'Arriendo_controller/cambiarEstadoArriendo';
 

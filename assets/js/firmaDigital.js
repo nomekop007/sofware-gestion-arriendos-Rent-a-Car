@@ -1,3 +1,4 @@
+var limpiar = document.getElementById("limpiar-firma");
 var canvas = document.getElementById("canvas-firma");
 var ctx = canvas.getContext("2d");
 var cw = (canvas.width = 300),
@@ -7,14 +8,26 @@ var ch = (canvas.height = 150),
 
 var dibujar = false;
 var factorDeAlisamiento = 5;
+var Trazados = [];
 var puntos = [];
 ctx.lineJoin = "round";
+
+limpiar.addEventListener(
+    "click",
+    function(evt) {
+        dibujar = false;
+        ctx.clearRect(0, 0, cw, ch);
+        Trazados.length = 0;
+        puntos.length = 0;
+    },
+    false
+);
 
 canvas.addEventListener(
     "mousedown",
     function(evt) {
         dibujar = true;
-        ctx.clearRect(0, 0, cw, ch);
+        //ctx.clearRect(0, 0, cw, ch);
         puntos.length = 0;
         ctx.beginPath();
     },
@@ -24,7 +37,7 @@ canvas.addEventListener(
 canvas.addEventListener(
     "mouseup",
     function(evt) {
-        redibujarTrazado();
+        redibujarTrazados();
     },
     false
 );
@@ -32,7 +45,7 @@ canvas.addEventListener(
 canvas.addEventListener(
     "mouseout",
     function(evt) {
-        redibujarTrazado();
+        redibujarTrazados();
     },
     false
 );
@@ -53,19 +66,19 @@ canvas.addEventListener(
 function reducirArray(n, elArray) {
     var nuevoArray = [];
     nuevoArray[0] = elArray[0];
-    for (var i = 1; i < elArray.length; i++) {
+    for (var i = 0; i < elArray.length; i++) {
         if (i % n == 0) {
             nuevoArray[nuevoArray.length] = elArray[i];
         }
     }
     nuevoArray[nuevoArray.length - 1] = elArray[elArray.length - 1];
-    return nuevoArray;
+    Trazados.push(nuevoArray);
 }
 
-function calcularPuntoDeControl(a, b) {
+function calcularPuntoDeControl(ry, a, b) {
     var pc = {};
-    pc.x = (a.x + b.x) / 2;
-    pc.y = (a.y + b.y) / 2;
+    pc.x = (ry[a].x + ry[b].x) / 2;
+    pc.y = (ry[a].y + ry[b].y) / 2;
     return pc;
 }
 
@@ -75,7 +88,7 @@ function alisarTrazado(ry) {
         ctx.beginPath();
         ctx.moveTo(ry[0].x, ry[0].y);
         for (i = 1; i < ry.length - 2; i++) {
-            var pc = calcularPuntoDeControl(ry[i], ry[i + 1]);
+            var pc = calcularPuntoDeControl(ry, i, i + 1);
             ctx.quadraticCurveTo(ry[i].x, ry[i].y, pc.x, pc.y);
         }
         ctx.quadraticCurveTo(
@@ -88,11 +101,11 @@ function alisarTrazado(ry) {
     }
 }
 
-function redibujarTrazado() {
+function redibujarTrazados() {
     dibujar = false;
     ctx.clearRect(0, 0, cw, ch);
-    var nuevoArray = reducirArray(factorDeAlisamiento, puntos);
-    alisarTrazado(nuevoArray);
+    reducirArray(factorDeAlisamiento, puntos);
+    for (var i = 0; i < Trazados.length; i++) alisarTrazado(Trazados[i]);
 }
 
 function oMousePos(canvas, evt) {
@@ -103,7 +116,3 @@ function oMousePos(canvas, evt) {
         y: Math.round(evt.clientY - ClientRect.top),
     };
 }
-
-$("#limpiar-firma").click(() => {
-    canvas.width = canvas.width;
-});

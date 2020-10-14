@@ -23,8 +23,10 @@ class Vehiculo_controller extends CI_Controller
     public function registrarVehiculo()
     {
         $tokenUser = $this->session->userdata('usertoken');
+        $nameUser = $this->session->userdata('nombre');
 
         $arrayVehiculo = [
+            "userAt" => $nameUser,
             "patente_vehiculo" => $this->input->post("inputPatente"),
             "transmision_vehiculo" => $this->input->post("inputTransmision"),
             "modelo_vehiculo" => $this->input->post("inputModelo"),
@@ -49,9 +51,11 @@ class Vehiculo_controller extends CI_Controller
     {
 
         $tokenUser = $this->session->userdata('usertoken');
+        $nameUser = $this->session->userdata('nombre');
         $patente = $this->input->post("inputEditarPatente");
 
         $arrayVehiculo = [
+            "userAt" => $nameUser,
             "transmision_vehiculo" => $this->input->post("inputEditarTransmision"),
             "modelo_vehiculo" => $this->input->post("inputEditarModelo"),
             "tipo_vehiculo" => $this->input->post("inputEditarTipo"),

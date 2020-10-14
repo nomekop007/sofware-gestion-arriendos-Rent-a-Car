@@ -48,63 +48,57 @@ $(document).ready(() => {
             descuento.length != 0 &&
             valor.length != 0
         ) {
-            Swal.fire({
-                title: "Estas seguro?",
-                text: "Estas a punto de generar un nuevo contrato!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Si, seguro",
-                cancelButtonText: "No, cancelar!",
-                reverseButtons: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $("#btn_crear_contrato").attr("disabled", true);
-                    $("#spinner_btn_crearContrato").show();
-                    $.ajax({
-                        url: base_url + "generar_PDFcontrato",
-                        type: "post",
-                        dataType: "json",
-                        data: data,
-                        enctype: "multipart/form-data",
-                        processData: false,
-                        contentType: false,
-                        cache: false,
-                        timeOut: false,
-                        success: (response) => {
-                            if (response.success) {
-                                $("#modal_signature").modal({
-                                    show: true,
-                                });
+            $("#spinner_btn_firmarContrato").show();
+            desactivarBotones();
 
-                                $("#body-documento").show();
-                                $("#body-firma").show();
-                                $("#body-sinContrato").hide();
+            $.ajax({
+                url: base_url + "generar_PDFcontrato",
+                type: "post",
+                dataType: "json",
+                data: data,
+                enctype: "multipart/form-data",
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeOut: false,
+                success: (response) => {
+                    if (response.success) {
+                        $("#modal_signature").modal({
+                            show: true,
+                        });
+                        $("#nombre_documento").val(response.nombre_documento);
+                        $("#body-documento").show();
+                        $("#body-firma").show();
+                        $("#body-sinContrato").hide();
 
-                                $("#body-documento").html(
-                                    '<iframe width="100%" height="700px" src="' +
-                                    response.url +
-                                    '" target="_parent"></iframe>'
-                                );
-                            } else {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: response.msg,
-                                });
-                            }
-                            $("#btn_crear_contrato").attr("disabled", false);
-                            $("#spinner_btn_crearContrato").hide();
-                        },
-                        error: () => {
-                            Swal.fire({
-                                icon: "error",
-                                title: "a ocurrido un error al generar el contrato",
-                                text: "A ocurrido un Error Contacte a informatica",
-                            });
-                            $("#btn_crear_contrato").attr("disabled", false);
-                            $("#spinner_btn_crearContrato").hide();
-                        },
+                        $("#body-documento").html(
+                            '<iframe width="100%" height="700px" src="' +
+                            storage +
+                            "documentos/contratos/" +
+                            response.nombre_documento +
+                            ".pdf" +
+                            '" target="_parent"></iframe>'
+                        );
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: response.msg,
+                        });
+                    }
+                    activarBotones();
+                    if (response.firma) {
+                        $("#btn_confirmar_contrato").attr("disabled", false);
+                    }
+                },
+                error: () => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "a ocurrido un error al generar el contrato",
+                        text: "A ocurrido un Error Contacte a informatica",
                     });
-                }
+
+                    activarBotones();
+                },
             });
         } else {
             Swal.fire({
@@ -114,36 +108,43 @@ $(document).ready(() => {
         }
     }
 
-    /*    //funcion anonima que escucha los eventos del iframe signature
-    (() => {
-        window.addEventListener("message", async(e) => {
-            // e.data.event       = EVENT_TYPE
-            // e.data.documentId  = DOCUMENT_ID
-            // e.data.signatureId = SIGNATURE_ID
-            if (e.data.event === "completed") {
-                //poner spiner
-                await guardarContrato(e.data.documentId, e.data.signatureId);
+    $("#btn_confirmar_contrato").click(() => {
+        Swal.fire({
+            title: "Estas seguro?",
+            text: "estas a punto de guardar los cambios!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si, seguro",
+            cancelButtonText: "No, cancelar!",
+            reverseButtons: true,
+        }).then(async(result) => {
+            if (result.isConfirmed) {
+                desactivarBotones();
+                $("#spinner_btn_confirmarContrato").show();
+
+                await guardarContrato();
                 await guardarDatosPago();
                 await guardarDatosGarantia();
+                await enviarCorreoArriendo();
                 await cambiarEstadoArriendoVehiculo();
+
                 refrescarTabla();
                 Swal.fire(
                     "Contrato Firmado!",
-                    "contrato firmado con exito!",
+                    "contrato firmado y registrado con exito!",
                     "success"
                 );
-                $("iframe").remove();
+
                 $("#modal_signature").modal("toggle");
                 $("#modal_confirmar_arriendo").modal("toggle");
             }
         });
-    })();
- */
-    async function guardarContrato(DOCUMENT_ID, SIGNATURE_ID) {
+    });
+
+    async function guardarContrato() {
         var form = $("#formContrato")[0];
         var data = new FormData(form);
-        data.append("id_documento", DOCUMENT_ID);
-        data.append("id_signature", SIGNATURE_ID);
+        data.append("nombre_documento", $("#nombre_documento").val());
         await funAjaxGuardar(data, "registrar_contrato");
     }
 
@@ -160,13 +161,18 @@ $(document).ready(() => {
         await funAjaxGuardar(data, "registrar_garantia");
     }
 
+    async function enviarCorreoArriendo() {
+        var form = $("#formContrato")[0];
+        var data = new FormData(form);
+        await funAjaxGuardar(data, "enviar_correoArriendo");
+    }
+
     async function cambiarEstadoArriendoVehiculo() {
         var form = $("#formContrato")[0];
         var data = new FormData(form);
         await funAjaxGuardar(data, "cambiarEstado_arriendo");
     }
 
-    //BUSCAR MEJOR SOLUCION PARA EVITAR ACTUALIZAR TABLA
     function refrescarTabla() {
         //limpia la tabla
         $("#tablaTotalArriendos").DataTable(lenguaje).row().clear().draw(false);
@@ -187,5 +193,21 @@ $(document).ready(() => {
                 console.log("ah ocurrido un error al cargar los arriendos");
             }
         });
+    }
+
+    function desactivarBotones() {
+        $("#btn_crear_contrato").attr("disabled", true);
+        $("#btn_confirmar_contrato").attr("disabled", true);
+        $("#btn_firmar_contrato").attr("disabled", true);
+        $("#limpiar-firma").attr("disabled", true);
+        $("#spinner_btn_crearContrato").show();
+    }
+
+    function activarBotones() {
+        $("#spinner_btn_crearContrato").hide();
+        $("#spinner_btn_firmarContrato").hide();
+        $("#btn_crear_contrato").attr("disabled", false);
+        $("#btn_firmar_contrato").attr("disabled", false);
+        $("#limpiar-firma").attr("disabled", false);
     }
 });

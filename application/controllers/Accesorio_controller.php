@@ -17,7 +17,10 @@ class Accesorio_controller extends CI_Controller
     public function registrarArriendoAccesorios()
     {
         $tokenUser = $this->session->userdata('usertoken');
+        $nameUser = $this->session->userdata('nombre');
+
         $ArrayData = [
+            "userAt" => $nameUser,
             "ArrayChecks" => json_decode($this->input->post("arrayAccesorios")),
             "id_arriendo" => $this->input->post("idArriendo")
         ];

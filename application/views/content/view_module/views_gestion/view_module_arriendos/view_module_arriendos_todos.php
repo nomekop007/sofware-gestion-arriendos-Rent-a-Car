@@ -276,16 +276,31 @@
                 <div class="container" id="body-firma">
                     <br>
                     <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4">
+                        <input type="text" id="nombre_documento" hidden>
+                        <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
                             <canvas id="canvas-firma">
                             </canvas>
-                            <button type="button" id="limpiar-firma" class="btn btn-secondary">
-                                limpiar</button>
-                            <button type="button" id="btn_firmar_contrato" class="btn btn-success">
-                                firmar contrato</button>
                         </div>
-                        <div class="col-md-4"></div>
+
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <button type="button" id="limpiar-firma" class="btn btn-secondary btn-sm ">
+                                limpiar</button>
+                            <button type="button" id="btn_firmar_contrato" class="btn btn-success btn-sm ">
+                                firmar contrato
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                    id="spinner_btn_firmarContrato"></span>
+                            </button>
+
+                            <button type="button" id="btn_confirmar_contrato" class="btn btn-primary btn-sm ">
+                                guardar cambios
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                    id="spinner_btn_confirmarContrato"></span>
+                            </button>
+                        </div>
+
+
+
+
                     </div>
                     <br>
                 </div>
@@ -343,6 +358,7 @@ function tipoGarantia(value) {
         $("#card-abono").show();
     }
 }
+
 
 
 function cargarArriendo(id_arriendo) {
@@ -474,8 +490,22 @@ function limpiarCampos() {
     $("#formContrato")[0].reset();
     $("#btn_crear_contrato").attr("disabled", false);
     $("#spinner_btn_crearContrato").hide();
+    $("#spinner_btn_firmarContrato").hide();
+    $("#spinner_btn_confirmarContrato").hide();
+    $("#btn_confirmar_contrato").attr("disabled", true);
     $("#body-documento").hide();
     $("#body-firma").hide();
     $("#body-sinContrato").show();
+    $("#nombre_documento").val("");
+
+
+    //se limpia el canvas de firma
+    dibujar = false;
+    ctx.clearRect(0, 0, cw, ch);
+    Trazados.length = 0;
+    puntos.length = 0;
+
+
+
 }
 </script>

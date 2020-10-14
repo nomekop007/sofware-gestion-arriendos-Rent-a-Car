@@ -22,8 +22,10 @@ class Empresa_controller extends CI_Controller
     public function crearEmpresa()
     {
         $tokenUser = $this->session->userdata('usertoken');
+        $nameUser = $this->session->userdata('nombre');
 
         $arrayData = [
+            "userAt" => $nameUser,
             "rut_empresa" => $this->input->post("inputRutEmpresa"),
             "nombre_empresa" => $this->input->post("inputNombreEmpresa"),
             "direccion_empresa" => $this->input->post("inputDireccionEmpresa"),

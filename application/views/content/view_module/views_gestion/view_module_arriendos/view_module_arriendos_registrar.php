@@ -61,8 +61,8 @@ switch ($this->session->userdata('sucursal')) {
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="inputCiudadEntrega">Ciudad de Entrega</label>
-                        <input onblur="mayus(this);" type="text" class="form-control" name="inputCiudadEntrega"
-                            id="inputCiudadEntrega" required>
+                        <input maxLength="40" onblur="mayus(this);" type="text" class="form-control"
+                            name="inputCiudadEntrega" id="inputCiudadEntrega" required>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="inputFechaEntrega">Fecha de entrega</label>
@@ -72,8 +72,8 @@ switch ($this->session->userdata('sucursal')) {
 
                     <div class="form-group col-md-3">
                         <label for="inputCiudadRecepcion">Ciudad de Recepcion</label>
-                        <input onblur="mayus(this);" type="text" class="form-control" name="inputCiudadRecepcion"
-                            id="inputCiudadRecepcion" required>
+                        <input maxLength="40" onblur="mayus(this);" type="text" class="form-control"
+                            name="inputCiudadRecepcion" id="inputCiudadRecepcion" required>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="inputFechaRecepcion">Fecha de Recepcion</label>
@@ -123,22 +123,22 @@ switch ($this->session->userdata('sucursal')) {
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputNombreCliente">Nombre completo</label>
-                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                             id="inputNombreCliente" name="inputNombreCliente" required>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="inputDireccionCliente">Direccion </label>
-                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                             id="inputDireccionCliente" name="inputDireccionCliente" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputCiudadCliente">Ciudad </label>
-                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                             id="inputCiudadCliente" name="inputCiudadCliente" required>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="inputFechaNacimiento">Fecha Nacimiento </label>
-                        <input onblur="mayus(this);" value="1990-01-01" maxLength="30" type="date" class="form-control"
+                        <input onblur="mayus(this);" value="1990-01-01" type="date" class="form-control"
                             id="inputFechaNacimiento" name="inputFechaNacimiento" required>
                     </div>
                     <div class="form-group col-md-2">
@@ -149,6 +149,7 @@ switch ($this->session->userdata('sucursal')) {
                             <option value="VIUDO/A">Viudo/a</option>
                             <option value="DIVORCIADO/A">Divorciado/a</option>
                             <option value="SEPARADO/A">Separado/a</option>
+                            <option value="NO DISPONIBLE">no disponible</option>
                         </select>
                     </div>
                     <div class="form-group col-md-3">
@@ -168,7 +169,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">@</span>
                             </div>
-                            <input onblur="mayus(this);" maxLength="30" type="email" class="form-control"
+                            <input onblur="mayus(this);" maxLength="50" type="email" class="form-control"
                                 id="inputCorreoCliente" name="inputCorreoCliente" required>
                         </div>
                     </div>
@@ -180,8 +181,7 @@ switch ($this->session->userdata('sucursal')) {
                         <label for="inputRutEmpresa">Rut </label>
                         <div class="input-group">
                             <input maxLength="10" onblur=" value ? this.value=formateaRut(this.value) : null"
-                                maxLength="30" type="text" class="form-control" id="inputRutEmpresa"
-                                name="inputRutEmpresa" required>
+                                type="text" class="form-control" id="inputRutEmpresa" name="inputRutEmpresa" required>
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="btn_buscarEmpresa">
                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
@@ -193,17 +193,17 @@ switch ($this->session->userdata('sucursal')) {
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputNombreEmpresa">Nombre </label>
-                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                             id="inputNombreEmpresa" name="inputNombreEmpresa" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputDireccionEmpresa">Direccion comercial</label>
-                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                             id="inputDireccionEmpresa" name="inputDireccionEmpresa" required>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="inputCiudadEmpresa">Ciudad</label>
-                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                             id="inputCiudadEmpresa" name="inputCiudadEmpresa" required>
                     </div>
                     <div class="form-group col-md-4">
@@ -212,7 +212,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">@</span>
                             </div>
-                            <input onblur="mayus(this);" maxLength="30" type="email" class="form-control"
+                            <input onblur="mayus(this);" maxLength="50" type="email" class="form-control"
                                 id="inputCorreoEmpresa" name="inputCorreoEmpresa" required>
                         </div>
                     </div>
@@ -233,7 +233,7 @@ switch ($this->session->userdata('sucursal')) {
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputRol">Rol o rubro</label>
-                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control" name="inputRol"
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control" name="inputRol"
                             id="inputRol" required>
                     </div>
                 </div>
@@ -262,12 +262,12 @@ switch ($this->session->userdata('sucursal')) {
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputNombreConductor">Nombre completo </label>
-                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                             id="inputNombreConductor" name="inputNombreConductor" required>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputDireccionConductor">Direccion</label>
-                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                             id="inputDireccionConductor" name="inputDireccionConductor" required>
                     </div>
                     <div class="form-group col-md-3">
@@ -308,7 +308,7 @@ switch ($this->session->userdata('sucursal')) {
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputMunicipalidadConductor">Municipalidad</label>
-                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                             id="inputMunicipalidadConductor" name="inputMunicipalidadConductor" required>
                     </div>
                 </div>
@@ -441,7 +441,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputOtros">otros</span>
                             </div>
-                            <input type="text" name="inputOtros" onblur="mayus(this);" maxLength="20"
+                            <input type="text" name="inputOtros" onblur="mayus(this);" maxLength="30"
                                 class="form-control" aria-label="Sizing example input" aria-describedby="inputOtros">
                         </div>
                     </div>

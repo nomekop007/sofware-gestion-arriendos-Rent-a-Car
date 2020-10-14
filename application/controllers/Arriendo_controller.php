@@ -37,8 +37,10 @@ class Arriendo_controller extends CI_Controller
     public function registrarArriendo()
     {
         $tokenUser = $this->session->userdata('usertoken');
+        $nameUser = $this->session->userdata('nombre');
 
         $arrayForm = [
+            "userAt" => $nameUser,
             "estado_arriendo" => "PENDIENTE",
             "tipo_arriendo" => $this->input->post("inputTipo"),
             "ciudadEntrega_arriendo" => $this->input->post("inputCiudadEntrega"),
@@ -47,6 +49,7 @@ class Arriendo_controller extends CI_Controller
             "fechaRecepcion_arriendo" => $this->input->post("inputFechaRecepcion"),
             "numerosDias_arriendo" => $this->input->post("inputNumeroDias"),
             "kilometrosEntrada_arriendo" => $this->input->post("inputEntrada"),
+            "kilometrosSalida_arriendo" => null,
             "kilometrosMantencion_arriendo" => $this->input->post("inputMantencion"),
             "inputOtros" => $this->input->post("inputOtros"),
 
@@ -62,11 +65,25 @@ class Arriendo_controller extends CI_Controller
         echo post_function($arrayForm, "arriendos/registrarArriendo", $tokenUser);
     }
 
+
+
+    public function enviarCorreoArriendo()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        $arrayForm = [
+            "id_arriendo" => $this->input->post("inputIdArriendo")
+        ];
+        echo post_function($arrayForm, "arriendos/enviarCorreoArriendo", $tokenUser);
+    }
+
+
     public function cambiarEstadoArriendo()
     {
         $tokenUser = $this->session->userdata('usertoken');
+        $nameUser = $this->session->userdata('nombre');
         $idArriendo = $this->input->post("inputIdArriendo");
         $ArrayData = [
+            "userAt" => $nameUser,
             "estado_arriendo" => "FIRMADO",
             "estado_vehiculo" => "RESERVADO",
             "patente_vehiculo" => $this->input->post("inputPatenteVehiculo")

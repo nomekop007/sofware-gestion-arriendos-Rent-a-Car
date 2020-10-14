@@ -40,11 +40,12 @@ class Contrato_controller extends CI_Controller
     public function registrarContrato()
     {
         $tokenUser = $this->session->userdata('usertoken');
+        $nameUser = $this->session->userdata('nombre');
 
         $dataArray = [
+            "userAt" => $nameUser,
             "id_arriendo" => $this->input->post("inputIdArriendo"),
-            "id_documento" => $this->input->post("id_documento"),
-            "id_signature" => $this->input->post("id_signature"),
+            "documento" => $this->input->post("nombre_documento"),
         ];
         echo post_function($dataArray, "contratos/registrarContrato", $tokenUser);
     }
