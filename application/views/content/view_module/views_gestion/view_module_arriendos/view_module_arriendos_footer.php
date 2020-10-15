@@ -24,7 +24,7 @@ $("#btn-conductor").click(function() {
 $("#btn-vehiculo").click(function() {
     $(this).toggleClass("btn-dark btn-outline-dark");
 });
-$("#btn-documentos").click(function() {
+$("#btn-garantia").click(function() {
     $(this).toggleClass("btn-dark btn-outline-dark");
 });
 
@@ -36,13 +36,26 @@ $(document).ready(() => {
 
 //carga tablaTotalArriendos
 function cargarArriendoEnTabla(arriendo) {
+    var cliente = "";
+    switch (arriendo.tipo_arriendo) {
+        case "PARTICULAR":
+            var cliente = arriendo.cliente.nombre_cliente;
+            break;
+        case "REMPLAZO":
+            var cliente = arriendo.remplazo.cliente.nombre_cliente;
+            break;
+        case "EMPRESA":
+            var cliente = arriendo.empresa.nombre_empresa;
+            break;
+        default:
+            break;
+    }
+
     var tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
     tablaTotalArriendos.row
         .add([
             arriendo.id_arriendo,
-            arriendo.cliente ?
-            arriendo.cliente.nombre_cliente :
-            arriendo.empresa.nombre_empresa,
+            cliente,
             formatearFechaHora(arriendo.createdAt),
             arriendo.tipo_arriendo,
             arriendo.estado_arriendo,

@@ -38,6 +38,30 @@ class Requisito_controller extends CI_Controller
             $pathComprobante = file_get_contents($_FILES["inputComprobante"]["tmp_name"]);
             $comprobante = $_FILES['inputComprobante']['name'];
         }
+        $licencia = null;
+        $pathLicencia = null;
+        if (isset($_FILES['inputLicencia'])) {
+            $pathLicencia = file_get_contents($_FILES["inputLicencia"]["tmp_name"]);
+            $licencia = $_FILES['inputLicencia']['name'];
+        }
+        $carnetFrontal = null;
+        $pathCarnetFrontal = null;
+        if (isset($_FILES['inputCarnetFrontal'])) {
+            $pathCarnetFrontal = file_get_contents($_FILES["inputCarnetFrontal"]["tmp_name"]);
+            $carnetFrontal = $_FILES['inputCarnetFrontal']['name'];
+        }
+        $carnetTrasera = null;
+        $pathCarnetTrasera = null;
+        if (isset($_FILES['inputCarnetTrasera'])) {
+            $pathCarnetTrasera = file_get_contents($_FILES["inputCarnetTrasera"]["tmp_name"]);
+            $carnetTrasera = $_FILES['inputCarnetTrasera']['name'];
+        }
+        $cartaRemplazo = null;
+        $pathCartaRemplazo = null;
+        if (isset($_FILES['inputCartaRemplazo'])) {
+            $pathCartaRemplazo = file_get_contents($_FILES["inputCartaRemplazo"]["tmp_name"]);
+            $cartaRemplazo = $_FILES['inputCartaRemplazo']['name'];
+        }
 
         $data = [
             [
@@ -62,18 +86,23 @@ class Requisito_controller extends CI_Controller
             ],
             [
                 'name'     => 'fotoLicencia',
-                'contents' => file_get_contents($_FILES["inputLicencia"]["tmp_name"]),
-                'filename' => $_FILES['inputLicencia']['name']
+                'contents' => $pathLicencia,
+                'filename' => $licencia
             ],
             [
                 'name'     => 'fotoCarnetFrontal',
-                'contents' => file_get_contents($_FILES["inputCarnetFrontal"]["tmp_name"]),
-                'filename' => $_FILES['inputCarnetFrontal']['name']
+                'contents' => $pathCarnetFrontal,
+                'filename' => $carnetFrontal
             ],
             [
                 'name'     => 'fotoCarnetTrasera',
-                'contents' => file_get_contents($_FILES["inputCarnetTrasera"]["tmp_name"]),
-                'filename' => $_FILES['inputCarnetTrasera']['name']
+                'contents' => $pathCarnetTrasera,
+                'filename' => $carnetTrasera
+            ],
+            [
+                'name'     => 'fotoCartaRemplazo',
+                'contents' => $pathCartaRemplazo,
+                'filename' => $cartaRemplazo
             ],
         ];
         echo file_function($id_arriendo, $data, "requisitos/registrarRequisitoArriendo", $tokenUser);

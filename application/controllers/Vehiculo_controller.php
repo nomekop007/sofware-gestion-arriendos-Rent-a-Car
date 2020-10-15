@@ -9,7 +9,11 @@ class Vehiculo_controller extends CI_Controller
     public function cargarVehiculos()
     {
         $tokenUser = $this->session->userdata('usertoken');
-        echo get_function("vehiculos/cargarVehiculos", $tokenUser);
+        $arrayForm = [
+            "id_sucursal" => $this->session->userdata('sucursal'),
+            "id_rol" => $this->session->userdata('rol')
+        ];
+        echo post_function($arrayForm, "vehiculos/cargarVehiculos", $tokenUser);
     }
 
     public function buscarVehiculo()
@@ -72,6 +76,18 @@ class Vehiculo_controller extends CI_Controller
         ];
 
         echo put_function($patente, $arrayVehiculo, "vehiculos/editarVehiculo", $tokenUser);
+    }
+
+    public function cambiarEstadoVehiculo()
+    {
+        $tokenUser = $this->session->userdata('usertoken');
+        $nameUser = $this->session->userdata('nombre');
+        $patente = $this->input->post("inputPatenteVehiculo");
+        $ArrayData = [
+            "userAt" => $nameUser,
+            "estado_vehiculo" => $this->input->post("inputEstado"),
+        ];
+        echo put_function($patente, $ArrayData, "vehiculos/editarVehiculo", $tokenUser);
     }
 
 

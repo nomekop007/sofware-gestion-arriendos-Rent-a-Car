@@ -126,7 +126,7 @@ $(document).ready(() => {
                 await guardarDatosPago();
                 await guardarDatosGarantia();
                 await enviarCorreoArriendo();
-                await cambiarEstadoArriendoVehiculo();
+                await cambiarEstadoArriendo();
 
                 refrescarTabla();
                 Swal.fire(
@@ -167,7 +167,7 @@ $(document).ready(() => {
         await funAjaxGuardar(data, "enviar_correoArriendo");
     }
 
-    async function cambiarEstadoArriendoVehiculo() {
+    async function cambiarEstadoArriendo() {
         var form = $("#formContrato")[0];
         var data = new FormData(form);
         await funAjaxGuardar(data, "cambiarEstado_arriendo");

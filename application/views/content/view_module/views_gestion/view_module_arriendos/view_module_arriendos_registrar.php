@@ -27,7 +27,7 @@ switch ($this->session->userdata('sucursal')) {
         <p>
             <a id="btn-arriendo" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseArriendo"
                 role="button" aria-expanded="false" aria-controls="collapseArriendo">
-                Datos Arriendo
+                Datos arriendo
             </a>
             <a id="btn-cliente" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseCliente" role="button"
                 aria-expanded="false" aria-controls="collapseCliente">
@@ -35,15 +35,15 @@ switch ($this->session->userdata('sucursal')) {
             </a>
             <a id="btn-conductor" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseConductor"
                 role="button" aria-expanded="false" aria-controls="collapseConductor">
-                Datos Conductor
+                Datos conductor
             </a>
-            <a id="btn-documentos" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseDocumentos"
-                role="button" aria-expanded="false" aria-controls="collapseDocumentos">
-                Documentos requeridos
+            <a id="btn-garantia" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseGarantia"
+                role="button" aria-expanded="false" aria-controls="collapseGarantia">
+                Garantia requerida
             </a>
             <a id="btn-vehiculo" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseVehiculos"
                 role="button" aria-expanded="false" aria-controls="collapseVehiculos">
-                Seleccion de Vehiculo
+                Seleccion de vehiculo
             </a>
 
             <button type="submit" id="btn_crear_arriendo" class="btn btn-success btn-sm">
@@ -89,9 +89,9 @@ switch ($this->session->userdata('sucursal')) {
                     <div class="form-group col-md-4">
                         <label for="inputTipo">Tipo de Arriendo</label>
                         <select onblur="tipoArriendo();" name="inputTipo" id="inputTipo" class="form-control">
-                            <option value="1" selected>Arriendo persona natural</option>
-                            <option value="2">Arriendo remplazo copago</option>
-                            <option value="3">Arriendo solo empresa</option>
+                            <option value="PARTICULAR" selected>Arriendo persona natural</option>
+                            <option value="REMPLAZO">Arriendo remplazo copago</option>
+                            <option value="EMPRESA">Arriendo solo empresa</option>
                         </select>
                     </div>
                     <div class="form-group col-md-2">
@@ -104,6 +104,7 @@ switch ($this->session->userdata('sucursal')) {
         </div>
 
         <div class="collapse" id="collapseCliente">
+            <input type="text" name="inputIdRemplazo" id="inputIdRemplazo" hidden>
             <div class="card card-body">
                 <br>
                 <h4 id="titulo_cliente">Datos Cliente</h4>
@@ -123,22 +124,22 @@ switch ($this->session->userdata('sucursal')) {
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputNombreCliente">Nombre completo</label>
-                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="40" type="text" class="form-control"
                             id="inputNombreCliente" name="inputNombreCliente" required>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="inputDireccionCliente">Direccion </label>
-                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="40" type="text" class="form-control"
                             id="inputDireccionCliente" name="inputDireccionCliente" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputCiudadCliente">Ciudad </label>
-                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="40" type="text" class="form-control"
                             id="inputCiudadCliente" name="inputCiudadCliente" required>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="inputFechaNacimiento">Fecha Nacimiento </label>
-                        <input onblur="mayus(this);" value="1990-01-01" type="date" class="form-control"
+                        <input onblur="mayus(this);" value="1990-01-01" maxLength="30" type="date" class="form-control"
                             id="inputFechaNacimiento" name="inputFechaNacimiento" required>
                     </div>
                     <div class="form-group col-md-2">
@@ -169,7 +170,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">@</span>
                             </div>
-                            <input onblur="mayus(this);" maxLength="50" type="email" class="form-control"
+                            <input onblur="mayus(this);" maxLength="40" type="email" class="form-control"
                                 id="inputCorreoCliente" name="inputCorreoCliente" required>
                         </div>
                     </div>
@@ -189,7 +190,6 @@ switch ($this->session->userdata('sucursal')) {
                                     Buscar</button>
                             </div>
                         </div>
-
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputNombreEmpresa">Nombre </label>
@@ -233,8 +233,58 @@ switch ($this->session->userdata('sucursal')) {
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputRol">Rol o rubro</label>
-                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control" name="inputRol"
+                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control" name="inputRol"
                             id="inputRol" required>
+                    </div>
+                </div>
+                <h4 id="titulo_remplazo">Datos Empresa remplazo</h4>
+                <div class="form-row" id="form_remplazo">
+                    <div class="form-group col-md-4">
+                        <label for="inputNombreRemplazo">Nombre empresa remplazo</label>
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                            id="inputNombreRemplazo" name="inputNombreRemplazo" required>
+                    </div>
+                </div>
+
+
+                <br>
+                <h4>Documentos requeridos</h4>
+                <div class="form-row">
+                    <div class="container">
+                        <h6>Foto Carnet</h6>
+                        <div class="card bg-light">
+                            <br>
+                            <div class="row text-center">
+                                <br>
+                                <div class="form-group col-md-6 ">
+                                    <label for="inputCarnetFrontal">(frontal)</label>
+                                    <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file"
+                                        class="form-control-file" id="inputCarnetFrontal" name="inputCarnetFrontal"
+                                        required>
+                                </div>
+                                <div class="form-group col-md-6 ">
+                                    <label for="inputCarnetTrasera">(trasera)</label>
+                                    <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file"
+                                        class="form-control-file" id="inputCarnetTrasera" name="inputCarnetTrasera"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="form-row">
+                            <div id="formComprobanteDomicilio" class="form-group col-md-12">
+                                <h6 for="inputComprobanteDomicilio">Comprobante de domicilio</h6>
+                                <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
+                                    id="inputComprobanteDomicilio" name="inputComprobanteDomicilio" required>
+                                <br>
+                            </div>
+                            <div id="formCartaRemplazo" class="form-group col-md-12">
+                                <h6 for="inputCartaRemplazo">Carta Empresa Remplazo</h6>
+                                <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
+                                    id="inputCartaRemplazo" name="inputCartaRemplazo" required>
+                                <br>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -308,39 +358,35 @@ switch ($this->session->userdata('sucursal')) {
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputMunicipalidadConductor">Municipalidad</label>
-                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
                             id="inputMunicipalidadConductor" name="inputMunicipalidadConductor" required>
                     </div>
+                </div>
+                <br>
+                <h4>Documentos requeridos</h4>
+                <div class="form-row">
+                    <div class="container">
+                        <div class="form-row">
+                            <div class="form-group col-md-12 ">
+                                <h6 for="inputLicencia">Licencia de conducir</h6>
+                                <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
+                                    id="inputLicencia" name="inputLicencia" required>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
 
 
-        <div class="collapse" id="collapseDocumentos">
+        <div class="collapse" id="collapseGarantia">
             <div class="card  card-body">
                 <br>
-                <h4>Documentos requeridos</h4>
-                <br><br><br>
-
+                <h4>Datos garantia</h4>
+                <br>
                 <div class="container">
-                    <h6>Foto Carnet</h6>
-                    <div class="card bg-light">
-                        <br>
-                        <div class="row text-center">
-                            <br>
-                            <div class="form-group col-md-6 ">
-                                <label for="inputCarnetFrontal">(frontal)</label>
-                                <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                    id="inputCarnetFrontal" name="inputCarnetFrontal" required>
-                            </div>
-                            <div class="form-group col-md-6 ">
-                                <label for="inputCarnetTrasera">(trasera)</label>
-                                <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                    id="inputCarnetTrasera" name="inputCarnetTrasera" required>
-                            </div>
-                        </div>
-                    </div>
-                    <br><br>
                     <h6>Tarjeta de credito</h6>
                     <div class="card bg-light">
                         <div class="row text-center">
@@ -361,23 +407,10 @@ switch ($this->session->userdata('sucursal')) {
                     <br><br>
 
                     <div class="form-row">
-                        <div class="form-group col-md-12 ">
-                            <h6 for="inputLicencia">Licencia de conducir</h6>
-                            <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                id="inputLicencia" name="inputLicencia" required>
-                            <br>
-                        </div>
                         <div class="form-group col-md-12">
                             <h6 for="inputChequeGarantia">Cheque en garantia</h6>
                             <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
                                 id="inputChequeGarantia" name="inputChequeGarantia" required>
-                            <br>
-                        </div>
-
-                        <div id="formComprobanteDomicilio" class="form-group col-md-12">
-                            <h6 for="inputComprobanteDomicilio">Comprobante de domicilio</h6>
-                            <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                id="inputComprobanteDomicilio" name="inputComprobanteDomicilio" required>
                             <br>
                         </div>
                     </div>
@@ -441,7 +474,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputOtros">otros</span>
                             </div>
-                            <input type="text" name="inputOtros" onblur="mayus(this);" maxLength="30"
+                            <input type="text" name="inputOtros" onblur="mayus(this);" maxLength="20"
                                 class="form-control" aria-label="Sizing example input" aria-describedby="inputOtros">
                         </div>
                     </div>
@@ -479,35 +512,41 @@ function calcularDias() {
 
 // Script para cambia el tab cliente de acuerdo al tipo de arriendo
 (tipoArriendo = () => {
-    var a = $("#inputTipo option:selected").val();
-    if (a == 1) {
+    var tipo = $("#inputTipo option:selected").val();
+    if (tipo == "PARTICULAR") {
+        $('#titulo_cliente').show();
+        $('#form_cliente').show();
+        $("#formComprobanteDomicilio").show();
+        $('#titulo_remplazo').hide();
+        $('#form_remplazo').hide();
         $('#titulo_empresa').hide();
         $('#form_empresa').hide();
-        $('#form_carnet_empresa').hide();
+        $("#formCartaRemplazo").hide();
+
+        $("#inputRutEmpresa").val("");
+    } else if (tipo == "REMPLAZO") {
         $('#titulo_cliente').show();
         $('#form_cliente').show();
-        $('#form_comprobante_cliente').show();
-        $('#form_licencia_conducir').show();
-        $('#form_carnet_cliente').show();
-        $('#formComprobanteDomicilio').show();
-    } else if (a == 2) {
-        $('#titulo_cliente').show();
-        $('#form_cliente').show();
+        $('#titulo_remplazo').show();
+        $('#form_remplazo').show();
+        $("#formComprobanteDomicilio").show();
+        $("#formCartaRemplazo").show();
+
+        $('#titulo_empresa').hide();
+        $('#form_empresa').hide();
+
+        $("#inputRutEmpresa").val("");
+    } else if (tipo == "EMPRESA") {
         $('#titulo_empresa').show();
         $('#form_empresa').show();
-        $('#form_carnet_empresa').show();
-        $('#form_comprobante_cliente').show();
-        $('#form_licencia_conducir').show();
-        $('#form_carnet_cliente').show();
-        $('#formComprobanteDomicilio').show();
-    } else {
+        $('#titulo_remplazo').hide();
+        $('#form_remplazo').hide();
         $('#titulo_cliente').hide();
         $('#form_cliente').hide();
-        $('#form_carnet_cliente').hide();
-        $('#form_comprobante_cliente').hide();
-        $('#titulo_empresa').show();
-        $('#form_empresa').show();
-        $('#formComprobanteDomicilio').hide();
+        $("#formComprobanteDomicilio").hide();
+        $("#formCartaRemplazo").hide();
+
+        $("#inputRutCliente").val("");
     }
 })();
 </script>

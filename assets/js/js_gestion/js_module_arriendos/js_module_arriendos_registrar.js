@@ -169,8 +169,10 @@ $(document).ready(() => {
                             "PATENTE: " +
                             o.patente_vehiculo +
                             " - MODELO: " +
+                            o.marca_vehiculo +
+                            " " +
                             o.modelo_vehiculo +
-                            "  -  " +
+                            " " +
                             o.año_vehiculo;
                         option.value = o.patente_vehiculo;
                         select.appendChild(option);
@@ -208,7 +210,7 @@ $(document).ready(() => {
         var inputEntrada = $("#inputEntrada").val();
         var inputMantencion = $("#inputMantencion").val();
 
-        //datos cliente
+        //datos particular
         var inputRutCliente = $("#inputRutCliente").val();
         var inputNombreCliente = $("#inputNombreCliente").val();
         var inputTelefonoCliente = $("#inputTelefonoCliente").val();
@@ -227,6 +229,9 @@ $(document).ready(() => {
         var inputRol = $("#inputRol").val();
         var inputVigencia = $("#inputVigencia").val();
 
+        //datos remplazo
+        var inputNombreRemplazo = $("#inputNombreRemplazo").val();
+
         //datos conductor
         var inputRutConductor = $("#inputRutConductor").val();
         var inputNombreConductor = $("#inputNombreConductor").val();
@@ -240,26 +245,61 @@ $(document).ready(() => {
         var inputChequeGarantia = $("#inputChequeGarantia").val();
         var inputTarjetaFrontal = $("#inputTarjetaFrontal").val();
         var inputTarjetaTrasera = $("#inputTarjetaTrasera").val();
-
         var inputCarnetFrontal = $("#inputCarnetFrontal").val();
         var inputCarnetTrasera = $("#inputCarnetTrasera").val();
         var inputLicencia = $("#inputLicencia").val();
         var inputComprobanteDomicilio = $("#inputComprobanteDomicilio").val();
+        var inputCartaRemplazo = $("#inputCartaRemplazo").val();
 
         var inputTipo = $("#inputTipo").val();
 
         //VALIDACIONES DE LOS DOCUMENTOS REQUERIDOS
-        if (
-            inputCarnetFrontal.length == 0 ||
-            inputCarnetTrasera.length == 0 ||
-            inputLicencia.length == 0
-        ) {
-            Swal.fire({
-                icon: "warning",
-                title: "Faltan Documentacion! ",
-            });
-            return;
+        switch (inputTipo) {
+            case "PARTICULAR":
+                if (
+                    inputCarnetFrontal.length == 0 ||
+                    inputCarnetTrasera.length == 0 ||
+                    inputComprobanteDomicilio.length == 0 ||
+                    inputLicencia.length == 0
+                ) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Faltan Documentacion!",
+                    });
+                    return;
+                }
+                break;
+            case "REMPLAZO":
+                if (
+                    inputCarnetFrontal.length == 0 ||
+                    inputCarnetTrasera.length == 0 ||
+                    inputComprobanteDomicilio.length == 0 ||
+                    inputCartaRemplazo.length == 0 ||
+                    inputLicencia.length == 0
+                ) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Faltan Documentacion!",
+                    });
+                    return;
+                }
+                break;
+            case "EMPRESA":
+                if (
+                    inputCarnetFrontal.length == 0 ||
+                    inputCarnetTrasera.length == 0 ||
+                    inputLicencia.length == 0
+                ) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Faltan Documentacion! ",
+                    });
+                    return;
+                }
+                break;
         }
+
+        //VALDIACION DE LA GARANTIA
         if (
             inputChequeGarantia.length == 0 &&
             (inputTarjetaFrontal.length == 0 || inputTarjetaTrasera.length == 0)
@@ -269,15 +309,6 @@ $(document).ready(() => {
                 title: "Es necesario la tarjeta o cheque como garantia! ",
             });
             return;
-        }
-        if (inputTipo == 1 || inputTipo == 2) {
-            if (inputComprobanteDomicilio.length == 0) {
-                Swal.fire({
-                    icon: "warning",
-                    title: "Faltan Documentacion! ",
-                });
-                return;
-            }
         }
 
         //VALIDACION DEL FORMULARIO ARRIENDO
@@ -300,9 +331,9 @@ $(document).ready(() => {
         ) {
             $("#btn_crear_arriendo").attr("disabled", true);
             $("#spinner_btn_registrar").show();
-            //SE VALIDA EL FORMULARIO ´POR TIPO DE ARRIENDO
+            //SE VALIDA EL FORMULARIO POR TIPO DE ARRIENDO
             switch (inputTipo) {
-                case "1":
+                case "PARTICULAR":
                     if (
                         inputRutCliente.length != 0 &&
                         inputNombreCliente.length != 0 &&
@@ -322,7 +353,7 @@ $(document).ready(() => {
                         });
                     }
                     break;
-                case "2":
+                case "REMPLAZO":
                     if (
                         inputRutCliente.length != 0 &&
                         inputNombreCliente.length != 0 &&
@@ -331,17 +362,10 @@ $(document).ready(() => {
                         inputDireccionCliente.length != 0 &&
                         inputCiudadCliente.length != 0 &&
                         inputFechaNacimiento.length != 0 &&
-                        inputRutEmpresa.length != 0 &&
-                        inputNombreEmpresa.length != 0 &&
-                        inputTelefonoEmpresa.length != 0 &&
-                        inputCorreoEmpresa.length != 0 &&
-                        inputDireccionEmpresa.length != 0 &&
-                        inputCiudadEmpresa.length != 0 &&
-                        inputVigencia.length != 0 &&
-                        inputRol.length != 0
+                        inputNombreRemplazo.length != 0
                     ) {
                         await guardarDatosCliente();
-                        await guardarDatosEmpresa();
+                        await guardarDatosRemplazo();
                         await guardarDatosConductor();
                         await guardarDatosArriendo();
                     } else {
@@ -351,7 +375,7 @@ $(document).ready(() => {
                         });
                     }
                     break;
-                case "3":
+                case "EMPRESA":
                     if (
                         inputRutEmpresa.length != 0 &&
                         inputNombreEmpresa.length != 0 &&
@@ -387,12 +411,6 @@ $(document).ready(() => {
         }
     });
 
-    async function guardarDatosConductor() {
-        var form = $("#form_registrar_arriendo")[0];
-        var data = new FormData(form);
-        await funAjaxGuardar(data, "registrar_conductor");
-    }
-
     async function guardarDatosCliente() {
         var form = $("#form_registrar_arriendo")[0];
         var data = new FormData(form);
@@ -404,12 +422,17 @@ $(document).ready(() => {
         var data = new FormData(form);
         await funAjaxGuardar(data, "registrar_empresa");
     }
+    async function guardarDatosConductor() {
+        var form = $("#form_registrar_arriendo")[0];
+        var data = new FormData(form);
+        await funAjaxGuardar(data, "registrar_conductor");
+    }
 
-    async function guardarDatosArriendo() {
+    async function guardarDatosRemplazo() {
         var form = $("#form_registrar_arriendo")[0];
         var data = new FormData(form);
         await $.ajax({
-            url: base_url + "registrar_arriendo",
+            url: base_url + "registrar_remplazo",
             type: "post",
             dataType: "json",
             data: data,
@@ -418,27 +441,14 @@ $(document).ready(() => {
             contentType: false,
             cache: false,
             timeOut: false,
-            success: async(response) => {
-                if (response) {
-                    console.log("guardado! " + "registrar_arriendo");
-                    await guardarDocumentosRequistos(response.data.id_arriendo);
-                    await guardarDatosAccesorios(response.data.id_arriendo);
-                    cargarArriendoEnTabla(response.data);
-
-                    Swal.fire("Arriendo Registrado", response.msg, "success");
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "error registrar arriendo",
-                        text: response.msg,
-                    });
-                }
-                limpiarCampos();
+            success: (response) => {
+                console.log("guardado! " + "registrar_remplazo");
+                $("#inputIdRemplazo").val(response.id_remplazo);
             },
             error: () => {
                 Swal.fire({
                     icon: "error",
-                    title: "no se guardo el arriendo",
+                    title: "no se guardaron algunos componentes en : " + " registrar_remplazo",
                     text: "A ocurrido un Error Contacte a informatica",
                 });
             },
@@ -474,6 +484,54 @@ $(document).ready(() => {
         data.append("idArriendo", idArriendo);
         data.append("arrayAccesorios", JSON.stringify(checks));
         await funAjaxGuardar(data, "registrar_arriendoAccesorios");
+    }
+
+    async function guardarDatosArriendo() {
+        var form = $("#form_registrar_arriendo")[0];
+        var data = new FormData(form);
+        await $.ajax({
+            url: base_url + "registrar_arriendo",
+            type: "post",
+            dataType: "json",
+            data: data,
+            enctype: "multipart/form-data",
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeOut: false,
+            success: async(response) => {
+                if (response) {
+                    console.log("guardado! " + "registrar_arriendo");
+                    await guardarDocumentosRequistos(response.data.id_arriendo);
+                    await guardarDatosAccesorios(response.data.id_arriendo);
+                    await cambiarEstadoVehiculo(response.data.patente_vehiculo);
+                    cargarArriendoEnTabla(response.data);
+
+                    Swal.fire("Arriendo Registrado", response.msg, "success");
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "error registrar arriendo",
+                        text: response.msg,
+                    });
+                }
+                limpiarCampos();
+            },
+            error: () => {
+                Swal.fire({
+                    icon: "error",
+                    title: "no se guardo el arriendo",
+                    text: "A ocurrido un Error Contacte a informatica",
+                });
+            },
+        });
+    }
+
+    async function cambiarEstadoVehiculo(patente) {
+        var data = new FormData();
+        data.append("inputPatenteVehiculo", patente);
+        data.append("inputEstado", "RESERVADO");
+        await funAjaxGuardar(data, "cambiarEstado_vehiculo");
     }
 
     function limpiarCampos() {

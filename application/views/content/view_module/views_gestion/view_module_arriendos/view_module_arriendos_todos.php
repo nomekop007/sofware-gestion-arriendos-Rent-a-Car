@@ -388,8 +388,8 @@ function cargarArriendo(id_arriendo) {
                         $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
                         break;
                     case "REMPLAZO":
-                        $("#textCliente").html(arriendo.cliente.nombre_cliente + " - " +
-                            arriendo.empresa.nombre_empresa);
+                        $("#textCliente").html(arriendo.remplazo.cliente.nombre_cliente + " - " +
+                            arriendo.remplazo.nombreEmpresa_remplazo);
                         $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
                         break;
                     case "EMPRESA":

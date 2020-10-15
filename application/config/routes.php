@@ -24,6 +24,7 @@ $route['registrar_vehiculo'] = 'Vehiculo_controller/registrarVehiculo';
 $route['buscar_vehiculo'] = 'Vehiculo_controller/buscarVehiculo';
 $route['editar_vehiculo'] = 'Vehiculo_controller/editarVehiculo';
 $route['guardar_fotoVehiculo'] = 'Vehiculo_controller/guardarFotoVehiculo';
+$route['cambiarEstado_vehiculo'] = 'Vehiculo_controller/cambiarEstadoVehiculo';
 
 /* rutas de controller usuario */
 $route['iniciarSesion'] = 'Usuario_controller/iniciarSesion';
@@ -57,6 +58,10 @@ $route['buscar_conductor'] = 'Conductor_controller/buscarConductor';
 $route['registrar_empresa'] = 'Empresa_controller/crearEmpresa';
 $route['cargar_empresas'] = 'Empresa_controller/cargarEmpresas';
 $route['buscar_empresa'] = 'Empresa_controller/buscarEmpresa';
+
+/* rutas de controller remplazo */
+$route['registrar_remplazo'] = 'Remplazo_controller/crearRemplazo';
+
 
 
 /* rutas de controller requisitos  */

@@ -30,12 +30,25 @@ $(document).ready(() => {
 
     //carga tablaTotalArriendos
     function cargarArriendoEnTabla(arriendo) {
+        var cliente = "";
+        switch (arriendo.tipo_arriendo) {
+            case "PARTICULAR":
+                var cliente = arriendo.cliente.nombre_cliente;
+                break;
+            case "REMPLAZO":
+                var cliente = arriendo.remplazo.cliente.nombre_cliente;
+                break;
+            case "EMPRESA":
+                var cliente = arriendo.empresa.nombre_empresa;
+                break;
+            default:
+                break;
+        }
+
         tablaControldespacho.row
             .add([
                 arriendo.id_arriendo,
-                arriendo.cliente ?
-                arriendo.cliente.nombre_cliente :
-                arriendo.empresa.nombre_empresa,
+                cliente,
                 arriendo.vehiculo.patente_vehiculo,
                 formatearFechaHora(arriendo.fechaEntrega_arriendo),
                 formatearFechaHora(arriendo.fechaRecepcion_arriendo),
