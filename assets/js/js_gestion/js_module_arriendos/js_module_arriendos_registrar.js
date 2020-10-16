@@ -160,10 +160,10 @@ $(document).ready(() => {
             dataType: "json",
             data: { id_sucursal },
             success: (result) => {
-                if (result.success) {
-                    $("#select_vehiculos").empty();
+                $("#select_vehiculos").empty();
+                if (result.data) {
                     const select = document.getElementById("select_vehiculos");
-                    $.each(result.data, (i, o) => {
+                    $.each(result.data.vehiculos, (i, o) => {
                         const option = document.createElement("option");
                         option.innerHTML =
                             "PATENTE: " +
@@ -179,12 +179,6 @@ $(document).ready(() => {
                     });
 
                     $("#select_vehiculos").attr("disabled", false);
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        text: result.msg,
-                    });
                 }
             },
             error: () => {
@@ -264,7 +258,7 @@ $(document).ready(() => {
                 ) {
                     Swal.fire({
                         icon: "warning",
-                        title: "Faltan Documentacion!",
+                        title: "Faltan Documentacion del cliente!",
                     });
                     return;
                 }
@@ -279,7 +273,7 @@ $(document).ready(() => {
                 ) {
                     Swal.fire({
                         icon: "warning",
-                        title: "Faltan Documentacion!",
+                        title: "Faltan Documentacion! del cliente!",
                     });
                     return;
                 }
@@ -292,7 +286,7 @@ $(document).ready(() => {
                 ) {
                     Swal.fire({
                         icon: "warning",
-                        title: "Faltan Documentacion! ",
+                        title: "Faltan Documentacion! de la empresa ",
                     });
                     return;
                 }
@@ -538,5 +532,6 @@ $(document).ready(() => {
         $("#btn_crear_arriendo").attr("disabled", false);
         $("#spinner_btn_registrar").hide();
         $("#form_registrar_arriendo")[0].reset();
+        $("#select_vehiculos").empty();
     }
 });
