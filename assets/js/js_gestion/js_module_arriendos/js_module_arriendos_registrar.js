@@ -244,11 +244,23 @@ $(document).ready(() => {
         var inputLicencia = $("#inputLicencia").val();
         var inputComprobanteDomicilio = $("#inputComprobanteDomicilio").val();
         var inputCartaRemplazo = $("#inputCartaRemplazo").val();
+        var inputBoletaEfectivo = $("#inputBoletaEfectivo").val();
 
-        var inputTipo = $("#inputTipo").val();
+        //datos garantia
+        var inputNumeroCheque = $("#inputNumeroCheque").val();
+        var inputCodigoCheque = $("#inputCodigoCheque").val();
+        var inputNumeroTarjeta = $("#inputNumeroTarjeta").val();
+        var inputFechaTarjeta = $("#inputFechaTarjeta").val();
+        var inputCodigoTarjeta = $("#inputCodigoTarjeta").val();
+        var inputAbono = $("#inputAbono").val();
+
+
+
+        var inputTipoGarantia = $('input:radio[name=customRadio0]:checked').val();
+        var inputTipoArriendo = $("#inputTipo").val();
 
         //VALIDACIONES DE LOS DOCUMENTOS REQUERIDOS
-        switch (inputTipo) {
+        switch (inputTipoArriendo) {
             case "PARTICULAR":
                 if (
                     inputCarnetFrontal.length == 0 ||
@@ -293,17 +305,44 @@ $(document).ready(() => {
                 break;
         }
 
-        //VALDIACION DE LA GARANTIA
-        if (
-            inputChequeGarantia.length == 0 &&
-            (inputTarjetaFrontal.length == 0 || inputTarjetaTrasera.length == 0)
-        ) {
-            Swal.fire({
-                icon: "warning",
-                title: "Es necesario la tarjeta o cheque como garantia! ",
-            });
-            return;
+        //VALIDACION DE LA GARANTIA
+        switch (inputTipoGarantia) {
+            case "CHEQUE":
+                if (inputChequeGarantia.length == 0 ||
+                    inputNumeroCheque.length == 0 ||
+                    inputCodigoCheque.length == 0) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Faltan datos de cheque en garantia ",
+                    });
+                    return;
+                }
+                break;
+            case "TARJETA":
+                if (inputTarjetaFrontal.length == 0 || inputTarjetaTrasera.length == 0 ||
+                    inputNumeroTarjeta.length == 0 || inputFechaTarjeta.length == 0 ||
+                    inputCodigoTarjeta.length == 0 || inputAbono.length == 0
+                ) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Faltan datos de tarjeta en garantia ",
+                    });
+                    return;
+                }
+                break;
+            case "EFECTIVO":
+                if (
+                    inputBoletaEfectivo.length == 0 || inputAbono.length == 0
+                ) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Faltan datos de Abono en garantia ",
+                    });
+                    return;
+                }
+                break;
         }
+
 
         //VALIDACION DEL FORMULARIO ARRIENDO
         if (
@@ -326,7 +365,7 @@ $(document).ready(() => {
             $("#btn_crear_arriendo").attr("disabled", true);
             $("#spinner_btn_registrar").show();
             //SE VALIDA EL FORMULARIO POR TIPO DE ARRIENDO
-            switch (inputTipo) {
+            switch (inputTipoArriendo) {
                 case "PARTICULAR":
                     if (
                         inputRutCliente.length != 0 &&
@@ -422,6 +461,8 @@ $(document).ready(() => {
         await funAjaxGuardar(data, "registrar_conductor");
     }
 
+
+
     async function guardarDatosRemplazo() {
         var form = $("#form_registrar_arriendo")[0];
         var data = new FormData(form);
@@ -448,6 +489,51 @@ $(document).ready(() => {
             },
         });
     }
+
+
+    async function guardarDatosArriendo() {
+        var form = $("#form_registrar_arriendo")[0];
+        var data = new FormData(form);
+        await $.ajax({
+            url: base_url + "registrar_arriendo",
+            type: "post",
+            dataType: "json",
+            data: data,
+            enctype: "multipart/form-data",
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeOut: false,
+            success: async(response) => {
+                if (response) {
+                    console.log("guardado! " + "registrar_arriendo");
+                    guardarDocumentosRequistos(response.data.id_arriendo);
+                    guardarDatosAccesorios(response.data.id_arriendo);
+                    guardarDatosGarantia(response.data.id_arriendo);
+                    await cambiarEstadoVehiculo(response.data.patente_vehiculo);
+                    cargarArriendoEnTabla(response.data);
+
+                    Swal.fire("Arriendo Registrado", response.msg, "success");
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "error registrar arriendo",
+                        text: response.msg,
+                    });
+                }
+                limpiarCampos();
+            },
+            error: () => {
+                Swal.fire({
+                    icon: "error",
+                    title: "no se guardo el arriendo",
+                    text: "A ocurrido un Error Contacte a informatica",
+                });
+            },
+        });
+    }
+
+
 
     async function guardarDocumentosRequistos(idArriendo) {
         //documentos requeridos
@@ -480,46 +566,13 @@ $(document).ready(() => {
         await funAjaxGuardar(data, "registrar_arriendoAccesorios");
     }
 
-    async function guardarDatosArriendo() {
+    async function guardarDatosGarantia(idArriendo) {
         var form = $("#form_registrar_arriendo")[0];
         var data = new FormData(form);
-        await $.ajax({
-            url: base_url + "registrar_arriendo",
-            type: "post",
-            dataType: "json",
-            data: data,
-            enctype: "multipart/form-data",
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeOut: false,
-            success: async(response) => {
-                if (response) {
-                    console.log("guardado! " + "registrar_arriendo");
-                    await guardarDocumentosRequistos(response.data.id_arriendo);
-                    await guardarDatosAccesorios(response.data.id_arriendo);
-                    await cambiarEstadoVehiculo(response.data.patente_vehiculo);
-                    cargarArriendoEnTabla(response.data);
-
-                    Swal.fire("Arriendo Registrado", response.msg, "success");
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "error registrar arriendo",
-                        text: response.msg,
-                    });
-                }
-                limpiarCampos();
-            },
-            error: () => {
-                Swal.fire({
-                    icon: "error",
-                    title: "no se guardo el arriendo",
-                    text: "A ocurrido un Error Contacte a informatica",
-                });
-            },
-        });
+        data.append("inputIdArriendo", idArriendo);
+        await funAjaxGuardar(data, "registrar_garantia");
     }
+
 
     async function cambiarEstadoVehiculo(patente) {
         var data = new FormData();
@@ -533,5 +586,11 @@ $(document).ready(() => {
         $("#spinner_btn_registrar").hide();
         $("#form_registrar_arriendo")[0].reset();
         $("#select_vehiculos").empty();
+
+        $("#foto_tarjeta").hide();
+        $("#foto_cheque").hide();
+        $("#card-tarjeta").hide();
+        $("#card-cheque").hide();
+
     }
 });

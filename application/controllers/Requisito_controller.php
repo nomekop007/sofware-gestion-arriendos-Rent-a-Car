@@ -63,6 +63,13 @@ class Requisito_controller extends CI_Controller
             $cartaRemplazo = $_FILES['inputCartaRemplazo']['name'];
         }
 
+        $boletaEfectivo = null;
+        $pathBoletaEfectivo = null;
+        if (isset($_FILES['inputBoletaEfectivo'])) {
+            $pathBoletaEfectivo = file_get_contents($_FILES["inputBoletaEfectivo"]["tmp_name"]);
+            $boletaEfectivo = $_FILES['inputBoletaEfectivo']['name'];
+        }
+
         $data = [
             [
                 'name'     => 'fotoTarjetaFrontal',
@@ -103,6 +110,11 @@ class Requisito_controller extends CI_Controller
                 'name'     => 'fotoCartaRemplazo',
                 'contents' => $pathCartaRemplazo,
                 'filename' => $cartaRemplazo
+            ],
+            [
+                'name'     => 'fotoBoletaEfectivo',
+                'contents' => $pathBoletaEfectivo,
+                'filename' => $boletaEfectivo
             ],
         ];
         echo file_function($id_arriendo, $data, "requisitos/registrarRequisitoArriendo", $tokenUser);

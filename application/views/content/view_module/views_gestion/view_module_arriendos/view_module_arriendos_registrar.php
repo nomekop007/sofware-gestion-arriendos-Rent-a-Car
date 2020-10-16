@@ -386,31 +386,98 @@ switch ($this->session->userdata('sucursal')) {
                 <br>
                 <h4>Datos garantia</h4>
                 <br>
-                <div class="container">
-                    <h6>Tarjeta de credito</h6>
-                    <div class="card bg-light">
-                        <div class="row text-center">
-                            <div class="form-group col-md-6">
-                                <br>
-                                <label for="inputTarjetaFrontal">(frontal)</label>
-                                <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                    id="inputTarjetaFrontal" name="inputTarjetaFrontal" required>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <br>
-                                <label for="inputTarjetaTrasera">(trasera)</label>
-                                <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                    id="inputTarjetaTrasera" name="inputTarjetaTrasera" required>
-                            </div>
+                <div class="form-row card-body">
+                    <div class="custom-control custom-radio custom-control-inline ">
+                        <input onclick="tipoGarantia(this.value);" type="radio" value="EFECTIVO"
+                            id="radioEfectivoGarantia" name="customRadio0" class="custom-control-input" checked>
+                        <label class="custom-control-label" for="radioEfectivoGarantia">Efectivo</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline ">
+                        <input onclick="tipoGarantia(this.value);" type="radio" value="CHEQUE" id="radioChequeGarantia"
+                            name="customRadio0" class="custom-control-input">
+                        <label class="custom-control-label" for="radioChequeGarantia">Cheque</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline ">
+                        <input onclick="tipoGarantia(this.value);" type="radio" value="TARJETA"
+                            id="radioTarjetaGarantia" name="customRadio0" class="custom-control-input">
+                        <label class="custom-control-label" for="radioTarjetaGarantia">Tarjeta</label>
+                    </div>
+                </div>
+                <div class="form-row card-body">
+                    <div class="form-group col-md-12" id="card-tarjeta">
+                        <label for="inputNumeroTarjeta">Tarjeta de credito</label>
+                        <div class="input-group">
+                            <input onkeypress="return soloNumeros(event);" style="width: 50%;" type="text"
+                                class="form-control" id="inputNumeroTarjeta" name="inputNumeroTarjeta" maxLength="25"
+                                placeholder="Nº Tarjeta de credito" required>
+                            <input style="width: 20%;" name="inputFechaTarjeta" id="inputFechaTarjeta" type="text"
+                                aria-label="Last name" class="form-control" maxLength="5" placeholder="ej: 10/23"
+                                required>
+                            <input style="width: 30%;" name="inputCodigoTarjeta" id="inputCodigoTarjeta" type="text"
+                                aria-label="Last name" class="form-control" maxLength="20"
+                                placeholder="codigo retencion" required>
+                        </div>
+
+                    </div>
+                    <div class="form-group col-md-12" id="card-cheque">
+                        <label for="inputNumeroCheque">Cheque</label>
+                        <div class="input-group">
+                            <input onkeypress="return soloNumeros(event);" style="width: 60%;" type="text"
+                                class="form-control" id="inputNumeroCheque" name="inputNumeroCheque" maxLength="25"
+                                placeholder="Nº Cheque" required>
+
+                            <input style="width: 40%;" name="inputCodigoCheque" id="inputCodigoCheque" type="text"
+                                aria-label="Last name" class="form-control" maxLength="20"
+                                placeholder="Codigo autorizacion" required>
                         </div>
                     </div>
-                    <br><br>
+                    <div class="input-group col-md-12" id="card-abono">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Abono $</span>
+                        </div>
+                        <input onkeypress="return soloNumeros(event);" maxLength="11" type="text" id="inputAbono"
+                            name="inputAbono" class="form-control" required>
+                    </div>
+                </div>
 
-                    <div class="form-row">
+
+                <div class="container">
+                    <div id="foto_tarjeta">
+                        <h6>Foto tarjeta de credito</h6>
+                        <div class="card bg-light">
+                            <div class="row text-center">
+                                <div class="form-group col-md-6">
+                                    <br>
+                                    <label for="inputTarjetaFrontal">(frontal)</label>
+                                    <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file"
+                                        class="form-control-file" id="inputTarjetaFrontal" name="inputTarjetaFrontal"
+                                        required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <br>
+                                    <label for="inputTarjetaTrasera">(trasera)</label>
+                                    <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file"
+                                        class="form-control-file" id="inputTarjetaTrasera" name="inputTarjetaTrasera"
+                                        required>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                    </div>
+                    <div class="form-row" id="foto_cheque">
                         <div class="form-group col-md-12">
-                            <h6 for="inputChequeGarantia">Cheque en garantia</h6>
+                            <h6 for="inputChequeGarantia">Foto cheque</h6>
                             <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
                                 id="inputChequeGarantia" name="inputChequeGarantia" required>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-row" id="foto_efectivo">
+                        <div class="form-group col-md-12">
+                            <h6 for="inputBoletaEfectivo">Foto boleta efectivo</h6>
+                            <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
+                                id="inputBoletaEfectivo" name="inputBoletaEfectivo" required>
                             <br>
                         </div>
                     </div>
@@ -497,17 +564,44 @@ $("#spinner_btn_registrar").hide();
 $("#spinner_btn_crearContrato").hide();
 
 
-function calcularDias() {
-    var fechaEntrega = $("#inputFechaEntrega").val();
-    var fechaRecepcion = $("#inputFechaRecepcion").val();
+$("#foto_tarjeta").hide();
+$("#foto_cheque").hide();
+$("#card-tarjeta").hide();
+$("#card-cheque").hide();
 
-    var fechaini = new Date(fechaEntrega);
-    var fechafin = new Date(fechaRecepcion);
-    var diasdif = fechafin.getTime() - fechaini.getTime();
-    var dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
-    $("#inputNumeroDias").val(dias);
+function tipoGarantia(value) {
+    switch (value) {
+        case "CHEQUE":
+            $("#card-cheque").show();
+            $("#foto_cheque").show();
+
+            $("#card-tarjeta").hide();
+            $("#card-abono").hide();
+            $("#foto_tarjeta").hide();
+            $("#foto_efectivo").hide();
+            break;
+        case "TARJETA":
+            $("#card-tarjeta").show();
+            $("#card-abono").show();
+            $("#foto_tarjeta").show();
+
+            $("#card-cheque").hide();
+            $("#foto_cheque").hide();
+            $("#foto_efectivo").hide();
+            break;
+        case "EFECTIVO":
+            $("#card-abono").show();
+            $("#foto_efectivo").show();
+
+            $("#card-cheque").hide();
+            $("#foto_tarjeta").hide();
+            $("#foto_cheque").hide();
+            $("#card-tarjeta").hide();
+            $("#card-cheque").hide();
+            break;
+    }
+
 }
-
 
 
 // Script para cambia el tab cliente de acuerdo al tipo de arriendo
@@ -549,4 +643,16 @@ function calcularDias() {
         $("#inputRutCliente").val("");
     }
 })();
+
+
+function calcularDias() {
+    var fechaEntrega = $("#inputFechaEntrega").val();
+    var fechaRecepcion = $("#inputFechaRecepcion").val();
+
+    var fechaini = new Date(fechaEntrega);
+    var fechafin = new Date(fechaRecepcion);
+    var diasdif = fechafin.getTime() - fechaini.getTime();
+    var dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
+    $("#inputNumeroDias").val(dias);
+}
 </script>

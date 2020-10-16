@@ -89,6 +89,6 @@ class Arriendo_controller extends CI_Controller
             "userAt" => $nameUser,
             "estado_arriendo" => "FIRMADO",
         ];
-        echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo", $tokenUser);
+        echo put_function($idArriendo, $ArrayData, "arriendos/editarArriendo", $tokenUser);
     }
 }

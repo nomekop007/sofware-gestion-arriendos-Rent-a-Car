@@ -22,8 +22,8 @@ class Pago_controller extends CI_Controller
             "observaciones_pago" => $this->input->post("inputObservaciones"),
             "digitador_pago" => $this->input->post("digitador"),
             "id_modoPago" => $this->input->post("customRadio2"),
-            "tipoFacturacion" => $this->input->post("customRadio1"),
-            "numFacturacion" => $this->input->post("inputNumFacturacion"),
+            "tipo_facturacion" => $this->input->post("customRadio1"),
+            "numero_facturacion" => $this->input->post("inputNumFacturacion"),
         ];
         echo post_function($dataArray, "pagos/registrarPago", $tokenUser);
     }

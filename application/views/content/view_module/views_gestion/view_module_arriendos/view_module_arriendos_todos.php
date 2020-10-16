@@ -1,3 +1,8 @@
+<?php
+
+$nombreUsuario = $this->session->userdata('nombre')
+?>
+
 <!-- Tab con la tabla de los arriendos activos -->
 <div class="tab-pane fade" id="nav-arriendos" role="tabpanel" aria-labelledby="nav-arriendos-tab">
     <br><br>
@@ -46,7 +51,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detalle de contrato</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detalles de Pago</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -72,63 +77,6 @@
                                 class="  text-center input-group-text form-control"></span>
                         </div>
                     </div>
-                    <br>
-                    <h5>Garantia</h5>
-                    <div class="card">
-                        <div class="form-row card-body">
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input onclick="tipoGarantia(this.value);" type="radio" value="EFECTIVO"
-                                    id="radioEfectivoGarantia" name="customRadio0" class="custom-control-input" checked>
-                                <label class="custom-control-label" for="radioEfectivoGarantia">Efectivo</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input onclick="tipoGarantia(this.value);" type="radio" value="CHEQUE"
-                                    id="radioChequeGarantia" name="customRadio0" class="custom-control-input">
-                                <label class="custom-control-label" for="radioChequeGarantia">Cheque</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input onclick="tipoGarantia(this.value);" type="radio" value="TARJETA"
-                                    id="radioTarjetaGarantia" name="customRadio0" class="custom-control-input">
-                                <label class="custom-control-label" for="radioTarjetaGarantia">Tarjeta</label>
-                            </div>
-                        </div>
-                        <div class="form-row card-body">
-                            <div class="form-group col-md-12" id="card-tarjeta">
-                                <label for="inputNumeroTarjeta">Tarjeta de credito</label>
-                                <div class="input-group">
-                                    <input onkeypress="return soloNumeros(event);" style="width: 50%;" type="text"
-                                        class="form-control" id="inputNumeroTarjeta" name="inputNumeroTarjeta"
-                                        maxLength="25" placeholder="Nº Tarjeta de credito">
-                                    <input style="width: 20%;" name="inputFechaTarjeta" id="inputFechaTarjeta"
-                                        type="text" aria-label="Last name" class="form-control" maxLength="5"
-                                        placeholder="ej: 10/23">
-                                    <input style="width: 30%;" name="inputCodigoTarjeta" id="inputCodigoTarjeta"
-                                        type="text" aria-label="Last name" class="form-control" maxLength="20"
-                                        placeholder="codigo retencion">
-                                </div>
-
-                            </div>
-                            <div class="form-group col-md-12" id="card-cheque">
-                                <label for="inputNumeroCheque">Cheque</label>
-                                <div class="input-group">
-                                    <input onkeypress="return soloNumeros(event);" style="width: 60%;" type="text"
-                                        class="form-control" id="inputNumeroCheque" name="inputNumeroCheque"
-                                        maxLength="25" placeholder="Nº Cheque">
-
-                                    <input style="width: 40%;" name="inputCodigoCheque" id="inputCodigoCheque"
-                                        type="text" aria-label="Last name" class="form-control" maxLength="20"
-                                        placeholder="Codigo autorizacion">
-                                </div>
-                            </div>
-                            <div class="input-group col-md-12" id="card-abono">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Abono $</span>
-                                </div>
-                                <input onkeypress="return soloNumeros(event);" maxLength="11" value="0" type="text"
-                                    id="inputAbono" name="inputAbono" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
                     <br><br>
                     <h5>Valor Arriendo</h5>
                     <div class="card">
@@ -146,6 +94,13 @@
                                 <span style="width: 60%;" class="input-group-text form-control">Sub total Arriendo
                                     $</span>
                                 <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo"
+                                    onkeypress="return soloNumeros(event);" maxLength="11" value="0" type="text"
+                                    class="form-control" oninput="calcularValores()" required>
+                            </div>
+                            <div class="input-group col-md-12" id="subtotal-copago">
+                                <span style="width: 60%;" class="input-group-text form-control">valor copago
+                                    $</span>
+                                <input style="width: 40%;" id="inputValorCopago" name="inputValorCopago"
                                     onkeypress="return soloNumeros(event);" maxLength="11" value="0" type="text"
                                     class="form-control" oninput="calcularValores()" required>
                             </div>
@@ -179,7 +134,6 @@
                                     name="inputNumFacturacion" type="text" class="form-control"
                                     placeholder="Nº Boleta/Factura" required>
                             </div>
-
                         </div>
                         <div class="form-row card-body">
                             <div class="input-group col-md-12">
@@ -226,28 +180,26 @@
                             <div class="form-group col-md-12">
                                 <label for="inputDigitador">Digitado por</label>
                                 <input disabled type="text" class="form-control" id="inputDigitador"
-                                    name="inputDigitador" required>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="inputObservaciones">Observaciones</label>
-                                <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
-                                    name="inputObservaciones" rows="3" maxLength="300"></textarea>
+                                    name="inputDigitador" value="<?php echo $nombreUsuario ?>" required>
+                                <div class="form-group col-md-12">
+                                    <label for="inputObservaciones">Observaciones</label>
+                                    <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
+                                        name="inputObservaciones" rows="3" maxLength="300"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_signature">
-                        firmar contrato <i class="fas fa-feather-alt"></i>
-                    </button>
-                    <button type="submit" id="btn_crear_contrato" class="btn btn-primary">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                            id="spinner_btn_crearContrato"></span>
-                        Generar Contrato</button>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-success" data-toggle="modal"
+                            data-target="#modal_signature">
+                            firmar contrato <i class="fas fa-feather-alt"></i>
+                        </button>
+                        <button type="submit" id="btn_crear_contrato" class="btn btn-primary">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                id="spinner_btn_crearContrato"></span>
+                            Generar Contrato</button>
+                    </div>
             </form>
         </div>
     </div>
@@ -271,7 +223,7 @@
                     <h6 class='text-center'>Sin contrato cargado</h6><br>
                 </div>
                 <div id="body-documento">
-                    <!-- se carga documento -->
+                    <!-- se carga documento en un iframe -->
                 </div>
                 <div class="container" id="body-firma">
                     <br>
@@ -281,7 +233,6 @@
                             <canvas id="canvas-firma">
                             </canvas>
                         </div>
-
                         <div class="col-md-12 d-flex justify-content-center">
                             <button type="button" id="limpiar-firma" class="btn btn-secondary btn-sm ">
                                 limpiar</button>
@@ -290,23 +241,16 @@
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                                     id="spinner_btn_firmarContrato"></span>
                             </button>
-
                             <button type="button" id="btn_confirmar_contrato" class="btn btn-primary btn-sm ">
                                 guardar cambios
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                                     id="spinner_btn_confirmarContrato"></span>
                             </button>
                         </div>
-
-
-
-
                     </div>
                     <br>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -337,33 +281,7 @@
 
 
 <script>
-$("#formContrato").hide();
-
-
-function tipoGarantia(value) {
-    $("#card-tarjeta").hide();
-    $("#card-cheque").hide();
-    $("#card-abono").show();
-    if (value == "CHEQUE") {
-        $("#card-tarjeta").hide();
-        $("#card-cheque").show();
-        $("#card-abono").hide();
-    } else if (value == "TARJETA") {
-        $("#card-tarjeta").show();
-        $("#card-cheque").hide();
-        $("#card-abono").show();
-    } else {
-        $("#card-tarjeta").hide();
-        $("#card-cheque").hide();
-        $("#card-abono").show();
-    }
-}
-
-
-
 function cargarArriendo(id_arriendo) {
-    $("#card-tarjeta").hide();
-    $("#card-cheque").hide();
     limpiarCampos();
     $.getJSON({
         url: base_url + "buscar_arriendo",
@@ -372,15 +290,14 @@ function cargarArriendo(id_arriendo) {
         data: {
             id_arriendo
         },
-        success: (e) => {
-            if (e.success) {
-                var arriendo = e.data;
+        success: (response) => {
+            if (response.success) {
+                const arriendo = response.data;
                 $("#inputIdArriendo").val(arriendo.id_arriendo);
                 $("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo)
                 $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
                 $("#textTipo").val(arriendo.tipo_arriendo);
                 $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
-                $("#inputDigitador").val(arriendo.usuario.nombre_usuario);
 
                 switch (arriendo.tipo_arriendo) {
                     case "PARTICULAR":
@@ -388,6 +305,7 @@ function cargarArriendo(id_arriendo) {
                         $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
                         break;
                     case "REMPLAZO":
+                        $("#subtotal-copago").show();
                         $("#textCliente").html(arriendo.remplazo.cliente.nombre_cliente + " - " +
                             arriendo.remplazo.nombreEmpresa_remplazo);
                         $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
@@ -459,10 +377,13 @@ function mostrarAccesorios(arriendo) {
 function calcularValores() {
     //variables
     var valorArriendo = Number($("#inputValorArriendo").val());
+    var valorCopago = Number($("#inputValorCopago").val());
     var neto = Number($("#inputNeto").val());
     var iva = Number($("#inputIVA").val());
     var descuento = Number($("#inputDescuento").val());
     var total = Number($("#inputTotal").val());
+
+
 
     var TotalNeto = 0;
     //revisa todos los check y guardas sus valores en un array si estan okey
@@ -473,10 +394,10 @@ function calcularValores() {
         .get();
 
     for (let i = 0; i < ArrayAccesorios.length; i++) {
-        const element = ArrayAccesorios[i];
-        TotalNeto += Number(element);
+        const precioAccesorio = ArrayAccesorios[i];
+        TotalNeto += Number(precioAccesorio);
     }
-    TotalNeto = TotalNeto + valorArriendo - descuento;
+    TotalNeto = TotalNeto + valorArriendo - descuento - valorCopago;
     iva = TotalNeto * 0.19;
     total = TotalNeto + iva;
 
@@ -485,7 +406,11 @@ function calcularValores() {
     $("#inputTotal").val(Math.round(total));
 }
 
+
+
+
 function limpiarCampos() {
+    $("#formContrato").hide();
     $("#formAccesorios").empty();
     $("#formContrato")[0].reset();
     $("#btn_crear_contrato").attr("disabled", false);
@@ -497,15 +422,12 @@ function limpiarCampos() {
     $("#body-firma").hide();
     $("#body-sinContrato").show();
     $("#nombre_documento").val("");
-
+    $("#subtotal-copago").hide();
 
     //se limpia el canvas de firma
     dibujar = false;
     ctx.clearRect(0, 0, cw, ch);
     Trazados.length = 0;
     puntos.length = 0;
-
-
-
 }
 </script>

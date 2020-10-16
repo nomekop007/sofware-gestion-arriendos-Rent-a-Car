@@ -19,9 +19,11 @@ $(document).ready(() => {
     });
 
     function generarContrato(data) {
-        var abono = $("#inputAbono").val();
         var descuento = $("#inputDescuento").val();
-        var valor = $("#inputValorArriendo").val();
+        var valorArriendo = $("#inputValorArriendo").val();
+        var valorCopago = $("#inputValorCopago").val();
+
+        var numFacturacion = $("#inputNumFacturacion").val();
         var total = Number($("#inputTotal").val());
 
         //cacturando los accesorios
@@ -37,16 +39,13 @@ $(document).ready(() => {
             data.append("arrayNombreAccesorios", arrayNombreAccesorios);
             data.append("arrayValorAccesorios", arrayValorAccesorios);
         }
-        if ($("#textTipo").val() == "REMPLAZO") {
-            $("#inputNumFacturacion").val("COPAGO");
-        }
 
         if (
-            $("#inputNumFacturacion").val().length != 0 &&
+            numFacturacion.length != 0 &&
             total >= 0 &&
-            abono.length != 0 &&
             descuento.length != 0 &&
-            valor.length != 0
+            valorArriendo.length != 0 &&
+            valorCopago.length != 0
         ) {
             $("#spinner_btn_firmarContrato").show();
             desactivarBotones();
@@ -124,7 +123,6 @@ $(document).ready(() => {
 
                 await guardarContrato();
                 await guardarDatosPago();
-                await guardarDatosGarantia();
                 await enviarCorreoArriendo();
                 await cambiarEstadoArriendo();
 
@@ -153,12 +151,6 @@ $(document).ready(() => {
         var data = new FormData(form);
         data.append("digitador", $("#inputDigitador").val());
         await funAjaxGuardar(data, "registrar_pago");
-    }
-
-    async function guardarDatosGarantia() {
-        var form = $("#formContrato")[0];
-        var data = new FormData(form);
-        await funAjaxGuardar(data, "registrar_garantia");
     }
 
     async function enviarCorreoArriendo() {
