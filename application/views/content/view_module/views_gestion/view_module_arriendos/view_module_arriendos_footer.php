@@ -36,22 +36,21 @@ $(document).ready(() => {
 
 //carga tablaTotalArriendos
 function cargarArriendoEnTabla(arriendo) {
-    var cliente = "";
+    let cliente = "";
     switch (arriendo.tipo_arriendo) {
         case "PARTICULAR":
-            var cliente = arriendo.cliente.nombre_cliente;
+            cliente = arriendo.cliente.nombre_cliente;
             break;
         case "REMPLAZO":
-            var cliente = arriendo.remplazo.cliente.nombre_cliente;
+            cliente = arriendo.remplazo.cliente.nombre_cliente;
             break;
         case "EMPRESA":
-            var cliente = arriendo.empresa.nombre_empresa;
+            cliente = arriendo.empresa.nombre_empresa;
             break;
-        default:
-            break;
+
     }
 
-    var tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
+    const tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
     tablaTotalArriendos.row
         .add([
             arriendo.id_arriendo,
@@ -67,7 +66,7 @@ function cargarArriendoEnTabla(arriendo) {
             " value='" +
             arriendo.id_arriendo +
             "' " +
-            " onclick='cargarArriendo(this.value)'" +
+            " onclick='buscarArriendo(this.value)'" +
             " data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  " +
             " <button disabled data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-eye'></i></button>  ",
         ])

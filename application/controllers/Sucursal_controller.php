@@ -15,7 +15,7 @@ class Sucursal_controller extends CI_Controller
 	public function cargarVehiculosPorSucursal()
     {
         $tokenUser = $this->session->userdata('usertoken');
-        $id_sucursal = $this->input->post("id_sucursal");
+        $id_sucursal = $this->input->post("inputSucursal");
         echo find_function($id_sucursal, "sucursales/cargarVehiculos", $tokenUser);
     }
 	

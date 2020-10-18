@@ -332,106 +332,58 @@
 $("#m_vehiculo").addClass("active");
 $("#l_vehiculo").addClass("card");
 
-
 //sniper de btn registrar
 $("#spinner_btn_registrar").hide();
 
-function cargarVehiculo(patente) {
+const buscarVehiculo = async (patente) => {
     limpiarCampos();
-    $.getJSON({
-        url: base_url + "buscar_vehiculo",
-        type: "post",
-        dataType: "json",
-        data: {
-            patente
-        },
-        success: (response) => {
-            if (response.success) {
-                const vehiculo = response.data;
+    const data = new FormData();
+    data.append("patente", patente);
+    const response = await ajax_function(data, "buscar_vehiculo");
+    if (response.success) {
+        const vehiculo = response.data;
 
-                //se pregunta si tiene imagen el vehiculo
-                if (vehiculo.foto_vehiculo) {
-                    //se busca la url del storage
-                    document.getElementById("imagen").src = storage + "fotosVehiculos/" +
-                        vehiculo
-                        .foto_vehiculo;
-                } else {
-                    document.getElementById("imagen").src = base_url + "assets/images/imageDefault.png";
-                }
-
-                $("#inputEditarPatente").val(vehiculo.patente_vehiculo);
-                $("#exampleModalLongTitle").text("Editar Vehiculo " + vehiculo.patente_vehiculo);
-
-                $("#inputEditarEstado").val(vehiculo.estado_vehiculo);
-                $("#inputEditarMarca").val(vehiculo.marca_vehiculo);
-                $("#inputEditarModelo").val(vehiculo.modelo_vehiculo);
-                $("#inputEditarEdad").val(vehiculo.año_vehiculo);
-                $("#inputEditarTipo").val(vehiculo.tipo_vehiculo);
-                $("#inputEditarTransmision").val(vehiculo.transmision_vehiculo);
-                $("#inputEditarChasis").val(vehiculo.chasis_vehiculo);
-                $("#inputEditarColor").val(vehiculo.color_vehiculo);
-                $("#inputEditarNumeroMotor").val(vehiculo.numeroMotor_vehiculo);
-                $("#inputEditarSucursal").val(vehiculo.id_sucursal);
-                $("#inputEditarCompra").val(vehiculo.compra_vehiculo);
-                $("#inputEditarPropietario").val(vehiculo.rut_propietario);
-                $("#inputEditarFechaCompra").val(
-                    vehiculo.fechaCompra_vehiculo ?
-                    vehiculo.fechaCompra_vehiculo.substring(0, 10) :
-                    null);
-                $("#inputCreateAt").val(formatearFechaHora(vehiculo.createdAt));
-
-                $("#modal_vehiculo").show();
-                $("#spinner_vehiculo").hide();
-
-
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "Vehiculo no encontrado",
-                });
-                $("#modal_vehiculo").show();
-                $("#spinner_vehiculo").hide();
-            }
-        },
-        error: () => {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "A ocurrido un Error Contacte a informatica",
-            });
-
-        },
-    });
+        //se pregunta si tiene imagen el vehiculo
+        if (vehiculo.foto_vehiculo) {
+            //se busca la url del storage
+            document.getElementById("imagen").src = storage + "fotosVehiculos/" +
+                vehiculo
+                .foto_vehiculo;
+        } else {
+            document.getElementById("imagen").src = base_url + "assets/images/imageDefault.png";
+        }
+        $("#inputEditarPatente").val(vehiculo.patente_vehiculo);
+        $("#exampleModalLongTitle").text("Editar Vehiculo " + vehiculo.patente_vehiculo);
+        $("#inputEditarEstado").val(vehiculo.estado_vehiculo);
+        $("#inputEditarMarca").val(vehiculo.marca_vehiculo);
+        $("#inputEditarModelo").val(vehiculo.modelo_vehiculo);
+        $("#inputEditarEdad").val(vehiculo.año_vehiculo);
+        $("#inputEditarTipo").val(vehiculo.tipo_vehiculo);
+        $("#inputEditarTransmision").val(vehiculo.transmision_vehiculo);
+        $("#inputEditarChasis").val(vehiculo.chasis_vehiculo);
+        $("#inputEditarColor").val(vehiculo.color_vehiculo);
+        $("#inputEditarNumeroMotor").val(vehiculo.numeroMotor_vehiculo);
+        $("#inputEditarSucursal").val(vehiculo.id_sucursal);
+        $("#inputEditarCompra").val(vehiculo.compra_vehiculo);
+        $("#inputEditarPropietario").val(vehiculo.rut_propietario);
+        $("#inputEditarFechaCompra").val(
+            vehiculo.fechaCompra_vehiculo ?
+            vehiculo.fechaCompra_vehiculo.substring(0, 10) :
+            null);
+        $("#inputCreateAt").val(formatearFechaHora(vehiculo.createdAt));
+        $("#modal_vehiculo").show();
+        $("#spinner_vehiculo").hide();
+    }
 }
 
 
 
-function limpiarCampos() {
+const limpiarCampos = () => {
     $("#spinner_vehiculo").show();
     $("#spinner_btn_editarVehiculo").hide();
     $("#modal_vehiculo").hide();
     $("#spinner_vehiculo").show();
-
-
-    $("#inputVehiculo").val("");
-    $("#exampleModalLongTitle").text("");
-
-    $("#inputEditarMarca").val("");
-    $("#inputEditarModelo").val("");
-    $("#inputEditarEdad").val("");
-    $("#inputEditarTipo").val("");
-    $("#inputEditarTransmision").val("");
-    $("#inputEditarChasis").val("");
-    $("#inputEditarColor").val("");
-    $("#inputEditarNumeroMotor").val("");
-    $("#inputEditarSucursal").val("");
-    $("#inputEditarCompra").val("");
-    $("#inputEditarPropietario").val("");
-    $("#inputEditarFechaCompra").val("");
-    $("#inputCreateAt").val("");
-    $("#inputEditarEstado").val("");
-    $("#inputEditarFoto").val("");
+    $("#formEditarVehiculo")[0].reset();
     document.getElementById("imagen").src = "";
 }
 </script>

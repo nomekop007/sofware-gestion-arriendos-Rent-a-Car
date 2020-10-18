@@ -1,205 +1,174 @@
 $(document).ready(() => {
-    cargarArriendos();
+	(cargarArriendos = () => {
+		$("#spinner_tablaTotalArriendos").show();
+		const url = base_url + "cargar_TotalArriendos";
+		$.getJSON(url, (result) => {
+			$("#spinner_tablaTotalArriendos").hide();
+			if (result.success) {
+				$.each(result.data, (i, arriendo) => {
+					cargarArriendoEnTabla(arriendo);
+				});
+			} else {
+				console.log("ah ocurrido un error al cargar los arriendos");
+			}
+		});
+	})();
 
-    $("#btn_crear_contrato").click(() => {
-        var form = $("#formContrato")[0];
-        var data = new FormData(form);
+	$("#btn_crear_contrato").click(() => {
+		const form = $("#formContrato")[0];
+		const data = new FormData(form);
+		generarContrato(data);
+	});
 
-        generarContrato(data);
-    });
+	$("#btn_firmar_contrato").click(() => {
+		const canvas = document.getElementById("canvas-firma");
+		const form = $("#formContrato")[0];
+		const data = new FormData(form);
+		data.append("inputFirmaPNG", canvas.toDataURL("image/png"));
+		generarContrato(data);
+	});
 
-    $("#btn_firmar_contrato").click(() => {
-        var canvas = document.getElementById("canvas-firma");
+	const generarContrato = async (data) => {
+		const descuento = $("#inputDescuento").val();
+		const valorArriendo = $("#inputValorArriendo").val();
+		const valorCopago = $("#inputValorCopago").val();
+		const numFacturacion = $("#inputNumFacturacion").val();
+		const total = Number($("#inputTotal").val());
 
-        var form = $("#formContrato")[0];
-        var data = new FormData(form);
-        data.append("inputFirmaPNG", canvas.toDataURL("image/png"));
+		//cacturando los accesorios
+		const arrayNombreAccesorios = [];
+		const arrayValorAccesorios = [];
+		const list = $('[name="accesorios[]"]');
+		for (let i = 0; i < list.length; i++) {
+			let element = list[i];
+			arrayNombreAccesorios.push(element.id);
+			arrayValorAccesorios.push(element.value);
+		}
+		if (arrayNombreAccesorios.length != 0) {
+			data.append("arrayNombreAccesorios", arrayNombreAccesorios);
+			data.append("arrayValorAccesorios", arrayValorAccesorios);
+		}
 
-        generarContrato(data);
-    });
+		if (
+			numFacturacion.length != 0 &&
+			total >= 0 &&
+			descuento.length != 0 &&
+			valorArriendo.length != 0 &&
+			valorCopago.length != 0
+		) {
+			$("#spinner_btn_firmarContrato").show();
+			desactivarBotones();
 
-    function generarContrato(data) {
-        var descuento = $("#inputDescuento").val();
-        var valorArriendo = $("#inputValorArriendo").val();
-        var valorCopago = $("#inputValorCopago").val();
+			const response = await ajax_function(data, "generar_PDFcontrato");
+			if (response.success) {
+				if (response.data) {
+					$("#modal_signature").modal({
+						show: true,
+					});
+					$("#nombre_documento").val(response.data.nombre_documento);
+					$("#body-documento").show();
+					$("#body-firma").show();
+					$("#body-sinContrato").hide();
 
-        var numFacturacion = $("#inputNumFacturacion").val();
-        var total = Number($("#inputTotal").val());
+					$("#body-documento").html(
+						'<iframe width="100%" height="700px" src="' +
+							storage +
+							"documentos/contratos/" +
+							response.data.nombre_documento +
+							".pdf" +
+							'" target="_parent"></iframe>'
+					);
+					if (response.data.firma) {
+						$("#btn_confirmar_contrato").attr("disabled", false);
+					}
+				} else {
+					Swal.fire({
+						icon: "error",
+						title: response.msg,
+					});
+				}
+			}
+		} else {
+			Swal.fire({
+				icon: "warning",
+				title: "campos vacios y/o valores invalidos",
+			});
+		}
+		activarBotones();
+	};
 
-        //cacturando los accesorios
-        var arrayNombreAccesorios = [];
-        var arrayValorAccesorios = [];
-        var list = $('[name="accesorios[]"]');
-        for (let i = 0; i < list.length; i++) {
-            var element = list[i];
-            arrayNombreAccesorios.push(element.id);
-            arrayValorAccesorios.push(element.value);
-        }
-        if (arrayNombreAccesorios.length != 0) {
-            data.append("arrayNombreAccesorios", arrayNombreAccesorios);
-            data.append("arrayValorAccesorios", arrayValorAccesorios);
-        }
+	$("#btn_confirmar_contrato").click(() => {
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de guardar los cambios!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				desactivarBotones();
+				$("#spinner_btn_confirmarContrato").show();
 
-        if (
-            numFacturacion.length != 0 &&
-            total >= 0 &&
-            descuento.length != 0 &&
-            valorArriendo.length != 0 &&
-            valorCopago.length != 0
-        ) {
-            $("#spinner_btn_firmarContrato").show();
-            desactivarBotones();
+				const form = $("#formContrato")[0];
+				const data = new FormData(form);
+				await guardarContrato(data);
+				await guardarDatosPago(data);
+				await enviarCorreoArriendo(data);
+				await cambiarEstadoArriendo(data);
 
-            $.ajax({
-                url: base_url + "generar_PDFcontrato",
-                type: "post",
-                dataType: "json",
-                data: data,
-                enctype: "multipart/form-data",
-                processData: false,
-                contentType: false,
-                cache: false,
-                timeOut: false,
-                success: (response) => {
-                    if (response.success) {
-                        $("#modal_signature").modal({
-                            show: true,
-                        });
-                        $("#nombre_documento").val(response.nombre_documento);
-                        $("#body-documento").show();
-                        $("#body-firma").show();
-                        $("#body-sinContrato").hide();
+				refrescarTabla();
+				Swal.fire(
+					"Contrato Firmado!",
+					"contrato firmado y registrado con exito!",
+					"success"
+				);
 
-                        $("#body-documento").html(
-                            '<iframe width="100%" height="700px" src="' +
-                            storage +
-                            "documentos/contratos/" +
-                            response.nombre_documento +
-                            ".pdf" +
-                            '" target="_parent"></iframe>'
-                        );
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: response.msg,
-                        });
-                    }
-                    activarBotones();
-                    if (response.firma) {
-                        $("#btn_confirmar_contrato").attr("disabled", false);
-                    }
-                },
-                error: () => {
-                    Swal.fire({
-                        icon: "error",
-                        title: "a ocurrido un error al generar el contrato",
-                        text: "A ocurrido un Error Contacte a informatica",
-                    });
+				$("#modal_signature").modal("toggle");
+				$("#modal_confirmar_arriendo").modal("toggle");
+			}
+		});
+	});
 
-                    activarBotones();
-                },
-            });
-        } else {
-            Swal.fire({
-                icon: "warning",
-                title: "campos vacios y/o valores invalidos",
-            });
-        }
-    }
+	const guardarContrato = async (data) => {
+		data.append("nombre_documento", $("#nombre_documento").val());
+		await ajax_function(data, "registrar_contrato");
+	};
 
-    $("#btn_confirmar_contrato").click(() => {
-        Swal.fire({
-            title: "Estas seguro?",
-            text: "estas a punto de guardar los cambios!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Si, seguro",
-            cancelButtonText: "No, cancelar!",
-            reverseButtons: true,
-        }).then(async(result) => {
-            if (result.isConfirmed) {
-                desactivarBotones();
-                $("#spinner_btn_confirmarContrato").show();
+	const guardarDatosPago = async (data) => {
+		data.append("digitador", $("#inputDigitador").val());
+		await ajax_function(data, "registrar_pago");
+	};
 
-                await guardarContrato();
-                await guardarDatosPago();
-                await enviarCorreoArriendo();
-                await cambiarEstadoArriendo();
+	const enviarCorreoArriendo = async (data) => {
+		await ajax_function(data, "enviar_correoArriendo");
+	};
 
-                refrescarTabla();
-                Swal.fire(
-                    "Contrato Firmado!",
-                    "contrato firmado y registrado con exito!",
-                    "success"
-                );
+	const cambiarEstadoArriendo = async (data) => {
+		await ajax_function(data, "cambiarEstado_arriendo");
+	};
 
-                $("#modal_signature").modal("toggle");
-                $("#modal_confirmar_arriendo").modal("toggle");
-            }
-        });
-    });
+	const refrescarTabla = () => {
+		//limpia la tabla
+		$("#tablaTotalArriendos").DataTable(lenguaje).row().clear().draw(false);
+		//carga nuevamente
+		cargarArriendos();
+	};
 
-    async function guardarContrato() {
-        var form = $("#formContrato")[0];
-        var data = new FormData(form);
-        data.append("nombre_documento", $("#nombre_documento").val());
-        await funAjaxGuardar(data, "registrar_contrato");
-    }
+	const desactivarBotones = () => {
+		$("#btn_crear_contrato").attr("disabled", true);
+		$("#btn_confirmar_contrato").attr("disabled", true);
+		$("#btn_firmar_contrato").attr("disabled", true);
+		$("#limpiar-firma").attr("disabled", true);
+		$("#spinner_btn_crearContrato").show();
+	};
 
-    async function guardarDatosPago() {
-        var form = $("#formContrato")[0];
-        var data = new FormData(form);
-        data.append("digitador", $("#inputDigitador").val());
-        await funAjaxGuardar(data, "registrar_pago");
-    }
-
-    async function enviarCorreoArriendo() {
-        var form = $("#formContrato")[0];
-        var data = new FormData(form);
-        await funAjaxGuardar(data, "enviar_correoArriendo");
-    }
-
-    async function cambiarEstadoArriendo() {
-        var form = $("#formContrato")[0];
-        var data = new FormData(form);
-        await funAjaxGuardar(data, "cambiarEstado_arriendo");
-    }
-
-    function refrescarTabla() {
-        //limpia la tabla
-        $("#tablaTotalArriendos").DataTable(lenguaje).row().clear().draw(false);
-        //carga nuevamente
-        cargarArriendos();
-    }
-
-    function cargarArriendos() {
-        $("#spinner_tablaTotalArriendos").show();
-        const url = base_url + "cargar_TotalArriendos";
-        $.getJSON(url, (result) => {
-            $("#spinner_tablaTotalArriendos").hide();
-            if (result.success) {
-                $.each(result.data, (i, arriendo) => {
-                    cargarArriendoEnTabla(arriendo);
-                });
-            } else {
-                console.log("ah ocurrido un error al cargar los arriendos");
-            }
-        });
-    }
-
-    function desactivarBotones() {
-        $("#btn_crear_contrato").attr("disabled", true);
-        $("#btn_confirmar_contrato").attr("disabled", true);
-        $("#btn_firmar_contrato").attr("disabled", true);
-        $("#limpiar-firma").attr("disabled", true);
-        $("#spinner_btn_crearContrato").show();
-    }
-
-    function activarBotones() {
-        $("#spinner_btn_crearContrato").hide();
-        $("#spinner_btn_firmarContrato").hide();
-        $("#btn_crear_contrato").attr("disabled", false);
-        $("#btn_firmar_contrato").attr("disabled", false);
-        $("#limpiar-firma").attr("disabled", false);
-    }
+	const activarBotones = () => {
+		$("#spinner_btn_crearContrato").hide();
+		$("#spinner_btn_firmarContrato").hide();
+		$("#btn_crear_contrato").attr("disabled", false);
+		$("#btn_firmar_contrato").attr("disabled", false);
+		$("#limpiar-firma").attr("disabled", false);
+	};
 });

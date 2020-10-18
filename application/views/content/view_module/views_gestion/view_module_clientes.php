@@ -286,124 +286,79 @@ $("#m_cliente").addClass("active");
 $("#l_cliente").addClass("card");
 
 
-function cargarCliente(rut_cliente) {
+const buscarCliente = async (rut_cliente) => {
     limpiarCampos();
-    $.getJSON({
-        url: base_url + "buscar_cliente",
-        type: "post",
-        dataType: "json",
-        data: {
-            rut_cliente
-        },
-        success: (response) => {
-            if (response.success) {
-                const cliente = response.data;
-                $("#form_header").text("Cliente particular");
-                $("#inputNombreCliente").val(cliente.nombre_cliente);
-                $("#inputRutCliente").val(cliente.rut_cliente);
-                $("#inputEstadoCivilCliente").val(cliente.estadoCivil_cliente);
-                $("#inputNacimientoCliente").val(cliente.fechaNacimiento_cliente ? formatearFecha(cliente
-                    .fechaNacimiento_cliente) : "");
-                $("#inputCorreoCliente").val(cliente.correo_cliente);
-                $("#inputCiudadCliente").val(cliente.ciudad_cliente);
-                $("#inputDireccionCliente").val(cliente.direccion_cliente);
-                $("#inputTelefonoCliente").val("+569 " + cliente.telefono_cliente);
-                $("#inputCreateAtCliente").val(formatearFechaHora(cliente.createdAt));
+    const data = new FormData();
+    data.append("rut_cliente", rut_cliente);
+    const response = await ajax_function(data, "buscar_cliente");
+    if (response.success) {
+        const cliente = response.data;
+        $("#form_header").text("Cliente particular");
+        $("#inputNombreCliente").val(cliente.nombre_cliente);
+        $("#inputRutCliente").val(cliente.rut_cliente);
+        $("#inputEstadoCivilCliente").val(cliente.estadoCivil_cliente);
+        $("#inputNacimientoCliente").val(cliente.fechaNacimiento_cliente ? formatearFecha(
+            cliente
+            .fechaNacimiento_cliente) : "");
+        $("#inputCorreoCliente").val(cliente.correo_cliente);
+        $("#inputCiudadCliente").val(cliente.ciudad_cliente);
+        $("#inputDireccionCliente").val(cliente.direccion_cliente);
+        $("#inputTelefonoCliente").val("+569 " + cliente.telefono_cliente);
+        $("#inputCreateAtCliente").val(formatearFechaHora(cliente.createdAt));
 
-                $("#spinner_cliente").hide();
-                $("#form_cliente").show();
-            }
-        },
-        error: () => {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "A ocurrido un Error Contacte a informatica",
-            });
-            limpiarCampos();
-        }
-    });
-}
-
-function cargarEmpresa(rut_empresa) {
-    limpiarCampos();
-    $.getJSON({
-        url: base_url + "buscar_empresa",
-        type: "post",
-        dataType: "json",
-        data: {
-            rut_empresa
-        },
-        success: (response) => {
-            if (response.success) {
-                const empresa = response.data;
-                $("#form_header").text("Cliente Empresa");
-                $("#inputCiudadEmpresa").val(empresa.ciudad_empresa);
-                $("#inputCorreoEmpresa").val(empresa.correo_empresa);
-                $("#inputCreateAtEmpresa").val(formatearFechaHora(empresa.createdAt));
-                $("#inputDireccionEmpresa").val(empresa.direccion_empresa);
-                $("#inputNombreEmpresa").val(empresa.nombre_empresa);
-                $("#inputRolEmpresa").val(empresa.rol_empresa);
-                $("#inputRutEmpresa").val(empresa.rut_empresa);
-                $("#inputTelefonoEmpresa").val("+569 " + empresa.telefono_empresa);
-                $("#inputVigenciaEmpresa").val(empresa.vigencia_empresa);
-
-                $("#spinner_cliente").hide();
-                $("#form_empresa").show();
-            }
-        },
-        error: () => {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "A ocurrido un Error Contacte a informatica",
-            });
-            limpiarCampos();
-        }
-    });
-}
-
-function cargarConductor(rut_conductor) {
-    limpiarCampos();
-    $.getJSON({
-        url: base_url + "buscar_conductor",
-        type: "post",
-        dataType: "json",
-        data: {
-            rut_conductor
-        },
-        success: (response) => {
-            if (response.success) {
-                const conductor = response.data;
-                $("#form_header").text("Conductor");
-                $("#inputClaseConductor").val(conductor.clase_conductor);
-                $("#inputCreateAtConductor").val(formatearFechaHora(conductor.createdAt));
-                $("#inputDireccionConductor").val(conductor.direccion_conductor);
-                $("#inputMunicipalidadConductor").val(conductor.municipalidad_conductor);
-                $("#inputNombreConductor").val(conductor.nombre_conductor);
-                $("#inputNumeroConductor").val(conductor.numero_conductor);
-                $("#inputRutConductor").val(conductor.rut_conductor);
-                $("#inputTelefonoConductor").val("+569 " + conductor.telefono_conductor);
-                $("#inputVCTOconductor").val(conductor.vcto_conductor ? formatearFecha(conductor
-                    .vcto_conductor) : "");
-
-                $("#spinner_cliente").hide();
-                $("#form_conductor").show();
-            }
-        },
-        error: () => {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "A ocurrido un Error Contacte a informatica",
-            });
-            limpiarCampos();
-        }
-    });
+        $("#spinner_cliente").hide();
+        $("#form_cliente").show();
+    }
 }
 
 
-function limpiarCampos() {
+const buscarEmpresa = async (rut_empresa) => {
+    limpiarCampos();
+    const data = new FormData();
+    data.append("rut_empresa", rut_empresa);
+    const response = await ajax_function(data, "buscar_empresa");
+    if (response.success) {
+        const empresa = response.data;
+        $("#form_header").text("Cliente Empresa");
+        $("#inputCiudadEmpresa").val(empresa.ciudad_empresa);
+        $("#inputCorreoEmpresa").val(empresa.correo_empresa);
+        $("#inputCreateAtEmpresa").val(formatearFechaHora(empresa.createdAt));
+        $("#inputDireccionEmpresa").val(empresa.direccion_empresa);
+        $("#inputNombreEmpresa").val(empresa.nombre_empresa);
+        $("#inputRolEmpresa").val(empresa.rol_empresa);
+        $("#inputRutEmpresa").val(empresa.rut_empresa);
+        $("#inputTelefonoEmpresa").val("+569 " + empresa.telefono_empresa);
+        $("#inputVigenciaEmpresa").val(empresa.vigencia_empresa);
+        $("#spinner_cliente").hide();
+        $("#form_empresa").show();
+    }
+}
+
+const buscarConductor = async (rut_conductor) => {
+    limpiarCampos();
+    const data = new FormData();
+    data.append("rut_conductor", rut_conductor);
+    const response = await ajax_function(data, "buscar_conductor");
+    if (response.success) {
+        const conductor = response.data;
+        $("#form_header").text("Conductor");
+        $("#inputClaseConductor").val(conductor.clase_conductor);
+        $("#inputCreateAtConductor").val(formatearFechaHora(conductor.createdAt));
+        $("#inputDireccionConductor").val(conductor.direccion_conductor);
+        $("#inputMunicipalidadConductor").val(conductor.municipalidad_conductor);
+        $("#inputNombreConductor").val(conductor.nombre_conductor);
+        $("#inputNumeroConductor").val(conductor.numero_conductor);
+        $("#inputRutConductor").val(conductor.rut_conductor);
+        $("#inputTelefonoConductor").val("+569 " + conductor.telefono_conductor);
+        $("#inputVCTOconductor").val(conductor.vcto_conductor ? formatearFecha(conductor
+            .vcto_conductor) : "");
+        $("#spinner_cliente").hide();
+        $("#form_conductor").show();
+    }
+}
+
+
+const limpiarCampos = () => {
     $("#form_cliente").hide();
     $("#form_empresa").hide();
     $("#form_conductor").hide();

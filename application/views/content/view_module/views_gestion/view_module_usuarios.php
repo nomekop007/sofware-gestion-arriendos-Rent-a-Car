@@ -15,34 +15,34 @@
         <h5>Registrar nuevo usuario</h5>
         <div class="card">
             <div class="card-body">
-                <form class="needs-validation" novalidate>
+                <form class="needs-validation" id="form_registrar_usuario" novalidate>
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputNombreUsuario">Nombre Completo</label>
                             <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
-                                id="inputNombreUsuario" required>
+                                id="inputNombreUsuario" name="inputNombreUsuario" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputCorreoUsuario">correo</label>
                             <input onblur="mayus(this);" maxLength="30" type="email" class="form-control"
-                                id="inputCorreoUsuario" required>
+                                id="inputCorreoUsuario" name="inputCorreoUsuario" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputRolUsuario">Rol</label>
-                            <select id="inputRolUsuario" class="form-control">
+                            <select id="inputRolUsuario" name="inputRolUsuario" class="form-control">
 
                             </select>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputSucursalUsuario">Sucursal</label>
-                            <select id="inputSucursalUsuario" class="form-control">
+                            <select id="inputSucursalUsuario" name="inputSucursalUsuario" class="form-control">
                             </select>
                         </div>
                         <div class=" form-group col-md-4">
                             <label for="inputClaveUsuario">Constraseña</label>
                             <div class="input-group">
-                                <input maxLength="30" minlength="8" type="password" class="form-control"
-                                    id="inputClaveUsuario" required>
+                                <input maxLength="30" minlength="9" type="password" class="form-control"
+                                    id="inputClaveUsuario" name="inputClaveUsuario" required>
                                 <div class="input-group-append">
                                     <button class="btn btn-dark show_password" type="button"
                                         onclick="mostrarPassword('inputClaveUsuario')"> <span
@@ -128,31 +128,32 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" id="formEditarUsuario" novalidate>
-                <input type="text" id="inputUsuario" hidden />
-                <div class="modal-body" id="fomUsuario">
+            <form class="needs-validation" id="form_editar_usuario" novalidate>
+                <input type="text" id="inputUsuario" name="inputUsuario" hidden />
+                <div class="modal-body">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="inputEditNombreUsuario">Nombre Completo</label>
                                     <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
-                                        id="inputEditNombreUsuario" required>
+                                        id="inputEditNombreUsuario" name="inputEditNombreUsuario" required>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputEditCorreoUsuario">correo</label>
                                     <input onblur="mayus(this);" maxLength="30" type="email" class="form-control"
-                                        id="inputEditCorreoUsuario" required>
+                                        id="inputEditCorreoUsuario" name="inputEditCorreoUsuario" required>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputEditRolUsuario">Rol</label>
-                                    <select id="inputEditRolUsuario" class="form-control">
+                                    <select id="inputEditRolUsuario" name="inputEditRolUsuario" class="form-control">
 
                                     </select>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputEditSucursalUsuario">Sucursal</label>
-                                    <select id="inputEditSucursalUsuario" class="form-control">
+                                    <select id="inputEditSucursalUsuario" name="inputEditSucursalUsuario"
+                                        class="form-control">
                                     </select>
                                 </div>
 
@@ -160,7 +161,7 @@
                                     <label for="inputEditClaveUsuario">Cambiar constraseña</label>
                                     <div class="input-group">
                                         <input maxLength="30" minlength="8" type="password" class="form-control"
-                                            id="inputEditClaveUsuario">
+                                            id="inputEditClaveUsuario" name="inputEditClaveUsuario">
                                         <div class="input-group-append">
                                             <button class="btn btn-dark show_password" type="button"
                                                 onclick="mostrarPassword('inputEditClaveUsuario')"> <span
@@ -195,60 +196,36 @@ $("#m_usuario").addClass("active");
 $("#l_usuario").addClass("card");
 $("#spinner_btn_registrar").hide();
 
-function cargarUsuario(id_usuario) {
+const buscarUsuario = async (id_usuario) => {
     limpiarCampos();
-    $.getJSON({
-        url: base_url + "buscar_usuario",
-        type: "post",
-        dataType: "json",
-        data: {
-            id_usuario
-        },
-        success: (response) => {
-            if (response.success) {
-                const usuario = response.data;
-                $("#inputUsuario").val(usuario.id_usuario);
-                $("#inputEditNombreUsuario").val(usuario.nombre_usuario);
-                $("#inputEditCorreoUsuario").val(usuario.email_usuario);
-                $("#inputEditRolUsuario").val(usuario.id_rol);
-                $("#inputEditSucursalUsuario").val(usuario.id_sucursal);
+    const data = new FormData();
+    data.append("id_usuario", id_usuario);
+    const response = await ajax_function(data, "buscar_usuario");
+    if (response.success) {
+        const usuario = response.data;
+        $("#inputUsuario").val(usuario.id_usuario);
+        $("#inputEditNombreUsuario").val(usuario.nombre_usuario);
+        $("#inputEditCorreoUsuario").val(usuario.email_usuario);
+        $("#inputEditRolUsuario").val(usuario.id_rol);
+        $("#inputEditSucursalUsuario").val(usuario.id_sucursal);
 
-                if (usuario.estado_usuario) {
-                    $("#btn_cambiarEstado_usuario").text("inhabilitar");
-                    $("#btn_cambiarEstado_usuario").addClass("btn btn-danger");
+        if (usuario.estado_usuario) {
+            $("#btn_cambiarEstado_usuario").text("inhabilitar");
+            $("#btn_cambiarEstado_usuario").addClass("btn btn-danger");
 
-                } else {
-                    $("#btn_cambiarEstado_usuario").text("habilitar");
-                    $("#btn_cambiarEstado_usuario").addClass("btn btn-success");
+        } else {
+            $("#btn_cambiarEstado_usuario").text("habilitar");
+            $("#btn_cambiarEstado_usuario").addClass("btn btn-success");
 
-                }
-                //ocultar y mostrar 
-                $("#formSpinner").hide();
-                $("#formEditarUsuario").show();
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: "Error",
-                    text: "Usuario no encontrado",
-                });
-                $("#formSpinner").show();
-                $("#formEditarUsuario").hide();
-            }
-        },
-        error: () => {
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "A ocurrido un Error Contacte a informatica",
-            });
-            $("#formSpinner").show();
-            $("#formEditarUsuario").hide();
-        },
-    });
+        }
+        //ocultar y mostrar 
+        $("#formSpinner").hide();
+        $("#form_editar_usuario").show();
+    }
 }
 
 //funcion para ocultar y mostrar constraseñas
-function mostrarPassword(idInput) {
+const mostrarPassword = (idInput) => {
     var cambio = document.getElementById(idInput);
     if (cambio.type == "password") {
         cambio.type = "text";
@@ -264,16 +241,11 @@ function mostrarPassword(idInput) {
     });
 }
 
-function limpiarCampos() {
+const limpiarCampos = () => {
     $("#formSpinner").show();
     $("#spinner_btn_editarUsuario").hide();
-    $("#formEditarUsuario").hide();
-    $("#inputUsuario").val("");
-    $("#inputEditNombreUsuario").val("");
-    $("#inputEditCorreoUsuario").val("");
-    $("#inputEditRolUsuario").val("");
-    $("#inputEditSucursalUsuario").val("");
-    $("#inputEditClaveUsuario").val("");
+    $("#form_editar_usuario").hide();
+    $("#form_editar_usuario")[0].reset();
     $("#btn_cambiarEstado_usuario").removeClass();
 }
 </script>

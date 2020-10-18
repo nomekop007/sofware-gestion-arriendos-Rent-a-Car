@@ -1,11 +1,10 @@
 $(document).ready(() => {
 	//se inician los datatable
-	var tablaCliente = $("#tablaClientes").DataTable(lenguaje);
-	var tablaEmpresa = $("#tablaEmpresas").DataTable(lenguaje);
-	var tablaConductor = $("#tablaConductores").DataTable(lenguaje);
+	const tablaCliente = $("#tablaClientes").DataTable(lenguaje);
+	const tablaEmpresa = $("#tablaEmpresas").DataTable(lenguaje);
+	const tablaConductor = $("#tablaConductores").DataTable(lenguaje);
 
-	//cargar cliente
-	(() => {
+	(cargarClientes = () => {
 		$("#spinner_tablaClientes").show();
 		const url = base_url + "cargar_clientes";
 		$.getJSON(url, (result) => {
@@ -21,7 +20,7 @@ $(document).ready(() => {
 							" <button value='" +
 								o.rut_cliente +
 								"' " +
-								" onclick='cargarCliente(this.value)'" +
+								" onclick='buscarCliente(this.value)'" +
 								" data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
 						])
 						.draw(false);
@@ -32,8 +31,7 @@ $(document).ready(() => {
 		});
 	})();
 
-	//cargar empresas
-	(() => {
+	(cargarEmpresas = () => {
 		$("#spinner_tablaEmpresas").show();
 		const url = base_url + "cargar_empresas";
 		$.getJSON(url, (result) => {
@@ -49,7 +47,7 @@ $(document).ready(() => {
 							" <button value='" +
 								o.rut_empresa +
 								"' " +
-								" onclick='cargarEmpresa(this.value)'" +
+								" onclick='buscarEmpresa(this.value)'" +
 								" data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
 						])
 						.draw(false);
@@ -60,8 +58,7 @@ $(document).ready(() => {
 		});
 	})();
 
-	//cargar conductores
-	(() => {
+	(cargarConductores = () => {
 		$("#spinner_tablaConductores").show();
 		const url = base_url + "cargar_conductores";
 		$.getJSON(url, (result) => {
@@ -77,7 +74,7 @@ $(document).ready(() => {
 							" <button value='" +
 								o.rut_conductor +
 								"' " +
-								" onclick='cargarConductor(this.value)'" +
+								" onclick='buscarConductor(this.value)'" +
 								" data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
 						])
 						.draw(false);

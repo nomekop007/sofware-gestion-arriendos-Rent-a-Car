@@ -29,12 +29,12 @@ class Usuario_controller extends CI_Controller
 
         $ArrayData = [
             "userAt" => $nameUser,
-            "nombre_usuario" => $this->input->post("nombre"),
+            "nombre_usuario" => $this->input->post("inputNombreUsuario"),
             "estado_usuario" => true,
-            "email_usuario" => $this->input->post("correo"),
-            "clave_usuario" => $this->input->post("clave"),
-            "id_rol" => $this->input->post("rol"),
-            "id_sucursal" => $this->input->post("sucursal"),
+            "email_usuario" => $this->input->post("inputCorreoUsuario"),
+            "clave_usuario" => $this->input->post("inputClaveUsuario"),
+            "id_rol" => $this->input->post("inputRolUsuario"),
+            "id_sucursal" => $this->input->post("inputSucursalUsuario"),
         ];
         echo post_function($ArrayData, "usuarios/registrar", $tokenUser);
     }
@@ -51,14 +51,14 @@ class Usuario_controller extends CI_Controller
         $tokenUser = $this->session->userdata('usertoken');
         $nameUser = $this->session->userdata('nombre');
 
-        $id_usuario = $this->input->post("id_usuario");
+        $id_usuario = $this->input->post("inputUsuario");
         $ArrayData = [
             "userAt" => $nameUser,
-            "nombre_usuario" => $this->input->post("nombre"),
-            "email_usuario" => $this->input->post("correo"),
-            "clave_usuario" => $this->input->post("clave"),
-            "id_rol" => $this->input->post("rol"),
-            "id_sucursal" => $this->input->post("sucursal"),
+            "nombre_usuario" => $this->input->post("inputEditNombreUsuario"),
+            "email_usuario" => $this->input->post("inputEditCorreoUsuario"),
+            "clave_usuario" => $this->input->post("inputEditClaveUsuario"),
+            "id_rol" => $this->input->post("inputEditRolUsuario"),
+            "id_sucursal" => $this->input->post("inputEditSucursalUsuario"),
         ];
         echo put_function($id_usuario, $ArrayData, "usuarios/editarUsuario", $tokenUser);
     }

@@ -26,8 +26,8 @@ function cargarSelect(ruta, idSelect) {
 	});
 }
 
-async function funAjaxGuardar(data, dataUrl) {
-	await $.ajax({
+async function ajax_function(data, dataUrl) {
+	return await $.ajax({
 		url: base_url + dataUrl,
 		type: "post",
 		dataType: "json",
@@ -38,8 +38,8 @@ async function funAjaxGuardar(data, dataUrl) {
 		cache: false,
 		timeOut: false,
 		success: (response) => {
-			if (response.sucesss) {
-				console.log("guardado! " + dataUrl);
+			if (response.success) {
+				console.log(dataUrl + " OK!");
 			} else {
 				Swal.fire({
 					icon: "error",

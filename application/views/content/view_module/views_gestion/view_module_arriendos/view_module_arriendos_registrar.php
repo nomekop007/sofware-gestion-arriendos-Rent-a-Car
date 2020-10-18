@@ -562,14 +562,12 @@ $("#spinner_cliente").hide();
 $("#spinner_empresa").hide();
 $("#spinner_btn_registrar").hide();
 $("#spinner_btn_crearContrato").hide();
-
-
 $("#foto_tarjeta").hide();
 $("#foto_cheque").hide();
 $("#card-tarjeta").hide();
 $("#card-cheque").hide();
 
-function tipoGarantia(value) {
+const tipoGarantia = (value) => {
     switch (value) {
         case "CHEQUE":
             $("#card-cheque").show();
@@ -600,59 +598,58 @@ function tipoGarantia(value) {
             $("#card-cheque").hide();
             break;
     }
-
 }
 
 
 // Script para cambia el tab cliente de acuerdo al tipo de arriendo
 (tipoArriendo = () => {
-    var tipo = $("#inputTipo option:selected").val();
-    if (tipo == "PARTICULAR") {
-        $('#titulo_cliente').show();
-        $('#form_cliente').show();
-        $("#formComprobanteDomicilio").show();
-        $('#titulo_remplazo').hide();
-        $('#form_remplazo').hide();
-        $('#titulo_empresa').hide();
-        $('#form_empresa').hide();
-        $("#formCartaRemplazo").hide();
-
-        $("#inputRutEmpresa").val("");
-    } else if (tipo == "REMPLAZO") {
-        $('#titulo_cliente').show();
-        $('#form_cliente').show();
-        $('#titulo_remplazo').show();
-        $('#form_remplazo').show();
-        $("#formComprobanteDomicilio").show();
-        $("#formCartaRemplazo").show();
-
-        $('#titulo_empresa').hide();
-        $('#form_empresa').hide();
-
-        $("#inputRutEmpresa").val("");
-    } else if (tipo == "EMPRESA") {
-        $('#titulo_empresa').show();
-        $('#form_empresa').show();
-        $('#titulo_remplazo').hide();
-        $('#form_remplazo').hide();
-        $('#titulo_cliente').hide();
-        $('#form_cliente').hide();
-        $("#formComprobanteDomicilio").hide();
-        $("#formCartaRemplazo").hide();
-
-        $("#inputRutCliente").val("");
+    const tipo = $("#inputTipo option:selected").val();
+    switch (tipo) {
+        case "PARTICULAR":
+            $('#titulo_cliente').show();
+            $('#form_cliente').show();
+            $("#formComprobanteDomicilio").show();
+            $('#titulo_remplazo').hide();
+            $('#form_remplazo').hide();
+            $('#titulo_empresa').hide();
+            $('#form_empresa').hide();
+            $("#formCartaRemplazo").hide();
+            $("#inputRutEmpresa").val("");
+            break;
+        case "REMPLAZO":
+            $('#titulo_cliente').show();
+            $('#form_cliente').show();
+            $('#titulo_remplazo').show();
+            $('#form_remplazo').show();
+            $("#formComprobanteDomicilio").show();
+            $("#formCartaRemplazo").show();
+            $('#titulo_empresa').hide();
+            $('#form_empresa').hide();
+            $("#inputRutEmpresa").val("");
+            break;
+        case "EMPRESA":
+            $('#titulo_empresa').show();
+            $('#form_empresa').show();
+            $('#titulo_remplazo').hide();
+            $('#form_remplazo').hide();
+            $('#titulo_cliente').hide();
+            $('#form_cliente').hide();
+            $("#formComprobanteDomicilio").hide();
+            $("#formCartaRemplazo").hide();
+            $("#inputRutCliente").val("");
+            break;
     }
 })();
 
 
-function calcularDias() {
-    var fechaEntrega = $("#inputFechaEntrega").val();
-    var fechaRecepcion = $("#inputFechaRecepcion").val();
+const calcularDias = () => {
+    let fechaEntrega = $("#inputFechaEntrega").val();
+    let fechaRecepcion = $("#inputFechaRecepcion").val();
 
-    var fechaini = new Date(fechaEntrega);
-    var fechafin = new Date(fechaRecepcion);
-    var diasdif = fechafin.getTime() - fechaini.getTime();
-    var dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
+    let fechaini = new Date(fechaEntrega);
+    let fechafin = new Date(fechaRecepcion);
+    let diasdif = fechafin.getTime() - fechaini.getTime();
+    let dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
     $("#inputNumeroDias").val(dias);
 }
 </script>

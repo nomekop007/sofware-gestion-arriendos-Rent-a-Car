@@ -1,5 +1,5 @@
 $(document).ready(() => {
-	var tablaUsuario = $("#tablaUsuarios").DataTable(lenguaje);
+	const tablaUsuario = $("#tablaUsuarios").DataTable(lenguaje);
 
 	//cargar sucursales  (ruta,select)
 	cargarSelect("cargar_Sucursales", "inputSucursalUsuario");
@@ -7,70 +7,60 @@ $(document).ready(() => {
 	//cargar roles (ruta,select)
 	cargarSelect("cargar_roles", "inputRolUsuario");
 	cargarSelect("cargar_roles", "inputEditRolUsuario");
-	//cargar usuarios
-	cargarUsuarios();
 
-	$("#btn_registrar_usuario").click(() => {
-		var nombre = $("#inputNombreUsuario").val();
-		var correo = $("#inputCorreoUsuario").val();
-		var clave = $("#inputClaveUsuario").val();
-		var rol = $("#inputRolUsuario").val();
-		var sucursal = $("#inputSucursalUsuario").val();
+	(cargarUsuarios = () => {
+		$("#spinner_tablaUsuarios").show();
+		const url = base_url + "cargar_usuarios";
+		$.getJSON(url, (result) => {
+			$("#spinner_tablaUsuarios").hide();
+			if (result.success) {
+				$.each(result.data, (i, usuario) => {
+					cargarUsuarioEnTabla(usuario);
+				});
+			} else {
+				console.log("ah ocurrido un error al cargar los usuarios");
+			}
+		});
+	})();
+
+	$("#btn_registrar_usuario").click(async () => {
+		const nombre = $("#inputNombreUsuario").val();
+		const correo = $("#inputCorreoUsuario").val();
+		const clave = $("#inputClaveUsuario").val();
+
+		const form = $("#form_registrar_usuario")[0];
+		const data = new FormData(form);
 
 		if (nombre.length != 0 && correo.length != 0 && clave.length > 8) {
 			$("#btn_registrar_usuario").attr("disabled", true);
 			$("#spinner_btn_registrar").show();
-			$.ajax({
-				url: base_url + "registrar_usuario",
-				type: "post",
-				dataType: "json",
-				data: { nombre, correo, clave, rol, sucursal },
-				success: (e) => {
-					if (e.success) {
-						Swal.fire("Exito", "Usuario creado exitosamente", "success");
-						cargarUsuarioEnTabla(e.data);
-						$("#inputNombreUsuario").val("");
-						$("#inputCorreoUsuario").val("");
-						$("#inputClaveUsuario").val("");
-					} else {
-						Swal.fire({
-							icon: "warning",
-							title: e.msg,
-						});
-					}
-					$("#btn_registrar_usuario").attr("disabled", false);
-					$("#spinner_btn_registrar").hide();
-				},
-				error: () => {
+
+			const response = await ajax_function(data, "registrar_usuario");
+			if (response) {
+				if (response.data) {
+					Swal.fire("Exito", "Usuario creado exitosamente", "success");
+					cargarUsuarioEnTabla(response.data);
+					$("#form_registrar_usuario")[0].reset();
+				} else {
 					Swal.fire({
-						icon: "error",
-						title: "no se guardo el usuario",
-						text: "A ocurrido un Error Contacte a informatica",
+						icon: "warning",
+						title: response.msg,
 					});
-					$("#btn_registrar_usuario").attr("disabled", false);
-					$("#spinner_btn_registrar").hide();
-				},
-			});
+				}
+				$("#btn_registrar_usuario").attr("disabled", false);
+				$("#spinner_btn_registrar").hide();
+			}
 		}
 	});
 
-	$("#btn_editar_usuario").click(() => {
-		var id_usuario = $("#inputUsuario").val();
-		var nombre = $("#inputEditNombreUsuario").val();
-		var correo = $("#inputEditCorreoUsuario").val();
-		var clave = $("#inputEditClaveUsuario").val();
-		var rol = $("#inputEditRolUsuario").val();
-		var sucursal = $("#inputEditSucursalUsuario").val();
-		if (nombre.length != 0 && correo.length != 0) {
-			const usuario = {
-				id_usuario,
-				nombre,
-				correo,
-				rol,
-				sucursal,
-				clave,
-			};
+	$("#btn_editar_usuario").click(async () => {
+		const nombre = $("#inputEditNombreUsuario").val();
+		const correo = $("#inputEditCorreoUsuario").val();
+		const clave = $("#inputEditClaveUsuario").val();
 
+		const form = $("#form_editar_usuario")[0];
+		const data = new FormData(form);
+		if (nombre.length != 0 && correo.length != 0) {
 			if (clave.length != 0) {
 				if (clave.length < 8) {
 					Swal.fire({
@@ -80,33 +70,20 @@ $(document).ready(() => {
 					return;
 				}
 			}
-
-			$.ajax({
-				url: base_url + "editar_usuario",
-				type: "post",
-				dataType: "json",
-				data: usuario,
-				success: (response) => {
-					Swal.fire("Exito", response.msg, "success");
-					$("#modal_editar_usuario").modal("toggle");
-					refrescarTabla();
-				},
-				error: () => {
-					Swal.fire({
-						icon: "error",
-						title: "no se actualizo el usuario",
-						text: "A ocurrido un Error Contacte a informatica",
-					});
-				},
-			});
+			const response = await ajax_function(data, "editar_usuario");
+			if (response.success) {
+				Swal.fire("Exito", response.msg, "success");
+				$("#modal_editar_usuario").modal("toggle");
+				refrescarTabla();
+			}
 		}
 	});
 
 	$("#btn_cambiarEstado_usuario").click(() => {
-		var accion = $("#btn_cambiarEstado_usuario").text();
-		var id_usuario = $("#inputUsuario").val();
+		const accion = $("#btn_cambiarEstado_usuario").text();
+		const id_usuario = $("#inputUsuario").val();
 
-		var config = "";
+		let config = "";
 		if (accion == "inhabilitar") {
 			config = {
 				title: "esta seguro?",
@@ -126,60 +103,29 @@ $(document).ready(() => {
 				confirmButtonText: "si, activar!",
 			};
 		}
-		Swal.fire(config).then((result) => {
+		Swal.fire(config).then(async (result) => {
 			if (result.isConfirmed) {
-				$.getJSON({
-					url: base_url + "cambiarEstado_usuario",
-					type: "post",
-					dataType: "json",
-					data: {
-						id_usuario,
-						accion,
-					},
-					success: (response) => {
-						if (response.success) {
-							Swal.fire("Exito", response.msg, "success");
-							$("#modal_editar_usuario").modal("toggle");
-							refrescarTabla();
-						}
-					},
-					error: () => {
-						Swal.fire({
-							icon: "error",
-							title: "no se guardo el usuario",
-							text: "A ocurrido un Error Contacte a informatica",
-						});
-					},
-				});
+				const data = new FormData();
+				data.append("id_usuario", id_usuario);
+				data.append("accion", accion);
+				const response = await ajax_function(data, "cambiarEstado_usuario");
+				if (response.success) {
+					Swal.fire("Exito", response.msg, "success");
+					$("#modal_editar_usuario").modal("toggle");
+					refrescarTabla();
+				}
 			}
 		});
 	});
 
-	//BUSCAR MEJOR SOLUCION PARA EVITAR ACTUALIZAR TABLA
-	function refrescarTabla() {
+	const refrescarTabla = () => {
 		//limpia la tabla
 		tablaUsuario.row().clear().draw(false);
-
 		//carga nuevamente
 		cargarUsuarios();
-	}
+	};
 
-	function cargarUsuarios() {
-		$("#spinner_tablaUsuarios").show();
-		const url = base_url + "cargar_usuarios";
-		$.getJSON(url, (result) => {
-			$("#spinner_tablaUsuarios").hide();
-			if (result.success) {
-				$.each(result.data, (i, usuario) => {
-					cargarUsuarioEnTabla(usuario);
-				});
-			} else {
-				console.log("ah ocurrido un error al cargar los usuarios");
-			}
-		});
-	}
-
-	function cargarUsuarioEnTabla(usuario) {
+	const cargarUsuarioEnTabla = (usuario) => {
 		tablaUsuario.row
 			.add([
 				usuario.nombre_usuario,
@@ -193,9 +139,9 @@ $(document).ready(() => {
 				" <button value='" +
 					usuario.id_usuario +
 					"' " +
-					" onclick='cargarUsuario(this.value)'" +
+					" onclick='buscarUsuario(this.value)'" +
 					" data-toggle='modal' data-target='#modal_editar_usuario' class='btn btn-outline-info'><i class='far fa-edit'></i></button> ",
 			])
 			.draw(false);
-	}
+	};
 });

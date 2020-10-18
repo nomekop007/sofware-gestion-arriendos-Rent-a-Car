@@ -149,7 +149,7 @@ $("#l_despacho").addClass("card");
 $("#inputFotos").fileinput();
 
 
-function cargarArriendo(id_arriendo) {
+const buscarArriendo = (id_arriendo) => {
     $.getJSON({
         url: base_url + "buscar_arriendo",
         type: "post",

@@ -281,80 +281,54 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 <script>
-function cargarArriendo(id_arriendo) {
+const buscarArriendo = async (id_arriendo) => {
     limpiarCampos();
-    $.getJSON({
-        url: base_url + "buscar_arriendo",
-        type: "post",
-        dataType: "json",
-        data: {
-            id_arriendo
-        },
-        success: (response) => {
-            if (response.success) {
-                const arriendo = response.data;
-                $("#inputIdArriendo").val(arriendo.id_arriendo);
-                $("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo)
-                $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
-                $("#textTipo").val(arriendo.tipo_arriendo);
-                $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
+    const data = new FormData();
+    data.append("id_arriendo", id_arriendo);
+    const response = await ajax_function(data, "buscar_arriendo");
+    if (response.success) {
+        const arriendo = response.data;
+        $("#inputIdArriendo").val(arriendo.id_arriendo);
+        $("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo)
+        $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
+        $("#textTipo").val(arriendo.tipo_arriendo);
+        $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
 
-                switch (arriendo.tipo_arriendo) {
-                    case "PARTICULAR":
-                        $("#textCliente").html(arriendo.cliente.nombre_cliente);
-                        $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
-                        break;
-                    case "REMPLAZO":
-                        $("#subtotal-copago").show();
-                        $("#textCliente").html(arriendo.remplazo.cliente.nombre_cliente + " - " +
-                            arriendo.remplazo.nombreEmpresa_remplazo);
-                        $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
-                        break;
-                    case "EMPRESA":
-                        $("#textCliente").html(arriendo.empresa.nombre_empresa);
-                        $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
-                        break;
-                    default:
-                        break;
-                }
-
-                mostrarAccesorios(arriendo);
-
-                //ocultar y mostrar 
-                $("#formSpinner").hide();
-                $("#formContrato").show();
-            } else {
-                Swal.fire({
-                    icon: "error",
-                    title: e.msg,
-                    text: "A ocurrido un Error Contacte a informatica",
-                });
-                $("#formSpinner").show();
-                $("#formContrato").hide();
-            }
-        },
-        error: () => {
-            Swal.fire({
-                icon: "error",
-                title: "no se logro cargar el arriendo",
-                text: "A ocurrido un Error Contacte a informatica",
-            });
-            $("#formSpinner").show();
-            $("#formContrato").hide();
+        switch (arriendo.tipo_arriendo) {
+            case "PARTICULAR":
+                $("#textCliente").html(arriendo.cliente.nombre_cliente);
+                $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
+                break;
+            case "REMPLAZO":
+                $("#subtotal-copago").show();
+                $("#textCliente").html(arriendo.remplazo.cliente.nombre_cliente + " - " +
+                    arriendo.remplazo.nombreEmpresa_remplazo);
+                $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
+                break;
+            case "EMPRESA":
+                $("#textCliente").html(arriendo.empresa.nombre_empresa);
+                $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
+                break;
+            default:
+                break;
         }
-    })
+        mostrarAccesorios(arriendo);
+        //ocultar y mostrar 
+        $("#formSpinner").hide();
+        $("#formContrato").show();
+    }
 }
 
-function mostrarAccesorios(arriendo) {
+const mostrarAccesorios = (arriendo) => {
     if (arriendo.accesorios.length) {
         $.each(arriendo.accesorios, (i, o) => {
 
-            var precio = 0;
+            let precio = 0;
             if (o.precio_accesorio != null) {
                 precio = o.precio_accesorio
             }
 
-            var fila = " <div class='input-group col-md-12'>";
+            let fila = " <div class='input-group col-md-12'>";
             fila +=
                 " <span style='width: 60%;' class='input-group-text form-control'>" + o
                 .nombre_accesorio + " $</span>";
@@ -368,26 +342,23 @@ function mostrarAccesorios(arriendo) {
         })
 
     } else {
-        var sinAccesorios =
+        let sinAccesorios =
             " <span class=' col-md-12 text-center' id='spanAccesorios'>Sin Accesorios</span>";
         $("#formAccesorios").append(sinAccesorios);
     }
 }
 
-function calcularValores() {
+const calcularValores = () => {
     //variables
-    var valorArriendo = Number($("#inputValorArriendo").val());
-    var valorCopago = Number($("#inputValorCopago").val());
-    var neto = Number($("#inputNeto").val());
-    var iva = Number($("#inputIVA").val());
-    var descuento = Number($("#inputDescuento").val());
-    var total = Number($("#inputTotal").val());
-
-
-
-    var TotalNeto = 0;
+    let valorArriendo = Number($("#inputValorArriendo").val());
+    let valorCopago = Number($("#inputValorCopago").val());
+    let neto = Number($("#inputNeto").val());
+    let iva = Number($("#inputIVA").val());
+    let descuento = Number($("#inputDescuento").val());
+    let total = Number($("#inputTotal").val());
+    let TotalNeto = 0;
     //revisa todos los check y guardas sus valores en un array si estan okey
-    var ArrayAccesorios = $('[name="accesorios[]"]')
+    let ArrayAccesorios = $('[name="accesorios[]"]')
         .map(function() {
             return this.value;
         })
@@ -400,7 +371,6 @@ function calcularValores() {
     TotalNeto = TotalNeto + valorArriendo - descuento - valorCopago;
     iva = TotalNeto * 0.19;
     total = TotalNeto + iva;
-
     $("#inputNeto").val(TotalNeto);
     $("#inputIVA").val(Math.round(iva));
     $("#inputTotal").val(Math.round(total));
@@ -409,7 +379,7 @@ function calcularValores() {
 
 
 
-function limpiarCampos() {
+const limpiarCampos = () => {
     $("#formContrato").hide();
     $("#formAccesorios").empty();
     $("#formContrato")[0].reset();
@@ -423,7 +393,8 @@ function limpiarCampos() {
     $("#body-sinContrato").show();
     $("#nombre_documento").val("");
     $("#subtotal-copago").hide();
-
+    $("#formSpinner").show();
+    $("#formContrato").hide();
     //se limpia el canvas de firma
     dibujar = false;
     ctx.clearRect(0, 0, cw, ch);
