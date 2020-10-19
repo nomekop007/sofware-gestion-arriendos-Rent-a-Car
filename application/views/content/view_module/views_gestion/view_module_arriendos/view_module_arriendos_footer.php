@@ -66,14 +66,25 @@ function cargarArriendoEnTabla(arriendo) {
             " value='" +
             arriendo.id_arriendo +
             "' " +
-            " onclick='buscarArriendo(this.value)'" +
+            " onclick='buscarArriendo(this.value,true)'" +
             " data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  " +
-            " <button disabled data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-eye'></i></button>  ",
+
+            " <button " +
+            "id='" +
+            arriendo.id_arriendo +
+            "' " +
+            " value='" +
+            arriendo.id_arriendo +
+            "' " +
+            " onclick='buscarArriendo(this.value,false)'" +
+            " data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-eye'></i></button>  ",
         ])
         .draw(false);
 
     if (arriendo.estado_arriendo != "PENDIENTE") {
         $(`#${arriendo.id_arriendo}`).attr("disabled", true);
+        $(`#${arriendo.id_arriendo}`).removeClass("btn-outline-info")
+        $(`#${arriendo.id_arriendo}`).addClass("btn-info")
     }
 }
 </script>

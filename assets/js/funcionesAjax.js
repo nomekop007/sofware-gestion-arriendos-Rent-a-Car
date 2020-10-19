@@ -41,6 +41,7 @@ async function ajax_function(data, dataUrl) {
 			if (response.success) {
 				console.log(dataUrl + " OK!");
 			} else {
+				console.log(dataUrl + " ERROR SERVER!");
 				Swal.fire({
 					icon: "error",
 					title: "Error en el servidor : " + dataUrl,
@@ -49,6 +50,7 @@ async function ajax_function(data, dataUrl) {
 			}
 		},
 		error: () => {
+			console.log(dataUrl + " ERROR CLIENT!");
 			Swal.fire({
 				icon: "error",
 				title: "Error en el cliente : " + dataUrl,
