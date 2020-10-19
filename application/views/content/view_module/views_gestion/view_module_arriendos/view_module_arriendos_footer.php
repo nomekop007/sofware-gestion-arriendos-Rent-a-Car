@@ -100,5 +100,5 @@ function cargarArriendoEnTabla(arriendo) {
 </script>
 
 
-<script src="<?php echo base_url() ?>assets/js/firmaDigital.js">
+<script src="<?php echo base_url() ?>assets/js/canvasFirmaDigital.js">
 </script>

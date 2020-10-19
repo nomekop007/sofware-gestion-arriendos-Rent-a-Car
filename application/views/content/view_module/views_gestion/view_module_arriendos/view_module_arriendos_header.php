@@ -9,8 +9,6 @@
         </nav>
         <h1 class="h3">Gestion arriendos</h1>
     </div>
-
-
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-link  active" id="nav-registrar-tab" data-toggle="tab" href="#nav-registrar" role="tab"

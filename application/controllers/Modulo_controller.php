@@ -49,7 +49,11 @@ class Modulo_controller extends CI_Controller
                     break;
                 case 4:
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
-                        $this->load->view('content/view_module/views_gestion/view_module_despachos');
+                        //se subdivide por su gran tamaño
+                        $this->load->view('content/view_module/views_gestion/view_module_despachos/view_module_despachos_header');
+                        $this->load->view('content/view_module/views_gestion/view_module_despachos/view_module_despachos_despacho');
+                        $this->load->view('content/view_module/views_gestion/view_module_despachos/view_module_despachos_activos');
+                        $this->load->view('content/view_module/views_gestion/view_module_despachos/view_module_despachos_footer');
                     } else {
                         redirect(base_url());
                     }

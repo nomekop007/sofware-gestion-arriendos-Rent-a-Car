@@ -25,3 +25,35 @@ a:hover {
 #canvas-firma {
     border: 1px solid black;
 }
+
+#c {
+    background-color: white;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+#canvasContainer {
+    margin: 0 auto;
+    width: 300px;
+    height: 300px;
+    position: relative;
+}
+
+#output {
+    position: absolute;
+    padding: .5em;
+    top: 107px;
+    left: 220px;
+    background-color: rgba(255, 255, 255, .8);
+    width: 3em;
+    pointer-events: none;
+}
+
+#output::selection {
+    background-color: rgba(255, 255, 255, .8);
+}
+
+#output::-moz-selection {
+    background-color: rgba(255, 255, 255, .8);
+}

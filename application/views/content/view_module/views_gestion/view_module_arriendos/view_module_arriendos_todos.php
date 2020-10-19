@@ -1,5 +1,4 @@
 <?php
-
 $nombreUsuario = $this->session->userdata('nombre')
 ?>
 
@@ -131,30 +130,8 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <h5>Documentos adjuntos:</h5>
                     <div class="card">
                         <div class="form-row card-body" id="card_documentos">
-                            <div class="col-md-4">
-                                <img id="carnetFrontal" class="img-fluid rounded float-right" alt="">
-                            </div>
-                            <div class="col-md-4">
-                                <img id="carnetTrasero" class="img-fluid rounded float-right" alt="">
-                            </div>
-                            <div class="col-md-4">
-                                <img id="cartaRemplazo" class="img-fluid rounded float-right" alt="">
-                            </div>
-                            <div class="col-md-4">
-                                <img id="cheque" class="img-fluid rounded float-right" alt="">
-                            </div>
-                            <div class="col-md-4">
-                                <img id="comprobanteDomicilio" class="img-fluid rounded float-right" alt="">
-                            </div>
-                            <div class="col-md-4">
-                                <img id="licencia" class="img-fluid rounded float-right" alt="">
-                            </div>
-                            <div class="col-md-4">
-                                <img id="tarjetaFrontal" class="img-fluid rounded float-right" alt="">
-                            </div>
-                            <div class="col-md-4">
-                                <img id="tarjetaTrasera" class="img-fluid rounded float-right" alt="">
-                            </div>
+
+
 
                         </div>
                     </div>
@@ -432,8 +409,6 @@ const mostrarArriendoModalConfirmacion = (arriendo) => {
 const mostrarArriendoModalEditar = (arriendo) => {
     $("#formSpinnerEditar").hide();
     $("#formEditarArriendo").show();
-
-    console.log(arriendo);
     $("#inputEditarTipoArriendo").val(arriendo.tipo_arriendo);
     $("#inputEditarEstadoArriendo").val(arriendo.estado_arriendo);
     $("#inputEditarConductorArriendo").val(arriendo.conductore.nombre_conductor + " " + arriendo.conductore
@@ -467,16 +442,57 @@ const mostrarArriendoModalEditar = (arriendo) => {
             break;
     }
     const url = storage + "documentos/requisitosArriendo/";
-    document.getElementById("carnetFrontal").src = url + arriendo.requisito.carnetFrontal_requisito;
-    document.getElementById("carnetTrasero").src = url + arriendo.requisito.carnetTrasera_requisito;
-    document.getElementById("cartaRemplazo").src = url + arriendo.requisito.cartaRemplazo_requisito;
-    document.getElementById("cheque").src = url + arriendo.requisito.chequeGarantia_requisito;
-    document.getElementById("comprobanteDomicilio").src = url + arriendo.requisito.comprobanteDomicilio_requisito;
-    document.getElementById("licencia").src = url + arriendo.requisito.licenciaConducir_requisito;
-    document.getElementById("tarjetaFrontal").src = url + arriendo.requisito.tarjetaCreditoFrontal_requisito;
-    document.getElementById("tarjetaTrasera").src = url + arriendo.requisito.tarjetaCreditoTrasera_requisito;
 
-    //	PENDIENTE
+    //CORREGIR VISOR
+    if (arriendo.requisito.carnetFrontal_requisito) {
+        const image = document.createElement("iframe");
+        image.src = url + arriendo.requisito.carnetFrontal_requisito;
+        image.className = "img-fluid rounded float-rig2ht col-md-3";
+        document.getElementById("card_documentos").append(image)
+    }
+    if (arriendo.requisito.carnetTrasera_requisito) {
+        const image = document.createElement("iframe");
+        image.src = url + arriendo.requisito.carnetTrasera_requisito;
+        image.className = "img-fluid rounded float-right col-md-3";
+        document.getElementById("card_documentos").append(image)
+    }
+    if (arriendo.requisito.cartaRemplazo_requisito) {
+        const image = document.createElement("iframe");
+        image.src = url + arriendo.requisito.cartaRemplazo_requisito;
+        image.className = "img-fluid rounded float-right col-md-3";
+        document.getElementById("card_documentos").append(image)
+    }
+    if (arriendo.requisito.chequeGarantia_requisito) {
+        const image = document.createElement("iframe");
+        image.src = url + arriendo.requisito.chequeGarantia_requisito;
+        image.className = "img-fluid rounded float-right col-md-3";
+        document.getElementById("card_documentos").append(image)
+    }
+    if (arriendo.requisito.comprobanteDomicilio_requisito) {
+        const image = document.createElement("iframe");
+        image.src = url + arriendo.requisito.comprobanteDomicilio_requisito;
+        image.className = "img-fluid rounded float-right col-md-3";
+        document.getElementById("card_documentos").append(image)
+    }
+    if (arriendo.requisito.licenciaConducir_requisito) {
+        const image = document.createElement("iframe");
+        image.src = url + arriendo.requisito.licenciaConducir_requisito;
+        image.className = "img-fluid rounded float-right col-md-3";
+        document.getElementById("card_documentos").append(image)
+    }
+    if (arriendo.requisito.tarjetaCreditoFrontal_requisito) {
+        const image = document.createElement("iframe");
+        image.src = url + arriendo.requisito.tarjetaCreditoFrontal_requisito;
+        image.className = "img-fluid rounded float-right col-md-3";
+        document.getElementById("card_documentos").append(image)
+    }
+    if (arriendo.requisito.tarjetaCreditoTrasera_requisito) {
+        const image = document.createElement("iframe");
+        image.src = url + arriendo.requisito.tarjetaCreditoTrasera_requisito;
+        image.className = "img-fluid rounded float-right col-md-3";
+        document.getElementById("card_documentos").append(image)
+    }
+
 }
 
 
@@ -539,6 +555,7 @@ const calcularValores = () => {
 const limpiarCampos = () => {
     $("#formEditarArriendo").hide();
     $("#formContrato").hide();
+    $("#card_documentos").empty();
     $("#formAccesorios").empty();
     $("#formContrato")[0].reset();
     $("#btn_crear_contrato").attr("disabled", false);
