@@ -33,6 +33,10 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/sweetalert2.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/animate.min.css" />
 
+    <!-- owl.carousel core CSS -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/owl.theme.default.min.css">
+
     <!-- dashboard core CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/dashboard.css" rel="stylesheet">
     <!-- Mi estilos css -->

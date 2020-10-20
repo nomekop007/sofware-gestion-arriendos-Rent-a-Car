@@ -1,19 +1,20 @@
 var output = document.getElementById("output");
 
-var c = document.getElementById("canvas-combustible");
-var ctx = c.getContext("2d");
+var canvasCombustible = document.getElementById("canvas-combustible");
+var ctxCombustible = canvasCombustible.getContext("2d");
 
-var cw = c.width = 280,
-    cx = cw / 2;
-var ch = c.height = 280,
-    cy = ch / 2;
+
+var cwCombustible = canvasCombustible.width = 290,
+    cxCombustible = cwCombustible / 2;
+var chCombustible = canvasCombustible.height = 290,
+    cyCombustible = chCombustible / 2;
 var rad = Math.PI / 180;
 var R = 110,
     r = 7;
 
 var handle = {
-    x: cx + R,
-    y: cy,
+    x: cxCombustible + R,
+    y: cyCombustible,
     r: 7
 }
 
@@ -22,7 +23,7 @@ var imagen = new Image();
 imagen.src = "assets/images/indicadorBencina.jpg";
 
 imagen.addEventListener("load", function() {
-    ctx.drawImage(imagen, 0, -30, c.width, c.height);
+    ctxCombustible.drawImage(imagen, 0, -30, canvasCombustible.width, canvasCombustible.height);
 }, false)
 
 
@@ -32,17 +33,17 @@ output.style.top = (handle.y - 50) + "px";
 output.style.left = (handle.x - 30) + "px";
 
 var isDragging = false;
-ctx.strokeStyle = "#555";
-ctx.fillStyle = "#e18728";
+ctxCombustible.strokeStyle = "#555";
+ctxCombustible.fillStyle = "#e18728";
 
 
-strokeCircle(cx, cy, R);
+strokeCircle(cxCombustible, cyCombustible, R);
 drawHandle(handle);
 drawHub()
 
 // Events ***************************
 
-c.addEventListener('mousedown', function(evt) {
+canvasCombustible.addEventListener('mousedown', function(evt) {
 
     isDragging = true;
     updateHandle(evt);
@@ -50,7 +51,7 @@ c.addEventListener('mousedown', function(evt) {
 }, false);
 
 // mousemove 
-c.addEventListener('mousemove', function(evt) {
+canvasCombustible.addEventListener('mousemove', function(evt) {
 
     if (isDragging) {
 
@@ -59,42 +60,42 @@ c.addEventListener('mousemove', function(evt) {
     }
 }, false);
 // mouseup 
-c.addEventListener('mouseup', function() {
+canvasCombustible.addEventListener('mouseup', function() {
 
     isDragging = false;
 }, false);
 // mouseout 
-c.addEventListener('mouseout', function(evt) {
+canvasCombustible.addEventListener('mouseout', function(evt) {
 
     isDragging = false;
 }, false); /**/
 
 // Helpers ***************************
 function strokeCircle(x, y, r) {
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, 2 * Math.PI);
-    ctx.stroke();
+    ctxCombustible.beginPath();
+    ctxCombustible.arc(x, y, r, 0, 2 * Math.PI);
+    ctxCombustible.stroke();
 }
 
 function fillCircle(x, y, r) {
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, 2 * Math.PI);
+    ctxCombustible.beginPath();
+    ctxCombustible.arc(x, y, r, 0, 2 * Math.PI);
 
-    ctx.save();
-    ctx.strokeStyle = "#cc0000";
-    ctx.lineWidth = 1;
-    ctx.fill();
-    ctx.stroke();
-    ctx.restore()
+    ctxCombustible.save();
+    ctxCombustible.strokeStyle = "#cc0000";
+    ctxCombustible.lineWidth = 1;
+    ctxCombustible.fill();
+    ctxCombustible.stroke();
+    ctxCombustible.restore()
 }
 
 function drawHub() {
-    ctx.save()
-    ctx.fillStyle = "black";
-    ctx.beginPath();
-    ctx.arc(cx, cy, 10, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.restore();
+    ctxCombustible.save()
+    ctxCombustible.fillStyle = "black";
+    ctxCombustible.beginPath();
+    ctxCombustible.arc(cxCombustible, cyCombustible, 10, 0, 2 * Math.PI);
+    ctxCombustible.fill();
+    ctxCombustible.restore();
 }
 
 function oMousePos(canvas, evt) {
@@ -106,26 +107,27 @@ function oMousePos(canvas, evt) {
 }
 
 function drawHandle(handle) {
-    ctx.drawImage(imagen, 0, -30, c.width, c.height);
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(handle.x, handle.y);
-    ctx.stroke();
+    ctxCombustible.drawImage(imagen, 0, -30, canvasCombustible.width, canvasCombustible.height);
+    ctxCombustible.beginPath();
+    ctxCombustible.lineWidth = 7;
+    ctxCombustible.moveTo(cxCombustible, cyCombustible);
+    ctxCombustible.lineTo(handle.x, handle.y);
+    ctxCombustible.stroke();
 
     fillCircle(handle.x, handle.y, handle.r);
 
 }
 
 function updateHandle(evt) {
-    var m = oMousePos(c, evt);
-    var deltaX = m.x - cx;
-    var deltaY = m.y - cy;
+    var m = oMousePos(canvasCombustible, evt);
+    var deltaX = m.x - cxCombustible;
+    var deltaY = m.y - cyCombustible;
     handle.a = Math.atan2(deltaY, deltaX);
-    handle.x = cx + R * Math.cos(handle.a);
-    handle.y = cy + R * Math.sin(handle.a);
-    ctx.clearRect(0, 0, cw, ch);
+    handle.x = cxCombustible + R * Math.cos(handle.a);
+    handle.y = cyCombustible + R * Math.sin(handle.a);
+    ctxCombustible.clearRect(0, 0, cwCombustible, chCombustible);
 
-    strokeCircle(cx, cy, R);
+    strokeCircle(cxCombustible, cyCombustible, R);
     drawHandle(handle);
     drawHub()
 

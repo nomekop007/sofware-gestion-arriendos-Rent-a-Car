@@ -2,6 +2,10 @@ $(document).ready(() => {
     //se inician los datatable
     const tablaControldespacho = $("#tablaControldespacho").DataTable(lenguaje);
 
+    const carousel = $(".owl-carousel").owlCarousel({
+        margin: 5,
+    });
+    const arrayImages = [];
     (cargarArriendos = () => {
         $("#spinner_tablaDespacho").show();
         const url = base_url + "cargar_arriendosListos";
@@ -17,14 +21,42 @@ $(document).ready(() => {
         });
     })();
 
-    $("#btn_guardar_fotoDespacho").click(() => {
-        const data = new FormData();
 
-        for (let i = 0; i < $("#inputFotos").val().length; i++) {
-            data.append("fotos", $("#inputFotos")[0].files[i]);
-        }
-        console.log(data);
+
+
+    $("#btn_guardar_fotoDespacho").click(() => {
+
+
     });
+
+
+    $("#seleccionarFoto").click(() => {
+        const canvas = document.getElementById("canvas-fotoVehiculo");
+        const url = canvas.toDataURL("image/png")
+
+        arrayImages.push(url);
+
+
+        //AGREGAR IMAGEN A CARRUSEL
+        const img = document.createElement("img");
+        img.src = "https://www.ecured.cu/images/d/d8/Iconos%28informatica%29.png";
+
+
+
+        console.log(arrayImages);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
 
     //carga tablaTotalArriendos
     const cargarArriendoEnTabla = (arriendo) => {

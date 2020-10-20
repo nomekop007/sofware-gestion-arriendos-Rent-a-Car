@@ -9,9 +9,11 @@
   <!-- importacion sweetalert2 -->
   <script src="<?php echo base_url() ?>assets/js/sweetalert2.all.min.js"></script>
 
+  <!-- importacion owl.carousel -->
+  <script src="<?php echo base_url() ?>assets/js/owl.carousel.min.js"></script>
+
   <!-- importaciones del Bootstrap -->
   <script src="<?php echo base_url() ?>assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-
 
   </body>
 

@@ -44,8 +44,8 @@ $nombreUsuario = $this->session->userdata('nombre')
 </div>
 
 <!-- Modal despachar -->
-<div class="modal fade" id="modal_despachar_arriendo" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modal_despachar_arriendo" data-backdrop="static" style="overflow-y: scroll;"
+    data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -483,36 +483,22 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <input type="text" value="<?php echo $nombreUsuario ?>" class="form-control"
                                     id="inputEntregadorDespacho">
                             </div>
+
+                            <button type="button" class="form-group col-md-12 btn btn-primary" data-toggle="modal"
+                                data-target="#staticBackdrop">
+                                Tomar Fotos al vehiculo
+                            </button>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="container col-md-12" id="canvasContainer">
                                     <div id="output" class="text-center">0E</div>
-                                    <canvas id="canvas-combustible"></canvas>
+                                    <canvas id="canvas-combustible" class="img-fluid rounded float-right"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <br><br>
-                    <h5>Fotos vehiculo</h5>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputFotoFrontalVehiculo">Foto frontal</label>
-                            <input type="file" class="form-control" id="inputFotoFrontalVehiculo">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputFotoTraseraVehiculo">Foto trasera</label>
-                            <input type="file" class="form-control" id="inputFotoTraseraVehiculo">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputFotoIzquierdaVehiculo">Foto lado izquierdo</label>
-                            <input type="file" class="form-control" id="inputFotoIzquierdaVehiculo">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputFotoDerechaVehiculo">Foto lado derecho </label>
-                            <input type="file" class="form-control" id="inputFotoDerechaVehiculo">
-                        </div>
-                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -528,6 +514,77 @@ $nombreUsuario = $this->session->userdata('nombre')
         </div>
     </div>
 </div>
+
+
+<!-- Modal fotos auto -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Cargar Fotos del vehiculo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <input type="file" class="form-control-file" id="inputImagenVehiculo" accept=".jpg,.jpeg,.png">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button type="button" id="limpiar-fotoVehiculo" class="btn btn-secondary btn-sm form-control ">
+                            limpiar</button>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <input type="color" class=" form-control" id="colorCanvas" oninput="defcolor(this.value)">
+
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="grosor">Grosor de linea</label>
+                        <input type="range" id="grosor" class="custom-range" oninput="defgrosor(this.value)" value="0"
+                            min="1" max="5">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <button type="button" id="seleccionarFoto" class="btn btn-success btn-sm form-control ">
+                            guardar foto</button>
+                    </div>
+
+
+                    <div class="form-group col-md-12">
+                        <p><i class="far fa-square"></i> Abolladuras <i class="far fa-circle"></i> Rayaduras <i
+                                class="fas fa-times"></i> Piezas rotas </p>
+                    </div>
+                    <div class="container">
+                        <canvas id="canvas-fotoVehiculo" class="img-fluid rounded float-right"
+                            style="background:#d9d9d9; display:block;"></canvas>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <div class="owl-carousel owl-theme" id="carruselVehiculos">
+                            <div class="item">
+                                <img src="https://www.ecured.cu/images/d/d8/Iconos%28informatica%29.png" />
+                            </div>
+                            <div class="item">
+                                <img src="https://www.ecured.cu/images/d/d8/Iconos%28informatica%29.png" />
+                            </div>
+                            <div class="item">
+                                <img src="https://www.ecured.cu/images/d/d8/Iconos%28informatica%29.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Listo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 
