@@ -70,15 +70,9 @@ $(document).ready(() => {
                     $("#body-firma").show();
                     $("#body-sinContrato").hide();
 
-                    $("#body-documento").html(
+                    const url = storage + "documentos/contratos/" + response.data.nombre_documento + ".pdf";
+                    mostrarPDF(url);
 
-                        '<iframe width="100%" height="700px" src="' +
-                        storage +
-                        "documentos/contratos/" +
-                        response.data.nombre_documento +
-                        ".pdf" +
-                        '" target="_parent"></iframe>'
-                    );
                     if (response.data.firma) {
                         $("#btn_confirmar_contrato").attr("disabled", false);
                     }
@@ -131,6 +125,14 @@ $(document).ready(() => {
             }
         });
     });
+
+
+    const mostrarPDF = (url) => {
+        $("#body-documento").html(
+            '<a href="' + url + '" class="btn btn-secondary " >Descargar contrato</a><br>' +
+            '<iframe width="100%" height="700px" src="' + url + '" target="_parent"></iframe>'
+        );
+    }
 
     const guardarContrato = async(data) => {
         data.append("nombre_documento", $("#nombre_documento").val());

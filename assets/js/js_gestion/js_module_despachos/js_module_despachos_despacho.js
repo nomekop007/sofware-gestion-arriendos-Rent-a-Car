@@ -1,11 +1,13 @@
 $(document).ready(() => {
     //se inician los datatable
     const tablaControldespacho = $("#tablaControldespacho").DataTable(lenguaje);
+    const arrayImages = [];
 
-    const carousel = $(".owl-carousel").owlCarousel({
+    $(".owl-carousel").owlCarousel({
         margin: 5,
     });
-    const arrayImages = [];
+
+
     (cargarArriendos = () => {
         $("#spinner_tablaDespacho").show();
         const url = base_url + "cargar_arriendosListos";
@@ -22,39 +24,57 @@ $(document).ready(() => {
     })();
 
 
-
-
-    $("#btn_guardar_fotoDespacho").click(() => {
-
-
-    });
-
-
     $("#seleccionarFoto").click(() => {
         const canvas = document.getElementById("canvas-fotoVehiculo");
         const url = canvas.toDataURL("image/png")
 
         arrayImages.push(url);
 
-
-        //AGREGAR IMAGEN A CARRUSEL
+        console.log(url);
+        //AGREGAR IMAGEN A CARRUSEL pendiente
         const img = document.createElement("img");
         img.src = "https://www.ecured.cu/images/d/d8/Iconos%28informatica%29.png";
+        limpiarTodoCanvasVehiculo();
+    });
 
 
+    $("#btn_crear_ActaEntrega").click(() => {
+        const canvas = document.getElementById("canvas-combustible");
+        const url = canvas.toDataURL("image/png")
+        const form = $("#formActaEntrega")[0];
+        const data = new FormData(form);
+        data.append("arrayImages", JSON.stringify(arrayImages));
+        data.append("imageCombustible", url);
 
-        console.log(arrayImages);
+        generarActaEntrega(data);
     });
 
 
 
 
 
+    const generarActaEntrega = async(data) => {
+        const response = await ajax_function(data, "generar_PDFactaEntrega");
+        if (response) {
+            $("#modal_signature").modal({
+                show: true,
+            });
+            $("#nombre_documento").val(response.data.nombre_documento);
+            $("#body-documento").show();
+            $("#body-firma").show();
+            $("#body-sinContrato").hide();
 
+            const url = storage + "documentos/actaEntrega/" + response.data.nombre_documento + ".pdf";
+            mostrarPDF(url);
+        }
+    }
 
-
-
-
+    const mostrarPDF = (url) => {
+        $("#body-documento").html(
+            '<a href="' + url + '" class="btn btn-secondary " >Descargar contrato</a><br>' +
+            '<iframe width="100%" height="700px" src="' + url + '" target="_parent"></iframe>'
+        );
+    }
 
 
 

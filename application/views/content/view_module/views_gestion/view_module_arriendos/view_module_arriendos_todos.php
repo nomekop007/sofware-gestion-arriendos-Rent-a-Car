@@ -2,6 +2,7 @@
 $nombreUsuario = $this->session->userdata('nombre')
 ?>
 
+
 <!-- Tab con la tabla de los arriendos activos -->
 <div class="tab-pane fade" id="nav-arriendos" role="tabpanel" aria-labelledby="nav-arriendos-tab">
     <br><br>
@@ -147,12 +148,12 @@ $nombreUsuario = $this->session->userdata('nombre')
 </div>
 
 <!-- Modal Confirmacion arriendo -->
-<div class="modal fade" id="modal_confirmar_arriendo" style="overflow-y: scroll;" tabindex="-1"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_confirmar_arriendo" data-backdrop="static" style="overflow-y: scroll;"
+    data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detalles de Pago</h5>
+                <h5 class="modal-title" id="exampleModalLabel">despachar arriendo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -313,23 +314,24 @@ $nombreUsuario = $this->session->userdata('nombre')
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="signatureModal">Firmar Contrato </h5>
+                <h5 class="modal-title" id="modal_signature">Firmar Contrato </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
+                <input type="text" id="nombre_documento" hidden>
                 <div id="body-sinContrato">
                     <br>
                     <h6 class='text-center'>Sin contrato cargado</h6><br>
                 </div>
                 <div id="body-documento">
-                    <!-- se carga documento en un iframe -->
+                    <!-- se carga el pdf -->
                 </div>
                 <div class="container" id="body-firma">
                     <br>
                     <div class="row">
-                        <input type="text" id="nombre_documento" hidden>
+
                         <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
                             <canvas id="canvas-firma">
                             </canvas>
@@ -359,13 +361,26 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 
-
-
-
-
-
-
+<!-- <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.943/build/pdf.min.js"></script> -->
 <script>
+/* pdfjsLib.getDocument('assets/informe.pdf').then(doc => {
+    console.log("this file has " + doc._pdfInfo.numPages + " pages");
+
+    doc.getPage(2).then(page => {
+        var myCanvas = document.getElementById("my_canvas");
+        var context = myCanvas.getContext("2d");
+        var viewport = page.getViewport(1);
+        myCanvas.width = viewport.width;
+        myCanvas.height = viewport.height;
+
+        page.render({
+            canvasContext: context,
+            viewport: viewport
+        })
+    })
+})
+ */
+
 const buscarArriendo = async (id_arriendo, option) => {
     limpiarCampos();
     const data = new FormData();
@@ -445,49 +460,49 @@ const mostrarArriendoModalEditar = (arriendo) => {
 
     //CORREGIR VISOR
     if (arriendo.requisito.carnetFrontal_requisito) {
-        const image = document.createElement("iframe");
+        const image = document.createElement("img");
         image.src = url + arriendo.requisito.carnetFrontal_requisito;
         image.className = "img-fluid rounded float-rig2ht col-md-3";
         document.getElementById("card_documentos").append(image)
     }
     if (arriendo.requisito.carnetTrasera_requisito) {
-        const image = document.createElement("iframe");
+        const image = document.createElement("img");
         image.src = url + arriendo.requisito.carnetTrasera_requisito;
         image.className = "img-fluid rounded float-right col-md-3";
         document.getElementById("card_documentos").append(image)
     }
     if (arriendo.requisito.cartaRemplazo_requisito) {
-        const image = document.createElement("iframe");
+        const image = document.createElement("img");
         image.src = url + arriendo.requisito.cartaRemplazo_requisito;
         image.className = "img-fluid rounded float-right col-md-3";
         document.getElementById("card_documentos").append(image)
     }
     if (arriendo.requisito.chequeGarantia_requisito) {
-        const image = document.createElement("iframe");
+        const image = document.createElement("img");
         image.src = url + arriendo.requisito.chequeGarantia_requisito;
         image.className = "img-fluid rounded float-right col-md-3";
         document.getElementById("card_documentos").append(image)
     }
     if (arriendo.requisito.comprobanteDomicilio_requisito) {
-        const image = document.createElement("iframe");
+        const image = document.createElement("img");
         image.src = url + arriendo.requisito.comprobanteDomicilio_requisito;
         image.className = "img-fluid rounded float-right col-md-3";
         document.getElementById("card_documentos").append(image)
     }
     if (arriendo.requisito.licenciaConducir_requisito) {
-        const image = document.createElement("iframe");
+        const image = document.createElement("img");
         image.src = url + arriendo.requisito.licenciaConducir_requisito;
         image.className = "img-fluid rounded float-right col-md-3";
         document.getElementById("card_documentos").append(image)
     }
     if (arriendo.requisito.tarjetaCreditoFrontal_requisito) {
-        const image = document.createElement("iframe");
+        const image = document.createElement("img");
         image.src = url + arriendo.requisito.tarjetaCreditoFrontal_requisito;
         image.className = "img-fluid rounded float-right col-md-3";
         document.getElementById("card_documentos").append(image)
     }
     if (arriendo.requisito.tarjetaCreditoTrasera_requisito) {
-        const image = document.createElement("iframe");
+        const image = document.createElement("img");
         image.src = url + arriendo.requisito.tarjetaCreditoTrasera_requisito;
         image.className = "img-fluid rounded float-right col-md-3";
         document.getElementById("card_documentos").append(image)

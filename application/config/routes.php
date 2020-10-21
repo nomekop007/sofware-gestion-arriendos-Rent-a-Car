@@ -80,6 +80,10 @@ $route['buscar_arriendo'] = 'Arriendo_controller/buscarArriendo';
 $route['cambiarEstado_arriendo'] = 'Arriendo_controller/cambiarEstadoArriendo';
 
 
+/* rutas de controller ActaEntrega */
+$route['generar_PDFactaEntrega'] = 'ActaEntrega_controller/generarPDFactaEntrega';
+
+
 
 /* rutas de controller pago */
 $route['registrar_pago'] = 'Pago_controller/registrarPago';

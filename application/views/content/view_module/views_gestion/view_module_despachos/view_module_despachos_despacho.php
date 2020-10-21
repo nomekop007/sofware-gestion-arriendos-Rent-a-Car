@@ -54,44 +54,54 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="needs-validation" novalidate>
+            <form class="needs-validation" id="formActaEntrega" novalidate>
+                <input hidden type="text" id="inputIdArriendo" name="inputIdArriendo">
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="inputMarcaVehiculoDespacho">Vehiculo</label>
-                            <input disabled type="text" class="form-control" id="inputMarcaVehiculoDespacho">
+                            <input disabled onblur="mayus(this);" type="text" class="form-control"
+                                id="inputMarcaVehiculoDespacho" name="inputMarcaVehiculoDespacho">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputModeloVehiculoDespacho">Modelo</label>
-                            <input disabled type="text" class="form-control" id="inputModeloVehiculoDespacho">
+                            <input disabled onblur="mayus(this);" type="text" class="form-control"
+                                id="inputModeloVehiculoDespacho" name="inputModeloVehiculoDespacho">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputEdadVehiculoDespacho">Año</label>
-                            <input disabled type="text" class="form-control" id="inputEdadVehiculoDespacho">
+                            <input disabled onblur="mayus(this);" type="text" class="form-control"
+                                id="inputEdadVehiculoDespacho" name="inputEdadVehiculoDespacho">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputColorVehiculoDespacho">Color</label>
-                            <input disabled type="text" class="form-control" id="inputColorVehiculoDespacho">
+                            <input disabled onblur="mayus(this);" type="text" class="form-control"
+                                id="inputColorVehiculoDespacho" name="inputColorVehiculoDespacho">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputPatenteVehiculoDespacho">Patente</label>
-                            <input disabled type="text" class="form-control" id="inputPatenteVehiculoDespacho">
+                            <input disabled onblur="mayus(this);" type="text" class="form-control"
+                                id="inputPatenteVehiculoDespacho" name="inputPatenteVehiculoDespacho">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputKilomentrajeVehiculoDespacho">Kilomentraje</label>
-                            <input disabled type="text" class="form-control" id="inputKilomentrajeVehiculoDespacho">
+                            <input disabled onblur="mayus(this);" type="text" class="form-control"
+                                id="inputKilomentrajeVehiculoDespacho" name="inputKilomentrajeVehiculoDespacho">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputDestinoDespacho">Destino (venta o arriendo)</label>
-                            <input type="text" class="form-control" id="inputDestinoDespacho">
+                            <input onblur="mayus(this);" type="text" class="form-control" id="inputDestinoDespacho"
+                                name="inputDestinoDespacho">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputProcedenciaDesdeDespacho">Procedencia de</label>
-                            <input type="text" class="form-control" id="inputProcedenciaDesdeDespacho">
+                            <input onblur="mayus(this);" type="text" class="form-control"
+                                id="inputProcedenciaDesdeDespacho" name="inputProcedenciaDesdeDespacho">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputProcedenciaHaciaDespacho">a</label>
-                            <input type="text" class="form-control" id="inputProcedenciaHaciaDespacho">
+                            <input onblur="mayus(this);" type="text" class="form-control"
+                                id="inputProcedenciaHaciaDespacho" name="inputProcedenciaHaciaDespacho">
                         </div>
                     </div>
                     <br><br>
@@ -476,14 +486,14 @@ $nombreUsuario = $this->session->userdata('nombre')
                             </div>
                             <div class="form-group">
                                 <label for="inputRecibidorDespacho">Recibido por</label>
-                                <input type="text" class="form-control" id="inputRecibidorDespacho">
+                                <input type="text" class="form-control" id="inputRecibidorDespacho"
+                                    onblur="mayus(this);" name="inputRecibidorDespacho">
                             </div>
                             <div class="form-group">
                                 <label for="inputEntregadorDespacho">Entregado por</label>
                                 <input type="text" value="<?php echo $nombreUsuario ?>" class="form-control"
-                                    id="inputEntregadorDespacho">
+                                    onblur="mayus(this);" id="inputEntregadorDespacho" name="inputEntregadorDespacho">
                             </div>
-
                             <button type="button" class="form-group col-md-12 btn btn-primary" data-toggle="modal"
                                 data-target="#staticBackdrop">
                                 Tomar Fotos al vehiculo
@@ -498,14 +508,13 @@ $nombreUsuario = $this->session->userdata('nombre')
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_signature">
                         firmar Acta de entrega <i class="fas fa-feather-alt"></i>
                     </button>
-                    <button type="submit" id="btn_crear_contrato" class="btn btn-primary">
+                    <button type="submit" id="btn_crear_ActaEntrega" class="btn btn-primary">
                         <span hidden class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             id="spinner_btn_generarActaEntrega"></span>
                         Generar Acta de entrega</button>
@@ -538,7 +547,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                     </div>
                     <div class="form-group col-md-1">
                         <input type="color" class=" form-control" id="colorCanvas" oninput="defcolor(this.value)">
-
                     </div>
                     <div class="form-group col-md-2">
                         <label for="grosor">Grosor de linea</label>
@@ -549,27 +557,33 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <button type="button" id="seleccionarFoto" class="btn btn-success btn-sm form-control ">
                             guardar foto</button>
                     </div>
-
-
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-12 text-center">
+                        <br>
                         <p><i class="far fa-square"></i> Abolladuras <i class="far fa-circle"></i> Rayaduras <i
                                 class="fas fa-times"></i> Piezas rotas </p>
                     </div>
                     <div class="container">
-                        <canvas id="canvas-fotoVehiculo" class="img-fluid rounded float-right"
-                            style="background:#d9d9d9; display:block;"></canvas>
+                        <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
+                            <canvas id="canvas-fotoVehiculo" style="background:#d9d9d9"></canvas>
+                        </div>
+                        <br>
                     </div>
-
                     <div class="form-group col-md-12">
                         <div class="owl-carousel owl-theme" id="carruselVehiculos">
                             <div class="item">
-                                <img src="https://www.ecured.cu/images/d/d8/Iconos%28informatica%29.png" />
+                                <img src="https://www.autosusados.cl/fotos/332/0101938902-1-1-3.jpg" />
                             </div>
                             <div class="item">
-                                <img src="https://www.ecured.cu/images/d/d8/Iconos%28informatica%29.png" />
+                                <img src="https://www.autosusados.cl/fotos/332/0101938902-1-1-3.jpg" />
                             </div>
                             <div class="item">
-                                <img src="https://www.ecured.cu/images/d/d8/Iconos%28informatica%29.png" />
+                                <img src="https://www.autosusados.cl/fotos/332/0101938902-1-1-3.jpg" />
+                            </div>
+                            <div class="item">
+                                <img src="https://www.autosusados.cl/fotos/332/0101938902-1-1-3.jpg" />
+                            </div>
+                            <div class="item">
+                                <img src="https://www.autosusados.cl/fotos/332/0101938902-1-1-3.jpg" />
                             </div>
                         </div>
                     </div>
@@ -585,17 +599,45 @@ $nombreUsuario = $this->session->userdata('nombre')
 </div>
 
 
+<!-- Modal signature-->
+<div class="modal fade" id="modal_signature" tabindex="-1" aria-labelledby="signatureModal" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_signature">Firmar Contrato </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="nombre_documento" hidden>
+                <div id="body-sinContrato">
+                    <br>
+                    <h6 class='text-center'>Sin contrato cargado</h6><br>
+                </div>
+                <div id="body-documento">
+                    <!-- se carga el pdf -->
+                </div>
+                <div class="container" id="body-firma">
+                    <!-- firmas  -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
 <script>
 const buscarArriendo = async (id_arriendo) => {
+    limpiarCampos();
     const data = new FormData();
     data.append("id_arriendo", id_arriendo);
     const response = await ajax_function(data, "buscar_arriendo");
     if (response.success) {
         const arriendo = response.data;
-        console.log(arriendo);
+        $("#inputIdArriendo").val(arriendo.id_arriendo);
         $("#inputMarcaVehiculoDespacho").val(arriendo.vehiculo.marca_vehiculo);
         $("#inputModeloVehiculoDespacho").val(arriendo.vehiculo.modelo_vehiculo);
         $("#inputEdadVehiculoDespacho").val(arriendo.vehiculo.año_vehiculo);
@@ -603,5 +645,14 @@ const buscarArriendo = async (id_arriendo) => {
         $("#inputPatenteVehiculoDespacho").val(arriendo.vehiculo.patente_vehiculo);
         $("#inputKilomentrajeVehiculoDespacho").val(arriendo.kilometrosEntrada_arriendo);
     }
+}
+
+const limpiarCampos = () => {
+    $("#body-documento").hide();
+    $("#body-firma").hide();
+    $("#body-sinContrato").show();
+    $("#nombre_documento").val("");
+    $("#subtotal-copago").hide();
+
 }
 </script>
