@@ -6,18 +6,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Sucursal_controller extends CI_Controller
 {
 
-	public function cargarSucursales()
+    public function cargarSucursales()
     {
-        $tokenUser = $this->session->userdata('usertoken');
-        echo  get_function('sucursales/cargarSucursales', $tokenUser);
-	}
-
-	public function cargarVehiculosPorSucursal()
-    {
-        $tokenUser = $this->session->userdata('usertoken');
-        $id_sucursal = $this->input->post("inputSucursal");
-        echo find_function($id_sucursal, "sucursales/cargarVehiculos", $tokenUser);
+        echo  get_function('sucursales/cargarSucursales');
     }
-	
 
+    public function cargarVehiculosPorSucursal()
+    {
+        $id_sucursal = $this->input->post("inputSucursal");
+        echo find_function($id_sucursal, "sucursales/cargarVehiculos");
+    }
 }

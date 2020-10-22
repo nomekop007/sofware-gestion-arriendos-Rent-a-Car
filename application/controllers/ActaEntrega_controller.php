@@ -10,7 +10,7 @@ class ActaEntrega_controller extends CI_Controller
 
     public function generarPDFactaEntrega()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $nameUser = $this->session->userdata('nombre');
 
         $ArrayData = [
@@ -29,6 +29,6 @@ class ActaEntrega_controller extends CI_Controller
             "entregadorDespacho" => $this->input->post("inputEntregadorDespacho"),
         ];
 
-        echo post_function($ArrayData, "actasEntregas/generarPDFactaEntrega", $tokenUser);
+        echo post_function($ArrayData, "actasEntregas/generarPDFactaEntrega");
     }
 }

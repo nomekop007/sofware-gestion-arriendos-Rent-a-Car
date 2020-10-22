@@ -10,13 +10,13 @@ class Accesorio_controller extends CI_Controller
 
     public function cargarAccesorios()
     {
-        $tokenUser = $this->session->userdata('usertoken');
-        echo get_function("accesorios/cargarAccesorios", $tokenUser);
+
+        echo get_function("accesorios/cargarAccesorios");
     }
 
     public function registrarArriendoAccesorios()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $nameUser = $this->session->userdata('nombre');
 
         $ArrayData = [
@@ -24,6 +24,6 @@ class Accesorio_controller extends CI_Controller
             "ArrayChecks" => json_decode($this->input->post("arrayAccesorios")),
             "id_arriendo" => $this->input->post("idArriendo")
         ];
-        echo post_function($ArrayData, "accesorios/registrarArriendoAccesorio", $tokenUser);
+        echo post_function($ArrayData, "accesorios/registrarArriendoAccesorio");
     }
 }

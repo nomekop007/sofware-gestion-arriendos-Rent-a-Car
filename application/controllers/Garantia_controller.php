@@ -8,7 +8,6 @@ class Garantia_controller extends CI_Controller
 {
     public function registrarGarantia()
     {
-        $tokenUser = $this->session->userdata('usertoken');
         $nameUser = $this->session->userdata('nombre');
 
         $dataArray = [
@@ -22,6 +21,6 @@ class Garantia_controller extends CI_Controller
             "monto_garantia" => $this->input->post("inputAbono"),
             "id_modoPago" => $this->input->post("customRadio0"),
         ];
-        echo post_function($dataArray, "garantias/registrarGarantia", $tokenUser);
+        echo post_function($dataArray, "garantias/registrarGarantia");
     }
 }

@@ -10,35 +10,35 @@ class Arriendo_controller extends CI_Controller
 
     public function cargarTotalArriendos()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $arrayForm = [
             "id_sucursal" => $this->session->userdata('sucursal'),
             "id_rol" => $this->session->userdata('rol')
         ];
-        echo post_function($arrayForm, "arriendos/cargarTotalArriendos", $tokenUser);
+        echo post_function($arrayForm, "arriendos/cargarTotalArriendos");
     }
 
     public function cargarArriendosListos()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $arrayForm = [
             "id_sucursal" => $this->session->userdata('sucursal'),
             "id_rol" => $this->session->userdata('rol')
         ];
-        echo post_function($arrayForm, "arriendos/cargarArriendosListos", $tokenUser);
+        echo post_function($arrayForm, "arriendos/cargarArriendosListos");
     }
 
     public function buscarArriendo()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $id_arriendo = $this->input->post("id_arriendo");
-        echo find_function($id_arriendo, "arriendos/buscarArriendo", $tokenUser);
+        echo find_function($id_arriendo, "arriendos/buscarArriendo");
     }
 
 
     public function registrarArriendo()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $nameUser = $this->session->userdata('nombre');
 
         $arrayForm = [
@@ -65,30 +65,30 @@ class Arriendo_controller extends CI_Controller
             "rut_conductor" => $this->input->post("inputRutConductor"),
         ];
 
-        echo post_function($arrayForm, "arriendos/registrarArriendo", $tokenUser);
+        echo post_function($arrayForm, "arriendos/registrarArriendo");
     }
 
 
 
     public function enviarCorreoArriendo()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $arrayForm = [
             "id_arriendo" => $this->input->post("inputIdArriendo")
         ];
-        echo post_function($arrayForm, "arriendos/enviarCorreoArriendo", $tokenUser);
+        echo post_function($arrayForm, "arriendos/enviarCorreoArriendo");
     }
 
 
     public function cambiarEstadoArriendo()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $nameUser = $this->session->userdata('nombre');
         $idArriendo = $this->input->post("inputIdArriendo");
         $ArrayData = [
             "userAt" => $nameUser,
             "estado_arriendo" => "FIRMADO",
         ];
-        echo put_function($idArriendo, $ArrayData, "arriendos/editarArriendo", $tokenUser);
+        echo put_function($idArriendo, $ArrayData, "arriendos/editarArriendo");
     }
 }

@@ -41,7 +41,7 @@ function updateImageDisplay() {
 
 var fileTypes = [
     'image/jpeg',
-    'image/pjpeg',
+    'image/jpg',
     'image/png'
 ]
 

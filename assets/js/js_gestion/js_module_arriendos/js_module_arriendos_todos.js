@@ -129,7 +129,7 @@ $(document).ready(() => {
 
     const mostrarPDF = (url) => {
         $("#body-documento").html(
-            '<a href="' + url + '" class="btn btn-secondary " >Descargar contrato</a><br>' +
+            '<a href="' + url + '"  >Descargar contrato</a><br>' +
             '<iframe width="100%" height="700px" src="' + url + '" target="_parent"></iframe>'
         );
     }

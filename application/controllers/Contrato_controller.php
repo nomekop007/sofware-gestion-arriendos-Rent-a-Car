@@ -8,7 +8,7 @@ class Contrato_controller extends CI_Controller
 {
     public function generarPDFcontrato()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
 
         $dataArray = [
             "id_arriendo" => $this->input->post("inputIdArriendo"),
@@ -33,14 +33,14 @@ class Contrato_controller extends CI_Controller
             "total" => $this->input->post("inputTotal"),
             "observaciones" => $this->input->post("inputObservaciones"),
         ];
-        echo post_function($dataArray, "contratos/generarPDFcontrato", $tokenUser);
+        echo post_function($dataArray, "contratos/generarPDFcontrato");
     }
 
 
 
     public function registrarContrato()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $nameUser = $this->session->userdata('nombre');
 
         $dataArray = [
@@ -48,6 +48,6 @@ class Contrato_controller extends CI_Controller
             "id_arriendo" => $this->input->post("inputIdArriendo"),
             "documento" => $this->input->post("nombre_documento"),
         ];
-        echo post_function($dataArray, "contratos/registrarContrato", $tokenUser);
+        echo post_function($dataArray, "contratos/registrarContrato");
     }
 }

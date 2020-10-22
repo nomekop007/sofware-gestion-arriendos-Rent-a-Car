@@ -10,7 +10,7 @@ class Requisito_controller extends CI_Controller
     public function guardarDocumentosRequistosArriendo()
     {
 
-        $tokenUser = $this->session->userdata('usertoken');
+
         $id_arriendo =   $this->input->post("idArriendo");
 
         //se valdia que se hayan ingresado estos archivos
@@ -117,6 +117,6 @@ class Requisito_controller extends CI_Controller
                 'filename' => $boletaEfectivo
             ],
         ];
-        echo file_function($id_arriendo, $data, "requisitos/registrarRequisitoArriendo", $tokenUser);
+        echo file_function($id_arriendo, $data, "requisitos/registrarRequisitoArriendo");
     }
 }

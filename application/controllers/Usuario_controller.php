@@ -8,23 +8,20 @@ class Usuario_controller extends CI_Controller
 
     public function iniciarSesion()
     {
-        $tokenUser = "no existe token";
         $arrayUser = [
             "email_usuario" => $this->input->post("correo"),
             "clave_usuario" => $this->input->post("clave")
         ];
-        echo post_function($arrayUser, "usuarios/login", $tokenUser);
+        echo post_function($arrayUser, "usuarios/login");
     }
 
     public function cargarUsuarios()
     {
-        $tokenUser = $this->session->userdata('usertoken');
-        echo get_function("usuarios/cargarUsuarios", $tokenUser);
+        echo get_function("usuarios/cargarUsuarios");
     }
 
     public function registrarUsuario()
     {
-        $tokenUser = $this->session->userdata('usertoken');
         $nameUser = $this->session->userdata('nombre');
 
         $ArrayData = [
@@ -36,19 +33,17 @@ class Usuario_controller extends CI_Controller
             "id_rol" => $this->input->post("inputRolUsuario"),
             "id_sucursal" => $this->input->post("inputSucursalUsuario"),
         ];
-        echo post_function($ArrayData, "usuarios/registrar", $tokenUser);
+        echo post_function($ArrayData, "usuarios/registrar");
     }
 
     public function buscarUsuario()
     {
-        $tokenUser = $this->session->userdata('usertoken');
         $id_usuario = $this->input->post("id_usuario");
-        echo find_function($id_usuario, "usuarios/buscarUsuario", $tokenUser);
+        echo find_function($id_usuario, "usuarios/buscarUsuario");
     }
 
     public function editarUsuario()
     {
-        $tokenUser = $this->session->userdata('usertoken');
         $nameUser = $this->session->userdata('nombre');
 
         $id_usuario = $this->input->post("inputUsuario");
@@ -60,12 +55,11 @@ class Usuario_controller extends CI_Controller
             "id_rol" => $this->input->post("inputEditRolUsuario"),
             "id_sucursal" => $this->input->post("inputEditSucursalUsuario"),
         ];
-        echo put_function($id_usuario, $ArrayData, "usuarios/editarUsuario", $tokenUser);
+        echo put_function($id_usuario, $ArrayData, "usuarios/editarUsuario");
     }
 
     public function cambiarEstadoUsuario()
     {
-        $tokenUser = $this->session->userdata('usertoken');
         $nameUser = $this->session->userdata('nombre');
 
         $id_usuario = $this->input->post("id_usuario");
@@ -74,6 +68,6 @@ class Usuario_controller extends CI_Controller
             "userAt" => $nameUser,
             "accion" => $this->input->post("accion")
         ];
-        echo put_function($id_usuario, $ArrayData, "usuarios/cambiarEstado", $tokenUser);
+        echo put_function($id_usuario, $ArrayData, "usuarios/cambiarEstado");
     }
 }

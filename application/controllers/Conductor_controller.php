@@ -8,21 +8,18 @@ class Conductor_controller extends CI_Controller
 
     public function cargarConductores()
     {
-        $tokenUser = $this->session->userdata('usertoken');
-        echo get_function("conductores/cargarConductores", $tokenUser);
+        echo get_function("conductores/cargarConductores");
     }
 
     public function buscarConductor()
     {
-        $tokenUser = $this->session->userdata('usertoken');
         $rut_conductor = $this->input->post("rut_conductor");
-        echo find_function($rut_conductor, "conductores/buscarConductor", $tokenUser);
+        echo find_function($rut_conductor, "conductores/buscarConductor");
     }
     public function crearConductor()
     {
-        $tokenUser = $this->session->userdata('usertoken');
-        $nameUser = $this->session->userdata('nombre');
 
+        $nameUser = $this->session->userdata('nombre');
         $arrayData = [
             "userAt" => $nameUser,
             "rut_conductor" => $this->input->post("inputRutConductor"),
@@ -34,6 +31,6 @@ class Conductor_controller extends CI_Controller
             "municipalidad_conductor" => $this->input->post("inputMunicipalidadConductor"),
             "direccion_conductor" => $this->input->post("inputDireccionConductor"),
         ];
-        echo post_function($arrayData, "conductores/registrarConductor", $tokenUser);
+        echo post_function($arrayData, "conductores/registrarConductor");
     }
 }

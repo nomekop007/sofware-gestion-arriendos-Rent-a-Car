@@ -515,7 +515,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                         firmar Acta de entrega <i class="fas fa-feather-alt"></i>
                     </button>
                     <button type="submit" id="btn_crear_ActaEntrega" class="btn btn-primary">
-                        <span hidden class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             id="spinner_btn_generarActaEntrega"></span>
                         Generar Acta de entrega</button>
                 </div>
@@ -569,23 +569,12 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <br>
                     </div>
                     <div class="form-group col-md-12">
-                        <div class="owl-carousel owl-theme" id="carruselVehiculos">
-                            <div class="item">
-                                <img src="https://www.autosusados.cl/fotos/332/0101938902-1-1-3.jpg" />
-                            </div>
-                            <div class="item">
-                                <img src="https://www.autosusados.cl/fotos/332/0101938902-1-1-3.jpg" />
-                            </div>
-                            <div class="item">
-                                <img src="https://www.autosusados.cl/fotos/332/0101938902-1-1-3.jpg" />
-                            </div>
-                            <div class="item">
-                                <img src="https://www.autosusados.cl/fotos/332/0101938902-1-1-3.jpg" />
-                            </div>
-                            <div class="item">
-                                <img src="https://www.autosusados.cl/fotos/332/0101938902-1-1-3.jpg" />
-                            </div>
+                        <div class="container" id="carrucel">
+
                         </div>
+                        <br>
+                        <button type="button" class="btn btn-danger btn-sm" id="limpiarArrayFotos">limpiar
+                            lista</button>
                     </div>
                 </div>
 
@@ -653,6 +642,12 @@ const limpiarCampos = () => {
     $("#body-sinContrato").show();
     $("#nombre_documento").val("");
     $("#subtotal-copago").hide();
+    $("#spinner_btn_generarActaEntrega").hide();
 
+
+
+    limpiarTodoCanvasVehiculo();
+
+    $("#carrucel").empty();
 }
 </script>

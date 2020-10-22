@@ -8,25 +8,22 @@ class Vehiculo_controller extends CI_Controller
 
     public function cargarVehiculos()
     {
-        $tokenUser = $this->session->userdata('usertoken');
         $arrayForm = [
             "id_sucursal" => $this->session->userdata('sucursal'),
             "id_rol" => $this->session->userdata('rol')
         ];
-        echo post_function($arrayForm, "vehiculos/cargarVehiculos", $tokenUser);
+        echo post_function($arrayForm, "vehiculos/cargarVehiculos");
     }
 
     public function buscarVehiculo()
     {
-        $tokenUser = $this->session->userdata('usertoken');
         $patente = $this->input->post("patente");
-        echo find_function($patente, 'vehiculos/buscarVehiculo', $tokenUser);
+        echo find_function($patente, 'vehiculos/buscarVehiculo');
     }
 
 
     public function registrarVehiculo()
     {
-        $tokenUser = $this->session->userdata('usertoken');
         $nameUser = $this->session->userdata('nombre');
 
         $arrayVehiculo = [
@@ -47,14 +44,13 @@ class Vehiculo_controller extends CI_Controller
             "estado_vehiculo" => $this->input->post("inputEstado"),
         ];
 
-        echo post_function($arrayVehiculo, "vehiculos/registrarVehiculo", $tokenUser);
+        echo post_function($arrayVehiculo, "vehiculos/registrarVehiculo");
     }
 
 
     public function editarVehiculo()
     {
 
-        $tokenUser = $this->session->userdata('usertoken');
         $nameUser = $this->session->userdata('nombre');
         $patente = $this->input->post("inputEditarPatente");
 
@@ -75,26 +71,24 @@ class Vehiculo_controller extends CI_Controller
             "estado_vehiculo" => $this->input->post("inputEditarEstado")
         ];
 
-        echo put_function($patente, $arrayVehiculo, "vehiculos/editarVehiculo", $tokenUser);
+        echo put_function($patente, $arrayVehiculo, "vehiculos/editarVehiculo");
     }
 
     public function cambiarEstadoVehiculo()
     {
-        $tokenUser = $this->session->userdata('usertoken');
         $nameUser = $this->session->userdata('nombre');
         $patente = $this->input->post("inputPatenteVehiculo");
         $ArrayData = [
             "userAt" => $nameUser,
             "estado_vehiculo" => $this->input->post("inputEstado"),
         ];
-        echo put_function($patente, $ArrayData, "vehiculos/editarVehiculo", $tokenUser);
+        echo put_function($patente, $ArrayData, "vehiculos/editarVehiculo");
     }
 
 
     public function guardarFotoVehiculo()
     {
 
-        $tokenUser = $this->session->userdata('usertoken');
         $patente =   $this->input->post("inputPatente");
 
         $path = $_FILES["inputFoto"]["tmp_name"];
@@ -109,6 +103,6 @@ class Vehiculo_controller extends CI_Controller
                 'filename' => $name
             ],
         ];
-        echo file_function($patente, $data, "vehiculos/cargarImagen", $tokenUser);
+        echo file_function($patente, $data, "vehiculos/cargarImagen");
     }
 }

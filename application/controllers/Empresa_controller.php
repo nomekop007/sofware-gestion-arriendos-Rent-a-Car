@@ -7,21 +7,21 @@ class Empresa_controller extends CI_Controller
 {
     public function cargarEmpresas()
     {
-        $tokenUser = $this->session->userdata('usertoken');
-        echo get_function("empresas/cargarEmpresas", $tokenUser);
+
+        echo get_function("empresas/cargarEmpresas");
     }
 
 
     public function buscarEmpresa()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $rut_empresa = $this->input->post("rut_empresa");
-        echo find_function($rut_empresa, "empresas/buscarEmpresa", $tokenUser);
+        echo find_function($rut_empresa, "empresas/buscarEmpresa");
     }
 
     public function crearEmpresa()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $nameUser = $this->session->userdata('nombre');
 
         $arrayData = [
@@ -35,6 +35,6 @@ class Empresa_controller extends CI_Controller
             "vigencia_empresa" => $this->input->post("inputVigencia"),
             "rol_empresa" => $this->input->post("inputRol"),
         ];
-        echo post_function($arrayData, "empresas/registrarEmpresa", $tokenUser);
+        echo post_function($arrayData, "empresas/registrarEmpresa");
     }
 }

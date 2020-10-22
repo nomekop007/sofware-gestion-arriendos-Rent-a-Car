@@ -9,7 +9,7 @@ class Pago_controller extends CI_Controller
 
     public function registrarPago()
     {
-        $tokenUser = $this->session->userdata('usertoken');
+
         $nameUser = $this->session->userdata('nombre');
 
         $dataArray = [
@@ -25,6 +25,6 @@ class Pago_controller extends CI_Controller
             "tipo_facturacion" => $this->input->post("customRadio1"),
             "numero_facturacion" => $this->input->post("inputNumFacturacion"),
         ];
-        echo post_function($dataArray, "pagos/registrarPago", $tokenUser);
+        echo post_function($dataArray, "pagos/registrarPago");
     }
 }

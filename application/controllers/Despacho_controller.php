@@ -9,7 +9,5 @@ class Despacho_controller extends CI_Controller
 
     public function registrarDespacho()
     {
-
-        $tokenUser = $this->session->userdata('usertoken');
     }
 }
