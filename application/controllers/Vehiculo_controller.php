@@ -81,6 +81,8 @@ class Vehiculo_controller extends CI_Controller
         $ArrayData = [
             "userAt" => $nameUser,
             "estado_vehiculo" => $this->input->post("inputEstado"),
+            "kilometraje_vehiculo" => $this->input->post("kilometraje_vehiculo"),
+
         ];
         echo put_function($patente, $ArrayData, "vehiculos/editarVehiculo");
     }

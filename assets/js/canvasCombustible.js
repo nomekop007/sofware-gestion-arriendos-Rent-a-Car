@@ -6,7 +6,7 @@ var ctxCombustible = canvasCombustible.getContext("2d");
 
 var cwCombustible = canvasCombustible.width = 290,
     cxCombustible = cwCombustible / 2;
-var chCombustible = canvasCombustible.height = 290,
+var chCombustible = canvasCombustible.height = 300,
     cyCombustible = chCombustible / 2;
 var rad = Math.PI / 180;
 var R = 110,
@@ -35,7 +35,7 @@ output.style.top = (handle.y - 50) + "px";
 output.style.left = (handle.x - 30) + "px";
 
 var isDragging = false;
-ctxCombustible.strokeStyle = "#555";
+ctxCombustible.strokeStyle = "#cc0000";
 ctxCombustible.fillStyle = "#e18728";
 
 

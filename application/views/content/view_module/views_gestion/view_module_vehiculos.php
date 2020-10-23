@@ -130,36 +130,38 @@
             <!-- Tab con la tabla de los vehiculos -->
             <div class="tab-pane fade" id="nav-vehiculos" role="tabpanel" aria-labelledby="nav-vehiculos-tab">
                 <br><br>
-                <table id="tablaVehiculos" class="table table-striped table-bordered" style="width:100%">
-                    <thead class="btn-dark">
-                        <tr>
-                            <th>Patente</th>
-                            <th>Marca modelo</th>
-                            <th>año</th>
-                            <th>Tipo</th>
-                            <th>transmision</th>
-                            <th>Sucursal</th>
-                            <th>Estado</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="vehiculos">
+                <div class="scroll">
+                    <table id="tablaVehiculos" class="table table-striped table-bordered" style="width:100%">
+                        <thead class="btn-dark">
+                            <tr>
+                                <th>Patente</th>
+                                <th>Marca modelo</th>
+                                <th>año</th>
+                                <th>Tipo</th>
+                                <th>transmision</th>
+                                <th>Sucursal</th>
+                                <th>Estado</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="vehiculos">
 
-                    </tbody>
-                    <tfoot class="btn-dark">
-                        <tr>
-                            <th>Patente</th>
-                            <th>Marca modelo</th>
-                            <th>año</th>
-                            <th>Tipo</th>
-                            <th>transmision</th>
-                            <th>Sucursal</th>
-                            <th>Estado</th>
-                            <th></th>
+                        </tbody>
+                        <tfoot class="btn-dark">
+                            <tr>
+                                <th>Patente</th>
+                                <th>Marca modelo</th>
+                                <th>año</th>
+                                <th>Tipo</th>
+                                <th>transmision</th>
+                                <th>Sucursal</th>
+                                <th>Estado</th>
+                                <th></th>
 
-                        </tr>
-                    </tfoot>
-                </table>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
                 <div class="text-center" id="spinner_tablaVehiculos">
                     <div class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>

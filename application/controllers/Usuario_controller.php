@@ -12,7 +12,12 @@ class Usuario_controller extends CI_Controller
             "email_usuario" => $this->input->post("correo"),
             "clave_usuario" => $this->input->post("clave")
         ];
-        echo post_function($arrayUser, "usuarios/login");
+        //el login no incluye token
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', api_url() . "usuarios/login", [
+            'json' => $arrayUser
+        ]);
+        echo  $response->getBody();
     }
 
     public function cargarUsuarios()

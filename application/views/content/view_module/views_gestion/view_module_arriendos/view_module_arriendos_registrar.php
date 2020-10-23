@@ -532,7 +532,7 @@ switch ($this->session->userdata('sucursal')) {
                 <br>
                 <h4>Accesorios</h4>
                 <div class="form-row" id="row_accesorios">
-
+                    <!-- se cargan los accesorios  -->
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">

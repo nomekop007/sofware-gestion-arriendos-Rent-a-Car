@@ -23,15 +23,17 @@ $(document).ready(() => {
 
 
     $("#seleccionarFoto").click(async() => {
+        /*
+        se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
+        el servidor solo puede recibir un maximo de 2mb en cada consulta.
+        */
         if ($("#inputImagenVehiculo").val() != 0) {
             const canvas = document.getElementById("canvas-fotoVehiculo");
             const base64 = canvas.toDataURL("image/png");
-
             const url = await resizeBase64Img(base64, 500, 300);
             if (arrayImages.length < 5) {
                 arrayImages.push(url);
                 agregarFotoACarrucel(arrayImages);
-                console.log(arrayImages);
                 limpiarTodoCanvasVehiculo();
             } else {
                 Swal.fire({
@@ -48,16 +50,27 @@ $(document).ready(() => {
     });
 
 
-    $("#btn_crear_ActaEntrega").click(() => {
+    $("#btn_crear_ActaEntrega").click(async() => {
         const canvas = document.getElementById("canvas-combustible");
         const url = canvas.toDataURL("image/png")
-        const form = $("#formActaEntrega")[0];
-        const data = new FormData(form);
-        data.append("arrayImages", JSON.stringify(arrayImages));
-        data.append("imageCombustible", url);
+        const matrizRecepcion = await capturarControlRecepcionArray();
+        if (arrayImages.length > 0) {
+            const form = $("#formActaEntrega")[0];
+            const data = new FormData(form);
+            data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
+            data.append("arrayImages", JSON.stringify(arrayImages));
+            data.append("imageCombustible", url);
+            generarActaEntrega(data);
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "falta tomar fotos al vehiculo!",
+            });
+        }
 
-        generarActaEntrega(data);
     });
+
+
 
     $("#limpiarArrayFotos").click(() => {
         arrayImages.length = 0;
@@ -66,16 +79,11 @@ $(document).ready(() => {
 
 
 
-
-
-
     const generarActaEntrega = async(data) => {
         $("#btn_crear_ActaEntrega").attr("disabled", true);
         $("#spinner_btn_generarActaEntrega").show();
         const response = await ajax_function(data, "generar_PDFactaEntrega");
         if (response) {
-            arrayImages.length = 0;
-            $("#carrucel").empty();
             $("#modal_signature").modal({
                 show: true,
             });
@@ -83,7 +91,6 @@ $(document).ready(() => {
             $("#body-documento").show();
             $("#body-firma").show();
             $("#body-sinContrato").hide();
-
             const url = storage + "documentos/actaEntrega/" + response.data.nombre_documento + ".pdf";
             mostrarPDF(url);
         }
@@ -91,9 +98,12 @@ $(document).ready(() => {
         $("#btn_crear_ActaEntrega").attr("disabled", false);
     }
 
+
+
+
     const mostrarPDF = (url) => {
         $("#body-documento").html(
-            '<a href="' + url + '" >Descargar contrato</a><br>' +
+            '<a href="' + url + '" >Descargar Acta de entrega</a><br>' +
             '<iframe width="100%" height="700px" src="' + url + '" target="_parent"></iframe>'
         );
     }
@@ -112,7 +122,34 @@ $(document).ready(() => {
     }
 
 
-    function resizeBase64Img(base64, newWidth, newHeight) {
+    const capturarControlRecepcionArray = async() => {
+
+        //cacturando los accesorios
+        const matrizRecepcion = [];
+
+        matrizRecepcion.push($('[name="listA[]"]:checked')
+            .map(function() {
+                return this.value;
+            })
+            .get())
+
+        matrizRecepcion.push($('[name="listB[]"]:checked')
+            .map(function() {
+                return this.value;
+            })
+            .get())
+
+        matrizRecepcion.push($('[name="listC[]"]:checked')
+            .map(function() {
+                return this.value;
+            })
+            .get())
+
+
+        return matrizRecepcion;
+    }
+
+    const resizeBase64Img = (base64, newWidth, newHeight) => {
         return new Promise((resolve, reject) => {
             var canvas = document.createElement("canvas");
             canvas.width = newWidth;
@@ -142,7 +179,6 @@ $(document).ready(() => {
                 cliente = arriendo.empresa.nombre_empresa;
                 break;
         }
-
         tablaControldespacho.row
             .add([
                 arriendo.id_arriendo,

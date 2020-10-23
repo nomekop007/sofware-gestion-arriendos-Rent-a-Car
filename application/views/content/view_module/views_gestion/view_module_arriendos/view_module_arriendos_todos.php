@@ -6,33 +6,35 @@ $nombreUsuario = $this->session->userdata('nombre')
 <!-- Tab con la tabla de los arriendos activos -->
 <div class="tab-pane fade" id="nav-arriendos" role="tabpanel" aria-labelledby="nav-arriendos-tab">
     <br><br>
-    <table id="tablaTotalArriendos" class="table table-striped table-bordered" style="width:100%">
-        <thead class="btn-dark">
-            <tr>
-                <th>Nº</th>
-                <th>Cliente</th>
-                <th>fecha registro</th>
-                <th>tipo arriendo</th>
-                <th>estado</th>
-                <th>vendedor</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="scroll">
+        <table id="tablaTotalArriendos" class="table table-striped table-bordered " style="width:100%">
+            <thead class="btn-dark">
+                <tr>
+                    <th>Nº</th>
+                    <th>Cliente</th>
+                    <th>fecha registro</th>
+                    <th>tipo arriendo</th>
+                    <th>estado</th>
+                    <th>vendedor</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
 
-        </tbody>
-        <tfoot class="btn-dark">
-            <tr>
-                <th>Nº</th>
-                <th>Cliente</th>
-                <th>fecha registro</th>
-                <th>tipo arriendo</th>
-                <th>estado</th>
-                <th>vendedor</th>
-                <th></th>
-            </tr>
-        </tfoot>
-    </table>
+            </tbody>
+            <tfoot class="btn-dark">
+                <tr>
+                    <th>Nº</th>
+                    <th>Cliente</th>
+                    <th>fecha registro</th>
+                    <th>tipo arriendo</th>
+                    <th>estado</th>
+                    <th>vendedor</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
     <div class="text-center" id="spinner_tablaTotalArriendos">
         <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
@@ -390,13 +392,13 @@ const buscarArriendo = async (id_arriendo, option) => {
         const arriendo = response.data;
         // si es true carga modal confirmar ; false carga modal editar
         option ? mostrarArriendoModalConfirmacion(arriendo) : mostrarArriendoModalEditar(arriendo);
+        $("#formSpinner").hide();
+        $("#formContrato").show();
     }
 }
 
 
 const mostrarArriendoModalConfirmacion = (arriendo) => {
-    $("#formSpinner").hide();
-    $("#formContrato").show();
     $("#inputIdArriendo").val(arriendo.id_arriendo);
     $("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo)
     $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);

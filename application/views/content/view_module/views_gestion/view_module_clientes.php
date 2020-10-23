@@ -24,30 +24,31 @@
             <br>
             <br>
             <div class="tab-pane fade show active" id="nav-clientes" role="tabpanel" aria-labelledby="nav-clientes-tab">
+                <div class="scroll">
+                    <table id="tablaClientes" class="table table-striped table-bordered" style="width:100%">
+                        <thead class="btn-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Rut</th>
+                                <th>telefono</th>
+                                <th>Correo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                <table id="tablaClientes" class="table table-striped table-bordered" style="width:100%">
-                    <thead class="btn-dark">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Rut</th>
-                            <th>telefono</th>
-                            <th>Correo</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                    <tfoot class="btn-dark">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Rut</th>
-                            <th>telefono</th>
-                            <th>Correo</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                </table>
+                        </tbody>
+                        <tfoot class="btn-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Rut</th>
+                                <th>telefono</th>
+                                <th>Correo</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
                 <div class="text-center" id="spinner_tablaClientes">
                     <div class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
@@ -56,29 +57,32 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="nav-empresas" role="tabpanel" aria-labelledby="nav-empresas-tab">
-                <table id="tablaEmpresas" class="table table-striped table-bordered" style="width:100%">
-                    <thead class="btn-dark">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Rut</th>
-                            <th>Rol</th>
-                            <th>Correo</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class="scroll">
+                    <table id="tablaEmpresas" class="table table-striped table-bordered" style="width:100%">
 
-                    </tbody>
-                    <tfoot class="btn-dark">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Rut</th>
-                            <th>Rol</th>
-                            <th>Correo</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                </table>
+                        <thead class="btn-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Rut</th>
+                                <th>Rol</th>
+                                <th>Correo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                        <tfoot class="btn-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Rut</th>
+                                <th>Rol</th>
+                                <th>Correo</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
                 <div class="text-center" id="spinner_tablaEmpresas">
                     <div class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
@@ -87,29 +91,31 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="nav-conductores" role="tabpanel" aria-labelledby="nav-conductores-tab">
-                <table id="tablaConductores" class="table table-striped table-bordered" style="width:100%">
-                    <thead class="btn-dark">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Rut</th>
-                            <th>Clase</th>
-                            <th>telefono</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class="scroll">
+                    <table id="tablaConductores" class="table table-striped table-bordered" style="width:100%">
+                        <thead class="btn-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Rut</th>
+                                <th>Clase</th>
+                                <th>telefono</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                    </tbody>
-                    <tfoot class="btn-dark">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Rut</th>
-                            <th>Clase</th>
-                            <th>telefono</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                </table>
+                        </tbody>
+                        <tfoot class="btn-dark">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Rut</th>
+                                <th>Clase</th>
+                                <th>telefono</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
                 <div class="text-center" id="spinner_tablaConductores">
                     <div class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>

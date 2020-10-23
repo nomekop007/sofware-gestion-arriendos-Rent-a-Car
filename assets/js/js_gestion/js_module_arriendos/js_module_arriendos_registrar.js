@@ -153,6 +153,9 @@ $(document).ready(() => {
         }
     });
 
+
+
+
     $("#btn_crear_arriendo").click(async() => {
         //AQUI SE VALIDA EL FORMULARIO COMPLETO
 
@@ -485,6 +488,7 @@ $(document).ready(() => {
         const data = new FormData();
         data.append("inputPatenteVehiculo", patente);
         data.append("inputEstado", "RESERVADO");
+        data.append("kilometraje_vehiculo", $("#inputEntrada").val());
         await ajax_function(data, "cambiarEstado_vehiculo");
     };
 

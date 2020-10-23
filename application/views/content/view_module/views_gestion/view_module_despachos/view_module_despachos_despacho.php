@@ -3,38 +3,39 @@ $nombreUsuario = $this->session->userdata('nombre')
 ?>
 <div class="tab-pane fade show active" id="nav-despachos" role="tabpanel" aria-labelledby="nav-despacho-tab">
     <br><br>
-    <table id="tablaControldespacho" class="table table-striped table-bordered" style="width:100%">
-        <thead class="btn-dark">
-            <tr>
-                <th>Nº</th>
-                <th>Cliente</th>
-                <th>Vehiculo</th>
-                <th>Fecha Entrega</th>
-                <th>Fecha Recepecion</th>
-                <th>tipo arriendo</th>
-                <th>estado</th>
-                <th>Vendedor</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="scroll">
+        <table id="tablaControldespacho" class=" table table-striped table-bordered " style="width:100%">
+            <thead class="btn-dark">
+                <tr>
+                    <th>Nº</th>
+                    <th>Cliente</th>
+                    <th>Vehiculo</th>
+                    <th>Fecha Entrega</th>
+                    <th>Fecha Recepecion</th>
+                    <th>tipo arriendo</th>
+                    <th>estado</th>
+                    <th>Vendedor</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
 
-        </tbody>
-        <tfoot class="btn-dark">
-            <tr>
-                <th>Nº</th>
-                <th>Cliente</th>
-                <th>Vehiculo</th>
-                <th>Fecha Entrega</th>
-                <th>Fecha Recepecion</th>
-                <th>tipo arriendo</th>
-                <th>estado</th>
-                <th>Vendedor</th>
-
-                <th></th>
-            </tr>
-        </tfoot>
-    </table>
+            </tbody>
+            <tfoot class="btn-dark">
+                <tr>
+                    <th>Nº</th>
+                    <th>Cliente</th>
+                    <th>Vehiculo</th>
+                    <th>Fecha Entrega</th>
+                    <th>Fecha Recepecion</th>
+                    <th>tipo arriendo</th>
+                    <th>estado</th>
+                    <th>Vendedor</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
     <div class="text-center" id="spinner_tablaDespacho">
         <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
@@ -53,6 +54,13 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+            </div>
+            <div class="modal-body" id="formSpinner">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
             </div>
             <form class="needs-validation" id="formActaEntrega" novalidate>
                 <input hidden type="text" id="inputIdArriendo" name="inputIdArriendo">
@@ -121,7 +129,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Documentacion</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a1">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a1">
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +137,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Inscripción</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a2">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a2">
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +145,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Permiso Circulacion</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a3">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a3">
                                         </div>
                                     </div>
                                 </div>
@@ -145,7 +153,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Rev. Técnica</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a4">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a4">
                                         </div>
                                     </div>
                                 </div>
@@ -153,7 +161,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Seguro Obligatorio</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a5">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a5">
                                         </div>
                                     </div>
                                 </div>
@@ -161,7 +169,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Otros</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a6">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a6">
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +177,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">INTERIOR</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a7">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a7">
                                         </div>
                                     </div>
                                 </div>
@@ -177,7 +185,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Manual</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a8">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a8">
                                         </div>
                                     </div>
                                 </div>
@@ -185,7 +193,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Garantía</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a9">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a9">
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +201,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Cinturones</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a10">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a10">
                                         </div>
                                     </div>
                                 </div>
@@ -201,7 +209,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Espejos Interior</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a11">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a11">
                                         </div>
                                     </div>
                                 </div>
@@ -209,7 +217,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Espejos Exterior</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a12">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a12">
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +225,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Parasoles</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a13">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a13">
                                         </div>
                                     </div>
                                 </div>
@@ -225,7 +233,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Ceniceros</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="a14">
+                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a14">
                                         </div>
                                     </div>
                                 </div>
@@ -243,7 +251,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Encendedor</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b1">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b1">
                                         </div>
                                     </div>
                                 </div>
@@ -251,7 +259,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Doble juego llaves</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b2">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b2">
                                         </div>
                                     </div>
                                 </div>
@@ -259,7 +267,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Pisos de goma</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b3">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b3">
                                         </div>
                                     </div>
                                 </div>
@@ -267,7 +275,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Tapiz O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b4">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b4">
                                         </div>
                                     </div>
                                 </div>
@@ -275,7 +283,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Radio O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b5">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b5">
                                         </div>
                                     </div>
                                 </div>
@@ -283,7 +291,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Tocacintas O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b6">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b6">
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +299,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Bocina O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b7">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b7">
                                         </div>
                                     </div>
                                 </div>
@@ -299,7 +307,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Luces O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b8">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b8">
                                         </div>
                                     </div>
                                 </div>
@@ -307,7 +315,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Señalizadores O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b9">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b9">
                                         </div>
                                     </div>
                                 </div>
@@ -315,7 +323,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Luz Emergencia O.K</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b10">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b10">
                                         </div>
                                     </div>
                                 </div>
@@ -323,7 +331,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Calefacción O.K</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b11">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b11">
                                         </div>
                                     </div>
                                 </div>
@@ -331,7 +339,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Defroster O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b12">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b12">
                                         </div>
                                     </div>
                                 </div>
@@ -339,7 +347,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Freno de Mano O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b13">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b13">
                                         </div>
                                     </div>
                                 </div>
@@ -347,7 +355,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Chaleco reflectante</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="b14">
+                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b14">
                                         </div>
                                     </div>
                                 </div>
@@ -365,7 +373,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Tapas de rueda ( )</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c1">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c1">
                                         </div>
                                     </div>
                                 </div>
@@ -373,7 +381,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Plumillas ( )</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c2">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c2">
                                         </div>
                                     </div>
                                 </div>
@@ -381,7 +389,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Antena O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c3">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c3">
                                         </div>
                                     </div>
                                 </div>
@@ -389,7 +397,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Micas O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c4">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c4">
                                         </div>
                                     </div>
                                 </div>
@@ -397,7 +405,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Pintura O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c5">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c5">
                                         </div>
                                     </div>
                                 </div>
@@ -405,7 +413,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Nivel Aceite O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c6">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c6">
                                         </div>
                                     </div>
                                 </div>
@@ -413,7 +421,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Tapa Bencina</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c7">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c7">
                                         </div>
                                     </div>
                                 </div>
@@ -421,7 +429,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">R.Repuesto</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c8">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c8">
                                         </div>
                                     </div>
                                 </div>
@@ -429,7 +437,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Gata/Barrote</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c9">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c9">
                                         </div>
                                     </div>
                                 </div>
@@ -437,7 +445,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Herramientas</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c10">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c10">
                                         </div>
                                     </div>
                                 </div>
@@ -445,7 +453,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Parachoques O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c11">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c11">
                                         </div>
                                     </div>
                                 </div>
@@ -453,7 +461,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Bateria O.K.</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c12">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c12">
                                         </div>
                                     </div>
                                 </div>
@@ -461,7 +469,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Adhesivo Interior</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c13">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c13">
                                         </div>
                                     </div>
                                 </div>
@@ -469,7 +477,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="col-sm-7">Placa</div>
                                     <div class="col-sm-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="c14">
+                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c14">
                                         </div>
                                     </div>
                                 </div>
@@ -501,10 +509,12 @@ $nombreUsuario = $this->session->userdata('nombre')
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <h6 class="text-center">Combustible actual</h6>
                                 <div class="container col-md-12" id="canvasContainer">
                                     <div id="output" class="text-center">0E</div>
                                     <canvas id="canvas-combustible" class="img-fluid rounded float-right"></canvas>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -540,6 +550,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <div class="row">
                     <div class="form-group col-md-4">
                         <input type="file" class="form-control-file" id="inputImagenVehiculo" accept=".jpg,.jpeg,.png">
+                        <h6>Maximo 5 fotos </h6>
                     </div>
                     <div class="form-group col-md-2">
                         <button type="button" id="limpiar-fotoVehiculo" class="btn btn-secondary btn-sm form-control ">
@@ -593,7 +604,7 @@ $nombreUsuario = $this->session->userdata('nombre')
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal_signature">Firmar Contrato </h5>
+                <h5 class="modal-title" id="modal_signature">Firmar Acta de entrega </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -602,7 +613,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <input type="text" id="nombre_documento" hidden>
                 <div id="body-sinContrato">
                     <br>
-                    <h6 class='text-center'>Sin contrato cargado</h6><br>
+                    <h6 class='text-center'>Sin Acta de entrega cargado</h6><br>
                 </div>
                 <div id="body-documento">
                     <!-- se carga el pdf -->
@@ -632,8 +643,11 @@ const buscarArriendo = async (id_arriendo) => {
         $("#inputEdadVehiculoDespacho").val(arriendo.vehiculo.año_vehiculo);
         $("#inputColorVehiculoDespacho").val(arriendo.vehiculo.color_vehiculo);
         $("#inputPatenteVehiculoDespacho").val(arriendo.vehiculo.patente_vehiculo);
-        $("#inputKilomentrajeVehiculoDespacho").val(arriendo.kilometrosEntrada_arriendo);
+        $("#inputKilomentrajeVehiculoDespacho").val(arriendo.vehiculo.kilometraje_vehiculo);
+        $("#formSpinner").hide();
+        $("#formActaEntrega").show();
     }
+
 }
 
 const limpiarCampos = () => {
@@ -643,11 +657,8 @@ const limpiarCampos = () => {
     $("#nombre_documento").val("");
     $("#subtotal-copago").hide();
     $("#spinner_btn_generarActaEntrega").hide();
-
-
-
-    limpiarTodoCanvasVehiculo();
-
-    $("#carrucel").empty();
+    $("#formActaEntrega")[0].reset();
+    $("#formSpinner").show();
+    $("#formActaEntrega").hide();
 }
 </script>

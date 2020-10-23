@@ -66,34 +66,35 @@
         <div class="card">
             <div class="card-body">
                 <br>
-                <!-- contenido -->
-                <table id="tablaUsuarios" class="table table-striped table-bordered" style="width:100%">
-                    <thead class="btn-dark">
-                        <tr>
-                            <th>Nombre completo</th>
-                            <th>correo Electronico</th>
-                            <th>rol</th>
-                            <th>sucursal</th>
-                            <th>fecha creacion</th>
-                            <th>estado</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class="scroll">
+                    <table id="tablaUsuarios" class="table table-striped table-bordered" style="width:100%">
+                        <thead class="btn-dark">
+                            <tr>
+                                <th>Nombre completo</th>
+                                <th>correo Electronico</th>
+                                <th>rol</th>
+                                <th>sucursal</th>
+                                <th>fecha creacion</th>
+                                <th>estado</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                    </tbody>
-                    <tfoot class="btn-dark">
-                        <tr>
-                            <th>Nombre completo</th>
-                            <th>correo Electronico</th>
-                            <th>rol</th>
-                            <th>sucursal</th>
-                            <th>fecha creacion</th>
-                            <th>estado</th>
-                            <th> </th>
-                        </tr>
-                    </tfoot>
-                </table>
+                        </tbody>
+                        <tfoot class="btn-dark">
+                            <tr>
+                                <th>Nombre completo</th>
+                                <th>correo Electronico</th>
+                                <th>rol</th>
+                                <th>sucursal</th>
+                                <th>fecha creacion</th>
+                                <th>estado</th>
+                                <th> </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
                 <div class="text-center" id="spinner_tablaUsuarios">
                     <div class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
