@@ -12,3 +12,4 @@ $("#l_despacho").addClass("card");
 
 <script src="<?php echo base_url() ?>assets/js/canvasCombustible.js"></script>
 <script src="<?php echo base_url() ?>assets/js/canvasImgVehiculos.js"></script>
+<script src="<?php echo base_url() ?>assets/js/canvasFirmasActaEntrega.js"></script>

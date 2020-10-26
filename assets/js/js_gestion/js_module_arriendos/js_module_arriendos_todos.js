@@ -149,6 +149,7 @@ $(document).ready(() => {
     };
 
     const cambiarEstadoArriendo = async(data) => {
+        data.append("estado", "FIRMADO");
         await ajax_function(data, "cambiarEstado_arriendo");
     };
 

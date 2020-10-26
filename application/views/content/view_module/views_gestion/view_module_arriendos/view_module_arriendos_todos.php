@@ -41,7 +41,6 @@ $nombreUsuario = $this->session->userdata('nombre')
         </div>
         <h6>Cargando Datos...</h6>
     </div>
-
 </div>
 
 
@@ -307,7 +306,6 @@ $nombreUsuario = $this->session->userdata('nombre')
             </form>
         </div>
     </div>
-
 </div>
 
 
@@ -335,7 +333,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <div class="row">
 
                         <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
-                            <canvas id="canvas-firma">
+                            <canvas id="canvas-firma" class="canvas-firma">
                             </canvas>
                         </div>
                         <div class="col-md-12 d-flex justify-content-center">

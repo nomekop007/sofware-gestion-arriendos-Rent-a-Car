@@ -25,7 +25,7 @@ a:hover {
 
 /*canvas */
 
-#canvas-firma {
+.canvas-firma {
     border: 1px solid black;
 }
 

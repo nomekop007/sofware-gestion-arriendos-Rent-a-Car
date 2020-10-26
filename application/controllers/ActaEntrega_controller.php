@@ -15,6 +15,8 @@ class ActaEntrega_controller extends CI_Controller
 
         $ArrayData = [
             "userAt" => $nameUser,
+            "firma1PNG" => $this->input->post("inputFirma1PNG"),
+            "firma2PNG" => $this->input->post("inputFirma2PNG"),
             "id_arriendo" => $this->input->post("inputIdArriendo"),
             "arrayImages" => json_decode($this->input->post("arrayImages")),
             "matrizRecepcion" => json_decode($this->input->post("matrizRecepcion")),
@@ -28,5 +30,18 @@ class ActaEntrega_controller extends CI_Controller
         ];
 
         echo post_function($ArrayData, "actasEntregas/generarPDFactaEntrega");
+    }
+
+
+    public function registrarActaEntrega()
+    {
+        $nameUser = $this->session->userdata('nombre');
+
+        $dataArray = [
+            "userAt" => $nameUser,
+            "id_despacho" => $this->input->post("inputIdDespacho"),
+            "documento" => $this->input->post("nombre_documento"),
+        ];
+        echo post_function($dataArray, "actasEntregas/registrarActaEntrega");
     }
 }

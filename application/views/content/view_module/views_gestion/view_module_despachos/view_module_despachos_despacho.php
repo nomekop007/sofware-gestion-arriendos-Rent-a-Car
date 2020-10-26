@@ -93,8 +93,9 @@ $nombreUsuario = $this->session->userdata('nombre')
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputKilomentrajeVehiculoDespacho">Kilomentraje</label>
-                            <input disabled onblur="mayus(this);" type="text" class="form-control"
-                                id="inputKilomentrajeVehiculoDespacho" name="inputKilomentrajeVehiculoDespacho">
+                            <input onkeypress="return soloNumeros(event);" maxLength="11" type="text"
+                                class="form-control" id="inputKilomentrajeVehiculoDespacho"
+                                name="inputKilomentrajeVehiculoDespacho" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputDestinoDespacho">Destino (venta o arriendo)</label>
@@ -554,7 +555,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     </div>
                     <div class="form-group col-md-2">
                         <button type="button" id="limpiar-fotoVehiculo" class="btn btn-secondary btn-sm form-control ">
-                            limpiar</button>
+                            limpiar pizarra</button>
                     </div>
                     <div class="form-group col-md-1">
                         <input type="color" class=" form-control" id="colorCanvas" oninput="defcolor(this.value)">
@@ -566,7 +567,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     </div>
                     <div class="form-group col-md-3">
                         <button type="button" id="seleccionarFoto" class="btn btn-success btn-sm form-control ">
-                            guardar foto</button>
+                            añadir foto</button>
                     </div>
                     <div class="form-group col-md-12 text-center">
                         <br>
@@ -618,8 +619,50 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <div id="body-documento">
                     <!-- se carga el pdf -->
                 </div>
-                <div class="container" id="body-firma">
-                    <!-- firmas  -->
+                <div class="row" id="body-firma">
+                    <div class="container col-md-6">
+                        <br>
+                        <h6 class="text-center">Recibido por:</h6>
+                        <p class="text-center" id="recibido"></p>
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
+                                <canvas id="canvas-firma1" class="canvas-firma">
+                                </canvas>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <button type="button" id="limpiar-firma1" class="btn btn-secondary btn-sm ">
+                                    limpiar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container col-md-6">
+                        <br>
+                        <h6 class="text-center">Entregado por:</h6>
+                        <p class="text-center" id="entregado"></p>
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
+                                <canvas id="canvas-firma2" class="canvas-firma">
+                                </canvas>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <button type="button" id="limpiar-firma2" class="btn btn-secondary btn-sm ">
+                                    limpiar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="col-md-12 text-center">
+                        <button type="button" id="btn_firmar_actaEntrega" class="btn btn-success btn-sm ">
+                            Firmar acta entrega
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                id="spinner_btn_firmarActaEntrega"></span>
+                        </button>
+                        <button type="button" id="btn_confirmar_actaEntrega" class="btn btn-primary btn-sm ">
+                            Guardar cambios
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                id="spinner_btn_confirmarActaEntrega"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -637,6 +680,7 @@ const buscarArriendo = async (id_arriendo) => {
     const response = await ajax_function(data, "buscar_arriendo");
     if (response.success) {
         const arriendo = response.data;
+
         $("#inputIdArriendo").val(arriendo.id_arriendo);
         $("#inputMarcaVehiculoDespacho").val(arriendo.vehiculo.marca_vehiculo);
         $("#inputModeloVehiculoDespacho").val(arriendo.vehiculo.modelo_vehiculo);
@@ -646,8 +690,20 @@ const buscarArriendo = async (id_arriendo) => {
         $("#inputKilomentrajeVehiculoDespacho").val(arriendo.vehiculo.kilometraje_vehiculo);
         $("#formSpinner").hide();
         $("#formActaEntrega").show();
-    }
 
+        switch (arriendo.tipo_arriendo) {
+            case "PARTICULAR":
+                $("#inputRecibidorDespacho").val(arriendo.cliente.nombre_cliente);
+                break;
+            case "REMPLAZO":
+                $("#inputRecibidorDespacho").val(arriendo.remplazo.cliente.nombre_cliente);
+                break;
+            case "EMPRESA":
+                $("#inputRecibidorDespacho").val(arriendo.empresa.nombre_empresa);
+                break;
+        }
+
+    }
 }
 
 const limpiarCampos = () => {
@@ -660,5 +716,21 @@ const limpiarCampos = () => {
     $("#formActaEntrega")[0].reset();
     $("#formSpinner").show();
     $("#formActaEntrega").hide();
+
+    $("#btn_firmar_actaEntrega").attr("disabled", false);
+    $("#spinner_btn_firmarActaEntrega").hide();
+    $("#spinner_btn_confirmarActaEntrega").hide();
+    $("#btn_confirmar_actaEntrega").attr("disabled", true);
+
+
+    //se limpia los canvas de firma
+    dibujarFirma1 = false;
+    dibujarFirma2 = false;
+    ctxFirma1.clearRect(0, 0, cwFirma1, chFirma1);
+    ctxFirma2.clearRect(0, 0, cwFirma2, chFirma2);
+    Trazados1.length = 0;
+    Trazados2.length = 0;
+    puntos1.length = 0;
+    puntos2.length = 0;
 }
 </script>

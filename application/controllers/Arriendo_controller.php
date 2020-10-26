@@ -87,7 +87,7 @@ class Arriendo_controller extends CI_Controller
         $idArriendo = $this->input->post("inputIdArriendo");
         $ArrayData = [
             "userAt" => $nameUser,
-            "estado_arriendo" => "FIRMADO",
+            "estado_arriendo" =>  $this->input->post("estado")
         ];
         echo put_function($idArriendo, $ArrayData, "arriendos/editarArriendo");
     }
