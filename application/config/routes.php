@@ -27,7 +27,7 @@ $route['guardar_fotoVehiculo'] = 'Vehiculo_controller/guardarFotoVehiculo';
 $route['cambiarEstado_vehiculo'] = 'Vehiculo_controller/cambiarEstadoVehiculo';
 
 /* rutas de controller usuario */
-$route['iniciarSesion'] = 'Usuario_controller/iniciarSesion';
+$route['iniciar_sesion'] = 'Usuario_controller/iniciarSesion';
 $route['cargar_usuarios'] = 'Usuario_controller/cargarUsuarios';
 $route['registrar_usuario'] = 'Usuario_controller/registrarUsuario';
 $route['buscar_usuario'] = 'Usuario_controller/buscarUsuario';

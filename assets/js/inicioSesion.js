@@ -7,7 +7,7 @@ $(document).ready(() => {
 
         if (correo.length != 0 || clave.length != 0) {
             $.ajax({
-                url: base_url + "iniciarSesion",
+                url: base_url + "iniciar_sesion",
                 type: "post",
                 dataType: "json",
                 data: { correo, clave },
