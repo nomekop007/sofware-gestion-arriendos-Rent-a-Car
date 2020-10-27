@@ -6,73 +6,73 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Usuario_controller extends CI_Controller
 {
 
-    public function iniciarSesion()
-    {
-        $arrayUser = [
-            "email_usuario" => $this->input->post("correo"),
-            "clave_usuario" => $this->input->post("clave")
-        ];
-        //el login no incluye token
-        $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', api_url() . "usuarios/login", [
-            'json' => $arrayUser
-        ]);
-        echo  $response->getBody();
-    }
+	public function iniciarSesion()
+	{
+		$arrayUser = [
+			"email_usuario" => $this->input->post("correo"),
+			"clave_usuario" => $this->input->post("clave")
+		];
+		//el login no incluye token
+		$client = new \GuzzleHttp\Client();
+		$response = $client->request('POST', api_url() . "usuarios/login", [
+			'json' => $arrayUser
+		]);
+		echo  $response->getBody();
+	}
 
-    public function cargarUsuarios()
-    {
-        echo get_function("usuarios/cargarUsuarios");
-    }
+	public function cargarUsuarios()
+	{
+		echo get_function("usuarios/cargarUsuarios");
+	}
 
-    public function registrarUsuario()
-    {
-        $nameUser = $this->session->userdata('nombre');
+	public function registrarUsuario()
+	{
+		$nameUser = $this->session->userdata('nombre');
 
-        $ArrayData = [
-            "userAt" => $nameUser,
-            "nombre_usuario" => $this->input->post("inputNombreUsuario"),
-            "estado_usuario" => true,
-            "email_usuario" => $this->input->post("inputCorreoUsuario"),
-            "clave_usuario" => $this->input->post("inputClaveUsuario"),
-            "id_rol" => $this->input->post("inputRolUsuario"),
-            "id_sucursal" => $this->input->post("inputSucursalUsuario"),
-        ];
-        echo post_function($ArrayData, "usuarios/registrar");
-    }
+		$ArrayData = [
+			"userAt" => $nameUser,
+			"nombre_usuario" => $this->input->post("inputNombreUsuario"),
+			"estado_usuario" => true,
+			"email_usuario" => $this->input->post("inputCorreoUsuario"),
+			"clave_usuario" => $this->input->post("inputClaveUsuario"),
+			"id_rol" => $this->input->post("inputRolUsuario"),
+			"id_sucursal" => $this->input->post("inputSucursalUsuario"),
+		];
+		echo post_function($ArrayData, "usuarios/registrar");
+	}
 
-    public function buscarUsuario()
-    {
-        $id_usuario = $this->input->post("id_usuario");
-        echo find_function($id_usuario, "usuarios/buscarUsuario");
-    }
+	public function buscarUsuario()
+	{
+		$id_usuario = $this->input->post("id_usuario");
+		echo find_function($id_usuario, "usuarios/buscarUsuario");
+	}
 
-    public function editarUsuario()
-    {
-        $nameUser = $this->session->userdata('nombre');
+	public function editarUsuario()
+	{
+		$nameUser = $this->session->userdata('nombre');
 
-        $id_usuario = $this->input->post("inputUsuario");
-        $ArrayData = [
-            "userAt" => $nameUser,
-            "nombre_usuario" => $this->input->post("inputEditNombreUsuario"),
-            "email_usuario" => $this->input->post("inputEditCorreoUsuario"),
-            "clave_usuario" => $this->input->post("inputEditClaveUsuario"),
-            "id_rol" => $this->input->post("inputEditRolUsuario"),
-            "id_sucursal" => $this->input->post("inputEditSucursalUsuario"),
-        ];
-        echo put_function($id_usuario, $ArrayData, "usuarios/editarUsuario");
-    }
+		$id_usuario = $this->input->post("inputUsuario");
+		$ArrayData = [
+			"userAt" => $nameUser,
+			"nombre_usuario" => $this->input->post("inputEditNombreUsuario"),
+			"email_usuario" => $this->input->post("inputEditCorreoUsuario"),
+			"clave_usuario" => $this->input->post("inputEditClaveUsuario"),
+			"id_rol" => $this->input->post("inputEditRolUsuario"),
+			"id_sucursal" => $this->input->post("inputEditSucursalUsuario"),
+		];
+		echo put_function($id_usuario, $ArrayData, "usuarios/editarUsuario");
+	}
 
-    public function cambiarEstadoUsuario()
-    {
-        $nameUser = $this->session->userdata('nombre');
+	public function cambiarEstadoUsuario()
+	{
+		$nameUser = $this->session->userdata('nombre');
 
-        $id_usuario = $this->input->post("id_usuario");
+		$id_usuario = $this->input->post("id_usuario");
 
-        $ArrayData = [
-            "userAt" => $nameUser,
-            "accion" => $this->input->post("accion")
-        ];
-        echo put_function($id_usuario, $ArrayData, "usuarios/cambiarEstado");
-    }
+		$ArrayData = [
+			"userAt" => $nameUser,
+			"accion" => $this->input->post("accion")
+		];
+		echo put_function($id_usuario, $ArrayData, "usuarios/cambiarEstado");
+	}
 }
