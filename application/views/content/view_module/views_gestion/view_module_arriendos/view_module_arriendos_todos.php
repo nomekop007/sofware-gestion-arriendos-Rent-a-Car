@@ -44,6 +44,7 @@ $nombreUsuario = $this->session->userdata('nombre')
 </div>
 
 
+
 <!-- Modal editar arriendo -->
 <div class="modal fade" id="modal_editar_arriendo" tabindex="-1" aria-labelledby="editarModal"
     style="overflow-y: scroll;" aria-hidden="true">
@@ -65,81 +66,73 @@ $nombreUsuario = $this->session->userdata('nombre')
             <form class="needs-validation" id="formEditarArriendo" novalidate>
                 <div class="modal-body">
                     <div class=" form-row">
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputEditarTipoArriendo">Tipo</label>
                             <input disabled type="text" class="form-control" id="inputEditarTipoArriendo">
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputEditarEstadoArriendo">Estado</label>
                             <input disabled type="text" class="form-control" id="inputEditarEstadoArriendo">
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-lg-4">
                             <label for="inputEditarClienteArriendo">Cliente</label>
                             <input disabled type="text" class="form-control" id="inputEditarClienteArriendo">
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-lg-4">
                             <label for="inputEditarConductorArriendo">Conductor</label>
                             <input disabled type="text" class="form-control" id="inputEditarConductorArriendo">
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-lg-5">
                             <label for="inputEditarVehiculoArriendo">Vehiculo</label>
                             <input disabled type="text" class="form-control" id="inputEditarVehiculoArriendo">
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputEditarKentradaArriendo">kilometros entrada</label>
                             <input disabled type="text" class="form-control" id="inputEditarKentradaArriendo">
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputEditarKsalidaArriendo">kilometros salida</label>
                             <input disabled type="text" class="form-control" id="inputEditarKsalidaArriendo">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-lg-3">
                             <label for="inputEditarKmantencionArriendo">kilometros mantencion</label>
                             <input disabled type="text" class="form-control" id="inputEditarKmantencionArriendo">
                         </div>
-
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-lg-3">
                             <label for="inputEditarFechaInicioArriendo">Fecha Inicio</label>
                             <input disabled type="text" class="form-control" id="inputEditarFechaInicioArriendo">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-lg-3">
                             <label for="inputEditarFechaFinArriendo">Fecha Fin</label>
                             <input disabled type="text" class="form-control" id="inputEditarFechaFinArriendo">
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputEditarDiasArriendo">Dias</label>
                             <input disabled type="text" class="form-control" id="inputEditarDiasArriendo">
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputEditarCiudadEntregaArriendo">Ciudad entrega</label>
                             <input disabled type="text" class="form-control" id="inputEditarCiudadEntregaArriendo">
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputEditarCiudadRecepcionArriendo">Ciudad recepcion</label>
                             <input disabled type="text" class="form-control" id="inputEditarCiudadRecepcionArriendo">
                         </div>
-
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-lg-4">
                             <label for="inputEditarUsuarioArriendo">Vendedor</label>
                             <input disabled type="text" class="form-control" id="inputEditarUsuarioArriendo">
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-lg-4">
                             <label for="inputEditarRegistroArriendo">fecha registro</label>
                             <input disabled type="text" class="form-control" id="inputEditarRegistroArriendo">
                         </div>
                     </div>
-
                     <h5>Documentos adjuntos:</h5>
-                    <div class="card">
-                        <div class="form-row card-body" id="card_documentos">
+                    <div id="card_documentos">
 
-
-
-                        </div>
                     </div>
                 </div>
             </form>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
                 <button disabled type="button" class="btn btn-primary">Guardar cambios</button>
@@ -147,6 +140,7 @@ $nombreUsuario = $this->session->userdata('nombre')
         </div>
     </div>
 </div>
+
 
 <!-- Modal Confirmacion arriendo -->
 <div class="modal fade" id="modal_confirmar_arriendo" data-backdrop="static" style="overflow-y: scroll;"
@@ -169,9 +163,7 @@ $nombreUsuario = $this->session->userdata('nombre')
             <form class="needs-validation" id="formContrato" novalidate>
                 <input type="text" name="inputIdArriendo" id="inputIdArriendo" hidden />
                 <input type="text" name="inputPatenteVehiculo" id="inputPatenteVehiculo" hidden />
-
                 <div class="modal-body">
-
                     <div class="card">
                         <div class="form-row card-body text-center">
                             <span style="width: 50%;" id="textCliente"
@@ -217,7 +209,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <span class=" col-md-12 text-center" id="spanAccesorios">Sin Accesorios</span>
                         </div>
                     </div>
-
                     <br><br>
                     <h5>Totales</h5>
                     <div class="card">
@@ -278,7 +269,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <label class="custom-control-label" for="radioTarjeta">Tarjeta</label>
                             </div>
                         </div>
-
                         <div class="form-row card-body">
                             <div class="form-group col-md-12">
                                 <label for="inputDigitador">Digitado por</label>
@@ -310,14 +300,11 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 <!-- Modal signature-->
-<div class="modal fade" id="modal_signature" tabindex="-1" aria-labelledby="signatureModal" aria-hidden="true">
+<div class="modal fade" id="modal_signature" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal_signature">Firmar Contrato </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <input type="text" id="nombre_documento" hidden>
@@ -331,7 +318,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <div class="container" id="body-firma">
                     <br>
                     <div class="row">
-
                         <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
                             <canvas id="canvas-firma" class="canvas-firma">
                             </canvas>
@@ -458,54 +444,78 @@ const mostrarArriendoModalEditar = (arriendo) => {
     }
     const url = storage + "documentos/requisitosArriendo/";
 
-    //CORREGIR VISOR
+
     if (arriendo.requisito.carnetFrontal_requisito) {
-        const image = document.createElement("img");
-        image.src = url + arriendo.requisito.carnetFrontal_requisito;
-        image.className = "img-fluid rounded float-rig2ht col-md-3";
-        document.getElementById("card_documentos").append(image)
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.carnetFrontal_requisito;
+        a.text = "Foto carnet frontal";
+        a.target = "_blank";
+        a.className = "badge badge-pill badge-info"
+        document.getElementById("card_documentos").append(a)
     }
     if (arriendo.requisito.carnetTrasera_requisito) {
-        const image = document.createElement("img");
-        image.src = url + arriendo.requisito.carnetTrasera_requisito;
-        image.className = "img-fluid rounded float-right col-md-3";
-        document.getElementById("card_documentos").append(image)
+        const a = document.createElement("a");
+        a.text = "Foto carnet Trasera";
+        a.href = url + arriendo.requisito.carnetTrasera_requisito;
+        a.className = "badge badge-pill badge-info"
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a)
     }
     if (arriendo.requisito.cartaRemplazo_requisito) {
-        const image = document.createElement("img");
-        image.src = url + arriendo.requisito.cartaRemplazo_requisito;
-        image.className = "img-fluid rounded float-right col-md-3";
-        document.getElementById("card_documentos").append(image)
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.cartaRemplazo_requisito;
+        a.text = "Carta de remplazo";
+        a.target = "_blank";
+        a.className = "badge badge-pill badge-info"
+        document.getElementById("card_documentos").append(a)
     }
     if (arriendo.requisito.chequeGarantia_requisito) {
-        const image = document.createElement("img");
-        image.src = url + arriendo.requisito.chequeGarantia_requisito;
-        image.className = "img-fluid rounded float-right col-md-3";
-        document.getElementById("card_documentos").append(image)
+        const a = document.createElement("a");
+        a.className = "badge badge-pill badge-info"
+        a.target = "_blank";
+        a.href = url + arriendo.requisito.chequeGarantia_requisito;
+        a.text = "Cheque en garantia";
+        document.getElementById("card_documentos").append(a)
     }
     if (arriendo.requisito.comprobanteDomicilio_requisito) {
-        const image = document.createElement("img");
-        image.src = url + arriendo.requisito.comprobanteDomicilio_requisito;
-        image.className = "img-fluid rounded float-right col-md-3";
-        document.getElementById("card_documentos").append(image)
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.comprobanteDomicilio_requisito;
+        a.text = "Comprobante de domicilio";
+        a.className = "badge badge-pill badge-info"
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a)
     }
     if (arriendo.requisito.licenciaConducir_requisito) {
-        const image = document.createElement("img");
-        image.src = url + arriendo.requisito.licenciaConducir_requisito;
-        image.className = "img-fluid rounded float-right col-md-3";
-        document.getElementById("card_documentos").append(image)
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.licenciaConducir_requisito;
+        a.text = "Licencia de conducir";
+        a.className = "badge badge-pill badge-info"
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a)
     }
     if (arriendo.requisito.tarjetaCreditoFrontal_requisito) {
-        const image = document.createElement("img");
-        image.src = url + arriendo.requisito.tarjetaCreditoFrontal_requisito;
-        image.className = "img-fluid rounded float-right col-md-3";
-        document.getElementById("card_documentos").append(image)
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.tarjetaCreditoFrontal_requisito;
+        a.text = "Foto Tarjeta de credito frontal";
+        a.className = "badge badge-pill badge-info"
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a)
     }
     if (arriendo.requisito.tarjetaCreditoTrasera_requisito) {
-        const image = document.createElement("img");
-        image.src = url + arriendo.requisito.tarjetaCreditoTrasera_requisito;
-        image.className = "img-fluid rounded float-right col-md-3";
-        document.getElementById("card_documentos").append(image)
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.tarjetaCreditoTrasera_requisito;
+        a.text = "Foto tarjeta de credito trasera";
+        a.className = "badge badge-pill badge-info"
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a)
+    }
+    if (arriendo.requisito.boletaEfectivo_requisito) {
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.boletaEfectivo_requisito;
+        a.text = "Comprobante efectivo";
+        a.className = "badge badge-pill badge-info"
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a)
     }
 
 }

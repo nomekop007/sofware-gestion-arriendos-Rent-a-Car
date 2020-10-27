@@ -8,25 +8,17 @@ class Arriendo_controller extends CI_Controller
 {
 
 
-    public function cargarTotalArriendos()
+    public function cargarArriendos()
     {
 
         $arrayForm = [
             "id_sucursal" => $this->session->userdata('sucursal'),
-            "id_rol" => $this->session->userdata('rol')
+            "id_rol" => $this->session->userdata('rol'),
+            "filtro" =>  $this->input->post("filtro")
         ];
-        echo post_function($arrayForm, "arriendos/cargarTotalArriendos");
+        echo post_function($arrayForm, "arriendos/cargarArriendos");
     }
 
-    public function cargarArriendosListos()
-    {
-
-        $arrayForm = [
-            "id_sucursal" => $this->session->userdata('sucursal'),
-            "id_rol" => $this->session->userdata('rol')
-        ];
-        echo post_function($arrayForm, "arriendos/cargarArriendosListos");
-    }
 
     public function buscarArriendo()
     {

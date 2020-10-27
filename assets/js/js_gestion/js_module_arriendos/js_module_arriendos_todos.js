@@ -1,7 +1,7 @@
 $(document).ready(() => {
     (cargarArriendos = () => {
         $("#spinner_tablaTotalArriendos").show();
-        const url = base_url + "cargar_TotalArriendos";
+        const url = base_url + "cargar_arriendos";
         $.getJSON(url, (result) => {
             $("#spinner_tablaTotalArriendos").hide();
             if (result.success) {
@@ -70,7 +70,11 @@ $(document).ready(() => {
                     $("#body-firma").show();
                     $("#body-sinContrato").hide();
 
-                    const url = storage + "documentos/contratos/" + response.data.nombre_documento + ".pdf";
+                    const url =
+                        storage +
+                        "documentos/contratos/" +
+                        response.data.nombre_documento +
+                        ".pdf";
                     mostrarPDF(url);
 
                     if (response.data.firma) {
@@ -126,13 +130,11 @@ $(document).ready(() => {
         });
     });
 
-
     const mostrarPDF = (url) => {
         $("#body-documento").html(
-            '<a href="' + url + '"  >Descargar contrato</a><br>' +
-            '<iframe width="100%" height="700px" src="' + url + '" target="_parent"></iframe>'
+            `<a href="${url}" target="_blank" >Descargar contrato</a><br><iframe width="100%" height="700px" src="${url}" target="_parent"></iframe>`
         );
-    }
+    };
 
     const guardarContrato = async(data) => {
         data.append("nombre_documento", $("#nombre_documento").val());

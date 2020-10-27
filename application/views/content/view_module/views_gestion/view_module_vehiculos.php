@@ -27,27 +27,27 @@
                 <br><br>
                 <form class="needs-validation" novalidate id="form_registrar_vehiculo">
                     <div class="form-row">
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputPatente">Patente</label>
                             <input onblur="mayus(this);" maxLength="10" type="text" class="form-control"
                                 id="inputPatente" name="inputPatente" required>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-lg-3">
                             <label for="inputMarca">Marca</label>
                             <input onblur="mayus(this);" maxLength="50" type="text" class="form-control" id="inputMarca"
                                 name="inputMarca" required>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-lg-3">
                             <label for="inputModelo">Modelo</label>
                             <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputModelo" name="inputModelo" required>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputedad">Año</label>
                             <select id="inputedad" name="inputedad" class="form-control">
                             </select>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputTipo">Tipo</label>
                             <select id="inputTipo" name="inputTipo" class="form-control">
                                 <option value="AUTOMOVIL" selected>Automovil</option>
@@ -57,30 +57,30 @@
                                 <option value="DOBLE CABINA">Doble Cabina</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputTransmision">Transmision</label>
                             <select id="inputTransmision" name="inputTransmision" class="form-control">
                                 <option value="AUTOMATICO" selected>Automatico</option>
                                 <option value="MANUAL">Manual</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputChasis">Chasis de Vehiculo</label>
                             <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputChasis" name="inputChasis" required>
                         </div>
 
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputColor">Color</label>
                             <input onblur="mayus(this);" maxLength="15" type="text" class="form-control" id="inputColor"
                                 name="inputColor" required>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-lg-3">
                             <label for="inputNumeroMotor">Nº Motor</label>
                             <input onblur="mayus(this);" type="text" maxLength="20" class="form-control"
                                 id="inputNumeroMotor" name="inputNumeroMotor" required>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-lg-3">
                             <label for="inputEstado">Estado</label>
                             <select id="inputEstado" name="inputEstado" class="form-control">
                                 <option value="DISPONIBLE" selected>Disponible</option>
@@ -90,29 +90,29 @@
                                 <option value="MANTENCION">En mantencion</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-lg-4">
                             <label for="inputPropietario">Propietario</label>
                             <select id="inputPropietario" name="inputPropietario" class="form-control">
                             </select>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-lg-3">
                             <label for="inputCompra">Donde se compro</label>
                             <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputCompra" name="inputCompra" required>
                         </div>
 
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-lg-2">
                             <label for="inputSucursal">Sucursal</label>
                             <select id="inputSucursal" name="inputSucursal" class="form-control">
                             </select>
                         </div>
 
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-lg-3">
                             <label for="inputFechaCompra">Fecha de compra</label>
                             <input type="date" class="form-control" id="inputFechaCompra" name="inputFechaCompra"
                                 required>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-lg-4">
 
                             <label for="inputFoto">Foto (opcional)</label>
                             <input accept="image/.jpeg,.jpg,.png,.gif," type="file" class="form-control-file"

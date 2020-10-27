@@ -3,27 +3,18 @@ $(document).ready(() => {
     const tablaControldespacho = $("#tablaControldespacho").DataTable(lenguaje);
     const arrayImages = [];
 
-    (cargarArriendos = () => {
+    (cargarArriendos = async() => {
         $("#spinner_tablaDespacho").show();
-        const url = base_url + "cargar_arriendosListos";
-        $.getJSON(url, (result) => {
+        const data = new FormData();
+        data.append("filtro", "FIRMADO");
+        const response = await ajax_function(data, "cargar_arriendos");
+        if (response) {
+            $.each(response.data, (i, arriendo) => {
+                cargarArriendoEnTabla(arriendo);
+            });
             $("#spinner_tablaDespacho").hide();
-            if (result.success) {
-                $.each(result.data, (i, arriendo) => {
-                    cargarArriendoEnTabla(arriendo);
-                });
-            } else {
-                console.log("ah ocurrido un error al cargar los arriendos");
-            }
-        });
+        }
     })();
-
-    const refrescarTabla = () => {
-        //limpia la tabla
-        tablaControldespacho.row().clear().draw(false);
-        //carga nuevamente
-        cargarArriendos();
-    };
 
     $("#seleccionarFoto").click(async() => {
         /*
@@ -55,7 +46,6 @@ $(document).ready(() => {
         }
     });
 
-
     $("#btn_crear_ActaEntrega").click(async() => {
         const form = $("#formActaEntrega")[0];
         const data = new FormData(form);
@@ -63,10 +53,7 @@ $(document).ready(() => {
         console.log($("#inputPatenteVehiculoDespacho").val());
         console.log($("#inputKilomentrajeVehiculoDespacho").val());
 
-
-
         generarActaEntrega(data);
-
     });
 
     $("#btn_confirmar_actaEntrega").click(() => {
@@ -81,6 +68,7 @@ $(document).ready(() => {
         }).then(async(result) => {
             if (result.isConfirmed) {
                 $("#spinner_btn_confirmarActaEntrega").show();
+                $("#btn_firmar_actaEntrega").attr("disabled", true);
                 $("#btn_confirmar_actaEntrega").attr("disabled", true);
                 const form = $("#formActaEntrega")[0];
                 const data = new FormData(form);
@@ -97,14 +85,12 @@ $(document).ready(() => {
                     "Acta de entrega Firmado!",
                     "acta de entrega firmado y registrado con exito!",
                     "success"
-                )
+                );
                 $("#modal_signature").modal("toggle");
                 $("#modal_despachar_arriendo").modal("toggle");
             }
         });
     });
-
-
 
     $("#btn_firmar_actaEntrega").click(async() => {
         const canvas1 = document.getElementById("canvas-firma1");
@@ -115,8 +101,6 @@ $(document).ready(() => {
         data.append("inputFirma2PNG", canvas2.toDataURL("image/png"));
         generarActaEntrega(data);
     });
-
-
 
     $("#limpiarArrayFotos").click(() => {
         arrayImages.length = 0;
@@ -155,7 +139,6 @@ $(document).ready(() => {
                     response.data.nombre_documento +
                     ".pdf";
 
-
                 if (response.data.firma1 && response.data.firma2) {
                     $("#btn_confirmar_actaEntrega").attr("disabled", false);
                 }
@@ -176,26 +159,17 @@ $(document).ready(() => {
 
     const mostrarPDF = (url) => {
         $("#body-documento").html(
-            '<a href="' +
-            url +
-            '" >Descargar Acta de entrega</a><br>' +
-            '<iframe width="100%" height="700px" src="' +
-            url +
-            '" target="_parent"></iframe>'
+            `<a href="${url}"  target="_blank" >Descargar Acta de entrega</a><br><iframe width="100%" height="700px" src="${url}" target="_parent"></iframe>`
         );
     };
 
     const agregarFotoACarrucel = (array) => {
         let items = "";
         for (let i = 0; i < array.length; i++) {
-            items += '<div class="item"><img src="' + array[i] + '" /></div>';
+            items += `<div class="item"><img src="${array[i]}" /></div>`;
         }
-        const html =
-            ' <div class="owl-carousel owl-theme" id="carruselVehiculos">' +
-            items +
-            "</div></div>";
+        const html = `<div class="owl-carousel owl-theme" id="carruselVehiculos">${items}</div></div>`;
         $("#carrucel").html(html);
-
         $(".owl-carousel").owlCarousel({
             margin: 5,
         });
@@ -248,7 +222,6 @@ $(document).ready(() => {
         });
     };
 
-
     const guardarDatosDespacho = async(data) => {
         return await ajax_function(data, "registrar_despacho");
     };
@@ -265,9 +238,15 @@ $(document).ready(() => {
     };
 
     const cambiarEstadoVehiculo = async(data) => {
-        data.append("inputPatenteVehiculo", $("#inputPatenteVehiculoDespacho").val());
+        data.append(
+            "inputPatenteVehiculo",
+            $("#inputPatenteVehiculoDespacho").val()
+        );
         data.append("inputEstado", "ARRENDADO");
-        data.append("kilometraje_vehiculo", $("#inputKilomentrajeVehiculoDespacho").val());
+        data.append(
+            "kilometraje_vehiculo",
+            $("#inputKilomentrajeVehiculoDespacho").val()
+        );
         await ajax_function(data, "cambiarEstado_vehiculo");
     };
 
@@ -275,7 +254,12 @@ $(document).ready(() => {
         await ajax_function(data, "enviar_correoDespacho");
     };
 
-
+    const refrescarTabla = () => {
+        //limpia la tabla
+        tablaControldespacho.row().clear().draw(false);
+        //carga nuevamente
+        cargarArriendos();
+    };
 
     //carga tablaTotalArriendos
     const cargarArriendoEnTabla = (arriendo) => {
@@ -301,9 +285,7 @@ $(document).ready(() => {
                 arriendo.tipo_arriendo,
                 arriendo.estado_arriendo,
                 arriendo.usuario.nombre_usuario,
-                " <button value='" +
-                arriendo.id_arriendo +
-                "' " +
+                ` <button value="${arriendo.id_arriendo}"` +
                 " onclick='buscarArriendo(this.value)'" +
                 " data-toggle='modal' data-target='#modal_despachar_arriendo' class='btn btn btn-outline-success'><i class='fas fa-concierge-bell'></i></button>  ",
             ])
