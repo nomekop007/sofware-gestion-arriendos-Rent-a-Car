@@ -14,7 +14,7 @@ function get_function($url)
         $name = "";
     }
 
-    $client = new GuzzleHttp\Client();
+    $client = new GuzzleHttp\Client(['verify' => false]);
     $request = $client->request('GET',  api_url() . $url, [
         'headers' => [
             'usertoken' => $token,
@@ -35,7 +35,7 @@ function find_function($id, $url)
         $name = "";
     }
 
-    $client = new GuzzleHttp\Client();
+    $client = new GuzzleHttp\Client(['verify' => false]);
     $request = $client->request('GET', api_url() . $url . "/" . $id, [
         'headers' => [
             'usertoken' => $token,
@@ -56,7 +56,7 @@ function post_function($data, $url)
         $name = "";
     }
 
-    $client = new \GuzzleHttp\Client();
+    $client = new \GuzzleHttp\Client(['verify' => false]);
     $response = $client->request('POST', api_url() . $url, [
         'json' => $data,
         'headers' => [
@@ -79,7 +79,7 @@ function put_function($id, $data, $url)
     }
 
 
-    $client = new \GuzzleHttp\Client();
+    $client = new \GuzzleHttp\Client(['verify' => false]);
     $response = $client->request('PUT', api_url() . $url . "/" . $id, [
         'json' => $data,
         'headers' => [
@@ -101,7 +101,7 @@ function file_function($id, $data, $url)
         $name = "";
     }
 
-    $client = new \GuzzleHttp\Client();
+    $client = new \GuzzleHttp\Client(['verify' => false]);
     $response = $client->request('POST', api_url() . $url . "/" . $id, [
         'multipart' =>   $data,
         'headers' => [
