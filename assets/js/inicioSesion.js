@@ -24,25 +24,6 @@ $(document).ready(() => {
                     }
                 },
                 error: () => {
-
-                    /* ----------TEST PRODUCCION--------- */
-
-                    console.log("test error");
-                    const userTest = {
-                        email_usuario: "ADMIN@GRUPOFIRMA.CL",
-                        estado_usuario: true,
-                        id_rol: 1,
-                        id_sucursal: 1,
-                        id_usuario: 1,
-                        nombre_usuario: "DIEGO ANTONIO RIOS ROJAS",
-                        userToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3VhcmlvSWQiOjEsImNyZWF0ZUF0IjoxNjAzODMwNzg5LCJleHBpcmVkQXQiOjE2MDM4NzM5ODl9.jlSiQT6VC3jxMCtbtBRR3sEwWTnMv8sqpc_nj3gj11g"
-                    }
-                    crearSesion(userTest);
-                    /* ----------TEST PRODUCCION--------- */
-
-
-
-
                     alertError();
                 },
             });
