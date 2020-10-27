@@ -17,7 +17,7 @@
 <body class="bg-light">
 
     <!-- se envia la url del base_url al js -->
-    <input id="ruta" value="index.php/<?php echo base_url(); ?>" hidden />
+    <input id="ruta" value="<?php echo base_url(); ?>index.php/" hidden />
     <form class="form-signin needs-validation" novalidate>
         <img class="mb-4" src="<?php echo base_url(); ?>assets/images/logo.png" alt="" width="100%" height="100%">
         <h1 class="h3 mb-3 font-weight-normal">Plataforma Rentacar</h1>

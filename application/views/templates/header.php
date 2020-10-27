@@ -11,7 +11,7 @@
     <title>Dashboard Rentacar</title>
 
     <!-- se envia la url del base_url al js -->
-    <input id="ruta" value="index.php/<?php echo base_url(); ?>" hidden />
+    <input id="ruta" value="<?php echo base_url(); ?>index.php/" hidden />
     <input id="storage" value="<?php echo api_storage(); ?>" hidden />
 
 
