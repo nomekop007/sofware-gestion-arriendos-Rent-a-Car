@@ -9,7 +9,7 @@ function api_storage()
 	return "http://localhost:3000/";
 }
 
-function pathCert()
+function path_cert()
 {
-	return "";
+	return "/Applications/XAMPP/xamppfiles/htdocs/proyectos/rentacar/cert.pem";
 }
