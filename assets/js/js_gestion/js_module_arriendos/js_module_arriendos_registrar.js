@@ -153,9 +153,6 @@ $(document).ready(() => {
         }
     });
 
-
-
-
     $("#btn_crear_arriendo").click(async() => {
         //AQUI SE VALIDA EL FORMULARIO COMPLETO
 
@@ -428,17 +425,17 @@ $(document).ready(() => {
         const response = await ajax_function(data, "registrar_remplazo");
         if (response.success) {
             data.append("inputIdRemplazo", response.data.id_remplazo);
-            await guardarDatosArriendo(data);
+            guardarDatosArriendo(data);
         }
     };
 
     const guardarDatosArriendo = async(data) => {
         const response = await ajax_function(data, "registrar_arriendo");
         if (response.success) {
-            await guardarDocumentosRequistos(response.data.id_arriendo);
-            await guardarDatosAccesorios(response.data.id_arriendo);
-            await guardarDatosGarantia(response.data.id_arriendo);
-            await cambiarEstadoVehiculo(response.data.patente_vehiculo);
+            guardarDocumentosRequistos(response.data.id_arriendo);
+            guardarDatosAccesorios(response.data.id_arriendo);
+            guardarDatosGarantia(response.data.id_arriendo);
+            cambiarEstadoVehiculo(response.data.patente_vehiculo);
             cargarArriendoEnTabla(response.data);
             Swal.fire("Arriendo Registrado", response.msg, "success");
             limpiarCampos();

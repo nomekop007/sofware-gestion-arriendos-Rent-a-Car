@@ -7,16 +7,8 @@ function mayus(e) {
 //Script para validar campo solo numeros
 //onkeypress="return soloNumeros(event);"
 function soloNumeros(evt) {
-    var code = evt.which ? evt.which : evt.keyCode;
-    if (code == 8) {
-        //backspace
-        return true;
-    } else if (code >= 48 && code <= 57) {
-        //is a number
-        return true;
-    } else {
-        return false;
-    }
+    if (evt.length > evt.maxLength)
+        return (evt.value = evt.value.slice(0, evt.maxLength));
 }
 
 // Script para cargar año vehiculo

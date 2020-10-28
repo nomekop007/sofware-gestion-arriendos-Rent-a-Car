@@ -159,7 +159,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">+569</span>
                             </div>
-                            <input onkeypress="return soloNumeros(event);" maxLength="8" type="text"
+                            <input onkeypress="return soloNumeros(event);" maxLength="8" type="number"
                                 class="form-control" id="inputTelefonoCliente" name="inputTelefonoCliente" required>
                         </div>
 
@@ -222,7 +222,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">+569</span>
                             </div>
-                            <input onkeypress="return soloNumeros(event);" maxLength="8" type="text"
+                            <input onkeypress="return soloNumeros(event);" maxLength="8" type="number"
                                 class="form-control" id="inputTelefonoEmpresa" name="inputTelefonoEmpresa" required>
                         </div>
                     </div>
@@ -326,7 +326,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">+569</span>
                             </div>
-                            <input onkeypress="return soloNumeros(event);" maxLength="8" type="text"
+                            <input onkeypress="return soloNumeros(event);" maxLength="8" type="number"
                                 class="form-control" id="inputTelefonoConductor" name="inputTelefonoConductor" required>
                         </div>
                     </div>
@@ -353,7 +353,7 @@ switch ($this->session->userdata('sucursal')) {
 
                     <div class="form-group col-md-2">
                         <label for="inputNumeroConductor">Numero serie</label>
-                        <input onkeypress="return soloNumeros(event);" maxLength="11" type="text" class="form-control"
+                        <input onkeypress="return soloNumeros(event);" maxLength="11" type="number" class="form-control"
                             id="inputNumeroConductor" name="inputNumeroConductor" required>
                     </div>
                     <div class="form-group col-md-2">
@@ -515,18 +515,24 @@ switch ($this->session->userdata('sucursal')) {
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="inputEntrada">Entrada</label>
-                        <input onkeypress="return soloNumeros(event);" value=0 maxLength="11" type="text"
-                            class="form-control" id="inputEntrada" name="inputEntrada" required>
+                        <input
+                            oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            value=0 maxLength="11" type="number" class="form-control" id="inputEntrada"
+                            name="inputEntrada" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputSalida">Salida</label>
-                        <input onkeypress="return soloNumeros(event);" maxLength="11" type="text" class="form-control"
-                            id="inputSalida" name="inputSalida" disabled>
+                        <input
+                            oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            maxLength="11" type="number" class="form-control" id="inputSalida" name="inputSalida"
+                            disabled>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="inputMantencion">kilometros para siguiente mantencion</label>
-                        <input onkeypress="return soloNumeros(event);" value=0 maxLength="11" type="text"
-                            class="form-control" id="inputMantencion" name="inputMantencion" required>
+                        <input
+                            oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            value=0 maxLength="11" type="number" class="form-control" id="inputMantencion"
+                            name="inputMantencion" required>
                     </div>
                 </div>
                 <br>
