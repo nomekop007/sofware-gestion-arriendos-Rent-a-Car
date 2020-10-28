@@ -9,9 +9,9 @@ var input = document.getElementById('inputImagenVehiculo');
 var curFile = input.files;
 var source = "";
 
-var cwVehiculo = (canvasVehiculo.width = 1000),
+var cwVehiculo = (canvasVehiculo.width = 800),
     cxVehiculo = cwVehiculo / 2;
-var chVehiculo = (canvasVehiculo.height = 600),
+var chVehiculo = (canvasVehiculo.height = 450),
     cyVehiculo = chVehiculo / 2;
 
 //------------ colocar foto en el canvas -------------- //

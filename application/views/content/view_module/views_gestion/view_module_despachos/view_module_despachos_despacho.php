@@ -514,6 +514,8 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <div class="container col-md-12" id="canvasContainer">
                                     <div id="output" class="text-center">0E</div>
                                     <canvas id="canvas-combustible" class="img-fluid rounded float-right"></canvas>
+                                    <img id="imagenBencina"
+                                        src="<?php echo base_route() ?>assets/images/indicadorBencina.jpg" hidden />
                                 </div>
 
                             </div>
@@ -575,8 +577,9 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 class="fas fa-times"></i> Piezas rotas </p>
                     </div>
                     <div class="container">
-                        <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
-                            <canvas id="canvas-fotoVehiculo" style="background:#d9d9d9"></canvas>
+                        <div class="col-md-12 d-flex justify-content-center " id="cont-canvas">
+                            <canvas id="canvas-fotoVehiculo" class="img-fluid rounded float-right"
+                                style="background:#d9d9d9"></canvas>
                         </div>
                         <br>
                     </div>
