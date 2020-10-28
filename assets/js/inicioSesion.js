@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    var base_url = $("#ruta").val();
+    var base_url = $("#url").val();
 
     $(".btn_login").click(() => {
         var correo = $("#inputEmail").val();
@@ -31,7 +31,6 @@ $(document).ready(() => {
     });
 
     function crearSesion(usuario) {
-
         $.ajax({
             url: base_url + "crear_sesion",
             type: "post",

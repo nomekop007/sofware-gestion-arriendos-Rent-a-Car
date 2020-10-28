@@ -352,7 +352,7 @@ const buscarVehiculo = async (patente) => {
                 vehiculo
                 .foto_vehiculo;
         } else {
-            document.getElementById("imagen").src = base_url + "assets/images/imageDefault.png";
+            document.getElementById("imagen").src = base_route + "assets/images/imageDefault.png";
         }
         $("#inputEditarPatente").val(vehiculo.patente_vehiculo);
         $("#exampleModalLongTitle").text("Editar Vehiculo " + vehiculo.patente_vehiculo);
