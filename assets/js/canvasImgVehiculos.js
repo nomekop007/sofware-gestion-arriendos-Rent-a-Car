@@ -4,15 +4,21 @@ var limpiarTodo = document.getElementById("seleccionarFoto");
 
 
 var canvasVehiculo = document.getElementById('canvas-fotoVehiculo');
-var ctxVehiculo = canvasVehiculo.getContext('2d');;
+var ctxVehiculo = canvasVehiculo.getContext('2d');
 var input = document.getElementById('inputImagenVehiculo');
 var curFile = input.files;
 var source = "";
 
-var cwVehiculo = (canvasVehiculo.width = 800),
+
+
+
+var cwVehiculo = (canvasVehiculo.width = $(window).width() - 500),
     cxVehiculo = cwVehiculo / 2;
-var chVehiculo = (canvasVehiculo.height = 450),
+var chVehiculo = (canvasVehiculo.height = $(window).height() - 500),
     cyVehiculo = chVehiculo / 2;
+
+
+
 
 //------------ colocar foto en el canvas -------------- //
 input.addEventListener('change', updateImageDisplay);

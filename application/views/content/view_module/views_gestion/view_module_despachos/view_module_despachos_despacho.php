@@ -578,8 +578,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     </div>
                     <div class="container">
                         <div class="col-md-12 d-flex justify-content-center " id="cont-canvas">
-                            <canvas id="canvas-fotoVehiculo" class="img-fluid rounded float-right"
-                                style="background:#d9d9d9"></canvas>
+                            <canvas id="canvas-fotoVehiculo" style="background:#d9d9d9"></canvas>
                         </div>
                         <br>
                     </div>
