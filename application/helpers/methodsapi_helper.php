@@ -61,12 +61,10 @@ function post_function($data, $url)
 
 function put_function($id, $data, $url)
 {
-
     if (isset($_SESSION["usertoken"])) {
         $token = $_SESSION["usertoken"];
         $name = $_SESSION["nombre"];
     }
-
     $client = new \GuzzleHttp\Client();
     $response = $client->request('PUT', api_url() . $url . "/" . $id, [
         'verify' => path_cert(),
