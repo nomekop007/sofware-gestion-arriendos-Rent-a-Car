@@ -90,15 +90,15 @@ function cargarArriendoEnTabla(arriendo) {
 </script>
 
 <!-- importaciones del select2 -->
-<script src="<?php echo base_url() ?>assets/js/select2.min.js"></script>
+<script src="<?php echo base_route() ?>assets/js/select2.min.js"></script>
 
 <!-- importaciones del arriendos -->
-<script src="<?php echo base_url() ?>assets/js/js_gestion/js_module_arriendos/js_module_arriendos_registrar.js">
+<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_arriendos/js_module_arriendos_registrar.js">
 </script>
 
-<script src="<?php echo base_url() ?>assets/js/js_gestion/js_module_arriendos/js_module_arriendos_todos.js">
+<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_arriendos/js_module_arriendos_todos.js">
 </script>
 
 
-<script src="<?php echo base_url() ?>assets/js/canvasFirmaDigital.js">
+<script src="<?php echo base_route() ?>assets/js/canvasFirmaDigital.js">
 </script>

@@ -91,7 +91,7 @@ if ($this->session->userdata('estado')) {
                 </div>
             </div>
             <div class="col-md-8">
-                <img style="width:50%" src="<?php echo base_url() ?>assets/images/logo2.png" />
+                <img style="width:50%" src="<?php echo base_route() ?>assets/images/logo2.png" />
             </div>
         </div>
     </div>

@@ -252,4 +252,4 @@ const limpiarCampos = () => {
 </script>
 
 <!-- importando archivo js usuarios -->
-<script src="<?php echo base_url() ?>assets/js/js_gestion/js_module_usuarios.js"></script>
+<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_usuarios.js"></script>

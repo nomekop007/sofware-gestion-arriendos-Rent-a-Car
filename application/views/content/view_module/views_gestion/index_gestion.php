@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col-md-12">
                 <br>
-                <img style="width:20%" src="<?php echo base_url() ?>assets/images/logo3.png" />
-                <img style="width:65%;margin: 40px" src="<?php echo base_url() ?>assets/images/logo.png" />
+                <img style="width:20%" src="<?php echo base_route() ?>assets/images/logo3.png" />
+                <img style="width:65%;margin: 40px" src="<?php echo base_route() ?>assets/images/logo.png" />
             </div>
         </div>
     </div>
