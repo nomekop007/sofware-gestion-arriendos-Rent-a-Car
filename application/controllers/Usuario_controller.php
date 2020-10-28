@@ -15,6 +15,7 @@ class Usuario_controller extends CI_Controller
 		//el login no incluye token
 		$client = new \GuzzleHttp\Client();
 		$response = $client->request('POST', api_url() . "usuarios/login", [
+			'verify' => path_cert(),
 			'json' => $arrayUser
 		]);
 		echo  $response->getBody();
