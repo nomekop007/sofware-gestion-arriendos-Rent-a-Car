@@ -153,7 +153,7 @@ $(document).ready(() => {
         }
     });
 
-    $("#btn_crear_arriendo").click(() => {
+    $("#btn_crear_arriendo").click(async() => {
         //AQUI SE VALIDA EL FORMULARIO COMPLETO
 
         //datos arriendo
@@ -339,12 +339,13 @@ $(document).ready(() => {
                         inputCiudadCliente.length != 0 &&
                         inputFechaNacimiento.length != 0
                     ) {
-                        //datos del formulario
-                        const form = $("#form_registrar_arriendo")[0];
-                        const data = new FormData(form);
-                        guardarDatosCliente(data);
-                        guardarDatosConductor(data);
-                        guardarDatosArriendo(data);
+                        let response = await guardarDatosCliente();
+                        if (response.success) {
+                            response = await guardarDatosConductor();
+                            if (response.success) {
+                                guardarDatosArriendo();
+                            }
+                        }
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -363,12 +364,13 @@ $(document).ready(() => {
                         inputFechaNacimiento.length != 0 &&
                         inputNombreRemplazo.length != 0
                     ) {
-                        //datos del formulario
-                        const form = $("#form_registrar_arriendo")[0];
-                        const data = new FormData(form);
-                        guardarDatosCliente(data);
-                        guardarDatosConductor(data);
-                        guardarDatosRemplazo(data);
+                        let response = await guardarDatosCliente();
+                        if (response.success) {
+                            response = await guardarDatosConductor();
+                            if (response.success) {
+                                guardarDatosRemplazo();
+                            }
+                        }
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -387,12 +389,13 @@ $(document).ready(() => {
                         inputCiudadEmpresa.length != 0 &&
                         inputRol.length != 0
                     ) {
-                        //datos del formulario
-                        const form = $("#form_registrar_arriendo")[0];
-                        const data = new FormData(form);
-                        guardarDatosEmpresa(data);
-                        guardarDatosConductor(data);
-                        guardarDatosArriendo(data);
+                        let response = await guardarDatosEmpresa();
+                        if (response.success) {
+                            response = await guardarDatosConductor();
+                            if (response.success) {
+                                guardarDatosArriendo();
+                            }
+                        }
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -415,18 +418,30 @@ $(document).ready(() => {
         }
     });
 
-    const guardarDatosCliente = async(data) => {
-        await ajax_function(data, "registrar_cliente");
+    const guardarDatosCliente = async() => {
+        //datos del formulario
+        const form = $("#form_registrar_arriendo")[0];
+        const data = new FormData(form);
+        return await ajax_function(data, "registrar_cliente");
     };
 
-    const guardarDatosEmpresa = async(data) => {
-        await ajax_function(data, "registrar_empresa");
+    const guardarDatosEmpresa = async() => {
+        //datos del formulario
+        const form = $("#form_registrar_arriendo")[0];
+        const data = new FormData(form);
+        return await ajax_function(data, "registrar_empresa");
     };
-    const guardarDatosConductor = async(data) => {
-        await ajax_function(data, "registrar_conductor");
+    const guardarDatosConductor = async() => {
+        //datos del formulario
+        const form = $("#form_registrar_arriendo")[0];
+        const data = new FormData(form);
+        return await ajax_function(data, "registrar_conductor");
     };
 
-    const guardarDatosRemplazo = async(data) => {
+    const guardarDatosRemplazo = async() => {
+        //datos del formulario
+        const form = $("#form_registrar_arriendo")[0];
+        const data = new FormData(form);
         const response = await ajax_function(data, "registrar_remplazo");
         if (response.success) {
             data.append("inputIdRemplazo", response.data.id_remplazo);
@@ -434,7 +449,10 @@ $(document).ready(() => {
         }
     };
 
-    const guardarDatosArriendo = async(data) => {
+    const guardarDatosArriendo = async() => {
+        //datos del formulario
+        const form = $("#form_registrar_arriendo")[0];
+        const data = new FormData(form);
         const response = await ajax_function(data, "registrar_arriendo");
         if (response.success) {
             guardarDocumentosRequistos(response.data.id_arriendo);
