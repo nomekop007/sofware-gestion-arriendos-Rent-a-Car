@@ -14,9 +14,9 @@
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-link active" id="nav-registrar-tab" data-toggle="tab" href="#nav-registrar" role="tab"
-                    aria-controls="nav-registrar" aria-selected="true">Registrar nuevo vehiculo</a>
+                    aria-controls="nav-registrar" aria-selected="true">Registrar vehiculo</a>
                 <a class="nav-link" id="nav-vehiculos-tab" data-toggle="tab" href="#nav-vehiculos" role="tab"
-                    aria-controls="nav-vehiculos" aria-selected="false">Mostrar todos los vehiculos</a>
+                    aria-controls="nav-vehiculos" aria-selected="false">Vehiculos registrados</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">

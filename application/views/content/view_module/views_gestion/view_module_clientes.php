@@ -293,10 +293,12 @@ $("#l_cliente").addClass("card");
 
 
 const buscarCliente = async (rut_cliente) => {
+    console.log("cliente:" + rut_cliente);
     limpiarCampos();
     const data = new FormData();
     data.append("rut_cliente", rut_cliente);
     const response = await ajax_function(data, "buscar_cliente");
+    console.log(response);
     if (response.success) {
         const cliente = response.data;
         $("#form_header").text("Cliente particular");

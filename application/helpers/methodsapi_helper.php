@@ -28,6 +28,9 @@ function find_function($id, $url)
         $token = $_SESSION["usertoken"];
         $name = $_SESSION["nombre"];
     }
+    if (!$id) {
+        $id = "x";
+    }
 
     $client = new GuzzleHttp\Client();
     $request = $client->request('GET', api_url() . $url . "/" . $id, [

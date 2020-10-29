@@ -24,7 +24,7 @@ switch ($this->session->userdata('sucursal')) {
 <div class="tab-pane fade show active" id="nav-registrar" role="tabpanel" aria-labelledby="nav-registrar-tab">
     <br>
 
-    <p>
+    <p class="form-row">
         <a id="btn-arriendo" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseArriendo" role="button"
             aria-expanded="false" aria-controls="collapseArriendo">
             Datos arriendo
@@ -246,7 +246,6 @@ switch ($this->session->userdata('sucursal')) {
                     </div>
                 </div>
 
-
                 <br>
                 <h4>Documentos requeridos</h4>
                 <div class="form-row">
@@ -258,15 +257,15 @@ switch ($this->session->userdata('sucursal')) {
                                 <br>
                                 <div class="form-group col-md-6 ">
                                     <label for="inputCarnetFrontal">(frontal)</label>
-                                    <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
-                                        class="form-control-file" id="inputCarnetFrontal" name="inputCarnetFrontal"
-                                        required>
+                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                        type="file" class="form-control-file" id="inputCarnetFrontal"
+                                        name="inputCarnetFrontal" required>
                                 </div>
                                 <div class="form-group col-md-6 ">
                                     <label for="inputCarnetTrasera">(trasera)</label>
-                                    <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
-                                        class="form-control-file" id="inputCarnetTrasera" name="inputCarnetTrasera"
-                                        required>
+                                    <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf"
+                                        type="file" class="form-control-file" id="inputCarnetTrasera"
+                                        name="inputCarnetTrasera" required>
                                 </div>
                             </div>
                         </div>
@@ -274,14 +273,14 @@ switch ($this->session->userdata('sucursal')) {
                         <div class="form-row">
                             <div id="formComprobanteDomicilio" class="form-group col-md-12">
                                 <h6 for="inputComprobanteDomicilio">Comprobante de domicilio</h6>
-                                <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
+                                <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file"
                                     class="form-control-file" id="inputComprobanteDomicilio"
                                     name="inputComprobanteDomicilio" required>
                                 <br>
                             </div>
                             <div id="formCartaRemplazo" class="form-group col-md-12">
                                 <h6 for="inputCartaRemplazo">Carta Empresa Remplazo</h6>
-                                <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
+                                <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file"
                                     class="form-control-file" id="inputCartaRemplazo" name="inputCartaRemplazo"
                                     required>
                                 <br>
@@ -371,7 +370,7 @@ switch ($this->session->userdata('sucursal')) {
                         <div class="form-row">
                             <div class="form-group col-md-12 ">
                                 <h6 for="inputLicencia">Licencia de conducir</h6>
-                                <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
+                                <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file"
                                     class="form-control-file" id="inputLicencia" name="inputLicencia" required>
                                 <br>
                             </div>
@@ -409,7 +408,7 @@ switch ($this->session->userdata('sucursal')) {
                     <div class="form-group col-md-12" id="card-tarjeta">
                         <label for="inputNumeroTarjeta">Tarjeta de credito</label>
                         <div class="input-group">
-                            <input onkeypress="return soloNumeros(event);" style="width: 50%;" type="text"
+                            <input oninput="this.value = soloNumeros(this)" style="width: 50%;" type="number"
                                 class="form-control" id="inputNumeroTarjeta" name="inputNumeroTarjeta" maxLength="25"
                                 placeholder="Nº Tarjeta de credito" required>
                             <input style="width: 20%;" name="inputFechaTarjeta" id="inputFechaTarjeta" type="text"
@@ -424,7 +423,7 @@ switch ($this->session->userdata('sucursal')) {
                     <div class="form-group col-md-12" id="card-cheque">
                         <label for="inputNumeroCheque">Cheque</label>
                         <div class="input-group">
-                            <input onkeypress="return soloNumeros(event);" style="width: 60%;" type="text"
+                            <input oninput="this.value = soloNumeros(this)" style="width: 60%;" type="number"
                                 class="form-control" id="inputNumeroCheque" name="inputNumeroCheque" maxLength="25"
                                 placeholder="Nº Cheque" required>
 
@@ -451,16 +450,16 @@ switch ($this->session->userdata('sucursal')) {
                                 <div class="form-group col-md-6">
                                     <br>
                                     <label for="inputTarjetaFrontal">(frontal)</label>
-                                    <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
-                                        class="form-control-file" id="inputTarjetaFrontal" name="inputTarjetaFrontal"
-                                        required>
+                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                        type="file" class="form-control-file" id="inputTarjetaFrontal"
+                                        name="inputTarjetaFrontal" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <br>
                                     <label for="inputTarjetaTrasera">(trasera)</label>
-                                    <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
-                                        class="form-control-file" id="inputTarjetaTrasera" name="inputTarjetaTrasera"
-                                        required>
+                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                        type="file" class="form-control-file" id="inputTarjetaTrasera"
+                                        name="inputTarjetaTrasera" required>
                                 </div>
                             </div>
                         </div>
@@ -469,7 +468,7 @@ switch ($this->session->userdata('sucursal')) {
                     <div class="form-row" id="foto_cheque">
                         <div class="form-group col-md-12">
                             <h6 for="inputChequeGarantia">Foto cheque</h6>
-                            <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
+                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file"
                                 class="form-control-file" id="inputChequeGarantia" name="inputChequeGarantia" required>
                             <br>
                         </div>
@@ -478,7 +477,7 @@ switch ($this->session->userdata('sucursal')) {
                     <div class="form-row" id="foto_efectivo">
                         <div class="form-group col-md-12">
                             <h6 for="inputBoletaEfectivo">Foto boleta efectivo</h6>
-                            <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
+                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file"
                                 class="form-control-file" id="inputBoletaEfectivo" name="inputBoletaEfectivo" required>
                             <br>
                         </div>
@@ -654,4 +653,36 @@ const calcularDias = () => {
     let dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
     $("#inputNumeroDias").val(dias);
 }
+
+//se valida lso input files
+$(document).on('change', 'input[type="file"]', function() {
+    var fileName = this.files[0].name;
+    var fileSize = this.files[0].size;
+    var ext = fileName.split('.');
+    // ahora obtenemos el ultimo valor despues el punto
+    // obtenemos el length por si el archivo lleva nombre con mas de 2 puntos
+    ext = ext[ext.length - 1];
+    switch (ext) {
+        case 'png':
+            $('#tamanoArchivo').text(fileSize + " bytes en " + ext);
+            break;
+        case 'jpeg':
+            $('#tamanoArchivo').text(fileSize + " bytes " + ext);
+            break;
+        case 'jpg':
+            $('#tamanoArchivo').text(fileSize + " bytes " + ext);
+            break;
+        case 'gif':
+            $('#tamanoArchivo').text(fileSize + " bytes " + ext);
+            break;
+        case 'pdf':
+            $('#tamanoArchivo').text(fileSize + " bytes " + ext);
+            break;
+        default:
+            alert('El archivo no tiene la extensión adecuada');
+            this.value = ''; // reset del valor
+            this.files[0].name = '';
+            break;
+    }
+});
 </script>
