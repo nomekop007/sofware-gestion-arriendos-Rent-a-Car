@@ -23,36 +23,36 @@ switch ($this->session->userdata('sucursal')) {
 <!-- Tab donde se registran los arriendos -->
 <div class="tab-pane fade show active" id="nav-registrar" role="tabpanel" aria-labelledby="nav-registrar-tab">
     <br>
-    <form class="needs-validation" novalidate id="form_registrar_arriendo" name="formulario">
-        <p>
-            <a id="btn-arriendo" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseArriendo"
-                role="button" aria-expanded="false" aria-controls="collapseArriendo">
-                Datos arriendo
-            </a>
-            <a id="btn-cliente" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseCliente" role="button"
-                aria-expanded="false" aria-controls="collapseCliente">
-                Datos cliente
-            </a>
-            <a id="btn-conductor" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseConductor"
-                role="button" aria-expanded="false" aria-controls="collapseConductor">
-                Datos conductor
-            </a>
-            <a id="btn-garantia" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseGarantia"
-                role="button" aria-expanded="false" aria-controls="collapseGarantia">
-                Garantia requerida
-            </a>
-            <a id="btn-vehiculo" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseVehiculos"
-                role="button" aria-expanded="false" aria-controls="collapseVehiculos">
-                Seleccion de vehiculo
-            </a>
 
-            <button type="submit" id="btn_crear_arriendo" class="btn btn-success btn-sm">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                    id="spinner_btn_registrar"></span>
-                Crear Arriendo</button>
-        </p>
+    <p>
+        <a id="btn-arriendo" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseArriendo" role="button"
+            aria-expanded="false" aria-controls="collapseArriendo">
+            Datos arriendo
+        </a>
+        <a id="btn-cliente" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseCliente" role="button"
+            aria-expanded="false" aria-controls="collapseCliente">
+            Datos cliente
+        </a>
+        <a id="btn-conductor" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseConductor" role="button"
+            aria-expanded="false" aria-controls="collapseConductor">
+            Datos conductor
+        </a>
+        <a id="btn-garantia" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseGarantia" role="button"
+            aria-expanded="false" aria-controls="collapseGarantia">
+            Garantia requerida
+        </a>
+        <a id="btn-vehiculo" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseVehiculos" role="button"
+            aria-expanded="false" aria-controls="collapseVehiculos">
+            Seleccion de vehiculo
+        </a>
 
+        <button type="submit" id="btn_crear_arriendo" class="btn btn-success btn-sm">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                id="spinner_btn_registrar"></span>
+            Crear Arriendo</button>
+    </p>
 
+    <form class="needs-validation" novalidate id="form_registrar_arriendo">
         <div class="collapse" id="collapseArriendo">
             <div class="card card-body">
                 <br>
