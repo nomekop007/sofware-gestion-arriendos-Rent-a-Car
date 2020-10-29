@@ -575,8 +575,14 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <br>
                         <p><i class="far fa-square"></i> Abolladuras <i class="far fa-circle"></i> Rayaduras <i
                                 class="fas fa-times"></i> Piezas rotas </p>
+                        <div class="form-group form-check">
+
+                            <label class="form-check-label" for="dibujarCanvas"><input type="checkbox"
+                                    class="form-check-input" id="dibujarCanvas">dibujar en canvas</label>
+                        </div>
+
                     </div>
-                    <div class="container">
+                    <div class="container scroll">
                         <div class="col-lg-12 d-flex justify-content-center " id="cont-canvas">
                             <canvas id="canvas-fotoVehiculo" style="background:#d9d9d9"></canvas>
                         </div>
