@@ -93,7 +93,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputKilomentrajeVehiculoDespacho">Kilomentraje</label>
-                            <input onkeypress="return soloNumeros(event);" maxLength="11" type="text"
+                            <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number" value="0"
                                 class="form-control" id="inputKilomentrajeVehiculoDespacho"
                                 name="inputKilomentrajeVehiculoDespacho" required>
                         </div>
@@ -504,7 +504,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     onblur="mayus(this);" id="inputEntregadorDespacho" name="inputEntregadorDespacho">
                             </div>
                             <button type="button" class="form-group col-md-12 btn btn-primary" data-toggle="modal"
-                                data-target="#staticBackdrop">
+                                data-target="#canvasFotosVehiculo">
                                 Tomar Fotos al vehiculo
                             </button>
                         </div>
@@ -539,7 +539,7 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 <!-- Modal fotos auto -->
-<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+<div class="modal fade" id="canvasFotosVehiculo" data-backdrop="static" data-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
@@ -551,38 +551,38 @@ $nombreUsuario = $this->session->userdata('nombre')
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="form-group col-md-4">
-                        <input type="file" class="form-control-file" id="inputImagenVehiculo" accept=".jpg,.jpeg,.png">
+                    <div class="form-group col-lg-4">
+                        <input type="file" class="form-control-file" id="inputImagenVehiculo" accept="image/*">
                         <h6>Maximo 5 fotos </h6>
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-lg-2">
                         <button type="button" id="limpiar-fotoVehiculo" class="btn btn-secondary btn-sm form-control ">
                             limpiar pizarra</button>
                     </div>
-                    <div class="form-group col-md-1">
+                    <div class="form-group col-lg-1">
                         <input type="color" class=" form-control" id="colorCanvas" oninput="defcolor(this.value)">
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-lg-2">
                         <label for="grosor">Grosor de linea</label>
                         <input type="range" id="grosor" class="custom-range" oninput="defgrosor(this.value)" value="0"
                             min="1" max="5">
                     </div>
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-lg-3">
                         <button type="button" id="seleccionarFoto" class="btn btn-success btn-sm form-control ">
                             añadir foto</button>
                     </div>
-                    <div class="form-group col-md-12 text-center">
+                    <div class="form-group col-lg-12 text-center">
                         <br>
                         <p><i class="far fa-square"></i> Abolladuras <i class="far fa-circle"></i> Rayaduras <i
                                 class="fas fa-times"></i> Piezas rotas </p>
                     </div>
                     <div class="container">
-                        <div class="col-md-12 d-flex justify-content-center " id="cont-canvas">
+                        <div class="col-lg-12 d-flex justify-content-center " id="cont-canvas">
                             <canvas id="canvas-fotoVehiculo" style="background:#d9d9d9"></canvas>
                         </div>
                         <br>
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-lg-12">
                         <div class="container" id="carrucel">
 
                         </div>

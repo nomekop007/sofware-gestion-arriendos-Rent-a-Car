@@ -189,14 +189,14 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <span style="width: 60%;" class="input-group-text form-control">Sub total Arriendo
                                     $</span>
                                 <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo"
-                                    onkeypress="return soloNumeros(event);" maxLength="11" value="0" type="text"
+                                    oninput="this.value = soloNumeros(this)" maxLength="11" value="0" type="number"
                                     class="form-control" oninput="calcularValores()" required>
                             </div>
                             <div class="input-group col-md-12" id="subtotal-copago">
                                 <span style="width: 60%;" class="input-group-text form-control">valor copago
                                     $</span>
                                 <input style="width: 40%;" id="inputValorCopago" name="inputValorCopago"
-                                    onkeypress="return soloNumeros(event);" maxLength="11" value="0" type="text"
+                                    oninput="this.value = soloNumeros(this)" maxLength="11" value="0" type="number"
                                     class="form-control" oninput="calcularValores()" required>
                             </div>
                         </div>
@@ -224,8 +224,8 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <label class="custom-control-label" for="radioFactura">Factura</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input onkeypress="return soloNumeros(event);" maxLength="20" id="inputNumFacturacion"
-                                    name="inputNumFacturacion" type="text" class="form-control"
+                                <input oninput="this.value = soloNumeros(this)" maxLength="20" id="inputNumFacturacion"
+                                    name="inputNumFacturacion" type="number" class="form-control"
                                     placeholder="Nº Boleta/Factura" required>
                             </div>
                         </div>
@@ -233,8 +233,8 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Descuento $</span>
                                 <input style="width: 40%;" step="0" id="inputDescuento" name="inputDescuento"
-                                    onkeypress="return soloNumeros(event);" maxLength="11" value="0" type="text" min=0
-                                    class="form-control" oninput="calcularValores()" required>
+                                    oninput="this.value = soloNumeros(this)" maxLength="11" value="0" type="number"
+                                    min=0 class="form-control" oninput="calcularValores()" required>
                             </div>
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Total Neto $</span>

@@ -4,11 +4,14 @@ function mayus(e) {
     e.value = e.value.toUpperCase();
 }
 
-//Script para validar campo solo numeros
-//onkeypress="return soloNumeros(event);"
+//Script para validar limite de numeros
+//oninput="this.value = soloNumeros(this)"
 function soloNumeros(evt) {
-    if (evt.length > evt.maxLength)
-        return (evt.value = evt.value.slice(0, evt.maxLength));
+    if (evt.value.length > evt.maxLength) {
+        return evt.value.slice(0, evt.maxLength);
+    } else {
+        return evt.value;
+    }
 }
 
 // Script para cargar año vehiculo

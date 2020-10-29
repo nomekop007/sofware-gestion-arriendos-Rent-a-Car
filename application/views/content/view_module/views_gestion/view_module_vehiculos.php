@@ -77,8 +77,8 @@
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputNumeroMotor">Nº Motor</label>
-                            <input onblur="mayus(this);" type="text" maxLength="20" class="form-control"
-                                id="inputNumeroMotor" name="inputNumeroMotor" required>
+                            <input oninput="this.value = soloNumeros(this)" type="number" maxLength="11"
+                                class="form-control" id="inputNumeroMotor" name="inputNumeroMotor" required>
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputEstado">Estado</label>
@@ -115,8 +115,8 @@
                         <div class="form-group col-lg-4">
 
                             <label for="inputFoto">Foto (opcional)</label>
-                            <input accept="image/.jpeg,.jpg,.png,.gif," type="file" class="form-control-file"
-                                id="inputFoto" name="inputFoto">
+                            <input accept="image/*" type="file" class="form-control-file" id="inputFoto"
+                                name="inputFoto">
                         </div>
                     </div>
                     <br><br>
@@ -255,8 +255,9 @@
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarNumeroMotor">Nº Motor del Vehiculo</label>
-                                            <input type="text" maxLength="30" class="form-control"
-                                                id="inputEditarNumeroMotor" name="inputEditarNumeroMotor" required>
+                                            <input oninput="this.value = soloNumeros(this)" type="number" maxLength="11"
+                                                class="form-control" id="inputEditarNumeroMotor"
+                                                name="inputEditarNumeroMotor" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarSucursal">Sucursal</label>
@@ -306,8 +307,8 @@
                                     <img id="imagen" class="img-fluid rounded float-right" alt="">
 
                                     <label for="inputEditarFoto">Cambiar foto</label>
-                                    <input accept="image/.jpeg,.jpg,.png,.gif," type="file" class="form-control-file"
-                                        id="inputEditarFoto" name="inputEditarFoto">
+                                    <input accept="image/*" type="file" class="form-control-file" id="inputEditarFoto"
+                                        name="inputEditarFoto">
 
                                 </div>
                             </div>

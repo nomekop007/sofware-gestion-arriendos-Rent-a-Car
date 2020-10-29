@@ -2,26 +2,19 @@ var image = new Image();
 var limpiar = document.getElementById("limpiar-fotoVehiculo");
 var limpiarTodo = document.getElementById("seleccionarFoto");
 
-
-var canvasVehiculo = document.getElementById('canvas-fotoVehiculo');
-var ctxVehiculo = canvasVehiculo.getContext('2d');
-var input = document.getElementById('inputImagenVehiculo');
+var canvasVehiculo = document.getElementById("canvas-fotoVehiculo");
+var ctxVehiculo = canvasVehiculo.getContext("2d");
+var input = document.getElementById("inputImagenVehiculo");
 var curFile = input.files;
 var source = "";
 
-
-
-
-var cwVehiculo = (canvasVehiculo.width = $(window).width() - 500),
+var cwVehiculo = (canvasVehiculo.width = $(window).width() - 100),
     cxVehiculo = cwVehiculo / 2;
-var chVehiculo = (canvasVehiculo.height = $(window).height() - 500),
+var chVehiculo = (canvasVehiculo.height = $(window).height() - 100),
     cyVehiculo = chVehiculo / 2;
 
-
-
-
 //------------ colocar foto en el canvas -------------- //
-input.addEventListener('change', updateImageDisplay);
+input.addEventListener("change", updateImageDisplay);
 
 function updateImageDisplay() {
     var curFile = input.files;
@@ -29,32 +22,33 @@ function updateImageDisplay() {
     ctxVehiculo.clearRect(0, 0, cwVehiculo, chVehiculo);
     Trazados.length = 0;
     puntos.length = 0;
-    var list = document.createElement('ol');
-    var listItem = document.createElement('li');
+    var list = document.createElement("ol");
+    var listItem = document.createElement("li");
     for (var i = 0; i < curFile.length; i++) {
         if (validFileType(curFile[i])) {
             source = curFile[i].name;
             image.src = window.URL.createObjectURL(curFile[i]);
             image.onload = function() {
-                ctxVehiculo.drawImage(image, 0, 0, canvasVehiculo.width, canvasVehiculo.height);
-                image.style.display = 'none';
-            }
+                ctxVehiculo.drawImage(
+                    image,
+                    0,
+                    0,
+                    canvasVehiculo.width,
+                    canvasVehiculo.height
+                );
+                image.style.display = "none";
+            };
             listItem.appendChild(image);
         }
         list.appendChild(listItem);
     }
 }
 
-var fileTypes = [
-    'image/jpeg',
-    'image/jpg',
-    'image/png'
-]
+var fileTypes = ["image/jpeg", "image/jpg", "image/png"];
 
 function validFileType(file) {
     for (var i = 0; i < fileTypes.length; i++) {
-        if (file.type === fileTypes[i])
-            return true;
+        if (file.type === fileTypes[i]) return true;
     }
 
     return false;
@@ -80,15 +74,14 @@ function defgrosor(g) {
 }
 var mImgVehiculo = { x: 0, y: 0 };
 
-
-
-var eventsRyImgVehiculo = [{ event: "mousedown", func: "onStartVehiculo" },
+var eventsRyImgVehiculo = [
+    { event: "mousedown", func: "onStartVehiculo" },
     { event: "touchstart", func: "onStartVehiculo" },
     { event: "mousemove", func: "onMoveVehiculo" },
     { event: "touchmove", func: "onMoveVehiculo" },
     { event: "mouseup", func: "onEndVehiculo" },
     { event: "touchend", func: "onEndVehiculo" },
-    { event: "mouseout", func: "onEndVehiculo" }
+    { event: "mouseout", func: "onEndVehiculo" },
 ];
 
 function onStartVehiculo(evt) {
@@ -120,7 +113,7 @@ function oMousePosVehiculo(canvasVehiculo, evt) {
 
     return {
         x: Math.round(e.clientX - ClientRect.left),
-        y: Math.round(e.clientY - ClientRect.top)
+        y: Math.round(e.clientY - ClientRect.top),
     };
 }
 
@@ -128,16 +121,17 @@ for (var i = 0; i < eventsRyImgVehiculo.length; i++) {
     (function(i) {
         var e = eventsRyImgVehiculo[i].event;
         var f = eventsRyImgVehiculo[i].func;
-        canvasVehiculo.addEventListener(e, function(evt) {
-            evt.preventDefault();
-            window[f](evt);
-            return;
-        }, false);
+        canvasVehiculo.addEventListener(
+            e,
+            function(evt) {
+                evt.preventDefault();
+                window[f](evt);
+                return;
+            },
+            false
+        );
     })(i);
 }
-
-
-
 
 //limpiar canvas imagen + lineas
 function limpiarTodoCanvasVehiculo(evt) {
@@ -159,7 +153,13 @@ limpiar.addEventListener(
         ctxVehiculo.clearRect(0, 0, cwVehiculo, chVehiculo);
         Trazados.length = 0;
         puntos.length = 0;
-        ctxVehiculo.drawImage(image, 0, 0, canvasVehiculo.width, canvasVehiculo.height);
+        ctxVehiculo.drawImage(
+            image,
+            0,
+            0,
+            canvasVehiculo.width,
+            canvasVehiculo.height
+        );
     },
     false
 );

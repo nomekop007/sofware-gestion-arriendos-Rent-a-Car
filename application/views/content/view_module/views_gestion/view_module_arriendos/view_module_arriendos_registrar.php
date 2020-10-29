@@ -159,7 +159,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">+569</span>
                             </div>
-                            <input onkeypress="return soloNumeros(event);" maxLength="8" type="number"
+                            <input oninput="this.value = soloNumeros(this)" maxLength="8" type="number"
                                 class="form-control" id="inputTelefonoCliente" name="inputTelefonoCliente" required>
                         </div>
 
@@ -222,7 +222,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">+569</span>
                             </div>
-                            <input onkeypress="return soloNumeros(event);" maxLength="8" type="number"
+                            <input oninput="this.value = soloNumeros(this)" maxLength="8" type="number"
                                 class="form-control" id="inputTelefonoEmpresa" name="inputTelefonoEmpresa" required>
                         </div>
                     </div>
@@ -258,13 +258,13 @@ switch ($this->session->userdata('sucursal')) {
                                 <br>
                                 <div class="form-group col-md-6 ">
                                     <label for="inputCarnetFrontal">(frontal)</label>
-                                    <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file"
+                                    <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
                                         class="form-control-file" id="inputCarnetFrontal" name="inputCarnetFrontal"
                                         required>
                                 </div>
                                 <div class="form-group col-md-6 ">
                                     <label for="inputCarnetTrasera">(trasera)</label>
-                                    <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file"
+                                    <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
                                         class="form-control-file" id="inputCarnetTrasera" name="inputCarnetTrasera"
                                         required>
                                 </div>
@@ -274,14 +274,16 @@ switch ($this->session->userdata('sucursal')) {
                         <div class="form-row">
                             <div id="formComprobanteDomicilio" class="form-group col-md-12">
                                 <h6 for="inputComprobanteDomicilio">Comprobante de domicilio</h6>
-                                <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                    id="inputComprobanteDomicilio" name="inputComprobanteDomicilio" required>
+                                <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
+                                    class="form-control-file" id="inputComprobanteDomicilio"
+                                    name="inputComprobanteDomicilio" required>
                                 <br>
                             </div>
                             <div id="formCartaRemplazo" class="form-group col-md-12">
                                 <h6 for="inputCartaRemplazo">Carta Empresa Remplazo</h6>
-                                <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                    id="inputCartaRemplazo" name="inputCartaRemplazo" required>
+                                <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
+                                    class="form-control-file" id="inputCartaRemplazo" name="inputCartaRemplazo"
+                                    required>
                                 <br>
                             </div>
                         </div>
@@ -326,7 +328,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text">+569</span>
                             </div>
-                            <input onkeypress="return soloNumeros(event);" maxLength="8" type="number"
+                            <input oninput="this.value = soloNumeros(this)" maxLength="8" type="number"
                                 class="form-control" id="inputTelefonoConductor" name="inputTelefonoConductor" required>
                         </div>
                     </div>
@@ -353,8 +355,8 @@ switch ($this->session->userdata('sucursal')) {
 
                     <div class="form-group col-md-2">
                         <label for="inputNumeroConductor">Numero serie</label>
-                        <input onkeypress="return soloNumeros(event);" maxLength="11" type="number" class="form-control"
-                            id="inputNumeroConductor" name="inputNumeroConductor" required>
+                        <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number"
+                            class="form-control" id="inputNumeroConductor" name="inputNumeroConductor" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputMunicipalidadConductor">Municipalidad</label>
@@ -369,8 +371,8 @@ switch ($this->session->userdata('sucursal')) {
                         <div class="form-row">
                             <div class="form-group col-md-12 ">
                                 <h6 for="inputLicencia">Licencia de conducir</h6>
-                                <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                    id="inputLicencia" name="inputLicencia" required>
+                                <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
+                                    class="form-control-file" id="inputLicencia" name="inputLicencia" required>
                                 <br>
                             </div>
                         </div>
@@ -435,7 +437,7 @@ switch ($this->session->userdata('sucursal')) {
                         <div class="input-group-prepend">
                             <span class="input-group-text">Abono $</span>
                         </div>
-                        <input onkeypress="return soloNumeros(event);" maxLength="11" type="text" id="inputAbono"
+                        <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number" id="inputAbono"
                             name="inputAbono" class="form-control" required>
                     </div>
                 </div>
@@ -449,14 +451,14 @@ switch ($this->session->userdata('sucursal')) {
                                 <div class="form-group col-md-6">
                                     <br>
                                     <label for="inputTarjetaFrontal">(frontal)</label>
-                                    <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file"
+                                    <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
                                         class="form-control-file" id="inputTarjetaFrontal" name="inputTarjetaFrontal"
                                         required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <br>
                                     <label for="inputTarjetaTrasera">(trasera)</label>
-                                    <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file"
+                                    <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
                                         class="form-control-file" id="inputTarjetaTrasera" name="inputTarjetaTrasera"
                                         required>
                                 </div>
@@ -467,8 +469,8 @@ switch ($this->session->userdata('sucursal')) {
                     <div class="form-row" id="foto_cheque">
                         <div class="form-group col-md-12">
                             <h6 for="inputChequeGarantia">Foto cheque</h6>
-                            <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                id="inputChequeGarantia" name="inputChequeGarantia" required>
+                            <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
+                                class="form-control-file" id="inputChequeGarantia" name="inputChequeGarantia" required>
                             <br>
                         </div>
                     </div>
@@ -476,8 +478,8 @@ switch ($this->session->userdata('sucursal')) {
                     <div class="form-row" id="foto_efectivo">
                         <div class="form-group col-md-12">
                             <h6 for="inputBoletaEfectivo">Foto boleta efectivo</h6>
-                            <input accept="image/.jpeg,.jpg,.png,.gif, .pdf" type="file" class="form-control-file"
-                                id="inputBoletaEfectivo" name="inputBoletaEfectivo" required>
+                            <input accept="image/x-png,image/gif,image/jpeg ,application/pdf" type="file"
+                                class="form-control-file" id="inputBoletaEfectivo" name="inputBoletaEfectivo" required>
                             <br>
                         </div>
                     </div>
@@ -515,24 +517,18 @@ switch ($this->session->userdata('sucursal')) {
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="inputEntrada">Entrada</label>
-                        <input
-                            oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                            value=0 maxLength="11" type="number" class="form-control" id="inputEntrada"
-                            name="inputEntrada" required>
+                        <input oninput="this.value = soloNumeros(this)" value=0 maxLength="11" type="number"
+                            class="form-control" id="inputEntrada" name="inputEntrada" required>
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputSalida">Salida</label>
-                        <input
-                            oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                            maxLength="11" type="number" class="form-control" id="inputSalida" name="inputSalida"
-                            disabled>
+                        <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number"
+                            class="form-control" id="inputSalida" name="inputSalida" disabled>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="inputMantencion">kilometros para siguiente mantencion</label>
-                        <input
-                            oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-                            value=0 maxLength="11" type="number" class="form-control" id="inputMantencion"
-                            name="inputMantencion" required>
+                        <input oninput="this.value = soloNumeros(this)" value=0 maxLength="11" type="number"
+                            class="form-control" id="inputMantencion" name="inputMantencion" required>
                     </div>
                 </div>
                 <br>
