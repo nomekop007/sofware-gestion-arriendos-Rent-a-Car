@@ -153,7 +153,7 @@ $(document).ready(() => {
         }
     });
 
-    $("#btn_crear_arriendo").click(async() => {
+    $("#btn_crear_arriendo").click(() => {
         //AQUI SE VALIDA EL FORMULARIO COMPLETO
 
         //datos arriendo
@@ -218,10 +218,6 @@ $(document).ready(() => {
 
         const inputTipoGarantia = $("input:radio[name=customRadio0]:checked").val();
         const inputTipoArriendo = $("#inputTipo").val();
-
-        //datos del formulario
-        const form = $("#form_registrar_arriendo")[0];
-        const data = new FormData(form);
 
         //VALIDACIONES DE LOS DOCUMENTOS REQUERIDOS
         switch (inputTipoArriendo) {
@@ -343,9 +339,12 @@ $(document).ready(() => {
                         inputCiudadCliente.length != 0 &&
                         inputFechaNacimiento.length != 0
                     ) {
-                        await guardarDatosCliente(data);
-                        await guardarDatosConductor(data);
-                        await guardarDatosArriendo(data);
+                        //datos del formulario
+                        const form = $("#form_registrar_arriendo")[0];
+                        const data = new FormData(form);
+                        guardarDatosCliente(data);
+                        guardarDatosConductor(data);
+                        guardarDatosArriendo(data);
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -364,9 +363,12 @@ $(document).ready(() => {
                         inputFechaNacimiento.length != 0 &&
                         inputNombreRemplazo.length != 0
                     ) {
-                        await guardarDatosCliente(data);
-                        await guardarDatosConductor(data);
-                        await guardarDatosRemplazo(data);
+                        //datos del formulario
+                        const form = $("#form_registrar_arriendo")[0];
+                        const data = new FormData(form);
+                        guardarDatosCliente(data);
+                        guardarDatosConductor(data);
+                        guardarDatosRemplazo(data);
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -385,9 +387,12 @@ $(document).ready(() => {
                         inputCiudadEmpresa.length != 0 &&
                         inputRol.length != 0
                     ) {
-                        await guardarDatosEmpresa(data);
-                        await guardarDatosConductor(data);
-                        await guardarDatosArriendo(data);
+                        //datos del formulario
+                        const form = $("#form_registrar_arriendo")[0];
+                        const data = new FormData(form);
+                        guardarDatosEmpresa(data);
+                        guardarDatosConductor(data);
+                        guardarDatosArriendo(data);
                     } else {
                         Swal.fire({
                             icon: "warning",
