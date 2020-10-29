@@ -9,7 +9,7 @@ var input = document.getElementById("inputImagenVehiculo");
 var curFile = input.files;
 var source = "";
 
-var cwVehiculo = (canvasVehiculo.width = 500),
+var cwVehiculo = (canvasVehiculo.width = 700),
     cxVehiculo = cwVehiculo / 2;
 var chVehiculo = (canvasVehiculo.height = 350),
     cyVehiculo = chVehiculo / 2;
@@ -79,20 +79,27 @@ function defgrosor(g) {
 var mImgVehiculo = { x: 0, y: 0 };
 
 var eventsRyImgVehiculo = [
-    { event: "mousedown", func: "onStartVehiculo" },
-    { event: "touchstart", func: "onStartVehiculo" },
-    { event: "mousemove", func: "onMoveVehiculo" },
-    { event: "touchmove", func: "onMoveVehiculo" },
-    { event: "mouseup", func: "onEndVehiculo" },
-    { event: "touchend", func: "onEndVehiculo" },
-    { event: "mouseout", func: "onEndVehiculo" },
+    { event: "mousedown", func: onStartVehiculo },
+    { event: "touchstart", func: onStartVehiculo },
+    { event: "mousemove", func: onMoveVehiculo },
+    { event: "touchmove", func: onMoveVehiculo },
+    { event: "mouseup", func: onEndVehiculo },
+    { event: "touchend", func: onEndVehiculo },
+    { event: "mouseout", func: onEndVehiculo },
 ];
 
 dibujarCanvas.addEventListener("click", (e) => {
-    eventosDibujar();
+    //1 : checked , 0 : no checked
+    const checked = $('[name="dibujarCanvas"]:checked').length;
+    if (checked == 1) {
+        ActivarEventosDibujar();
+    } else {
+        DesactivarEventosDibujar();
+    }
 });
 
 function onStartVehiculo(evt) {
+    evt.preventDefault();
     mImgVehiculo = oMousePosVehiculo(canvasVehiculo, evt);
     ctxVehiculo.beginPath();
     ctxVehiculo.strokeStyle = color;
@@ -101,6 +108,7 @@ function onStartVehiculo(evt) {
 }
 
 function onMoveVehiculo(evt) {
+    evt.preventDefault();
     if (dibujar) {
         ctxVehiculo.moveTo(mImgVehiculo.x, mImgVehiculo.y);
         mImgVehiculo = oMousePosVehiculo(canvasVehiculo, evt);
@@ -112,6 +120,7 @@ function onMoveVehiculo(evt) {
 }
 
 function onEndVehiculo(evt) {
+    evt.preventDefault();
     dibujar = false;
 }
 
@@ -125,20 +134,22 @@ function oMousePosVehiculo(canvasVehiculo, evt) {
     };
 }
 
-function eventosDibujar() {
+function ActivarEventosDibujar() {
     for (var i = 0; i < eventsRyImgVehiculo.length; i++) {
         (function(i) {
             var e = eventsRyImgVehiculo[i].event;
             var f = eventsRyImgVehiculo[i].func;
-            canvasVehiculo.addEventListener(
-                e,
-                function(evt) {
-                    evt.preventDefault();
-                    window[f](evt);
-                    return;
-                },
-                false
-            );
+            canvasVehiculo.addEventListener(e, f, false);
+        })(i);
+    }
+}
+
+function DesactivarEventosDibujar() {
+    for (var i = 0; i < eventsRyImgVehiculo.length; i++) {
+        (function(i) {
+            var e = eventsRyImgVehiculo[i].event;
+            var f = eventsRyImgVehiculo[i].func;
+            canvasVehiculo.removeEventListener(e, f, false);
         })(i);
     }
 }
@@ -147,7 +158,7 @@ function eventosDibujar() {
 function limpiarTodoCanvasVehiculo(evt) {
     dibujar = false;
     ctxVehiculo.clearRect(0, 0, cwVehiculo, chVehiculo);
-    canvasVehiculo.width = 500;
+    canvasVehiculo.width = 700;
     canvasVehiculo.height = 350;
     Trazados.length = 0;
     puntos.length = 0;
