@@ -614,11 +614,10 @@ $(document).ready(() => {
         const response = await ajax_function(data, "registrar_arriendo");
 
         if (response.success) {
-            //problemon
-            await guardarDocumentosRequistos(response.data.id_arriendo);
             await guardarDatosAccesorios(response.data.id_arriendo);
             await guardarDatosGarantia(response.data.id_arriendo);
             await cambiarEstadoVehiculo(response.data.patente_vehiculo);
+            await guardarDocumentosRequistos(response.data.id_arriendo);
             cargarArriendoEnTabla(response.data);
             Swal.fire("Arriendo Registrado", response.msg, "success");
             limpiarCampos();
