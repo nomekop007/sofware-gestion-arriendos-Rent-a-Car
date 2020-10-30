@@ -45,15 +45,11 @@ switch ($this->session->userdata('sucursal')) {
                 role="button" aria-expanded="false" aria-controls="collapseVehiculos">
                 Seleccion de vehiculo
             </a>
-
             <button type="submit" id="btn_crear_arriendo" class="btn btn-success btn-sm">
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                     id="spinner_btn_registrar"></span>
                 Crear Arriendo</button>
         </p>
-        <!-- este form vacio es necesario para tener los multiples form... -->
-
-
         <div class="collapse" id="collapseArriendo">
             <div class="card card-body">
                 <br>
@@ -99,18 +95,11 @@ switch ($this->session->userdata('sucursal')) {
                             name="inputNumeroDias" id="inputNumeroDias" required>
                     </div>
                 </div>
-
-
-
-
             </div>
         </div>
-
-
         <div class="collapse" id="collapseCliente">
             <div class="card card-body">
                 <br>
-
                 <h4 id="titulo_cliente">Datos Cliente</h4>
                 <div class="form-row" id="form_cliente">
                     <div class="form-group col-md-3">
@@ -552,9 +541,9 @@ switch ($this->session->userdata('sucursal')) {
                         <br><br>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputOtros">otros</span>
+                                <span class="input-group-text">otros</span>
                             </div>
-                            <input type="text" name="inputOtros" onblur="mayus(this);" maxLength="20"
+                            <input type="text" name="inputOtros" id="inputOtros" onblur="mayus(this);" maxLength="20"
                                 class="form-control" aria-label="Sizing example input" aria-describedby="inputOtros">
                         </div>
                     </div>
