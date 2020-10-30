@@ -51,7 +51,8 @@ $nombreUsuario = $this->session->userdata('nombre')
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editarModal">Detalle arriendo</h5>
+                <h5 class="modal-title" id="editarModal">Detalle arriendo <span id="numeroArriendoEditar">Nº</span>
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -135,6 +136,8 @@ $nombreUsuario = $this->session->userdata('nombre')
             </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+                <button disabled type="button" class="btn btn-danger">Anular arriendo</button>
+
                 <button disabled type="button" class="btn btn-primary">Guardar cambios</button>
             </div>
         </div>
@@ -148,7 +151,9 @@ $nombreUsuario = $this->session->userdata('nombre')
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">despachar arriendo</h5>
+                <h5 class="modal-title" id="exampleModalLabel">despachar arriendo <span
+                        id="numeroArriendoConfirmacion">Nº</span>
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -189,15 +194,14 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <span style="width: 60%;" class="input-group-text form-control">Sub total Arriendo
                                     $</span>
                                 <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo"
-                                    oninput="this.value = soloNumeros(this)" maxLength="11" value="0" type="number"
-                                    class="form-control" oninput="calcularValores()" required>
+                                    maxLength="11" value="0" type="number" class="form-control"
+                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
                             </div>
                             <div class="input-group col-md-12" id="subtotal-copago">
                                 <span style="width: 60%;" class="input-group-text form-control">valor copago
                                     $</span>
-                                <input style="width: 40%;" id="inputValorCopago" name="inputValorCopago"
-                                    oninput="this.value = soloNumeros(this)" maxLength="11" value="0" type="number"
-                                    class="form-control" oninput="calcularValores()" required>
+                                <input style="width: 40%;" id="inputValorCopago" name="inputValorCopago" maxLength="11"
+                                    value="0" type="number" class="form-control" oninput="calcularValores()" required>
                             </div>
                         </div>
                     </div>
@@ -224,17 +228,16 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <label class="custom-control-label" for="radioFactura">Factura</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input oninput="this.value = soloNumeros(this)" maxLength="20" id="inputNumFacturacion"
-                                    name="inputNumFacturacion" type="number" class="form-control"
-                                    placeholder="Nº Boleta/Factura" required>
+                                <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion" type="number"
+                                    class="form-control" placeholder="Nº Boleta/Factura" required>
                             </div>
                         </div>
                         <div class="form-row card-body">
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Descuento $</span>
                                 <input style="width: 40%;" step="0" id="inputDescuento" name="inputDescuento"
-                                    oninput="this.value = soloNumeros(this)" maxLength="11" value="0" type="number"
-                                    min=0 class="form-control" oninput="calcularValores()" required>
+                                    maxLength="11" value="0" type="number" min=0 class="form-control"
+                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
                             </div>
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Total Neto $</span>
@@ -343,263 +346,3 @@ $nombreUsuario = $this->session->userdata('nombre')
         </div>
     </div>
 </div>
-
-
-
-
-<!-- <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.0.943/build/pdf.min.js"></script> -->
-<script>
-/* pdfjsLib.getDocument('assets/informe.pdf').then(doc => {
-    console.log("this file has " + doc._pdfInfo.numPages + " pages");
-
-    doc.getPage(2).then(page => {
-        var myCanvas = document.getElementById("my_canvas");
-        var context = myCanvas.getContext("2d");
-        var viewport = page.getViewport(1);
-        myCanvas.width = viewport.width;
-        myCanvas.height = viewport.height;
-
-        page.render({
-            canvasContext: context,
-            viewport: viewport
-        })
-    })
-})
- */
-
-const buscarArriendo = async (id_arriendo, option) => {
-    limpiarCampos();
-    const data = new FormData();
-    data.append("id_arriendo", id_arriendo);
-    const response = await ajax_function(data, "buscar_arriendo");
-    if (response.success) {
-        const arriendo = response.data;
-        // si es true carga modal confirmar ; false carga modal editar
-        option ? mostrarArriendoModalConfirmacion(arriendo) : mostrarArriendoModalEditar(arriendo);
-        $("#formSpinner").hide();
-        $("#formContrato").show();
-    }
-}
-
-
-const mostrarArriendoModalConfirmacion = (arriendo) => {
-    $("#inputIdArriendo").val(arriendo.id_arriendo);
-    $("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo)
-    $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
-    $("#textTipo").val(arriendo.tipo_arriendo);
-    $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
-    switch (arriendo.tipo_arriendo) {
-        case "PARTICULAR":
-            $("#textCliente").html(arriendo.cliente.nombre_cliente);
-            $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
-            break;
-        case "REMPLAZO":
-            $("#subtotal-copago").show();
-            $("#textCliente").html(arriendo.remplazo.cliente.nombre_cliente + " - " +
-                arriendo.remplazo.nombreEmpresa_remplazo);
-            $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
-            break;
-        case "EMPRESA":
-            $("#textCliente").html(arriendo.empresa.nombre_empresa);
-            $("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
-            break;
-    }
-    mostrarAccesorios(arriendo);
-}
-
-const mostrarArriendoModalEditar = (arriendo) => {
-    $("#formSpinnerEditar").hide();
-    $("#formEditarArriendo").show();
-    $("#inputEditarTipoArriendo").val(arriendo.tipo_arriendo);
-    $("#inputEditarEstadoArriendo").val(arriendo.estado_arriendo);
-    $("#inputEditarConductorArriendo").val(arriendo.conductore.nombre_conductor + " " + arriendo.conductore
-        .rut_conductor);
-    $("#inputEditarVehiculoArriendo").val(arriendo.vehiculo.patente_vehiculo + " " + arriendo.vehiculo
-        .modelo_vehiculo + "  " + arriendo.vehiculo.marca_vehiculo + " " + arriendo.vehiculo.año_vehiculo);
-    $("#inputEditarKentradaArriendo").val(arriendo.kilometrosEntrada_arriendo);
-    $("#inputEditarKsalidaArriendo").val(arriendo.kilometrosSalida_arriendo);
-    $("#inputEditarKmantencionArriendo").val(arriendo.kilometrosMantencion_arriendo);
-    $("#inputEditarFechaInicioArriendo").val(formatearFechaHora(arriendo.fechaEntrega_arriendo));
-    $("#inputEditarFechaFinArriendo").val(formatearFechaHora(arriendo.fechaRecepcion_arriendo));
-    $("#inputEditarCiudadEntregaArriendo").val(arriendo.ciudadEntrega_arriendo);
-    $("#inputEditarCiudadRecepcionArriendo").val(arriendo.ciudadRecepcion_arriendo);
-    $("#inputEditarDiasArriendo").val(arriendo.numerosDias_arriendo);
-    $("#inputEditarUsuarioArriendo").val(arriendo.usuario.nombre_usuario);
-    $("#inputEditarRegistroArriendo").val(formatearFechaHora(arriendo.createdAt));
-
-
-    switch (arriendo.tipo_arriendo) {
-        case "PARTICULAR":
-            $("#inputEditarClienteArriendo").val(arriendo.cliente.nombre_cliente + " " + arriendo.cliente
-                .rut_cliente);
-            break;
-        case "REMPLAZO":
-            $("#inputEditarClienteArriendo").val(arriendo.remplazo.cliente.nombre_cliente + " " + arriendo.remplazo
-                .cliente.rut_cliente);
-            break;
-        case "EMPRESA":
-            $("#inputEditarClienteArriendo").val(arriendo.empresa.nombre_empresa + " " + arriendo.empresa
-                .rut_empresa);
-            break;
-    }
-    const url = storage + "documentos/requisitosArriendo/";
-
-
-    if (arriendo.requisito.carnetFrontal_requisito) {
-        const a = document.createElement("a");
-        a.href = url + arriendo.requisito.carnetFrontal_requisito;
-        a.text = "Foto carnet frontal";
-        a.target = "_blank";
-        a.className = "badge badge-pill badge-info"
-        document.getElementById("card_documentos").append(a)
-    }
-    if (arriendo.requisito.carnetTrasera_requisito) {
-        const a = document.createElement("a");
-        a.text = "Foto carnet Trasera";
-        a.href = url + arriendo.requisito.carnetTrasera_requisito;
-        a.className = "badge badge-pill badge-info"
-        a.target = "_blank";
-        document.getElementById("card_documentos").append(a)
-    }
-    if (arriendo.requisito.cartaRemplazo_requisito) {
-        const a = document.createElement("a");
-        a.href = url + arriendo.requisito.cartaRemplazo_requisito;
-        a.text = "Carta de remplazo";
-        a.target = "_blank";
-        a.className = "badge badge-pill badge-info"
-        document.getElementById("card_documentos").append(a)
-    }
-    if (arriendo.requisito.chequeGarantia_requisito) {
-        const a = document.createElement("a");
-        a.className = "badge badge-pill badge-info"
-        a.target = "_blank";
-        a.href = url + arriendo.requisito.chequeGarantia_requisito;
-        a.text = "Cheque en garantia";
-        document.getElementById("card_documentos").append(a)
-    }
-    if (arriendo.requisito.comprobanteDomicilio_requisito) {
-        const a = document.createElement("a");
-        a.href = url + arriendo.requisito.comprobanteDomicilio_requisito;
-        a.text = "Comprobante de domicilio";
-        a.className = "badge badge-pill badge-info"
-        a.target = "_blank";
-        document.getElementById("card_documentos").append(a)
-    }
-    if (arriendo.requisito.licenciaConducir_requisito) {
-        const a = document.createElement("a");
-        a.href = url + arriendo.requisito.licenciaConducir_requisito;
-        a.text = "Licencia de conducir";
-        a.className = "badge badge-pill badge-info"
-        a.target = "_blank";
-        document.getElementById("card_documentos").append(a)
-    }
-    if (arriendo.requisito.tarjetaCreditoFrontal_requisito) {
-        const a = document.createElement("a");
-        a.href = url + arriendo.requisito.tarjetaCreditoFrontal_requisito;
-        a.text = "Foto Tarjeta de credito frontal";
-        a.className = "badge badge-pill badge-info"
-        a.target = "_blank";
-        document.getElementById("card_documentos").append(a)
-    }
-    if (arriendo.requisito.tarjetaCreditoTrasera_requisito) {
-        const a = document.createElement("a");
-        a.href = url + arriendo.requisito.tarjetaCreditoTrasera_requisito;
-        a.text = "Foto tarjeta de credito trasera";
-        a.className = "badge badge-pill badge-info"
-        a.target = "_blank";
-        document.getElementById("card_documentos").append(a)
-    }
-    if (arriendo.requisito.boletaEfectivo_requisito) {
-        const a = document.createElement("a");
-        a.href = url + arriendo.requisito.boletaEfectivo_requisito;
-        a.text = "Comprobante efectivo";
-        a.className = "badge badge-pill badge-info"
-        a.target = "_blank";
-        document.getElementById("card_documentos").append(a)
-    }
-
-}
-
-
-const mostrarAccesorios = (arriendo) => {
-    if (arriendo.accesorios.length) {
-        $.each(arriendo.accesorios, (i, o) => {
-            let precio = 0;
-            if (o.precio_accesorio != null) {
-                precio = o.precio_accesorio
-            }
-            let fila = " <div class='input-group col-md-12'>";
-            fila +=
-                " <span style='width: 60%;' class='input-group-text form-control'>" + o
-                .nombre_accesorio + " $</span>";
-            fila +=
-                "<input  style='width: 40%;' min='0' id='" + o.nombre_accesorio +
-                "'  onkeypress='return soloNumeros(event);' maxLength='11' name='accesorios[]'  oninput='calcularValores()' value='" +
-                precio +
-                "'  type='text' class='form-control' required>";
-            fila += "  </div>";
-            $("#formAccesorios").append(fila);
-        })
-    } else {
-        let sinAccesorios =
-            " <span class=' col-md-12 text-center' id='spanAccesorios'>Sin Accesorios</span>";
-        $("#formAccesorios").append(sinAccesorios);
-    }
-}
-
-const calcularValores = () => {
-    //variables
-    let valorArriendo = Number($("#inputValorArriendo").val());
-    let valorCopago = Number($("#inputValorCopago").val());
-    let neto = Number($("#inputNeto").val());
-    let iva = Number($("#inputIVA").val());
-    let descuento = Number($("#inputDescuento").val());
-    let total = Number($("#inputTotal").val());
-    let TotalNeto = 0;
-    //revisa todos los check y guardas sus valores en un array si estan okey
-    let ArrayAccesorios = $('[name="accesorios[]"]')
-        .map(function() {
-            return this.value;
-        })
-        .get();
-    for (let i = 0; i < ArrayAccesorios.length; i++) {
-        const precioAccesorio = ArrayAccesorios[i];
-        TotalNeto += Number(precioAccesorio);
-    }
-    TotalNeto = TotalNeto + valorArriendo - descuento - valorCopago;
-    iva = TotalNeto * 0.19;
-    total = TotalNeto + iva;
-    $("#inputNeto").val(TotalNeto);
-    $("#inputIVA").val(Math.round(iva));
-    $("#inputTotal").val(Math.round(total));
-}
-
-
-
-
-const limpiarCampos = () => {
-    $("#formEditarArriendo").hide();
-    $("#formContrato").hide();
-    $("#card_documentos").empty();
-    $("#formAccesorios").empty();
-    $("#formContrato")[0].reset();
-    $("#btn_crear_contrato").attr("disabled", false);
-    $("#spinner_btn_crearContrato").hide();
-    $("#spinner_btn_firmarContrato").hide();
-    $("#spinner_btn_confirmarContrato").hide();
-    $("#btn_confirmar_contrato").attr("disabled", true);
-    $("#body-documento").hide();
-    $("#body-firma").hide();
-    $("#body-sinContrato").show();
-    $("#nombre_documento").val("");
-    $("#subtotal-copago").hide();
-    $("#formSpinner").show();
-    $("#formSpinnerEditar").show();
-    $("#formContrato").hide();
-    //se limpia el canvas de firma
-    dibujar = false;
-    ctx.clearRect(0, 0, cw, ch);
-    Trazados.length = 0;
-    puntos.length = 0;
-}
-</script>

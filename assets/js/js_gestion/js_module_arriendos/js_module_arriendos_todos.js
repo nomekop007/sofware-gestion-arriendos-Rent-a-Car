@@ -1,17 +1,283 @@
-$(document).ready(() => {
-    (cargarArriendos = () => {
-        $("#spinner_tablaTotalArriendos").show();
-        const url = base_url + "cargar_arriendos";
-        $.getJSON(url, (result) => {
-            $("#spinner_tablaTotalArriendos").hide();
-            if (result.success) {
-                $.each(result.data, (i, arriendo) => {
-                    cargarArriendoEnTabla(arriendo);
-                });
-            } else {
-                console.log("ah ocurrido un error al cargar los arriendos");
+const buscarArriendo = async(id_arriendo, option) => {
+    limpiarCampos();
+    const data = new FormData();
+    data.append("id_arriendo", id_arriendo);
+    const response = await ajax_function(data, "buscar_arriendo");
+    if (response.success) {
+        const arriendo = response.data;
+        // si es true carga modal confirmar ; false carga modal editar
+        option
+            ?
+            mostrarArriendoModalConfirmacion(arriendo) :
+            mostrarArriendoModalEditar(arriendo);
+
+        $("#formContrato").show();
+    }
+    $("#formSpinner").hide();
+};
+
+const mostrarArriendoModalConfirmacion = (arriendo) => {
+    $("#numeroArriendoConfirmacion").text("Nº" + arriendo.id_arriendo);
+    $("#inputIdArriendo").val(arriendo.id_arriendo);
+    $("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo);
+    $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
+    $("#textTipo").val(arriendo.tipo_arriendo);
+    $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
+    switch (arriendo.tipo_arriendo) {
+        case "PARTICULAR":
+            $("#textCliente").html(arriendo.cliente.nombre_cliente);
+            $("#textVehiculo").html(
+                "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
+            );
+            break;
+        case "REMPLAZO":
+            $("#subtotal-copago").show();
+            $("#textCliente").html(
+                arriendo.remplazo.cliente.nombre_cliente +
+                " - " +
+                arriendo.remplazo.nombreEmpresa_remplazo
+            );
+            $("#textVehiculo").html(
+                "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
+            );
+            break;
+        case "EMPRESA":
+            $("#textCliente").html(arriendo.empresa.nombre_empresa);
+            $("#textVehiculo").html(
+                "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
+            );
+            break;
+    }
+    mostrarAccesorios(arriendo);
+};
+
+const mostrarArriendoModalEditar = (arriendo) => {
+    $("#formSpinnerEditar").hide();
+    $("#formEditarArriendo").show();
+
+    $("#numeroArriendoEditar").text("Nº" + arriendo.id_arriendo);
+    $("#inputEditarTipoArriendo").val(arriendo.tipo_arriendo);
+    $("#inputEditarEstadoArriendo").val(arriendo.estado_arriendo);
+    $("#inputEditarConductorArriendo").val(
+        arriendo.conductore.nombre_conductor +
+        " " +
+        arriendo.conductore.rut_conductor
+    );
+    $("#inputEditarVehiculoArriendo").val(
+        arriendo.vehiculo.patente_vehiculo +
+        " " +
+        arriendo.vehiculo.modelo_vehiculo +
+        "  " +
+        arriendo.vehiculo.marca_vehiculo +
+        " " +
+        arriendo.vehiculo.año_vehiculo
+    );
+    $("#inputEditarKentradaArriendo").val(arriendo.kilometrosEntrada_arriendo);
+    $("#inputEditarKsalidaArriendo").val(arriendo.kilometrosSalida_arriendo);
+    $("#inputEditarKmantencionArriendo").val(
+        arriendo.kilometrosMantencion_arriendo
+    );
+    $("#inputEditarFechaInicioArriendo").val(
+        formatearFechaHora(arriendo.fechaEntrega_arriendo)
+    );
+    $("#inputEditarFechaFinArriendo").val(
+        formatearFechaHora(arriendo.fechaRecepcion_arriendo)
+    );
+    $("#inputEditarCiudadEntregaArriendo").val(arriendo.ciudadEntrega_arriendo);
+    $("#inputEditarCiudadRecepcionArriendo").val(
+        arriendo.ciudadRecepcion_arriendo
+    );
+    $("#inputEditarDiasArriendo").val(arriendo.numerosDias_arriendo);
+    $("#inputEditarUsuarioArriendo").val(arriendo.usuario.nombre_usuario);
+    $("#inputEditarRegistroArriendo").val(formatearFechaHora(arriendo.createdAt));
+
+    switch (arriendo.tipo_arriendo) {
+        case "PARTICULAR":
+            $("#inputEditarClienteArriendo").val(
+                arriendo.cliente.nombre_cliente + " " + arriendo.cliente.rut_cliente
+            );
+            break;
+        case "REMPLAZO":
+            $("#inputEditarClienteArriendo").val(
+                arriendo.remplazo.cliente.nombre_cliente +
+                " " +
+                arriendo.remplazo.cliente.rut_cliente
+            );
+            break;
+        case "EMPRESA":
+            $("#inputEditarClienteArriendo").val(
+                arriendo.empresa.nombre_empresa + " " + arriendo.empresa.rut_empresa
+            );
+            break;
+    }
+    const url = storage + "documentos/requisitosArriendo/";
+
+    if (arriendo.requisito.carnetFrontal_requisito) {
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.carnetFrontal_requisito;
+        a.text = "Foto carnet frontal";
+        a.target = "_blank";
+        a.className = "badge badge-pill badge-info";
+        document.getElementById("card_documentos").append(a);
+    }
+    if (arriendo.requisito.carnetTrasera_requisito) {
+        const a = document.createElement("a");
+        a.text = "Foto carnet Trasera";
+        a.href = url + arriendo.requisito.carnetTrasera_requisito;
+        a.className = "badge badge-pill badge-info";
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a);
+    }
+    if (arriendo.requisito.cartaRemplazo_requisito) {
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.cartaRemplazo_requisito;
+        a.text = "Carta de remplazo";
+        a.target = "_blank";
+        a.className = "badge badge-pill badge-info";
+        document.getElementById("card_documentos").append(a);
+    }
+    if (arriendo.requisito.chequeGarantia_requisito) {
+        const a = document.createElement("a");
+        a.className = "badge badge-pill badge-info";
+        a.target = "_blank";
+        a.href = url + arriendo.requisito.chequeGarantia_requisito;
+        a.text = "Cheque en garantia";
+        document.getElementById("card_documentos").append(a);
+    }
+    if (arriendo.requisito.comprobanteDomicilio_requisito) {
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.comprobanteDomicilio_requisito;
+        a.text = "Comprobante de domicilio";
+        a.className = "badge badge-pill badge-info";
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a);
+    }
+    if (arriendo.requisito.licenciaConducir_requisito) {
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.licenciaConducir_requisito;
+        a.text = "Licencia de conducir";
+        a.className = "badge badge-pill badge-info";
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a);
+    }
+    if (arriendo.requisito.tarjetaCreditoFrontal_requisito) {
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.tarjetaCreditoFrontal_requisito;
+        a.text = "Foto Tarjeta de credito frontal";
+        a.className = "badge badge-pill badge-info";
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a);
+    }
+    if (arriendo.requisito.tarjetaCreditoTrasera_requisito) {
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.tarjetaCreditoTrasera_requisito;
+        a.text = "Foto tarjeta de credito trasera";
+        a.className = "badge badge-pill badge-info";
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a);
+    }
+    if (arriendo.requisito.boletaEfectivo_requisito) {
+        const a = document.createElement("a");
+        a.href = url + arriendo.requisito.boletaEfectivo_requisito;
+        a.text = "Comprobante efectivo";
+        a.className = "badge badge-pill badge-info";
+        a.target = "_blank";
+        document.getElementById("card_documentos").append(a);
+    }
+};
+
+const mostrarAccesorios = (arriendo) => {
+    if (arriendo.accesorios.length) {
+        $.each(arriendo.accesorios, (i, o) => {
+            let precio = 0;
+            if (o.precio_accesorio != null) {
+                precio = o.precio_accesorio;
             }
+            let fila = " <div class='input-group col-md-12'>";
+            fila +=
+                " <span style='width: 60%;' class='input-group-text form-control'>" +
+                o.nombre_accesorio +
+                " $</span>";
+            fila +=
+                "<input  style='width: 40%;' min='0' id='" +
+                o.nombre_accesorio +
+                "'  onkeypress='return soloNumeros(event);' maxLength='11' name='accesorios[]'  oninput='calcularValores()' value='" +
+                precio +
+                "'  type='number' class='form-control' required>";
+            fila += "  </div>";
+            $("#formAccesorios").append(fila);
         });
+    } else {
+        let sinAccesorios =
+            " <span class=' col-md-12 text-center' id='spanAccesorios'>Sin Accesorios</span>";
+        $("#formAccesorios").append(sinAccesorios);
+    }
+};
+
+const calcularValores = () => {
+    //variables
+    let valorArriendo = Number($("#inputValorArriendo").val());
+    let valorCopago = Number($("#inputValorCopago").val());
+    let iva = Number($("#inputIVA").val());
+    let descuento = Number($("#inputDescuento").val());
+    let total = Number($("#inputTotal").val());
+    let TotalNeto = 0;
+    //revisa todos los check y guardas sus valores en un array si estan okey
+    let ArrayAccesorios = $('[name="accesorios[]"]')
+        .map(function() {
+            return this.value;
+        })
+        .get();
+    for (let i = 0; i < ArrayAccesorios.length; i++) {
+        const precioAccesorio = ArrayAccesorios[i];
+        TotalNeto += Number(precioAccesorio);
+    }
+    TotalNeto = TotalNeto + valorArriendo - descuento - valorCopago;
+    iva = TotalNeto * 0.19;
+    total = TotalNeto + iva;
+    $("#inputNeto").val(TotalNeto);
+    $("#inputIVA").val(Math.round(iva));
+    $("#inputTotal").val(Math.round(total));
+};
+
+const limpiarCampos = () => {
+    $("#formEditarArriendo").hide();
+    $("#formContrato").hide();
+    $("#card_documentos").empty();
+    $("#formAccesorios").empty();
+    $("#formContrato")[0].reset();
+    $("#btn_crear_contrato").attr("disabled", false);
+    $("#spinner_btn_crearContrato").hide();
+    $("#spinner_btn_firmarContrato").hide();
+    $("#spinner_btn_confirmarContrato").hide();
+    $("#btn_confirmar_contrato").attr("disabled", true);
+    $("#body-documento").hide();
+    $("#body-firma").hide();
+    $("#body-sinContrato").show();
+    $("#nombre_documento").val("");
+    $("#subtotal-copago").hide();
+    $("#formSpinner").show();
+    $("#formSpinnerEditar").show();
+    $("#formContrato").hide();
+    //se limpia el canvas de firma
+    dibujar = false;
+    ctx.clearRect(0, 0, cw, ch);
+    Trazados.length = 0;
+    puntos.length = 0;
+};
+
+//----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
+
+$(document).ready(() => {
+    (cargarArriendos = async() => {
+        $("#spinner_tablaTotalArriendos").show();
+        const response = await ajax_function(null, "cargar_arriendos");
+        if (response.success) {
+            $.each(response.data, (i, arriendo) => {
+                cargarArriendoEnTabla(arriendo);
+            });
+        }
+        $("#spinner_tablaTotalArriendos").hide();
     })();
 
     $("#btn_crear_contrato").click(() => {

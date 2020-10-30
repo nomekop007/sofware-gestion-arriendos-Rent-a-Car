@@ -1,3 +1,66 @@
+const buscarArriendo = async(id_arriendo) => {
+    limpiarCampos();
+    const data = new FormData();
+    data.append("id_arriendo", id_arriendo);
+    const response = await ajax_function(data, "buscar_arriendo");
+    if (response.success) {
+        const arriendo = response.data;
+        $("#inputIdArriendo").val(arriendo.id_arriendo);
+        $("#inputMarcaVehiculoDespacho").val(arriendo.vehiculo.marca_vehiculo);
+        $("#inputModeloVehiculoDespacho").val(arriendo.vehiculo.modelo_vehiculo);
+        $("#inputEdadVehiculoDespacho").val(arriendo.vehiculo.año_vehiculo);
+        $("#inputColorVehiculoDespacho").val(arriendo.vehiculo.color_vehiculo);
+        $("#inputPatenteVehiculoDespacho").val(arriendo.vehiculo.patente_vehiculo);
+        $("#inputKilomentrajeVehiculoDespacho").val(
+            arriendo.vehiculo.kilometraje_vehiculo
+        );
+        $("#formActaEntrega").show();
+        switch (arriendo.tipo_arriendo) {
+            case "PARTICULAR":
+                $("#inputRecibidorDespacho").val(arriendo.cliente.nombre_cliente);
+                break;
+            case "REMPLAZO":
+                $("#inputRecibidorDespacho").val(
+                    arriendo.remplazo.cliente.nombre_cliente
+                );
+                break;
+            case "EMPRESA":
+                $("#inputRecibidorDespacho").val(arriendo.empresa.nombre_empresa);
+                break;
+        }
+    }
+    $("#formSpinner").hide();
+};
+
+const limpiarCampos = () => {
+    $("#body-documento").hide();
+    $("#body-firma").hide();
+    $("#body-sinContrato").show();
+    $("#nombre_documento").val("");
+    $("#subtotal-copago").hide();
+    $("#spinner_btn_generarActaEntrega").hide();
+    $("#formActaEntrega")[0].reset();
+    $("#formSpinner").show();
+    $("#formActaEntrega").hide();
+
+    $("#btn_firmar_actaEntrega").attr("disabled", false);
+    $("#spinner_btn_firmarActaEntrega").hide();
+    $("#spinner_btn_confirmarActaEntrega").hide();
+    $("#btn_confirmar_actaEntrega").attr("disabled", true);
+
+    //se limpia los canvas de firma
+    dibujarFirma1 = false;
+    dibujarFirma2 = false;
+    ctxFirma1.clearRect(0, 0, cwFirma1, chFirma1);
+    ctxFirma2.clearRect(0, 0, cwFirma2, chFirma2);
+    Trazados1.length = 0;
+    Trazados2.length = 0;
+    puntos1.length = 0;
+    puntos2.length = 0;
+};
+
+//----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
+
 $(document).ready(() => {
     //se inician los datatable
     const tablaControldespacho = $("#tablaControldespacho").DataTable(lenguaje);
@@ -8,12 +71,12 @@ $(document).ready(() => {
         const data = new FormData();
         data.append("filtro", "FIRMADO");
         const response = await ajax_function(data, "cargar_arriendos");
-        if (response) {
+        if (response.success) {
             $.each(response.data, (i, arriendo) => {
                 cargarArriendoEnTabla(arriendo);
             });
-            $("#spinner_tablaDespacho").hide();
         }
+        $("#spinner_tablaDespacho").hide();
     })();
 
     $("#seleccionarFoto").click(async() => {

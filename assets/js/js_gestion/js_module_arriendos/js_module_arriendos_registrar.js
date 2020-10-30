@@ -1,3 +1,132 @@
+//espiners de los forms cliente , conductor y empresa
+$("#spinner_conductor").hide();
+$("#spinner_cliente").hide();
+$("#spinner_empresa").hide();
+$("#spinner_btn_registrar").hide();
+$("#spinner_btn_crearContrato").hide();
+$("#foto_tarjeta").hide();
+$("#foto_cheque").hide();
+$("#card-tarjeta").hide();
+$("#card-cheque").hide();
+
+const tipoGarantia = (value) => {
+    switch (value) {
+        case "CHEQUE":
+            $("#card-cheque").show();
+            $("#foto_cheque").show();
+
+            $("#card-tarjeta").hide();
+            $("#card-abono").hide();
+            $("#foto_tarjeta").hide();
+            $("#foto_efectivo").hide();
+            break;
+        case "TARJETA":
+            $("#card-tarjeta").show();
+            $("#card-abono").show();
+            $("#foto_tarjeta").show();
+
+            $("#card-cheque").hide();
+            $("#foto_cheque").hide();
+            $("#foto_efectivo").hide();
+            break;
+        case "EFECTIVO":
+            $("#card-abono").show();
+            $("#foto_efectivo").show();
+
+            $("#card-cheque").hide();
+            $("#foto_tarjeta").hide();
+            $("#foto_cheque").hide();
+            $("#card-tarjeta").hide();
+            $("#card-cheque").hide();
+            break;
+    }
+};
+
+// Script para cambia el tab cliente de acuerdo al tipo de arriendo
+(tipoArriendo = () => {
+    const tipo = $("#inputTipo option:selected").val();
+    switch (tipo) {
+        case "PARTICULAR":
+            $("#titulo_cliente").show();
+            $("#form_cliente").show();
+            $("#formComprobanteDomicilio").show();
+            $("#titulo_remplazo").hide();
+            $("#form_remplazo").hide();
+            $("#titulo_empresa").hide();
+            $("#form_empresa").hide();
+            $("#formCartaRemplazo").hide();
+            $("#inputRutEmpresa").val("");
+            break;
+        case "REMPLAZO":
+            $("#titulo_cliente").show();
+            $("#form_cliente").show();
+            $("#titulo_remplazo").show();
+            $("#form_remplazo").show();
+            $("#formComprobanteDomicilio").show();
+            $("#formCartaRemplazo").show();
+            $("#titulo_empresa").hide();
+            $("#form_empresa").hide();
+            $("#inputRutEmpresa").val("");
+            break;
+        case "EMPRESA":
+            $("#titulo_empresa").show();
+            $("#form_empresa").show();
+            $("#titulo_remplazo").hide();
+            $("#form_remplazo").hide();
+            $("#titulo_cliente").hide();
+            $("#form_cliente").hide();
+            $("#formComprobanteDomicilio").hide();
+            $("#formCartaRemplazo").hide();
+            $("#inputRutCliente").val("");
+            break;
+    }
+})();
+
+const calcularDias = () => {
+    let fechaEntrega = $("#inputFechaEntrega").val();
+    let fechaRecepcion = $("#inputFechaRecepcion").val();
+
+    let fechaini = new Date(fechaEntrega);
+    let fechafin = new Date(fechaRecepcion);
+    let diasdif = fechafin.getTime() - fechaini.getTime();
+    let dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
+    $("#inputNumeroDias").val(dias);
+};
+
+//se valida lso input files
+$(document).on("change", 'input[type="file"]', function() {
+    var fileName = this.files[0].name;
+    var fileSize = this.files[0].size;
+    var ext = fileName.split(".");
+    // ahora obtenemos el ultimo valor despues el punto
+    // obtenemos el length por si el archivo lleva nombre con mas de 2 puntos
+    ext = ext[ext.length - 1];
+    switch (ext) {
+        case "png":
+            $("#tamanoArchivo").text(fileSize + " bytes en " + ext);
+            break;
+        case "jpeg":
+            $("#tamanoArchivo").text(fileSize + " bytes " + ext);
+            break;
+        case "jpg":
+            $("#tamanoArchivo").text(fileSize + " bytes " + ext);
+            break;
+        case "gif":
+            $("#tamanoArchivo").text(fileSize + " bytes " + ext);
+            break;
+        case "pdf":
+            $("#tamanoArchivo").text(fileSize + " bytes " + ext);
+            break;
+        default:
+            alert("El archivo no tiene la extensión adecuada");
+            this.value = ""; // reset del valor
+            this.files[0].name = "";
+            break;
+    }
+});
+
+//----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
+
 $(document).ready(() => {
     //cargar sucursales  (ruta,select)
     cargarSelect("cargar_Sucursales", "inputSucursal");
