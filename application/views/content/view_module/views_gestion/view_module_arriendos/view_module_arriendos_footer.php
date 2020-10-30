@@ -36,55 +36,61 @@ $(document).ready(() => {
 
 //carga tablaTotalArriendos
 function cargarArriendoEnTabla(arriendo) {
-    let cliente = "";
-    switch (arriendo.tipo_arriendo) {
-        case "PARTICULAR":
-            cliente = arriendo.cliente.nombre_cliente;
-            break;
-        case "REMPLAZO":
-            cliente = arriendo.remplazo.cliente.nombre_cliente;
-            break;
-        case "EMPRESA":
-            cliente = arriendo.empresa.nombre_empresa;
-            break;
+    try {
 
-    }
 
-    const tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
-    tablaTotalArriendos.row
-        .add([
-            arriendo.id_arriendo,
-            cliente,
-            formatearFechaHora(arriendo.createdAt),
-            arriendo.tipo_arriendo,
-            arriendo.estado_arriendo,
-            arriendo.usuario.nombre_usuario,
-            " <button " +
-            "id='" +
-            arriendo.id_arriendo +
-            "' " +
-            " value='" +
-            arriendo.id_arriendo +
-            "' " +
-            " onclick='buscarArriendo(this.value,true)'" +
-            " data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  " +
+        let cliente = "";
+        switch (arriendo.tipo_arriendo) {
+            case "PARTICULAR":
+                cliente = arriendo.cliente.nombre_cliente;
+                break;
+            case "REMPLAZO":
+                cliente = arriendo.remplazo.cliente.nombre_cliente;
+                break;
+            case "EMPRESA":
+                cliente = arriendo.empresa.nombre_empresa;
+                break;
 
-            " <button " +
-            "id='" +
-            arriendo.id_arriendo +
-            "' " +
-            " value='" +
-            arriendo.id_arriendo +
-            "' " +
-            " onclick='buscarArriendo(this.value,false)'" +
-            " data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-eye'></i></button>  ",
-        ])
-        .draw(false);
+        }
 
-    if (arriendo.estado_arriendo != "PENDIENTE") {
-        $(`#${arriendo.id_arriendo}`).attr("disabled", true);
-        $(`#${arriendo.id_arriendo}`).removeClass("btn-outline-info")
-        $(`#${arriendo.id_arriendo}`).addClass("btn-info")
+        const tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
+        tablaTotalArriendos.row
+            .add([
+                arriendo.id_arriendo,
+                cliente,
+                formatearFechaHora(arriendo.createdAt),
+                arriendo.tipo_arriendo,
+                arriendo.estado_arriendo,
+                arriendo.usuario.nombre_usuario,
+                " <button " +
+                "id='" +
+                arriendo.id_arriendo +
+                "' " +
+                " value='" +
+                arriendo.id_arriendo +
+                "' " +
+                " onclick='buscarArriendo(this.value,true)'" +
+                " data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  " +
+
+                " <button " +
+                "id='" +
+                arriendo.id_arriendo +
+                "' " +
+                " value='" +
+                arriendo.id_arriendo +
+                "' " +
+                " onclick='buscarArriendo(this.value,false)'" +
+                " data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-eye'></i></button>  ",
+            ])
+            .draw(false);
+
+        if (arriendo.estado_arriendo != "PENDIENTE") {
+            $(`#${arriendo.id_arriendo}`).attr("disabled", true);
+            $(`#${arriendo.id_arriendo}`).removeClass("btn-outline-info")
+            $(`#${arriendo.id_arriendo}`).addClass("btn-info")
+        }
+    } catch (error) {
+        console.log("error al cargar este arriendo: " + error);
     }
 }
 </script>
