@@ -615,7 +615,7 @@ $(document).ready(() => {
 
         if (response.success) {
             //problemon
-            //  await guardarDocumentosRequistos(response.data.id_arriendo);
+            await guardarDocumentosRequistos(response.data.id_arriendo);
             await guardarDatosAccesorios(response.data.id_arriendo);
             await guardarDatosGarantia(response.data.id_arriendo);
             await cambiarEstadoVehiculo(response.data.patente_vehiculo);
@@ -626,21 +626,23 @@ $(document).ready(() => {
     };
 
     const guardarDocumentosRequistos = async(idArriendo) => {
-        const data = new FormData();
-        data.append("idArriendo", idArriendo);
-        data.append("inputCarnetFrontal", $("#inputCarnetFrontal")[0].files[0]);
-        data.append("inputCarnetTrasera", $("#inputCarnetTrasera")[0].files[0]);
-        data.append("inputTarjetaFrontal", $("#inputTarjetaFrontal")[0].files[0]);
-        data.append("inputTarjetaTrasera", $("#inputTarjetaTrasera")[0].files[0]);
-        data.append("inputLicencia", $("#inputLicencia")[0].files[0]);
-        data.append("inputCheque", $("#inputChequeGarantia")[0].files[0]);
-        data.append("inputCartaRemplazo", $("#inputCartaRemplazo")[0].files[0]);
-        data.append("inputBoletaEfectivo", $("#inputBoletaEfectivo")[0].files[0]);
-        data.append(
-            "inputComprobante",
-            $("#inputComprobanteDomicilio")[0].files[0]
-        );
-        await ajax_function(data, "registrar_requisitos");
+        try {
+            const data = new FormData();
+            data.append("idArriendo", idArriendo);
+            data.append("inputCarnetFrontal", $("#inputCarnetFrontal")[0].files[0]);
+            data.append("inputCarnetTrasera", $("#inputCarnetTrasera")[0].files[0]);
+            data.append("inputTarjetaFrontal", $("#inputTarjetaFrontal")[0].files[0]);
+            data.append("inputTarjetaTrasera", $("#inputTarjetaTrasera")[0].files[0]);
+            data.append("inputLicencia", $("#inputLicencia")[0].files[0]);
+            data.append("inputCheque", $("#inputChequeGarantia")[0].files[0]);
+            data.append("inputCartaRemplazo", $("#inputCartaRemplazo")[0].files[0]);
+            data.append("inputBoletaEfectivo", $("#inputBoletaEfectivo")[0].files[0]);
+            data.append(
+                "inputComprobante",
+                $("#inputComprobanteDomicilio")[0].files[0]
+            );
+            await ajax_function(data, "registrar_requisitos");
+        } catch (error) {}
     };
 
     const guardarDatosAccesorios = async(idArriendo) => {
