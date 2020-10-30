@@ -587,10 +587,10 @@ $(document).ready(() => {
 
         if (response.success) {
             // guardarDocumentosRequistos(response.data.id_arriendo);
-            // guardarDatosAccesorios(response.data.id_arriendo);
-            // guardarDatosGarantia(response.data.id_arriendo);
-            cambiarEstadoVehiculo(response.data.patente_vehiculo);
-            cargarArriendoEnTabla(response.data);
+            guardarDatosAccesorios(response.data.id_arriendo);
+            guardarDatosGarantia(response.data.id_arriendo);
+            await cambiarEstadoVehiculo(response.data.patente_vehiculo);
+            await cargarArriendoEnTabla(response.data);
             Swal.fire("Arriendo Registrado", response.msg, "success");
             limpiarCampos();
         }

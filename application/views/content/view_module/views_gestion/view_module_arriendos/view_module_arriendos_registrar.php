@@ -23,7 +23,7 @@ switch ($this->session->userdata('sucursal')) {
 <!-- Tab donde se registran los arriendos -->
 <div class="tab-pane fade show active" id="nav-registrar" role="tabpanel" aria-labelledby="nav-registrar-tab">
     <br>
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" novalidate id="form_registrar_arriendo">
         <p class="form-row">
             <a id="btn-arriendo" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseArriendo"
                 role="button" aria-expanded="false" aria-controls="collapseArriendo">
@@ -57,7 +57,7 @@ switch ($this->session->userdata('sucursal')) {
         <div class="collapse" id="collapseArriendo">
             <div class="card card-body">
                 <br>
-                <form id="formulario_arriendo">
+                <form id="formulario_arriendo" class="needs-validation" novalidate>
                     <h4>Datos Arriendo</h4>
                     <div class="form-row">
                         <div class="form-group col-md-3">

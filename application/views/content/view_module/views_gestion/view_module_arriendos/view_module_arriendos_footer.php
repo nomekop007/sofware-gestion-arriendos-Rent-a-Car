@@ -37,8 +37,6 @@ $(document).ready(() => {
 //carga tablaTotalArriendos
 function cargarArriendoEnTabla(arriendo) {
     try {
-
-
         let cliente = "";
         switch (arriendo.tipo_arriendo) {
             case "PARTICULAR":

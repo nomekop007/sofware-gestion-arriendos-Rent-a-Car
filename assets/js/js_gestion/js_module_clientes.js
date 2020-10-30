@@ -124,17 +124,19 @@ $(document).ready(() => {
         const response = await ajax_function(null, "cargar_clientes");
         if (response.success) {
             $.each(response.data, (i, o) => {
-                tablaCliente.row
-                    .add([
-                        o.nombre_cliente,
-                        o.rut_cliente,
-                        "+569 " + o.telefono_cliente,
-                        o.correo_cliente,
-                        ` <button value="${o.rut_cliente}"` +
-                        " onclick='buscarCliente(this.value)'" +
-                        " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
-                    ])
-                    .draw(false);
+                try {
+                    tablaCliente.row
+                        .add([
+                            o.nombre_cliente,
+                            o.rut_cliente,
+                            "+569 " + o.telefono_cliente,
+                            o.correo_cliente,
+                            ` <button value="${o.rut_cliente}"` +
+                            " onclick='buscarCliente(this.value)'" +
+                            " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
+                        ])
+                        .draw(false);
+                } catch (error) {}
             });
         }
         $("#spinner_tablaClientes").hide();
@@ -145,17 +147,19 @@ $(document).ready(() => {
         const response = await ajax_function(null, "cargar_empresas");
         if (response.success) {
             $.each(response.data, (i, o) => {
-                tablaEmpresa.row
-                    .add([
-                        o.nombre_empresa,
-                        o.rut_empresa,
-                        o.rol_empresa,
-                        o.correo_empresa,
-                        ` <button value="${o.rut_empresa}"` +
-                        " onclick='buscarEmpresa(this.value)'" +
-                        " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
-                    ])
-                    .draw(false);
+                try {
+                    tablaEmpresa.row
+                        .add([
+                            o.nombre_empresa,
+                            o.rut_empresa,
+                            o.rol_empresa,
+                            o.correo_empresa,
+                            ` <button value="${o.rut_empresa}"` +
+                            " onclick='buscarEmpresa(this.value)'" +
+                            " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
+                        ])
+                        .draw(false);
+                } catch (error) {}
             });
         }
         $("#spinner_tablaEmpresas").hide();
@@ -166,17 +170,19 @@ $(document).ready(() => {
         const response = await ajax_function(null, "cargar_conductores");
         if (response.success) {
             $.each(response.data, (i, o) => {
-                tablaConductor.row
-                    .add([
-                        o.nombre_conductor,
-                        o.rut_conductor,
-                        o.clase_conductor,
-                        "+569 " + o.telefono_conductor,
-                        ` <button value="${o.rut_conductor}"` +
-                        " onclick='buscarConductor(this.value)'" +
-                        " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
-                    ])
-                    .draw(false);
+                try {
+                    tablaConductor.row
+                        .add([
+                            o.nombre_conductor,
+                            o.rut_conductor,
+                            o.clase_conductor,
+                            "+569 " + o.telefono_conductor,
+                            ` <button value="${o.rut_conductor}"` +
+                            " onclick='buscarConductor(this.value)'" +
+                            " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
+                        ])
+                        .draw(false);
+                } catch (error) {}
             });
         }
         $("#spinner_tablaConductores").hide();

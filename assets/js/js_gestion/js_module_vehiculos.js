@@ -182,21 +182,23 @@ $(document).ready(() => {
     };
 
     const cargarVehiculoEnTabla = (vehiculo) => {
-        tablaVehiculos.row
-            .add([
-                vehiculo.patente_vehiculo,
-                vehiculo.marca_vehiculo + " " + vehiculo.modelo_vehiculo,
-                vehiculo.año_vehiculo,
-                vehiculo.tipo_vehiculo,
-                vehiculo.transmision_vehiculo,
-                vehiculo.sucursale ? vehiculo.sucursale.nombre_sucursal : "",
-                vehiculo.estado_vehiculo,
-                " <button value='" +
-                vehiculo.patente_vehiculo +
-                "' " +
-                " onclick='buscarVehiculo(this.value)'" +
-                " data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-info'><i class='far fa-edit'></i></button> ",
-            ])
-            .draw(false);
+        try {
+            tablaVehiculos.row
+                .add([
+                    vehiculo.patente_vehiculo,
+                    vehiculo.marca_vehiculo + " " + vehiculo.modelo_vehiculo,
+                    vehiculo.año_vehiculo,
+                    vehiculo.tipo_vehiculo,
+                    vehiculo.transmision_vehiculo,
+                    vehiculo.sucursale ? vehiculo.sucursale.nombre_sucursal : "",
+                    vehiculo.estado_vehiculo,
+                    " <button value='" +
+                    vehiculo.patente_vehiculo +
+                    "' " +
+                    " onclick='buscarVehiculo(this.value)'" +
+                    " data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-info'><i class='far fa-edit'></i></button> ",
+                ])
+                .draw(false);
+        } catch (error) {}
     };
 });

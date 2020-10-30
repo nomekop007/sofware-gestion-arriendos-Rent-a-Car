@@ -178,22 +178,24 @@ $(document).ready(() => {
     };
 
     const cargarUsuarioEnTabla = (usuario) => {
-        tablaUsuario.row
-            .add([
-                usuario.nombre_usuario,
-                usuario.email_usuario,
-                usuario.role.nombre_rol,
-                usuario.sucursale.nombre_sucursal,
-                formatearFechaHora(usuario.createdAt),
-                usuario.estado_usuario ?
-                "<span class='badge badge-pill badge-success'>ACTIVO </span>" :
-                "<span class='badge badge-pill badge-danger'>INACTIVO</span>",
-                " <button value='" +
-                usuario.id_usuario +
-                "' " +
-                " onclick='buscarUsuario(this.value)'" +
-                " data-toggle='modal' data-target='#modal_editar_usuario' class='btn btn-outline-info'><i class='far fa-edit'></i></button> ",
-            ])
-            .draw(false);
+        try {
+            tablaUsuario.row
+                .add([
+                    usuario.nombre_usuario,
+                    usuario.email_usuario,
+                    usuario.role.nombre_rol,
+                    usuario.sucursale.nombre_sucursal,
+                    formatearFechaHora(usuario.createdAt),
+                    usuario.estado_usuario ?
+                    "<span class='badge badge-pill badge-success'>ACTIVO </span>" :
+                    "<span class='badge badge-pill badge-danger'>INACTIVO</span>",
+                    " <button value='" +
+                    usuario.id_usuario +
+                    "' " +
+                    " onclick='buscarUsuario(this.value)'" +
+                    " data-toggle='modal' data-target='#modal_editar_usuario' class='btn btn-outline-info'><i class='far fa-edit'></i></button> ",
+                ])
+                .draw(false);
+        } catch (error) {}
     };
 });

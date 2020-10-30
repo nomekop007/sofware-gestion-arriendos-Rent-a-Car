@@ -331,32 +331,36 @@ $(document).ready(() => {
 
     //carga tablaTotalArriendos
     const cargarArriendoEnTabla = (arriendo) => {
-        let cliente = "";
-        switch (arriendo.tipo_arriendo) {
-            case "PARTICULAR":
-                cliente = arriendo.cliente.nombre_cliente;
-                break;
-            case "REMPLAZO":
-                cliente = arriendo.remplazo.cliente.nombre_cliente;
-                break;
-            case "EMPRESA":
-                cliente = arriendo.empresa.nombre_empresa;
-                break;
+        try {
+            let cliente = "";
+            switch (arriendo.tipo_arriendo) {
+                case "PARTICULAR":
+                    cliente = arriendo.cliente.nombre_cliente;
+                    break;
+                case "REMPLAZO":
+                    cliente = arriendo.remplazo.cliente.nombre_cliente;
+                    break;
+                case "EMPRESA":
+                    cliente = arriendo.empresa.nombre_empresa;
+                    break;
+            }
+            tablaControldespacho.row
+                .add([
+                    arriendo.id_arriendo,
+                    cliente,
+                    arriendo.vehiculo.patente_vehiculo,
+                    formatearFechaHora(arriendo.fechaEntrega_arriendo),
+                    formatearFechaHora(arriendo.fechaRecepcion_arriendo),
+                    arriendo.tipo_arriendo,
+                    arriendo.estado_arriendo,
+                    arriendo.usuario.nombre_usuario,
+                    ` <button value="${arriendo.id_arriendo}"` +
+                    " onclick='buscarArriendo(this.value)'" +
+                    " data-toggle='modal' data-target='#modal_despachar_arriendo' class='btn btn btn-outline-success'><i class='fas fa-concierge-bell'></i></button>  ",
+                ])
+                .draw(false);
+        } catch (error) {
+            console.log(error);
         }
-        tablaControldespacho.row
-            .add([
-                arriendo.id_arriendo,
-                cliente,
-                arriendo.vehiculo.patente_vehiculo,
-                formatearFechaHora(arriendo.fechaEntrega_arriendo),
-                formatearFechaHora(arriendo.fechaRecepcion_arriendo),
-                arriendo.tipo_arriendo,
-                arriendo.estado_arriendo,
-                arriendo.usuario.nombre_usuario,
-                ` <button value="${arriendo.id_arriendo}"` +
-                " onclick='buscarArriendo(this.value)'" +
-                " data-toggle='modal' data-target='#modal_despachar_arriendo' class='btn btn btn-outline-success'><i class='fas fa-concierge-bell'></i></button>  ",
-            ])
-            .draw(false);
     };
 });
