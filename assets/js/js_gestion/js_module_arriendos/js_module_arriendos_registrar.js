@@ -548,47 +548,39 @@ $(document).ready(() => {
     });
 
     const guardarDatosCliente = async() => {
-        const form = $("#formulario_cliente")[0];
+        const form = $("#form_registrar_arriendo")[0];
         const data = new FormData(form);
         return await ajax_function(data, "registrar_cliente");
     };
 
     const guardarDatosEmpresa = async() => {
-        const form = $("#formulario_empresa")[0];
+        const form = $("#form_registrar_arriendo")[0];
         const data = new FormData(form);
         return await ajax_function(data, "registrar_empresa");
     };
     const guardarDatosConductor = async() => {
-        const form = $("#formulario_conductor")[0];
+        const form = $("#form_registrar_arriendo")[0];
         const data = new FormData(form);
         return await ajax_function(data, "registrar_conductor");
     };
 
     const guardarDatosRemplazo = async() => {
-        const form = $("#formulario_remplazo")[0];
+        const form = $("#form_registrar_arriendo")[0];
         const data = new FormData(form);
-        data.append("inputRutCliente", $("#inputRutCliente").val());
         return await ajax_function(data, "registrar_remplazo");
     };
 
     const guardarDatosArriendo = async(id) => {
-        const form = $("#formulario_arriendo")[0];
+        const form = $("#form_registrar_arriendo")[0];
         const data = new FormData(form);
-        data.append("inputEntrada", $("#inputEntrada").val());
-        data.append("inputMantencion", $("#inputMantencion").val());
-        data.append("inputOtros", $("#inputOtros").val());
-        data.append("select_vehiculos", $("#select_vehiculos").val());
         data.append("inputIdRemplazo", id);
-        data.append("inputRutCliente", $("#inputRutCliente").val());
-        data.append("inputRutEmpresa", $("#inputRutEmpresa").val());
-        data.append("inputRutConductor", $("#inputRutConductor").val());
 
         const response = await ajax_function(data, "registrar_arriendo");
 
         if (response.success) {
             // guardarDocumentosRequistos(response.data.id_arriendo);
-            guardarDatosAccesorios(response.data.id_arriendo);
-            guardarDatosGarantia(response.data.id_arriendo);
+            await guardarDatosAccesorios(response.data.id_arriendo);
+            await guardarDatosGarantia(response.data.id_arriendo);
             await cambiarEstadoVehiculo(response.data.patente_vehiculo);
             await cargarArriendoEnTabla(response.data);
             Swal.fire("Arriendo Registrado", response.msg, "success");
@@ -629,7 +621,7 @@ $(document).ready(() => {
     };
 
     const guardarDatosGarantia = async(idArriendo) => {
-        const form = $("##formulario_garantia")[0];
+        const form = $("#form_registrar_arriendo")[0];
         const data = new FormData(form);
         data.append("inputIdArriendo", idArriendo);
         await ajax_function(data, "registrar_garantia");
