@@ -284,8 +284,6 @@ $(document).ready(() => {
 
     $("#btn_crear_arriendo").click(async() => {
         //AQUI SE VALIDA EL FORMULARIO COMPLETO
-
-        //datos del formulario
         const form = $("#form_registrar_arriendo")[0];
         const data = new FormData(form);
         //datos arriendo
@@ -471,9 +469,9 @@ $(document).ready(() => {
                         inputCiudadCliente.length != 0 &&
                         inputFechaNacimiento.length != 0
                     ) {
-                        let response = await guardarDatosCliente(data);
+                        let response = await guardarDatosCliente();
                         if (response.success) {
-                            response = await guardarDatosConductor(data);
+                            response = await guardarDatosConductor();
                             if (response.success) {
                                 guardarDatosArriendo(data);
                             }
@@ -496,9 +494,9 @@ $(document).ready(() => {
                         inputFechaNacimiento.length != 0 &&
                         inputNombreRemplazo.length != 0
                     ) {
-                        let response = await guardarDatosCliente(data);
+                        let response = await guardarDatosCliente();
                         if (response.success) {
-                            response = await guardarDatosConductor(data);
+                            response = await guardarDatosConductor();
                             if (response.success) {
                                 guardarDatosRemplazo(data);
                             }
@@ -521,9 +519,9 @@ $(document).ready(() => {
                         inputCiudadEmpresa.length != 0 &&
                         inputRol.length != 0
                     ) {
-                        let response = await guardarDatosEmpresa(data);
+                        let response = await guardarDatosEmpresa();
                         if (response.success) {
-                            response = await guardarDatosConductor(data);
+                            response = await guardarDatosConductor();
                             if (response.success) {
                                 guardarDatosArriendo(data);
                             }
@@ -546,18 +544,26 @@ $(document).ready(() => {
         }
     });
 
-    const guardarDatosCliente = async(data) => {
+    const guardarDatosCliente = async() => {
+        const form = $("#form_registrar_arriendo")[0];
+        const data = new FormData(form);
         return await ajax_function(data, "registrar_cliente");
     };
 
-    const guardarDatosEmpresa = async(data) => {
+    const guardarDatosEmpresa = async() => {
+        const form = $("#form_registrar_arriendo")[0];
+        const data = new FormData(form);
         return await ajax_function(data, "registrar_empresa");
     };
-    const guardarDatosConductor = async(data) => {
+    const guardarDatosConductor = async() => {
+        const form = $("#form_registrar_arriendo")[0];
+        const data = new FormData(form);
         return await ajax_function(data, "registrar_conductor");
     };
 
-    const guardarDatosRemplazo = async(data) => {
+    const guardarDatosRemplazo = async() => {
+        const form = $("#form_registrar_arriendo")[0];
+        const data = new FormData(form);
         const response = await ajax_function(data, "registrar_remplazo");
         if (response.success) {
             data.append("inputIdRemplazo", response.data.id_remplazo);
