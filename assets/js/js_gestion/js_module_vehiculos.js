@@ -171,7 +171,7 @@ $(document).ready(() => {
             });
             return;
         }
-        await ajax_function(data, "guardar_fotoVehiculo");
+        return await ajax_function(data, "guardar_fotoVehiculo");
     };
 
     const refrescarTabla = () => {
