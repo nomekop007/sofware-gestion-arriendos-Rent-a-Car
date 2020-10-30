@@ -284,7 +284,6 @@ $(document).ready(() => {
 
     $("#btn_crear_arriendo").click(async() => {
         //AQUI SE VALIDAN TODOS LOS CAMPOS
-
         //datos arriendo
         const select_vehiculos = $("#select_vehiculos").val();
         const inputCiudadEntrega = $("#inputCiudadEntrega").val();
@@ -615,11 +614,12 @@ $(document).ready(() => {
         const response = await ajax_function(data, "registrar_arriendo");
 
         if (response.success) {
-            await guardarDocumentosRequistos(response.data.id_arriendo);
+            //problemon
+            //  await guardarDocumentosRequistos(response.data.id_arriendo);
             await guardarDatosAccesorios(response.data.id_arriendo);
             await guardarDatosGarantia(response.data.id_arriendo);
             await cambiarEstadoVehiculo(response.data.patente_vehiculo);
-            await cargarArriendoEnTabla(response.data);
+            cargarArriendoEnTabla(response.data);
             Swal.fire("Arriendo Registrado", response.msg, "success");
             limpiarCampos();
         }
@@ -666,7 +666,7 @@ $(document).ready(() => {
         data.append("inputNumeroCheque", $("#inputNumeroCheque").val());
         data.append("inputCodigoCheque", $("#inputCodigoCheque").val());
         data.append("inputAbono", $("#inputAbono").val());
-        data.append("customRadio0", $("#customRadio0").val());
+        data.append("customRadio0", $('[name="customRadio0"]:checked').val());
         await ajax_function(data, "registrar_garantia");
     };
 
