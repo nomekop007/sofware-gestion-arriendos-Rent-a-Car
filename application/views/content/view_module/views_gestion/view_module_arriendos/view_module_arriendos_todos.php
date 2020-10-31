@@ -274,7 +274,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                 </div>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body" id="body_editarArriendo">
                 <form class="needs-validation" id="formEditarArriendo" novalidate>
                     <input type="text" id="inputIdArriendoEditar" hidden>
                     <div class=" form-row">
@@ -437,9 +437,6 @@ $nombreUsuario = $this->session->userdata('nombre')
 
                     </div>
                 </form>
-
-
-
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>

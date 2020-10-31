@@ -5,7 +5,6 @@ const buscarArriendo = async (id_arriendo, option) => {
 	const response = await ajax_function(data, "buscar_arriendo");
 	if (response.success) {
 		const arriendo = response.data;
-		$("#formContrato").show();
 		// si es true carga modal confirmar ; false carga modal editar
 		option
 			? mostrarArriendoModalConfirmacion(arriendo)
@@ -16,6 +15,7 @@ const buscarArriendo = async (id_arriendo, option) => {
 
 const mostrarArriendoModalConfirmacion = (arriendo) => {
 	if (arriendo.requisito) {
+		$("#formContrato").show();
 		$("#numeroArriendoConfirmacion").text("Nº" + arriendo.id_arriendo);
 		$("#inputIdArriendo").val(arriendo.id_arriendo);
 		$("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo);
@@ -49,7 +49,6 @@ const mostrarArriendoModalConfirmacion = (arriendo) => {
 		}
 		mostrarAccesorios(arriendo);
 	} else {
-		$("#formContrato").hide();
 		Swal.fire({
 			icon: "warning",
 			title: "falta documentos adjuntos!",
@@ -59,9 +58,8 @@ const mostrarArriendoModalConfirmacion = (arriendo) => {
 };
 
 const mostrarArriendoModalEditar = (arriendo) => {
-	console.log(arriendo);
 	$("#formSpinnerEditar").hide();
-	$("#formEditarArriendo").show();
+	$("#body_editarArriendo").show();
 	$("#inputIdArriendoEditar").val(arriendo.id_arriendo);
 	$("#numeroArriendoEditar").text("Nº" + arriendo.id_arriendo);
 	$("#inputEditarTipoArriendo").val(arriendo.tipo_arriendo);
@@ -277,7 +275,7 @@ const calcularValores = () => {
 };
 
 const limpiarCampos = () => {
-	$("#formEditarArriendo").hide();
+	$("#body_editarArriendo").hide();
 	$("#formContrato").hide();
 	$("#card_documentos").empty();
 	$("#formAccesorios").empty();
@@ -484,6 +482,7 @@ $(document).ready(() => {
 
 	const guardarDocumentosRequistos = async (idArriendo) => {
 		const data = new FormData();
+		//ERROR A SUBIR IMAGENES
 		data.append("idArriendo", idArriendo);
 		data.append("inputCarnetFrontal", $("#inputCarnetFrontal")[0].files[0]);
 		data.append("inputCarnetTrasera", $("#inputCarnetTrasera")[0].files[0]);
