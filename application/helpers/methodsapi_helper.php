@@ -103,8 +103,8 @@ function file_function($id, $data, $url)
 			'usertoken' => $token,
 			'userat' => $name,
 		],
-		'timeout'         => 3,
-		'connect_timeout' => 3
+		'timeout'         => 60,
+		'connect_timeout' => 60
 	]);
 	return  $response->getBody();
 }
