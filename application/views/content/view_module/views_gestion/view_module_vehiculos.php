@@ -198,7 +198,8 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" id="formEditarVehiculo" novalidate>
+            <form class="needs-validation" id="formEditarVehiculo" method="post" enctype="multipart/form-data"
+                novalidate>
                 <div class="modal-body" id="modal_vehiculo">
                     <input type="text" id="inputEditarPatente" name="inputEditarPatente" hidden />
                     <div class="card">
