@@ -98,6 +98,7 @@ function file_function($id, $data, $url)
 	$client = new \GuzzleHttp\Client();
 	$response = $client->request('POST', api_url() . $url . "/" . $id, [
 		'verify' => path_cert(),
+		"SYNCHRONOUS" => true,
 		'multipart' =>   $data,
 		'headers' => [
 			'usertoken' => $token,

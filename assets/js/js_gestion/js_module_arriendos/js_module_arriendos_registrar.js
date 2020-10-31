@@ -75,38 +75,6 @@ const calcularDias = () => {
 	$("#inputNumeroDias").val(dias);
 };
 
-//se valida lso input files
-$(document).on("change", 'input[type="file"]', function () {
-	var fileName = this.files[0].name;
-	var fileSize = this.files[0].size;
-	var ext = fileName.split(".");
-	// ahora obtenemos el ultimo valor despues el punto
-	// obtenemos el length por si el archivo lleva nombre con mas de 2 puntos
-	ext = ext[ext.length - 1];
-	switch (ext) {
-		case "png":
-			$("#tamanoArchivo").text(fileSize + " bytes en " + ext);
-			break;
-		case "jpeg":
-			$("#tamanoArchivo").text(fileSize + " bytes " + ext);
-			break;
-		case "jpg":
-			$("#tamanoArchivo").text(fileSize + " bytes " + ext);
-			break;
-		case "gif":
-			$("#tamanoArchivo").text(fileSize + " bytes " + ext);
-			break;
-		case "pdf":
-			$("#tamanoArchivo").text(fileSize + " bytes " + ext);
-			break;
-		default:
-			alert("El archivo no tiene la extensión adecuada");
-			this.value = ""; // reset del valor
-			this.files[0].name = "";
-			break;
-	}
-});
-
 //----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
 
 $(document).ready(() => {
