@@ -54,6 +54,7 @@ const mostrarArriendoModalConfirmacion = (arriendo) => {
 			title: "falta documentos adjuntos!",
 			text: "se debe ingresar la documentacion correspondiente para continuar",
 		});
+		$("#modal_confirmar_arriendo").modal("toggle");
 	}
 };
 

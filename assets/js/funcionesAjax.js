@@ -37,7 +37,7 @@ async function ajax_function(data, dataUrl) {
 		processData: false,
 		contentType: false,
 		cache: false,
-		timeOut: false,
+		timeOut: 5000,
 		success: (response) => {
 			if (response.success) {
 				console.log(dataUrl + " SUCCESS!");
@@ -52,10 +52,11 @@ async function ajax_function(data, dataUrl) {
 		},
 		error: (error) => {
 			console.log(dataUrl + " ERROR CLIENT!");
+			console.log(error);
 			Swal.fire({
 				icon: "error",
 				title: "Error en el cliente : " + dataUrl,
-				text: error,
+				text: "contacte con informatica",
 			});
 		},
 	});
