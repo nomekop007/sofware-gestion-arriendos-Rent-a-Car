@@ -243,50 +243,6 @@ switch ($this->session->userdata('sucursal')) {
                             id="inputNombreRemplazo" name="inputNombreRemplazo" required>
                     </div>
                 </div>
-
-
-                <br>
-                <h4>Documentos requeridos</h4>
-                <div class="form-row">
-                    <div class="container">
-                        <h6>Foto Carnet</h6>
-                        <div class="card bg-light">
-                            <br>
-                            <div class="row text-center">
-                                <br>
-                                <div class="form-group col-md-6 ">
-                                    <label for="inputCarnetFrontal">(frontal)</label>
-                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                        type="file" class="form-control-file" id="inputCarnetFrontal"
-                                        name="inputCarnetFrontal" required>
-                                </div>
-                                <div class="form-group col-md-6 ">
-                                    <label for="inputCarnetTrasera">(trasera)</label>
-                                    <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf"
-                                        type="file" class="form-control-file" id="inputCarnetTrasera"
-                                        name="inputCarnetTrasera" required>
-                                </div>
-                            </div>
-                        </div>
-                        <br><br>
-                        <div class="form-row">
-                            <div id="formComprobanteDomicilio" class="form-group col-md-12">
-                                <h6 for="inputComprobanteDomicilio">Comprobante de domicilio</h6>
-                                <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file"
-                                    class="form-control-file" id="inputComprobanteDomicilio"
-                                    name="inputComprobanteDomicilio" required>
-                                <br>
-                            </div>
-                            <div id="formCartaRemplazo" class="form-group col-md-12">
-                                <h6 for="inputCartaRemplazo">Carta Empresa Remplazo</h6>
-                                <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file"
-                                    class="form-control-file" id="inputCartaRemplazo" name="inputCartaRemplazo"
-                                    required>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -363,23 +319,6 @@ switch ($this->session->userdata('sucursal')) {
                             id="inputMunicipalidadConductor" name="inputMunicipalidadConductor" required>
                     </div>
                 </div>
-
-
-                <br>
-                <h4>Documentos requeridos</h4>
-                <div class="form-row">
-                    <div class="container">
-                        <div class="form-row">
-                            <div class="form-group col-md-12 ">
-                                <h6 for="inputLicencia">Licencia de conducir</h6>
-                                <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file"
-                                    class="form-control-file" id="inputLicencia" name="inputLicencia" required>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
 
@@ -442,57 +381,8 @@ switch ($this->session->userdata('sucursal')) {
                             name="inputAbono" class="form-control" required>
                     </div>
                 </div>
-
-                <br>
-                <div class="container">
-                    <div id="foto_tarjeta">
-                        <h6>Foto tarjeta de credito</h6>
-                        <div class="card bg-light">
-                            <div class="row text-center">
-                                <div class="form-group col-md-6">
-                                    <br>
-                                    <label for="inputTarjetaFrontal">(frontal)</label>
-                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                        type="file" class="form-control-file" id="inputTarjetaFrontal"
-                                        name="inputTarjetaFrontal" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <br>
-                                    <label for="inputTarjetaTrasera">(trasera)</label>
-                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                        type="file" class="form-control-file" id="inputTarjetaTrasera"
-                                        name="inputTarjetaTrasera" required>
-                                </div>
-                            </div>
-                        </div>
-                        <br><br>
-                    </div>
-                    <div class="form-row" id="foto_cheque">
-                        <div class="form-group col-md-12">
-                            <h6 for="inputChequeGarantia">Foto cheque</h6>
-                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file"
-                                class="form-control-file" id="inputChequeGarantia" name="inputChequeGarantia" required>
-                            <br>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-row" id="foto_efectivo">
-                        <div class="form-group col-md-12">
-                            <h6 for="inputBoletaEfectivo">Foto boleta efectivo</h6>
-                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file"
-                                class="form-control-file" id="inputBoletaEfectivo" name="inputBoletaEfectivo" required>
-                            <br>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-
-
-
         </div>
-
-
         <div class="collapse" id="collapseVehiculos">
             <div class="card card-body">
                 <br>

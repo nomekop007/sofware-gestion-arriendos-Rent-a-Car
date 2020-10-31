@@ -45,104 +45,6 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 
-<!-- Modal editar arriendo -->
-<div class="modal fade" id="modal_editar_arriendo" tabindex="-1" aria-labelledby="editarModal"
-    style="overflow-y: scroll;" aria-hidden="true">
-    <div class="modal-dialog  modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editarModal">Detalle arriendo <span id="numeroArriendoEditar">Nº</span>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="formSpinnerEditar">
-                <div class="text-center">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
-            </div>
-            <form class="needs-validation" id="formEditarArriendo" novalidate>
-                <div class="modal-body">
-                    <div class=" form-row">
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarTipoArriendo">Tipo</label>
-                            <input disabled type="text" class="form-control" id="inputEditarTipoArriendo">
-                        </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarEstadoArriendo">Estado</label>
-                            <input disabled type="text" class="form-control" id="inputEditarEstadoArriendo">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="inputEditarClienteArriendo">Cliente</label>
-                            <input disabled type="text" class="form-control" id="inputEditarClienteArriendo">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="inputEditarConductorArriendo">Conductor</label>
-                            <input disabled type="text" class="form-control" id="inputEditarConductorArriendo">
-                        </div>
-                        <div class="form-group col-lg-5">
-                            <label for="inputEditarVehiculoArriendo">Vehiculo</label>
-                            <input disabled type="text" class="form-control" id="inputEditarVehiculoArriendo">
-                        </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarKentradaArriendo">kilometros entrada</label>
-                            <input disabled type="text" class="form-control" id="inputEditarKentradaArriendo">
-                        </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarKsalidaArriendo">kilometros salida</label>
-                            <input disabled type="text" class="form-control" id="inputEditarKsalidaArriendo">
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label for="inputEditarKmantencionArriendo">kilometros mantencion</label>
-                            <input disabled type="text" class="form-control" id="inputEditarKmantencionArriendo">
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label for="inputEditarFechaInicioArriendo">Fecha Inicio</label>
-                            <input disabled type="text" class="form-control" id="inputEditarFechaInicioArriendo">
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label for="inputEditarFechaFinArriendo">Fecha Fin</label>
-                            <input disabled type="text" class="form-control" id="inputEditarFechaFinArriendo">
-                        </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarDiasArriendo">Dias</label>
-                            <input disabled type="text" class="form-control" id="inputEditarDiasArriendo">
-                        </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarCiudadEntregaArriendo">Ciudad entrega</label>
-                            <input disabled type="text" class="form-control" id="inputEditarCiudadEntregaArriendo">
-                        </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarCiudadRecepcionArriendo">Ciudad recepcion</label>
-                            <input disabled type="text" class="form-control" id="inputEditarCiudadRecepcionArriendo">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="inputEditarUsuarioArriendo">Vendedor</label>
-                            <input disabled type="text" class="form-control" id="inputEditarUsuarioArriendo">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="inputEditarRegistroArriendo">fecha registro</label>
-                            <input disabled type="text" class="form-control" id="inputEditarRegistroArriendo">
-                        </div>
-                    </div>
-                    <h5>Documentos adjuntos:</h5>
-                    <div id="card_documentos">
-
-                    </div>
-                </div>
-            </form>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                <button disabled type="button" class="btn btn-danger">Anular arriendo</button>
-
-                <button disabled type="button" class="btn btn-primary">Guardar cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <!-- Modal Confirmacion arriendo -->
@@ -300,7 +202,8 @@ $nombreUsuario = $this->session->userdata('nombre')
         </div>
     </div>
 </div>
-
+<!-- no borrar div sobrante-->
+</div>
 
 <!-- Modal signature-->
 <div class="modal fade" id="modal_signature" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -308,6 +211,9 @@ $nombreUsuario = $this->session->userdata('nombre')
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal_signature">Firmar Contrato </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <input type="text" id="nombre_documento" hidden>
@@ -346,3 +252,201 @@ $nombreUsuario = $this->session->userdata('nombre')
         </div>
     </div>
 </div>
+
+
+<!-- Modal editar arriendo -->
+<div class="modal fade" id="modal_editar_arriendo" tabindex="-1" aria-labelledby="editarModal"
+    style="overflow-y: scroll;" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarModal">Detalle arriendo <span id="numeroArriendoEditar">Nº</span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="formSpinnerEditar">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body">
+                <form class="needs-validation" id="formEditarArriendo" novalidate>
+                    <input type="text" id="inputIdArriendoEditar" hidden>
+                    <div class=" form-row">
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarTipoArriendo">Tipo</label>
+                            <input disabled type="text" class="form-control" id="inputEditarTipoArriendo">
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarEstadoArriendo">Estado</label>
+                            <input disabled type="text" class="form-control" id="inputEditarEstadoArriendo">
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label for="inputEditarClienteArriendo">Cliente</label>
+                            <input disabled type="text" class="form-control" id="inputEditarClienteArriendo">
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label for="inputEditarConductorArriendo">Conductor</label>
+                            <input disabled type="text" class="form-control" id="inputEditarConductorArriendo">
+                        </div>
+                        <div class="form-group col-lg-5">
+                            <label for="inputEditarVehiculoArriendo">Vehiculo</label>
+                            <input disabled type="text" class="form-control" id="inputEditarVehiculoArriendo">
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarKentradaArriendo">kilometros entrada</label>
+                            <input disabled type="text" class="form-control" id="inputEditarKentradaArriendo">
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarKsalidaArriendo">kilometros salida</label>
+                            <input disabled type="text" class="form-control" id="inputEditarKsalidaArriendo">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="inputEditarKmantencionArriendo">kilometros mantencion</label>
+                            <input disabled type="text" class="form-control" id="inputEditarKmantencionArriendo">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="inputEditarFechaInicioArriendo">Fecha Inicio</label>
+                            <input disabled type="text" class="form-control" id="inputEditarFechaInicioArriendo">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="inputEditarFechaFinArriendo">Fecha Fin</label>
+                            <input disabled type="text" class="form-control" id="inputEditarFechaFinArriendo">
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarDiasArriendo">Dias</label>
+                            <input disabled type="text" class="form-control" id="inputEditarDiasArriendo">
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarCiudadEntregaArriendo">Ciudad entrega</label>
+                            <input disabled type="text" class="form-control" id="inputEditarCiudadEntregaArriendo">
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarCiudadRecepcionArriendo">Ciudad recepcion</label>
+                            <input disabled type="text" class="form-control" id="inputEditarCiudadRecepcionArriendo">
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label for="inputEditarUsuarioArriendo">Vendedor</label>
+                            <input disabled type="text" class="form-control" id="inputEditarUsuarioArriendo">
+                        </div>
+                        <div class="form-group col-lg-4">
+                            <label for="inputEditarRegistroArriendo">fecha registro</label>
+                            <input disabled type="text" class="form-control" id="inputEditarRegistroArriendo">
+                        </div>
+                    </div>
+                </form>
+                <br><br>
+                <div id="verDocumentos">
+                    <h5>Documentos adjuntos:</h5>
+                    <div id="card_documentos">
+                    </div>
+                </div>
+                <form class="needs-validation" id="formSubirDocumentos" novalidate>
+                    <div id="ingresarDocumentos">
+                        <div class="form-row">
+                            <div class="container">
+                                <h5> adjuntar Documentos </h5>
+                                <div class="card bg-light" id="card_carnet">
+                                    <h6>Foto Carnet</h6>
+                                    <div class="row text-center">
+                                        <div class="form-group col-md-6 ">
+                                            <label for="inputCarnetFrontal">(frontal)</label>
+                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                                type="file" class="form-control-file" id="inputCarnetFrontal"
+                                                name="inputCarnetFrontal" required>
+                                        </div>
+                                        <div class="form-group col-md-6 ">
+                                            <label for="inputCarnetTrasera">(trasera)</label>
+                                            <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf"
+                                                type="file" class="form-control-file" id="inputCarnetTrasera"
+                                                name="inputCarnetTrasera" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12" id="card_domicilio">
+                                        <h6 for="inputComprobanteDomicilio">Comprobante de domicilio</h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputComprobanteDomicilio"
+                                            name="inputComprobanteDomicilio" required>
+                                        <br>
+                                    </div>
+                                    <div class="form-group col-md-12" id="card_cartaRemplazo">
+                                        <h6 for="inputCartaRemplazo">Carta Empresa Remplazo</h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputCartaRemplazo"
+                                            name="inputCartaRemplazo" required>
+                                        <br>
+                                    </div>
+                                    <div class="form-group col-md-12" id="card_licencia">
+                                        <h6 for="inputLicencia">Licencia de conducir</h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputLicencia"
+                                            name="inputLicencia" required>
+                                        <br>
+                                    </div>
+                                </div>
+                                <br>
+                                <h5>Documentos garantia en <span id="nombre_garantia"></span></h5>
+                                <div class="card bg-light" id="card_tarjeta">
+                                    <h6>Foto tarjeta de credito</h6>
+                                    <div class="row text-center">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputTarjetaFrontal">(frontal)</label>
+                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                                type="file" class="form-control-file" id="inputTarjetaFrontal"
+                                                name="inputTarjetaFrontal" required>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="inputTarjetaTrasera">(trasera)</label>
+                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                                type="file" class="form-control-file" id="inputTarjetaTrasera"
+                                                name="inputTarjetaTrasera" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12" id="card_cheque">
+                                        <h6 for="inputChequeGarantia">Foto cheque</h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputChequeGarantia"
+                                            name="inputChequeGarantia" required>
+                                        <br>
+                                    </div>
+                                    <div class="form-group col-md-12" id="card_efectivo">
+                                        <h6 for="inputBoletaEfectivo">Foto boleta efectivo</h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputBoletaEfectivo"
+                                            name="inputBoletaEfectivo" required>
+                                        <br>
+                                    </div>
+                                </div>
+                                <button type="button" id="btn_subirDocumentos" class="btn btn-primary">subir
+                                    documentos<span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true" id="spinner_btn_subirDocumentos"></span></button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+                    <button disabled type="button" class="btn btn-danger">Anular arriendo</button>
+
+                    <button disabled type="button" class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
