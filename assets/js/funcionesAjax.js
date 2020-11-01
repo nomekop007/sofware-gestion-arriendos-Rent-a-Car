@@ -61,37 +61,3 @@ async function ajax_function(data, dataUrl) {
 		},
 	});
 }
-
-async function ajax_functionFile(data, dataUrl) {
-	return await $.ajax({
-		url: "https://www.imlchile.cl:3011/rentacar/" + dataUrl,
-		type: "post",
-		dataType: "json",
-		data: data,
-		enctype: "multipart/form-data",
-		processData: false,
-		contentType: false,
-		cache: false,
-		timeOut: false,
-		success: (response) => {
-			console.log(response);
-			if (response.success) {
-				console.log(dataUrl + " SUCCESS!");
-			} else {
-				console.log(dataUrl + " ERROR SERVER!");
-				Swal.fire({
-					icon: "error",
-					title: "Error en el servidor : " + dataUrl,
-					text: response.msg,
-				});
-			}
-		},
-		error: (error) => {
-			Swal.fire({
-				icon: "error",
-				title: "Error en el cliente : " + dataUrl,
-				text: "contacte con informatica",
-			});
-		},
-	});
-}
