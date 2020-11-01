@@ -144,9 +144,8 @@ $(document).ready(() => {
 			//pregunta si hay imagen para subir
 			if ($("#inputEditarFoto").val().length != 0) {
 				const file = $("#inputEditarFoto")[0].files[0];
-				const size = $("#inputEditarFoto")[0].files[0].size;
 				const patente = response.data.patente_vehiculo;
-				await guardarImagenVehiculo(patente, file, size);
+				await guardarImagenVehiculo(patente, file);
 			}
 
 			Swal.fire("Exito", response.msg, "success");
@@ -158,19 +157,10 @@ $(document).ready(() => {
 	});
 
 	//guarda exclusivamente la imagen en el servidor
-	const guardarImagenVehiculo = async (patente, file, size) => {
+	const guardarImagenVehiculo = async (patente, file) => {
 		const data = new FormData();
 		data.append("inputPatente", patente);
 		data.append("inputFoto", file);
-
-		if (size > 11000000) {
-			Swal.fire({
-				icon: "error",
-				title: "la foto es demaciado grande",
-				text: "el maximo permitido son 10mb",
-			});
-			return;
-		}
 		await ajax_function(data, "guardar_fotoVehiculo");
 	};
 
