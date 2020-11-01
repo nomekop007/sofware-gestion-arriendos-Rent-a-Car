@@ -485,20 +485,20 @@ $(document).ready(() => {
 		const data = new FormData();
 		//ERROR A SUBIR IMAGENES
 		data.append("idArriendo", idArriendo);
-		data.append("inputCarnetFrontal", $("#inputCarnetFrontal")[0].files[0]);
-		data.append("inputCarnetTrasera", $("#inputCarnetTrasera")[0].files[0]);
-		data.append("inputTarjetaFrontal", $("#inputTarjetaFrontal")[0].files[0]);
-		data.append("inputTarjetaTrasera", $("#inputTarjetaTrasera")[0].files[0]);
-		data.append("inputLicencia", $("#inputLicencia")[0].files[0]);
-		data.append("inputCheque", $("#inputChequeGarantia")[0].files[0]);
-		data.append("inputCartaRemplazo", $("#inputCartaRemplazo")[0].files[0]);
-		data.append("inputBoletaEfectivo", $("#inputBoletaEfectivo")[0].files[0]);
-		data.append(
-			"inputComprobante",
-			$("#inputComprobanteDomicilio")[0].files[0]
-		);
+		data.append("fotoCarnetFrontal", $("#inputCarnetFrontal")[0].files[0]);
+		data.append("fotoCarnetTrasera", $("#inputCarnetTrasera")[0].files[0]);
+		data.append("fotoTarjetaFrontal", $("#inputTarjetaFrontal")[0].files[0]);
+		data.append("fotoTarjetaTrasera", $("#inputTarjetaTrasera")[0].files[0]);
+		data.append("fotoLicencia", $("#inputLicencia")[0].files[0]);
+		data.append("fotoCheque", $("#inputChequeGarantia")[0].files[0]);
+		data.append("fotoCartaRemplazo", $("#inputCartaRemplazo")[0].files[0]);
+		data.append("fotoBoletaEfectivo", $("#inputBoletaEfectivo")[0].files[0]);
+		data.append("fotoComprobante", $("#inputComprobanteDomicilio")[0].files[0]);
 		console.log(data);
-		return await ajax_function(data, "registrar_requisitos");
+		return await ajax_functionFile(
+			data,
+			"requisitos/registrarRequisitoArriendo"
+		);
 	};
 
 	const refrescarTabla = () => {
