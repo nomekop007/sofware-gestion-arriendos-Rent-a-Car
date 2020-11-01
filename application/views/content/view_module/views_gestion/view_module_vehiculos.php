@@ -198,8 +198,7 @@
                     </div>
                 </div>
             </div>
-            <form class="needs-validation" id="formEditarVehiculo" method="post" enctype="multipart/form-data"
-                novalidate>
+            <form class="needs-validation" id="formEditarVehiculo" novalidate>
                 <div class="modal-body" id="modal_vehiculo">
                     <input type="text" id="inputEditarPatente" name="inputEditarPatente" hidden />
                     <div class="card">
@@ -306,11 +305,9 @@
                                 </div>
                                 <div class="col-md-4">
                                     <img id="imagen" class="img-fluid rounded float-right" alt="">
-
                                     <label for="inputEditarFoto">Cambiar foto</label>
                                     <input accept="image/*" type="file" class="form-control-file" id="inputEditarFoto"
                                         name="inputEditarFoto">
-
                                 </div>
                             </div>
                         </div>
