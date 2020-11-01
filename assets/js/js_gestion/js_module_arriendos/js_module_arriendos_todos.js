@@ -464,12 +464,12 @@ $(document).ready(() => {
 		await ajax_function(data, "cambiarEstado_arriendo");
 	};
 
-	$("#btn_subirDocumentos").click(() => {
+	$("#btn_subirDocumentos").click(async () => {
 		const id_arriendo = $("#inputIdArriendoEditar").val();
 		$("#spinner_btn_subirDocumentos").show();
 		$("#btn_subirDocumentos").attr("disabled", true);
-		guardarDocumentosRequistos(id_arriendo);
-		/* 	$("#btn_subirDocumentos").attr("disabled", false);
+		const response = await guardarDocumentosRequistos(id_arriendo);
+		$("#btn_subirDocumentos").attr("disabled", false);
 		$("#spinner_btn_subirDocumentos").hide();
 		if (response.success) {
 			Swal.fire(
@@ -478,10 +478,10 @@ $(document).ready(() => {
 				"success"
 			);
 			$("#modal_editar_arriendo").modal("toggle");
-		} */
+		}
 	});
 
-	const guardarDocumentosRequistos = (idArriendo) => {
+	const guardarDocumentosRequistos =  (idArriendo) => {
 		const data = new FormData();
 		//ERROR A SUBIR IMAGENES
 		data.append("idArriendo", idArriendo);
@@ -497,49 +497,8 @@ $(document).ready(() => {
 			"inputComprobante",
 			$("#inputComprobanteDomicilio")[0].files[0]
 		);
-
 		console.log(data);
-		$.ajax({
-			url: base_url + "registrar_requisitos",
-			type: "post",
-			dataType: "json",
-			data: data,
-			enctype: "multipart/form-data",
-			processData: false,
-			contentType: false,
-			cache: false,
-			timeOut: false,
-			success: (response) => {
-				if (response.success) {
-					console.log("dataUrl" + " SUCCESS!");
-					Swal.fire(
-						"documentos subidos con exito!",
-						"se guardaron los documentos",
-						"success"
-					);
-					$("#btn_subirDocumentos").attr("disabled", false);
-					$("#modal_editar_arriendo").modal("toggle");
-				} else {
-					console.log("dataUrl" + " ERROR SERVER!");
-					Swal.fire({
-						icon: "error",
-						title: "Error en el servidor : " + "dataUrl",
-						text: response.msg,
-					});
-				}
-			},
-			error: (error) => {
-				console.log(dataUrl + " ERROR CLIENT!");
-				console.log(error);
-				Swal.fire({
-					icon: "error",
-					title: "Error en el cliente : " + dataUrl,
-					text: "contacte con informatica",
-				});
-			},
-		});
-
-		//return await ajax_function(data, "registrar_requisitos");
+		return await ajax_function(data, "registrar_requisitos");
 	};
 
 	const refrescarTabla = () => {

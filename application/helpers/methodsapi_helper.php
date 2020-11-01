@@ -98,14 +98,13 @@ function file_function($id, $data, $url)
 	$client = new \GuzzleHttp\Client();
 	$response = $client->request('POST', api_url() . $url . "/" . $id, [
 		'verify' => path_cert(),
-		"SYNCHRONOUS" => true,
 		'multipart' =>   $data,
 		'headers' => [
 			'usertoken' => $token,
 			'userat' => $name,
 		],
-		'timeout'         => 5,
-		'connect_timeout' => 5
+		'timeout'         => 10,
+		'connect_timeout' => 10
 	]);
 	return  $response->getBody();
 }
