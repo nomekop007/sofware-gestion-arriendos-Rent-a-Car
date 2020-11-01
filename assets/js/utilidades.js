@@ -174,8 +174,8 @@ $(document).on("change", 'input[type="file"]', function () {
 			this.files[0].name = "";
 			break;
 	}
-	if (fileSize > 1500000) {
-		alert("El archivo tiene que pesar menos de 1.5mb");
+	if (fileSize > 15000000) {
+		alert("El archivo tiene que pesar menos de 15mb");
 		this.value = ""; // reset del valor
 		this.files[0].name = "";
 	}

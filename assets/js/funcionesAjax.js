@@ -37,7 +37,7 @@ async function ajax_function(data, dataUrl) {
 		processData: false,
 		contentType: false,
 		cache: false,
-		timeOut: false,
+		timeOut: 600000,
 		success: (response) => {
 			if (response.success) {
 				console.log(dataUrl + " SUCCESS!");
