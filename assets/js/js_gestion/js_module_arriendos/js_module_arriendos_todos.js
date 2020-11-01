@@ -481,7 +481,7 @@ $(document).ready(() => {
 		}
 	});
 
-	const guardarDocumentosRequistos =  (idArriendo) => {
+	const guardarDocumentosRequistos = async (idArriendo) => {
 		const data = new FormData();
 		//ERROR A SUBIR IMAGENES
 		data.append("idArriendo", idArriendo);
