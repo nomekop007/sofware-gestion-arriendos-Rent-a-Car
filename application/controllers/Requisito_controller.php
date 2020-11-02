@@ -117,6 +117,10 @@ class Requisito_controller extends CI_Controller
                 'filename' => $boletaEfectivo
             ],
         ];
-        echo file_function($id_arriendo, $data, "requisitos/registrarRequisitoArriendo");
+
+        echo json_encode(array("log" => $id_arriendo, "success" => false));
+
+
+        // echo file_function($id_arriendo, $data, "requisitos/registrarRequisitoArriendo");
     }
 }

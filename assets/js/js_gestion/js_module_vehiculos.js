@@ -130,10 +130,19 @@ $(document).ready(() => {
                         const file = $("#inputFoto")[0].files[0];
                         const size = $("#inputFoto")[0].files[0].size;
                         const patente = response.data.patente_vehiculo;
-                        await guardarImagenVehiculo(patente, file, size);
+                        const responseFoto = await guardarImagenVehiculo(
+                            patente,
+                            file,
+                            size
+                        );
+                        if (responseFoto.success) {
+                            Swal.fire("Exito", responseFoto.msg, "success");
+                            $("#form_registrar_vehiculo")[0].reset();
+                        }
+                    } else {
+                        Swal.fire("Exito", response.msg, "success");
+                        $("#form_registrar_vehiculo")[0].reset();
                     }
-                    Swal.fire("Exito", response.msg, "success");
-                    $("#form_registrar_vehiculo")[0].reset();
                 } else {
                     Swal.fire("algo paso", response.msg, "error");
                 }
@@ -155,10 +164,16 @@ $(document).ready(() => {
             if ($("#inputEditarFoto").val().length != 0) {
                 const file = $("#inputEditarFoto")[0].files[0];
                 const patente = response.data.patente_vehiculo;
-                await guardarImagenVehiculo(patente, file);
+                const responseFoto = await guardarImagenVehiculo(patente, file);
+                console.log(responseFoto);
+                if (responseFoto.success) {
+                    Swal.fire("Exito", responseFoto.msg, "success");
+                    $("#modal_editar").modal("toggle");
+                }
+            } else {
+                Swal.fire("Exito", response.msg, "success");
+                $("#modal_editar").modal("toggle");
             }
-            Swal.fire("Exito", response.msg, "success");
-            $("#modal_editar").modal("toggle");
         }
         $("#btn_editar_vehiculo").attr("disabled", false);
         $("#spinner_btn_editarVehiculo").hide();
@@ -169,7 +184,7 @@ $(document).ready(() => {
         const data = new FormData();
         data.append("inputPatente", patente);
         data.append("inputFoto", file);
-        await ajax_function(data, "guardar_fotoVehiculo");
+        return await ajax_function(data, "guardar_fotoVehiculo");
     };
 
     const cargarVehiculoEnTabla = (vehiculo) => {

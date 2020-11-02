@@ -37,8 +37,9 @@ async function ajax_function(data, dataUrl) {
         processData: false,
         contentType: false,
         cache: false,
-        timeOut: 600000,
+        timeOut: false,
         success: (response) => {
+            console.log(response);
             if (response.success) {
                 console.log(dataUrl + " SUCCESS!");
             } else {
@@ -52,7 +53,6 @@ async function ajax_function(data, dataUrl) {
         },
         error: (error) => {
             console.log(dataUrl + " ERROR CLIENT!");
-            console.log(error);
             Swal.fire({
                 icon: "error",
                 title: "Error en el cliente : " + dataUrl,

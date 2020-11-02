@@ -40,9 +40,8 @@ $(document).ready(() => {
                     cliente,
                     arriendo.vehiculo.patente_vehiculo,
                     arriendo.tipo_arriendo,
-                    formatearFechaHora(arriendo.fechaEntrega_arriendo),
                     formatearFechaHora(arriendo.fechaRecepcion_arriendo),
-                    "algo",
+                    "time..",
                 ])
                 .draw(false);
         } catch (error) {

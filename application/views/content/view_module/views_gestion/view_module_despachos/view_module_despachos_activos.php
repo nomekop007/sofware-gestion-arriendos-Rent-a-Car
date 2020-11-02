@@ -8,7 +8,6 @@
                     <th>Cliente</th>
                     <th>Vehiculo</th>
                     <th>tipo arriendo</th>
-                    <th>Fecha Entrega</th>
                     <th>Fecha Recepcion</th>
                     <th>tiempo restante</th>
                 </tr>
@@ -22,7 +21,6 @@
                     <th>Cliente</th>
                     <th>Vehiculo</th>
                     <th>tipo arriendo</th>
-                    <th>Fecha Entrega</th>
                     <th>Fecha Recepcion</th>
                     <th>tiempo restante</th>
                 </tr>

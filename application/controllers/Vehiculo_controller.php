@@ -108,7 +108,7 @@ class Vehiculo_controller extends CI_Controller
 			];
 			echo file_function($patente, $data, "vehiculos/cargarImagen");
 		} else {
-			echo false;
+			echo json_encode(array("success" => false));
 		}
 	}
 }
