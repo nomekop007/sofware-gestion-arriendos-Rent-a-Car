@@ -428,7 +428,8 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         <br>
                                     </div>
                                 </div>
-                                <button type="button" id="btn_subirDocumentos" class="btn btn-primary">subir
+                                <button type="submit" value="Submit" id="btn_subirDocumentos"
+                                    class="btn btn-primary">subir
                                     documentos<span class="spinner-border spinner-border-sm" role="status"
                                         aria-hidden="true" id="spinner_btn_subirDocumentos"></span></button>
                             </div>

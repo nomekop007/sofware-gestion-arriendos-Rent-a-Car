@@ -37,7 +37,6 @@ async function ajax_function(data, dataUrl) {
         processData: false,
         contentType: false,
         cache: false,
-        async: true,
         timeOut: false,
         success: (response) => {
             console.log(response);
