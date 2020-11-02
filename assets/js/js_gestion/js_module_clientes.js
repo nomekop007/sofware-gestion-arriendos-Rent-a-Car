@@ -119,6 +119,39 @@ $(document).ready(() => {
     const tablaEmpresa = $("#tablaEmpresas").DataTable(lenguaje);
     const tablaConductor = $("#tablaConductores").DataTable(lenguaje);
 
+    const btnCliente = document.getElementById("nav-clientes-tab");
+    const btnEmpresas = document.getElementById("nav-empresas-tab");
+    const btnConductores = document.getElementById("nav-conductores-tab");
+
+    btnCliente.addEventListener("click", () => {
+        refrescarTablaCliente();
+    });
+    btnEmpresas.addEventListener("click", () => {
+        refrescarTablaEmpresa();
+    });
+    btnConductores.addEventListener("click", () => {
+        refrescarTablaConductor();
+    });
+
+    const refrescarTablaCliente = () => {
+        //limpia la tabla
+        tablaCliente.row().clear().draw(false);
+        //carga nuevamente
+        cargarClientes();
+    };
+    const refrescarTablaEmpresa = () => {
+        //limpia la tabla
+        tablaEmpresa.row().clear().draw(false);
+        //carga nuevamente
+        cargarEmpresas();
+    };
+    const refrescarTablaConductor = () => {
+        //limpia la tabla
+        tablaConductor.row().clear().draw(false);
+        //carga nuevamente
+        cargarConductores();
+    };
+
     (cargarClientes = async() => {
         $("#spinner_tablaClientes").show();
         const response = await ajax_function(null, "cargar_clientes");
@@ -142,7 +175,7 @@ $(document).ready(() => {
         $("#spinner_tablaClientes").hide();
     })();
 
-    (cargarEmpresas = async() => {
+    const cargarEmpresas = async() => {
         $("#spinner_tablaEmpresas").show();
         const response = await ajax_function(null, "cargar_empresas");
         if (response.success) {
@@ -163,9 +196,9 @@ $(document).ready(() => {
             });
         }
         $("#spinner_tablaEmpresas").hide();
-    })();
+    };
 
-    (cargarConductores = async() => {
+    const cargarConductores = async() => {
         $("#spinner_tablaConductores").show();
         const response = await ajax_function(null, "cargar_conductores");
         if (response.success) {
@@ -186,5 +219,5 @@ $(document).ready(() => {
             });
         }
         $("#spinner_tablaConductores").hide();
-    })();
+    };
 });

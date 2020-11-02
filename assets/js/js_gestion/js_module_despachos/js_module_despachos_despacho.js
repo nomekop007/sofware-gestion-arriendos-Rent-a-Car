@@ -66,6 +66,11 @@ $(document).ready(() => {
     const tablaControldespacho = $("#tablaControldespacho").DataTable(lenguaje);
     const arrayImages = [];
 
+    const btndespacho = document.getElementById("nav-despachos-tab");
+    btndespacho.addEventListener("click", () => {
+        refrescarTabla();
+    });
+
     (cargarArriendos = async() => {
         $("#spinner_tablaDespacho").show();
         const data = new FormData();
