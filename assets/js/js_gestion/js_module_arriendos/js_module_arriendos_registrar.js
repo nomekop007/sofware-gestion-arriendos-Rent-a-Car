@@ -92,18 +92,13 @@ $(document).ready(() => {
         if (response.success) {
             $("#row_accesorios").empty();
             $.each(response.data, (i, o) => {
-                let fila = "<div class='form-check form-check-inline'>";
-                fila +=
-                    "<input class='form-check-input' type='checkbox' name='checks[]' value='" +
-                    o.id_accesorio +
-                    "'>";
-                fila +=
-                    "<label class='form-check-label' for='" +
-                    o.id_accesorio +
-                    "'>" +
-                    o.nombre_accesorio +
-                    "</label>";
-                fila += "</div>";
+                let fila = `
+                <div class='form-check form-check-inline'>
+                <input class='form-check-input' type='checkbox' name='checks[]' value='${o.id_accesorio}'>
+                <label class='form-check-label' for='${o.id_accesorio}'>
+                    ${o.nombre_accesorio}
+                </label>
+                </div>`;
                 $("#row_accesorios").append(fila);
             });
         }

@@ -33,7 +33,6 @@ $(document).ready(() => {
                     cliente = arriendo.empresa.nombre_empresa;
                     break;
             }
-
             tablaArriendosActivos.row
                 .add([
                     arriendo.id_arriendo,
@@ -41,7 +40,7 @@ $(document).ready(() => {
                     arriendo.vehiculo.patente_vehiculo,
                     arriendo.tipo_arriendo,
                     formatearFechaHora(arriendo.fechaRecepcion_arriendo),
-                    "time..",
+                    moment().format(),
                 ])
                 .draw(false);
         } catch (error) {

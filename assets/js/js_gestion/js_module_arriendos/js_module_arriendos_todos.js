@@ -493,7 +493,6 @@ $(document).ready(() => {
 
     const guardarDocumentosRequistos = async(idArriendo) => {
         const data = new FormData();
-        console.log("id arriendo:" + idArriendo);
         //ERROR A SUBIR IMAGENES de mas de 3mbs
         data.append("idArriendo", idArriendo);
         data.append("inputCarnetFrontal", $("#inputCarnetFrontal")[0].files[0]);
@@ -556,24 +555,11 @@ $(document).ready(() => {
                     arriendo.tipo_arriendo,
                     arriendo.estado_arriendo,
                     arriendo.usuario.nombre_usuario,
-                    " <button " +
-                    "id='" +
-                    arriendo.id_arriendo +
-                    "' " +
-                    " value='" +
-                    arriendo.id_arriendo +
-                    "' " +
-                    " onclick='buscarArriendo(this.value,true)'" +
-                    " data-toggle='modal' data-target='#modal_confirmar_arriendo' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  " +
-                    " <button " +
-                    "id='" +
-                    arriendo.id_arriendo +
-                    "' " +
-                    " value='" +
-                    arriendo.id_arriendo +
-                    "' " +
-                    " onclick='buscarArriendo(this.value,false)'" +
-                    " data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-eye'></i></button>  ",
+                    ` <button id='${arriendo.id_arriendo}' value='${arriendo.id_arriendo}'
+					   onclick='buscarArriendo(this.value,true)' data-toggle='modal' data-target='#modal_confirmar_arriendo'
+						class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button> 
+						 <button id='${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,false)' 
+                            data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-eye'></i></button>  `,
                 ])
                 .draw(false);
 

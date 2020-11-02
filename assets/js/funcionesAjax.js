@@ -53,7 +53,6 @@ async function ajax_function(data, dataUrl) {
         },
         error: (error) => {
             console.log(dataUrl + " ERROR CLIENT!");
-            console.log(error.responseText);
             Swal.fire({
                 icon: "error",
                 title: "Error en el cliente : " + dataUrl,
