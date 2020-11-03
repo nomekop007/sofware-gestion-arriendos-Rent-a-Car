@@ -166,19 +166,51 @@ $(document).ready(() => {
     });
 
     $("#btn_firmar_actaEntrega").click(async() => {
-        const canvas1 = document.getElementById("canvas-firma1");
-        const canvas2 = document.getElementById("canvas-firma2");
-        const form = $("#formActaEntrega")[0];
-        const data = new FormData(form);
-        data.append("inputFirma1PNG", canvas1.toDataURL("image/png"));
-        data.append("inputFirma2PNG", canvas2.toDataURL("image/png"));
-        generarActaEntrega(data);
+        obtenerGeolocalizacion();
     });
 
     $("#limpiarArrayFotos").click(() => {
         arrayImages.length = 0;
         $("#carrucel").empty();
     });
+
+    const obtenerGeolocalizacion = () => {
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0,
+        };
+        navigator.geolocation.getCurrentPosition(
+            (success = (pos) => {
+                console.log(pos);
+                const geo =
+                    "lat:" +
+                    pos.coords.latitude +
+                    " - log:" +
+                    pos.coords.longitude +
+                    " - stamp:" +
+                    pos.timestamp;
+                firmarActaEntrega(geo);
+            }),
+            (error = (err) => {
+                console.log(err);
+                alert("no se logro obtener la geolocalizacion , active manualmente");
+                firmarActaEntrega(null);
+            }),
+            options
+        );
+    };
+
+    const firmarActaEntrega = (geo) => {
+        const canvas1 = document.getElementById("canvas-firma1");
+        const canvas2 = document.getElementById("canvas-firma2");
+        const form = $("#formActaEntrega")[0];
+        const data = new FormData(form);
+        data.append("inputFirma1PNG", canvas1.toDataURL("image/png"));
+        data.append("inputFirma2PNG", canvas2.toDataURL("image/png"));
+        data.append("geolocalizacion", geo);
+        generarActaEntrega(data);
+    };
 
     const generarActaEntrega = async(data) => {
         if (arrayImages.length > 0) {

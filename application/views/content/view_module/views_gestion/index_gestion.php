@@ -12,6 +12,11 @@
                 <img style="width:65%;margin: 40px" src="<?php echo base_route() ?>assets/images/logo.png" />
             </div>
         </div>
+
+
+        <div class="alert alert-danger" role="alert">
+            Queda menos de una hora para
+        </div>
     </div>
     </div>
 </main>

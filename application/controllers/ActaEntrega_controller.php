@@ -9,17 +9,12 @@ class ActaEntrega_controller extends CI_Controller
 
     public function registrarActaEntrega()
     {
-        $nameUser = $this->session->userdata('nombre');
-
         $dataArray = [
-            "userAt" => $nameUser,
             "id_despacho" => $this->input->post("inputIdDespacho"),
             "documento" => $this->input->post("nombre_documento"),
         ];
         echo post_function($dataArray, "actasEntregas/registrarActaEntrega");
     }
-
-
 
     public function generarPDFactaEntrega()
     {
@@ -36,6 +31,7 @@ class ActaEntrega_controller extends CI_Controller
             "observacionesDespacho" => $this->input->post("inputObservacionesDespacho"),
             "recibidorDespacho" => $this->input->post("inputRecibidorDespacho"),
             "entregadorDespacho" => $this->input->post("inputEntregadorDespacho"),
+            "geolocalizacion" => $this->input->post("geolocalizacion"),
         ];
 
         echo post_function($ArrayData, "actasEntregas/generarPDFactaEntrega");

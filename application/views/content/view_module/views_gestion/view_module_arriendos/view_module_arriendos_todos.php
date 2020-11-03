@@ -428,16 +428,13 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         <br>
                                     </div>
                                 </div>
-                                <button type="submit" id="btn_subirDocumentos" class="btn btn-primary">subir
+                                <button type="submit" id="btn_subirDocumentos" class="btn btn-sm btn-primary">subir
                                     documentos<span class="spinner-border spinner-border-sm" role="status"
                                         aria-hidden="true" id="spinner_btn_subirDocumentos"></span></button>
                             </div>
-
                         </div>
-
                     </div>
                 </form>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
                     <button disabled type="button" class="btn btn-danger">Anular arriendo</button>

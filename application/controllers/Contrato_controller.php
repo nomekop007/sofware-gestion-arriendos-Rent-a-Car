@@ -40,6 +40,7 @@ class Contrato_controller extends CI_Controller
             "descuento" => $this->input->post("inputDescuento"),
             "total" => $this->input->post("inputTotal"),
             "observaciones" => $this->input->post("inputObservaciones"),
+            "geolocalizacion" => $this->input->post("geolocalizacion"),
         ];
         echo post_function($dataArray, "contratos/generarPDFcontrato");
     }
