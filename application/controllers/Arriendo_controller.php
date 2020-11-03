@@ -6,11 +6,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Arriendo_controller extends CI_Controller
 {
-
-
     public function cargarArriendos()
     {
-
         $arrayForm = [
             "id_sucursal" => $this->session->userdata('sucursal'),
             "id_rol" => $this->session->userdata('rol'),
@@ -22,7 +19,6 @@ class Arriendo_controller extends CI_Controller
 
     public function buscarArriendo()
     {
-
         $id_arriendo = $this->input->post("id_arriendo");
         echo find_function($id_arriendo, "arriendos/buscarArriendo");
     }
@@ -30,11 +26,7 @@ class Arriendo_controller extends CI_Controller
 
     public function registrarArriendo()
     {
-
-        $nameUser = $this->session->userdata('nombre');
-
         $arrayForm = [
-            "userAt" => $nameUser,
             "estado_arriendo" => "PENDIENTE",
             "tipo_arriendo" => $this->input->post("inputTipo"),
             "ciudadEntrega_arriendo" => $this->input->post("inputCiudadEntrega"),
@@ -56,29 +48,13 @@ class Arriendo_controller extends CI_Controller
             "rut_empresa" => $this->input->post("inputRutEmpresa"),
             "rut_conductor" => $this->input->post("inputRutConductor"),
         ];
-
         echo post_function($arrayForm, "arriendos/registrarArriendo");
     }
 
-
-
-    public function enviarCorreoArriendo()
-    {
-
-        $arrayForm = [
-            "id_arriendo" => $this->input->post("inputIdArriendo")
-        ];
-        echo post_function($arrayForm, "arriendos/enviarCorreoArriendo");
-    }
-
-
     public function cambiarEstadoArriendo()
     {
-
-        $nameUser = $this->session->userdata('nombre');
         $idArriendo = $this->input->post("inputIdArriendo");
         $ArrayData = [
-            "userAt" => $nameUser,
             "estado_arriendo" =>  $this->input->post("estado")
         ];
         echo put_function($idArriendo, $ArrayData, "arriendos/editarArriendo");

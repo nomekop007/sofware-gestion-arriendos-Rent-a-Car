@@ -5,7 +5,6 @@
 
 function get_function($url)
 {
-
 	if (isset($_SESSION["usertoken"])) {
 		$token = $_SESSION["usertoken"];
 		$name = $_SESSION["nombre"];
@@ -25,15 +24,10 @@ function get_function($url)
 
 function find_function($id, $url)
 {
-
 	if (isset($_SESSION["usertoken"])) {
 		$token = $_SESSION["usertoken"];
 		$name = $_SESSION["nombre"];
 	}
-	if (!$id) {
-		$id = "x";
-	}
-
 	$client = new GuzzleHttp\Client();
 	$request = $client->request('GET', api_url() . $url . "/" . $id, [
 		'verify' => path_cert(),
@@ -57,7 +51,7 @@ function post_function($data, $url)
 	$client = new \GuzzleHttp\Client();
 	$response = $client->request('POST', api_url() . $url, [
 		'verify' => path_cert(),
-		'json' => $data,
+		'json' => $data += ["userAt" => $name],
 		'headers' => [
 			'usertoken' => $token,
 			'userat' => $name,
@@ -77,7 +71,7 @@ function put_function($id, $data, $url)
 	$client = new \GuzzleHttp\Client();
 	$response = $client->request('PUT', api_url() . $url . "/" . $id, [
 		'verify' => path_cert(),
-		'json' => $data,
+		'json' => $data += ["userAt" => $name],
 		'headers' => [
 			'usertoken' => $token,
 			'userat' => $name,
@@ -89,7 +83,7 @@ function put_function($id, $data, $url)
 }
 
 
-function file_function($id, $data, $url)
+function file_function($id, $formData, $url)
 {
 	if (isset($_SESSION["usertoken"])) {
 		$token = $_SESSION["usertoken"];
@@ -98,7 +92,7 @@ function file_function($id, $data, $url)
 	$client = new \GuzzleHttp\Client();
 	$response = $client->request('POST', api_url() . $url . "/" . $id, [
 		'verify' => path_cert(),
-		'multipart' =>   $data,
+		'multipart' =>   $formData,
 		'headers' => [
 			'usertoken' => $token,
 			'userat' => $name,

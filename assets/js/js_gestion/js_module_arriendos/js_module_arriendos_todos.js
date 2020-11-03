@@ -430,7 +430,7 @@ $(document).ready(() => {
                 const data = new FormData(form);
                 await guardarContrato(data);
                 await guardarDatosPago(data);
-                await enviarCorreoArriendo(data);
+                await enviarCorreoContrato(data);
                 await cambiarEstadoArriendo(data);
 
                 refrescarTabla();
@@ -462,8 +462,8 @@ $(document).ready(() => {
         await ajax_function(data, "registrar_pago");
     };
 
-    const enviarCorreoArriendo = async(data) => {
-        await ajax_function(data, "enviar_correoArriendo");
+    const enviarCorreoContrato = async(data) => {
+        await ajax_function(data, "enviar_correoContrato");
     };
 
     const cambiarEstadoArriendo = async(data) => {
@@ -507,23 +507,7 @@ $(document).ready(() => {
             "inputComprobante",
             $("#inputComprobanteDomicilio")[0].files[0]
         );
-
-        return await jQuery.ajax({
-            url: base_url + "registrar_requisitos",
-            data: data,
-            cache: false,
-            contentType: false,
-            processData: false,
-            type: "POST",
-            success: function(data) {
-                console.log(data);
-            },
-            error: function(error) {
-                console.log(error);
-            },
-        });
-
-        // return await ajax_function(data, "registrar_requisitos");
+        return await ajax_function(data, "registrar_requisitos");
     };
 
     const refrescarTabla = () => {

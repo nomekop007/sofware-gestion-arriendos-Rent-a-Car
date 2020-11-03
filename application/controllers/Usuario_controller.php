@@ -28,10 +28,7 @@ class Usuario_controller extends CI_Controller
 
 	public function registrarUsuario()
 	{
-		$nameUser = $this->session->userdata('nombre');
-
 		$ArrayData = [
-			"userAt" => $nameUser,
 			"nombre_usuario" => $this->input->post("inputNombreUsuario"),
 			"estado_usuario" => true,
 			"email_usuario" => $this->input->post("inputCorreoUsuario"),
@@ -50,11 +47,8 @@ class Usuario_controller extends CI_Controller
 
 	public function editarUsuario()
 	{
-		$nameUser = $this->session->userdata('nombre');
-
 		$id_usuario = $this->input->post("inputUsuario");
 		$ArrayData = [
-			"userAt" => $nameUser,
 			"nombre_usuario" => $this->input->post("inputEditNombreUsuario"),
 			"email_usuario" => $this->input->post("inputEditCorreoUsuario"),
 			"clave_usuario" => $this->input->post("inputEditClaveUsuario"),
@@ -66,12 +60,8 @@ class Usuario_controller extends CI_Controller
 
 	public function cambiarEstadoUsuario()
 	{
-		$nameUser = $this->session->userdata('nombre');
-
 		$id_usuario = $this->input->post("id_usuario");
-
 		$ArrayData = [
-			"userAt" => $nameUser,
 			"accion" => $this->input->post("accion")
 		];
 		echo put_function($id_usuario, $ArrayData, "usuarios/cambiarEstado");

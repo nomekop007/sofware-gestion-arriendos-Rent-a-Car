@@ -19,11 +19,7 @@ class Cliente_controller extends CI_Controller
 
     public function crearCliente()
     {
-
-        $nameUser = $this->session->userdata('nombre');
-
         $arrayData = [
-            "userAt" => $nameUser,
             "rut_cliente" => $this->input->post("inputRutCliente"),
             "nombre_cliente" => $this->input->post("inputNombreCliente"),
             "direccion_cliente" => $this->input->post("inputDireccionCliente"),

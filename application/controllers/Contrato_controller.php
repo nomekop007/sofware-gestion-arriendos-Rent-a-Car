@@ -6,10 +6,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Contrato_controller extends CI_Controller
 {
+
+    public function registrarContrato()
+    {
+        $dataArray = [
+            "id_arriendo" => $this->input->post("inputIdArriendo"),
+            "documento" => $this->input->post("nombre_documento"),
+        ];
+        echo post_function($dataArray, "contratos/registrarContrato");
+    }
+
     public function generarPDFcontrato()
     {
-
-
         $dataArray = [
             "id_arriendo" => $this->input->post("inputIdArriendo"),
             "firmaPNG" => $this->input->post("inputFirmaPNG"),
@@ -36,18 +44,11 @@ class Contrato_controller extends CI_Controller
         echo post_function($dataArray, "contratos/generarPDFcontrato");
     }
 
-
-
-    public function registrarContrato()
+    public function enviarCorreoContrato()
     {
-
-        $nameUser = $this->session->userdata('nombre');
-
-        $dataArray = [
-            "userAt" => $nameUser,
-            "id_arriendo" => $this->input->post("inputIdArriendo"),
-            "documento" => $this->input->post("nombre_documento"),
+        $arrayForm = [
+            "id_arriendo" => $this->input->post("inputIdArriendo")
         ];
-        echo post_function($dataArray, "contratos/registrarContrato");
+        echo post_function($arrayForm, "contratos/enviarCorreoContrato");
     }
 }

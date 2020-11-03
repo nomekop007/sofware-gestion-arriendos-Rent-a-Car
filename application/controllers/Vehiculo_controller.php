@@ -8,11 +8,11 @@ class Vehiculo_controller extends CI_Controller
 
 	public function cargarVehiculos()
 	{
-		$arrayForm = [
+		$arrayVehiculos = [
 			"id_sucursal" => $this->session->userdata('sucursal'),
 			"id_rol" => $this->session->userdata('rol')
 		];
-		echo post_function($arrayForm, "vehiculos/cargarVehiculos");
+		echo post_function($arrayVehiculos, "vehiculos/cargarVehiculos");
 	}
 
 	public function buscarVehiculo()
@@ -24,10 +24,7 @@ class Vehiculo_controller extends CI_Controller
 
 	public function registrarVehiculo()
 	{
-		$nameUser = $this->session->userdata('nombre');
-
 		$arrayVehiculo = [
-			"userAt" => $nameUser,
 			"patente_vehiculo" => $this->input->post("inputPatente"),
 			"transmision_vehiculo" => $this->input->post("inputTransmision"),
 			"modelo_vehiculo" => $this->input->post("inputModelo"),
@@ -43,19 +40,14 @@ class Vehiculo_controller extends CI_Controller
 			"marca_vehiculo" => $this->input->post("inputMarca"),
 			"estado_vehiculo" => $this->input->post("inputEstado"),
 		];
-
 		echo post_function($arrayVehiculo, "vehiculos/registrarVehiculo");
 	}
 
 
 	public function editarVehiculo()
 	{
-
-		$nameUser = $this->session->userdata('nombre');
 		$patente = $this->input->post("inputEditarPatente");
-
 		$arrayVehiculo = [
-			"userAt" => $nameUser,
 			"transmision_vehiculo" => $this->input->post("inputEditarTransmision"),
 			"modelo_vehiculo" => $this->input->post("inputEditarModelo"),
 			"tipo_vehiculo" => $this->input->post("inputEditarTipo"),
@@ -76,10 +68,8 @@ class Vehiculo_controller extends CI_Controller
 
 	public function cambiarEstadoVehiculo()
 	{
-		$nameUser = $this->session->userdata('nombre');
 		$patente = $this->input->post("inputPatenteVehiculo");
 		$ArrayData = [
-			"userAt" => $nameUser,
 			"estado_vehiculo" => $this->input->post("inputEstado"),
 			"kilometraje_vehiculo" => $this->input->post("kilometraje_vehiculo"),
 

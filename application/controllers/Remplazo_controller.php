@@ -10,11 +10,7 @@ class Remplazo_controller extends CI_Controller
 
     public function crearRemplazo()
     {
-
-        $nameUser = $this->session->userdata('nombre');
-
         $ArrayData = [
-            "userAt" => $nameUser,
             "nombreEmpresa_remplazo" => $this->input->post("inputNombreRemplazo"),
             "rut_cliente" => $this->input->post("inputRutCliente"),
         ];

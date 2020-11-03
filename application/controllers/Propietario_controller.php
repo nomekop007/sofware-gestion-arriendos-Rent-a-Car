@@ -8,7 +8,6 @@ class Propietario_controller extends CI_Controller
 
     public function cargarPropietarios()
     {
-
         echo get_function("propietarios/cargarPropietarios");
     }
 }

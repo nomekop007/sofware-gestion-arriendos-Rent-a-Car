@@ -7,25 +7,19 @@ class Empresa_controller extends CI_Controller
 {
     public function cargarEmpresas()
     {
-
         echo get_function("empresas/cargarEmpresas");
     }
 
 
     public function buscarEmpresa()
     {
-
         $rut_empresa = $this->input->post("rut_empresa");
         echo find_function($rut_empresa, "empresas/buscarEmpresa");
     }
 
     public function crearEmpresa()
     {
-
-        $nameUser = $this->session->userdata('nombre');
-
         $arrayData = [
-            "userAt" => $nameUser,
             "rut_empresa" => $this->input->post("inputRutEmpresa"),
             "nombre_empresa" => $this->input->post("inputNombreEmpresa"),
             "direccion_empresa" => $this->input->post("inputDireccionEmpresa"),

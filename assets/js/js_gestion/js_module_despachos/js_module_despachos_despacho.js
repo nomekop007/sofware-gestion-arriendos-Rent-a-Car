@@ -324,7 +324,7 @@ $(document).ready(() => {
     };
 
     const enviarCorreoDespacho = async(data) => {
-        await ajax_function(data, "enviar_correoDespacho");
+        await ajax_function(data, "enviar_correoActaEntrega");
     };
 
     const refrescarTabla = () => {

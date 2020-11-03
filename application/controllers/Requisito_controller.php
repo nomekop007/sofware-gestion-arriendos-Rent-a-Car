@@ -9,8 +9,6 @@ class Requisito_controller extends CI_Controller
 
     public function guardarDocumentosRequistosArriendo()
     {
-
-
         $id_arriendo =   $this->input->post("idArriendo");
 
         //se valdia que se hayan ingresado estos archivos

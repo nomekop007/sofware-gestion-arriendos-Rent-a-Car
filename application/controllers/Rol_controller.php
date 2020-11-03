@@ -8,7 +8,6 @@ class Rol_controller extends CI_Controller
 
     public function cargarRoles()
     {
-
         echo get_function("roles/cargarRoles");
     }
 }

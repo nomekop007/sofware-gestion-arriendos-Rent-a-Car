@@ -70,22 +70,23 @@ $route['registrar_requisitos'] = 'Requisito_controller/guardarDocumentosRequisto
 /* rutas de controller Contrato */
 $route['generar_PDFcontrato'] = 'Contrato_controller/generarPDFcontrato';
 $route['registrar_contrato'] = 'Contrato_controller/registrarContrato';
+$route['enviar_correoContrato'] = 'Contrato_controller/enviarCorreoContrato';
 
 /* rutas de controller arriendo  */
 $route['registrar_arriendo'] = 'Arriendo_controller/registrarArriendo';
 $route['cargar_arriendos'] = 'Arriendo_controller/cargarArriendos';
-$route['enviar_correoArriendo'] = 'Arriendo_controller/enviarCorreoArriendo';
 $route['buscar_arriendo'] = 'Arriendo_controller/buscarArriendo';
 $route['cambiarEstado_arriendo'] = 'Arriendo_controller/cambiarEstadoArriendo';
 
 
 /* rutas de controller ActaEntrega */
-$route['generar_PDFactaEntrega'] = 'ActaEntrega_controller/generarPDFactaEntrega';
 $route['registrar_actaEntrega'] = 'ActaEntrega_controller/registrarActaEntrega';
+$route['generar_PDFactaEntrega'] = 'ActaEntrega_controller/generarPDFactaEntrega';
+$route['enviar_correoActaEntrega'] = 'ActaEntrega_controller/enviarCorreoActaEntrega';
+
 
 /* rutas de controller Despacho */
 $route['registrar_despacho'] = 'Despacho_controller/registrarDespacho';
-$route['enviar_correoDespacho'] = 'Despacho_controller/enviarCorreoDespacho';
 
 
 

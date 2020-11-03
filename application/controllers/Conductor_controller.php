@@ -18,10 +18,7 @@ class Conductor_controller extends CI_Controller
     }
     public function crearConductor()
     {
-
-        $nameUser = $this->session->userdata('nombre');
         $arrayData = [
-            "userAt" => $nameUser,
             "rut_conductor" => $this->input->post("inputRutConductor"),
             "nombre_conductor" => $this->input->post("inputNombreConductor"),
             "telefono_conductor" => $this->input->post("inputTelefonoConductor"),

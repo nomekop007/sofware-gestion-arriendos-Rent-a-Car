@@ -9,11 +9,7 @@ class Pago_controller extends CI_Controller
 
     public function registrarPago()
     {
-
-        $nameUser = $this->session->userdata('nombre');
-
         $dataArray = [
-            "userAt" => $nameUser,
             "id_arriendo" => $this->input->post("inputIdArriendo"),
             "neto_pago" => $this->input->post("inputNeto"),
             "iva_pago" => $this->input->post("inputIVA"),
