@@ -304,6 +304,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
+
                                     <img id="imagen" class="img-fluid rounded float-right" alt="">
                                     <label for="inputEditarFoto">Cambiar foto</label>
                                     <input accept="image/*" type="file" class="form-control-file" id="inputEditarFoto">

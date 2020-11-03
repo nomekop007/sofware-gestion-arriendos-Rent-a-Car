@@ -10,6 +10,7 @@
                     <th>tipo arriendo</th>
                     <th>Fecha Recepcion</th>
                     <th>tiempo restante</th>
+                    <th> </th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +24,7 @@
                     <th>tipo arriendo</th>
                     <th>Fecha Recepcion</th>
                     <th>tiempo restante</th>
+                    <th> </th>
                 </tr>
             </tfoot>
         </table>

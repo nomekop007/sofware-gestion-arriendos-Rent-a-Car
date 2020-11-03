@@ -507,7 +507,23 @@ $(document).ready(() => {
             "inputComprobante",
             $("#inputComprobanteDomicilio")[0].files[0]
         );
-        return await ajax_function(data, "registrar_requisitos");
+
+        return await jQuery.ajax({
+            url: base_url + "registrar_requisitos",
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: "POST",
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(error) {
+                console.log(error);
+            },
+        });
+
+        // return await ajax_function(data, "registrar_requisitos");
     };
 
     const refrescarTabla = () => {

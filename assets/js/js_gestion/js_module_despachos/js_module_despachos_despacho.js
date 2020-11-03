@@ -359,9 +359,8 @@ $(document).ready(() => {
                     arriendo.tipo_arriendo,
                     arriendo.estado_arriendo,
                     arriendo.usuario.nombre_usuario,
-                    ` <button value="${arriendo.id_arriendo}"` +
-                    " onclick='buscarArriendo(this.value)'" +
-                    " data-toggle='modal' data-target='#modal_despachar_arriendo' class='btn btn btn-outline-success'><i class='fas fa-concierge-bell'></i></button>  ",
+                    ` <button value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value)'   data-toggle='modal'
+                    data-target='#modal_despachar_arriendo' class='btn btn btn-outline-success'><i class='fas fa-concierge-bell'></i></button>  `,
                 ])
                 .draw(false);
         } catch (error) {
