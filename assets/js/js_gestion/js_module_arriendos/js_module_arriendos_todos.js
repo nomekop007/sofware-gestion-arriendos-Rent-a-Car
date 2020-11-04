@@ -512,9 +512,7 @@ $(document).ready(() => {
         await ajax_function(data, "cambiarEstado_arriendo");
     };
 
-    $("#btn_subirDocumentos").click(async(event) => {
-        event.preventDefault();
-
+    $("#btn_subirDocumentos").click(async() => {
         const id_arriendo = $("#inputIdArriendoEditar").val();
 
         $("#spinner_btn_subirDocumentos").show();

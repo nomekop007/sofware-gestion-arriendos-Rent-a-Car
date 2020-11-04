@@ -10,7 +10,7 @@ class Requisito_controller extends CI_Controller
     public function guardarDocumentosRequistosArriendo()
     {
         $id_arriendo =   $this->input->post("idArriendo");
-
+        /*
         //se valdia que se hayan ingresado estos archivos
         $licenciaFrontal = null;
         $pathlicenciaFrontal = null;
@@ -115,6 +115,55 @@ class Requisito_controller extends CI_Controller
                 'filename' => $boletaEfectivo
             ],
         ];
-        echo file_function($id_arriendo, $data, "requisitos/registrarRequisitoArriendo");
+        echo file_function($id_arriendo, $data, "requisitos/registrarRequisitoArriendo"); 
+        */
+
+
+        /*  $carnetFrontal = null;
+        $pathCarnetFrontal = null;
+        if (isset($_FILES['inputCarnetFrontal'])) {
+            $pathCarnetFrontal = file_get_contents($_FILES["inputCarnetFrontal"]["tmp_name"]);
+            $carnetFrontal = $_FILES['inputCarnetFrontal']['name'];
+        }
+
+        $data = [
+            [
+                'name'     => 'fotoCarnetFrontal',
+                'contents' => $pathCarnetFrontal,
+                'filename' => $carnetFrontal
+            ],
+        ];
+
+        echo file_function($id_arriendo, $data, "requisitos/registrarRequisitoArriendo"); */
+
+
+
+        $mi_archivo = 'inputCarnetFrontal';
+        $config['file_name'] = "fotoCarnetFrontal";
+        $config['upload_path'] = "temp_files/";
+        $config['allowed_types'] = "*";
+
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload($mi_archivo)) {
+            //*** ocurrio un error
+            echo $this->upload->display_errors();
+            return;
+        }
+        $data['uploadSuccess'] = $this->upload->data();
+
+        //  var_dump($data['uploadSuccess']);
+
+        $datafile = [
+            [
+                'name'     => 'fotoCarnetFrontal',
+                'contents' => fopen($data['uploadSuccess']["full_path"], "r"),
+                'filename' => $data['uploadSuccess']["file_name"]
+            ],
+        ];
+
+        echo file_function($id_arriendo, $datafile, "requisitos/registrarRequisitoArriendo");
+        unlink($data['uploadSuccess']["full_path"]);
     }
 }

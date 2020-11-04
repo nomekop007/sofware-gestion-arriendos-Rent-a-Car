@@ -351,7 +351,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <div class="form-row">
                             <div class="container">
                                 <h5> adjuntar Documentos </h5>
-                                <br>
                                 <div class="card bg-light" id="card_carnet">
                                     <h6>Foto Carnet</h6>
                                     <div class="row text-center">
@@ -387,6 +386,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         </div>
                                     </div>
                                 </div>
+
                                 <br>
                                 <div class="form-row">
                                     <div class="form-group col-md-12" id="card_domicilio">
