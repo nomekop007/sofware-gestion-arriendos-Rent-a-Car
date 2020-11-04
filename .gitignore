@@ -1,6 +1,6 @@
 .DS_Store
 
-uploads/*
+temp_files/*
 application/config/config.php
 application/helpers/urls_helper.php
 index.php
