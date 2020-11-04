@@ -84,29 +84,27 @@ class Vehiculo_controller extends CI_Controller
 		$patente =   $this->input->post("inputPatente");
 
 		$file = 'inputFoto';
-		$config['file_name'] = "fotoAuto";
 		$config['upload_path'] = "temp_files/";
 		$config['allowed_types'] = "*";
-
 
 		$this->load->library('upload', $config);
 
 		if (!$this->upload->do_upload($file)) {
 			//*** ocurrio un error
-			echo json_encode(array("success" => false));
+			echo json_encode(array("success" => false, "msg" => $this->upload->display_errors()));
 			return;
 		}
-		$data['uploadSuccess'] = $this->upload->data();
+		$img['uploadSuccess'] = $this->upload->data();
 
 		$datafile = [
 			[
 				'name'     => 'foto_vehiculo',
-				'contents' => fopen($data['uploadSuccess']["full_path"], "r"),
-				'filename' => $data['uploadSuccess']["file_name"]
+				'contents' => fopen($img['uploadSuccess']["full_path"], "r"),
+				'filename' => $img['uploadSuccess']["file_name"]
 			],
 		];
 
 		echo file_function($patente, $datafile, "vehiculos/cargarImagen");
-		unlink($data['uploadSuccess']["full_path"]); //elimina las imagenes
+		unlink($img['uploadSuccess']["full_path"]); //elimina las imagenes
 	}
 }

@@ -2,7 +2,6 @@
 var base_url = $("#url").val();
 var base_route = $("#route").val();
 var storage = $("#storage").val();
-
 //cargar selects
 function cargarSelect(ruta, idSelect) {
     const url = base_url + ruta;
