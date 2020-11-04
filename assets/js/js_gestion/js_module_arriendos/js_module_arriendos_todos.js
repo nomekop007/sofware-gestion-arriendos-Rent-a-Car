@@ -166,7 +166,7 @@ const mostrarArriendoModalEditar = (arriendo) => {
         if (arriendo.requisito.cartaRemplazo_requisito) {
             const a = document.createElement("a");
             a.href = url + arriendo.requisito.cartaRemplazo_requisito;
-            a.text = "Carta de remplazo";
+            a.text = "Foto carta de remplazo";
             a.target = "_blank";
             a.className = "badge badge-pill badge-info";
             document.getElementById("card_documentos").append(a);
@@ -176,37 +176,38 @@ const mostrarArriendoModalEditar = (arriendo) => {
             a.className = "badge badge-pill badge-info";
             a.target = "_blank";
             a.href = url + arriendo.requisito.chequeGarantia_requisito;
-            a.text = "Cheque en garantia";
+            a.text = "Foto cheque en garantia";
             document.getElementById("card_documentos").append(a);
         }
         if (arriendo.requisito.comprobanteDomicilio_requisito) {
             const a = document.createElement("a");
             a.href = url + arriendo.requisito.comprobanteDomicilio_requisito;
-            a.text = "Comprobante de domicilio";
+            a.text = "Foto comprobante de domicilio";
             a.className = "badge badge-pill badge-info";
             a.target = "_blank";
             document.getElementById("card_documentos").append(a);
         }
-        if (arriendo.requisito.licenciaConducir_requisito) {
+        if (arriendo.requisito.licenciaConducirFrontal_requisito) {
             const a = document.createElement("a");
-            a.href = url + arriendo.requisito.licenciaConducir_requisito;
-            a.text = "Licencia de conducir";
+            a.href = url + arriendo.requisito.licenciaConducirFrontal_requisito;
+            a.text = "Foto licencia de conducir frontal";
             a.className = "badge badge-pill badge-info";
             a.target = "_blank";
             document.getElementById("card_documentos").append(a);
         }
-        if (arriendo.requisito.tarjetaCreditoFrontal_requisito) {
+
+        if (arriendo.requisito.licenciaConducirTrasera_requisito) {
             const a = document.createElement("a");
-            a.href = url + arriendo.requisito.tarjetaCreditoFrontal_requisito;
-            a.text = "Foto Tarjeta de credito frontal";
+            a.href = url + arriendo.requisito.licenciaConducirTrasera_requisito;
+            a.text = "Foto licencia de conducir trasera";
             a.className = "badge badge-pill badge-info";
             a.target = "_blank";
             document.getElementById("card_documentos").append(a);
         }
-        if (arriendo.requisito.tarjetaCreditoTrasera_requisito) {
+        if (arriendo.requisito.tarjetaCredito_requisito) {
             const a = document.createElement("a");
-            a.href = url + arriendo.requisito.tarjetaCreditoTrasera_requisito;
-            a.text = "Foto tarjeta de credito trasera";
+            a.href = url + arriendo.requisito.tarjetaCredito_requisito;
+            a.text = "Foto tarjeta de credito";
             a.className = "badge badge-pill badge-info";
             a.target = "_blank";
             document.getElementById("card_documentos").append(a);
@@ -214,7 +215,7 @@ const mostrarArriendoModalEditar = (arriendo) => {
         if (arriendo.requisito.boletaEfectivo_requisito) {
             const a = document.createElement("a");
             a.href = url + arriendo.requisito.boletaEfectivo_requisito;
-            a.text = "Comprobante efectivo";
+            a.text = "Foto comprobante efectivo";
             a.className = "badge badge-pill badge-info";
             a.target = "_blank";
             document.getElementById("card_documentos").append(a);
@@ -282,6 +283,7 @@ const limpiarCampos = () => {
     $("#card_documentos").empty();
     $("#formAccesorios").empty();
     $("#formContrato")[0].reset();
+    $("#formSubirDocumentos")[0].reset();
     $("#btn_crear_contrato").attr("disabled", false);
     $("#spinner_btn_crearContrato").hide();
     $("#spinner_btn_firmarContrato").hide();
@@ -510,7 +512,7 @@ $(document).ready(() => {
         await ajax_function(data, "cambiarEstado_arriendo");
     };
 
-    $("#btn_subirDocumentos").click(async function(event) {
+    $("#btn_subirDocumentos").click(async(event) => {
         event.preventDefault();
 
         const id_arriendo = $("#inputIdArriendoEditar").val();
@@ -536,9 +538,9 @@ $(document).ready(() => {
         data.append("idArriendo", idArriendo);
         data.append("inputCarnetFrontal", $("#inputCarnetFrontal")[0].files[0]);
         data.append("inputCarnetTrasera", $("#inputCarnetTrasera")[0].files[0]);
-        data.append("inputTarjetaFrontal", $("#inputTarjetaFrontal")[0].files[0]);
-        data.append("inputTarjetaTrasera", $("#inputTarjetaTrasera")[0].files[0]);
-        data.append("inputLicencia", $("#inputLicencia")[0].files[0]);
+        data.append("inputlicenciaFrontal", $("#inputlicenciaFrontal")[0].files[0]);
+        data.append("inputlicenciaTrasera", $("#inputlicenciaTrasera")[0].files[0]);
+        data.append("inputTarjeta", $("#inputTarjeta")[0].files[0]);
         data.append("inputCheque", $("#inputChequeGarantia")[0].files[0]);
         data.append("inputCartaRemplazo", $("#inputCartaRemplazo")[0].files[0]);
         data.append("inputBoletaEfectivo", $("#inputBoletaEfectivo")[0].files[0]);

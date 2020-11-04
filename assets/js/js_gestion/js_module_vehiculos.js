@@ -165,7 +165,6 @@ $(document).ready(() => {
                 const file = $("#inputEditarFoto")[0].files[0];
                 const patente = response.data.patente_vehiculo;
                 const responseFoto = await guardarImagenVehiculo(patente, file);
-                console.log(responseFoto);
                 if (responseFoto.success) {
                     Swal.fire("Exito", responseFoto.msg, "success");
                     $("#modal_editar").modal("toggle");
@@ -184,6 +183,24 @@ $(document).ready(() => {
         const data = new FormData();
         data.append("inputPatente", patente);
         data.append("inputFoto", file);
+        /* 
+        $.ajax({
+            url: base_url + "guardar_fotoVehiculo",
+            type: "post",
+            data: data,
+            enctype: "multipart/form-data",
+            processData: false,
+            contentType: false,
+            cache: false,
+            timeOut: 600000,
+            success: (response) => {
+                console.log(response);
+            },
+            error: (error) => {
+                console.log(" ERROR CLIENT!");
+            },
+        }); */
+
         return await ajax_function(data, "guardar_fotoVehiculo");
     };
 

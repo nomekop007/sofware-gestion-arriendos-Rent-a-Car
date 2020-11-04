@@ -351,6 +351,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <div class="form-row">
                             <div class="container">
                                 <h5> adjuntar Documentos </h5>
+                                <br>
                                 <div class="card bg-light" id="card_carnet">
                                     <h6>Foto Carnet</h6>
                                     <div class="row text-center">
@@ -365,6 +366,24 @@ $nombreUsuario = $this->session->userdata('nombre')
                                             <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf"
                                                 type="file" class="form-control-file" id="inputCarnetTrasera"
                                                 name="inputCarnetTrasera" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="card bg-light" id="card_licencia">
+                                    <h6>Foto licencia de conducir</h6>
+                                    <div class="row text-center">
+                                        <div class="form-group col-md-6 ">
+                                            <label for="inputlicenciaFrontal">(frontal)</label>
+                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                                type="file" class="form-control-file" id="inputlicenciaFrontal"
+                                                name="inputlicenciaFrontal" required>
+                                        </div>
+                                        <div class="form-group col-md-6 ">
+                                            <label for="inputlicenciaTrasera">(trasera)</label>
+                                            <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf"
+                                                type="file" class="form-control-file" id="inputlicenciaTrasera"
+                                                name="inputlicenciaTrasera" required>
                                         </div>
                                     </div>
                                 </div>
@@ -384,35 +403,18 @@ $nombreUsuario = $this->session->userdata('nombre')
                                             name="inputCartaRemplazo" required>
                                         <br>
                                     </div>
-                                    <div class="form-group col-md-12" id="card_licencia">
-                                        <h6 for="inputLicencia">Licencia de conducir</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputLicencia"
-                                            name="inputLicencia" required>
-                                        <br>
-                                    </div>
                                 </div>
                                 <br>
                                 <h5>Documentos garantia en <span id="nombre_garantia"></span></h5>
-                                <div class="card bg-light" id="card_tarjeta">
-                                    <h6>Foto tarjeta de credito</h6>
-                                    <div class="row text-center">
-                                        <div class="form-group col-md-6">
-                                            <label for="inputTarjetaFrontal">(frontal)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                                type="file" class="form-control-file" id="inputTarjetaFrontal"
-                                                name="inputTarjetaFrontal" required>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="inputTarjetaTrasera">(trasera)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                                type="file" class="form-control-file" id="inputTarjetaTrasera"
-                                                name="inputTarjetaTrasera" required>
-                                        </div>
-                                    </div>
-                                </div>
                                 <br>
                                 <div class="form-row">
+                                    <div class="form-group col-md-12" id="card_tarjeta">
+                                        <h6 for="inputTarjeta">Foto Tarjeta </h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputTarjeta" name="inputTarjeta"
+                                            required>
+                                        <br>
+                                    </div>
                                     <div class="form-group col-md-12" id="card_cheque">
                                         <h6 for="inputChequeGarantia">Foto cheque</h6>
                                         <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"

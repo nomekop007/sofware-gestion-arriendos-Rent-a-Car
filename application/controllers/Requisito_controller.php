@@ -12,17 +12,17 @@ class Requisito_controller extends CI_Controller
         $id_arriendo =   $this->input->post("idArriendo");
 
         //se valdia que se hayan ingresado estos archivos
-        $tarjetaFrontal = null;
-        $pathTarjetaFrontal = null;
-        if (isset($_FILES['inputTarjetaFrontal'])) {
-            $pathTarjetaFrontal = file_get_contents($_FILES["inputTarjetaFrontal"]["tmp_name"]);
-            $tarjetaFrontal = $_FILES['inputTarjetaFrontal']['name'];
+        $licenciaFrontal = null;
+        $pathlicenciaFrontal = null;
+        if (isset($_FILES['inputlicenciaFrontal'])) {
+            $pathlicenciaFrontal = file_get_contents($_FILES["inputlicenciaFrontal"]["tmp_name"]);
+            $licenciaFrontal = $_FILES['inputlicenciaFrontal']['name'];
         }
-        $tarjetaTrasera = null;
-        $pathTarjetaTrasera = null;
-        if (isset($_FILES['inputTarjetaTrasera'])) {
-            $pathTarjetaTrasera = file_get_contents($_FILES["inputTarjetaTrasera"]["tmp_name"]);
-            $tarjetaTrasera = $_FILES['inputTarjetaTrasera']['name'];
+        $licenciaTrasera = null;
+        $pathlicenciaTrasera = null;
+        if (isset($_FILES['inputlicenciaTrasera'])) {
+            $pathlicenciaTrasera = file_get_contents($_FILES["inputlicenciaTrasera"]["tmp_name"]);
+            $licenciaTrasera = $_FILES['inputlicenciaTrasera']['name'];
         }
         $cheque = null;
         $pathCheque = null;
@@ -36,11 +36,11 @@ class Requisito_controller extends CI_Controller
             $pathComprobante = file_get_contents($_FILES["inputComprobante"]["tmp_name"]);
             $comprobante = $_FILES['inputComprobante']['name'];
         }
-        $licencia = null;
-        $pathLicencia = null;
-        if (isset($_FILES['inputLicencia'])) {
-            $pathLicencia = file_get_contents($_FILES["inputLicencia"]["tmp_name"]);
-            $licencia = $_FILES['inputLicencia']['name'];
+        $tarjeta = null;
+        $pathtarjeta = null;
+        if (isset($_FILES['inputTarjeta'])) {
+            $pathtarjeta = file_get_contents($_FILES["inputTarjeta"]["tmp_name"]);
+            $tarjeta = $_FILES['inputTarjeta']['name'];
         }
         $carnetFrontal = null;
         $pathCarnetFrontal = null;
@@ -70,14 +70,14 @@ class Requisito_controller extends CI_Controller
 
         $data = [
             [
-                'name'     => 'fotoTarjetaFrontal',
-                'contents' => $pathTarjetaFrontal,
-                'filename' => $tarjetaFrontal
+                'name'     => 'fotoLicenciaFrontal',
+                'contents' => $pathlicenciaFrontal,
+                'filename' => $licenciaFrontal
             ],
             [
-                'name'     => 'fotoTarjetaTrasera',
-                'contents' => $pathTarjetaTrasera,
-                'filename' => $tarjetaTrasera
+                'name'     => 'fotoLicenciaTrasera',
+                'contents' => $pathlicenciaTrasera,
+                'filename' => $licenciaTrasera
             ],
             [
                 'name'     => 'fotoCheque',
@@ -90,9 +90,9 @@ class Requisito_controller extends CI_Controller
                 'filename' => $comprobante
             ],
             [
-                'name'     => 'fotoLicencia',
-                'contents' => $pathLicencia,
-                'filename' => $licencia
+                'name'     => 'fotoTarjeta',
+                'contents' => $pathtarjeta,
+                'filename' => $tarjeta
             ],
             [
                 'name'     => 'fotoCarnetFrontal',

@@ -1,3 +1,4 @@
+$("#spinner_btn_login").hide();
 $(document).ready(() => {
     var base_url = $("#url").val();
 
@@ -6,12 +7,16 @@ $(document).ready(() => {
         var clave = $("#inputclave").val();
 
         if (correo.length != 0 || clave.length != 0) {
+            $("#btn_login").attr("disabled", true);
+            $("#spinner_btn_login").show();
             $.ajax({
                 url: base_url + "iniciar_sesion",
                 type: "post",
                 dataType: "json",
                 data: { correo, clave },
                 success: (response) => {
+                    $("#btn_login").attr("disabled", false);
+                    $("#spinner_btn_login").hide();
                     if (response.success) {
                         crearSesion(response.usuario);
                     } else {
@@ -58,6 +63,8 @@ $(document).ready(() => {
     }
 
     function alertError() {
+        $("#btn_login").attr("disabled", false);
+        $("#spinner_btn_login").hide();
         Swal.fire({
             icon: "error",
             title: "Oops...",

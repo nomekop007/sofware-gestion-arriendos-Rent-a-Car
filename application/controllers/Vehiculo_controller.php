@@ -80,6 +80,7 @@ class Vehiculo_controller extends CI_Controller
 
 	public function guardarFotoVehiculo()
 	{
+		$this->load->helper('file');
 
 		$patente =   $this->input->post("inputPatente");
 

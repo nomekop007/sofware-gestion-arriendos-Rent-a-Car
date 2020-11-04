@@ -30,7 +30,10 @@
                 <input type="checkbox" value="remember-me"> Recordar
             </label>
         </div>
-        <button class="btn btn-dark btn-block btn_login" type="submit">Iniciar Sesion</button>
+        <button class="btn btn-dark btn-block btn_login" type="submit" id="btn_login">Iniciar Sesion
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                id="spinner_btn_login"></span>
+        </button>
         <p class="mt-5 mb-3 text-muted text-center">Copyright © SAC Grupo Firma</p>
     </form>
 
