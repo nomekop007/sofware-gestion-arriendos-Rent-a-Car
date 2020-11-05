@@ -47,8 +47,8 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 
-<!-- Modal Confirmacion arriendo -->
-<div class="modal fade" id="modal_confirmar_arriendo" data-backdrop="static" style="overflow-y: scroll;"
+<!-- Modal pago arriendo -->
+<div class="modal fade" id="modal_pago_arriendo" data-backdrop="static" style="overflow-y: scroll;"
     data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -189,14 +189,10 @@ $nombreUsuario = $this->session->userdata('nombre')
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="btn btn-success" data-toggle="modal"
-                            data-target="#modal_signature">
-                            firmar contrato <i class="fas fa-feather-alt"></i>
-                        </button>
-                        <button type="submit" id="btn_crear_contrato" class="btn btn-primary">
+                        <button type="submit" id="btn_registrar_pago" class="btn btn-primary">
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                id="spinner_btn_crearContrato"></span>
-                            Generar Contrato</button>
+                                id="spinner_btn_registrarPago"></span>
+                            Guardar Pago</button>
                     </div>
             </form>
         </div>

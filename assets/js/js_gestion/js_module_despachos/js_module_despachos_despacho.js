@@ -180,11 +180,11 @@ $(document).ready(() => {
             (success = (pos) => {
                 console.log(pos);
                 const geo =
-                    "lat:" +
+                    "LAT: " +
                     pos.coords.latitude +
-                    " - log:" +
+                    " - LOG: " +
                     pos.coords.longitude +
-                    " - stamp:" +
+                    " - STAMP: " +
                     pos.timestamp;
                 firmarActaEntrega(geo);
             }),

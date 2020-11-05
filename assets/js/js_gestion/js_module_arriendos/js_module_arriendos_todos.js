@@ -6,58 +6,21 @@ const buscarArriendo = async(id_arriendo, option) => {
     if (response.success) {
         const arriendo = response.data;
         // si es true carga modal confirmar ; false carga modal editar
-        option
-            ?
-            mostrarArriendoModalConfirmacion(arriendo) :
-            mostrarArriendoModalEditar(arriendo);
+
+        switch (option) {
+            case 1:
+                mostrarArriendoModalEditar(arriendo);
+                break;
+            case 2:
+                mostrarArriendoModalPago(arriendo);
+                break;
+            case 3:
+                //aqui se firma
+                break;
+        }
     }
     $("#formSpinner").hide();
     $("#formSpinnerEditar").hide();
-};
-
-const mostrarArriendoModalConfirmacion = (arriendo) => {
-    if (arriendo.requisito) {
-        $("#formContrato").show();
-        $("#numeroArriendoConfirmacion").text("Nº" + arriendo.id_arriendo);
-        $("#inputIdArriendo").val(arriendo.id_arriendo);
-        $("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo);
-        $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
-        $("#textTipo").val(arriendo.tipo_arriendo);
-        $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
-        switch (arriendo.tipo_arriendo) {
-            case "PARTICULAR":
-                $("#textCliente").html(arriendo.cliente.nombre_cliente);
-                $("#textVehiculo").html(
-                    "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
-                );
-                break;
-            case "REMPLAZO":
-                $("#subtotal-copago").show();
-                $("#textCliente").html(
-                    arriendo.remplazo.cliente.nombre_cliente +
-                    " - " +
-                    arriendo.remplazo.nombreEmpresa_remplazo
-                );
-                $("#textVehiculo").html(
-                    "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
-                );
-                break;
-            case "EMPRESA":
-                $("#textCliente").html(arriendo.empresa.nombre_empresa);
-                $("#textVehiculo").html(
-                    "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
-                );
-                break;
-        }
-        mostrarAccesorios(arriendo);
-    } else {
-        Swal.fire({
-            icon: "warning",
-            title: "falta documentos adjuntos!",
-            text: "se debe ingresar la documentacion correspondiente para continuar",
-        });
-        $("#modal_confirmar_arriendo").modal("toggle");
-    }
 };
 
 const mostrarArriendoModalEditar = (arriendo) => {
@@ -229,6 +192,51 @@ const mostrarArriendoModalEditar = (arriendo) => {
     }
 };
 
+const mostrarArriendoModalPago = (arriendo) => {
+    if (arriendo.requisito) {
+        $("#formContrato").show();
+        $("#numeroArriendoConfirmacion").text("Nº" + arriendo.id_arriendo);
+        $("#inputIdArriendo").val(arriendo.id_arriendo);
+        $("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo);
+        $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
+        $("#textTipo").val(arriendo.tipo_arriendo);
+        $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
+        switch (arriendo.tipo_arriendo) {
+            case "PARTICULAR":
+                $("#textCliente").html(arriendo.cliente.nombre_cliente);
+                $("#textVehiculo").html(
+                    "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
+                );
+                break;
+            case "REMPLAZO":
+                $("#subtotal-copago").show();
+                $("#textCliente").html(
+                    arriendo.remplazo.cliente.nombre_cliente +
+                    " - " +
+                    arriendo.remplazo.nombreEmpresa_remplazo
+                );
+                $("#textVehiculo").html(
+                    "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
+                );
+                break;
+            case "EMPRESA":
+                $("#textCliente").html(arriendo.empresa.nombre_empresa);
+                $("#textVehiculo").html(
+                    "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
+                );
+                break;
+        }
+        mostrarAccesorios(arriendo);
+    } else {
+        Swal.fire({
+            icon: "warning",
+            title: "falta documentos adjuntos!",
+            text: "se debe ingresar la documentacion correspondiente para continuar",
+        });
+        $("#modal_confirmar_arriendo").modal("toggle");
+    }
+};
+
 const mostrarAccesorios = (arriendo) => {
     if (arriendo.accesorios.length) {
         $.each(arriendo.accesorios, (i, o) => {
@@ -362,11 +370,11 @@ $(document).ready(() => {
             (success = (pos) => {
                 console.log(pos);
                 const geo =
-                    "lat:" +
+                    "LAT: " +
                     pos.coords.latitude +
-                    " - log:" +
+                    " - LOG: " +
                     pos.coords.longitude +
-                    " - stamp:" +
+                    " - STAMP: " +
                     pos.timestamp;
                 firmarContrato(geo);
             }),
@@ -392,7 +400,6 @@ $(document).ready(() => {
         const descuento = $("#inputDescuento").val();
         const valorArriendo = $("#inputValorArriendo").val();
         const valorCopago = $("#inputValorCopago").val();
-        const numFacturacion = $("#inputNumFacturacion").val();
         const total = Number($("#inputTotal").val());
 
         //cacturando los accesorios
@@ -410,7 +417,6 @@ $(document).ready(() => {
         }
 
         if (
-            numFacturacion.length != 0 &&
             total >= 0 &&
             descuento.length != 0 &&
             valorArriendo.length != 0 &&
@@ -502,6 +508,12 @@ $(document).ready(() => {
     };
 
     const guardarDatosPago = async(data) => {
+        data.append("digitador", $("#inputDigitador").val());
+        if ($("#inputNumFacturacion").val().length > 4) {
+            data.append("inputEstado", "PAGADO");
+        } else {
+            data.append("inputEstado", "PENDIENTE");
+        }
         data.append("digitador", $("#inputDigitador").val());
         await ajax_function(data, "registrar_pago");
     };
@@ -597,18 +609,23 @@ $(document).ready(() => {
                     arriendo.tipo_arriendo,
                     arriendo.estado_arriendo,
                     arriendo.usuario.nombre_usuario,
-                    ` <button id='${arriendo.id_arriendo}' value='${arriendo.id_arriendo}'
-					   onclick='buscarArriendo(this.value,true)' data-toggle='modal' data-target='#modal_confirmar_arriendo'
-						class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button> 
-						 <button id='${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,false)' 
-                            data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn btn-outline-primary'><i class='far fa-eye'></i></button>  `,
+                    `
+                    <button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
+                        data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn-outline-primary'><i class='far fa-eye'></i></button>
+                         
+                        <button id='b${arriendo.id_arriendo}' value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,2)' 
+                            data-toggle='modal' data-target='#modal_pago_arriendo' class='btn btn-outline-info'><i class="fas fa-money-bill-wave"></i></button> 
+                     
+                            <button id='c${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,3)' 
+                                data-toggle='modal' data-target='#modal_firmar_contrato' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  
+                                `,
                 ])
                 .draw(false);
 
             if (arriendo.estado_arriendo != "PENDIENTE") {
-                $(`#${arriendo.id_arriendo}`).attr("disabled", true);
-                $(`#${arriendo.id_arriendo}`).removeClass("btn-outline-info");
-                $(`#${arriendo.id_arriendo}`).addClass("btn-info");
+                $(`#c${arriendo.id_arriendo}`).attr("disabled", true);
+                $(`#c${arriendo.id_arriendo}`).removeClass("btn-outline-info");
+                $(`#c${arriendo.id_arriendo}`).addClass("btn-info");
             }
         } catch (error) {
             console.log("error al cargar este arriendo: " + error);
