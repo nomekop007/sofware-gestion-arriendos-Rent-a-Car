@@ -12,6 +12,7 @@ const buscarArriendo = async(id_arriendo, option) => {
             mostrarArriendoModalEditar(arriendo);
     }
     $("#formSpinner").hide();
+    $("#formSpinnerEditar").hide();
 };
 
 const mostrarArriendoModalConfirmacion = (arriendo) => {
@@ -60,7 +61,6 @@ const mostrarArriendoModalConfirmacion = (arriendo) => {
 };
 
 const mostrarArriendoModalEditar = (arriendo) => {
-    $("#formSpinnerEditar").hide();
     $("#body_editarArriendo").show();
     $("#inputIdArriendoEditar").val(arriendo.id_arriendo);
     $("#numeroArriendoEditar").text("Nº" + arriendo.id_arriendo);
@@ -97,6 +97,7 @@ const mostrarArriendoModalEditar = (arriendo) => {
     );
     $("#inputEditarDiasArriendo").val(arriendo.numerosDias_arriendo);
     $("#inputEditarUsuarioArriendo").val(arriendo.usuario.nombre_usuario);
+    $("#inputEditarSucursal").val(arriendo.sucursale.nombre_sucursal);
     $("#inputEditarRegistroArriendo").val(formatearFechaHora(arriendo.createdAt));
 
     $("#card_carnet").show();
@@ -278,6 +279,8 @@ const calcularValores = () => {
 };
 
 const limpiarCampos = () => {
+    $("#numeroArriendoConfirmacion").text("");
+    $("#numeroArriendoEditar").text("");
     $("#body_editarArriendo").hide();
     $("#formContrato").hide();
     $("#card_documentos").empty();
@@ -577,13 +580,13 @@ $(document).ready(() => {
             let cliente = "";
             switch (arriendo.tipo_arriendo) {
                 case "PARTICULAR":
-                    cliente = arriendo.cliente.nombre_cliente;
+                    cliente = `${arriendo.cliente.nombre_cliente}`;
                     break;
                 case "REMPLAZO":
-                    cliente = arriendo.remplazo.cliente.nombre_cliente;
+                    cliente = `${arriendo.remplazo.cliente.nombre_cliente}`;
                     break;
                 case "EMPRESA":
-                    cliente = arriendo.empresa.nombre_empresa;
+                    cliente = `${arriendo.empresa.nombre_empresa}`;
                     break;
             }
             tablaTotalArriendos.row

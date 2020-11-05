@@ -174,11 +174,29 @@ $(document).on("change", 'input[type="file"]', function() {
             this.files[0].name = "";
             break;
     }
-    //fileSize > 21000000  20mb
+    //fileSize > 21000000  10mb
     //fileSize > 1500000
-    if (fileSize > 21000000) {
-        alert("El archivo tiene que pesar menos de 20mb");
+    if (fileSize > 12000000) {
+        alert("El archivo tiene que pesar menos de 10mb");
         this.value = ""; // reset del valor
         this.files[0].name = "";
     }
 });
+
+// redimenciona una imagen en formato base 64 (base64, canvas.width, canvas.height)
+//ES ASINCRONO
+const resizeBase64Img = (base64, newWidth, newHeight) => {
+    return new Promise((resolve, reject) => {
+        var canvas = document.createElement("canvas");
+        canvas.width = newWidth / 2;
+        canvas.height = newHeight / 2;
+        let context = canvas.getContext("2d");
+        let img = document.createElement("img");
+        img.src = base64;
+        img.onload = function() {
+            context.scale(newWidth / 2 / img.width, newHeight / 2 / img.height);
+            context.drawImage(img, 0, 0);
+            resolve(canvas.toDataURL());
+        };
+    });
+};

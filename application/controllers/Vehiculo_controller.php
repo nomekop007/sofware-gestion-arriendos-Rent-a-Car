@@ -85,7 +85,7 @@ class Vehiculo_controller extends CI_Controller
 
 		$file = 'inputFoto';
 		$config['upload_path'] = "temp_files/";
-		$config['allowed_types'] = "*";
+		$config['allowed_types'] = "gif|jpg|jpeg|png";
 
 		$this->load->library('upload', $config);
 

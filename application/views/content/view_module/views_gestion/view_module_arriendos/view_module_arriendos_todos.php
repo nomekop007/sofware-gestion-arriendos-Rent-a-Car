@@ -334,6 +334,10 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <label for="inputEditarUsuarioArriendo">Vendedor</label>
                             <input disabled type="text" class="form-control" id="inputEditarUsuarioArriendo">
                         </div>
+                        <div class="form-group col-lg-3">
+                            <label for="inputEditarSucursal">Sucursal</label>
+                            <input disabled type="text" class="form-control" id="inputEditarSucursal">
+                        </div>
                         <div class="form-group col-lg-4">
                             <label for="inputEditarRegistroArriendo">fecha registro</label>
                             <input disabled type="text" class="form-control" id="inputEditarRegistroArriendo">

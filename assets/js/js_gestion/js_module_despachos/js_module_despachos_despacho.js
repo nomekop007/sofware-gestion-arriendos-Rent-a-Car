@@ -91,15 +91,11 @@ $(document).ready(() => {
         Actualizado: es posible que esto cambie debido al ambiente de desarrollo
         o capacidad de la maquina en la que se este ejecutando
         */
-        if ($("#inputImagenVehiculo").val() != 0) {
+        const inputImg = $("#inputImagenVehiculo").val();
+        if (inputImg != 0) {
             const canvas = document.getElementById("canvas-fotoVehiculo");
             const base64 = canvas.toDataURL("image/png");
-
-            const url = await resizeBase64Img(
-                base64,
-                canvas.width / 2,
-                canvas.height / 2
-            );
+            const url = await resizeBase64Img(base64, canvas.width, canvas.height);
             if (arrayImages.length < 5) {
                 arrayImages.push(url);
                 agregarFotoACarrucel(arrayImages);
@@ -311,22 +307,6 @@ $(document).ready(() => {
         return matrizRecepcion;
     };
 
-    const resizeBase64Img = (base64, newWidth, newHeight) => {
-        return new Promise((resolve, reject) => {
-            var canvas = document.createElement("canvas");
-            canvas.width = newWidth;
-            canvas.height = newHeight;
-            let context = canvas.getContext("2d");
-            let img = document.createElement("img");
-            img.src = base64;
-            img.onload = function() {
-                context.scale(newWidth / img.width, newHeight / img.height);
-                context.drawImage(img, 0, 0);
-                resolve(canvas.toDataURL());
-            };
-        });
-    };
-
     const guardarDatosDespacho = async(data) => {
         return await ajax_function(data, "registrar_despacho");
     };
@@ -372,13 +352,13 @@ $(document).ready(() => {
             let cliente = "";
             switch (arriendo.tipo_arriendo) {
                 case "PARTICULAR":
-                    cliente = arriendo.cliente.nombre_cliente;
+                    cliente = `${arriendo.cliente.nombre_cliente} ${arriendo.cliente.rut_cliente}`;
                     break;
                 case "REMPLAZO":
-                    cliente = arriendo.remplazo.cliente.nombre_cliente;
+                    cliente = `${arriendo.remplazo.cliente.nombre_cliente} ${arriendo.remplazo.cliente.rut_cliente}`;
                     break;
                 case "EMPRESA":
-                    cliente = arriendo.empresa.nombre_empresa;
+                    cliente = `${arriendo.empresa.nombre_empresa} ${arriendo.empresa.rut_empresa}`;
                     break;
             }
             tablaControldespacho.row
