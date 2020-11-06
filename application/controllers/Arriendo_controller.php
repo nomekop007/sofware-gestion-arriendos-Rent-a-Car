@@ -53,7 +53,7 @@ class Arriendo_controller extends CI_Controller
 
     public function cambiarEstadoArriendo()
     {
-        $idArriendo = $this->input->post("inputIdArriendo");
+        $idArriendo = $this->input->post("id_arriendo");
         $ArrayData = [
             "estado_arriendo" =>  $this->input->post("estado")
         ];

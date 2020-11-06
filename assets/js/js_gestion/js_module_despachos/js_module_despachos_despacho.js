@@ -213,20 +213,17 @@ $(document).ready(() => {
             const canvas = document.getElementById("canvas-combustible");
             const url = canvas.toDataURL("image/png");
             const matrizRecepcion = await capturarControlRecepcionArray();
-
             data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
             data.append("arrayImages", JSON.stringify(arrayImages));
             data.append("imageCombustible", url);
-
             $("#btn_crear_ActaEntrega").attr("disabled", true);
             $("#btn_firmar_actaEntrega").attr("disabled", true);
             $("#spinner_btn_generarActaEntrega").show();
             $("#spinner_btn_firmarActaEntrega").show();
             $("#recibido").text($("#inputRecibidorDespacho").val());
             $("#entregado").text($("#inputEntregadorDespacho").val());
-
             const response = await ajax_function(data, "generar_PDFactaEntrega");
-            if (response) {
+            if (response.success) {
                 $("#modal_signature").modal({
                     show: true,
                 });
@@ -239,13 +236,11 @@ $(document).ready(() => {
                     "documentos/actaEntrega/" +
                     response.data.nombre_documento +
                     ".pdf";
-
                 if (response.data.firma1 && response.data.firma2) {
                     $("#btn_confirmar_actaEntrega").attr("disabled", false);
                 }
                 mostrarPDF(url);
             }
-
             $("#spinner_btn_generarActaEntrega").hide();
             $("#spinner_btn_firmarActaEntrega").hide();
             $("#btn_firmar_actaEntrega").attr("disabled", false);

@@ -15,11 +15,12 @@ const buscarArriendo = async(id_arriendo, option) => {
                 mostrarArriendoModalPago(arriendo);
                 break;
             case 3:
-                //aqui se firma
+                $("#id_arriendo").val(arriendo.id_arriendo);
+                mostrarContratoModalContrato(data);
                 break;
         }
     }
-    $("#formSpinner").hide();
+    $("#formSpinnerPago").hide();
     $("#formSpinnerEditar").hide();
 };
 
@@ -193,8 +194,8 @@ const mostrarArriendoModalEditar = (arriendo) => {
 };
 
 const mostrarArriendoModalPago = (arriendo) => {
-    if (arriendo.requisito) {
-        $("#formContrato").show();
+    if (arriendo.pagos == 0) {
+        $("#formPagoArriendo").show();
         $("#numeroArriendoConfirmacion").text("Nº" + arriendo.id_arriendo);
         $("#inputIdArriendo").val(arriendo.id_arriendo);
         $("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo);
@@ -227,14 +228,26 @@ const mostrarArriendoModalPago = (arriendo) => {
                 break;
         }
         mostrarAccesorios(arriendo);
-    } else {
-        Swal.fire({
-            icon: "warning",
-            title: "falta documentos adjuntos!",
-            text: "se debe ingresar la documentacion correspondiente para continuar",
-        });
-        $("#modal_confirmar_arriendo").modal("toggle");
     }
+};
+
+const mostrarContratoModalContrato = async(data) => {
+    const response = await ajax_function(data, "generar_PDFcontrato");
+    if (response.success) {
+        $("#formContratoArriendo").show();
+        $("#nombre_documento").val(response.data.nombre_documento);
+
+        mostrarPDF(
+            `${storage}documentos/contratos/${response.data.nombre_documento}.pdf`
+        );
+
+        if (response.data.firma) {
+            $("#btn_confirmar_contrato").attr("disabled", false);
+        }
+    }
+    $("#btn_firmar_contrato").attr("disabled", false);
+    $("#spinner_btn_firmarContrato").hide();
+    $("#formSpinnerContrato").hide();
 };
 
 const mostrarAccesorios = (arriendo) => {
@@ -286,29 +299,40 @@ const calcularValores = () => {
     $("#inputTotal").val(Math.round(total));
 };
 
+const mostrarPDF = (url) => {
+    $("#body-documento").html(
+        `<a href="${url}" target="_blank" >Descargar contrato</a><br><iframe width="100%" height="700px" src="${url}" target="_parent"></iframe>`
+    );
+};
+
 const limpiarCampos = () => {
-    $("#numeroArriendoConfirmacion").text("");
-    $("#numeroArriendoEditar").text("");
-    $("#body_editarArriendo").hide();
-    $("#formContrato").hide();
-    $("#card_documentos").empty();
-    $("#formAccesorios").empty();
-    $("#formContrato")[0].reset();
-    $("#formSubirDocumentos")[0].reset();
-    $("#btn_crear_contrato").attr("disabled", false);
-    $("#spinner_btn_crearContrato").hide();
+    $("#spinner_btn_subirDocumentos").hide();
+    $("#spinner_btn_registrarPago").hide();
     $("#spinner_btn_firmarContrato").hide();
     $("#spinner_btn_confirmarContrato").hide();
+
+    $("#formPagoArriendo").hide();
+    $("#formContratoArriendo").hide();
+    $("#body_editarArriendo").hide();
+
+    $("#formPagoArriendo")[0].reset();
+    $("#formSubirDocumentos")[0].reset();
+
+    $("#numeroArriendoConfirmacion").text("");
+    $("#numeroArriendoEditar").text("");
+    $("#id_arriendo").val("");
+    $("#card_documentos").empty();
+    $("#formAccesorios").empty();
+
     $("#btn_confirmar_contrato").attr("disabled", true);
-    $("#body-documento").hide();
-    $("#body-firma").hide();
-    $("#body-sinContrato").show();
+
     $("#nombre_documento").val("");
     $("#subtotal-copago").hide();
-    $("#formSpinner").show();
+
+    $("#formSpinnerPago").show();
     $("#formSpinnerEditar").show();
-    $("#formContrato").hide();
-    $("#spinner_btn_subirDocumentos").hide();
+    $("#formSpinnerContrato").show();
+
     $("#card_carnet").hide();
     $("#card_domicilio").hide();
     $("#card_cartaRemplazo").hide();
@@ -316,6 +340,7 @@ const limpiarCampos = () => {
     $("#card_tarjeta").hide();
     $("#card_cheque").hide();
     $("#card_efectivo").hide();
+
     //se limpia el canvas de firma
     dibujar = false;
     ctx.clearRect(0, 0, cw, ch);
@@ -334,6 +359,7 @@ $(document).ready(() => {
     }
 
     const tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
+
     const btnActivos = document.getElementById("nav-arriendos-tab");
     btnActivos.addEventListener("click", () => {
         refrescarTabla();
@@ -350,17 +376,86 @@ $(document).ready(() => {
         $("#spinner_tablaTotalArriendos").hide();
     };
 
-    $("#btn_crear_contrato").click(() => {
-        const form = $("#formContrato")[0];
-        const data = new FormData(form);
-        generarContrato(data);
+    $("#btn_subirDocumentos").click(() => {
+        Swal.fire({
+            title: "Estas seguro?",
+            text: "estas a punto de guardar los cambios!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si, seguro",
+            cancelButtonText: "No, cancelar!",
+            reverseButtons: true,
+        }).then(async(result) => {
+            if (result.isConfirmed) {
+                $("#spinner_btn_subirDocumentos").show();
+                $("#btn_subirDocumentos").attr("disabled", true);
+                const id_arriendo = $("#inputIdArriendoEditar").val();
+                const response = await guardarDocumentosRequistos(id_arriendo);
+                if (response.success) {
+                    refrescarTabla();
+                    Swal.fire(
+                        "documentos subidos con exito!",
+                        "se guardaron los documentos",
+                        "success"
+                    );
+                    $("#modal_editar_arriendo").modal("toggle");
+                }
+                $("#btn_subirDocumentos").attr("disabled", false);
+                $("#spinner_btn_subirDocumentos").hide();
+            }
+        });
+    });
+
+    $("#btn_registrar_pago").click(() => {
+        Swal.fire({
+            title: "Estas seguro?",
+            text: "estas a punto de guardar los cambios!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Si, seguro",
+            cancelButtonText: "No, cancelar!",
+            reverseButtons: true,
+        }).then(async(result) => {
+            if (result.isConfirmed) {
+                const form = $("#formPagoArriendo")[0];
+                const data = new FormData(form);
+                const tipoPago = $('[name="customRadio1"]:checked').val();
+                const numeroFacturacion = $("#inputNumFacturacion").val().length;
+
+                if (numeroFacturacion > 4 && tipoPago != "PENDIENTE") {
+                    const responseFac = await guardarDatosFactura(data);
+                    if (responseFac.success) {
+                        console.log(responseFac.facturacion.id_facturacion);
+                        data.append(
+                            "id_facturacion",
+                            responseFac.facturacion.id_facturacion
+                        );
+                    }
+                }
+                const response = await guardarDatosPago(data);
+                if (response.success) {
+                    data.append("id_pago", response.pago.id_pago);
+                    const matrizAccesorios = await capturarAccesorios();
+                    if (matrizAccesorios[0].length != 0) {
+                        data.append("matrizAccesorios", JSON.stringify(matrizAccesorios));
+                        await guardarDatosPagoAccesorios(data);
+                    }
+                    refrescarTabla();
+                    Swal.fire(
+                        "datos registrados con exito",
+                        "se registraron los datos pertinentes!",
+                        "success"
+                    );
+                }
+
+                $("#modal_pago_arriendo").modal("toggle");
+            }
+        });
     });
 
     $("#btn_firmar_contrato").click(() => {
-        obtenerGeolocalizacion();
-    });
-
-    const obtenerGeolocalizacion = () => {
+        $("#btn_firmar_contrato").attr("disabled", true);
+        $("#spinner_btn_firmarContrato").show();
         const options = {
             enableHighAccuracy: true,
             timeout: 5000,
@@ -385,82 +480,7 @@ $(document).ready(() => {
             }),
             options
         );
-    };
-
-    const firmarContrato = (geo) => {
-        const canvas = document.getElementById("canvas-firma");
-        const form = $("#formContrato")[0];
-        const data = new FormData(form);
-        data.append("inputFirmaPNG", canvas.toDataURL("image/png"));
-        data.append("geolocalizacion", geo);
-        generarContrato(data);
-    };
-
-    const generarContrato = async(data) => {
-        const descuento = $("#inputDescuento").val();
-        const valorArriendo = $("#inputValorArriendo").val();
-        const valorCopago = $("#inputValorCopago").val();
-        const total = Number($("#inputTotal").val());
-
-        //cacturando los accesorios
-        const arrayNombreAccesorios = [];
-        const arrayValorAccesorios = [];
-        const list = $('[name="accesorios[]"]');
-        for (let i = 0; i < list.length; i++) {
-            let element = list[i];
-            arrayNombreAccesorios.push(element.id);
-            arrayValorAccesorios.push(element.value);
-        }
-        if (arrayNombreAccesorios.length != 0) {
-            data.append("arrayNombreAccesorios", arrayNombreAccesorios);
-            data.append("arrayValorAccesorios", arrayValorAccesorios);
-        }
-
-        if (
-            total >= 0 &&
-            descuento.length != 0 &&
-            valorArriendo.length != 0 &&
-            valorCopago.length != 0
-        ) {
-            $("#spinner_btn_firmarContrato").show();
-            desactivarBotones();
-
-            const response = await ajax_function(data, "generar_PDFcontrato");
-            if (response.success) {
-                if (response.data) {
-                    $("#modal_signature").modal({
-                        show: true,
-                    });
-                    $("#nombre_documento").val(response.data.nombre_documento);
-                    $("#body-documento").show();
-                    $("#body-firma").show();
-                    $("#body-sinContrato").hide();
-
-                    const url =
-                        storage +
-                        "documentos/contratos/" +
-                        response.data.nombre_documento +
-                        ".pdf";
-                    mostrarPDF(url);
-
-                    if (response.data.firma) {
-                        $("#btn_confirmar_contrato").attr("disabled", false);
-                    }
-                } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: response.msg,
-                    });
-                }
-            }
-        } else {
-            Swal.fire({
-                icon: "warning",
-                title: "campos vacios y/o valores invalidos",
-            });
-        }
-        activarBotones();
-    };
+    });
 
     $("#btn_confirmar_contrato").click(() => {
         Swal.fire({
@@ -473,13 +493,14 @@ $(document).ready(() => {
             reverseButtons: true,
         }).then(async(result) => {
             if (result.isConfirmed) {
-                desactivarBotones();
                 $("#spinner_btn_confirmarContrato").show();
+                $("#btn_firmar_contrato").attr("disabled", true);
+                $("#btn_confirmar_contrato").attr("disabled", true);
 
-                const form = $("#formContrato")[0];
-                const data = new FormData(form);
+                const data = new FormData();
+                data.append("id_arriendo", $("#id_arriendo").val());
+
                 await guardarContrato(data);
-                await guardarDatosPago(data);
                 await enviarCorreoContrato(data);
                 await cambiarEstadoArriendo(data);
 
@@ -489,33 +510,26 @@ $(document).ready(() => {
                     "contrato firmado y registrado con exito!",
                     "success"
                 );
-
-                $("#modal_signature").modal("toggle");
-                $("#modal_confirmar_arriendo").modal("toggle");
+                $("#btn_firmar_contrato").attr("disabled", false);
+                $("#btn_confirmar_contrato").attr("disabled", false);
+                $("#spinner_btn_confirmarContrato").hide();
+                $("#modal_firmar_contrato").modal("toggle");
             }
         });
     });
 
-    const mostrarPDF = (url) => {
-        $("#body-documento").html(
-            `<a href="${url}" target="_blank" >Descargar contrato</a><br><iframe width="100%" height="700px" src="${url}" target="_parent"></iframe>`
-        );
+    const firmarContrato = (geo) => {
+        const canvas = document.getElementById("canvas-firma");
+        const data = new FormData();
+        data.append("inputFirmaPNG", canvas.toDataURL("image/png"));
+        data.append("geolocalizacion", geo);
+        data.append("id_arriendo", $("#id_arriendo").val());
+        mostrarContratoModalContrato(data);
     };
 
     const guardarContrato = async(data) => {
         data.append("nombre_documento", $("#nombre_documento").val());
         await ajax_function(data, "registrar_contrato");
-    };
-
-    const guardarDatosPago = async(data) => {
-        data.append("digitador", $("#inputDigitador").val());
-        if ($("#inputNumFacturacion").val().length > 4) {
-            data.append("inputEstado", "PAGADO");
-        } else {
-            data.append("inputEstado", "PENDIENTE");
-        }
-        data.append("digitador", $("#inputDigitador").val());
-        await ajax_function(data, "registrar_pago");
     };
 
     const enviarCorreoContrato = async(data) => {
@@ -526,24 +540,6 @@ $(document).ready(() => {
         data.append("estado", "FIRMADO");
         await ajax_function(data, "cambiarEstado_arriendo");
     };
-
-    $("#btn_subirDocumentos").click(async() => {
-        const id_arriendo = $("#inputIdArriendoEditar").val();
-
-        $("#spinner_btn_subirDocumentos").show();
-        $("#btn_subirDocumentos").attr("disabled", true);
-        const response = await guardarDocumentosRequistos(id_arriendo);
-        $("#btn_subirDocumentos").attr("disabled", false);
-        $("#spinner_btn_subirDocumentos").hide();
-        if (response.success) {
-            Swal.fire(
-                "documentos subidos con exito!",
-                "se guardaron los documentos",
-                "success"
-            );
-            $("#modal_editar_arriendo").modal("toggle");
-        }
-    });
 
     const guardarDocumentosRequistos = async(idArriendo) => {
         const data = new FormData();
@@ -564,6 +560,41 @@ $(document).ready(() => {
         return await ajax_function(data, "registrar_requisitos");
     };
 
+    const guardarDatosPago = async(data) => {
+        data.append("digitador", $("#inputDigitador").val());
+        if ($("#inputNumFacturacion").val().length > 4) {
+            data.append("inputEstado", "PAGADO");
+        } else {
+            data.append("inputEstado", "PENDIENTE");
+        }
+        return await ajax_function(data, "registrar_pago");
+    };
+
+    const guardarDatosPagoAccesorios = async(data) => {
+        await ajax_function(data, "registrar_pagoAccesorios");
+    };
+
+    const capturarAccesorios = async() => {
+        //cacturando los accesorios
+        const matrizAccesorios = [];
+        const arrayNombreAccesorios = [];
+        const arrayValorAccesorios = [];
+        const list = $('[name="accesorios[]"]');
+        for (let i = 0; i < list.length; i++) {
+            let element = list[i];
+            arrayNombreAccesorios.push(element.id);
+            arrayValorAccesorios.push(element.value);
+        }
+        matrizAccesorios.push(arrayNombreAccesorios);
+        matrizAccesorios.push(arrayValorAccesorios);
+
+        return matrizAccesorios;
+    };
+
+    const guardarDatosFactura = async(data) => {
+        return await ajax_function(data, "registrar_facturacion");
+    };
+
     const refrescarTabla = () => {
         //limpia la tabla
         tablaTotalArriendos.row().clear().draw(false);
@@ -571,23 +602,7 @@ $(document).ready(() => {
         cargarArriendos();
     };
 
-    const desactivarBotones = () => {
-        $("#btn_crear_contrato").attr("disabled", true);
-        $("#btn_confirmar_contrato").attr("disabled", true);
-        $("#btn_firmar_contrato").attr("disabled", true);
-        $("#limpiar-firma").attr("disabled", true);
-        $("#spinner_btn_crearContrato").show();
-    };
-
-    const activarBotones = () => {
-        $("#spinner_btn_crearContrato").hide();
-        $("#spinner_btn_firmarContrato").hide();
-        $("#btn_crear_contrato").attr("disabled", false);
-        $("#btn_firmar_contrato").attr("disabled", false);
-        $("#limpiar-firma").attr("disabled", false);
-    };
-
-    function cargarArriendoEnTabla(arriendo) {
+    const cargarArriendoEnTabla = (arriendo) => {
         try {
             let cliente = "";
             switch (arriendo.tipo_arriendo) {
@@ -614,13 +629,34 @@ $(document).ready(() => {
                         data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn-outline-primary'><i class='far fa-eye'></i></button>
                          
                         <button id='b${arriendo.id_arriendo}' value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,2)' 
-                            data-toggle='modal' data-target='#modal_pago_arriendo' class='btn btn-outline-info'><i class="fas fa-money-bill-wave"></i></button> 
+                            data-toggle='modal' data-target='#modal_pago_arriendo' class='btn btn-outline-success'><i class="fas fa-money-bill-wave"></i></button> 
                      
                             <button id='c${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,3)' 
                                 data-toggle='modal' data-target='#modal_firmar_contrato' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  
                                 `,
                 ])
                 .draw(false);
+
+            if (arriendo.requisito) {
+                $(`#a${arriendo.id_arriendo}`).removeClass("btn-outline-primary");
+                $(`#a${arriendo.id_arriendo}`).addClass("btn-primary");
+            }
+
+            if (!arriendo.requisito) {
+                $(`#b${arriendo.id_arriendo}`).attr("disabled", true);
+                $(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-info");
+                $(`#b${arriendo.id_arriendo}`).addClass("btn-info");
+            }
+
+            if (arriendo.pagos.length != 0) {
+                $(`#b${arriendo.id_arriendo}`).attr("disabled", true);
+                $(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-success");
+                $(`#b${arriendo.id_arriendo}`).addClass("btn-success");
+            }
+
+            if (arriendo.pagos.length == 0) {
+                $(`#c${arriendo.id_arriendo}`).attr("disabled", true);
+            }
 
             if (arriendo.estado_arriendo != "PENDIENTE") {
                 $(`#c${arriendo.id_arriendo}`).attr("disabled", true);
@@ -630,5 +666,5 @@ $(document).ready(() => {
         } catch (error) {
             console.log("error al cargar este arriendo: " + error);
         }
-    }
+    };
 });

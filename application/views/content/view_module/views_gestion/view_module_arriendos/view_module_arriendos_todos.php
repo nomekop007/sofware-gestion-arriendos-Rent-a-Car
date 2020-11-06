@@ -46,210 +46,6 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 
-
-<!-- Modal pago arriendo -->
-<div class="modal fade" id="modal_pago_arriendo" data-backdrop="static" style="overflow-y: scroll;"
-    data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">despachar arriendo <span
-                        id="numeroArriendoConfirmacion">Nº</span>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="formSpinner">
-                <div class="text-center">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </div>
-            </div>
-            <form class="needs-validation" id="formContrato" novalidate>
-                <input type="text" name="inputIdArriendo" id="inputIdArriendo" hidden />
-                <input type="text" name="inputPatenteVehiculo" id="inputPatenteVehiculo" hidden />
-                <div class="modal-body">
-                    <div class="card">
-                        <div class="form-row card-body text-center">
-                            <span style="width: 50%;" id="textCliente"
-                                class=" text-center input-group-text form-control"></span>
-                            <span style="width: 50%;" id="textVehiculo"
-                                class="  text-center input-group-text form-control"></span>
-                        </div>
-                    </div>
-                    <br><br>
-                    <h5>Valor Arriendo</h5>
-                    <div class="card">
-                        <div class="form-row card-body">
-                            <div class="input-group col-md-12">
-                                <span style="width: 50%;" id="textTipo" value=""
-                                    class="input-group-text form-control">Tipo
-                                    Arriendo:
-                                </span>
-                                <span style="width: 50%;" id="textDias" class="input-group-text form-control">Cantidad
-                                    de
-                                    dias: X</span>
-                            </div>
-                            <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Sub total Arriendo
-                                    $</span>
-                                <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo"
-                                    maxLength="11" value="0" type="number" class="form-control"
-                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
-                            </div>
-                            <div class="input-group col-md-12" id="subtotal-copago">
-                                <span style="width: 60%;" class="input-group-text form-control">valor copago
-                                    $</span>
-                                <input style="width: 40%;" id="inputValorCopago" name="inputValorCopago" maxLength="11"
-                                    value="0" type="number" class="form-control" oninput="calcularValores()" required>
-                            </div>
-                        </div>
-                    </div>
-                    <br><br>
-                    <h5>Accesorios</h5>
-                    <div class="card">
-                        <div class="form-row card-body" id="formAccesorios">
-                            <!-- se muestran los accesorios del arriendo con precio -->
-                            <span class=" col-md-12 text-center" id="spanAccesorios">Sin Accesorios</span>
-                        </div>
-                    </div>
-                    <br><br>
-                    <h5>Totales</h5>
-                    <div class="card">
-                        <div class="form-row card-body">
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="BOLETA" id="radioBoleta" name="customRadio1"
-                                    class="custom-control-input" checked>
-                                <label class="custom-control-label" for="radioBoleta">Boleta</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="FACTURA" id="radioFactura" name="customRadio1"
-                                    class="custom-control-input">
-                                <label class="custom-control-label" for="radioFactura">Factura</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion" type="number"
-                                    class="form-control" placeholder="Nº Boleta/Factura" required>
-                            </div>
-                        </div>
-                        <div class="form-row card-body">
-                            <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Descuento $</span>
-                                <input style="width: 40%;" step="0" id="inputDescuento" name="inputDescuento"
-                                    maxLength="11" value="0" type="number" min=0 class="form-control"
-                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
-                            </div>
-                            <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Total Neto $</span>
-                                <input oninput="calcularValores()" style="width: 40%;" id="inputNeto" name="inputNeto"
-                                    min="0" value="0" type="number" class="form-control" required>
-                            </div>
-                            <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">IVA $</span>
-                                <input style="width: 40%;" id="inputIVA" name="inputIVA" min="0" value="0" type="number"
-                                    class="form-control" oninput="calcularValores()">
-                            </div>
-                            <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Total a Pagar $</span>
-                                <input style="width: 40%;" value="0" id="inputTotal" name="inputTotal" type="number"
-                                    min="0" class="form-control" required oninput="calcularValores()">
-                            </div>
-                        </div>
-                        <div class="form-row card-body">
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="EFECTIVO" id="radioEfectivo" name="customRadio2"
-                                    class="custom-control-input" checked>
-                                <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="CHEQUE" id="radioCheque" name="customRadio2"
-                                    class="custom-control-input">
-                                <label class="custom-control-label" for="radioCheque">Cheque</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="TARGETA" id="radioTarjeta" name="customRadio2"
-                                    class="custom-control-input">
-                                <label class="custom-control-label" for="radioTarjeta">Tarjeta</label>
-                            </div>
-                        </div>
-                        <div class="form-row card-body">
-                            <div class="form-group col-md-12">
-                                <label for="inputDigitador">Digitado por</label>
-                                <input disabled type="text" class="form-control" id="inputDigitador"
-                                    name="inputDigitador" value="<?php echo $nombreUsuario ?>" required>
-                                <div class="form-group col-md-12">
-                                    <label for="inputObservaciones">Observaciones</label>
-                                    <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
-                                        name="inputObservaciones" rows="3" maxLength="300"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" id="btn_registrar_pago" class="btn btn-primary">
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                id="spinner_btn_registrarPago"></span>
-                            Guardar Pago</button>
-                    </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- no borrar div sobrante-->
-</div>
-
-<!-- Modal signature-->
-<div class="modal fade" id="modal_signature" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal_signature">Firmar Contrato </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <input type="text" id="nombre_documento" hidden>
-                <div id="body-sinContrato">
-                    <br>
-                    <h6 class='text-center'>Sin contrato cargado</h6><br>
-                </div>
-                <div id="body-documento">
-                    <!-- se carga el pdf -->
-                </div>
-                <div class="container" id="body-firma">
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
-                            <canvas id="canvas-firma" class="canvas-firma">
-                            </canvas>
-                        </div>
-                        <div class="col-md-12 d-flex justify-content-center">
-                            <button type="button" id="limpiar-firma" class="btn btn-secondary btn-sm ">
-                                limpiar</button>
-                            <button type="button" id="btn_firmar_contrato" class="btn btn-success btn-sm ">
-                                firmar contrato
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_firmarContrato"></span>
-                            </button>
-                            <button type="button" id="btn_confirmar_contrato" class="btn btn-primary btn-sm ">
-                                guardar cambios
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_confirmarContrato"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 <!-- Modal editar arriendo -->
 <div class="modal fade" id="modal_editar_arriendo" tabindex="-1" aria-labelledby="editarModal"
     style="overflow-y: scroll;" aria-hidden="true">
@@ -446,3 +242,238 @@ $nombreUsuario = $this->session->userdata('nombre')
             </div>
         </div>
     </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- Modal pago arriendo -->
+<div class="modal fade" id="modal_pago_arriendo" data-backdrop="static" style="overflow-y: scroll;"
+    data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Arriendo <span id="numeroArriendoConfirmacion">Nº</span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="formSpinnerPago">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <form class="needs-validation" id="formPagoArriendo" novalidate>
+                <input type="text" name="inputIdArriendo" id="inputIdArriendo" hidden />
+                <input type="text" name="inputPatenteVehiculo" id="inputPatenteVehiculo" hidden />
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="form-row card-body text-center">
+                            <span style="width: 50%;" id="textCliente"
+                                class=" text-center input-group-text form-control"></span>
+                            <span style="width: 50%;" id="textVehiculo"
+                                class="  text-center input-group-text form-control"></span>
+                        </div>
+                    </div>
+                    <br><br>
+                    <h5>Valor Arriendo</h5>
+                    <div class="card">
+                        <div class="form-row card-body">
+                            <div class="input-group col-md-12">
+                                <span style="width: 50%;" id="textTipo" value=""
+                                    class="input-group-text form-control">Tipo
+                                    Arriendo:
+                                </span>
+                                <span style="width: 50%;" id="textDias" class="input-group-text form-control">Cantidad
+                                    de
+                                    dias: X</span>
+                            </div>
+                            <div class="input-group col-md-12">
+                                <span style="width: 60%;" class="input-group-text form-control">Sub total Arriendo
+                                    $</span>
+                                <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo"
+                                    maxLength="11" value="0" type="number" class="form-control"
+                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
+                            </div>
+                            <div class="input-group col-md-12" id="subtotal-copago">
+                                <span style="width: 60%;" class="input-group-text form-control">valor copago
+                                    $</span>
+                                <input style="width: 40%;" id="inputValorCopago" name="inputValorCopago" maxLength="11"
+                                    value="0" type="number" class="form-control" oninput="calcularValores()" required>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <h5>Accesorios</h5>
+                    <div class="card">
+                        <div class="form-row card-body" id="formAccesorios">
+                            <!-- se muestran los accesorios del arriendo con precio -->
+                            <span class=" col-md-12 text-center" id="spanAccesorios">Sin Accesorios</span>
+                        </div>
+                    </div>
+                    <br><br>
+                    <h5>Totales</h5>
+                    <div class="card">
+                        <div class="form-row card-body">
+                            <div class="input-group col-md-12">
+                                <span style="width: 60%;" class="input-group-text form-control">Descuento $</span>
+                                <input style="width: 40%;" step="0" id="inputDescuento" name="inputDescuento"
+                                    maxLength="11" value="0" type="number" min=0 class="form-control"
+                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
+                            </div>
+                            <div class="input-group col-md-12">
+                                <span style="width: 60%;" class="input-group-text form-control">Total Neto $</span>
+                                <input oninput="calcularValores()" style="width: 40%;" id="inputNeto" name="inputNeto"
+                                    min="0" value="0" type="number" class="form-control" required>
+                            </div>
+                            <div class="input-group col-md-12">
+                                <span style="width: 60%;" class="input-group-text form-control">IVA $</span>
+                                <input style="width: 40%;" id="inputIVA" name="inputIVA" min="0" value="0" type="number"
+                                    class="form-control" oninput="calcularValores()">
+                            </div>
+                            <div class="input-group col-md-12">
+                                <span style="width: 60%;" class="input-group-text form-control">Total a Pagar $</span>
+                                <input style="width: 40%;" value="0" id="inputTotal" name="inputTotal" type="number"
+                                    min="0" class="form-control" required oninput="calcularValores()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <br><br>
+                    <h5>Pago</h5>
+                    <div class="card">
+                        <h6>Facturacion</h6>
+                        <div class="form-row card-body">
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input type="radio" value="PENDIENTE" id="radioPendiente" name="customRadio1"
+                                    class="custom-control-input" checked>
+                                <label class="custom-control-label" for="radioPendiente">Pendiente</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input type="radio" value="BOLETA" id="radioBoleta" name="customRadio1"
+                                    class="custom-control-input">
+                                <label class="custom-control-label" for="radioBoleta">Boleta</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input type="radio" value="FACTURA" id="radioFactura" name="customRadio1"
+                                    class="custom-control-input">
+                                <label class="custom-control-label" for="radioFactura">Factura</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion" type="number"
+                                    class="form-control" placeholder="Nº Boleta/Factura">
+                            </div>
+                        </div>
+                        <h6>Metodo de pago</h6>
+                        <div class="form-row card-body">
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input type="radio" value="EFECTIVO" id="radioEfectivo" name="customRadio2"
+                                    class="custom-control-input">
+                                <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input type="radio" value="CHEQUE" id="radioCheque" name="customRadio2"
+                                    class="custom-control-input">
+                                <label class="custom-control-label" for="radioCheque">Cheque</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input type="radio" value="TARGETA" id="radioTarjeta" name="customRadio2"
+                                    class="custom-control-input">
+                                <label class="custom-control-label" for="radioTarjeta">Tarjeta</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <h5>Mas detalles</h5>
+                    <div class="card">
+                        <div class="form-row card-body">
+                            <div class="form-group col-md-12">
+                                <label for="inputDigitador">Digitado por</label>
+                                <input disabled type="text" class="form-control" id="inputDigitador"
+                                    name="inputDigitador" value="<?php echo $nombreUsuario ?>" required>
+                                <div class="form-group col-md-12">
+                                    <label for="inputObservaciones">Observaciones</label>
+                                    <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
+                                        name="inputObservaciones" rows="3" maxLength="300"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" id="btn_registrar_pago" class="btn btn-primary">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            id="spinner_btn_registrarPago"></span>
+                        Guardar Pago</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Modal signature-->
+<div class="modal fade" id="modal_firmar_contrato" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_firmar_contrato">Firmar Contrato </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body" id="formSpinnerContrato">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" id="formContratoArriendo">
+                <input type="text" id="nombre_documento" hidden>
+                <input type="text" id="id_arriendo" hidden>
+                <div id="body-documento">
+                    <!-- se carga el pdf -->
+                </div>
+                <div class="container" id="body-firma">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
+                            <canvas id="canvas-firma" class="canvas-firma">
+                            </canvas>
+                        </div>
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <button type="button" id="limpiar-firma" class="btn btn-secondary btn-sm ">
+                                limpiar</button>
+                            <button type="button" id="btn_firmar_contrato" class="btn btn-success btn-sm ">
+                                firmar contrato
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                    id="spinner_btn_firmarContrato"></span>
+                            </button>
+                            <button type="button" id="btn_confirmar_contrato" class="btn btn-primary btn-sm ">
+                                guardar cambios
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                    id="spinner_btn_confirmarContrato"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

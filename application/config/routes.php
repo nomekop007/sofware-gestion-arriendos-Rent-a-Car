@@ -63,6 +63,13 @@ $route['buscar_empresa'] = 'Empresa_controller/buscarEmpresa';
 $route['registrar_remplazo'] = 'Remplazo_controller/crearRemplazo';
 
 
+/* rutas de controller PagoAccesorio */
+$route["registrar_pagoAccesorios"] = 'PagoAccesorio_controller/registrarPagosAccesorios';
+
+/* rutas de controller Facturacion */
+$route["registrar_facturacion"] = 'Facturacion_controller/registrarFacturacion';
+
+
 
 /* rutas de controller requisitos  */
 $route['registrar_requisitos'] = 'Requisito_controller/guardarDocumentosRequistosArriendo';
