@@ -580,26 +580,21 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     class="form-check-input" id="dibujarCanvas" name="dibujarCanvas">dibujar en
                                 canvas</label>
                         </div>
-
                     </div>
                     <div class="form-group col-lg-12">
-
                         <div class="d-flex justify-content-center scroll" id="cont-canvas">
                             <canvas id="canvas-fotoVehiculo" style="background:#d9d9d9"></canvas>
                         </div>
-
                     </div>
                     <div class="form-group col-lg-12">
                         <br>
                         <div class="container" id="carrucel">
-
                         </div>
                         <br>
                         <button type="button" class="btn btn-danger btn-sm" id="limpiarArrayFotos">limpiar
                             lista</button>
                     </div>
                 </div>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>

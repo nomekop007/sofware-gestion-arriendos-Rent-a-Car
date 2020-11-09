@@ -46,7 +46,7 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 
-<!-- Modal editar arriendo -->
+<!-- Modal ver arriendo -->
 <div class="modal fade" id="modal_editar_arriendo" tabindex="-1" aria-labelledby="editarModal"
     style="overflow-y: scroll;" aria-hidden="true">
     <div class="modal-dialog  modal-xl">
@@ -236,8 +236,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
                     <button disabled type="button" class="btn btn-danger">Anular arriendo</button>
-
-                    <button disabled type="button" class="btn btn-primary">Guardar cambios</button>
                 </div>
             </div>
         </div>
@@ -352,41 +350,53 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <h6>Facturacion</h6>
                         <div class="form-row card-body">
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="PENDIENTE" id="radioPendiente" name="customRadio1"
-                                    class="custom-control-input" checked>
+                                <input type="radio" onclick="facturacion(this.value);" value="PENDIENTE"
+                                    id="radioPendiente" name="customRadio1" class="custom-control-input" checked>
                                 <label class="custom-control-label" for="radioPendiente">Pendiente</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="BOLETA" id="radioBoleta" name="customRadio1"
-                                    class="custom-control-input">
+                                <input type="radio" onclick="facturacion(this.value);" value="BOLETA" id="radioBoleta"
+                                    name="customRadio1" class="custom-control-input">
                                 <label class="custom-control-label" for="radioBoleta">Boleta</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="FACTURA" id="radioFactura" name="customRadio1"
-                                    class="custom-control-input">
+                                <input type="radio" onclick="facturacion(this.value);" value="FACTURA" id="radioFactura"
+                                    name="customRadio1" class="custom-control-input">
                                 <label class="custom-control-label" for="radioFactura">Factura</label>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion" type="number"
-                                    class="form-control" placeholder="Nº Boleta/Factura">
-                            </div>
                         </div>
-                        <h6>Metodo de pago</h6>
-                        <div class="form-row card-body">
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="EFECTIVO" id="radioEfectivo" name="customRadio2"
-                                    class="custom-control-input">
-                                <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
+                        <div id="metodo_pago">
+                            <h6>Metodo de pago</h6>
+                            <div class="form-row card-body">
+                                <div class="custom-control custom-radio custom-control-inline ">
+                                    <input type="radio" value="EFECTIVO" id="radioEfectivo" name="customRadio2"
+                                        class="custom-control-input" checked>
+                                    <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline ">
+                                    <input type="radio" value="CHEQUE" id="radioCheque" name="customRadio2"
+                                        class="custom-control-input">
+                                    <label class="custom-control-label" for="radioCheque">Cheque</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline ">
+                                    <input type="radio" value="TARJETA" id="radioTarjeta" name="customRadio2"
+                                        class="custom-control-input">
+                                    <label class="custom-control-label" for="radioTarjeta">Tarjeta</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="CHEQUE" id="radioCheque" name="customRadio2"
-                                    class="custom-control-input">
-                                <label class="custom-control-label" for="radioCheque">Cheque</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" value="TARGETA" id="radioTarjeta" name="customRadio2"
-                                    class="custom-control-input">
-                                <label class="custom-control-label" for="radioTarjeta">Tarjeta</label>
+                            <br>
+                            <div class="form-row ">
+                                <div class="form-group col-md-4">
+                                    <label for="inputNumFacturacion">Numero facturacion</label>
+                                    <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion"
+                                        type="number" class="form-control" placeholder="Nº Boleta/Factura" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputFileFacturacion">documento facturacion</label>
+                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                        type="file" class="form-control-file" id="inputFileFacturacion"
+                                        name="inputFileFacturacion" required>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -446,6 +456,8 @@ $nombreUsuario = $this->session->userdata('nombre')
             <div class="modal-body" id="formContratoArriendo">
                 <input type="text" id="nombre_documento" hidden>
                 <input type="text" id="id_arriendo" hidden>
+                <input type="text" id="estado_arriendo" hidden>
+
                 <div id="body-documento">
                     <!-- se carga el pdf -->
                 </div>

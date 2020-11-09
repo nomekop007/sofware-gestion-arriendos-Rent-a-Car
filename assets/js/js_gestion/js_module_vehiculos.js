@@ -183,24 +183,6 @@ $(document).ready(() => {
         const data = new FormData();
         data.append("inputPatente", patente);
         data.append("inputFoto", file);
-        /* 
-        $.ajax({
-            url: base_url + "guardar_fotoVehiculo",
-            type: "post",
-            data: data,
-            enctype: "multipart/form-data",
-            processData: false,
-            contentType: false,
-            cache: false,
-            timeOut: 600000,
-            success: (response) => {
-                console.log(response);
-            },
-            error: (error) => {
-                console.log(" ERROR CLIENT!");
-            },
-        }); */
-
         return await ajax_function(data, "guardar_fotoVehiculo");
     };
 

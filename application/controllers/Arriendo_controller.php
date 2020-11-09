@@ -59,4 +59,15 @@ class Arriendo_controller extends CI_Controller
         ];
         echo put_function($idArriendo, $ArrayData, "arriendos/editarArriendo");
     }
+
+    public function extenderArriendo()
+    {
+        $idArriendo = $this->input->post("id_arriendo");
+        $ArrayData = [
+            "estado_arriendo" =>  "EXTENDIDO",
+            "fechaRecepcion_arriendo" => $this->input->post("inputFechaExtender_extenderPlazo"),
+            "numerosDias_arriendo" => $this->input->post("nuevosDias"),
+        ];
+        echo put_function($idArriendo, $ArrayData, "arriendos/editarArriendo");
+    }
 }

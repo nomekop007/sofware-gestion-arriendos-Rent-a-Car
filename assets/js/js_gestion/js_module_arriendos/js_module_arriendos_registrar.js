@@ -353,7 +353,7 @@ $(document).ready(() => {
                         if (response.success) {
                             response = await guardarDatosConductor();
                             if (response.success) {
-                                guardarDatosArriendo(null);
+                                await guardarDatosArriendo(null);
                             }
                         }
                     } else {
@@ -381,7 +381,7 @@ $(document).ready(() => {
                                 response = await guardarDatosRemplazo();
                                 if (response.success) {
                                     const id_remplazo = response.data.id_remplazo;
-                                    guardarDatosArriendo(id_remplazo);
+                                    await guardarDatosArriendo(id_remplazo);
                                 }
                             }
                         }
@@ -407,7 +407,7 @@ $(document).ready(() => {
                         if (response.success) {
                             response = await guardarDatosConductor();
                             if (response.success) {
-                                guardarDatosArriendo(null);
+                                await guardarDatosArriendo(null);
                             }
                         }
                     } else {

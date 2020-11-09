@@ -68,7 +68,7 @@ $route["registrar_pagoAccesorios"] = 'PagoAccesorio_controller/registrarPagosAcc
 
 /* rutas de controller Facturacion */
 $route["registrar_facturacion"] = 'Facturacion_controller/registrarFacturacion';
-
+$route["guardar_documentoFacturacion"] = 'Facturacion_controller/guardarDocumentoFacturacion';
 
 
 /* rutas de controller requisitos  */
@@ -84,6 +84,7 @@ $route['registrar_arriendo'] = 'Arriendo_controller/registrarArriendo';
 $route['cargar_arriendos'] = 'Arriendo_controller/cargarArriendos';
 $route['buscar_arriendo'] = 'Arriendo_controller/buscarArriendo';
 $route['cambiarEstado_arriendo'] = 'Arriendo_controller/cambiarEstadoArriendo';
+$route['extender_arriendo'] = 'Arriendo_controller/extenderArriendo';
 
 
 /* rutas de controller ActaEntrega */
@@ -99,6 +100,9 @@ $route['registrar_despacho'] = 'Despacho_controller/registrarDespacho';
 
 /* rutas de controller pago */
 $route['registrar_pago'] = 'Pago_controller/registrarPago';
+$route['extenderArriendo_pago'] = 'Pago_controller/extenderArriendoPago';
+
+
 
 /* rutas de controller garantia */
 $route['registrar_garantia'] = 'Garantia_controller/registrarGarantia';

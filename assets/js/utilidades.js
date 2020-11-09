@@ -185,16 +185,19 @@ $(document).on("change", 'input[type="file"]', function() {
 
 // redimenciona una imagen en formato base 64 (base64, canvas.width, canvas.height)
 //ES ASINCRONO
-const resizeBase64Img = (base64, newWidth, newHeight) => {
+const resizeBase64Img = (base64, newWidth, newHeight, level) => {
     return new Promise((resolve, reject) => {
         var canvas = document.createElement("canvas");
-        canvas.width = newWidth / 2;
-        canvas.height = newHeight / 2;
+        canvas.width = newWidth / level;
+        canvas.height = newHeight / level;
         let context = canvas.getContext("2d");
         let img = document.createElement("img");
         img.src = base64;
         img.onload = function() {
-            context.scale(newWidth / 2 / img.width, newHeight / 2 / img.height);
+            context.scale(
+                newWidth / level / img.width,
+                newHeight / level / img.height
+            );
             context.drawImage(img, 0, 0);
             resolve(canvas.toDataURL());
         };

@@ -9,7 +9,7 @@ var input = document.getElementById("inputImagenVehiculo");
 var curFile = input.files;
 var source = "";
 
-var cwVehiculo = (canvasVehiculo.width = 2000),
+var cwVehiculo = (canvasVehiculo.width = 1500),
     cxVehiculo = cwVehiculo / 2;
 var chVehiculo = (canvasVehiculo.height = 300),
     cyVehiculo = chVehiculo / 2;
@@ -158,7 +158,7 @@ function DesactivarEventosDibujar() {
 function limpiarTodoCanvasVehiculo(evt) {
     dibujar = false;
     ctxVehiculo.clearRect(0, 0, cwVehiculo, chVehiculo);
-    canvasVehiculo.width = 2000;
+    canvasVehiculo.width = 1500;
     canvasVehiculo.height = 300;
     Trazados.length = 0;
     puntos.length = 0;
