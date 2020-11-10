@@ -250,15 +250,16 @@ $(document).ready(() => {
                 $("#body-documento").show();
                 $("#body-firma").show();
                 $("#body-sinContrato").hide();
-                const url =
-                    storage +
-                    "documentos/actaEntrega/" +
-                    response.data.nombre_documento +
-                    ".pdf";
+
+
+                cacturarUrlPDF(response.data.url);
+                const a = document.getElementById("descargar_actaEntrega");
+                a.href = `${storage}documentos/actaEntrega/${response.data.nombre_documento}.pdf`;
+
+
                 if (response.data.firma1 && response.data.firma2) {
                     $("#btn_confirmar_actaEntrega").attr("disabled", false);
                 }
-                mostrarPDF(url);
             }
             $("#spinner_btn_generarActaEntrega").hide();
             $("#spinner_btn_firmarActaEntrega").hide();
@@ -272,11 +273,6 @@ $(document).ready(() => {
         }
     };
 
-    const mostrarPDF = (url) => {
-        $("#body-documento").html(
-            `<a href="${url}"  target="_blank" >Descargar Acta de entrega</a><br><iframe width="100%" height="700px" src="${url}" target="_parent"></iframe>`
-        );
-    };
 
     const agregarFotoACarrucel = (array) => {
         let items = "";
@@ -384,7 +380,6 @@ $(document).ready(() => {
                     formatearFechaHora(arriendo.fechaEntrega_arriendo),
                     formatearFechaHora(arriendo.fechaRecepcion_arriendo),
                     arriendo.tipo_arriendo,
-                    arriendo.estado_arriendo,
                     arriendo.usuario.nombre_usuario,
                     ` <button value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value)'   data-toggle='modal'
                     data-target='#modal_despachar_arriendo' class='btn btn btn-outline-success'><i class='fas fa-concierge-bell'></i></button>  `,

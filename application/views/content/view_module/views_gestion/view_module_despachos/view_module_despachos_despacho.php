@@ -13,7 +13,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <th>Fecha Entrega</th>
                     <th>Fecha Recepecion</th>
                     <th>tipo arriendo</th>
-                    <th>estado</th>
                     <th>Vendedor</th>
                     <th></th>
                 </tr>
@@ -29,7 +28,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <th>Fecha Entrega</th>
                     <th>Fecha Recepecion</th>
                     <th>tipo arriendo</th>
-                    <th>estado</th>
                     <th>Vendedor</th>
                     <th></th>
                 </tr>
@@ -607,7 +605,7 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 <!-- Modal signature-->
 <div class="modal fade" id="modal_signature" tabindex="-1" aria-labelledby="signatureModal" aria-hidden="true">
-    <div class="modal-dialog  modal-xl">
+    <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal_signature">Firmar Acta de entrega </h5>
@@ -621,8 +619,15 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <br>
                     <h6 class='text-center'>Sin Acta de entrega cargado</h6><br>
                 </div>
-                <div id="body-documento">
-                    <!-- se carga el pdf -->
+                <div class="container ">
+                    <a target="_blank" id="descargar_actaEntrega">Descargar Acta de entrega</a>
+                    <br>
+                    <button id="prev" class=" btn-info">
+                        < </button> <button id="next" class=" btn-info "> >
+                            </button>
+                            &nbsp; &nbsp;
+                            <span>Pagina: <span id="page_num"></span> / <span id="page_count"></span></span>
+                            <canvas id="pdf-canvas" class="img-fluid rounded "></canvas>
                 </div>
                 <div class="row" id="body-firma">
                     <div class="container col-md-6">

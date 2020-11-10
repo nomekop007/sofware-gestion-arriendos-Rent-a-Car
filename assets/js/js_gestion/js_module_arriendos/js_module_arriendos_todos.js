@@ -252,10 +252,10 @@ const mostrarContratoModalContrato = async(data) => {
         $("#formContratoArriendo").show();
         $("#nombre_documento").val(response.data.nombre_documento);
 
+        cacturarUrlPDF(response.data.url);
+        const a = document.getElementById("descargar_contrato");
+        a.href = `${storage}documentos/contratos/${response.data.nombre_documento}.pdf`;
 
-        mostrarPDF(
-            `${storage}documentos/contratos/${response.data.nombre_documento}.pdf`
-        );
 
         if (response.data.firma) {
             $("#btn_confirmar_contrato").attr("disabled", false);
@@ -313,12 +313,6 @@ const calcularValores = () => {
     $("#inputNeto").val(TotalNeto);
     $("#inputIVA").val(Math.round(iva));
     $("#inputTotal").val(Math.round(total));
-};
-
-const mostrarPDF = (url) => {
-    $("#body-documento").html(
-        `<a href="${url}" target="_blank" >Descargar contrato</a><br><iframe width="100%" height="700px" src="${url}" target="_parent"></iframe>`
-    );
 };
 
 const limpiarCampos = () => {

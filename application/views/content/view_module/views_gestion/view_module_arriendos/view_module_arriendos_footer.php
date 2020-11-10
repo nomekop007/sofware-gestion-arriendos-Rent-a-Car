@@ -39,6 +39,9 @@ $("#btn-garantia").click(function() {
 <script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_arriendos/js_module_arriendos_todos.js">
 </script>
 
+<script src="<?php echo base_route() ?>assets/js/canvasVisorPDF.js">
+</script>
+
 
 <script src="<?php echo base_route() ?>assets/js/canvasFirmaDigital.js">
 </script>

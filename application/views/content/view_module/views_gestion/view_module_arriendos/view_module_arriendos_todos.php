@@ -435,10 +435,9 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 
-
 <!-- Modal signature-->
 <div class="modal fade" id="modal_firmar_contrato" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-xl">
+    <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal_firmar_contrato">Firmar Contrato </h5>
@@ -459,9 +458,18 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <input type="text" id="id_arriendo" hidden>
                 <input type="text" id="estado_arriendo" hidden>
 
-                <div id="body-documento">
-                    <!-- se carga el pdf -->
+                <div class="container ">
+                    <a target="_blank" id="descargar_contrato">Descargar contrato</a>
+                    <br>
+                    <button id="prev" class=" btn-info">
+                        < </button> <button id="next" class=" btn-info "> >
+                            </button>
+                            &nbsp; &nbsp;
+                            <span>Pagina: <span id="page_num"></span> / <span id="page_count"></span></span>
+                            <canvas id="pdf-canvas" class="img-fluid rounded "></canvas>
                 </div>
+
+
                 <div class="container" id="body-firma">
                     <br>
                     <div class="row">
@@ -486,6 +494,8 @@ $nombreUsuario = $this->session->userdata('nombre')
                     </div>
                     <br>
                 </div>
+
+
             </div>
         </div>
     </div>
