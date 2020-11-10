@@ -44,10 +44,34 @@ const buscarArriendoExtender = async(id_arriendo) => {
 
 const limpiarFormulario = () => {
     $("#numeroArriendo").html("")
+    $("#spinner_btn_extenderArriendo").hide();
     $("#formExtenderArriendo")[0].reset();
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
+
+
 $(document).ready(() => {
+
     const tablaArriendosActivos = $("#tablaArriendosActivos").DataTable(lenguaje);
     const btnActivos = document.getElementById("nav-activos-tab");
     btnActivos.addEventListener("click", () => {
@@ -57,7 +81,7 @@ $(document).ready(() => {
     const cargarArriendosActivos = async() => {
         $("#spinner_tablaArriendoActivos").show();
         const data = new FormData();
-        data.append("filtro", "DESPACHADO");
+        data.append("filtro", "ACTIVO");
         const response = await ajax_function(data, "cargar_arriendos");
 
         if (response) {
@@ -69,14 +93,14 @@ $(document).ready(() => {
     };
 
 
-    $("#btn_extenderContrato").click(() => {
-
-        const dias = $("#inputNumeroDias_extenderPlazo").val();
+    $("#btn_extenderArriendo").click(() => {
+        const diasActuales = $("#dias_arriendo").val()
+        const diasExtendidos = $("#inputNumeroDias_extenderPlazo").val();
         const subtotal = $("#inputValorArriendo").val();
         const copago = $("#inputValorCopago").val();
         const total = $("#inputTotal").val();
 
-        if (dias.length == 0 || subtotal.length == 0 || copago.length == 0 || total < 0) {
+        if (diasExtendidos.length == 0 || subtotal.length == 0 || copago.length == 0 || total < 0) {
             Swal.fire(
                 "faltan datos , o datos erroneos",
                 "corriga el formulario!",
@@ -84,6 +108,16 @@ $(document).ready(() => {
             );
             return;
         }
+        if (diasExtendidos <= 0) {
+            Swal.fire(
+                "Extencion fallida",
+                "la extencion del contrato tiene que ser mayor a 1 dia",
+                "error"
+            );
+            return;
+        }
+
+
         Swal.fire({
             title: "Estas seguro?",
             text: "estas a punto de extender el plazo de un arriendo!",
@@ -94,19 +128,35 @@ $(document).ready(() => {
             reverseButtons: true,
         }).then(async(result) => {
             if (result.isConfirmed) {
+                $("#spinner_btn_extenderArriendo").show();
+                $("#btn_extenderArriendo").attr("disabled", true)
                 const form = $("#formExtenderArriendo")[0];
                 const data = new FormData(form);
-                data.append("nuevosDias", Number($("#dias_arriendo").val()) + Number(dias))
-
-                const response = await ajax_function(data, "extenderArriendo_pago");
+                data.append("nuevosDias", Number(diasActuales) + Number(diasExtendidos))
+                const response = await extenderContrato(data)
                 if (response.success) {
-                    await ajax_function(data, "extender_arriendo");
+
+                    refrescarTablaActivos();
+                    Swal.fire(
+                        "Arriendo extendido",
+                        "Arriendo extendido con exito!, proseguir a firmar el contrato",
+                        "success"
+                    );
+                    $("#modal_ArriendoExtender").modal("toggle");
                 }
-                //PENDIENTE DE DECORACION
+                $("#spinner_btn_extenderArriendo").hide();
+                $("#btn_extenderArriendo").attr("disabled", false)
             }
         });
     });
 
+    const extenderContrato = async(data) => {
+
+        const response = await ajax_function(data, "extenderArriendo_pago");
+        if (response.success) {
+            return await ajax_function(data, "extender_arriendo");
+        }
+    }
 
     const cargarArriendoActivosEnTabla = (arriendo) => {
         try {

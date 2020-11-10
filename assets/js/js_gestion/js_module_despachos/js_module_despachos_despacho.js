@@ -59,6 +59,24 @@ const limpiarCampos = () => {
     puntos2.length = 0;
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
 
 $(document).ready(() => {
@@ -315,7 +333,7 @@ $(document).ready(() => {
 
     const cambiarEstadoArriendo = async(data) => {
         data.append("id_arriendo", $("#inputIdArriendo").val());
-        data.append("estado", "DESPACHADO");
+        data.append("estado", "ACTIVO");
         await ajax_function(data, "cambiarEstado_arriendo");
     };
 

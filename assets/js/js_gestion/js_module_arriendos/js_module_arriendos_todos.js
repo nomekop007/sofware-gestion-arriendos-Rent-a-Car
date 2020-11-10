@@ -591,8 +591,9 @@ $(document).ready(() => {
     };
 
     const cambiarEstadoArriendo = async(data) => {
+        // si el arriendo es un arriendo extendido , se pasa directamente a arriendos activos
         if ($("#estado_arriendo").val() == "EXTENDIDO") {
-            data.append("estado", "DESPACHADO");
+            data.append("estado", "ACTIVO");
         } else {
             data.append("estado", "FIRMADO");
         }

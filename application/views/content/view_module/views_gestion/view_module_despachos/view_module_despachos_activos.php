@@ -67,7 +67,7 @@
                                 name="inputFechaExtender_extenderPlazo" id="inputFechaExtender_extenderPlazo" required>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="inputNumeroDias_extenderPlazo">Numeros de Dias</label>
+                            <label for="inputNumeroDias_extenderPlazo">Dias</label>
                             <input min="0" oninput="calcularDiasExtencion()" type="number" class="form-control"
                                 name="inputNumeroDias_extenderPlazo" id="inputNumeroDias_extenderPlazo" required>
                         </div>
@@ -113,7 +113,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                <button type="button" id="btn_extenderContrato" class="btn btn-primary">extender plazo</button>
+                <button type="button" id="btn_extenderArriendo" class="btn btn-primary">extender plazo
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                        id="spinner_btn_extenderArriendo"></span>
+                </button>
             </div>
         </div>
     </div>

@@ -365,7 +365,20 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <label class="custom-control-label" for="radioFactura">Factura</label>
                             </div>
                         </div>
-                        <div id="metodo_pago">
+                        <div id="metodo_pago" class="container">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="inputNumFacturacion">Numero facturacion</label>
+                                    <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion"
+                                        type="number" class="form-control" placeholder="Nº Boleta/Factura" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="inputFileFacturacion">documento facturacion</label>
+                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                        type="file" class="form-control-file" id="inputFileFacturacion"
+                                        name="inputFileFacturacion" required>
+                                </div>
+                            </div>
                             <h6>Metodo de pago</h6>
                             <div class="form-row card-body">
                                 <div class="custom-control custom-radio custom-control-inline ">
@@ -385,19 +398,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 </div>
                             </div>
                             <br>
-                            <div class="form-row ">
-                                <div class="form-group col-md-4">
-                                    <label for="inputNumFacturacion">Numero facturacion</label>
-                                    <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion"
-                                        type="number" class="form-control" placeholder="Nº Boleta/Factura" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputFileFacturacion">documento facturacion</label>
-                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                        type="file" class="form-control-file" id="inputFileFacturacion"
-                                        name="inputFileFacturacion" required>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                     <br><br>
