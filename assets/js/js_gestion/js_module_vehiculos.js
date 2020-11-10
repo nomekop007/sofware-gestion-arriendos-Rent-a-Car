@@ -167,6 +167,7 @@ $(document).ready(() => {
                 const responseFoto = await guardarImagenVehiculo(patente, file);
                 if (responseFoto.success) {
                     Swal.fire("Exito", responseFoto.msg, "success");
+                    refrescarTabla();
                     $("#modal_editar").modal("toggle");
                 }
             } else {

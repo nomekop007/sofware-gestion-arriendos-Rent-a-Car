@@ -11,7 +11,7 @@ var source = "";
 
 var cwVehiculo = (canvasVehiculo.width = 1500),
     cxVehiculo = cwVehiculo / 2;
-var chVehiculo = (canvasVehiculo.height = 300),
+var chVehiculo = (canvasVehiculo.height = 600),
     cyVehiculo = chVehiculo / 2;
 
 //------------ colocar foto en el canvas -------------- //
@@ -159,7 +159,7 @@ function limpiarTodoCanvasVehiculo(evt) {
     dibujar = false;
     ctxVehiculo.clearRect(0, 0, cwVehiculo, chVehiculo);
     canvasVehiculo.width = 1500;
-    canvasVehiculo.height = 300;
+    canvasVehiculo.height = 600;
     Trazados.length = 0;
     puntos.length = 0;
     curFile = null;

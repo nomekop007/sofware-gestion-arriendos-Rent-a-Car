@@ -579,11 +579,13 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 canvas</label>
                         </div>
                     </div>
-                    <div class="form-group col-lg-12">
-                        <div class="d-flex justify-content-center scroll" id="cont-canvas">
+                    <div class="col-lg-1"></div>
+                    <div class="form-group col-lg-10">
+                        <div class="vehiculo-canvas" id="cont-canvas">
                             <canvas id="canvas-fotoVehiculo" style="background:#d9d9d9"></canvas>
                         </div>
                     </div>
+                    <div class="col-lg-1"></div>
                     <div class="form-group col-lg-12">
                         <br>
                         <div class="container" id="carrucel">
@@ -619,59 +621,61 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <br>
                     <h6 class='text-center'>Sin Acta de entrega cargado</h6><br>
                 </div>
-                <div class="container ">
-                    <a target="_blank" id="descargar_actaEntrega">Descargar Acta de entrega</a>
-                    <br>
-                    <button id="prev" class=" btn-info">
-                        < </button> <button id="next" class=" btn-info "> >
+                <div id="body-firma">
+                    <div class="container ">
+                        <a target="_blank" id="descargar_actaEntrega">Descargar Acta de entrega</a>
+                        <br>
+                        <button id="prev" class=" btn-info">
+                            < </button> <button id="next" class=" btn-info "> >
+                                </button>
+                                &nbsp; &nbsp;
+                                <span>Pagina: <span id="page_num"></span> / <span id="page_count"></span></span>
+                                <canvas id="pdf-canvas" class="img-fluid rounded "></canvas>
+                    </div>
+                    <div class="row" id="body-firma">
+                        <div class="container col-md-6">
+                            <br>
+                            <h6 class="text-center">Recibido por:</h6>
+                            <p class="text-center" id="recibido"></p>
+                            <div class="row">
+                                <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
+                                    <canvas id="canvas-firma1" class="canvas-firma">
+                                    </canvas>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <button type="button" id="limpiar-firma1" class="btn btn-secondary btn-sm ">
+                                        limpiar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container col-md-6">
+                            <br>
+                            <h6 class="text-center">Entregado por:</h6>
+                            <p class="text-center" id="entregado"></p>
+                            <div class="row">
+                                <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
+                                    <canvas id="canvas-firma2" class="canvas-firma">
+                                    </canvas>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <button type="button" id="limpiar-firma2" class="btn btn-secondary btn-sm ">
+                                        limpiar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="col-md-12 text-center">
+                            <button type="button" id="btn_firmar_actaEntrega" class="btn btn-success btn-sm ">
+                                Firmar acta entrega
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                    id="spinner_btn_firmarActaEntrega"></span>
                             </button>
-                            &nbsp; &nbsp;
-                            <span>Pagina: <span id="page_num"></span> / <span id="page_count"></span></span>
-                            <canvas id="pdf-canvas" class="img-fluid rounded "></canvas>
-                </div>
-                <div class="row" id="body-firma">
-                    <div class="container col-md-6">
-                        <br>
-                        <h6 class="text-center">Recibido por:</h6>
-                        <p class="text-center" id="recibido"></p>
-                        <div class="row">
-                            <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
-                                <canvas id="canvas-firma1" class="canvas-firma">
-                                </canvas>
-                            </div>
-                            <div class="col-md-12 d-flex justify-content-center">
-                                <button type="button" id="limpiar-firma1" class="btn btn-secondary btn-sm ">
-                                    limpiar</button>
-                            </div>
+                            <button type="button" id="btn_confirmar_actaEntrega" class="btn btn-primary btn-sm ">
+                                Guardar cambios
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                    id="spinner_btn_confirmarActaEntrega"></span>
+                            </button>
                         </div>
-                    </div>
-                    <div class="container col-md-6">
-                        <br>
-                        <h6 class="text-center">Entregado por:</h6>
-                        <p class="text-center" id="entregado"></p>
-                        <div class="row">
-                            <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
-                                <canvas id="canvas-firma2" class="canvas-firma">
-                                </canvas>
-                            </div>
-                            <div class="col-md-12 d-flex justify-content-center">
-                                <button type="button" id="limpiar-firma2" class="btn btn-secondary btn-sm ">
-                                    limpiar</button>
-                            </div>
-                        </div>
-                    </div>
-                    <br><br>
-                    <div class="col-md-12 text-center">
-                        <button type="button" id="btn_firmar_actaEntrega" class="btn btn-success btn-sm ">
-                            Firmar acta entrega
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                id="spinner_btn_firmarActaEntrega"></span>
-                        </button>
-                        <button type="button" id="btn_confirmar_actaEntrega" class="btn btn-primary btn-sm ">
-                            Guardar cambios
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                id="spinner_btn_confirmarActaEntrega"></span>
-                        </button>
                     </div>
                 </div>
             </div>

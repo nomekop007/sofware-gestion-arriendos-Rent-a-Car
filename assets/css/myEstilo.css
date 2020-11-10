@@ -65,6 +65,11 @@ a:hover {
 /* scroll para las tablas */
 
 .scroll {
+    overflow-x: scroll;
+}
+
+.vehiculo-canvas {
+    height: 300px;
     overflow: scroll;
 }
 
