@@ -91,6 +91,8 @@ $route['extender_arriendo'] = 'Arriendo_controller/extenderArriendo';
 $route['registrar_actaEntrega'] = 'ActaEntrega_controller/registrarActaEntrega';
 $route['generar_PDFactaEntrega'] = 'ActaEntrega_controller/generarPDFactaEntrega';
 $route['enviar_correoActaEntrega'] = 'ActaEntrega_controller/enviarCorreoActaEntrega';
+$route['buscar_actaEntrega'] = 'ActaEntrega_controller/buscarActaEntrega';
+
 
 
 /* rutas de controller Despacho */

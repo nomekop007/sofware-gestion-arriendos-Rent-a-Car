@@ -135,7 +135,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <div class="row">
+                    <div class="col-md-6">
+                        <button id="prev_recepcion" class=" btn-info">
+                            < </button> <button id="next_recepcion" class=" btn-info "> >
+                                </button>
+                                &nbsp; &nbsp;
+                                <span>Pagina: <span id="page_num_recepcion"></span> / <span
+                                        id="page_count_recepcion"></span></span>
+                                <canvas id="pdf_canvas_recepcion" class="img-fluid rounded"></canvas>
+                    </div>
+
+                    <div class="col-md-6">
+                        <br><br>
+                        <h6>formulario...</h6>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>

@@ -33,6 +33,15 @@ const buscarArriendo = async(id_arriendo) => {
 };
 
 const limpiarCampos = () => {
+
+    mostrarCanvasImgVehiculo([
+        "canvas-fotoVehiculo",
+        "limpiar-fotoVehiculo",
+        "dibujarCanvas",
+        "inputImagenVehiculo"
+    ]);
+
+
     $("#body-documento").hide();
     $("#body-firma").hide();
     $("#body-sinContrato").show();
@@ -251,8 +260,13 @@ $(document).ready(() => {
                 $("#body-firma").show();
                 $("#body-sinContrato").hide();
 
-
-                cacturarUrlPDF(response.data.url);
+                mostrarVisorPDF(response.data.url, [
+                    "pdf_canvas_despacho",
+                    "page_count_despacho",
+                    "page_num_despacho",
+                    "prev_despacho",
+                    "next_despacho"
+                ]);
                 const a = document.getElementById("descargar_actaEntrega");
                 a.href = `${storage}documentos/actaEntrega/${response.data.nombre_documento}.pdf`;
 

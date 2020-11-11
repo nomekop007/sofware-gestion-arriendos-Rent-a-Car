@@ -252,7 +252,13 @@ const mostrarContratoModalContrato = async(data) => {
         $("#formContratoArriendo").show();
         $("#nombre_documento").val(response.data.nombre_documento);
 
-        cacturarUrlPDF(response.data.url);
+        mostrarVisorPDF(response.data.url, [
+            "pdf_canvas_contrato",
+            "page_count_contrato",
+            "page_num_contrato",
+            "prev_contrato",
+            "next_contrato"
+        ]);
         const a = document.getElementById("descargar_contrato");
         a.href = `${storage}documentos/contratos/${response.data.nombre_documento}.pdf`;
 

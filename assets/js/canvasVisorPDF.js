@@ -2,17 +2,39 @@
 // header on that server.
 
 
+const canvasVisorPDF = {
+    page_count: "",
+    page_num: "",
+    prev: "",
+    next: "",
+    pdfDoc: null,
+    pageNum: 1,
+    pageRendering: false,
+    pageNumPending: null,
+    scale: 2,
+    canvasVisorPDF: "",
+    ctxVisorPDF: ""
+}
 
+function mostrarVisorPDF(base64, [id_canvas, id_page_count, id_page_num, id_prev, id_next]) {
 
-function cacturarUrlPDF(url) {
+    canvasVisorPDF.canvasVisorPDF = document.getElementById(id_canvas);
+    canvasVisorPDF.ctxVisorPDF = canvasVisorPDF.canvasVisorPDF.getContext('2d');
+    canvasVisorPDF.page_count = id_page_count;
+    canvasVisorPDF.page_num = id_page_num;
+    canvasVisorPDF.prev = id_prev;
+    canvasVisorPDF.next = id_next;
+    canvasVisorPDF.pageNum = 1;
 
-    var pdfData = atob(url)
-    pdfjsLib.getDocument({ data: pdfData }).promise.then(function(pdfDoc_) {
-        pdfDoc = pdfDoc_;
-        document.getElementById('page_count').textContent = pdfDoc.numPages;
+    document.getElementById(canvasVisorPDF.prev).addEventListener('click', onPrevPage);
+    document.getElementById(canvasVisorPDF.next).addEventListener('click', onNextPage);
+
+    pdfjsLib.getDocument({ data: atob(base64) }).promise.then(function(pdfDoc_) {
+        canvasVisorPDF.pdfDoc = pdfDoc_;
+        document.getElementById(canvasVisorPDF.page_count).textContent = canvasVisorPDF.pdfDoc.numPages;
 
         // Initial/first page rendering
-        renderPage(pageNum);
+        renderPage(canvasVisorPDF.pageNum);
     }).catch((err) => {
         console.log(err);
     });
@@ -22,45 +44,37 @@ function cacturarUrlPDF(url) {
 
 
 
-var pdfDoc = null,
-    pageNum = 1,
-    pageRendering = false,
-    pageNumPending = null,
-    scale = 2,
-    canvasVisorPDF = document.getElementById('pdf-canvas'),
-    ctxVisorPDF = canvasVisorPDF.getContext('2d');
-
 /**
- * Get page info from document, resize canvasVisorPDF accordingly, and render page.
+ * Get page info from document, resicanvasVisorPDFe canvasVisorPDF accordingly, and render page.
  * @param num Page number.
  */
 function renderPage(num) {
-    pageRendering = true;
+    canvasVisorPDF.pageRendering = true;
     // Using promise to fetch the page
-    pdfDoc.getPage(num).then(function(page) {
-        var viewport = page.getViewport({ scale: scale });
-        canvasVisorPDF.height = viewport.height;
-        canvasVisorPDF.width = viewport.width;
+    canvasVisorPDF.pdfDoc.getPage(num).then(function(page) {
+        let viewport = page.getViewport({ scale: canvasVisorPDF.scale });
+        canvasVisorPDF.canvasVisorPDF.height = viewport.height;
+        canvasVisorPDF.canvasVisorPDF.width = viewport.width;
         // Render PDF page into canvas context
-        var renderContext = {
-            canvasContext: ctxVisorPDF,
+        let renderContext = {
+            canvasContext: canvasVisorPDF.ctxVisorPDF,
             viewport: viewport
         };
-        var renderTask = page.render(renderContext);
+        let renderTask = page.render(renderContext);
 
         // Wait for rendering to finish
         renderTask.promise.then(function() {
-            pageRendering = false;
-            if (pageNumPending !== null) {
+            canvasVisorPDF.pageRendering = false;
+            if (canvasVisorPDF.pageNumPending !== null) {
                 // New page rendering is pending
-                renderPage(pageNumPending);
-                pageNumPending = null;
+                renderPage(canvasVisorPDF.pageNumPending);
+                canvasVisorPDF.pageNumPending = null;
             }
         });
     });
 
     // Update page counters
-    document.getElementById('page_num').textContent = num;
+    document.getElementById(canvasVisorPDF.page_num).textContent = num;
 }
 
 /**
@@ -68,8 +82,8 @@ function renderPage(num) {
  * finised. Otherwise, executes rendering immediately.
  */
 function queueRenderPage(num) {
-    if (pageRendering) {
-        pageNumPending = num;
+    if (canvasVisorPDF.pageRendering) {
+        canvasVisorPDF.pageNumPending = num;
     } else {
         renderPage(num);
     }
@@ -80,22 +94,20 @@ function queueRenderPage(num) {
  * Displays previous page.
  */
 function onPrevPage() {
-    if (pageNum <= 1) {
+    if (canvasVisorPDF.pageNum <= 1) {
         return;
     }
-    pageNum--;
-    queueRenderPage(pageNum);
+    canvasVisorPDF.pageNum--;
+    queueRenderPage(canvasVisorPDF.pageNum);
 }
-document.getElementById('prev').addEventListener('click', onPrevPage);
 
 /**
  * Displays next page.
  */
 function onNextPage() {
-    if (pageNum >= pdfDoc.numPages) {
+    if (canvasVisorPDF.pageNum >= canvasVisorPDF.pdfDoc.numPages) {
         return;
     }
-    pageNum++;
-    queueRenderPage(pageNum);
+    canvasVisorPDF.pageNum++;
+    queueRenderPage(canvasVisorPDF.pageNum);
 }
-document.getElementById('next').addEventListener('click', onNextPage);

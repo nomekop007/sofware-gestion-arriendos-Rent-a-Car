@@ -39,7 +39,24 @@ const buscarArriendoExtender = async(id_arriendo) => {
         $("#id_arriendo").val(arriendo.id_arriendo);
         $("#dias_arriendo").val(arriendo.numerosDias_arriendo);
     }
+}
 
+
+const buscarArriendoFinalizar = async(id_arriendo) => {
+    limpiarFormulario();
+    const data = new FormData();
+    data.append("id_despacho", id_arriendo);
+    const response = await ajax_function(data, "buscar_actaEntrega");
+    if (response.success) {
+        const base64 = response.data.base64;
+        mostrarVisorPDF(base64, [
+            "pdf_canvas_recepcion",
+            "page_count_recepcion",
+            "page_num_recepcion",
+            "prev_recepcion",
+            "next_recepcion"
+        ]);
+    }
 }
 
 const limpiarFormulario = () => {
@@ -116,8 +133,6 @@ $(document).ready(() => {
             );
             return;
         }
-
-
         Swal.fire({
             title: "Estas seguro?",
             text: "estas a punto de extender el plazo de un arriendo!",
@@ -132,10 +147,9 @@ $(document).ready(() => {
                 $("#btn_extenderArriendo").attr("disabled", true)
                 const form = $("#formExtenderArriendo")[0];
                 const data = new FormData(form);
-                data.append("nuevosDias", Number(diasActuales) + Number(diasExtendidos))
-                const response = await extenderContrato(data)
+                data.append("nuevosDias", Number(diasActuales) + Number(diasExtendidos));
+                const response = await extenderContrato(data);
                 if (response.success) {
-
                     refrescarTablaActivos();
                     Swal.fire(
                         "Arriendo extendido",
@@ -151,7 +165,6 @@ $(document).ready(() => {
     });
 
     const extenderContrato = async(data) => {
-
         const response = await ajax_function(data, "extenderArriendo_pago");
         if (response.success) {
             return await ajax_function(data, "extender_arriendo");
@@ -175,7 +188,7 @@ $(document).ready(() => {
             temporizador(arriendo.fechaRecepcion_arriendo, arriendo.id_arriendo);
 
 
-            // onclick='buscarArriendoFinalizar(this.value)'
+
             tablaArriendosActivos.row
                 .add([
                     arriendo.id_arriendo,
@@ -186,7 +199,7 @@ $(document).ready(() => {
                     `<div id=time${arriendo.id_arriendo}> </div>`,
                     ` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' 
                          class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> 
-                          <button value='${arriendo.id_arriendo}'  data-toggle='modal' data-target='#modal_ArriendoFinalizar'
+                          <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)'  data-toggle='modal' data-target='#modal_ArriendoFinalizar'
                              class='btn btn btn-outline-success'><i class="fas fa-external-link-square-alt"></i></button>
                     `,
                 ])

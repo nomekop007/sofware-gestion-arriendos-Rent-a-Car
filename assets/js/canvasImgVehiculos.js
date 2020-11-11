@@ -1,188 +1,201 @@
-var image = new Image();
-var limpiar = document.getElementById("limpiar-fotoVehiculo");
-var limpiarTodo = document.getElementById("seleccionarFoto");
-var dibujarCanvas = document.getElementById("dibujarCanvas");
+const canvasImgVehiculos = {
+    id_limpiarCanvas: "",
+    id_dibujarCanvas: "",
+    id_inputImg: "",
+    image: new Image(),
+    canvasVehiculo: "",
+    ctxVehiculo: "",
+    input: "",
+    curFile: null,
+    source: "",
+    cwVehiculo: null,
+    chVehiculo: null,
+    fileTypes: ["image/jpeg", "image/jpg", "image/png"],
+    dibujar: false,
+    factorDeAlisamiento: 5,
+    Trazados: [],
+    puntos: [],
+    color: "black",
+    grosor: 1,
+    mImgVehiculo: { x: 0, y: 0 },
+    cxVehiculo: null,
+    cyVehiculo: null,
+    eventsRyImgVehiculo: [
+        { event: "mousedown", func: onStartVehiculo },
+        { event: "touchstart", func: onStartVehiculo },
+        { event: "mousemove", func: onMoveVehiculo },
+        { event: "touchmove", func: onMoveVehiculo },
+        { event: "mouseup", func: onEndVehiculo },
+        { event: "touchend", func: onEndVehiculo },
+        { event: "mouseout", func: onEndVehiculo },
+    ]
+}
 
-var canvasVehiculo = document.getElementById("canvas-fotoVehiculo");
-var ctxVehiculo = canvasVehiculo.getContext("2d");
-var input = document.getElementById("inputImagenVehiculo");
-var curFile = input.files;
-var source = "";
 
-var cwVehiculo = (canvasVehiculo.width = 1500),
-    cxVehiculo = cwVehiculo / 2;
-var chVehiculo = (canvasVehiculo.height = 600),
-    cyVehiculo = chVehiculo / 2;
 
-//------------ colocar foto en el canvas -------------- //
-input.addEventListener("change", updateImageDisplay);
+function mostrarCanvasImgVehiculo([canvas, id_limpiar, id_dibujar, id_inputIMG]) {
+
+    canvasImgVehiculos.id_limpiarCanvas = id_limpiar;
+    canvasImgVehiculos.id_dibujarCanvas = id_dibujar;
+    canvasImgVehiculos.id_inputImg = id_inputIMG;
+    canvasImgVehiculos.input = document.getElementById(id_inputIMG);
+    canvasImgVehiculos.curFile = canvasImgVehiculos.input.files;
+    canvasImgVehiculos.canvasVehiculo = document.getElementById(canvas);
+    canvasImgVehiculos.ctxVehiculo = canvasImgVehiculos.canvasVehiculo.getContext("2d");
+    canvasImgVehiculos.ctxVehiculo.lineJoin = "round";
+    canvasImgVehiculos.cwVehiculo = (canvasImgVehiculos.canvasVehiculo.width = 1500), canvasImgVehiculos.cxVehiculo = canvasImgVehiculos.cwVehiculo / 2;
+    canvasImgVehiculos.chVehiculo = (canvasImgVehiculos.canvasVehiculo.height = 600), canvasImgVehiculos.cyVehiculo = canvasImgVehiculos.chVehiculo / 2;
+
+
+    document.getElementById(canvasImgVehiculos.id_limpiarCanvas).addEventListener("click", limpiarCanvas);
+    document.getElementById(canvasImgVehiculos.id_dibujarCanvas).addEventListener("click", dibujarCanvas);
+    document.getElementById(canvasImgVehiculos.id_inputImg).addEventListener("change", updateImageDisplay);
+    limpiarTodoCanvasVehiculo();
+}
+
+
+
+
 
 function updateImageDisplay() {
-    var curFile = input.files;
-    dibujar = false;
-    ctxVehiculo.clearRect(0, 0, cwVehiculo, chVehiculo);
-    Trazados.length = 0;
-    puntos.length = 0;
+    var curFile = canvasImgVehiculos.input.files;
+    canvasImgVehiculos.dibujar = false;
+    canvasImgVehiculos.ctxVehiculo.clearRect(0, 0, canvasImgVehiculos.cwVehiculo, canvasImgVehiculos.chVehiculo);
+    canvasImgVehiculos.Trazados.length = 0;
+    canvasImgVehiculos.puntos.length = 0;
     var list = document.createElement("ol");
     var listItem = document.createElement("li");
     for (var i = 0; i < curFile.length; i++) {
         if (validFileType(curFile[i])) {
-            source = curFile[i].name;
-            image.src = window.URL.createObjectURL(curFile[i]);
+            canvasImgVehiculos.source = curFile[i].name;
+            canvasImgVehiculos.image.src = window.URL.createObjectURL(curFile[i]);
 
-            image.onload = function() {
-                canvasVehiculo.width = this.width / 2;
-                canvasVehiculo.height = this.height / 2;
-                ctxVehiculo.drawImage(
-                    image,
+            canvasImgVehiculos.image.onload = function() {
+                canvasImgVehiculos.canvasVehiculo.width = this.width / 2;
+                canvasImgVehiculos.canvasVehiculo.height = this.height / 2;
+                canvasImgVehiculos.ctxVehiculo.drawImage(
+                    canvasImgVehiculos.image,
                     0,
                     0,
-                    canvasVehiculo.width,
-                    canvasVehiculo.height
+                    canvasImgVehiculos.canvasVehiculo.width,
+                    canvasImgVehiculos.canvasVehiculo.height
                 );
-                image.style.display = "none";
+                canvasImgVehiculos.image.style.display = "none";
             };
-            listItem.appendChild(image);
+            listItem.appendChild(canvasImgVehiculos.image);
         }
         list.appendChild(listItem);
     }
 }
 
-var fileTypes = ["image/jpeg", "image/jpg", "image/png"];
 
 function validFileType(file) {
-    for (var i = 0; i < fileTypes.length; i++) {
-        if (file.type === fileTypes[i]) return true;
+    for (var i = 0; i < canvasImgVehiculos.fileTypes.length; i++) {
+        if (file.type === canvasImgVehiculos.fileTypes[i]) return true;
     }
-
     return false;
 }
 
-//------------------ Dibujar en el canvas----------------- //
 
-var dibujar = false;
-var factorDeAlisamiento = 5;
-var Trazados = [];
-var puntos = [];
-ctxVehiculo.lineJoin = "round";
-
-var color = "black";
-var grosor = 1;
 
 function defcolor(c) {
-    color = c;
+    canvasImgVehiculos.color = c;
 }
 
 function defgrosor(g) {
-    grosor = g;
+    canvasImgVehiculos.grosor = g;
 }
-var mImgVehiculo = { x: 0, y: 0 };
 
-var eventsRyImgVehiculo = [
-    { event: "mousedown", func: onStartVehiculo },
-    { event: "touchstart", func: onStartVehiculo },
-    { event: "mousemove", func: onMoveVehiculo },
-    { event: "touchmove", func: onMoveVehiculo },
-    { event: "mouseup", func: onEndVehiculo },
-    { event: "touchend", func: onEndVehiculo },
-    { event: "mouseout", func: onEndVehiculo },
-];
-
-dibujarCanvas.addEventListener("click", (e) => {
-    //1 : checked , 0 : no checked
-    const checked = $('[name="dibujarCanvas"]:checked').length;
-    if (checked == 1) {
-        ActivarEventosDibujar();
-    } else {
-        DesactivarEventosDibujar();
-    }
-});
 
 function onStartVehiculo(evt) {
     evt.preventDefault();
-    mImgVehiculo = oMousePosVehiculo(canvasVehiculo, evt);
-    ctxVehiculo.beginPath();
-    ctxVehiculo.strokeStyle = color;
-    ctxVehiculo.lineWidth = grosor;
-    dibujar = true;
+    canvasImgVehiculos.mImgVehiculo = oMousePosVehiculo(canvasImgVehiculos.canvasVehiculo, evt);
+    canvasImgVehiculos.ctxVehiculo.beginPath();
+    canvasImgVehiculos.ctxVehiculo.strokeStyle = canvasImgVehiculos.color;
+    canvasImgVehiculos.ctxVehiculo.lineWidth = canvasImgVehiculos.grosor;
+    canvasImgVehiculos.dibujar = true;
 }
 
 function onMoveVehiculo(evt) {
     evt.preventDefault();
-    if (dibujar) {
-        ctxVehiculo.moveTo(mImgVehiculo.x, mImgVehiculo.y);
-        mImgVehiculo = oMousePosVehiculo(canvasVehiculo, evt);
-        ctxVehiculo.lineTo(mImgVehiculo.x, mImgVehiculo.y);
-        ctxVehiculo.strokeStyle = color;
-        ctxVehiculo.lineWidth = grosor;
-        ctxVehiculo.stroke();
+    if (canvasImgVehiculos.dibujar) {
+        canvasImgVehiculos.ctxVehiculo.moveTo(canvasImgVehiculos.mImgVehiculo.x, canvasImgVehiculos.mImgVehiculo.y);
+        canvasImgVehiculos.mImgVehiculo = oMousePosVehiculo(canvasImgVehiculos.canvasVehiculo, evt);
+        canvasImgVehiculos.ctxVehiculo.lineTo(canvasImgVehiculos.mImgVehiculo.x, canvasImgVehiculos.mImgVehiculo.y);
+        canvasImgVehiculos.ctxVehiculo.strokeStyle = canvasImgVehiculos.color;
+        canvasImgVehiculos.ctxVehiculo.lineWidth = canvasImgVehiculos.grosor;
+        canvasImgVehiculos.ctxVehiculo.stroke();
     }
 }
 
 function onEndVehiculo(evt) {
     evt.preventDefault();
-    dibujar = false;
+    canvasImgVehiculos.dibujar = false;
 }
 
 function oMousePosVehiculo(canvasVehiculo, evt) {
     var ClientRect = canvasVehiculo.getBoundingClientRect();
     var e = evt.touches ? evt.touches[0] : evt;
-
     return {
         x: Math.round(e.clientX - ClientRect.left),
         y: Math.round(e.clientY - ClientRect.top),
     };
 }
 
+function dibujarCanvas() {
+    const checked = $('[name="dibujarCanvas"]:checked').length;
+    if (checked == 1) {
+        ActivarEventosDibujar();
+    } else {
+        DesactivarEventosDibujar();
+    }
+}
+
 function ActivarEventosDibujar() {
-    for (var i = 0; i < eventsRyImgVehiculo.length; i++) {
+    for (var i = 0; i < canvasImgVehiculos.eventsRyImgVehiculo.length; i++) {
         (function(i) {
-            var e = eventsRyImgVehiculo[i].event;
-            var f = eventsRyImgVehiculo[i].func;
-            canvasVehiculo.addEventListener(e, f, false);
+            var e = canvasImgVehiculos.eventsRyImgVehiculo[i].event;
+            var f = canvasImgVehiculos.eventsRyImgVehiculo[i].func;
+            canvasImgVehiculos.canvasVehiculo.addEventListener(e, f, false);
         })(i);
     }
 }
 
 function DesactivarEventosDibujar() {
-    for (var i = 0; i < eventsRyImgVehiculo.length; i++) {
+    for (var i = 0; i < canvasImgVehiculos.eventsRyImgVehiculo.length; i++) {
         (function(i) {
-            var e = eventsRyImgVehiculo[i].event;
-            var f = eventsRyImgVehiculo[i].func;
-            canvasVehiculo.removeEventListener(e, f, false);
+            var e = canvasImgVehiculos.eventsRyImgVehiculo[i].event;
+            var f = canvasImgVehiculos.eventsRyImgVehiculo[i].func;
+            canvasImgVehiculos.canvasVehiculo.removeEventListener(e, f, false);
         })(i);
     }
 }
 
-//limpiar canvas imagen + lineas
-function limpiarTodoCanvasVehiculo(evt) {
-    dibujar = false;
-    ctxVehiculo.clearRect(0, 0, cwVehiculo, chVehiculo);
-    canvasVehiculo.width = 1500;
-    canvasVehiculo.height = 600;
-    Trazados.length = 0;
-    puntos.length = 0;
-    curFile = null;
-    input.files = null;
-    input.value = null;
-    image.src = "";
-}
 
-// limpia canvas lineas
-limpiar.addEventListener(
-    "click",
-    function(evt) {
-        dibujar = false;
-        ctxVehiculo.clearRect(0, 0, cwVehiculo, chVehiculo);
-        Trazados.length = 0;
-        puntos.length = 0;
-        ctxVehiculo.drawImage(
-            image,
-            0,
-            0,
-            canvasVehiculo.width,
-            canvasVehiculo.height
-        );
-    },
-    false
-);
+
+
+function limpiarCanvas() {
+    canvasImgVehiculos.dibujar = false;
+    canvasImgVehiculos.ctxVehiculo.clearRect(0, 0, canvasImgVehiculos.cwVehiculo, canvasImgVehiculos.chVehiculo);
+    canvasImgVehiculos.Trazados.length = 0;
+    canvasImgVehiculos.puntos.length = 0;
+    canvasImgVehiculos.ctxVehiculo.drawImage(
+        canvasImgVehiculos.image, 0, 0,
+        canvasImgVehiculos.canvasVehiculo.width,
+        canvasImgVehiculos.canvasVehiculo.height
+    );
+};
+
+//limpiar canvas imagen + lineas
+function limpiarTodoCanvasVehiculo() {
+    canvasImgVehiculos.dibujar = false;
+    canvasImgVehiculos.ctxVehiculo.clearRect(0, 0, canvasImgVehiculos.cwVehiculo, canvasImgVehiculos.chVehiculo);
+    canvasImgVehiculos.canvasVehiculo.width = 1500;
+    canvasImgVehiculos.canvasVehiculo.height = 600;
+    canvasImgVehiculos.Trazados.length = 0;
+    canvasImgVehiculos.puntos.length = 0;
+    canvasImgVehiculos.curFile = null;
+    canvasImgVehiculos.input.files = null;
+    canvasImgVehiculos.input.value = null;
+    canvasImgVehiculos.image.src = "";
+}

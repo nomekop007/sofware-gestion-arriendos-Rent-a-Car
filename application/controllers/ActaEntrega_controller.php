@@ -16,6 +16,12 @@ class ActaEntrega_controller extends CI_Controller
         echo post_function($dataArray, "actasEntregas/registrarActaEntrega");
     }
 
+    public function buscarActaEntrega()
+    {
+        $id_despacho = $this->input->post("id_despacho");
+        echo find_function($id_despacho, "actasEntregas/buscarActaEntrega");
+    }
+
     public function generarPDFactaEntrega()
     {
         $ArrayData = [
