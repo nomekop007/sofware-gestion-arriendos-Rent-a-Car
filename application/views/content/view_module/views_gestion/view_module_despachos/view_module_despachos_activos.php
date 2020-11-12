@@ -143,7 +143,7 @@
                                 &nbsp; &nbsp;
                                 <span>Pagina: <span id="page_num_recepcion"></span> / <span
                                         id="page_count_recepcion"></span></span>
-                                <canvas id="pdf_canvas_recepcion" class="img-fluid rounded"></canvas>
+                                <canvas id="pdf_canvas_recepcion" class="img-fluid rounded pdf-canvas"></canvas>
                     </div>
 
                     <div class="col-md-6">

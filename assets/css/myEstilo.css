@@ -76,7 +76,7 @@ a:hover {
 
 /* css para pdf canvas */
 
-#pdf-canvas {
+.pdf-canvas {
     border: 1px solid black;
     direction: ltr;
 }

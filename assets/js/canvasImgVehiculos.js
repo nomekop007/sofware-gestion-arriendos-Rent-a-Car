@@ -1,6 +1,7 @@
 const canvasImgVehiculos = {
     id_limpiarCanvas: "",
     id_dibujarCanvas: "",
+    name_dibujarCanvas: "",
     id_inputImg: "",
     image: new Image(),
     canvasVehiculo: "",
@@ -46,7 +47,6 @@ function mostrarCanvasImgVehiculo([canvas, id_limpiar, id_dibujar, id_inputIMG])
     canvasImgVehiculos.cwVehiculo = (canvasImgVehiculos.canvasVehiculo.width = 1500), canvasImgVehiculos.cxVehiculo = canvasImgVehiculos.cwVehiculo / 2;
     canvasImgVehiculos.chVehiculo = (canvasImgVehiculos.canvasVehiculo.height = 600), canvasImgVehiculos.cyVehiculo = canvasImgVehiculos.chVehiculo / 2;
 
-
     document.getElementById(canvasImgVehiculos.id_limpiarCanvas).addEventListener("click", limpiarCanvas);
     document.getElementById(canvasImgVehiculos.id_dibujarCanvas).addEventListener("click", dibujarCanvas);
     document.getElementById(canvasImgVehiculos.id_inputImg).addEventListener("change", updateImageDisplay);
@@ -58,14 +58,14 @@ function mostrarCanvasImgVehiculo([canvas, id_limpiar, id_dibujar, id_inputIMG])
 
 
 function updateImageDisplay() {
-    var curFile = canvasImgVehiculos.input.files;
+    let curFile = canvasImgVehiculos.input.files;
     canvasImgVehiculos.dibujar = false;
     canvasImgVehiculos.ctxVehiculo.clearRect(0, 0, canvasImgVehiculos.cwVehiculo, canvasImgVehiculos.chVehiculo);
     canvasImgVehiculos.Trazados.length = 0;
     canvasImgVehiculos.puntos.length = 0;
-    var list = document.createElement("ol");
-    var listItem = document.createElement("li");
-    for (var i = 0; i < curFile.length; i++) {
+    let list = document.createElement("ol");
+    let listItem = document.createElement("li");
+    for (let i = 0; i < curFile.length; i++) {
         if (validFileType(curFile[i])) {
             canvasImgVehiculos.source = curFile[i].name;
             canvasImgVehiculos.image.src = window.URL.createObjectURL(curFile[i]);
@@ -90,7 +90,7 @@ function updateImageDisplay() {
 
 
 function validFileType(file) {
-    for (var i = 0; i < canvasImgVehiculos.fileTypes.length; i++) {
+    for (let i = 0; i < canvasImgVehiculos.fileTypes.length; i++) {
         if (file.type === canvasImgVehiculos.fileTypes[i]) return true;
     }
     return false;
@@ -134,8 +134,8 @@ function onEndVehiculo(evt) {
 }
 
 function oMousePosVehiculo(canvasVehiculo, evt) {
-    var ClientRect = canvasVehiculo.getBoundingClientRect();
-    var e = evt.touches ? evt.touches[0] : evt;
+    let ClientRect = canvasVehiculo.getBoundingClientRect();
+    let e = evt.touches ? evt.touches[0] : evt;
     return {
         x: Math.round(e.clientX - ClientRect.left),
         y: Math.round(e.clientY - ClientRect.top),
@@ -143,29 +143,29 @@ function oMousePosVehiculo(canvasVehiculo, evt) {
 }
 
 function dibujarCanvas() {
-    const checked = $('[name="dibujarCanvas"]:checked').length;
+    const checked = $(`[name=${canvasImgVehiculos.id_dibujarCanvas}]:checked`).length;
     if (checked == 1) {
-        ActivarEventosDibujar();
+        ActiletEventosDibujar();
     } else {
-        DesactivarEventosDibujar();
+        DesactiletEventosDibujar();
     }
 }
 
-function ActivarEventosDibujar() {
-    for (var i = 0; i < canvasImgVehiculos.eventsRyImgVehiculo.length; i++) {
+function ActiletEventosDibujar() {
+    for (let i = 0; i < canvasImgVehiculos.eventsRyImgVehiculo.length; i++) {
         (function(i) {
-            var e = canvasImgVehiculos.eventsRyImgVehiculo[i].event;
-            var f = canvasImgVehiculos.eventsRyImgVehiculo[i].func;
+            let e = canvasImgVehiculos.eventsRyImgVehiculo[i].event;
+            let f = canvasImgVehiculos.eventsRyImgVehiculo[i].func;
             canvasImgVehiculos.canvasVehiculo.addEventListener(e, f, false);
         })(i);
     }
 }
 
-function DesactivarEventosDibujar() {
-    for (var i = 0; i < canvasImgVehiculos.eventsRyImgVehiculo.length; i++) {
+function DesactiletEventosDibujar() {
+    for (let i = 0; i < canvasImgVehiculos.eventsRyImgVehiculo.length; i++) {
         (function(i) {
-            var e = canvasImgVehiculos.eventsRyImgVehiculo[i].event;
-            var f = canvasImgVehiculos.eventsRyImgVehiculo[i].func;
+            let e = canvasImgVehiculos.eventsRyImgVehiculo[i].event;
+            let f = canvasImgVehiculos.eventsRyImgVehiculo[i].func;
             canvasImgVehiculos.canvasVehiculo.removeEventListener(e, f, false);
         })(i);
     }

@@ -467,7 +467,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                             &nbsp; &nbsp;
                             <span>Pagina: <span id="page_num_contrato"></span> / <span
                                     id="page_count_contrato"></span></span>
-                            <canvas id="pdf_canvas_contrato" class="img-fluid rounded "></canvas>
+                            <canvas id="pdf_canvas_contrato" class="img-fluid rounded pdf-canvas"></canvas>
                 </div>
 
 
@@ -475,7 +475,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <br>
                     <div class="row">
                         <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
-                            <canvas id="canvas-firma" class="canvas-firma">
+                            <canvas id="canvas-firma" class="canvas-firma ">
                             </canvas>
                         </div>
                         <div class="col-md-12 d-flex justify-content-center">

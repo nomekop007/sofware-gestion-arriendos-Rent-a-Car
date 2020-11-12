@@ -15,8 +15,6 @@ $(document).ready(() => {
                 dataType: "json",
                 data: { correo, clave },
                 success: (response) => {
-                    $("#btn_login").attr("disabled", false);
-                    $("#spinner_btn_login").hide();
                     if (response.success) {
                         crearSesion(response.usuario);
                     } else {
@@ -51,6 +49,8 @@ $(document).ready(() => {
             },
             success: (response) => {
                 if (response.msg == "OK") {
+                    $("#btn_login").attr("disabled", false);
+                    $("#spinner_btn_login").hide();
                     window.location.href = base_url + "cargar_panel?panel=1";
                 } else {
                     SalertError();

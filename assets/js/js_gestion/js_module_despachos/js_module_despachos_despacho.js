@@ -42,6 +42,17 @@ const limpiarCampos = () => {
     ]);
 
 
+    mostrarCanvasCombustible("canvas-combustible", "output");
+
+
+    mostrarCanvasFirmasActaEntrega(
+        ["canvas-firma1",
+            "canvas-firma2",
+            "limpiar-firma1",
+            "limpiar-firma2"
+        ]);
+
+
     $("#body-documento").hide();
     $("#body-firma").hide();
     $("#body-sinContrato").show();
@@ -57,15 +68,8 @@ const limpiarCampos = () => {
     $("#spinner_btn_confirmarActaEntrega").hide();
     $("#btn_confirmar_actaEntrega").attr("disabled", true);
 
-    //se limpia los canvas de firma
-    dibujarFirma1 = false;
-    dibujarFirma2 = false;
-    ctxFirma1.clearRect(0, 0, cwFirma1, chFirma1);
-    ctxFirma2.clearRect(0, 0, cwFirma2, chFirma2);
-    Trazados1.length = 0;
-    Trazados2.length = 0;
-    puntos1.length = 0;
-    puntos2.length = 0;
+
+
 };
 
 

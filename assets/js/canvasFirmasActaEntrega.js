@@ -1,198 +1,174 @@
-var limpiar1 = document.getElementById("limpiar-firma1");
-var limpiar2 = document.getElementById("limpiar-firma2");
-
-var canvas1 = document.getElementById("canvas-firma1");
-var canvas2 = document.getElementById("canvas-firma2");
-
-var ctxFirma1 = canvas1.getContext("2d");
-var ctxFirma2 = canvas2.getContext("2d");
-
-
-var cwFirma1 = (canvas1.width = 300),
-    cxFirma1 = cwFirma1 / 2;
-var chFirma1 = (canvas1.height = 150),
-    cyFirma1 = chFirma1 / 2;
-
-
-var cwFirma2 = (canvas2.width = 300),
-    cxFirma2 = cwFirma2 / 2;
-var chFirma2 = (canvas2.height = 150),
-    cyFirma2 = chFirma2 / 2;
-
-
-
-var dibujarFirma1 = false;
-var dibujarfirma2 = false;
-
-
-
-var factorDeAlisamiento1 = 5;
-var factorDeAlisamiento2 = 5;
-
-var Trazados1 = [];
-var Trazados2 = [];
-
-var puntos1 = [];
-var puntos2 = [];
-
-ctxFirma1.lineJoin = "round";
-ctxFirma2.lineJoin = "round";
-
-
-var m1 = { x: 0, y: 0 };
-var m2 = { x: 0, y: 0 };
+const canvasFirmasActa = {
+    canvas1: null,
+    canvas2: null,
+    ctxFirma1: null,
+    ctxFirma2: null,
+    cwFirma1: null,
+    cxFirma1: null,
+    chFirma1: null,
+    cyFirma1: null,
+    cwFirma2: null,
+    cxFirma2: null,
+    chFirma2: null,
+    cyFirma2: null,
+    dibujarFirma1: false,
+    dibujarfirma2: false,
+    factorDeAlisamiento1: 5,
+    factorDeAlisamiento2: 5,
+    Trazados1: [],
+    Trazados2: [],
+    puntos1: [],
+    puntos2: [],
+    m1: { x: 0, y: 0 },
+    m2: { x: 0, y: 0 },
+    eventsRy1: [{ event: "mousedown", func: onStart1 },
+        { event: "touchstart", func: onStart1 },
+        { event: "mousemove", func: onMove1 },
+        { event: "touchmove", func: onMove1 },
+        { event: "mouseup", func: onEnd1 },
+        { event: "touchend", func: onEnd1 },
+        { event: "mouseout", func: onEnd1 }
+    ],
+    eventsRy2: [{ event: "mousedown", func: onStart2 },
+        { event: "touchstart", func: onStart2 },
+        { event: "mousemove", func: onMove2 },
+        { event: "touchmove", func: onMove2 },
+        { event: "mouseup", func: onEnd2 },
+        { event: "touchend", func: onEnd2 },
+        { event: "mouseout", func: onEnd2 }
+    ],
+}
 
 
+function mostrarCanvasFirmasActaEntrega([id_canvas_firma1, id_canvas_firma2, id_limpiar1, id_limpiar2]) {
 
-limpiar1.addEventListener(
-    "click",
-    function(evt) {
-        dibujarFirma1 = false;
-        ctxFirma1.clearRect(0, 0, cwFirma1, chFirma1);
-        Trazados1.length = 0;
-        puntos1.length = 0;
-    },
-    false
-);
+    canvasFirmasActa.canvas1 = document.getElementById(id_canvas_firma1);
+    canvasFirmasActa.canvas2 = document.getElementById(id_canvas_firma2);
+    canvasFirmasActa.ctxFirma1 = canvasFirmasActa.canvas1.getContext("2d");
+    canvasFirmasActa.ctxFirma2 = canvasFirmasActa.canvas2.getContext("2d");
+    canvasFirmasActa.ctxFirma1.lineJoin = "round";
+    canvasFirmasActa.ctxFirma2.lineJoin = "round";
+    canvasFirmasActa.cwFirma1 = (canvasFirmasActa.canvas1.width = 300)
+    canvasFirmasActa.cxFirma1 = canvasFirmasActa.cwFirma1 / 2;
+    canvasFirmasActa.chFirma1 = (canvasFirmasActa.canvas1.height = 150)
+    canvasFirmasActa.cyFirma1 = canvasFirmasActa.chFirma1 / 2;
+    canvasFirmasActa.cwFirma2 = (canvasFirmasActa.canvas2.width = 300)
+    canvasFirmasActa.cxFirma2 = canvasFirmasActa.cwFirma2 / 2;
+    canvasFirmasActa.chFirma2 = (canvasFirmasActa.canvas2.height = 150)
+    canvasFirmasActa.cyFirma2 = canvasFirmasActa.chFirma2 / 2;
+    document.getElementById(id_limpiar1).addEventListener("click", limpiarfirma1);
+    document.getElementById(id_limpiar2).addEventListener("click", limpiarfirma2);
 
-limpiar2.addEventListener(
-    "click",
-    function(evt) {
-        dibujarFirma2 = false;
-        ctxFirma2.clearRect(0, 0, cwFirma2, chFirma2);
-        Trazados2.length = 0;
-        puntos2.length = 0;
-    },
-    false
-);
+    cargarfuncionesTouchfirma1();
+    cargarfuncionesTouchfirma2();
+    limpiarFirmas();
+}
 
-
-
-
-var eventsRy1 = [{ event: "mousedown", func: "onStart1" },
-    { event: "touchstart", func: "onStart1" },
-    { event: "mousemove", func: "onMove1" },
-    { event: "touchmove", func: "onMove1" },
-    { event: "mouseup", func: "onEnd1" },
-    { event: "touchend", func: "onEnd1" },
-    { event: "mouseout", func: "onEnd1" }
-];
-
-
-var eventsRy2 = [{ event: "mousedown", func: "onStart2" },
-    { event: "touchstart", func: "onStart2" },
-    { event: "mousemove", func: "onMove2" },
-    { event: "touchmove", func: "onMove2" },
-    { event: "mouseup", func: "onEnd2" },
-    { event: "touchend", func: "onEnd2" },
-    { event: "mouseout", func: "onEnd2" }
-];
+function limpiarFirmas() {
+    //se limpia los canvas de firma
+    canvasFirmasActa.dibujarFirma1 = false;
+    canvasFirmasActa.dibujarFirma2 = false;
+    canvasFirmasActa.ctxFirma1.clearRect(0, 0, canvasFirmasActa.cwFirma1, canvasFirmasActa.chFirma1);
+    canvasFirmasActa.ctxFirma2.clearRect(0, 0, canvasFirmasActa.cwFirma2, canvasFirmasActa.chFirma2);
+    canvasFirmasActa.Trazados1.length = 0;
+    canvasFirmasActa.Trazados2.length = 0;
+    canvasFirmasActa.puntos1.length = 0;
+    canvasFirmasActa.puntos2.length = 0;
+}
 
 
 
 
+
+function cargarfuncionesTouchfirma1() {
+    for (var i = 0; i < canvasFirmasActa.eventsRy1.length; i++) {
+        (function(i) {
+            var e = canvasFirmasActa.eventsRy1[i].event;
+            var f = canvasFirmasActa.eventsRy1[i].func;
+            canvasFirmasActa.canvas1.addEventListener(e, f, false);
+        })(i);
+    }
+}
+
+function cargarfuncionesTouchfirma2() {
+    for (var i = 0; i < canvasFirmasActa.eventsRy2.length; i++) {
+        (function(i) {
+            var e = canvasFirmasActa.eventsRy2[i].event;
+            var f = canvasFirmasActa.eventsRy2[i].func;
+            canvasFirmasActa.canvas2.addEventListener(e, f, false);
+        })(i);
+    }
+}
 
 
 function onStart1(evt) {
-    m1 = oMousePos(canvas1, evt);
-    puntos1.length = 0;
-    ctxFirma1.beginPath();
-    dibujarFirma1 = true;
+    evt.preventDefault();
+    canvasFirmasActa.m1 = oMousePos(canvasFirmasActa.canvas1, evt);
+    canvasFirmasActa.puntos1.length = 0;
+    canvasFirmasActa.ctxFirma1.beginPath();
+    canvasFirmasActa.dibujarFirma1 = true;
 }
-
 
 function onStart2(evt) {
-    m2 = oMousePos(canvas2, evt);
-    puntos2.length = 0;
-    ctxFirma2.beginPath();
-    dibujarFirma2 = true;
+    evt.preventDefault();
+    canvasFirmasActa.m2 = oMousePos(canvasFirmasActa.canvas2, evt);
+    canvasFirmasActa.puntos2.length = 0;
+    canvasFirmasActa.ctxFirma2.beginPath();
+    canvasFirmasActa.dibujarFirma2 = true;
 }
 
-
-
-
 function onMove1(evt) {
-    if (dibujarFirma1) {
-        ctxFirma1.moveTo(m1.x, m1.y);
-        m1 = oMousePos(canvas1, evt);
-        puntos1.push(m1)
-        ctxFirma1.lineTo(m1.x, m1.y);
-        ctxFirma1.stroke();
+    evt.preventDefault();
+    if (canvasFirmasActa.dibujarFirma1) {
+        canvasFirmasActa.ctxFirma1.moveTo(canvasFirmasActa.m1.x, canvasFirmasActa.m1.y);
+        canvasFirmasActa.m1 = oMousePos(canvasFirmasActa.canvas1, evt);
+        canvasFirmasActa.puntos1.push(canvasFirmasActa.m1)
+        canvasFirmasActa.ctxFirma1.lineTo(canvasFirmasActa.m1.x, canvasFirmasActa.m1.y);
+        canvasFirmasActa.ctxFirma1.stroke();
     }
 }
 
 function onMove2(evt) {
-    if (dibujarFirma2) {
-        ctxFirma2.moveTo(m2.x, m2.y);
-        m2 = oMousePos(canvas2, evt);
-        puntos2.push(m2)
-        ctxFirma2.lineTo(m2.x, m2.y);
-        ctxFirma2.stroke();
+    evt.preventDefault();
+    if (canvasFirmasActa.dibujarFirma2) {
+        canvasFirmasActa.ctxFirma2.moveTo(canvasFirmasActa.m2.x, canvasFirmasActa.m2.y);
+        canvasFirmasActa.m2 = oMousePos(canvasFirmasActa.canvas2, evt);
+        canvasFirmasActa.puntos2.push(canvasFirmasActa.m2)
+        canvasFirmasActa.ctxFirma2.lineTo(canvasFirmasActa.m2.x, canvasFirmasActa.m2.y);
+        canvasFirmasActa.ctxFirma2.stroke();
     }
 }
 
-
-
 function onEnd1(evt) {
+    evt.preventDefault();
     redibujarTrazados1();
     dibujarFirma1 = false;
 }
 
 function onEnd2(evt) {
+    evt.preventDefault();
     redibujarTrazados2();
-    dibujarFirma2 = false;
+    canvasFirmasActa.dibujarFirma2 = false;
 }
-
-
-for (var i = 0; i < eventsRy1.length; i++) {
-    (function(i) {
-        var e = eventsRy1[i].event;
-        var f = eventsRy1[i].func;
-        canvas1.addEventListener(e, function(evt) {
-            evt.preventDefault();
-            window[f](evt);
-            return;
-        }, false);
-    })(i);
-}
-
-
-for (var i = 0; i < eventsRy2.length; i++) {
-    (function(i) {
-        var e = eventsRy2[i].event;
-        var f = eventsRy2[i].func;
-        canvas2.addEventListener(e, function(evt) {
-            evt.preventDefault();
-            window[f](evt);
-            return;
-        }, false);
-    })(i);
-}
-
-
 
 
 function redibujarTrazados1() {
-    dibujarFirma1 = false;
-    ctxFirma1.clearRect(0, 0, cwFirma1, chFirma1);
-    var nuevoArray = reducirArray(factorDeAlisamiento1, puntos1);
-    Trazados1.push(nuevoArray);
-    for (var i = 0; i < Trazados1.length; i++)
-        alisarTrazado(Trazados1[i], ctxFirma1);
+    canvasFirmasActa.dibujarFirma1 = false;
+    canvasFirmasActa.ctxFirma1.clearRect(0, 0, canvasFirmasActa.cwFirma1, canvasFirmasActa.chFirma1);
+    var nuevoArray = reducirArray(canvasFirmasActa.factorDeAlisamiento1, canvasFirmasActa.puntos1);
+    canvasFirmasActa.Trazados1.push(nuevoArray);
+    for (var i = 0; i < canvasFirmasActa.Trazados1.length; i++)
+        alisarTrazado(canvasFirmasActa.Trazados1[i], canvasFirmasActa.ctxFirma1);
 }
 
 function redibujarTrazados2() {
-    dibujarFirma2 = false;
-    ctxFirma2.clearRect(0, 0, cwFirma2, chFirma2);
-    var nuevoArray = reducirArray(factorDeAlisamiento2, puntos2);
-    Trazados2.push(nuevoArray);
-    for (var i = 0; i < Trazados2.length; i++)
-        alisarTrazado(Trazados2[i], ctxFirma2);
+    canvasFirmasActa.dibujarFirma2 = false;
+    canvasFirmasActa.ctxFirma2.clearRect(0, 0, canvasFirmasActa.cwFirma2, canvasFirmasActa.chFirma2);
+    var nuevoArray = reducirArray(canvasFirmasActa.factorDeAlisamiento2, canvasFirmasActa.puntos2);
+    canvasFirmasActa.Trazados2.push(nuevoArray);
+    for (var i = 0; i < canvasFirmasActa.Trazados2.length; i++)
+        alisarTrazado(canvasFirmasActa.Trazados2[i], canvasFirmasActa.ctxFirma2);
 }
-
-
-
-
 
 
 function oMousePos(canvas, evt) {
@@ -204,12 +180,6 @@ function oMousePos(canvas, evt) {
         y: Math.round(e.clientY - ClientRect.top)
     };
 }
-
-
-
-
-
-
 
 function reducirArray(n, elArray) {
 
@@ -225,7 +195,6 @@ function reducirArray(n, elArray) {
     return nuevoArray;
 }
 
-
 function alisarTrazado(ry, ctx) {
     if (ry.length > 1) {
         var ultimoPunto = ry.length - 1;
@@ -240,11 +209,23 @@ function alisarTrazado(ry, ctx) {
     }
 }
 
-
-
 function calcularPuntoDeControl(ry, a, b) {
     var pc = {}
     pc.x = (ry[a].x + ry[b].x) / 2;
     pc.y = (ry[a].y + ry[b].y) / 2;
     return pc;
 }
+
+function limpiarfirma2(evt) {
+    canvasFirmasActa.dibujarFirma2 = false;
+    canvasFirmasActa.ctxFirma2.clearRect(0, 0, canvasFirmasActa.cwFirma2, canvasFirmasActa.chFirma2);
+    canvasFirmasActa.Trazados2.length = 0;
+    canvasFirmasActa.puntos2.length = 0;
+};
+
+function limpiarfirma1(evt) {
+    canvasFirmasActa.dibujarFirma1 = false;
+    canvasFirmasActa.ctxFirma1.clearRect(0, 0, canvasFirmasActa.cwFirma1, canvasFirmasActa.chFirma1);
+    canvasFirmasActa.Trazados1.length = 0;
+    canvasFirmasActa.puntos1.length = 0;
+};
