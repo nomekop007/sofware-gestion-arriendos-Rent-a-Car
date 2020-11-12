@@ -1,3 +1,5 @@
+const arrayImages = [];
+
 const buscarArriendo = async(id_arriendo) => {
     limpiarCampos();
     const data = new FormData();
@@ -44,7 +46,6 @@ const limpiarCampos = () => {
 
     mostrarCanvasCombustible("canvas-combustible", "output");
 
-
     mostrarCanvasFirmasActaEntrega(
         ["canvas-firma1",
             "canvas-firma2",
@@ -68,7 +69,8 @@ const limpiarCampos = () => {
     $("#spinner_btn_confirmarActaEntrega").hide();
     $("#btn_confirmar_actaEntrega").attr("disabled", true);
 
-
+    arrayImages.length = 0;
+    $("#carrucel").empty();
 
 };
 
@@ -95,7 +97,6 @@ const limpiarCampos = () => {
 $(document).ready(() => {
     //se inician los datatable
     const tablaControldespacho = $("#tablaControldespacho").DataTable(lenguaje);
-    const arrayImages = [];
 
     const btndespacho = document.getElementById("nav-despachos-tab");
     btndespacho.addEventListener("click", () => {
@@ -126,7 +127,7 @@ $(document).ready(() => {
         if (inputImg != 0) {
             const canvas = document.getElementById("canvas-fotoVehiculo");
             const base64 = canvas.toDataURL("image/png");
-            const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
+            const url = await resizeBase64Img(base64, canvas.width, canvas.height, 2);
             if (arrayImages.length < 5) {
                 arrayImages.push(url);
                 agregarFotoACarrucel(arrayImages);

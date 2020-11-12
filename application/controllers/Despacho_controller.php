@@ -19,4 +19,14 @@ class Despacho_controller extends CI_Controller
 
         echo post_function($ArrayData, "despachos/registrarDespacho");
     }
+
+    public function registrarRevision()
+    {
+        $id_despacho = $this->input->post("id_despacho");
+        $ArrayData = [
+            "arrayImages" => json_decode($this->input->post("arrayImages"))
+        ];
+
+        echo put_function($id_despacho, $ArrayData, "despachos/registrarRevision");
+    }
 }

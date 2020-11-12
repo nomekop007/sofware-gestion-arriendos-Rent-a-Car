@@ -55,7 +55,8 @@ class Arriendo_controller extends CI_Controller
     {
         $idArriendo = $this->input->post("id_arriendo");
         $ArrayData = [
-            "estado_arriendo" =>  $this->input->post("estado")
+            "estado_arriendo" =>  $this->input->post("estado"),
+            "kilometrosSalida_arriendo" => $this->input->post("kilometraje_salida")
         ];
         echo put_function($idArriendo, $ArrayData, "arriendos/editarArriendo");
     }

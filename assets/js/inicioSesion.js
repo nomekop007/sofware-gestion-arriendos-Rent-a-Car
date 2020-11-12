@@ -23,6 +23,8 @@ $(document).ready(() => {
                             title: "inicio de Sesion",
                             text: response.msg,
                         });
+                        $("#btn_login").attr("disabled", false);
+                        $("#spinner_btn_login").hide();
                         $("#inputclave").val("");
                     }
                 },

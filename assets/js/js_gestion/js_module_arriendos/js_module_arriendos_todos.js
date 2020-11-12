@@ -322,6 +322,8 @@ const calcularValores = () => {
 };
 
 const limpiarCampos = () => {
+    mostrarCanvasFirma("canvas-firma", "limpiar-firma");
+
     $("#spinner_btn_subirDocumentos").hide();
     $("#spinner_btn_registrarPago").hide();
     $("#spinner_btn_firmarContrato").hide();
@@ -358,12 +360,15 @@ const limpiarCampos = () => {
     $("#card_efectivo").hide();
 
     $("#metodo_pago").hide();
-    //se limpia el canvas de firma
-    dibujar = false;
-    ctx.clearRect(0, 0, cw, ch);
-    Trazados.length = 0;
-    puntos.length = 0;
 };
+
+
+
+
+
+
+
+
 
 //----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
 

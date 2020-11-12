@@ -18,6 +18,8 @@ const canvasVisorPDF = {
 
 function mostrarVisorPDF(base64, [id_canvas, id_page_count, id_page_num, id_prev, id_next]) {
 
+
+
     canvasVisorPDF.canvasVisorPDF = document.getElementById(id_canvas);
     canvasVisorPDF.ctxVisorPDF = canvasVisorPDF.canvasVisorPDF.getContext('2d');
     canvasVisorPDF.page_count = id_page_count;
@@ -40,7 +42,6 @@ function mostrarVisorPDF(base64, [id_canvas, id_page_count, id_page_num, id_prev
     });
 
 }
-
 
 
 

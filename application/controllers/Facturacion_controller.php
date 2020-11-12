@@ -24,7 +24,7 @@ class Facturacion_controller extends CI_Controller
 
 		$file = 'inputDocumento';
 		$config['upload_path'] = "temp_files/";
-		$config['allowed_types'] = "gif|jpg|jpeg|png";
+		$config['allowed_types'] = "*";
 
 		$this->load->library('upload', $config);
 

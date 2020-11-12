@@ -97,6 +97,7 @@ $route['buscar_actaEntrega'] = 'ActaEntrega_controller/buscarActaEntrega';
 
 /* rutas de controller Despacho */
 $route['registrar_despacho'] = 'Despacho_controller/registrarDespacho';
+$route['registrar_revision'] = 'Despacho_controller/registrarRevision';
 
 
 

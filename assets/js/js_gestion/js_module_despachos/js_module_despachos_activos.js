@@ -1,3 +1,6 @@
+const arrayImagesRecepcion = [];
+
+
 const calcularDiasExtencion = () => {
     let fechaRecepcion = $("#inputFechaRecepcion_extenderPlazo").val();
     let fechaExtender = $("#inputFechaExtender_extenderPlazo").val();
@@ -38,14 +41,25 @@ const buscarArriendoExtender = async(id_arriendo) => {
         $("#inputFechaExtender_extenderPlazo").prop('min', arriendo.fechaRecepcion_arriendo.substring(0, 16));
         $("#id_arriendo").val(arriendo.id_arriendo);
         $("#dias_arriendo").val(arriendo.numerosDias_arriendo);
+        $("#body_extender_arriendo").show();
     }
+    $("#formSpinner_extender_arriendo").hide();
+
 }
 
 
 const buscarArriendoFinalizar = async(id_arriendo) => {
     limpiarFormulario();
+
+    mostrarCanvasImgVehiculo([
+        "canvas_fotoVehiculo_recepcion",
+        "limpiar_fotoVehiculo_recepcion",
+        "dibujar_canvas_recepcion",
+        "inputImagen_vehiculo_recepcion"
+    ]);
     const data = new FormData();
     data.append("id_despacho", id_arriendo);
+    data.append("id_arriendo", id_arriendo);
     const response = await ajax_function(data, "buscar_actaEntrega");
     if (response.success) {
         const base64 = response.data.base64;
@@ -56,13 +70,33 @@ const buscarArriendoFinalizar = async(id_arriendo) => {
             "prev_recepcion",
             "next_recepcion"
         ]);
+        const response2 = await ajax_function(data, "buscar_arriendo");
+        if (response2.success) {
+            const arriendo = response2.data;
+
+            $("#numero_arriendo_recepcion").html("Nº " + arriendo.id_arriendo);
+            $("#body_recepcion_arriendo").show();
+            $("#id_vehiculo_recepcion").val(arriendo.patente_vehiculo);
+            $("#id_arriendo_recepcion").val(arriendo.id_arriendo);
+        }
     }
+    $("#formSpinner_finalizar_arriendo").hide();
 }
 
 const limpiarFormulario = () => {
+
+    $("#formSpinner_extender_arriendo").show();
+    $("#formSpinner_finalizar_arriendo").show();
+    $("#body_recepcion_arriendo").hide();
+    $("#body_extender_arriendo").hide();
     $("#numeroArriendo").html("")
     $("#spinner_btn_extenderArriendo").hide();
     $("#formExtenderArriendo")[0].reset();
+    arrayImagesRecepcion.length = 0;
+    $("#carrucel_recepcion").empty();
+    $("#id_vehiculo_recepcion").val("");
+    $("#id_arriendo_recepcion").val("");
+
 }
 
 
@@ -88,6 +122,7 @@ const limpiarFormulario = () => {
 
 
 $(document).ready(() => {
+
 
     const tablaArriendosActivos = $("#tablaArriendosActivos").DataTable(lenguaje);
     const btnActivos = document.getElementById("nav-activos-tab");
@@ -164,6 +199,114 @@ $(document).ready(() => {
         });
     });
 
+    $("#btn_finalizar_arriendo").click(() => {
+        if (arrayImagesRecepcion.length > 0) {
+            Swal.fire({
+                title: "Estas seguro?",
+                text: "estas a punto de finalizar el arriendo!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, seguro",
+                cancelButtonText: "No, cancelar!",
+                reverseButtons: true,
+            }).then(async(result) => {
+                if (result.isConfirmed) {
+
+                    const data = new FormData();
+
+                    await guardarRevisionRecepcion(data);
+                    //  await cambiarEstadoVehiculo(data);
+                    //  await cambiarEstadoArriendo(data);
+
+                    refrescarTablaActivos();
+                    $("#modal_ArriendoFinalizar").modal("toggle");
+                    Swal.fire(
+                        "Arriendo finalizado!",
+                        "Arriendo finalizado con exito!",
+                        "success"
+                    );
+                }
+            });
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "falta tomar fotos al vehiculo!",
+            });
+        }
+    });
+
+    $("#limpiarArrayFotosRecepcion").click(() => {
+        arrayImagesRecepcion.length = 0;
+        $("#carrucel_recepcion").empty();
+    });
+
+
+    $("#seleccionarFotoRecepcion").click(async() => {
+        /*
+        se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
+		el servidor solo puede recibir un maximo de 2mb en cada consulta.
+        Actualizado: es posible que esto cambie debido al ambiente de desarrollo
+        o capacidad de la maquina en la que se este ejecutando
+        */
+        const inputImg = $("#inputImagen_vehiculo_recepcion").val();
+        if (inputImg != 0) {
+            const canvas = document.getElementById("canvas_fotoVehiculo_recepcion");
+            const base64 = canvas.toDataURL("image/png");
+            const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
+            if (arrayImagesRecepcion.length < 5) {
+                arrayImagesRecepcion.push(url);
+                agregarFotoACarrucel(arrayImagesRecepcion);
+                limpiarTodoCanvasVehiculo();
+                console.log(arrayImagesRecepcion);
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "el maximo son 5 imagenes",
+                });
+            }
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "debe ingresar foto",
+            });
+        }
+    });
+
+    const agregarFotoACarrucel = (array) => {
+        let items = "";
+        for (let i = 0; i < array.length; i++) {
+            items += `<div class="item"><img src="${array[i]}" /></div>`;
+        }
+        const html = `<div class="owl-carousel owl-theme" id="carruselVehiculos">${items}</div></div>`;
+        $("#carrucel_recepcion").html(html);
+        $(".owl-carousel").owlCarousel({
+            items: 1,
+        });
+    };
+
+    const guardarRevisionRecepcion = async(data) => {
+        data.append("id_despacho", $("#id_arriendo_recepcion").val());
+        data.append("arrayImages", JSON.stringify(arrayImagesRecepcion));
+        await ajax_function(data, "registrar_revision");
+    }
+
+    const cambiarEstadoArriendo = async(data) => {
+        data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+        data.append("estado", "FINALIZADO");
+        data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
+        await ajax_function(data, "cambiarEstado_arriendo");
+    };
+
+    const cambiarEstadoVehiculo = async(data) => {
+        data.append("inputPatenteVehiculo", $("#id_vehiculo_recepcion").val());
+        data.append("inputEstado", "DISPONIBLE");
+        data.append("kilometraje_vehiculo", $("#input_kilometraje_salida").val());
+        await ajax_function(data, "cambiarEstado_vehiculo");
+    };
+
+
+
+
     const extenderContrato = async(data) => {
         const response = await ajax_function(data, "extenderArriendo_pago");
         if (response.success) {
@@ -171,43 +314,6 @@ $(document).ready(() => {
         }
     }
 
-    const cargarArriendoActivosEnTabla = (arriendo) => {
-        try {
-            let cliente = "";
-            switch (arriendo.tipo_arriendo) {
-                case "PARTICULAR":
-                    cliente = `${arriendo.cliente.nombre_cliente} ${arriendo.cliente.rut_cliente}`;
-                    break;
-                case "REMPLAZO":
-                    cliente = `${arriendo.remplazo.cliente.nombre_cliente} ${arriendo.remplazo.cliente.rut_cliente}`;
-                    break;
-                case "EMPRESA":
-                    cliente = `${arriendo.empresa.nombre_empresa} ${arriendo.empresa.rut_empresa}`;
-                    break;
-            }
-            temporizador(arriendo.fechaRecepcion_arriendo, arriendo.id_arriendo);
-
-
-
-            tablaArriendosActivos.row
-                .add([
-                    arriendo.id_arriendo,
-                    cliente,
-                    arriendo.vehiculo.patente_vehiculo,
-                    arriendo.tipo_arriendo,
-                    formatearFechaHora(arriendo.fechaRecepcion_arriendo),
-                    `<div id=time${arriendo.id_arriendo}> </div>`,
-                    ` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' 
-                         class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> 
-                          <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)'  data-toggle='modal' data-target='#modal_ArriendoFinalizar'
-                             class='btn btn btn-outline-success'><i class="fas fa-external-link-square-alt"></i></button>
-                    `,
-                ])
-                .draw(false);
-        } catch (error) {
-            console.log(error);
-        }
-    };
 
     const temporizador = (fechaRecepcion_arriendo, id_arriendo) => {
         $(`#time${id_arriendo}`).text("");
@@ -251,5 +357,43 @@ $(document).ready(() => {
     const refrescarTablaActivos = () => {
         tablaArriendosActivos.row().clear().draw(false);
         cargarArriendosActivos();
+    };
+
+    const cargarArriendoActivosEnTabla = (arriendo) => {
+        try {
+            let cliente = "";
+            switch (arriendo.tipo_arriendo) {
+                case "PARTICULAR":
+                    cliente = `${arriendo.cliente.nombre_cliente} ${arriendo.cliente.rut_cliente}`;
+                    break;
+                case "REMPLAZO":
+                    cliente = `${arriendo.remplazo.cliente.nombre_cliente} ${arriendo.remplazo.cliente.rut_cliente}`;
+                    break;
+                case "EMPRESA":
+                    cliente = `${arriendo.empresa.nombre_empresa} ${arriendo.empresa.rut_empresa}`;
+                    break;
+            }
+            temporizador(arriendo.fechaRecepcion_arriendo, arriendo.id_arriendo);
+
+
+
+            tablaArriendosActivos.row
+                .add([
+                    arriendo.id_arriendo,
+                    cliente,
+                    arriendo.vehiculo.patente_vehiculo,
+                    arriendo.tipo_arriendo,
+                    formatearFechaHora(arriendo.fechaRecepcion_arriendo),
+                    `<div id=time${arriendo.id_arriendo}> </div>`,
+                    ` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' 
+                         class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> 
+                          <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)'  data-toggle='modal' data-target='#modal_ArriendoFinalizar'
+                             class='btn btn btn-outline-success'><i class="fas fa-external-link-square-alt"></i></button>
+                    `,
+                ])
+                .draw(false);
+        } catch (error) {
+            console.log(error);
+        }
     };
 });

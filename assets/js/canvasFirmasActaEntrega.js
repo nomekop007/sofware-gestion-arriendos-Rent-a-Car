@@ -81,20 +81,20 @@ function limpiarFirmas() {
 
 
 function cargarfuncionesTouchfirma1() {
-    for (var i = 0; i < canvasFirmasActa.eventsRy1.length; i++) {
+    for (let i = 0; i < canvasFirmasActa.eventsRy1.length; i++) {
         (function(i) {
-            var e = canvasFirmasActa.eventsRy1[i].event;
-            var f = canvasFirmasActa.eventsRy1[i].func;
+            let e = canvasFirmasActa.eventsRy1[i].event;
+            let f = canvasFirmasActa.eventsRy1[i].func;
             canvasFirmasActa.canvas1.addEventListener(e, f, false);
         })(i);
     }
 }
 
 function cargarfuncionesTouchfirma2() {
-    for (var i = 0; i < canvasFirmasActa.eventsRy2.length; i++) {
+    for (let i = 0; i < canvasFirmasActa.eventsRy2.length; i++) {
         (function(i) {
-            var e = canvasFirmasActa.eventsRy2[i].event;
-            var f = canvasFirmasActa.eventsRy2[i].func;
+            let e = canvasFirmasActa.eventsRy2[i].event;
+            let f = canvasFirmasActa.eventsRy2[i].func;
             canvasFirmasActa.canvas2.addEventListener(e, f, false);
         })(i);
     }
@@ -155,25 +155,25 @@ function onEnd2(evt) {
 function redibujarTrazados1() {
     canvasFirmasActa.dibujarFirma1 = false;
     canvasFirmasActa.ctxFirma1.clearRect(0, 0, canvasFirmasActa.cwFirma1, canvasFirmasActa.chFirma1);
-    var nuevoArray = reducirArray(canvasFirmasActa.factorDeAlisamiento1, canvasFirmasActa.puntos1);
+    let nuevoArray = reducirArray(canvasFirmasActa.factorDeAlisamiento1, canvasFirmasActa.puntos1);
     canvasFirmasActa.Trazados1.push(nuevoArray);
-    for (var i = 0; i < canvasFirmasActa.Trazados1.length; i++)
+    for (let i = 0; i < canvasFirmasActa.Trazados1.length; i++)
         alisarTrazado(canvasFirmasActa.Trazados1[i], canvasFirmasActa.ctxFirma1);
 }
 
 function redibujarTrazados2() {
     canvasFirmasActa.dibujarFirma2 = false;
     canvasFirmasActa.ctxFirma2.clearRect(0, 0, canvasFirmasActa.cwFirma2, canvasFirmasActa.chFirma2);
-    var nuevoArray = reducirArray(canvasFirmasActa.factorDeAlisamiento2, canvasFirmasActa.puntos2);
+    let nuevoArray = reducirArray(canvasFirmasActa.factorDeAlisamiento2, canvasFirmasActa.puntos2);
     canvasFirmasActa.Trazados2.push(nuevoArray);
-    for (var i = 0; i < canvasFirmasActa.Trazados2.length; i++)
+    for (let i = 0; i < canvasFirmasActa.Trazados2.length; i++)
         alisarTrazado(canvasFirmasActa.Trazados2[i], canvasFirmasActa.ctxFirma2);
 }
 
 
 function oMousePos(canvas, evt) {
-    var ClientRect = canvas.getBoundingClientRect();
-    var e = evt.touches ? evt.touches[0] : evt;
+    let ClientRect = canvas.getBoundingClientRect();
+    let e = evt.touches ? evt.touches[0] : evt;
 
     return {
         x: Math.round(e.clientX - ClientRect.left),
@@ -183,9 +183,9 @@ function oMousePos(canvas, evt) {
 
 function reducirArray(n, elArray) {
 
-    var nuevoArray = [];
+    let nuevoArray = [];
     nuevoArray[0] = elArray[0];
-    for (var i = 0; i < elArray.length; i++) {
+    for (let i = 0; i < elArray.length; i++) {
         if (i % n == 0) {
             nuevoArray[nuevoArray.length] = elArray[i];
         }
@@ -197,11 +197,11 @@ function reducirArray(n, elArray) {
 
 function alisarTrazado(ry, ctx) {
     if (ry.length > 1) {
-        var ultimoPunto = ry.length - 1;
+        let ultimoPunto = ry.length - 1;
         ctx.beginPath();
         ctx.moveTo(ry[0].x, ry[0].y);
         for (i = 1; i < ry.length - 2; i++) {
-            var pc = calcularPuntoDeControl(ry, i, i + 1);
+            let pc = calcularPuntoDeControl(ry, i, i + 1);
             ctx.quadraticCurveTo(ry[i].x, ry[i].y, pc.x, pc.y);
         }
         ctx.quadraticCurveTo(ry[ultimoPunto - 1].x, ry[ultimoPunto - 1].y, ry[ultimoPunto].x, ry[ultimoPunto].y);
@@ -210,7 +210,7 @@ function alisarTrazado(ry, ctx) {
 }
 
 function calcularPuntoDeControl(ry, a, b) {
-    var pc = {}
+    let pc = {}
     pc.x = (ry[a].x + ry[b].x) / 2;
     pc.y = (ry[a].y + ry[b].y) / 2;
     return pc;
