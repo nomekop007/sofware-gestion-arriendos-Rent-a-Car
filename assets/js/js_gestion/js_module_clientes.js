@@ -119,19 +119,11 @@ $(document).ready(() => {
     const tablaEmpresa = $("#tablaEmpresas").DataTable(lenguaje);
     const tablaConductor = $("#tablaConductores").DataTable(lenguaje);
 
-    const btnCliente = document.getElementById("nav-clientes-tab");
-    const btnEmpresas = document.getElementById("nav-empresas-tab");
-    const btnConductores = document.getElementById("nav-conductores-tab");
 
-    btnCliente.addEventListener("click", () => {
-        refrescarTablaCliente();
-    });
-    btnEmpresas.addEventListener("click", () => {
-        refrescarTablaEmpresa();
-    });
-    btnConductores.addEventListener("click", () => {
-        refrescarTablaConductor();
-    });
+    $("#nav-clientes-tab").click(() => refrescarTablaCliente());
+    $("#nav-empresas-tab").click(() => refrescarTablaEmpresa());
+    $("#nav-conductores-tab").click(() => refrescarTablaConductor());
+
 
     const refrescarTablaCliente = () => {
         //limpia la tabla

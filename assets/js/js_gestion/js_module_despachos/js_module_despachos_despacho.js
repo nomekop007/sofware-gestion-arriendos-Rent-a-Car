@@ -98,10 +98,9 @@ $(document).ready(() => {
     //se inician los datatable
     const tablaControldespacho = $("#tablaControldespacho").DataTable(lenguaje);
 
-    const btndespacho = document.getElementById("nav-despachos-tab");
-    btndespacho.addEventListener("click", () => {
-        refrescarTabla();
-    });
+
+    $("#nav-despachos-tab").click(() => refrescarTabla());
+
 
     (cargarArriendos = async() => {
         $("#spinner_tablaDespacho").show();

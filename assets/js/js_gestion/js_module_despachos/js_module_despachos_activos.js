@@ -90,6 +90,7 @@ const limpiarFormulario = () => {
     $("#body_recepcion_arriendo").hide();
     $("#body_extender_arriendo").hide();
     $("#numeroArriendo").html("")
+    $("#spinner_btn_finalizar_contrato").hide();
     $("#spinner_btn_extenderArriendo").hide();
     $("#formExtenderArriendo")[0].reset();
     arrayImagesRecepcion.length = 0;
@@ -125,10 +126,8 @@ $(document).ready(() => {
 
 
     const tablaArriendosActivos = $("#tablaArriendosActivos").DataTable(lenguaje);
-    const btnActivos = document.getElementById("nav-activos-tab");
-    btnActivos.addEventListener("click", () => {
-        refrescarTablaActivos();
-    });
+
+    $("#nav-activos-tab").click(() => refrescarTablaActivos());
 
     const cargarArriendosActivos = async() => {
         $("#spinner_tablaArriendoActivos").show();
@@ -211,20 +210,27 @@ $(document).ready(() => {
                 reverseButtons: true,
             }).then(async(result) => {
                 if (result.isConfirmed) {
-
+                    $("#spinner_btn_finalizar_contrato").show();
+                    $("#btn_finalizar_arriendo").attr("disable", true);
                     const data = new FormData();
 
-                    await guardarRevisionRecepcion(data);
-                    //  await cambiarEstadoVehiculo(data);
-                    //  await cambiarEstadoArriendo(data);
-
+                    const response_revision = await guardarRevisionRecepcion(data);
+                    if (response_revision.success) {
+                        const response_vehiculo = await cambiarEstadoVehiculo(data);
+                        if (response_vehiculo.success) {
+                            await cambiarEstadoArriendo(data);
+                        }
+                    }
                     refrescarTablaActivos();
+                    $("#spinner_btn_finalizar_contrato").hide();
+                    $("#btn_finalizar_arriendo").attr("disable", false);
                     $("#modal_ArriendoFinalizar").modal("toggle");
                     Swal.fire(
                         "Arriendo finalizado!",
                         "Arriendo finalizado con exito!",
                         "success"
                     );
+
                 }
             });
         } else {
@@ -246,7 +252,7 @@ $(document).ready(() => {
         se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
 		el servidor solo puede recibir un maximo de 2mb en cada consulta.
         Actualizado: es posible que esto cambie debido al ambiente de desarrollo
-        o capacidad de la maquina en la que se este ejecutando
+        o capacidad de la maquina en la que se este ejecutando (local/produccion)
         */
         const inputImg = $("#inputImagen_vehiculo_recepcion").val();
         if (inputImg != 0) {
@@ -255,7 +261,7 @@ $(document).ready(() => {
             const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
             if (arrayImagesRecepcion.length < 5) {
                 arrayImagesRecepcion.push(url);
-                agregarFotoACarrucel(arrayImagesRecepcion);
+                agregarFotoACarrucelRecepcion(arrayImagesRecepcion);
                 limpiarTodoCanvasVehiculo();
                 console.log(arrayImagesRecepcion);
             } else {
@@ -272,7 +278,7 @@ $(document).ready(() => {
         }
     });
 
-    const agregarFotoACarrucel = (array) => {
+    const agregarFotoACarrucelRecepcion = (array) => {
         let items = "";
         for (let i = 0; i < array.length; i++) {
             items += `<div class="item"><img src="${array[i]}" /></div>`;
@@ -287,21 +293,21 @@ $(document).ready(() => {
     const guardarRevisionRecepcion = async(data) => {
         data.append("id_despacho", $("#id_arriendo_recepcion").val());
         data.append("arrayImages", JSON.stringify(arrayImagesRecepcion));
-        await ajax_function(data, "registrar_revision");
+        return await ajax_function(data, "registrar_revision");
     }
 
     const cambiarEstadoArriendo = async(data) => {
         data.append("id_arriendo", $("#id_arriendo_recepcion").val());
         data.append("estado", "FINALIZADO");
         data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
-        await ajax_function(data, "cambiarEstado_arriendo");
+        return await ajax_function(data, "cambiarEstado_arriendo");
     };
 
     const cambiarEstadoVehiculo = async(data) => {
         data.append("inputPatenteVehiculo", $("#id_vehiculo_recepcion").val());
         data.append("inputEstado", "DISPONIBLE");
         data.append("kilometraje_vehiculo", $("#input_kilometraje_salida").val());
-        await ajax_function(data, "cambiarEstado_vehiculo");
+        return await ajax_function(data, "cambiarEstado_vehiculo");
     };
 
 

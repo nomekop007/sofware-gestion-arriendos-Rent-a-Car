@@ -61,10 +61,9 @@ const limpiarCampos = () => {
 
 $(document).ready(() => {
     const tablaVehiculos = $("#tablaVehiculos").DataTable(lenguaje);
-    const btnVehiculo = document.getElementById("nav-vehiculos-tab");
-    btnVehiculo.addEventListener("click", () => {
-        refrescarTabla();
-    });
+
+    $("#nav-vehiculos-tab").click(() => refrescarTabla());
+
     //cargar sucursales  (ruta,select)
     cargarSelect("cargar_Sucursales", "inputSucursal");
     cargarSelect("cargar_Sucursales", "inputEditarSucursal");

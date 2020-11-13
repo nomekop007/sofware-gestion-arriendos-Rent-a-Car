@@ -373,19 +373,13 @@ const limpiarCampos = () => {
 //----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
 
 $(document).ready(() => {
-    if ("geolocation" in navigator) {
-        console.log("Yeih! habemus geolocalización");
-    } else {
-        alert("el navegador no soporta la geolocalización");
-        /* el navegador no soporta la geolocalización*/
-    }
+
+    "geolocation" in navigator ? console.log("Yeih! habemus geolocalización") : alert("el navegador no soporta la geolocalización");
 
     const tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
 
-    const btnActivos = document.getElementById("nav-arriendos-tab");
-    btnActivos.addEventListener("click", () => {
-        refrescarTabla();
-    });
+    $("#nav-arriendos-tab").click(() => refrescarTabla());
+
 
     const cargarArriendos = async() => {
         $("#spinner_tablaTotalArriendos").show();

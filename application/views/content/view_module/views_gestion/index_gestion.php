@@ -29,9 +29,9 @@
 <script>
 (cargarArriendosActivos = async () => {
     const data = new FormData();
-    data.append("filtro", "DESPACHADO");
+    data.append("filtro", "ACTIVO");
     const response = await ajax_function(data, "cargar_arriendos");
-    if (response) {
+    if (response.success) {
         $.each(response.data, (i, arriendo) => {
             temporizador(arriendo.fechaRecepcion_arriendo, arriendo.id_arriendo);
         });
@@ -45,7 +45,6 @@ const temporizador = (fechaRecepcion_arriendo, id_arriendo) => {
     // 1 segundo = 1.000
     // 1 minuto = 60.000
     // 1 hora = 3.600.000
-    //queda 3600000 1 hora o menos
     if (time <= 3600000 * 2) {
 
         let fila = `

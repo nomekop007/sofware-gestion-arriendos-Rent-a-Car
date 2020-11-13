@@ -16,8 +16,8 @@ function get_function($url)
 			'usertoken' => $token,
 			'userat' => $name,
 		],
-		'timeout'         => 5,
-		'connect_timeout' => 5
+		'timeout'         => 10,
+		'connect_timeout' => 10
 	]);
 	return $request->getBody();
 }
@@ -35,8 +35,8 @@ function find_function($id, $url)
 			'usertoken' => $token,
 			'userat' => $name,
 		],
-		'timeout'         => 5,
-		'connect_timeout' => 5
+		'timeout'         => 10,
+		'connect_timeout' => 10
 	]);
 	return $request->getBody();
 }
@@ -56,8 +56,8 @@ function post_function($data, $url)
 			'usertoken' => $token,
 			'userat' => $name,
 		],
-		'timeout'         => 5,
-		'connect_timeout' => 5
+		'timeout'         => 10,
+		'connect_timeout' => 10
 	]);
 	return  $response->getBody();
 }
@@ -76,8 +76,8 @@ function put_function($id, $data, $url)
 			'usertoken' => $token,
 			'userat' => $name,
 		],
-		'timeout'         => 5,
-		'connect_timeout' => 5
+		'timeout'         => 10,
+		'connect_timeout' => 10
 	]);
 	return  $response->getBody();
 }
@@ -97,8 +97,8 @@ function file_function($id, $formData, $url)
 			'usertoken' => $token,
 			'userat' => $name,
 		],
-		'timeout'         => 10,
-		'connect_timeout' => 10
+		'timeout'         => 20,
+		'connect_timeout' => 20
 	]);
 	return  $response->getBody();
 }
