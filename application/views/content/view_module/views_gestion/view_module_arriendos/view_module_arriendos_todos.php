@@ -454,7 +454,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                 </div>
             </div>
             <div class="modal-body" id="formContratoArriendo">
-                <input type="text" id="nombre_documento" hidden>
                 <input type="text" id="id_arriendo" hidden>
                 <input type="text" id="estado_arriendo" hidden>
 

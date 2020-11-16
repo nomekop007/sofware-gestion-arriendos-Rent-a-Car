@@ -1,3 +1,7 @@
+//aqui se guarda el base64 del documento seleccionando
+let base64_documento = null;
+
+
 const buscarArriendo = async(id_arriendo, option) => {
     limpiarCampos();
     const data = new FormData();
@@ -250,9 +254,8 @@ const mostrarContratoModalContrato = async(data) => {
     const response = await ajax_function(data, "generar_PDFcontrato");
     if (response.success) {
         $("#formContratoArriendo").show();
-        $("#nombre_documento").val(response.data.nombre_documento);
 
-        mostrarVisorPDF(response.data.url, [
+        mostrarVisorPDF(response.data.base64, [
             "pdf_canvas_contrato",
             "page_count_contrato",
             "page_num_contrato",
@@ -260,8 +263,11 @@ const mostrarContratoModalContrato = async(data) => {
             "next_contrato"
         ]);
         const a = document.getElementById("descargar_contrato");
-        a.href = `${storage}documentos/contratos/${response.data.nombre_documento}.pdf`;
+        a.href = `data:application/pdf;base64,${response.data.base64}`;
+        a.download = `contrato.pdf`;
 
+
+        base64_documento = response.data.base64;
 
         if (response.data.firma) {
             $("#btn_confirmar_contrato").attr("disabled", false);
@@ -360,6 +366,7 @@ const limpiarCampos = () => {
     $("#card_efectivo").hide();
 
     $("#metodo_pago").hide();
+    base64_documento = null;
 };
 
 
@@ -581,7 +588,7 @@ $(document).ready(() => {
     };
 
     const guardarContrato = async(data) => {
-        data.append("nombre_documento", $("#nombre_documento").val());
+        data.append("base64", base64_documento);
         await ajax_function(data, "registrar_contrato");
     };
 

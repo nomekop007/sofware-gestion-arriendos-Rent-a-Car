@@ -11,7 +11,7 @@ class ActaEntrega_controller extends CI_Controller
     {
         $dataArray = [
             "id_despacho" => $this->input->post("inputIdDespacho"),
-            "documento" => $this->input->post("nombre_documento"),
+            "base64" => $this->input->post("base64"),
         ];
         echo post_function($dataArray, "actasEntregas/registrarActaEntrega");
     }

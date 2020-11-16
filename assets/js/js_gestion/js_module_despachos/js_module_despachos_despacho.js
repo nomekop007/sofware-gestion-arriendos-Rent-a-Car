@@ -1,4 +1,5 @@
 const arrayImages = [];
+let base64_documento = null;
 
 const buscarArriendo = async(id_arriendo) => {
     limpiarCampos();
@@ -70,6 +71,7 @@ const limpiarCampos = () => {
     $("#btn_confirmar_actaEntrega").attr("disabled", true);
 
     arrayImages.length = 0;
+    base64_documento = null;
     $("#carrucel").empty();
 
 };
@@ -259,12 +261,11 @@ $(document).ready(() => {
                 $("#modal_signature").modal({
                     show: true,
                 });
-                $("#nombre_documento").val(response.data.nombre_documento);
                 $("#body-documento").show();
                 $("#body-firma").show();
                 $("#body-sinContrato").hide();
 
-                mostrarVisorPDF(response.data.url, [
+                mostrarVisorPDF(response.data.base64, [
                     "pdf_canvas_despacho",
                     "page_count_despacho",
                     "page_num_despacho",
@@ -272,8 +273,10 @@ $(document).ready(() => {
                     "next_despacho"
                 ]);
                 const a = document.getElementById("descargar_actaEntrega");
-                a.href = `${storage}documentos/actaEntrega/${response.data.nombre_documento}.pdf`;
+                a.href = `data:application/pdf;base64,${response.data.base64}`;
+                a.download = `actaEntrega.pdf`;
 
+                base64_documento = response.data.base64;
 
                 if (response.data.firma1 && response.data.firma2) {
                     $("#btn_confirmar_actaEntrega").attr("disabled", false);
@@ -340,7 +343,7 @@ $(document).ready(() => {
     };
 
     const guardarActaEntrega = async(data, id_despacho) => {
-        data.append("nombre_documento", $("#nombre_documento").val());
+        data.append("base64", base64_documento);
         data.append("inputIdDespacho", id_despacho);
         await ajax_function(data, "registrar_actaEntrega");
     };

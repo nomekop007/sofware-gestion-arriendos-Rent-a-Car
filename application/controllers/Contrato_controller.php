@@ -11,7 +11,7 @@ class Contrato_controller extends CI_Controller
     {
         $dataArray = [
             "id_arriendo" => $this->input->post("id_arriendo"),
-            "documento" => $this->input->post("nombre_documento"),
+            "base64" => $this->input->post("base64"),
         ];
         echo post_function($dataArray, "contratos/registrarContrato");
     }

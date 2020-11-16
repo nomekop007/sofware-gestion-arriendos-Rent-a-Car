@@ -616,7 +616,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                 </button>
             </div>
             <div class="modal-body">
-                <input type="text" id="nombre_documento" hidden>
                 <div id="body-sinContrato">
                     <br>
                     <h6 class='text-center'>Sin Acta de entrega cargado</h6><br>
