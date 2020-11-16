@@ -80,7 +80,6 @@ const mostrarArriendoModalEditar = (arriendo) => {
             break;
         case "REMPLAZO":
             $("#card_cartaRemplazo").show();
-            $("#card_domicilio").show();
             $("#inputEditarClienteArriendo").val(
                 arriendo.remplazo.cliente.nombre_cliente +
                 " " +
@@ -199,7 +198,7 @@ const mostrarArriendoModalEditar = (arriendo) => {
 };
 
 const mostrarArriendoModalPago = (arriendo) => {
-    if (arriendo.pagos == 0) {
+    if (arriendo.pagosArriendos == 0) {
         $("#formPagoArriendo").show();
         $("#numeroArriendoConfirmacion").text("Nº" + arriendo.id_arriendo);
         $("#inputIdArriendo").val(arriendo.id_arriendo);
@@ -209,6 +208,7 @@ const mostrarArriendoModalPago = (arriendo) => {
         $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
         switch (arriendo.tipo_arriendo) {
             case "PARTICULAR":
+                $("#card_pago").show();
                 $("#textCliente").html(arriendo.cliente.nombre_cliente);
                 $("#textVehiculo").html(
                     "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
@@ -219,13 +219,14 @@ const mostrarArriendoModalPago = (arriendo) => {
                 $("#textCliente").html(
                     arriendo.remplazo.cliente.nombre_cliente +
                     " - " +
-                    arriendo.remplazo.nombreEmpresa_remplazo
+                    arriendo.remplazo.codigo_empresaRemplazo
                 );
                 $("#textVehiculo").html(
                     "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
                 );
                 break;
             case "EMPRESA":
+                $("#card_pago").show();
                 $("#textCliente").html(arriendo.empresa.nombre_empresa);
                 $("#textVehiculo").html(
                     "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
@@ -357,6 +358,7 @@ const limpiarCampos = () => {
     $("#formSpinnerEditar").show();
     $("#formSpinnerContrato").show();
 
+    $("#card_pago").hide();
     $("#card_carnet").hide();
     $("#card_domicilio").hide();
     $("#card_cartaRemplazo").hide();
@@ -430,6 +432,7 @@ $(document).ready(() => {
     });
 
     $("#btn_registrar_pago").click(() => {
+
         const tipo_arriendo = $("#textTipo").val();
         const tipoPago = $('[name="customRadio1"]:checked').val();
         const numeroFacturacion = $("#inputNumFacturacion").val().length;
@@ -469,32 +472,55 @@ $(document).ready(() => {
 
                 const form = $("#formPagoArriendo")[0];
                 const data = new FormData(form);
-                data.append("digitador", $("#inputDigitador").val());
-
-                if (numeroFacturacion > 0 && tipoPago != "PENDIENTE") {
-                    const responseFac = await guardarDatosFactura(data);
-                    if (responseFac.success) {
-                        data.append("inputEstado", "PAGADO");
-                        data.append("inputDocumento", inputFileFacturacion);
-                        data.append(
-                            "id_facturacion",
-                            responseFac.facturacion.id_facturacion
-                        );
-                        await guardarDocumentoFactura(data);
-                    }
-
-                } else {
-                    data.append("inputEstado", "PENDIENTE");
-                }
-
-                const response = await guardarDatosPago(data);
+                const response = await guardarDatosPagoArriendo(data);
                 if (response.success) {
-                    data.append("id_pago", response.pago.id_pago);
+                    data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
+
+
+                    //si existe accesorios los agrega al pagoArriendo
                     const matrizAccesorios = await capturarAccesorios();
                     if (matrizAccesorios[0].length != 0) {
                         data.append("matrizAccesorios", JSON.stringify(matrizAccesorios));
                         await guardarDatosPagoAccesorios(data);
                     }
+
+
+                    // si se ingreso boleta/factura se guarda junto con el pago y cambia el estado
+                    if (numeroFacturacion > 0 && tipoPago != "PENDIENTE") {
+                        const responseFac = await guardarDatosFactura(data);
+                        if (responseFac.success) {
+                            data.append("inputEstado", "PAGADO");
+                            data.append("inputDocumento", inputFileFacturacion);
+                            data.append("id_facturacion", responseFac.data.id_facturacion);
+                            await guardarDocumentoFactura(data);
+                        }
+                    } else {
+                        data.append("inputEstado", "PENDIENTE");
+                    }
+
+
+                    // se guarda el pago del cliente
+                    await guardarPago(data);
+
+
+                    // en caso de ser tipo remplazo , se guarda el pago de la empresa remplazo
+                    if ($("#textTipo").val() === "REMPLAZO") {
+                        const data = new FormData();
+                        data.append("inputEstado", "PENDIENTE");
+                        data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
+
+                        // se calcula el pago de la empresa remplazo
+                        let valor = Number($("#inputValorCopago").val());
+                        let iva = Number(valor * 0.19);
+                        let total = Number(valor + iva);
+
+                        data.append("inputNeto", valor);
+                        data.append("inputIVA", iva);
+                        data.append("inputTotal", total);
+                        await guardarPago(data);
+                    }
+
+
                     refrescarTabla();
                     Swal.fire(
                         "datos registrados con exito",
@@ -502,6 +528,7 @@ $(document).ready(() => {
                         "success"
                     );
                 }
+
                 $("#btn_registrar_pago").attr("disabled", false);
                 $("#spinner_btn_registrarPago").hide();
                 $("#modal_pago_arriendo").modal("toggle");
@@ -578,6 +605,10 @@ $(document).ready(() => {
         return await ajax_function(data, "guardar_documentoFacturacion");
     };
 
+    const guardarPago = async(data) => {
+        return await ajax_function(data, "registrar_pago");
+    }
+
     const firmarContrato = (geo) => {
         const canvas = document.getElementById("canvas-firma");
         const data = new FormData();
@@ -626,8 +657,8 @@ $(document).ready(() => {
         return await ajax_function(data, "registrar_requisitos");
     };
 
-    const guardarDatosPago = async(data) => {
-        return await ajax_function(data, "registrar_pago");
+    const guardarDatosPagoArriendo = async(data) => {
+        return await ajax_function(data, "registrar_pagoArriendo");
     };
 
     const guardarDatosPagoAccesorios = async(data) => {
@@ -663,6 +694,7 @@ $(document).ready(() => {
     };
 
     const cargarArriendoEnTabla = (arriendo) => {
+        console.log(arriendo);
         try {
             let cliente = "";
             switch (arriendo.tipo_arriendo) {
@@ -708,13 +740,13 @@ $(document).ready(() => {
                 $(`#b${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
             }
 
-            if (arriendo.pagos.length != 0) {
+            if (arriendo.pagosArriendos.length != 0) {
                 $(`#b${arriendo.id_arriendo}`).attr("disabled", true);
                 $(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-success");
                 $(`#b${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
             }
 
-            if (arriendo.pagos.length == 0) {
+            if (arriendo.pagosArriendos.length == 0) {
                 $(`#c${arriendo.id_arriendo}`).attr("disabled", true);
             }
 

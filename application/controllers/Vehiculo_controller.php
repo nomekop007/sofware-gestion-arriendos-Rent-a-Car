@@ -72,9 +72,9 @@ class Vehiculo_controller extends CI_Controller
 		$ArrayData = [
 			"estado_vehiculo" => $this->input->post("inputEstado"),
 			"kilometraje_vehiculo" => $this->input->post("kilometraje_vehiculo"),
-
+			"kilometrosMantencion_vehiculo" => $this->input->post("kilometros_mantencion"),
 		];
-		echo put_function($patente, $ArrayData, "vehiculos/editarVehiculo");
+		echo put_function($patente, $ArrayData, "vehiculos/cambiarEstadoVehiculo");
 	}
 
 

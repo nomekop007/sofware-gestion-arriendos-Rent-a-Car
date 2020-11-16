@@ -99,10 +99,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <input disabled type="text" class="form-control" id="inputEditarKsalidaArriendo">
                         </div>
                         <div class="form-group col-lg-3">
-                            <label for="inputEditarKmantencionArriendo">kilometros mantencion</label>
-                            <input disabled type="text" class="form-control" id="inputEditarKmantencionArriendo">
-                        </div>
-                        <div class="form-group col-lg-3">
                             <label for="inputEditarFechaInicioArriendo">Fecha Inicio</label>
                             <input disabled type="text" class="form-control" id="inputEditarFechaInicioArriendo">
                         </div>
@@ -122,14 +118,15 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <label for="inputEditarCiudadRecepcionArriendo">Ciudad recepcion</label>
                             <input disabled type="text" class="form-control" id="inputEditarCiudadRecepcionArriendo">
                         </div>
-                        <div class="form-group col-lg-4">
-                            <label for="inputEditarUsuarioArriendo">Vendedor</label>
-                            <input disabled type="text" class="form-control" id="inputEditarUsuarioArriendo">
-                        </div>
                         <div class="form-group col-lg-3">
                             <label for="inputEditarSucursal">Sucursal</label>
                             <input disabled type="text" class="form-control" id="inputEditarSucursal">
                         </div>
+                        <div class="form-group col-lg-4">
+                            <label for="inputEditarUsuarioArriendo">Vendedor</label>
+                            <input disabled type="text" class="form-control" id="inputEditarUsuarioArriendo">
+                        </div>
+
                         <div class="form-group col-lg-4">
                             <label for="inputEditarRegistroArriendo">fecha registro</label>
                             <input disabled type="text" class="form-control" id="inputEditarRegistroArriendo">
@@ -301,7 +298,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     oninput="this.value = soloNumeros(this) ;calcularValores()" required>
                             </div>
                             <div class="input-group col-md-12" id="subtotal-copago">
-                                <span style="width: 60%;" class="input-group-text form-control">valor copago
+                                <span style="width: 60%;" class="input-group-text form-control">Pago empresa remplazo
                                     $</span>
                                 <input style="width: 40%;" id="inputValorCopago" name="inputValorCopago" maxLength="11"
                                     value="0" type="number" class="form-control" oninput="calcularValores()" required>
@@ -337,68 +334,70 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     class="form-control" oninput="calcularValores()">
                             </div>
                             <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Total a Pagar $</span>
+                                <span style="width: 60%;" class="input-group-text form-control">Total a Pagar
+                                    $</span>
                                 <input style="width: 40%;" value="0" id="inputTotal" name="inputTotal" type="number"
                                     min="0" class="form-control" required oninput="calcularValores()">
                             </div>
                         </div>
                     </div>
+                    <div id="card_pago">
 
-                    <br><br>
-                    <h5>Pago</h5>
-                    <div class="card">
-                        <h6>Facturacion</h6>
-                        <div class="form-row card-body">
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" onclick="facturacion(this.value);" value="PENDIENTE"
-                                    id="radioPendiente" name="customRadio1" class="custom-control-input" checked>
-                                <label class="custom-control-label" for="radioPendiente">Pendiente</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" onclick="facturacion(this.value);" value="BOLETA" id="radioBoleta"
-                                    name="customRadio1" class="custom-control-input">
-                                <label class="custom-control-label" for="radioBoleta">Boleta</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline ">
-                                <input type="radio" onclick="facturacion(this.value);" value="FACTURA" id="radioFactura"
-                                    name="customRadio1" class="custom-control-input">
-                                <label class="custom-control-label" for="radioFactura">Factura</label>
-                            </div>
-                        </div>
-                        <div id="metodo_pago" class="container">
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="inputNumFacturacion">Numero facturacion</label>
-                                    <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion"
-                                        type="number" class="form-control" placeholder="Nº Boleta/Factura" required>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="inputFileFacturacion">documento facturacion</label>
-                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                        type="file" class="form-control-file" id="inputFileFacturacion"
-                                        name="inputFileFacturacion" required>
-                                </div>
-                            </div>
-                            <h6>Metodo de pago</h6>
+                        <br><br>
+                        <h5>Pago</h5>
+                        <div class="card">
+                            <h6>Facturacion</h6>
                             <div class="form-row card-body">
                                 <div class="custom-control custom-radio custom-control-inline ">
-                                    <input type="radio" value="EFECTIVO" id="radioEfectivo" name="customRadio2"
-                                        class="custom-control-input" checked>
-                                    <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
+                                    <input type="radio" onclick="facturacion(this.value);" value="PENDIENTE"
+                                        id="radioPendiente" name="customRadio1" class="custom-control-input" checked>
+                                    <label class="custom-control-label" for="radioPendiente">Pendiente</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline ">
-                                    <input type="radio" value="CHEQUE" id="radioCheque" name="customRadio2"
-                                        class="custom-control-input">
-                                    <label class="custom-control-label" for="radioCheque">Cheque</label>
+                                    <input type="radio" onclick="facturacion(this.value);" value="BOLETA"
+                                        id="radioBoleta" name="customRadio1" class="custom-control-input">
+                                    <label class="custom-control-label" for="radioBoleta">Boleta</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline ">
-                                    <input type="radio" value="TARJETA" id="radioTarjeta" name="customRadio2"
-                                        class="custom-control-input">
-                                    <label class="custom-control-label" for="radioTarjeta">Tarjeta</label>
+                                    <input type="radio" onclick="facturacion(this.value);" value="FACTURA"
+                                        id="radioFactura" name="customRadio1" class="custom-control-input">
+                                    <label class="custom-control-label" for="radioFactura">Factura</label>
                                 </div>
                             </div>
-                            <br>
-
+                            <div id="metodo_pago" class="container">
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputNumFacturacion">Numero facturacion</label>
+                                        <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion"
+                                            type="number" class="form-control" placeholder="Nº Boleta/Factura" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputFileFacturacion">documento facturacion</label>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputFileFacturacion"
+                                            name="inputFileFacturacion" required>
+                                    </div>
+                                </div>
+                                <h6>Metodo de pago</h6>
+                                <div class="form-row card-body">
+                                    <div class="custom-control custom-radio custom-control-inline ">
+                                        <input type="radio" value="EFECTIVO" id="radioEfectivo" name="customRadio2"
+                                            class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline ">
+                                        <input type="radio" value="CHEQUE" id="radioCheque" name="customRadio2"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="radioCheque">Cheque</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline ">
+                                        <input type="radio" value="TARJETA" id="radioTarjeta" name="customRadio2"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="radioTarjeta">Tarjeta</label>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
                         </div>
                     </div>
                     <br><br>

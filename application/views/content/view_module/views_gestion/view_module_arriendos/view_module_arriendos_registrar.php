@@ -237,10 +237,10 @@ switch ($this->session->userdata('sucursal')) {
 
                 <h4 id="titulo_remplazo">Datos Empresa remplazo</h4>
                 <div class="form-row" id="form_remplazo">
-                    <div class="form-group col-md-4">
-                        <label for="inputNombreRemplazo">Nombre empresa remplazo</label>
-                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                            id="inputNombreRemplazo" name="inputNombreRemplazo" required>
+                    <div class="form-group col-lg-3">
+                        <label for="inputCodigoEmpresaRemplazo">Empresa Remplazo</label>
+                        <select id="inputCodigoEmpresaRemplazo" name="inputCodigoEmpresaRemplazo" class="form-control">
+                        </select>
                     </div>
                 </div>
             </div>

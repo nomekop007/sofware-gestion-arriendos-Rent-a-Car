@@ -75,11 +75,40 @@ const calcularDias = () => {
     $("#inputNumeroDias").val(dias);
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 //----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
 
 $(document).ready(() => {
     //cargar sucursales  (ruta,select)
     cargarSelect("cargar_Sucursales", "inputSucursal");
+
+    //cargar accesorios
+    (cargarEmpresasRemplazo = async() => {
+        const response = await ajax_function(null, "cargar_empresasRemplazo");
+        if (response.success) {
+            const select = document.getElementById("inputCodigoEmpresaRemplazo");
+            $.each(response.data, (i, object) => {
+                const option = document.createElement("option");
+                option.innerHTML = object["codigo_empresaRemplazo"];
+                option.value = object["codigo_empresaRemplazo"];
+                select.appendChild(option);
+            });
+        }
+    })();
+
+
     //cargar vigencia Empresa (input)
     cargarOlder("inputVigencia");
 
@@ -258,8 +287,6 @@ $(document).ready(() => {
         const inputRol = $("#inputRol").val();
         const inputVigencia = $("#inputVigencia").val();
 
-        //datos remplazo
-        const inputNombreRemplazo = $("#inputNombreRemplazo").val();
 
         //datos conductor
         const inputRutConductor = $("#inputRutConductor").val();
@@ -371,8 +398,7 @@ $(document).ready(() => {
                         inputCorreoCliente.length != 0 &&
                         inputDireccionCliente.length != 0 &&
                         inputCiudadCliente.length != 0 &&
-                        inputFechaNacimiento.length != 0 &&
-                        inputNombreRemplazo.length != 0
+                        inputFechaNacimiento.length != 0
                     ) {
                         let response = await guardarDatosCliente();
                         if (response.success) {
@@ -471,7 +497,7 @@ $(document).ready(() => {
 
     const guardarDatosRemplazo = async() => {
         const data = new FormData();
-        data.append("inputNombreRemplazo", $("#inputNombreRemplazo").val());
+        data.append("inputCodigoEmpresaRemplazo", $("#inputCodigoEmpresaRemplazo").val());
         data.append("inputRutCliente", $("#inputRutCliente").val());
         return await ajax_function(data, "registrar_remplazo");
     };
@@ -485,7 +511,6 @@ $(document).ready(() => {
         data.append("inputFechaRecepcion", $("#inputFechaRecepcion").val());
         data.append("inputNumeroDias", $("#inputNumeroDias").val());
         data.append("inputEntrada", $("#inputEntrada").val());
-        data.append("inputMantencion", $("#inputMantencion").val());
         data.append("inputOtros", $("#inputOtros").val());
         data.append("select_vehiculos", $("#select_vehiculos").val());
         data.append("inputIdRemplazo", id_remplazo);
@@ -535,6 +560,7 @@ $(document).ready(() => {
         const data = new FormData();
         data.append("inputPatenteVehiculo", patente);
         data.append("inputEstado", "RESERVADO");
+        data.append("kilometros_mantencion", $("#inputMantencion").val());
         data.append("kilometraje_vehiculo", $("#inputEntrada").val());
         await ajax_function(data, "cambiarEstado_vehiculo");
     };
