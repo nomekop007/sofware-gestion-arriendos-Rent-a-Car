@@ -93,6 +93,8 @@ $route['generar_PDFactaEntrega'] = 'ActaEntrega_controller/generarPDFactaEntrega
 $route['enviar_correoActaEntrega'] = 'ActaEntrega_controller/enviarCorreoActaEntrega';
 $route['buscar_actaEntrega'] = 'ActaEntrega_controller/buscarActaEntrega';
 
+/* rutas de controller contacto */
+$route['registrar_contacto'] = 'Contacto_controller/registrarContacto';
 
 
 /* rutas de controller Despacho */

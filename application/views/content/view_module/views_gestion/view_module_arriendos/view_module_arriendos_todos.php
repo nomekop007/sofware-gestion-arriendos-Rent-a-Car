@@ -268,6 +268,8 @@ $nombreUsuario = $this->session->userdata('nombre')
             </div>
             <form class="needs-validation" id="formPagoArriendo" novalidate>
                 <input type="text" name="inputIdArriendo" id="inputIdArriendo" hidden />
+                <input type="text" id="inputDeudor" hidden />
+                <input type="text" id="inputDeudorCopago" hidden />
                 <input type="text" name="inputPatenteVehiculo" id="inputPatenteVehiculo" hidden />
                 <input type="text" name="inputEstadoArriendo_pago" id="inputEstadoArriendo_pago" hidden>
                 <div class="modal-body">

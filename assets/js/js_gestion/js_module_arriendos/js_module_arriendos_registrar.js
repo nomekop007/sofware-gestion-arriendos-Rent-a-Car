@@ -523,6 +523,7 @@ $(document).ready(() => {
         if (response.success) {
             await guardarDatosAccesorios(response.data.id_arriendo);
             await guardarDatosGarantia(response.data.id_arriendo);
+            await guardarDatosContacto(response.data.id_arriendo);
             await cambiarEstadoVehiculo(response.data.patente_vehiculo);
             Swal.fire("Arriendo Registrado", response.msg, "success");
             limpiarCampos();
@@ -555,6 +556,17 @@ $(document).ready(() => {
         data.append("customRadio0", $('[name="customRadio0"]:checked').val());
         await ajax_function(data, "registrar_garantia");
     };
+
+    const guardarDatosContacto = async(idArriendo) => {
+        const data = new FormData();
+        data.append("inputIdArriendo", idArriendo);
+        data.append("inputNombreContacto", $("#inputNombreContacto").val());
+        data.append("inputDomicilioContacto", $("#inputDomicilioContacto").val());
+        data.append("inputNumeroCasaContacto", $("#inputNumeroCasaContacto").val());
+        data.append("inputCiudadContacto", $("#inputCiudadContacto").val());
+        data.append("inputTelefonoContacto", $("#inputTelefonoContacto").val());
+        await ajax_function(data, "registrar_contacto");
+    }
 
     const cambiarEstadoVehiculo = async(patente) => {
         const data = new FormData();

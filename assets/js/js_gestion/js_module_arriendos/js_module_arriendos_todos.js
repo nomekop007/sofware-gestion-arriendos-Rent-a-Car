@@ -212,12 +212,15 @@ const mostrarArriendoModalPago = (arriendo) => {
             case "PARTICULAR":
                 $("#card_pago").show();
                 $("#textCliente").html(arriendo.cliente.nombre_cliente);
+                $("#inputDeudor").val(arriendo.rut_cliente);
                 $("#textVehiculo").html(
                     "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
                 );
                 break;
             case "REMPLAZO":
                 $("#subtotal-copago").show();
+                $("#inputDeudor").val(arriendo.remplazo.rut_cliente);
+                $("#inputDeudorCopago").val(arriendo.remplazo.codigo_empresaRemplazo);
                 $("#textCliente").html(
                     arriendo.remplazo.cliente.nombre_cliente +
                     " - " +
@@ -229,6 +232,7 @@ const mostrarArriendoModalPago = (arriendo) => {
                 break;
             case "EMPRESA":
                 $("#card_pago").show();
+                $("#inputDeudor").val(arriendo.rut_empresa);
                 $("#textCliente").html(arriendo.empresa.nombre_empresa);
                 $("#textVehiculo").html(
                     "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
@@ -507,6 +511,9 @@ $(document).ready(() => {
                     }
 
 
+
+
+                    data.append("inputDeudor", $("#inputDeudor").val());
                     // se guarda el pago del cliente
                     await guardarPago(data);
 
@@ -516,6 +523,7 @@ $(document).ready(() => {
                         const data = new FormData();
                         data.append("inputEstado", "PENDIENTE");
                         data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
+                        data.append("inputDeudor", $("#inputDeudorCopago").val());
 
                         // se calcula el pago de la empresa remplazo
                         let valor = Number($("#inputValorCopago").val());

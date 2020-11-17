@@ -14,6 +14,7 @@ class Pago_controller extends CI_Controller
             "iva_pago" => $this->input->post("inputIVA"),
             "total_pago" => $this->input->post("inputTotal"),
             "estado_pago" => $this->input->post("inputEstado"),
+            "deudor_pago" => $this->input->post("inputDeudor"),
             "id_pagoArriendo" => $this->input->post("id_pagoArriendo"),
             "id_facturacion" => $this->input->post("id_facturacion"),
         ];

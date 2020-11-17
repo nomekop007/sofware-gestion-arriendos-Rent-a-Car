@@ -33,6 +33,10 @@ switch ($this->session->userdata('sucursal')) {
                 aria-expanded="false" aria-controls="collapseCliente">
                 Datos cliente
             </a>
+            <a id="btn-contacto" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseContacto"
+                role="button" aria-expanded="false" aria-controls="collapseContacto">
+                Datos contacto
+            </a>
             <a id="btn-conductor" class="btn btn-dark btn-sm" data-toggle="collapse" href="#collapseConductor"
                 role="button" aria-expanded="false" aria-controls="collapseConductor">
                 Datos conductor
@@ -246,10 +250,50 @@ switch ($this->session->userdata('sucursal')) {
             </div>
         </div>
 
+
+
+        <div class="collapse" id="collapseContacto">
+            <div class="card card-body">
+                <br>
+                <h4>Datos Contacto de emergencia</h4>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputNombreContacto">Nombre completo </label>
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                            id="inputNombreContacto" name="inputNombreContacto" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputDomicilioContacto">Domicilio </label>
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                            id="inputDomicilioContacto" name="inputDomicilioContacto" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputNumeroCasaContacto">Numero casa </label>
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                            id="inputNumeroCasaContacto" name="inputNumeroCasaContacto" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputCiudadContacto">Ciudad </label>
+                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                            id="inputCiudadContacto" name="inputCiudadContacto" required>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputTelefonoContacto">Telefono </label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">+569</span>
+                            </div>
+                            <input oninput="this.value = soloNumeros(this)" maxLength="8" type="number"
+                                class="form-control" id="inputTelefonoContacto" name="inputTelefonoContacto" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="collapse" id="collapseConductor">
             <div class="card card-body">
                 <br>
-
                 <h4>Datos Conductor asignado</h4>
                 <div class="form-row">
                     <div class="form-group  col-md-4">
@@ -259,7 +303,6 @@ switch ($this->session->userdata('sucursal')) {
                                 onblur=" value ? this.value=formateaRut(this.value) : null" id="inputRutConductor"
                                 name="inputRutConductor" required>
                             <div class="input-group-append">
-
                                 <button class="btn btn-outline-secondary" type="button" id="btn_buscarConductor">
                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                                         id="spinner_conductor"></span>

@@ -18,6 +18,9 @@ $("#btn-arriendo").click(function() {
 $("#btn-cliente").click(function() {
     $(this).toggleClass("btn-dark btn-outline-dark");
 });
+$("#btn-contacto").click(function() {
+    $(this).toggleClass("btn-dark btn-outline-dark");
+});
 $("#btn-conductor").click(function() {
     $(this).toggleClass("btn-dark btn-outline-dark");
 });
