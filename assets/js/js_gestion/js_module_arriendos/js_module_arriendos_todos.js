@@ -64,7 +64,7 @@ const mostrarArriendoModalEditar = (arriendo) => {
     $("#inputEditarCiudadRecepcionArriendo").val(
         arriendo.ciudadRecepcion_arriendo
     );
-    $("#inputEditarDiasArriendo").val(arriendo.numerosDias_arriendo);
+    $("#inputEditarDiasArriendo").val(arriendo.diasAcumulados_arriendo);
     $("#inputEditarUsuarioArriendo").val(arriendo.usuario.nombre_usuario);
     $("#inputEditarSucursal").val(arriendo.sucursale.nombre_sucursal);
     $("#inputEditarRegistroArriendo").val(formatearFechaHora(arriendo.createdAt));
@@ -198,14 +198,16 @@ const mostrarArriendoModalEditar = (arriendo) => {
 };
 
 const mostrarArriendoModalPago = (arriendo) => {
-    if (arriendo.pagosArriendos == 0) {
+    if (arriendo.estado_arriendo == "PENDIENTE" || arriendo.estado_arriendo == "EXTENDIDO") {
+
         $("#formPagoArriendo").show();
         $("#numeroArriendoConfirmacion").text("Nº" + arriendo.id_arriendo);
         $("#inputIdArriendo").val(arriendo.id_arriendo);
         $("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo);
         $("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
         $("#textTipo").val(arriendo.tipo_arriendo);
-        $("#textDias").html("Cantidad de Dias: " + arriendo.numerosDias_arriendo);
+        $("#inputEstadoArriendo_pago").val(arriendo.estado_arriendo);
+        $("#textDias").html("Cantidad de Dias: " + arriendo.diasActuales_arriendo);
         switch (arriendo.tipo_arriendo) {
             case "PARTICULAR":
                 $("#card_pago").show();
@@ -234,6 +236,13 @@ const mostrarArriendoModalPago = (arriendo) => {
                 break;
         }
         mostrarAccesorios(arriendo);
+
+    } else {
+        Swal.fire({
+            icon: "error",
+            title: "este pago ya fue emitido",
+            text: "ya se registro este pago ",
+        });
     }
 };
 
@@ -433,12 +442,11 @@ $(document).ready(() => {
 
     $("#btn_registrar_pago").click(() => {
 
-        const tipo_arriendo = $("#textTipo").val();
         const tipoPago = $('[name="customRadio1"]:checked').val();
         const numeroFacturacion = $("#inputNumFacturacion").val().length;
         const totalNeto = $("#inputNeto").val();
         const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
-        if (tipo_arriendo == "PARTICULAR" || tipoPago != "PENDIENTE") {
+        if (tipoPago != "PENDIENTE") {
             if (numeroFacturacion == 0 || $("#inputFileFacturacion").val().length == 0) {
                 Swal.fire(
                     "debe ingresar el pago correspondiente",
@@ -519,7 +527,7 @@ $(document).ready(() => {
                         data.append("inputTotal", total);
                         await guardarPago(data);
                     }
-
+                    await cambiarEstadoArriendo($("#inputEstadoArriendo_pago").val(), $("#inputIdArriendo").val());
 
                     refrescarTabla();
                     Swal.fire(
@@ -585,7 +593,7 @@ $(document).ready(() => {
 
                 await guardarContrato(data);
                 await enviarCorreoContrato(data);
-                await cambiarEstadoArriendo(data);
+                await cambiarEstadoArriendo($("#estado_arriendo").val(), $("#id_arriendo").val());
 
                 refrescarTabla();
                 Swal.fire(
@@ -627,16 +635,27 @@ $(document).ready(() => {
         await ajax_function(data, "enviar_correoContrato");
     };
 
-    const cambiarEstadoArriendo = async(data) => {
-        // si el arriendo es un arriendo extendido , se pasa directamente a arriendos activos
-        if ($("#estado_arriendo").val() == "EXTENDIDO") {
-            data.append("estado", "ACTIVO");
-        } else {
-            data.append("estado", "FIRMADO");
-        }
 
+    const cambiarEstadoArriendo = async(estadoArriendo, idArriendo) => {
+        const data = new FormData();
+        data.append("id_arriendo", idArriendo);
+        switch (estadoArriendo) {
+            case "PENDIENTE":
+                data.append("estado", "PAGADO");
+                break;
+            case "EXTENDIDO":
+                data.append("estado", "PAGADO-EXTENDIDO");
+                break;
+            case "PAGADO":
+                data.append("estado", "FIRMADO");
+                break;
+            case "PAGADO-EXTENDIDO":
+                data.append("estado", "ACTIVO");
+                break;
+        }
         await ajax_function(data, "cambiarEstado_arriendo");
     };
+
 
     const guardarDocumentosRequistos = async(idArriendo) => {
         const data = new FormData();
@@ -694,7 +713,6 @@ $(document).ready(() => {
     };
 
     const cargarArriendoEnTabla = (arriendo) => {
-        console.log(arriendo);
         try {
             let cliente = "";
             switch (arriendo.tipo_arriendo) {
@@ -710,7 +728,7 @@ $(document).ready(() => {
             }
             tablaTotalArriendos.row
                 .add([
-                    arriendo.id_arriendo,
+                    "Nº" + arriendo.id_arriendo,
                     cliente,
                     formatearFechaHora(arriendo.createdAt),
                     arriendo.tipo_arriendo,
@@ -736,25 +754,22 @@ $(document).ready(() => {
 
             if (!arriendo.requisito) {
                 $(`#b${arriendo.id_arriendo}`).attr("disabled", true);
-                $(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-info");
+                $(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-success");
                 $(`#b${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
             }
 
-            if (arriendo.pagosArriendos.length != 0) {
+            if (arriendo.estado_arriendo != "EXTENDIDO" && arriendo.estado_arriendo != "PENDIENTE") {
                 $(`#b${arriendo.id_arriendo}`).attr("disabled", true);
                 $(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-success");
                 $(`#b${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
             }
 
-            if (arriendo.pagosArriendos.length == 0) {
-                $(`#c${arriendo.id_arriendo}`).attr("disabled", true);
-            }
-
-            if (arriendo.estado_arriendo != "PENDIENTE" && arriendo.estado_arriendo != "EXTENDIDO") {
+            if (arriendo.estado_arriendo != "PAGADO" && arriendo.estado_arriendo != "PAGADO-EXTENDIDO") {
                 $(`#c${arriendo.id_arriendo}`).attr("disabled", true);
                 $(`#c${arriendo.id_arriendo}`).removeClass("btn-outline-info");
                 $(`#c${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
             }
+
         } catch (error) {
             console.log("error al cargar este arriendo: " + error);
         }

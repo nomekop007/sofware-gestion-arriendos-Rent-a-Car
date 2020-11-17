@@ -33,7 +33,8 @@ class Arriendo_controller extends CI_Controller
             "fechaEntrega_arriendo" => $this->input->post("inputFechaEntrega"),
             "ciudadRecepcion_arriendo" => $this->input->post("inputCiudadRecepcion"),
             "fechaRecepcion_arriendo" => $this->input->post("inputFechaRecepcion"),
-            "numerosDias_arriendo" => $this->input->post("inputNumeroDias"),
+            "diasActuales_arriendo" => $this->input->post("inputNumeroDias"),
+            "diasAcumulados_arriendo" => $this->input->post("inputNumeroDias"),
             "kilometrosEntrada_arriendo" => $this->input->post("inputEntrada"),
             "kilometrosSalida_arriendo" => null,
             "inputOtros" => $this->input->post("inputOtros"),
@@ -66,7 +67,9 @@ class Arriendo_controller extends CI_Controller
         $ArrayData = [
             "estado_arriendo" =>  "EXTENDIDO",
             "fechaRecepcion_arriendo" => $this->input->post("inputFechaExtender_extenderPlazo"),
-            "numerosDias_arriendo" => $this->input->post("nuevosDias"),
+            "diasActuales_arriendo" => $this->input->post("diasActuales"),
+            "diasAcumulados_arriendo" => $this->input->post("diasAcumulados"),
+
         ];
         echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
     }

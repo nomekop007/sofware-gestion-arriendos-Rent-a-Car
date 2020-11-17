@@ -12,22 +12,6 @@ const calcularDiasExtencion = () => {
     $("#inputNumeroDias_extenderPlazo").val(dias);
 };
 
-const calcularValores = () => {
-    //variables
-    let valorArriendo = Number($("#inputValorArriendo").val());
-    let valorCopago = Number($("#inputValorCopago").val());
-    let iva = Number($("#inputIVA").val());
-    let descuento = Number($("#inputDescuento").val());
-    let total = Number($("#inputTotal").val());
-    let TotalNeto = 0;
-
-    TotalNeto = TotalNeto + valorArriendo - descuento - valorCopago;
-    iva = TotalNeto * 0.19;
-    total = TotalNeto + iva;
-    $("#inputNeto").val(TotalNeto);
-    $("#inputIVA").val(Math.round(iva));
-    $("#inputTotal").val(Math.round(total));
-};
 
 const buscarArriendoExtender = async(id_arriendo) => {
     limpiarFormulario();
@@ -40,11 +24,10 @@ const buscarArriendoExtender = async(id_arriendo) => {
         $("#inputFechaRecepcion_extenderPlazo").val(arriendo.fechaRecepcion_arriendo.substring(0, 16));
         $("#inputFechaExtender_extenderPlazo").prop('min', arriendo.fechaRecepcion_arriendo.substring(0, 16));
         $("#id_arriendo").val(arriendo.id_arriendo);
-        $("#dias_arriendo").val(arriendo.numerosDias_arriendo);
+        $("#dias_arriendo").val(arriendo.diasAcumulados_arriendo);
         $("#body_extender_arriendo").show();
     }
     $("#formSpinner_extender_arriendo").hide();
-
 }
 
 
@@ -147,11 +130,9 @@ $(document).ready(() => {
     $("#btn_extenderArriendo").click(() => {
         const diasActuales = $("#dias_arriendo").val()
         const diasExtendidos = $("#inputNumeroDias_extenderPlazo").val();
-        const subtotal = $("#inputValorArriendo").val();
-        const copago = $("#inputValorCopago").val();
-        const total = $("#inputTotal").val();
 
-        if (diasExtendidos.length == 0 || subtotal.length == 0 || copago.length == 0 || total < 0) {
+
+        if (diasExtendidos.length == 0) {
             Swal.fire(
                 "faltan datos , o datos erroneos",
                 "corriga el formulario!",
@@ -181,7 +162,10 @@ $(document).ready(() => {
                 $("#btn_extenderArriendo").attr("disabled", true)
                 const form = $("#formExtenderArriendo")[0];
                 const data = new FormData(form);
-                data.append("nuevosDias", Number(diasActuales) + Number(diasExtendidos));
+
+                data.append("diasActuales", Number(diasExtendidos));
+                data.append("diasAcumulados", Number(diasActuales) + Number(diasExtendidos));
+
                 const response = await extenderContrato(data);
                 if (response.success) {
                     refrescarTablaActivos();
@@ -314,10 +298,7 @@ $(document).ready(() => {
 
 
     const extenderContrato = async(data) => {
-        const response = await ajax_function(data, "extenderArriendo_pago");
-        if (response.success) {
-            return await ajax_function(data, "extender_arriendo");
-        }
+        return await ajax_function(data, "extender_arriendo");
     }
 
 

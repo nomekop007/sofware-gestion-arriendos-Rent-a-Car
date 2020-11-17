@@ -86,7 +86,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <label for="inputEditarConductorArriendo">Conductor</label>
                             <input disabled type="text" class="form-control" id="inputEditarConductorArriendo">
                         </div>
-                        <div class="form-group col-lg-5">
+                        <div class="form-group col-lg-4">
                             <label for="inputEditarVehiculoArriendo">Vehiculo</label>
                             <input disabled type="text" class="form-control" id="inputEditarVehiculoArriendo">
                         </div>
@@ -98,18 +98,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <label for="inputEditarKsalidaArriendo">kilometros salida</label>
                             <input disabled type="text" class="form-control" id="inputEditarKsalidaArriendo">
                         </div>
-                        <div class="form-group col-lg-3">
-                            <label for="inputEditarFechaInicioArriendo">Fecha Inicio</label>
-                            <input disabled type="text" class="form-control" id="inputEditarFechaInicioArriendo">
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label for="inputEditarFechaFinArriendo">Fecha Fin</label>
-                            <input disabled type="text" class="form-control" id="inputEditarFechaFinArriendo">
-                        </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarDiasArriendo">Dias</label>
-                            <input disabled type="text" class="form-control" id="inputEditarDiasArriendo">
-                        </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarCiudadEntregaArriendo">Ciudad entrega</label>
                             <input disabled type="text" class="form-control" id="inputEditarCiudadEntregaArriendo">
@@ -119,6 +107,19 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <input disabled type="text" class="form-control" id="inputEditarCiudadRecepcionArriendo">
                         </div>
                         <div class="form-group col-lg-3">
+                            <label for="inputEditarFechaInicioArriendo">Fecha Inicio</label>
+                            <input disabled type="text" class="form-control" id="inputEditarFechaInicioArriendo">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="inputEditarFechaFinArriendo">Fecha Fin</label>
+                            <input disabled type="text" class="form-control" id="inputEditarFechaFinArriendo">
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarDiasArriendo">Total Dias</label>
+                            <input disabled type="text" class="form-control" id="inputEditarDiasArriendo">
+                        </div>
+
+                        <div class="form-group col-lg-4">
                             <label for="inputEditarSucursal">Sucursal</label>
                             <input disabled type="text" class="form-control" id="inputEditarSucursal">
                         </div>
@@ -268,6 +269,7 @@ $nombreUsuario = $this->session->userdata('nombre')
             <form class="needs-validation" id="formPagoArriendo" novalidate>
                 <input type="text" name="inputIdArriendo" id="inputIdArriendo" hidden />
                 <input type="text" name="inputPatenteVehiculo" id="inputPatenteVehiculo" hidden />
+                <input type="text" name="inputEstadoArriendo_pago" id="inputEstadoArriendo_pago" hidden>
                 <div class="modal-body">
                     <div class="card">
                         <div class="form-row card-body text-center">
