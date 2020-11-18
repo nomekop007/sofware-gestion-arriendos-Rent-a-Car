@@ -1,5 +1,5 @@
 const canvasImgVehiculos = {
-    resize: 4,
+    resize: 3,
     id_limpiarCanvas: "",
     id_dibujarCanvas: "",
     name_dibujarCanvas: "",
