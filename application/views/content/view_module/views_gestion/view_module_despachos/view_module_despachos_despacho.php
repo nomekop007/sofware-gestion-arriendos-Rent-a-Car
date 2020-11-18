@@ -601,11 +601,12 @@ $nombreUsuario = $this->session->userdata('nombre')
                 </div>
                 <div id="body-firma">
                     <div class="container ">
-                        <a target="_blank" id="descargar_actaEntrega">Descargar Acta de entrega</a>
+                        <a class="row justify-content-md-center" target="_blank" id="descargar_actaEntrega">Descargar Acta de entrega</a>
                         <br>
                         <button id="prev_despacho" class=" btn-info">
                             < </button> <button id="next_despacho" class=" btn-info "> >
                         </button>
+
                         &nbsp; &nbsp;
                         <span>Pagina: <span id="page_num_despacho"></span> / <span id="page_count_despacho"></span></span>
                         <canvas id="pdf_canvas_despacho" class="img-fluid rounded pdf-canvas"></canvas>
