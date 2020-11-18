@@ -5,9 +5,15 @@
     </div>
     <div>
         <h5>Bienvenido <?php echo $this->session->userdata('nombre'); ?> </h5>
+        <div class="row">
+            <div class="col-md-12">
+                <br>
+                <img style="width:15%" src="<?php echo base_route() ?>assets/images/logo3.png" />
+                <img style="width:40%;margin: 40px" src="<?php echo base_route() ?>assets/images/logo.png" />
+            </div>
+        </div>
     </div>
 </main>
-
 
 </div>
 </div>

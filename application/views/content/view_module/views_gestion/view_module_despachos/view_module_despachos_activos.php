@@ -38,13 +38,11 @@
 </div>
 
 <!-- Modal extender plazo arriendo-->
-<div class="modal fade" id="modal_ArriendoExtender" data-keyboard="false" tabindex="-1"
-    aria-labelledby="modal_ArriendoExtenderLabel" aria-hidden="true">
+<div class="modal fade" id="modal_ArriendoExtender" data-keyboard="false" tabindex="-1" aria-labelledby="modal_ArriendoExtenderLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal_ArriendoExtenderLabel">Extender plazo arriendo <span
-                        id="numeroArriendo">Nº</span> </h5>
+                <h5 class="modal-title" id="modal_ArriendoExtenderLabel">Extender plazo arriendo <span id="numeroArriendo">Nº</span> </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -63,19 +61,15 @@
                     <div class="form-row">
                         <div class="form-group col-md-5">
                             <label for="inputFechaRecepcion_extenderPlazo">Fecha de recepcion</label>
-                            <input oninput="calcularDiasExtencion()" type="datetime-local" class="form-control"
-                                name="inputFechaRecepcion_extenderPlazo" id="inputFechaRecepcion_extenderPlazo" required
-                                disabled>
+                            <input oninput="calcularDiasExtencion()" type="datetime-local" class="form-control" name="inputFechaRecepcion_extenderPlazo" id="inputFechaRecepcion_extenderPlazo" required disabled>
                         </div>
                         <div class="form-group col-md-5">
                             <label for="inputFechaExtender_extenderPlazo">Fecha a extender</label>
-                            <input oninput="calcularDiasExtencion()" type="datetime-local" class="form-control"
-                                name="inputFechaExtender_extenderPlazo" id="inputFechaExtender_extenderPlazo" required>
+                            <input oninput="calcularDiasExtencion()" type="datetime-local" class="form-control" name="inputFechaExtender_extenderPlazo" id="inputFechaExtender_extenderPlazo" required>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputNumeroDias_extenderPlazo">Dias</label>
-                            <input min="0" oninput="calcularDiasExtencion()" type="number" class="form-control"
-                                name="inputNumeroDias_extenderPlazo" id="inputNumeroDias_extenderPlazo" required>
+                            <input min="0" oninput="calcularDiasExtencion()" type="number" class="form-control" name="inputNumeroDias_extenderPlazo" id="inputNumeroDias_extenderPlazo" required>
                         </div>
                     </div>
                 </form>
@@ -83,8 +77,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
                 <button type="button" id="btn_extenderArriendo" class="btn btn-primary">extender plazo
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                        id="spinner_btn_extenderArriendo"></span>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_extenderArriendo"></span>
                 </button>
             </div>
         </div>
@@ -93,13 +86,11 @@
 
 
 <!-- Modal recepcion de arriendo-->
-<div class="modal fade" id="modal_ArriendoFinalizar" data-keyboard="false" tabindex="-1" data-backdrop="static"
-    style="overflow-y: scroll;" aria-labelledby="modal_ArriendoFinalizarLabel" aria-hidden="true">
+<div class="modal fade" id="modal_ArriendoFinalizar" data-keyboard="false" tabindex="-1" data-backdrop="static" style="overflow-y: scroll;" aria-labelledby="modal_ArriendoFinalizarLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal_ArriendoFinalizarLabel">Recepcion de arriendo <span
-                        id="numero_arriendo_recepcion">Nº</span> </h5>
+                <h5 class="modal-title" id="modal_ArriendoFinalizarLabel">Recepcion de arriendo <span id="numero_arriendo_recepcion">Nº</span> </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -119,11 +110,10 @@
                     <div class="col-md-6">
                         <button id="prev_recepcion" class=" btn-info">
                             < </button> <button id="next_recepcion" class=" btn-info "> >
-                                </button>
-                                &nbsp; &nbsp;
-                                <span>Pagina: <span id="page_num_recepcion"></span> / <span
-                                        id="page_count_recepcion"></span></span>
-                                <canvas id="pdf_canvas_recepcion" class="img-fluid rounded pdf-canvas"></canvas>
+                        </button>
+                        &nbsp; &nbsp;
+                        <span>Pagina: <span id="page_num_recepcion"></span> / <span id="page_count_recepcion"></span></span>
+                        <canvas id="pdf_canvas_recepcion" class="img-fluid rounded pdf-canvas"></canvas>
                     </div>
                     <div class="col-md-6">
                         <br><br>
@@ -131,30 +121,24 @@
                             <div class="container pdf-canvas" id="carrucel_recepcion">
                             </div>
                             <br>
-                            <button type="button" class=" btn btn-primary btn-sm" data-toggle="modal"
-                                data-target="#modalFotosVehiculoRecepcion">
+                            <button type="button" class=" btn btn-primary btn-sm" data-toggle="modal" data-target="#modalFotosVehiculoRecepcion">
                                 Tomar Fotos al vehiculo
                             </button>
-                            <button type="button" class="  btn btn-danger btn-sm"
-                                id="limpiarArrayFotosRecepcion">limpiar
+                            <button type="button" class="  btn btn-danger btn-sm" id="limpiarArrayFotosRecepcion">limpiar
                                 lista</button>
                         </div>
                         <div class="form-group col-lg-12">
                             <label for="input_kilometraje_salida">Kilomentraje salida del vehiculo</label>
-                            <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number" value="0"
-                                class="form-control" id="input_kilometraje_salida" name="input_kilometraje_salida"
-                                required>
+                            <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number" value="0" class="form-control" id="input_kilometraje_salida" name="input_kilometraje_salida" required>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                <button type="button" class="btn btn-danger" data-toggle="modal"
-                    data-target="#modalRegistrarDaño">Registrar daño</button>
+                <button disabled type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalRegistrarDaño">Registrar daño</button>
                 <button type="button" class="btn btn-primary" id="btn_finalizar_arriendo">Finalizar Arriendo
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                        id="spinner_btn_finalizar_contrato"></span>
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_finalizar_contrato"></span>
                 </button>
             </div>
         </div>
@@ -163,8 +147,7 @@
 
 
 <!-- Modal fotos auto -->
-<div class="modal fade" id="modalFotosVehiculoRecepcion" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modalFotosVehiculoRecepcion" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -176,13 +159,11 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="form-group col-lg-4">
-                        <input type="file" class="form-control-file" id="inputImagen_vehiculo_recepcion"
-                            accept="image/*">
+                        <input type="file" class="form-control-file" id="inputImagen_vehiculo_recepcion" accept="image/*">
                         <h6>Maximo 5 fotos </h6>
                     </div>
                     <div class="form-group col-lg-2">
-                        <button type="button" id="limpiar_fotoVehiculo_recepcion"
-                            class="btn btn-secondary btn-sm form-control ">
+                        <button type="button" id="limpiar_fotoVehiculo_recepcion" class="btn btn-secondary btn-sm form-control ">
                             limpiar pizarra</button>
                     </div>
                     <div class="form-group col-lg-1">
@@ -190,26 +171,21 @@
                     </div>
                     <div class="form-group col-lg-2">
                         <label for="grosor">Grosor de linea</label>
-                        <input type="range" class="custom-range" oninput="defgrosor(this.value)" value="0" min="1"
-                            max="5">
+                        <input type="range" class="custom-range" oninput="defgrosor(this.value)" value="0" min="1" max="5">
                     </div>
                     <div class="form-group col-lg-3">
-                        <button type="button" id="seleccionarFotoRecepcion"
-                            class="btn btn-success btn-sm form-control ">
+                        <button type="button" id="seleccionarFotoRecepcion" class="btn btn-success btn-sm form-control ">
                             añadir foto</button>
                     </div>
                     <div class="form-group col-lg-12 text-center">
                         <br>
-                        <p><i class="far fa-square"></i> Abolladuras <i class="far fa-circle"></i> Rayaduras <i
-                                class="fas fa-times"></i> Piezas rotas </p>
+                        <p><i class="far fa-square"></i> Abolladuras <i class="far fa-circle"></i> Rayaduras <i class="fas fa-times"></i> Piezas rotas </p>
                         <div class="form-group form-check">
-                            <label class="form-check-label" for="dibujar_canvas_recepcion"><input type="checkbox"
-                                    class="form-check-input" id="dibujar_canvas_recepcion"
-                                    name="dibujar_canvas_recepcion">dibujar en canvas</label>
+                            <label class="form-check-label" for="dibujar_canvas_recepcion"><input type="checkbox" class="form-check-input" id="dibujar_canvas_recepcion" name="dibujar_canvas_recepcion">dibujar en canvas</label>
                         </div>
                     </div>
                     <div class="col-lg-1"></div>
-                    <div class="form-group col-lg-10">
+                    <div class="form-group col-lg-12">
                         <div class="vehiculo-canvas" id="cont-canvas">
                             <canvas id="canvas_fotoVehiculo_recepcion" style="background:#d9d9d9"></canvas>
                         </div>
@@ -230,8 +206,7 @@
 
 
 <!-- Modal registro de daño-->
-<div class="modal fade" id="modalRegistrarDaño" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="registrardañoLabel" aria-hidden="true">
+<div class="modal fade" id="modalRegistrarDaño" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="registrardañoLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -245,8 +220,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="input_descripcion_danio">Descripcion de los daños</label>
-                            <textarea onblur="mayus(this);" class="form-control" id="input_descripcion_danio"
-                                name="input_descripcion_danio" rows="3" maxLength="500"></textarea>
+                            <textarea onblur="mayus(this);" class="form-control" id="input_descripcion_danio" name="input_descripcion_danio" rows="3" maxLength="500"></textarea>
                         </div>
                     </div>
                 </div>

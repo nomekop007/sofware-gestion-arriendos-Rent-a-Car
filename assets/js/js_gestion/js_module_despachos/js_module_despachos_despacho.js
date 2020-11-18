@@ -1,7 +1,7 @@
 const arrayImages = [];
 let base64_documento = null;
 
-const buscarArriendo = async(id_arriendo) => {
+const buscarArriendo = async (id_arriendo) => {
     limpiarCampos();
     const data = new FormData();
     data.append("id_arriendo", id_arriendo);
@@ -104,7 +104,7 @@ $(document).ready(() => {
     $("#nav-despachos-tab").click(() => refrescarTabla());
 
 
-    (cargarArriendos = async() => {
+    (cargarArriendos = async () => {
         $("#spinner_tablaDespacho").show();
         const data = new FormData();
         data.append("filtro", "FIRMADO");
@@ -117,7 +117,7 @@ $(document).ready(() => {
         $("#spinner_tablaDespacho").hide();
     })();
 
-    $("#seleccionarFoto").click(async() => {
+    $("#seleccionarFoto").click(async () => {
         /*
         se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
 		el servidor solo puede recibir un maximo de 2mb en cada consulta.
@@ -148,7 +148,7 @@ $(document).ready(() => {
         }
     });
 
-    $("#btn_crear_ActaEntrega").click(async() => {
+    $("#btn_crear_ActaEntrega").click(async () => {
         const form = $("#formActaEntrega")[0];
         const data = new FormData(form);
 
@@ -167,7 +167,7 @@ $(document).ready(() => {
             confirmButtonText: "Si, seguro",
             cancelButtonText: "No, cancelar!",
             reverseButtons: true,
-        }).then(async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 $("#spinner_btn_confirmarActaEntrega").show();
                 $("#btn_firmar_actaEntrega").attr("disabled", true);
@@ -194,7 +194,7 @@ $(document).ready(() => {
         });
     });
 
-    $("#btn_firmar_actaEntrega").click(async() => {
+    $("#btn_firmar_actaEntrega").click(async () => {
         $("#btn_firmar_actaEntrega").attr("disabled", true);
         $("#spinner_btn_firmarActaEntrega").show();
         obtenerGeolocalizacion();
@@ -243,7 +243,7 @@ $(document).ready(() => {
         generarActaEntrega(data);
     };
 
-    const generarActaEntrega = async(data) => {
+    const generarActaEntrega = async (data) => {
         if (arrayImages.length > 0) {
             const canvas = document.getElementById("canvas-combustible");
             const url = canvas.toDataURL("image/png");
@@ -307,54 +307,54 @@ $(document).ready(() => {
         });
     };
 
-    const capturarControlRecepcionArray = async() => {
+    const capturarControlRecepcionArray = async () => {
         //cacturando los accesorios
         const matrizRecepcion = [];
 
         matrizRecepcion.push(
             $('[name="listA[]"]:checked')
-            .map(function() {
-                return this.value;
-            })
-            .get()
+                .map(function () {
+                    return this.value;
+                })
+                .get()
         );
 
         matrizRecepcion.push(
             $('[name="listB[]"]:checked')
-            .map(function() {
-                return this.value;
-            })
-            .get()
+                .map(function () {
+                    return this.value;
+                })
+                .get()
         );
 
         matrizRecepcion.push(
             $('[name="listC[]"]:checked')
-            .map(function() {
-                return this.value;
-            })
-            .get()
+                .map(function () {
+                    return this.value;
+                })
+                .get()
         );
 
         return matrizRecepcion;
     };
 
-    const guardarDatosDespacho = async(data) => {
+    const guardarDatosDespacho = async (data) => {
         return await ajax_function(data, "registrar_despacho");
     };
 
-    const guardarActaEntrega = async(data, id_despacho) => {
+    const guardarActaEntrega = async (data, id_despacho) => {
         data.append("base64", base64_documento);
         data.append("inputIdDespacho", id_despacho);
         await ajax_function(data, "registrar_actaEntrega");
     };
 
-    const cambiarEstadoArriendo = async(data) => {
+    const cambiarEstadoArriendo = async (data) => {
         data.append("id_arriendo", $("#inputIdArriendo").val());
         data.append("estado", "ACTIVO");
         await ajax_function(data, "cambiarEstado_arriendo");
     };
 
-    const cambiarEstadoVehiculo = async(data) => {
+    const cambiarEstadoVehiculo = async (data) => {
         data.append(
             "inputPatenteVehiculo",
             $("#inputPatenteVehiculoDespacho").val()
@@ -367,7 +367,7 @@ $(document).ready(() => {
         await ajax_function(data, "cambiarEstado_vehiculo");
     };
 
-    const enviarCorreoDespacho = async(data) => {
+    const enviarCorreoDespacho = async (data) => {
         await ajax_function(data, "enviar_correoActaEntrega");
     };
 

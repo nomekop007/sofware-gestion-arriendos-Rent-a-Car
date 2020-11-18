@@ -74,4 +74,32 @@ class Modulo_controller extends CI_Controller
 			redirect(base_url());
 		}
 	}
+
+	public function cargarModulosAtencion()
+	{
+		$rol =  $this->session->userdata("rol");
+
+		if ($this->session->userdata("estado") === "true") {
+			$this->load->view("templates/header");
+			$this->load->view("content/navbars/navbar");
+			$this->load->view("content/sidebars/sidebar_atencion");
+
+			$opcion = $_GET["modulo"];
+			switch ($opcion) {
+				case 1:
+					if ($rol == 1 || $rol == 2) {
+						$this->load->view('content/view_module/views_atencion/view_module_facturacion');
+					} else {
+						redirect(base_url());
+					}
+					break;
+				default:
+					redirect(base_url());
+					break;
+			}
+			$this->load->view("templates/footer");
+		} else {
+			redirect(base_url());
+		}
+	}
 }

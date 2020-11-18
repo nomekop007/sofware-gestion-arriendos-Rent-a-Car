@@ -11,6 +11,7 @@ $route['cargar_panel'] = 'Sesion_controller/cargarPanel';
 
 /* ruta de controller modulo  */
 $route['modulos_gestion'] = 'Modulo_controller/cargarModulosGestion';
+$route['modulos_atencion'] = 'Modulo_controller/cargarModulosAtencion';
 
 
 
@@ -67,6 +68,7 @@ $route['registrar_remplazo'] = 'Remplazo_controller/crearRemplazo';
 $route["registrar_pagoAccesorios"] = 'PagoAccesorio_controller/registrarPagosAccesorios';
 
 /* rutas de controller Facturacion */
+$route["cargar_facturaciones"] = 'Facturacion_controller/cargarFacturaciones';
 $route["registrar_facturacion"] = 'Facturacion_controller/registrarFacturacion';
 $route["guardar_documentoFacturacion"] = 'Facturacion_controller/guardarDocumentoFacturacion';
 

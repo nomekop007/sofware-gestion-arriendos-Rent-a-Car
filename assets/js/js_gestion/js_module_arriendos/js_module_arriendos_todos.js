@@ -2,7 +2,7 @@
 let base64_documento = null;
 
 
-const buscarArriendo = async(id_arriendo, option) => {
+const buscarArriendo = async (id_arriendo, option) => {
     limpiarCampos();
     const data = new FormData();
     data.append("id_arriendo", id_arriendo);
@@ -264,7 +264,7 @@ const facturacion = (value) => {
     }
 };
 
-const mostrarContratoModalContrato = async(data) => {
+const mostrarContratoModalContrato = async (data) => {
     const response = await ajax_function(data, "generar_PDFcontrato");
     if (response.success) {
         $("#formContratoArriendo").show();
@@ -325,7 +325,7 @@ const calcularValores = () => {
     let TotalNeto = 0;
     //revisa todos los check y guardas sus valores en un array si estan okey
     let ArrayAccesorios = $('[name="accesorios[]"]')
-        .map(function() {
+        .map(function () {
             return this.value;
         })
         .get();
@@ -403,7 +403,7 @@ $(document).ready(() => {
     $("#nav-arriendos-tab").click(() => refrescarTabla());
 
 
-    const cargarArriendos = async() => {
+    const cargarArriendos = async () => {
         $("#spinner_tablaTotalArriendos").show();
         const response = await ajax_function(null, "cargar_arriendos");
         if (response.success) {
@@ -415,6 +415,7 @@ $(document).ready(() => {
     };
 
     $("#btn_subirDocumentos").click(() => {
+
         Swal.fire({
             title: "Estas seguro?",
             text: "estas a punto de guardar los cambios!",
@@ -423,7 +424,7 @@ $(document).ready(() => {
             confirmButtonText: "Si, seguro",
             cancelButtonText: "No, cancelar!",
             reverseButtons: true,
-        }).then(async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 $("#spinner_btn_subirDocumentos").show();
                 $("#btn_subirDocumentos").attr("disabled", true);
@@ -445,7 +446,6 @@ $(document).ready(() => {
     });
 
     $("#btn_registrar_pago").click(() => {
-
         const tipoPago = $('[name="customRadio1"]:checked').val();
         const numeroFacturacion = $("#inputNumFacturacion").val().length;
         const totalNeto = $("#inputNeto").val();
@@ -477,7 +477,7 @@ $(document).ready(() => {
             confirmButtonText: "Si, seguro",
             cancelButtonText: "No, cancelar!",
             reverseButtons: true,
-        }).then(async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 $("#spinner_btn_registrarPago").show();
                 $("#btn_registrar_pago").attr("disabled", true);
@@ -488,14 +488,12 @@ $(document).ready(() => {
                 if (response.success) {
                     data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
 
-
                     //si existe accesorios los agrega al pagoArriendo
                     const matrizAccesorios = await capturarAccesorios();
                     if (matrizAccesorios[0].length != 0) {
                         data.append("matrizAccesorios", JSON.stringify(matrizAccesorios));
                         await guardarDatosPagoAccesorios(data);
                     }
-
 
                     // si se ingreso boleta/factura se guarda junto con el pago y cambia el estado
                     if (numeroFacturacion > 0 && tipoPago != "PENDIENTE") {
@@ -510,16 +508,12 @@ $(document).ready(() => {
                         data.append("inputEstado", "PENDIENTE");
                     }
 
-
-
-
                     data.append("inputDeudor", $("#inputDeudor").val());
                     // se guarda el pago del cliente
                     await guardarPago(data);
 
-
                     // en caso de ser tipo remplazo , se guarda el pago de la empresa remplazo
-                    if ($("#textTipo").val() === "REMPLAZO") {
+                    if ($("#textTipo").val() === "REMPLAZO" && $("#inputValorCopago").val() > 0) {
                         const data = new FormData();
                         data.append("inputEstado", "PENDIENTE");
                         data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
@@ -590,7 +584,7 @@ $(document).ready(() => {
             confirmButtonText: "Si, seguro",
             cancelButtonText: "No, cancelar!",
             reverseButtons: true,
-        }).then(async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 $("#spinner_btn_confirmarContrato").show();
                 $("#btn_firmar_contrato").attr("disabled", true);
@@ -617,11 +611,11 @@ $(document).ready(() => {
         });
     });
 
-    const guardarDocumentoFactura = async(data) => {
+    const guardarDocumentoFactura = async (data) => {
         return await ajax_function(data, "guardar_documentoFacturacion");
     };
 
-    const guardarPago = async(data) => {
+    const guardarPago = async (data) => {
         return await ajax_function(data, "registrar_pago");
     }
 
@@ -634,17 +628,17 @@ $(document).ready(() => {
         mostrarContratoModalContrato(data);
     };
 
-    const guardarContrato = async(data) => {
+    const guardarContrato = async (data) => {
         data.append("base64", base64_documento);
         await ajax_function(data, "registrar_contrato");
     };
 
-    const enviarCorreoContrato = async(data) => {
+    const enviarCorreoContrato = async (data) => {
         await ajax_function(data, "enviar_correoContrato");
     };
 
 
-    const cambiarEstadoArriendo = async(estadoArriendo, idArriendo) => {
+    const cambiarEstadoArriendo = async (estadoArriendo, idArriendo) => {
         const data = new FormData();
         data.append("id_arriendo", idArriendo);
         switch (estadoArriendo) {
@@ -665,7 +659,7 @@ $(document).ready(() => {
     };
 
 
-    const guardarDocumentosRequistos = async(idArriendo) => {
+    const guardarDocumentosRequistos = async (idArriendo) => {
         const data = new FormData();
         //ERROR A SUBIR IMAGENES de mas de 3mbs
         data.append("idArriendo", idArriendo);
@@ -684,15 +678,15 @@ $(document).ready(() => {
         return await ajax_function(data, "registrar_requisitos");
     };
 
-    const guardarDatosPagoArriendo = async(data) => {
+    const guardarDatosPagoArriendo = async (data) => {
         return await ajax_function(data, "registrar_pagoArriendo");
     };
 
-    const guardarDatosPagoAccesorios = async(data) => {
+    const guardarDatosPagoAccesorios = async (data) => {
         await ajax_function(data, "registrar_pagoAccesorios");
     };
 
-    const capturarAccesorios = async() => {
+    const capturarAccesorios = async () => {
         //cacturando los accesorios
         const matrizAccesorios = [];
         const arrayNombreAccesorios = [];
@@ -709,7 +703,7 @@ $(document).ready(() => {
         return matrizAccesorios;
     };
 
-    const guardarDatosFactura = async(data) => {
+    const guardarDatosFactura = async (data) => {
         return await ajax_function(data, "registrar_facturacion");
     };
 

@@ -43,8 +43,7 @@ $nombreUsuario = $this->session->userdata('nombre')
 </div>
 
 <!-- Modal despachar -->
-<div class="modal fade" id="modal_despachar_arriendo" data-backdrop="static" style="overflow-y: scroll;"
-    data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_despachar_arriendo" data-backdrop="static" style="overflow-y: scroll;" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -66,49 +65,39 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <div class="form-row">
                         <div class="form-group col-lg-3">
                             <label for="inputMarcaVehiculoDespacho">Vehiculo</label>
-                            <input disabled onblur="mayus(this);" type="text" class="form-control"
-                                id="inputMarcaVehiculoDespacho" name="inputMarcaVehiculoDespacho">
+                            <input disabled onblur="mayus(this);" type="text" class="form-control" id="inputMarcaVehiculoDespacho" name="inputMarcaVehiculoDespacho">
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputModeloVehiculoDespacho">Modelo</label>
-                            <input disabled onblur="mayus(this);" type="text" class="form-control"
-                                id="inputModeloVehiculoDespacho" name="inputModeloVehiculoDespacho">
+                            <input disabled onblur="mayus(this);" type="text" class="form-control" id="inputModeloVehiculoDespacho" name="inputModeloVehiculoDespacho">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEdadVehiculoDespacho">Año</label>
-                            <input disabled onblur="mayus(this);" type="text" class="form-control"
-                                id="inputEdadVehiculoDespacho" name="inputEdadVehiculoDespacho">
+                            <input disabled onblur="mayus(this);" type="text" class="form-control" id="inputEdadVehiculoDespacho" name="inputEdadVehiculoDespacho">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputColorVehiculoDespacho">Color</label>
-                            <input disabled onblur="mayus(this);" type="text" class="form-control"
-                                id="inputColorVehiculoDespacho" name="inputColorVehiculoDespacho">
+                            <input disabled onblur="mayus(this);" type="text" class="form-control" id="inputColorVehiculoDespacho" name="inputColorVehiculoDespacho">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputPatenteVehiculoDespacho">Patente</label>
-                            <input disabled onblur="mayus(this);" type="text" class="form-control"
-                                id="inputPatenteVehiculoDespacho" name="inputPatenteVehiculoDespacho">
+                            <input disabled onblur="mayus(this);" type="text" class="form-control" id="inputPatenteVehiculoDespacho" name="inputPatenteVehiculoDespacho">
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputKilomentrajeVehiculoDespacho">Kilomentraje</label>
-                            <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number" value="0"
-                                class="form-control" id="inputKilomentrajeVehiculoDespacho"
-                                name="inputKilomentrajeVehiculoDespacho" required>
+                            <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number" value="0" class="form-control" id="inputKilomentrajeVehiculoDespacho" name="inputKilomentrajeVehiculoDespacho" required>
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputDestinoDespacho">Destino (venta o arriendo)</label>
-                            <input onblur="mayus(this);" type="text" class="form-control" id="inputDestinoDespacho"
-                                name="inputDestinoDespacho">
+                            <input onblur="mayus(this);" type="text" class="form-control" id="inputDestinoDespacho" name="inputDestinoDespacho">
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputProcedenciaDesdeDespacho">Procedencia de</label>
-                            <input onblur="mayus(this);" type="text" class="form-control"
-                                id="inputProcedenciaDesdeDespacho" name="inputProcedenciaDesdeDespacho">
+                            <input onblur="mayus(this);" type="text" class="form-control" id="inputProcedenciaDesdeDespacho" name="inputProcedenciaDesdeDespacho">
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputProcedenciaHaciaDespacho">a</label>
-                            <input onblur="mayus(this);" type="text" class="form-control"
-                                id="inputProcedenciaHaciaDespacho" name="inputProcedenciaHaciaDespacho">
+                            <input onblur="mayus(this);" type="text" class="form-control" id="inputProcedenciaHaciaDespacho" name="inputProcedenciaHaciaDespacho">
                         </div>
                     </div>
                     <br><br>
@@ -488,21 +477,17 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="inputObservacionesDespacho">Observaciones</label>
-                                <textarea onblur="mayus(this);" class="form-control" id="inputObservacionesDespacho"
-                                    name="inputObservacionesDespacho" rows="3" maxLength="100"></textarea>
+                                <textarea onblur="mayus(this);" class="form-control" id="inputObservacionesDespacho" name="inputObservacionesDespacho" rows="3" maxLength="100"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="inputRecibidorDespacho">Recibido por</label>
-                                <input type="text" class="form-control" id="inputRecibidorDespacho"
-                                    onblur="mayus(this);" name="inputRecibidorDespacho">
+                                <input type="text" class="form-control" id="inputRecibidorDespacho" onblur="mayus(this);" name="inputRecibidorDespacho">
                             </div>
                             <div class="form-group">
                                 <label for="inputEntregadorDespacho">Entregado por</label>
-                                <input type="text" value="<?php echo $nombreUsuario ?>" class="form-control"
-                                    onblur="mayus(this);" id="inputEntregadorDespacho" name="inputEntregadorDespacho">
+                                <input type="text" value="<?php echo $nombreUsuario ?>" class="form-control" onblur="mayus(this);" id="inputEntregadorDespacho" name="inputEntregadorDespacho">
                             </div>
-                            <button type="button" class="form-group col-md-12 btn btn-primary" data-toggle="modal"
-                                data-target="#canvasFotosVehiculo">
+                            <button type="button" class="form-group col-md-12 btn btn-primary" data-toggle="modal" data-target="#canvasFotosVehiculo">
                                 Tomar Fotos al vehiculo
                             </button>
                         </div>
@@ -512,8 +497,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <div class="container col-md-12" id="canvasContainer">
                                     <div id="output" class="text-center">0E</div>
                                     <canvas id="canvas-combustible" class="img-fluid rounded float-right"></canvas>
-                                    <img id="imagenBencina"
-                                        src="<?php echo base_route() ?>assets/images/indicadorBencina.jpg" hidden />
+                                    <img id="imagenBencina" src="<?php echo base_route() ?>assets/images/indicadorBencina.jpg" hidden />
                                 </div>
 
                             </div>
@@ -526,8 +510,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                         firmar Acta de entrega <i class="fas fa-feather-alt"></i>
                     </button>
                     <button type="submit" id="btn_crear_ActaEntrega" class="btn btn-primary">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                            id="spinner_btn_generarActaEntrega"></span>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_generarActaEntrega"></span>
                         Generar Acta de entrega</button>
                 </div>
             </form>
@@ -537,8 +520,7 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 <!-- Modal fotos auto -->
-<div class="modal fade" id="canvasFotosVehiculo" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="canvasFotosVehiculo" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -562,8 +544,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     </div>
                     <div class="form-group col-lg-2">
                         <label for="grosor">Grosor de linea</label>
-                        <input type="range" id="grosor" class="custom-range" oninput="defgrosor(this.value)" value="0"
-                            min="1" max="5">
+                        <input type="range" id="grosor" class="custom-range" oninput="defgrosor(this.value)" value="0" min="1" max="5">
                     </div>
                     <div class="form-group col-lg-3">
                         <button type="button" id="seleccionarFoto" class="btn btn-success btn-sm form-control ">
@@ -571,16 +552,14 @@ $nombreUsuario = $this->session->userdata('nombre')
                     </div>
                     <div class="form-group col-lg-12 text-center">
                         <br>
-                        <p><i class="far fa-square"></i> Abolladuras <i class="far fa-circle"></i> Rayaduras <i
-                                class="fas fa-times"></i> Piezas rotas </p>
+                        <p><i class="far fa-square"></i> Abolladuras <i class="far fa-circle"></i> Rayaduras <i class="fas fa-times"></i> Piezas rotas </p>
                         <div class="form-group form-check">
-                            <label class="form-check-label" for="dibujarCanvas"><input type="checkbox"
-                                    class="form-check-input" id="dibujarCanvas" name="dibujarCanvas">dibujar en
+                            <label class="form-check-label" for="dibujarCanvas"><input type="checkbox" class="form-check-input" id="dibujarCanvas" name="dibujarCanvas">dibujar en
                                 canvas</label>
                         </div>
                     </div>
                     <div class="col-lg-1"></div>
-                    <div class="form-group col-lg-10">
+                    <div class="form-group col-lg-12">
                         <div class="vehiculo-canvas" id="cont-canvas">
                             <canvas id="canvas-fotoVehiculo" style="background:#d9d9d9"></canvas>
                         </div>
@@ -626,11 +605,10 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <br>
                         <button id="prev_despacho" class=" btn-info">
                             < </button> <button id="next_despacho" class=" btn-info "> >
-                                </button>
-                                &nbsp; &nbsp;
-                                <span>Pagina: <span id="page_num_despacho"></span> / <span
-                                        id="page_count_despacho"></span></span>
-                                <canvas id="pdf_canvas_despacho" class="img-fluid rounded pdf-canvas"></canvas>
+                        </button>
+                        &nbsp; &nbsp;
+                        <span>Pagina: <span id="page_num_despacho"></span> / <span id="page_count_despacho"></span></span>
+                        <canvas id="pdf_canvas_despacho" class="img-fluid rounded pdf-canvas"></canvas>
                     </div>
                     <div class="row" id="body-firma">
                         <div class="container col-md-6">
@@ -667,13 +645,11 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <div class="col-md-12 text-center">
                             <button type="button" id="btn_firmar_actaEntrega" class="btn btn-success btn-sm ">
                                 Firmar acta entrega
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_firmarActaEntrega"></span>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_firmarActaEntrega"></span>
                             </button>
                             <button type="button" id="btn_confirmar_actaEntrega" class="btn btn-primary btn-sm ">
                                 Guardar cambios
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_confirmarActaEntrega"></span>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_confirmarActaEntrega"></span>
                             </button>
                         </div>
                     </div>

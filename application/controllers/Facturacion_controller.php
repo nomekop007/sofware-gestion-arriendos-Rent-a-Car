@@ -7,6 +7,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Facturacion_controller extends CI_Controller
 {
 
+	public function cargarFacturaciones()
+	{
+		echo get_function("facturaciones/cargarFacturaciones");
+	}
+
 	public function registrarFacturacion()
 	{
 		$dataArray = [

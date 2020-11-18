@@ -61,16 +61,23 @@ class Arriendo_controller extends CI_Controller
         echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
     }
 
+
     public function extenderArriendo()
     {
-        $idArriendo = $this->input->post("id_arriendo");
-        $ArrayData = [
-            "estado_arriendo" =>  "EXTENDIDO",
-            "fechaRecepcion_arriendo" => $this->input->post("inputFechaExtender_extenderPlazo"),
-            "diasActuales_arriendo" => $this->input->post("diasActuales"),
-            "diasAcumulados_arriendo" => $this->input->post("diasAcumulados"),
+        // se validac que el usuario sea un admin o supervisor
+        $rol =  $this->session->userdata("rol");
+        if ($rol == 1 || $rol == 2) {
+            $idArriendo = $this->input->post("id_arriendo");
+            $ArrayData = [
+                "estado_arriendo" =>  "EXTENDIDO",
+                "fechaRecepcion_arriendo" => $this->input->post("inputFechaExtender_extenderPlazo"),
+                "diasActuales_arriendo" => $this->input->post("diasActuales"),
+                "diasAcumulados_arriendo" => $this->input->post("diasAcumulados"),
 
-        ];
-        echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
+            ];
+            echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
+        } else {
+            echo json_encode(array("success" => false, "msg" => "no tienes los permisos necesarios para extender contrato"));
+        }
     }
 }

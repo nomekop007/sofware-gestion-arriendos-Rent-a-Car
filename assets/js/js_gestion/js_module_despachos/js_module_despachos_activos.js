@@ -13,7 +13,7 @@ const calcularDiasExtencion = () => {
 };
 
 
-const buscarArriendoExtender = async(id_arriendo) => {
+const buscarArriendoExtender = async (id_arriendo) => {
     limpiarFormulario();
     const data = new FormData();
     data.append("id_arriendo", id_arriendo);
@@ -31,7 +31,7 @@ const buscarArriendoExtender = async(id_arriendo) => {
 }
 
 
-const buscarArriendoFinalizar = async(id_arriendo) => {
+const buscarArriendoFinalizar = async (id_arriendo) => {
     limpiarFormulario();
 
     mostrarCanvasImgVehiculo([
@@ -112,7 +112,7 @@ $(document).ready(() => {
 
     $("#nav-activos-tab").click(() => refrescarTablaActivos());
 
-    const cargarArriendosActivos = async() => {
+    const cargarArriendosActivos = async () => {
         $("#spinner_tablaArriendoActivos").show();
         const data = new FormData();
         data.append("filtro", "ACTIVO");
@@ -156,7 +156,7 @@ $(document).ready(() => {
             confirmButtonText: "Si, seguro",
             cancelButtonText: "No, cancelar!",
             reverseButtons: true,
-        }).then(async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 $("#spinner_btn_extenderArriendo").show();
                 $("#btn_extenderArriendo").attr("disabled", true)
@@ -192,7 +192,7 @@ $(document).ready(() => {
                 confirmButtonText: "Si, seguro",
                 cancelButtonText: "No, cancelar!",
                 reverseButtons: true,
-            }).then(async(result) => {
+            }).then(async (result) => {
                 if (result.isConfirmed) {
                     $("#spinner_btn_finalizar_contrato").show();
                     $("#btn_finalizar_arriendo").attr("disable", true);
@@ -231,7 +231,7 @@ $(document).ready(() => {
     });
 
 
-    $("#seleccionarFotoRecepcion").click(async() => {
+    $("#seleccionarFotoRecepcion").click(async () => {
         /*
         se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
 		el servidor solo puede recibir un maximo de 2mb en cada consulta.
@@ -242,7 +242,7 @@ $(document).ready(() => {
         if (inputImg != 0) {
             const canvas = document.getElementById("canvas_fotoVehiculo_recepcion");
             const base64 = canvas.toDataURL("image/png");
-            const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
+            const url = await resizeBase64Img(base64, canvas.width, canvas.height, 2);
             if (arrayImagesRecepcion.length < 5) {
                 arrayImagesRecepcion.push(url);
                 agregarFotoACarrucelRecepcion(arrayImagesRecepcion);
@@ -274,20 +274,20 @@ $(document).ready(() => {
         });
     };
 
-    const guardarRevisionRecepcion = async(data) => {
+    const guardarRevisionRecepcion = async (data) => {
         data.append("id_despacho", $("#id_arriendo_recepcion").val());
         data.append("arrayImages", JSON.stringify(arrayImagesRecepcion));
         return await ajax_function(data, "registrar_revision");
     }
 
-    const cambiarEstadoArriendo = async(data) => {
+    const cambiarEstadoArriendo = async (data) => {
         data.append("id_arriendo", $("#id_arriendo_recepcion").val());
         data.append("estado", "FINALIZADO");
         data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
         return await ajax_function(data, "cambiarEstado_arriendo");
     };
 
-    const cambiarEstadoVehiculo = async(data) => {
+    const cambiarEstadoVehiculo = async (data) => {
         data.append("inputPatenteVehiculo", $("#id_vehiculo_recepcion").val());
         data.append("inputEstado", "DISPONIBLE");
         data.append("kilometraje_vehiculo", $("#input_kilometraje_salida").val());
@@ -297,7 +297,7 @@ $(document).ready(() => {
 
 
 
-    const extenderContrato = async(data) => {
+    const extenderContrato = async (data) => {
         return await ajax_function(data, "extender_arriendo");
     }
 
@@ -309,7 +309,7 @@ $(document).ready(() => {
         const fechaFinal = moment(fechaRecepcion_arriendo);
         let time = countDownDate.diff(moment());
 
-        time = setInterval(function() {
+        time = setInterval(function () {
             alertaTemporizador(countDownDate, fechaFinal, time, id_arriendo);
         }, 1000);
     };
@@ -329,8 +329,8 @@ $(document).ready(() => {
             if (diasRestantes > 0) {
                 $(`#time${id_arriendo}`).text(`
                     ${diasRestantes}  ${
-					diasRestantes == 1 ? " dia" : " dias"
-				}  y ${moment.utc(diff).format(" HH:mm:ss")} horas `);
+                    diasRestantes == 1 ? " dia" : " dias"
+                    }  y ${moment.utc(diff).format(" HH:mm:ss")} horas `);
             } else {
                 $(`#time${id_arriendo}`).text(
                     moment.utc(diff).format(" HH:mm:ss") + " horas"
