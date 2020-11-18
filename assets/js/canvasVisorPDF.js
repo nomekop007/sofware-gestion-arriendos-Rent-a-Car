@@ -11,7 +11,7 @@ const canvasVisorPDF = {
     pageNum: 1,
     pageRendering: false,
     pageNumPending: null,
-    scale: 2,
+    scale: 2.5,
     canvasVisorPDF: "",
     ctxVisorPDF: ""
 }
@@ -29,7 +29,7 @@ function mostrarVisorPDF(base64, [id_canvas, id_page_count, id_page_num, id_prev
     document.getElementById(canvasVisorPDF.prev).addEventListener('click', onPrevPage);
     document.getElementById(canvasVisorPDF.next).addEventListener('click', onNextPage);
 
-    pdfjsLib.getDocument({ data: atob(base64) }).promise.then(function(pdfDoc_) {
+    pdfjsLib.getDocument({ data: atob(base64) }).promise.then(function (pdfDoc_) {
         canvasVisorPDF.pdfDoc = pdfDoc_;
         document.getElementById(canvasVisorPDF.page_count).textContent = canvasVisorPDF.pdfDoc.numPages;
 
@@ -50,7 +50,7 @@ function mostrarVisorPDF(base64, [id_canvas, id_page_count, id_page_num, id_prev
 function renderPage(num) {
     canvasVisorPDF.pageRendering = true;
     // Using promise to fetch the page
-    canvasVisorPDF.pdfDoc.getPage(num).then(function(page) {
+    canvasVisorPDF.pdfDoc.getPage(num).then(function (page) {
         let viewport = page.getViewport({ scale: canvasVisorPDF.scale });
         canvasVisorPDF.canvasVisorPDF.height = viewport.height;
         canvasVisorPDF.canvasVisorPDF.width = viewport.width;
@@ -62,7 +62,7 @@ function renderPage(num) {
         let renderTask = page.render(renderContext);
 
         // Wait for rendering to finish
-        renderTask.promise.then(function() {
+        renderTask.promise.then(function () {
             canvasVisorPDF.pageRendering = false;
             if (canvasVisorPDF.pageNumPending !== null) {
                 // New page rendering is pending
