@@ -16,9 +16,9 @@ function soloNumeros(evt) {
 
 // Script para cargar año vehiculo
 function cargarOlder(input) {
-    var n = new Date().getFullYear();
-    var select = document.getElementById(input);
-    for (var i = n; i >= 1970; i--) select.options.add(new Option(i, i));
+    let n = new Date().getFullYear();
+    let select = document.getElementById(input);
+    for (let i = n; i >= 1970; i--) select.options.add(new Option(i, i));
 }
 
 // Script para validar los campos de un formulario
@@ -26,14 +26,14 @@ function cargarOlder(input) {
     "use strict";
     window.addEventListener(
         "load",
-        function() {
+        function () {
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName("needs-validation");
+            let forms = document.getElementsByClassName("needs-validation");
             // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
+            let validation = Array.prototype.filter.call(forms, function (form) {
                 form.addEventListener(
                     "submit",
-                    function(event) {
+                    function (event) {
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
@@ -53,23 +53,23 @@ function cargarOlder(input) {
 // funcion para formatear rut
 function formateaRut(rut) {
     //onblur="this.value=formateaRut(this.value)"
-    var actual = rut.replace(/^0+/, "");
+    let actual = rut.replace(/^0+/, "");
     if (actual != "" && actual.length > 1) {
-        var sinPuntos = actual.replace(/\./g, "");
-        var actualLimpio = sinPuntos.replace(/-/g, "");
-        var inicio = actualLimpio.substring(0, actualLimpio.length - 1);
-        var rutPuntos = "";
-        var i = 0;
-        var j = 1;
+        let sinPuntos = actual.replace(/\./g, "");
+        let actualLimpio = sinPuntos.replace(/-/g, "");
+        let inicio = actualLimpio.substring(0, actualLimpio.length - 1);
+        let rutPuntos = "";
+        let i = 0;
+        let j = 1;
         for (i = inicio.length - 1; i >= 0; i--) {
-            var letra = inicio.charAt(i);
+            let letra = inicio.charAt(i);
             rutPuntos = letra + rutPuntos;
             if (j % 3 == 0 && j <= inicio.length - 1) {
                 rutPuntos = "." + rutPuntos;
             }
             j++;
         }
-        var dv = actualLimpio.substring(actualLimpio.length - 1);
+        let dv = actualLimpio.substring(actualLimpio.length - 1);
         rutPuntos = rutPuntos + "-" + dv;
     }
     return rutPuntos;
@@ -144,11 +144,25 @@ var lenguajeSelect2 = {
     },
 };
 
+// script que oscurece los modal dentro de otro modal
+$(document).ready(() => {
+    let modal_lv = 0;
+    $('.modal').on('shown.bs.modal', function (e) {
+        $('.modal-backdrop:last').css('zIndex', 1051 + modal_lv);
+        $(e.currentTarget).css('zIndex', 1052 + modal_lv);
+        modal_lv++
+    });
+
+    $('.modal').on('hidden.bs.modal', function (e) {
+        modal_lv--
+    });
+});
+
 //se valida los input files
-$(document).on("change", 'input[type="file"]', function() {
-    var fileName = this.files[0].name;
-    var fileSize = this.files[0].size;
-    var ext = fileName.split(".");
+$(document).on("change", 'input[type="file"]', function () {
+    let fileName = this.files[0].name;
+    let fileSize = this.files[0].size;
+    let ext = fileName.split(".");
     // ahora obtenemos el ultimo valor despues el punto
     // obtenemos el length por si el archivo lleva nombre con mas de 2 puntos
     ext = ext[ext.length - 1];
@@ -187,13 +201,13 @@ $(document).on("change", 'input[type="file"]', function() {
 //ES ASINCRONO
 const resizeBase64Img = (base64, newWidth, newHeight, level) => {
     return new Promise((resolve, reject) => {
-        var canvas = document.createElement("canvas");
+        let canvas = document.createElement("canvas");
         canvas.width = newWidth / level;
         canvas.height = newHeight / level;
         let context = canvas.getContext("2d");
         let img = document.createElement("img");
         img.src = base64;
-        img.onload = function() {
+        img.onload = function () {
             context.scale(
                 newWidth / level / img.width,
                 newHeight / level / img.height

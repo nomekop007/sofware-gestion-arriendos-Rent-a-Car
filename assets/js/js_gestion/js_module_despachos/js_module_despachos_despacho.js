@@ -91,15 +91,11 @@ const limpiarCampos = () => {
 
 
 
-
-
-
 //----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
 
 $(document).ready(() => {
     //se inician los datatable
     const tablaControldespacho = $("#tablaControldespacho").DataTable(lenguaje);
-
 
     $("#nav-despachos-tab").click(() => refrescarTabla());
 
