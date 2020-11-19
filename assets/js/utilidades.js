@@ -14,6 +14,12 @@ function soloNumeros(evt) {
     }
 }
 
+function codigoAleatorio() {
+    return Math.round(Math.random() * (999999 - 111111) + parseInt(111111));
+
+}
+
+
 // Script para cargar año vehiculo
 function cargarOlder(input) {
     let n = new Date().getFullYear();
@@ -129,6 +135,7 @@ var lenguaje = {
             sortDescending: ": Activar orden de columna desendente",
         },
     },
+    "order": [[0, "desc"]]
 };
 //lenguaje del select 2
 var lenguajeSelect2 = {
@@ -217,3 +224,6 @@ const resizeBase64Img = (base64, newWidth, newHeight, level) => {
         };
     });
 };
+
+
+

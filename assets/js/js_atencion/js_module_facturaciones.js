@@ -29,13 +29,14 @@ $(document).ready(() => {
 
 
     const cargarFacturacionEnTabla = (facturacion) => {
+        console.log(facturacion);
         try {
             tabla_facturacion.row
                 .add([
                     facturacion.id_facturacion,
                     facturacion.tipo_facturacion,
                     facturacion.numero_facturacion,
-                    facturacion.cantidadPagos,
+                    facturacion.pagos.length,
                     formatearFechaHora(facturacion.createdAt),
                     facturacion.userAt,
                     "",
@@ -44,7 +45,7 @@ $(document).ready(() => {
                 ])
                 .draw(false);
         } catch (error) {
-            console.log("error al cargar la facturacion: " + error);
+            console.log("error al cargar la fila: " + error);
         }
     };
 

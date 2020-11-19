@@ -68,12 +68,11 @@ class Requisito_controller extends CI_Controller
         echo file_function($id_arriendo, $arrayFile, "requisitos/registrarRequisitoArriendo");
         borrarImagenes($arrayPath);
     }
-}
 
 
-function borrarImagenes($arrayPath)
-{
-    foreach ($arrayPath as $i => $path) {
-        unlink($path);
+    public function buscarRequisitoArriendo()
+    {
+        $id_arriendo = $this->input->post("id_arriendo");
+        echo find_function($id_arriendo, "requisitos/buscarRequisitoArriendo");
     }
 }

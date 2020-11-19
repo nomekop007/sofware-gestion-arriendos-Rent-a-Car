@@ -8,28 +8,28 @@
 
 
 <script>
-$("#m_arriendo").addClass("active");
-$("#l_arriendo").addClass("card");
+    $("#m_arriendo").addClass("active");
+    $("#l_arriendo").addClass("card");
 
-//funciones para cambiar de color los botones del tab Registrar arriendo
-$("#btn-arriendo").click(function() {
-    $(this).toggleClass("btn-dark btn-outline-dark");
-});
-$("#btn-cliente").click(function() {
-    $(this).toggleClass("btn-dark btn-outline-dark");
-});
-$("#btn-contacto").click(function() {
-    $(this).toggleClass("btn-dark btn-outline-dark");
-});
-$("#btn-conductor").click(function() {
-    $(this).toggleClass("btn-dark btn-outline-dark");
-});
-$("#btn-vehiculo").click(function() {
-    $(this).toggleClass("btn-dark btn-outline-dark");
-});
-$("#btn-garantia").click(function() {
-    $(this).toggleClass("btn-dark btn-outline-dark");
-});
+    //funciones para cambiar de color los botones del tab Registrar arriendo
+    $("#btn-arriendo").click(function() {
+        $(this).toggleClass("btn-dark btn-outline-dark");
+    });
+    $("#btn-cliente").click(function() {
+        $(this).toggleClass("btn-dark btn-outline-dark");
+    });
+    $("#btn-contacto").click(function() {
+        $(this).toggleClass("btn-dark btn-outline-dark");
+    });
+    $("#btn-conductor").click(function() {
+        $(this).toggleClass("btn-dark btn-outline-dark");
+    });
+    $("#btn-vehiculo").click(function() {
+        $(this).toggleClass("btn-dark btn-outline-dark");
+    });
+    $("#btn-garantia").click(function() {
+        $(this).toggleClass("btn-dark btn-outline-dark");
+    });
 </script>
 
 <!-- importaciones del select2 -->
@@ -47,4 +47,7 @@ $("#btn-garantia").click(function() {
 
 
 <script src="<?php echo base_route() ?>assets/js/canvasFirmaDigital.js">
+</script>
+
+<script src="<?php echo base_route() ?>assets/js/comunaCiudad.js">
 </script>

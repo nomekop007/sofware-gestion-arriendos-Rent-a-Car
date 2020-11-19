@@ -27,6 +27,7 @@ class Conductor_controller extends CI_Controller
             "vcto_conductor" => $this->input->post("inputVCTOConductor"),
             "municipalidad_conductor" => $this->input->post("inputMunicipalidadConductor"),
             "direccion_conductor" => $this->input->post("inputDireccionConductor"),
+            "nacionalidad_conductor" => $this->input->post("inputNacionalidadConductor"),
         ];
         echo post_function($arrayData, "conductores/registrarConductor");
     }

@@ -10,6 +10,8 @@ class Garantia_controller extends CI_Controller
     {
         $dataArray = [
             "id_arriendo" => $this->input->post("inputIdArriendo"),
+            "folioTarjeta_garantia" => $this->input->post("inputFolioTarjeta"),
+            "bancoCheque_garantia" => $this->input->post("inputBancoCheque"),
             "numeroTarjeta_garantia" => $this->input->post("inputNumeroTarjeta"),
             "fechaTarjeta_garantia" => $this->input->post("inputFechaTarjeta"),
             "codigoTarjeta_garantia" => $this->input->post("inputCodigoTarjeta"),

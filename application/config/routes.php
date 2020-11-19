@@ -75,6 +75,8 @@ $route["guardar_documentoFacturacion"] = 'Facturacion_controller/guardarDocument
 
 /* rutas de controller requisitos  */
 $route['registrar_requisitos'] = 'Requisito_controller/guardarDocumentosRequistosArriendo';
+$route['buscar_requisito'] = 'Requisito_controller/buscarRequisitoArriendo';
+
 
 /* rutas de controller Contrato */
 $route['generar_PDFcontrato'] = 'Contrato_controller/generarPDFcontrato';

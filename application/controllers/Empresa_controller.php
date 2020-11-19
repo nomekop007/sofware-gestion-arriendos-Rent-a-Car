@@ -28,6 +28,8 @@ class Empresa_controller extends CI_Controller
             "correo_empresa" => $this->input->post("inputCorreoEmpresa"),
             "vigencia_empresa" => $this->input->post("inputVigencia"),
             "rol_empresa" => $this->input->post("inputRol"),
+            "comuna_empresa" => $this->input->post("inputComunaEmpresa"),
+
         ];
         echo post_function($arrayData, "empresas/registrarEmpresa");
     }

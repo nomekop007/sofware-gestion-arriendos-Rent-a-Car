@@ -29,7 +29,8 @@ const buscarArriendo = async (id_arriendo, option) => {
     $("#formSpinnerEditar").hide();
 };
 
-const mostrarArriendoModalEditar = (arriendo) => {
+const mostrarArriendoModalEditar = async (arriendo) => {
+
     $("#body_editarArriendo").show();
     $("#inputIdArriendoEditar").val(arriendo.id_arriendo);
     $("#numeroArriendoEditar").text("Nº" + arriendo.id_arriendo);
@@ -730,7 +731,7 @@ $(document).ready(() => {
             }
             tablaTotalArriendos.row
                 .add([
-                    "Nº" + arriendo.id_arriendo,
+                    arriendo.id_arriendo,
                     cliente,
                     formatearFechaHora(arriendo.createdAt),
                     arriendo.tipo_arriendo,
@@ -752,12 +753,6 @@ $(document).ready(() => {
             if (arriendo.requisito) {
                 $(`#a${arriendo.id_arriendo}`).removeClass("btn-outline-primary");
                 $(`#a${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
-            }
-
-            if (!arriendo.requisito) {
-                $(`#b${arriendo.id_arriendo}`).attr("disabled", true);
-                $(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-success");
-                $(`#b${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
             }
 
             if (arriendo.estado_arriendo != "EXTENDIDO" && arriendo.estado_arriendo != "PENDIENTE") {

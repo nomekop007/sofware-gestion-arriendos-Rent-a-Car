@@ -28,6 +28,8 @@ class Cliente_controller extends CI_Controller
             "telefono_cliente" => $this->input->post("inputTelefonoCliente"),
             "estadoCivil_cliente" => $this->input->post("inputEstadoCivil"),
             "correo_cliente" => $this->input->post("inputCorreoCliente"),
+            "nacionalidad_cliente" => $this->input->post("inputNacionalidadCliente"),
+            "comuna_cliente" => $this->input->post("inputComunaCliente"),
         ];
 
         echo post_function($arrayData, "clientes/registrarCliente");
