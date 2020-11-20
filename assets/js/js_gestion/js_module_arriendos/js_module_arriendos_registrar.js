@@ -92,7 +92,6 @@ const calcularDias = () => {
 
 $(document).ready(() => {
     //cargar sucursales  (ruta,select)
-    cargarSelect("cargar_Sucursales", "inputSucursal");
 
     cargarSelect("cargar_Sucursales", "inputCiudadEntrega");
 
@@ -101,6 +100,32 @@ $(document).ready(() => {
     cargarComunas("inputComunaCliente", "inputCiudadCliente");
 
     cargarComunas("inputComunaEmpresa", "inputCiudadEmpresa");
+
+    //cargar vigencia Empresa (input)
+    cargarOlder("inputVigencia");
+
+
+    //cargar vehiculos en select
+    (cargarVehiculos = async () => {
+        //select2 de los vehiculos
+        $("#select_vehiculos").select2(lenguajeSelect2);
+
+        const data = new FormData();
+        data.append("inputSucursal", $("#selectSucursal").val());
+        const response = await ajax_function(data, "cargar_VehiculosPorSucursal");
+        if (response.success) {
+            if (response.data) {
+                const select = document.getElementById("select_vehiculos");
+                $.each(response.data.regione.vehiculos, (i, o) => {
+                    const option = document.createElement("option");
+                    option.innerHTML = `${o.patente_vehiculo} ${o.marca_vehiculo} ${o.modelo_vehiculo} ${o.año_vehiculo}`;
+                    option.value = o.patente_vehiculo;
+                    select.appendChild(option);
+                });
+                $("#select_vehiculos").attr("disabled", false);
+            }
+        }
+    })();
 
 
     //cargar accesorios
@@ -117,30 +142,31 @@ $(document).ready(() => {
         }
     })();
 
+    $('#select_vehiculos').on('select2:select', async (e) => {
+        const patente = e.params.data.id;
+        if (patente != "null") {
+            const data = new FormData();
+            data.append("patente", patente);
+            const response = await ajax_function(data, "buscar_vehiculo");
+            if (response.success) {
+                console.log(response.data);
 
-    //cargar vigencia Empresa (input)
-    cargarOlder("inputVigencia");
-
-    //select2 de los vehiculos
-    $("#select_vehiculos").select2(lenguajeSelect2);
-
-    //cargar accesorios
-    (cargarAccesorios = async () => {
-        const response = await ajax_function(null, "cargar_accesorios");
-        if (response.success) {
-            $("#row_accesorios").empty();
-            $.each(response.data, (i, o) => {
-                let fila = `
-                <div class='form-check form-check-inline'>
-                <input class='form-check-input' type='checkbox' name='checks[]' value='${o.id_accesorio}'>
-                <label class='form-check-label' for='${o.id_accesorio}'>
-                    ${o.nombre_accesorio}
-                </label>
-                </div>`;
-                $("#row_accesorios").append(fila);
-            });
+                var kilometros_mantencion = Number(response.data.Tmantencion_vehiculo);
+                var kilometros_actual = Number(response.data.kilometraje_vehiculo);
+                var kilometros_falta = Number(0);
+                do {
+                    kilometros_falta = Number(kilometros_mantencion - kilometros_actual);
+                    if (kilometros_falta < 0) {
+                        kilometros_mantencion = kilometros_mantencion * 2;
+                    }
+                } while (kilometros_falta < 0);
+                $("#inputEntrada").val(kilometros_actual);
+                $("#inputMantencion").val(kilometros_falta);
+            }
         }
-    })();
+    });
+
+
 
     $("#btn_buscarCliente").click(async () => {
         const data = new FormData();
@@ -245,32 +271,6 @@ $(document).ready(() => {
         }
     });
 
-    $("#buscar_vehiculos").click(async () => {
-        const data = new FormData();
-        data.append("inputSucursal", $("#inputSucursal").val());
-        const response = await ajax_function(data, "cargar_VehiculosPorSucursal");
-        if (response.success) {
-            $("#select_vehiculos").empty();
-            if (response.data) {
-                const select = document.getElementById("select_vehiculos");
-                $.each(response.data.vehiculos, (i, o) => {
-                    const option = document.createElement("option");
-                    option.innerHTML =
-                        "PATENTE: " +
-                        o.patente_vehiculo +
-                        " - MODELO: " +
-                        o.marca_vehiculo +
-                        " " +
-                        o.modelo_vehiculo +
-                        " " +
-                        o.año_vehiculo;
-                    option.value = o.patente_vehiculo;
-                    select.appendChild(option);
-                });
-                $("#select_vehiculos").attr("disabled", false);
-            }
-        }
-    });
 
     $("#btn_crear_arriendo").click(async () => {
         //AQUI SE VALIDAN TODOS LOS CAMPOS
@@ -360,6 +360,9 @@ $(document).ready(() => {
                 break;
         }
 
+
+
+
         //VALIDACION DEL FORMULARIO ARRIENDO
         if (
             inputRutConductor.length != 0 &&
@@ -375,93 +378,117 @@ $(document).ready(() => {
             inputCiudadRecepcion.length != 0 &&
             inputFechaRecepcion.length != 0 &&
             inputEntrada.length != 0 &&
-            inputMantencion.length != 0 &&
-            select_vehiculos != null
+            inputMantencion.length != 0
         ) {
-            $("#btn_crear_arriendo").attr("disabled", true);
-            $("#spinner_btn_registrar").show();
-            //SE VALIDA EL FORMULARIO POR TIPO DE ARRIENDO
-            switch (inputTipoArriendo) {
-                case "PARTICULAR":
-                    if (
-                        inputRutCliente.length != 0 &&
-                        inputNombreCliente.length != 0 &&
-                        inputTelefonoCliente.length != 0 &&
-                        inputCorreoCliente.length != 0 &&
-                        inputDireccionCliente.length != 0 &&
-                        inputCiudadCliente.length != 0 &&
-                        inputFechaNacimiento.length != 0
-                    ) {
-                        let response = await guardarDatosCliente();
-                        if (response.success) {
-                            response = await guardarDatosConductor();
-                            if (response.success) {
-                                await guardarDatosArriendo(null);
-                            }
-                        }
-                    } else {
-                        Swal.fire({
-                            icon: "warning",
-                            title: "Faltan datos del cliente en el formulario!",
-                        });
-                    }
-                    break;
-                case "REMPLAZO":
-                    if (
-                        inputRutCliente.length != 0 &&
-                        inputNombreCliente.length != 0 &&
-                        inputTelefonoCliente.length != 0 &&
-                        inputCorreoCliente.length != 0 &&
-                        inputDireccionCliente.length != 0 &&
-                        inputCiudadCliente.length != 0 &&
-                        inputFechaNacimiento.length != 0
-                    ) {
-                        let response = await guardarDatosCliente();
-                        if (response.success) {
-                            response = await guardarDatosConductor();
-                            if (response.success) {
-                                response = await guardarDatosRemplazo();
-                                if (response.success) {
-                                    const id_remplazo = response.data.id_remplazo;
-                                    await guardarDatosArriendo(id_remplazo);
-                                }
-                            }
-                        }
-                    } else {
-                        Swal.fire({
-                            icon: "warning",
-                            title: "Faltan datos de la empresa o cliente en el formulario!",
-                        });
-                    }
-                    break;
-                case "EMPRESA":
-                    if (
-                        inputRutEmpresa.length != 0 &&
-                        inputNombreEmpresa.length != 0 &&
-                        inputTelefonoEmpresa.length != 0 &&
-                        inputCorreoEmpresa.length != 0 &&
-                        inputDireccionEmpresa.length != 0 &&
-                        inputVigencia.length != 0 &&
-                        inputCiudadEmpresa.length != 0 &&
-                        inputRol.length != 0
-                    ) {
-                        let response = await guardarDatosEmpresa();
-                        if (response.success) {
-                            response = await guardarDatosConductor();
-                            if (response.success) {
-                                await guardarDatosArriendo(null);
-                            }
-                        }
-                    } else {
-                        Swal.fire({
-                            icon: "warning",
-                            title: "Faltan datos de la empresa en el formulario!",
-                        });
-                    }
-                    break;
+
+            if (select_vehiculos == null || select_vehiculos == "null") {
+                Swal.fire({
+                    icon: "warning",
+                    title: "debe seleccionar un vehiculo!",
+                });
+                return;
             }
-            $("#btn_crear_arriendo").attr("disabled", false);
-            $("#spinner_btn_registrar").hide();
+
+            Swal.fire({
+                title: "Estas seguro?",
+                text: "estas seguro de registrar este arriendo?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, seguro",
+                cancelButtonText: "No, cancelar!",
+                reverseButtons: true,
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+
+                    $("#btn_crear_arriendo").attr("disabled", true);
+                    $("#spinner_btn_registrar").show();
+                    //SE VALIDA EL FORMULARIO POR TIPO DE ARRIENDO
+                    switch (inputTipoArriendo) {
+                        case "PARTICULAR":
+                            if (
+                                inputRutCliente.length != 0 &&
+                                inputNombreCliente.length != 0 &&
+                                inputTelefonoCliente.length != 0 &&
+                                inputCorreoCliente.length != 0 &&
+                                inputDireccionCliente.length != 0 &&
+                                inputCiudadCliente.length != 0 &&
+                                inputFechaNacimiento.length != 0
+                            ) {
+                                let response = await guardarDatosCliente();
+                                if (response.success) {
+                                    response = await guardarDatosConductor();
+                                    if (response.success) {
+                                        await guardarDatosArriendo(null);
+                                    }
+                                }
+                            } else {
+                                Swal.fire({
+                                    icon: "warning",
+                                    title: "Faltan datos del cliente en el formulario!",
+                                });
+                            }
+                            break;
+                        case "REMPLAZO":
+                            if (
+                                inputRutCliente.length != 0 &&
+                                inputNombreCliente.length != 0 &&
+                                inputTelefonoCliente.length != 0 &&
+                                inputCorreoCliente.length != 0 &&
+                                inputDireccionCliente.length != 0 &&
+                                inputCiudadCliente.length != 0 &&
+                                inputFechaNacimiento.length != 0
+                            ) {
+                                let response = await guardarDatosCliente();
+                                if (response.success) {
+                                    response = await guardarDatosConductor();
+                                    if (response.success) {
+                                        response = await guardarDatosRemplazo();
+                                        if (response.success) {
+                                            const id_remplazo = response.data.id_remplazo;
+                                            await guardarDatosArriendo(id_remplazo);
+                                        }
+                                    }
+                                }
+                            } else {
+                                Swal.fire({
+                                    icon: "warning",
+                                    title: "Faltan datos de la empresa o cliente en el formulario!",
+                                });
+                            }
+                            break;
+                        case "EMPRESA":
+                            if (
+                                inputRutEmpresa.length != 0 &&
+                                inputNombreEmpresa.length != 0 &&
+                                inputTelefonoEmpresa.length != 0 &&
+                                inputCorreoEmpresa.length != 0 &&
+                                inputDireccionEmpresa.length != 0 &&
+                                inputVigencia.length != 0 &&
+                                inputCiudadEmpresa.length != 0 &&
+                                inputRol.length != 0
+                            ) {
+                                let response = await guardarDatosEmpresa();
+                                if (response.success) {
+                                    response = await guardarDatosConductor();
+                                    if (response.success) {
+                                        await guardarDatosArriendo(null);
+                                    }
+                                }
+                            } else {
+                                Swal.fire({
+                                    icon: "warning",
+                                    title: "Faltan datos de la empresa en el formulario!",
+                                });
+                            }
+                            break;
+                    }
+
+
+                    $("#btn_crear_arriendo").attr("disabled", false);
+                    $("#spinner_btn_registrar").hide();
+
+                }
+            });
         } else {
             Swal.fire({
                 icon: "warning",
@@ -469,6 +496,9 @@ $(document).ready(() => {
             });
         }
     });
+
+
+
 
     const guardarDatosCliente = async () => {
         const data = new FormData();
@@ -482,7 +512,6 @@ $(document).ready(() => {
         data.append("inputCorreoCliente", $("#inputCorreoCliente").val());
         data.append("inputNacionalidadCliente", $("#inputNacionalidadCliente").val());
         data.append("inputComunaCliente", $("#inputComunaCliente").val());
-
 
         return await ajax_function(data, "registrar_cliente");
     };
@@ -526,15 +555,14 @@ $(document).ready(() => {
     const guardarDatosArriendo = async (id_remplazo) => {
         const data = new FormData();
         data.append("inputTipo", $("#inputTipo").val());
+        data.append("inputIdRemplazo", id_remplazo);
         data.append("inputCiudadEntrega", $("#inputCiudadEntrega").val());
         data.append("inputFechaEntrega", $("#inputFechaEntrega").val());
         data.append("inputCiudadRecepcion", $("#inputCiudadRecepcion").val());
         data.append("inputFechaRecepcion", $("#inputFechaRecepcion").val());
         data.append("inputNumeroDias", $("#inputNumeroDias").val());
         data.append("inputEntrada", $("#inputEntrada").val());
-        data.append("inputOtros", $("#inputOtros").val());
         data.append("select_vehiculos", $("#select_vehiculos").val());
-        data.append("inputIdRemplazo", id_remplazo);
         data.append("inputRutCliente", $("#inputRutCliente").val());
         data.append("inputRutEmpresa", $("#inputRutEmpresa").val());
         data.append("inputRutConductor", $("#inputRutConductor").val());
@@ -542,7 +570,6 @@ $(document).ready(() => {
         const response = await ajax_function(data, "registrar_arriendo");
 
         if (response.success) {
-            await guardarDatosAccesorios(response.data.id_arriendo);
             await guardarDatosGarantia(response.data.id_arriendo);
             await guardarDatosContacto(response.data.id_arriendo);
             await cambiarEstadoVehiculo(response.data.patente_vehiculo);
@@ -551,19 +578,6 @@ $(document).ready(() => {
         }
     };
 
-    const guardarDatosAccesorios = async (idArriendo) => {
-        //revisa todos los check y guardas sus valores en un array si estan okey
-        const checks = $('[name="checks[]"]:checked')
-            .map(function () {
-                return this.value;
-            })
-            .get();
-
-        const data = new FormData();
-        data.append("idArriendo", idArriendo);
-        data.append("arrayAccesorios", JSON.stringify(checks));
-        await ajax_function(data, "registrar_arriendoAccesorios");
-    };
 
     const guardarDatosGarantia = async (idArriendo) => {
         const data = new FormData();
@@ -604,8 +618,10 @@ $(document).ready(() => {
         $("#btn_crear_arriendo").attr("disabled", false);
         $("#spinner_btn_registrar").hide();
         $("#form_registrar_arriendo")[0].reset();
-        $("#select_vehiculos").empty();
         $("#card-tarjeta").hide();
         $("#card-cheque").hide();
+
+        $("#select_vehiculos").empty();
+        cargarVehiculos();
     };
 });

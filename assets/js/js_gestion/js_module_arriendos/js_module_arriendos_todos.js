@@ -29,7 +29,9 @@ const buscarArriendo = async (id_arriendo, option) => {
     $("#formSpinnerEditar").hide();
 };
 
-const mostrarArriendoModalEditar = async (arriendo) => {
+
+
+const mostrarArriendoModalEditar = (arriendo) => {
 
     $("#body_editarArriendo").show();
     $("#inputIdArriendoEditar").val(arriendo.id_arriendo);
@@ -240,8 +242,6 @@ const mostrarArriendoModalPago = (arriendo) => {
                 );
                 break;
         }
-        mostrarAccesorios(arriendo);
-
     } else {
         Swal.fire({
             icon: "error",
@@ -251,19 +251,7 @@ const mostrarArriendoModalPago = (arriendo) => {
     }
 };
 
-const facturacion = (value) => {
-    switch (value) {
-        case "PENDIENTE":
-            $("#metodo_pago").hide();
-            break;
-        case "BOLETA":
-            $("#metodo_pago").show();
-            break;
-        case "FACTURA":
-            $("#metodo_pago").show();
-            break;
-    }
-};
+
 
 const mostrarContratoModalContrato = async (data) => {
     const response = await ajax_function(data, "generar_PDFcontrato");
@@ -293,28 +281,11 @@ const mostrarContratoModalContrato = async (data) => {
     $("#formSpinnerContrato").hide();
 };
 
-const mostrarAccesorios = (arriendo) => {
-    if (arriendo.accesorios.length) {
-        $.each(arriendo.accesorios, (i, o) => {
-            let precio = 0;
-            if (o.precio_accesorio != null) {
-                precio = o.precio_accesorio;
-            }
-            let fila = `
-			<div class='input-group col-md-12'>
-				<span style='width: 60%;' class='input-group-text form-control'>${o.nombre_accesorio} $</span>
-				<input  style='width: 40%;' min='0' id='${o.nombre_accesorio}' maxLength='11' name='accesorios[]' 
-				 value='${precio}'  oninput="this.value = soloNumeros(this) ;calcularValores()"
-					type='number' class='form-control' required>
-			</div>`;
-            $("#formAccesorios").append(fila);
-        });
-    } else {
-        let sinAccesorios =
-            " <span class=' col-md-12 text-center' id='spanAccesorios'>Sin Accesorios</span>";
-        $("#formAccesorios").append(sinAccesorios);
-    }
-};
+
+
+
+
+
 
 const calcularValores = () => {
     //variables
@@ -342,6 +313,23 @@ const calcularValores = () => {
     $("#inputTotal").val(Math.round(total));
 };
 
+
+const facturacion = (value) => {
+    switch (value) {
+        case "PENDIENTE":
+            $("#metodo_pago").hide();
+            break;
+        case "BOLETA":
+            $("#metodo_pago").show();
+            break;
+        case "FACTURA":
+            $("#metodo_pago").show();
+            break;
+    }
+};
+
+
+
 const limpiarCampos = () => {
     mostrarCanvasFirma("canvas-firma", "limpiar-firma");
 
@@ -361,7 +349,6 @@ const limpiarCampos = () => {
     $("#numeroArriendoEditar").text("");
     $("#id_arriendo").val("");
     $("#card_documentos").empty();
-    $("#formAccesorios").empty();
 
     $("#btn_confirmar_contrato").attr("disabled", true);
 
@@ -415,6 +402,27 @@ $(document).ready(() => {
         $("#spinner_tablaTotalArriendos").hide();
     };
 
+
+    (cargarAccesorios = async () => {
+        const response = await ajax_function(null, "cargar_accesorios");
+        if (response.success) {
+            $.each(response.data, (i, o) => {
+                let fila = `
+                <div class='input-group col-md-12'>
+                    <span style='width: 60%;' class='input-group-text form-control'>${o.nombre_accesorio} $</span>
+                    <input  style='width: 40%;' min='0' id='${o.id_accesorio}' maxLength='11' name='accesorios[]' 
+                     value='${o.precio_accesorio}'  oninput="this.value = soloNumeros(this) ;calcularValores()"
+                        type='number' class='form-control' required>
+                </div>`;
+                $("#formAccesorios").append(fila);
+            });
+        }
+    })();
+
+
+
+
+
     $("#btn_subirDocumentos").click(() => {
 
         Swal.fire({
@@ -446,7 +454,11 @@ $(document).ready(() => {
         });
     });
 
-    $("#btn_registrar_pago").click(() => {
+    $("#btn_registrar_pago").click(async () => {
+        const matrizAccesorios = await capturarAccesorios();
+        console.log(matrizAccesorios);
+
+
         const tipoPago = $('[name="customRadio1"]:checked').val();
         const numeroFacturacion = $("#inputNumFacturacion").val().length;
         const totalNeto = $("#inputNeto").val();
@@ -491,6 +503,7 @@ $(document).ready(() => {
 
                     //si existe accesorios los agrega al pagoArriendo
                     const matrizAccesorios = await capturarAccesorios();
+                    console.log(matrizAccesorios);
                     if (matrizAccesorios[0].length != 0) {
                         data.append("matrizAccesorios", JSON.stringify(matrizAccesorios));
                         await guardarDatosPagoAccesorios(data);
@@ -690,15 +703,18 @@ $(document).ready(() => {
     const capturarAccesorios = async () => {
         //cacturando los accesorios
         const matrizAccesorios = [];
-        const arrayNombreAccesorios = [];
+        const arrayIdAccesorios = [];
         const arrayValorAccesorios = [];
         const list = $('[name="accesorios[]"]');
         for (let i = 0; i < list.length; i++) {
             let element = list[i];
-            arrayNombreAccesorios.push(element.id);
-            arrayValorAccesorios.push(element.value);
+
+            if (element.value > 0 && element.length != 0) {
+                arrayIdAccesorios.push(element.id);
+                arrayValorAccesorios.push(element.value);
+            }
         }
-        matrizAccesorios.push(arrayNombreAccesorios);
+        matrizAccesorios.push(arrayIdAccesorios);
         matrizAccesorios.push(arrayValorAccesorios);
 
         return matrizAccesorios;

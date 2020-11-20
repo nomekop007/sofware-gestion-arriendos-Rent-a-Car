@@ -1,6 +1,5 @@
 <main role="main" class=" col-md-9 ml-sm-auto col-lg-10 px-md-4">
-    <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=1">Gestion</a></li>
@@ -12,12 +11,9 @@
     <div>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-link active" id="nav-clientes-tab" data-toggle="tab" href="#nav-clientes" role="tab"
-                    aria-controls="nav-clientes" aria-selected="true">Particulares</a>
-                <a class="nav-link" id="nav-empresas-tab" data-toggle="tab" href="#nav-empresas" role="tab"
-                    aria-controls="nav-empresas" aria-selected="false">Empresas</a>
-                <a class="nav-link" id="nav-conductores-tab" data-toggle="tab" href="#nav-conductores" role="tab"
-                    aria-controls="nav-conductores" aria-selected="false">Conductores asignados</a>
+                <a class="nav-link active" id="nav-clientes-tab" data-toggle="tab" href="#nav-clientes" role="tab" aria-controls="nav-clientes" aria-selected="true">Particulares</a>
+                <a class="nav-link" id="nav-empresas-tab" data-toggle="tab" href="#nav-empresas" role="tab" aria-controls="nav-empresas" aria-selected="false">Empresas</a>
+                <a class="nav-link" id="nav-conductores-tab" data-toggle="tab" href="#nav-conductores" role="tab" aria-controls="nav-conductores" aria-selected="false">Conductores asignados</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -131,8 +127,7 @@
 
 
 <!-- Modal particulares-->
-<div class="modal fade" id="modal_ver" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
+<div class="modal fade" id="modal_ver" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -165,6 +160,10 @@
                                 <input disabled type="text" class="form-control" id="inputEstadoCivilCliente">
                             </div>
                             <div class="form-group col-lg-3">
+                                <label for="inputNacionalidadCliente">Nacionalidad</label>
+                                <input disabled type="text" class="form-control" id="inputNacionalidadCliente">
+                            </div>
+                            <div class="form-group col-lg-3">
                                 <label for="inputNacimientoCliente">Fecha de Nacimiento </label>
                                 <input disabled type="text" class="form-control" id="inputNacimientoCliente">
                             </div>
@@ -180,10 +179,15 @@
                                 <label for="inputDireccionCliente">Direccion </label>
                                 <input disabled type="text" class="form-control" id="inputDireccionCliente">
                             </div>
+                            <div class="form-group col-lg-5">
+                                <label for="inputComunaCliente">Comuna </label>
+                                <input disabled type="text" class="form-control" id="inputComunaCliente">
+                            </div>
                             <div class="form-group col-lg-4">
                                 <label for="inputCiudadCliente">Ciudad </label>
                                 <input disabled type="text" class="form-control" id="inputCiudadCliente">
                             </div>
+
                             <div class="form-group col-lg-4">
                                 <label for="inputCreateAtCliente">Registrado el </label>
                                 <input disabled type="text" class="form-control" id="inputCreateAtCliente">
@@ -220,11 +224,15 @@
                                 <label for="inputCorreoEmpresa">Correo</label>
                                 <input disabled type="text" class="form-control" id="inputCorreoEmpresa">
                             </div>
+                            <div class="form-group col-lg-5">
+                                <label for="inputComunaEmpresa">Comuna </label>
+                                <input disabled type="text" class="form-control" id="inputComunaEmpresa">
+                            </div>
                             <div class="form-group col-lg-4">
                                 <label for="inputCiudadEmpresa">Ciudad</label>
                                 <input disabled type="text" class="form-control" id="inputCiudadEmpresa">
                             </div>
-                            <div class="form-group col-lg-4">
+                            <div class="form-group col-lg-3">
                                 <label for="inputTelefonoEmpresa">Numero Contacto</label>
                                 <input disabled type="text" class="form-control" id="inputTelefonoEmpresa">
                             </div>
@@ -240,13 +248,17 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-row">
-                            <div class="form-group col-lg-5">
+                            <div class="form-group col-lg-6">
                                 <label for="inputNombreConductor">Nombre Completo</label>
                                 <input disabled type="text" class="form-control" id="inputNombreConductor">
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputRutConductor">Rut</label>
                                 <input disabled type="text" class="form-control" id="inputRutConductor">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="inputNacionalidadConductor">Nacionalidad</label>
+                                <input disabled type="text" class="form-control" id="inputNacionalidadConductor">
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="inputTelefonoConductor">Numero de contacto</label>
@@ -264,7 +276,7 @@
                                 <label for="inputNumeroConductor">Numero licencia</label>
                                 <input disabled type="text" class="form-control" id="inputNumeroConductor">
                             </div>
-                            <div class="form-group col-lg-3">
+                            <div class="form-group col-lg-4">
                                 <label for="inputVCTOconductor">VCTO licencia</label>
                                 <input disabled type="text" class="form-control" id="inputVCTOconductor">
                             </div>

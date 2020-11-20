@@ -37,7 +37,6 @@ class Arriendo_controller extends CI_Controller
             "diasAcumulados_arriendo" => $this->input->post("inputNumeroDias"),
             "kilometrosEntrada_arriendo" => $this->input->post("inputEntrada"),
             "kilometrosSalida_arriendo" => null,
-            "inputOtros" => $this->input->post("inputOtros"),
 
             //foraneas
             "id_usuario" =>  $this->session->userdata('id'),

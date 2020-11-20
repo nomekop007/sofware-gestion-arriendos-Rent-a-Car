@@ -13,7 +13,8 @@ $route['cargar_panel'] = 'Sesion_controller/cargarPanel';
 $route['modulos_gestion'] = 'Modulo_controller/cargarModulosGestion';
 $route['modulos_atencion'] = 'Modulo_controller/cargarModulosAtencion';
 
-
+/* rutas de controller region */
+$route["cargar_regiones"] = 'Region_controller/cargarRegiones';
 
 /* rutas de controller sucursal */
 $route['cargar_Sucursales'] = 'Sucursal_controller/cargarSucursales';
@@ -42,7 +43,6 @@ $route['cargar_roles'] = 'Rol_controller/cargarRoles';
 $route['cargar_propietarios'] = 'Propietario_controller/cargarPropietarios';
 
 /* rutas controller Accesorio  */
-$route['registrar_arriendoAccesorios'] = 'Accesorio_controller/registrarArriendoAccesorios';
 $route['cargar_accesorios'] = 'Accesorio_controller/cargarAccesorios';
 
 /* rutas de controller cliente */

@@ -90,19 +90,19 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <input disabled type="text" class="form-control" id="inputEditarVehiculoArriendo">
                         </div>
                         <div class="form-group col-lg-2">
-                            <label for="inputEditarKentradaArriendo">kilometros entrada</label>
+                            <label for="inputEditarKentradaArriendo">kilometros inicio</label>
                             <input disabled type="text" class="form-control" id="inputEditarKentradaArriendo">
                         </div>
                         <div class="form-group col-lg-2">
-                            <label for="inputEditarKsalidaArriendo">kilometros salida</label>
+                            <label for="inputEditarKsalidaArriendo">kilometros termino</label>
                             <input disabled type="text" class="form-control" id="inputEditarKsalidaArriendo">
                         </div>
                         <div class="form-group col-lg-2">
-                            <label for="inputEditarCiudadEntregaArriendo">Ciudad entrega</label>
+                            <label for="inputEditarCiudadEntregaArriendo">sucursal entrega</label>
                             <input disabled type="text" class="form-control" id="inputEditarCiudadEntregaArriendo">
                         </div>
                         <div class="form-group col-lg-2">
-                            <label for="inputEditarCiudadRecepcionArriendo">Ciudad recepcion</label>
+                            <label for="inputEditarCiudadRecepcionArriendo">sucursal recepcion</label>
                             <input disabled type="text" class="form-control" id="inputEditarCiudadRecepcionArriendo">
                         </div>
                         <div class="form-group col-lg-3">
@@ -286,8 +286,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <h5>Accesorios</h5>
                     <div class="card">
                         <div class="form-row card-body" id="formAccesorios">
-                            <!-- se muestran los accesorios del arriendo con precio -->
-                            <span class=" col-md-12 text-center" id="spanAccesorios">Sin Accesorios</span>
+                            <!-- se meustran todos los accesoriso disponibles -->
                         </div>
                     </div>
                     <br><br>

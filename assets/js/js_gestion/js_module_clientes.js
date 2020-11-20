@@ -1,7 +1,7 @@
 $("#m_cliente").addClass("active");
 $("#l_cliente").addClass("card");
 
-const buscarCliente = async(rut_cliente) => {
+const buscarCliente = async (rut_cliente) => {
     limpiarCampos();
     const data = new FormData();
     data.append("rut_cliente", rut_cliente);
@@ -14,9 +14,11 @@ const buscarCliente = async(rut_cliente) => {
         $("#inputEstadoCivilCliente").val(cliente.estadoCivil_cliente);
         $("#inputNacimientoCliente").val(
             cliente.fechaNacimiento_cliente ?
-            formatearFecha(cliente.fechaNacimiento_cliente) :
-            ""
+                formatearFecha(cliente.fechaNacimiento_cliente) :
+                ""
         );
+        $("#inputComunaCliente").val(cliente.comuna_cliente);
+        $("#inputNacionalidadCliente").val(cliente.nacionalidad_cliente);
         $("#inputCorreoCliente").val(cliente.correo_cliente);
         $("#inputCiudadCliente").val(cliente.ciudad_cliente);
         $("#inputDireccionCliente").val(cliente.direccion_cliente);
@@ -27,7 +29,7 @@ const buscarCliente = async(rut_cliente) => {
     $("#spinner_cliente").hide();
 };
 
-const buscarEmpresa = async(rut_empresa) => {
+const buscarEmpresa = async (rut_empresa) => {
     limpiarCampos();
     const data = new FormData();
     data.append("rut_empresa", rut_empresa);
@@ -40,6 +42,7 @@ const buscarEmpresa = async(rut_empresa) => {
         $("#inputCreateAtEmpresa").val(formatearFechaHora(empresa.createdAt));
         $("#inputDireccionEmpresa").val(empresa.direccion_empresa);
         $("#inputNombreEmpresa").val(empresa.nombre_empresa);
+        $("#inputComunaEmpresa").val(empresa.comuna_empresa);
         $("#inputRolEmpresa").val(empresa.rol_empresa);
         $("#inputRutEmpresa").val(empresa.rut_empresa);
         $("#inputTelefonoEmpresa").val("+569 " + empresa.telefono_empresa);
@@ -49,7 +52,7 @@ const buscarEmpresa = async(rut_empresa) => {
     $("#spinner_cliente").hide();
 };
 
-const buscarConductor = async(rut_conductor) => {
+const buscarConductor = async (rut_conductor) => {
     limpiarCampos();
     const data = new FormData();
     data.append("rut_conductor", rut_conductor);
@@ -59,6 +62,7 @@ const buscarConductor = async(rut_conductor) => {
         $("#form_header").text("Conductor");
         $("#inputClaseConductor").val(conductor.clase_conductor);
         $("#inputCreateAtConductor").val(formatearFechaHora(conductor.createdAt));
+        $("#inputNacionalidadConductor").val(conductor.nacionalidad_conductor);
         $("#inputDireccionConductor").val(conductor.direccion_conductor);
         $("#inputMunicipalidadConductor").val(conductor.municipalidad_conductor);
         $("#inputNombreConductor").val(conductor.nombre_conductor);
@@ -144,7 +148,7 @@ $(document).ready(() => {
         cargarConductores();
     };
 
-    (cargarClientes = async() => {
+    (cargarClientes = async () => {
         $("#spinner_tablaClientes").show();
         const response = await ajax_function(null, "cargar_clientes");
         if (response.success) {
@@ -161,13 +165,13 @@ $(document).ready(() => {
                             " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
                         ])
                         .draw(false);
-                } catch (error) {}
+                } catch (error) { }
             });
         }
         $("#spinner_tablaClientes").hide();
     })();
 
-    const cargarEmpresas = async() => {
+    const cargarEmpresas = async () => {
         $("#spinner_tablaEmpresas").show();
         const response = await ajax_function(null, "cargar_empresas");
         if (response.success) {
@@ -184,13 +188,13 @@ $(document).ready(() => {
                             " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
                         ])
                         .draw(false);
-                } catch (error) {}
+                } catch (error) { }
             });
         }
         $("#spinner_tablaEmpresas").hide();
     };
 
-    const cargarConductores = async() => {
+    const cargarConductores = async () => {
         $("#spinner_tablaConductores").show();
         const response = await ajax_function(null, "cargar_conductores");
         if (response.success) {
@@ -207,7 +211,7 @@ $(document).ready(() => {
                             " data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
                         ])
                         .draw(false);
-                } catch (error) {}
+                } catch (error) { }
             });
         }
         $("#spinner_tablaConductores").hide();

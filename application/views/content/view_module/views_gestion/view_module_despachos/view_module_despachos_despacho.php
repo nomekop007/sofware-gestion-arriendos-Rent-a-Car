@@ -507,7 +507,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_signature">
-                        firmar Acta de entrega <i class="fas fa-feather-alt"></i>
+                        mostrar Acta de entrega <i class="fas fa-feather-alt"></i>
                     </button>
                     <button type="submit" id="btn_crear_ActaEntrega" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_generarActaEntrega"></span>
