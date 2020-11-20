@@ -211,6 +211,7 @@ const mostrarArriendoModalPago = (arriendo) => {
         $("#textTipo").val(arriendo.tipo_arriendo);
         $("#inputEstadoArriendo_pago").val(arriendo.estado_arriendo);
         $("#textDias").html("Cantidad de Dias: " + arriendo.diasActuales_arriendo);
+        $("#input_pago_dias").val(arriendo.diasActuales_arriendo);
         switch (arriendo.tipo_arriendo) {
             case "PARTICULAR":
                 $("#card_pago").show();
@@ -219,11 +220,13 @@ const mostrarArriendoModalPago = (arriendo) => {
                 $("#textVehiculo").html(
                     "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
                 );
+
                 break;
             case "REMPLAZO":
-                $("#subtotal-copago").show();
+                $(".pago_empresa_remplazo").show();
                 $("#inputDeudor").val(arriendo.remplazo.rut_cliente);
                 $("#inputDeudorCopago").val(arriendo.remplazo.codigo_empresaRemplazo);
+
                 $("#textCliente").html(
                     arriendo.remplazo.cliente.nombre_cliente +
                     " - " +
@@ -240,6 +243,7 @@ const mostrarArriendoModalPago = (arriendo) => {
                 $("#textVehiculo").html(
                     "Vehiculo : " + arriendo.vehiculo.patente_vehiculo
                 );
+
                 break;
         }
     } else {
@@ -285,12 +289,17 @@ const mostrarContratoModalContrato = async (data) => {
 
 
 
-
+const calcularCopago = () => {
+    let valorCopago = Number($("#inputValorCopago").val());
+    let dias = Number($("#input_pago_dias").val());
+    let NewSubtotal = Number(valorCopago * dias);
+    $("#inputValorArriendo").val(NewSubtotal);
+    calcularValores();
+}
 
 const calcularValores = () => {
     //variables
     let valorArriendo = Number($("#inputValorArriendo").val());
-    let valorCopago = Number($("#inputValorCopago").val());
     let iva = Number($("#inputIVA").val());
     let descuento = Number($("#inputDescuento").val());
     let total = Number($("#inputTotal").val());
@@ -305,13 +314,16 @@ const calcularValores = () => {
         const precioAccesorio = ArrayAccesorios[i];
         TotalNeto += Number(precioAccesorio);
     }
-    TotalNeto = TotalNeto + valorArriendo - descuento - valorCopago;
+    TotalNeto = TotalNeto + valorArriendo - descuento;
     iva = TotalNeto * 0.19;
     total = TotalNeto + iva;
     $("#inputNeto").val(TotalNeto);
     $("#inputIVA").val(Math.round(iva));
     $("#inputTotal").val(Math.round(total));
 };
+
+
+
 
 
 const facturacion = (value) => {
@@ -353,8 +365,7 @@ const limpiarCampos = () => {
     $("#btn_confirmar_contrato").attr("disabled", true);
 
     $("#nombre_documento").val("");
-    $("#subtotal-copago").hide();
-
+    $(".pago_empresa_remplazo").hide();
     $("#formSpinnerPago").show();
     $("#formSpinnerEditar").show();
     $("#formSpinnerContrato").show();
@@ -407,11 +418,16 @@ $(document).ready(() => {
         const response = await ajax_function(null, "cargar_accesorios");
         if (response.success) {
             $.each(response.data, (i, o) => {
+
+                if (o.id_accesorio == "1") {
+                    o.precio_accesorio = "";
+                }
+
                 let fila = `
                 <div class='input-group col-md-12'>
-                    <span style='width: 60%;' class='input-group-text form-control'>${o.nombre_accesorio} $</span>
+                    <span style='width: 60%;' class='input-group-text form-control'>${o.nombre_accesorio} $${o.precio_accesorio} </span>
                     <input  style='width: 40%;' min='0' id='${o.id_accesorio}' maxLength='11' name='accesorios[]' 
-                     value='${o.precio_accesorio}'  oninput="this.value = soloNumeros(this) ;calcularValores()"
+                     value='0'  oninput="this.value = soloNumeros(this) ;calcularValores()"
                         type='number' class='form-control' required>
                 </div>`;
                 $("#formAccesorios").append(fila);
@@ -455,9 +471,6 @@ $(document).ready(() => {
     });
 
     $("#btn_registrar_pago").click(async () => {
-        const matrizAccesorios = await capturarAccesorios();
-        console.log(matrizAccesorios);
-
 
         const tipoPago = $('[name="customRadio1"]:checked').val();
         const numeroFacturacion = $("#inputNumFacturacion").val().length;
@@ -527,14 +540,14 @@ $(document).ready(() => {
                     await guardarPago(data);
 
                     // en caso de ser tipo remplazo , se guarda el pago de la empresa remplazo
-                    if ($("#textTipo").val() === "REMPLAZO" && $("#inputValorCopago").val() > 0) {
+                    if ($("#textTipo").val() === "REMPLAZO" && $("#inputPagoEmpresa").val() > 0) {
                         const data = new FormData();
                         data.append("inputEstado", "PENDIENTE");
                         data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
                         data.append("inputDeudor", $("#inputDeudorCopago").val());
 
                         // se calcula el pago de la empresa remplazo
-                        let valor = Number($("#inputValorCopago").val());
+                        let valor = Number($("#inputPagoEmpresa").val());
                         let iva = Number(valor * 0.19);
                         let total = Number(valor + iva);
 

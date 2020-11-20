@@ -249,6 +249,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <input type="text" name="inputIdArriendo" id="inputIdArriendo" hidden />
                 <input type="text" id="inputDeudor" hidden />
                 <input type="text" id="inputDeudorCopago" hidden />
+                <input type="text" id="input_pago_dias" hidden />
                 <input type="text" name="inputPatenteVehiculo" id="inputPatenteVehiculo" hidden />
                 <input type="text" name="inputEstadoArriendo_pago" id="inputEstadoArriendo_pago" hidden>
                 <div class="modal-body">
@@ -266,20 +267,23 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <span style="width: 50%;" id="textTipo" value="" class="input-group-text form-control">Tipo
                                     Arriendo:
                                 </span>
-                                <span style="width: 50%;" id="textDias" class="input-group-text form-control">Cantidad
-                                    de
-                                    dias: X</span>
+                                <span style="width: 50%;" id="textDias" class="input-group-text form-control">Cantidad de dias: X</span>
                             </div>
-                            <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Sub total Arriendo
+                            <div class="input-group col-md-12 pago_empresa_remplazo">
+                                <span style="width: 60%;" class="input-group-text form-control">Pago neto E. remplazo
                                     $</span>
+                                <input style="width: 40%;" id="inputPagoEmpresa" name="inputPagoEmpresa" maxLength="11" value="0" type="number" class="form-control" oninput="calcularValores()" required>
+                            </div>
+                            <div class="input-group col-md-12 pago_empresa_remplazo">
+                                <span style="width: 60%;" class="input-group-text form-control">Valor copago $</span>
+                                <input style="width: 40%;" oninput="calcularCopago()" id="inputValorCopago" name="inputValorCopago" maxLength="11" value="0" type="number" class="form-control" oninput="this.value = soloNumeros(this) ;calcularValores()" required>
+                            </div>
+
+                            <div class="input-group col-md-12">
+                                <span style="width: 60%;" class="input-group-text form-control">Sub Total neto</span>
                                 <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo" maxLength="11" value="0" type="number" class="form-control" oninput="this.value = soloNumeros(this) ;calcularValores()" required>
                             </div>
-                            <div class="input-group col-md-12" id="subtotal-copago">
-                                <span style="width: 60%;" class="input-group-text form-control">Pago empresa remplazo
-                                    $</span>
-                                <input style="width: 40%;" id="inputValorCopago" name="inputValorCopago" maxLength="11" value="0" type="number" class="form-control" oninput="calcularValores()" required>
-                            </div>
+
                         </div>
                     </div>
                     <br><br>

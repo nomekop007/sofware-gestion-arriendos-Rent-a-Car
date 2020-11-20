@@ -29,12 +29,12 @@ switch ($this->session->userdata('sucursal')) {
 
             <div class="col-3">
                 <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item list-group-item-action list-group-item-light active" id="list-arriendo-list" data-toggle="list" href="#list-arriendo" role="tab" aria-controls="arriendo"> Datos arriendo</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light" id="list-cliente-list" data-toggle="list" href="#list-cliente" role="tab" aria-controls="cliente">Datos cliente</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light" id="list-contacto-list" data-toggle="list" href="#list-contacto" role="tab" aria-controls="contacto"> Datos contacto</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light" id="list-conductor-list" data-toggle="list" href="#list-conductor" role="tab" aria-controls="conductor"> Datos conductor</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light" id="list-garantia-list" data-toggle="list" href="#list-garantia" role="tab" aria-controls="garantia"> Garantia requerida</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light" id="list-vehiculo-list" data-toggle="list" href="#list-vehiculo" role="tab" aria-controls="vehiculo"> Seleccion de vehiculo</a>
+                    <a class="list-group-item list-group-item-action list-group-item-dark active" id="list-arriendo-list" data-toggle="list" href="#list-arriendo" role="tab" aria-controls="arriendo"> Datos arriendo</a>
+                    <a class="list-group-item list-group-item-action list-group-item-dark" id="list-cliente-list" data-toggle="list" href="#list-cliente" role="tab" aria-controls="cliente">Datos cliente</a>
+                    <a class="list-group-item list-group-item-action list-group-item-dark" id="list-contacto-list" data-toggle="list" href="#list-contacto" role="tab" aria-controls="contacto"> Datos contacto</a>
+                    <a class="list-group-item list-group-item-action list-group-item-dark" id="list-conductor-list" data-toggle="list" href="#list-conductor" role="tab" aria-controls="conductor"> Datos conductor</a>
+                    <a class="list-group-item list-group-item-action list-group-item-dark" id="list-garantia-list" data-toggle="list" href="#list-garantia" role="tab" aria-controls="garantia"> Garantia requerida</a>
+                    <a class="list-group-item list-group-item-action list-group-item-dark" id="list-vehiculo-list" data-toggle="list" href="#list-vehiculo" role="tab" aria-controls="vehiculo"> Seleccion de vehiculo</a>
                     <br>
                     <button type="submit" id="btn_crear_arriendo" class="btn btn-success ">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_registrar"></span>
