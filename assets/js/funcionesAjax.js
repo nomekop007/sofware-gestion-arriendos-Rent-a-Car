@@ -6,9 +6,10 @@ var storage = $("#storage").val();
 function cargarSelect(ruta, idSelect) {
     const url = base_url + ruta;
     const select = document.getElementById(idSelect);
-    $.getJSON(url, (result) => {
-        if (result.success) {
-            $.each(result.data, (i, object) => {
+    $.getJSON(url, (response) => {
+        console.log(response)
+        if (response.success) {
+            $.each(response.data, (i, object) => {
                 const option = document.createElement("option");
                 for (const key in object) {
                     if (key.includes("nombre")) {
@@ -21,7 +22,7 @@ function cargarSelect(ruta, idSelect) {
                 select.appendChild(option);
             });
         } else {
-            console.log("ah ocurrido un error al cargar");
+            console.log("ah ocurrido un error al cargar" + ruta);
         }
     });
 }
