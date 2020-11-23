@@ -361,13 +361,13 @@ $(document).ready(() => {
             let cliente = "";
             switch (arriendo.tipo_arriendo) {
                 case "PARTICULAR":
-                    cliente = `${arriendo.cliente.nombre_cliente} ${arriendo.cliente.rut_cliente}`;
+                    cliente = `${arriendo.cliente.nombre_cliente}`;
                     break;
                 case "REMPLAZO":
-                    cliente = `${arriendo.remplazo.cliente.nombre_cliente} ${arriendo.remplazo.cliente.rut_cliente}`;
+                    cliente = `${arriendo.remplazo.cliente.nombre_cliente}`;
                     break;
                 case "EMPRESA":
-                    cliente = `${arriendo.empresa.nombre_empresa} ${arriendo.empresa.rut_empresa}`;
+                    cliente = `${arriendo.empresa.nombre_empresa}`;
                     break;
             }
             temporizador(arriendo.fechaRecepcion_arriendo, arriendo.id_arriendo);
