@@ -11,8 +11,9 @@ class PagoArriendo_controller extends CI_Controller
 	{
 		$dataArray = [
 			"id_arriendo" => $this->input->post("inputIdArriendo"),
-			"subtotal_pagoArriendo" => $this->input->post("inputValorArriendo"),
-			"remplazo_pagoArriendo" => $this->input->post("inputValorCopago"),
+			"subtotal_pagoArriendo" => $this->input->post("inputSubTotalArriendo"),
+			"remplazo_pagoArriendo" => $this->input->post("inputPagoEmpresa"),
+			"valorCopago_pagoArriendo" => $this->input->post("inputValorCopago"),
 			"neto_pagoArriendo" => $this->input->post("inputNeto"),
 			"iva_pagoArriendo" => $this->input->post("inputIVA"),
 			"descuento_pagoArriendo" => $this->input->post("inputDescuento"),

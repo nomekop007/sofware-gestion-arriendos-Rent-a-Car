@@ -8,6 +8,11 @@
     <meta name="description" content="sofware de arriendo">
     <meta name="author" content="nomekop007">
 
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+
+
     <title>Dashboard Rentacar</title>
 
     <!-- se envia la urls a los js -->

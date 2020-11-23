@@ -281,7 +281,7 @@ $nombreUsuario = $this->session->userdata('nombre')
 
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Sub Total neto</span>
-                                <input style="width: 40%;" id="inputValorArriendo" name="inputValorArriendo" maxLength="11" value="0" type="number" class="form-control" oninput="this.value = soloNumeros(this) ;calcularValores()" required>
+                                <input style="width: 40%;" id="inputSubTotalArriendo" name="inputSubTotalArriendo" maxLength="11" value="0" type="number" class="form-control" oninput="this.value = soloNumeros(this) ;calcularValores()" required>
                             </div>
 
                         </div>

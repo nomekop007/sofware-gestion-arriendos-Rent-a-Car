@@ -4,7 +4,7 @@ $("#l_vehiculo").addClass("card");
 //sniper de btn registrar
 $("#spinner_btn_registrar").hide();
 
-const buscarVehiculo = async (patente) => {
+const buscarVehiculo = async(patente) => {
     limpiarCampos();
     const data = new FormData();
     data.append("patente", patente);
@@ -40,8 +40,8 @@ const buscarVehiculo = async (patente) => {
         $("#inputEditarPropietario").val(vehiculo.rut_propietario);
         $("#inputEditarFechaCompra").val(
             vehiculo.fechaCompra_vehiculo ?
-                vehiculo.fechaCompra_vehiculo.substring(0, 10) :
-                null
+            vehiculo.fechaCompra_vehiculo.substring(0, 10) :
+            null
         );
         $("#inputCreateAt").val(formatearFechaHora(vehiculo.createdAt));
         $("#modal_vehiculo").show();
@@ -75,7 +75,7 @@ $(document).ready(() => {
     cargarOlder("inputedad");
     cargarOlder("inputEditarEdad");
 
-    const cargarVehiculos = async () => {
+    const cargarVehiculos = async() => {
         $("#spinner_tablaVehiculos").show();
         const response = await ajax_function(null, "cargar_Vehiculos");
         if (response.success) {
@@ -94,7 +94,7 @@ $(document).ready(() => {
     };
 
     //Registrar Vehiculo
-    $("#btn_registrar_vehiculo").click(async () => {
+    $("#btn_registrar_vehiculo").click(async() => {
         const patente = $("#inputPatente").val();
         const modelo = $("#inputModelo").val();
         const color = $("#inputColor").val();
@@ -147,7 +147,7 @@ $(document).ready(() => {
         }
     });
 
-    $("#btn_editar_vehiculo").click(async () => {
+    $("#btn_editar_vehiculo").click(async() => {
         $("#btn_editar_vehiculo").attr("disabled", true);
         $("#spinner_btn_editarVehiculo").show();
 
@@ -175,7 +175,7 @@ $(document).ready(() => {
     });
 
     //guarda exclusivamente la imagen en el servidor
-    const guardarImagenVehiculo = async (patente, file) => {
+    const guardarImagenVehiculo = async(patente, file) => {
         const data = new FormData();
         data.append("inputPatente", patente);
         data.append("inputFoto", file);
@@ -183,7 +183,6 @@ $(document).ready(() => {
     };
 
     const cargarVehiculoEnTabla = (vehiculo) => {
-        console.log(vehiculo);
         try {
             tablaVehiculos.row
                 .add([
@@ -198,6 +197,6 @@ $(document).ready(() => {
                        data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-info'><i class='far fa-edit'></i></button> `,
                 ])
                 .draw(false);
-        } catch (error) { }
+        } catch (error) {}
     };
 });
