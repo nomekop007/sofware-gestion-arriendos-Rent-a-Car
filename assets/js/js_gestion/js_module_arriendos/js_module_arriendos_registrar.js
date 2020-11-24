@@ -203,7 +203,6 @@ $(document).ready(() => {
 				$("#inputComunaCliente").val("");
 				$("#inputTelefonoCliente").val("");
 				$("#inputCorreoCliente").val("");
-				$("#inputNacionalidadCliente").val("");
 			}
 			$("#spinner_cliente").hide();
 		}
@@ -265,7 +264,6 @@ $(document).ready(() => {
 				$("#inputDireccionConductor").val(c.direccion_conductor);
 
 			} else {
-				$("#inputNacionalidadConductor").val("")
 				$("#inputNombreConductor").val("");
 				$("#inputTelefonoConductor").val("");
 				$("#inputNumeroConductor").val("");
