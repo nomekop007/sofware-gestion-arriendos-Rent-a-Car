@@ -14,10 +14,7 @@ function soloNumeros(evt) {
 	}
 }
 
-function codigoAleatorio() {
-	return Math.round(Math.random() * (999999 - 111111) + parseInt(111111));
 
-}
 
 
 // Script para cargar año vehiculo

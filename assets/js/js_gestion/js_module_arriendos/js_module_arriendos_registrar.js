@@ -76,7 +76,16 @@ const calcularDias = () => {
 };
 
 
+const calcularFolioArriendo = async () => {
 
+	const response = await ajax_function(null, "cargar_arriendos");
+	if (response) {
+		console.log(response)
+		const folio = Number(response.data.length + 1)
+		$("#inputFolioTarjeta").val(folio);
+	}
+
+}
 
 
 
@@ -278,6 +287,8 @@ $(document).ready(() => {
 
 	$("#btn_crear_arriendo").click(async () => {
 		//AQUI SE VALIDAN TODOS LOS CAMPOS
+
+
 		//datos arriendo
 		const select_vehiculos = $("#select_vehiculos").val();
 		const inputCiudadEntrega = $("#inputCiudadEntrega").val();
@@ -555,12 +566,17 @@ $(document).ready(() => {
 
 	const guardarDatosArriendo = async (id_remplazo, rut_conductor, rut_cliente, rut_empresa) => {
 
+
+		const c1 = document.getElementById("inputCiudadEntrega");
+		const c2 = document.getElementById("inputCiudadRecepcion");
+
+
 		console.log(id_remplazo + " " + rut_conductor + " " + rut_cliente + " " + rut_empresa)
 		const data = new FormData();
 		data.append("inputTipo", $("#inputTipo").val());
-		data.append("inputCiudadEntrega", $("#inputCiudadEntrega").val());
+		data.append("inputCiudadEntrega", c1.options[c1.selectedIndex].innerText);
 		data.append("inputFechaEntrega", $("#inputFechaEntrega").val());
-		data.append("inputCiudadRecepcion", $("#inputCiudadRecepcion").val());
+		data.append("inputCiudadRecepcion", c2.options[c2.selectedIndex].innerText);
 		data.append("inputFechaRecepcion", $("#inputFechaRecepcion").val());
 		data.append("inputNumeroDias", $("#inputNumeroDias").val());
 		data.append("inputEntrada", $("#inputEntrada").val());

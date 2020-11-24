@@ -144,7 +144,7 @@
                                 lista</button>
                         </div>
                         <div class="form-group col-lg-12">
-                            <label for="input_kilometraje_salida">Kilomentraje salida del vehiculo</label>
+                            <label for="input_kilometraje_salida">Kilomentraje recepcion del vehiculo</label>
                             <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number" value="0"
                                 class="form-control" id="input_kilometraje_salida" name="input_kilometraje_salida"
                                 required>

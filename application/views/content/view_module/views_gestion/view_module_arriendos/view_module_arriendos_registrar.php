@@ -440,7 +440,7 @@ switch ($this->session->userdata('sucursal')) {
                                         <input style="width: 20%;" name="inputFechaTarjeta" id="inputFechaTarjeta"
                                             type="text" aria-label="Last name" class="form-control" maxLength="5"
                                             placeholder="ej: 01/01" required>
-                                        <input style="width: 20%;" onclick="this.value = codigoAleatorio()"
+                                        <input style="width: 20%;" onclick="this.value = calcularFolioArriendo()"
                                             name="inputFolioTarjeta" id="inputFolioTarjeta" type="number"
                                             aria-label="Last name" class="form-control" maxLength="5"
                                             placeholder="Nº folio" required>

@@ -387,19 +387,26 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <h6>Metodo de pago</h6>
                                 <div class="form-row card-body">
                                     <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value="EFECTIVO" id="radioEfectivo" name="customRadio2"
+                                        <input type="radio" value=1 id="radioEfectivo" name="customRadio2"
                                             class="custom-control-input" checked>
                                         <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value="CHEQUE" id="radioCheque" name="customRadio2"
+                                        <input type="radio" value=2 id="radioCheque" name="customRadio2"
                                             class="custom-control-input">
                                         <label class="custom-control-label" for="radioCheque">Cheque</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value="TARJETA" id="radioTarjeta" name="customRadio2"
+                                        <input type="radio" value=3 id="radioTarjeta" name="customRadio2"
                                             class="custom-control-input">
-                                        <label class="custom-control-label" for="radioTarjeta">Tarjeta</label>
+                                        <label class="custom-control-label" for="radioTarjeta">Tarjeta
+                                            credito/debito</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline ">
+                                        <input type="radio" value=4 id="radioTranferencia" name="customRadio2"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="radioTranferencia">Transferencia
+                                            electronica</label>
                                     </div>
                                 </div>
                                 <br>
