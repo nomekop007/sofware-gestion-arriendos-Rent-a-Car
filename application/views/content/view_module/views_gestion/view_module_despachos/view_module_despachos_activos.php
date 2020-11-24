@@ -37,6 +37,8 @@
     </div>
 </div>
 
+
+
 <!-- Modal extender plazo arriendo-->
 <div class="modal fade" id="modal_ArriendoExtender" data-keyboard="false" tabindex="-1"
     aria-labelledby="modal_ArriendoExtenderLabel" aria-hidden="true">
@@ -90,6 +92,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <!-- Modal recepcion de arriendo-->
@@ -160,6 +164,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <!-- Modal fotos auto -->
@@ -254,6 +260,47 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
                 <button type="button" class="btn btn-primary">Registrar daño</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal realizar pago -->
+<div class="modal fade" id="modalPagoArriendo" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="modalPagoArriendoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPagoArriendoLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Deudor</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Deuda</th>
+                                <th scope="col">Fecha registro</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaPago">
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+                <button type="button" class="btn btn-primary">Actualizar estado de pago</button>
             </div>
         </div>
     </div>

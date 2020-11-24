@@ -83,10 +83,9 @@ switch ($this->session->userdata('sucursal')) {
                                         name="inputFechaRecepcion" id="inputFechaRecepcion" required>
                                 </div>
                                 <div class="form-group col-xl-6">
-                                    <label for="selectSucursal">Agencia de Arriendo</label>
-                                    <input type="text" class="form-control " id="selectSucursal" name="selectSucursal"
-                                        value="<?php echo $sucursal ?>" disabled>
-
+                                    <label for="inputNumeroDias">Numeros de Dias</label>
+                                    <input min="0" oninput="calcularDias()" type="number" class="form-control"
+                                        name="inputNumeroDias" id="inputNumeroDias" required>
                                 </div>
                                 <div class="form-group col-xl-6">
                                     <label for="inputTipo">Tipo de Arriendo</label>
@@ -98,9 +97,9 @@ switch ($this->session->userdata('sucursal')) {
                                     </select>
                                 </div>
                                 <div class="form-group col-xl-6">
-                                    <label for="inputNumeroDias">Numeros de Dias</label>
-                                    <input min="0" oninput="calcularDias()" type="number" class="form-control"
-                                        name="inputNumeroDias" id="inputNumeroDias" required>
+                                    <label for="selectSucursal">Agencia de Arriendo</label>
+                                    <input type="text" class="form-control " id="selectSucursal" name="selectSucursal"
+                                        value="<?php echo $sucursal ?>" disabled>
                                 </div>
                             </div>
                         </div>
