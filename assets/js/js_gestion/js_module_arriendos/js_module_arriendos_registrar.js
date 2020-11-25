@@ -4,31 +4,8 @@ $("#spinner_cliente").hide();
 $("#spinner_empresa").hide();
 $("#spinner_btn_registrar").hide();
 $("#spinner_btn_crearContrato").hide();
-$("#card-tarjeta").hide();
-$("#card-cheque").hide();
 
-const tipoGarantia = (value) => {
-	switch (value) {
-		case "CHEQUE":
-			$("#card-cheque").show();
-			$("#foto_cheque").show();
-			$("#card-tarjeta").hide();
-			$("#card-abono").hide();
-			break;
-		case "TARJETA":
-			$("#card-tarjeta").show();
-			$("#card-abono").show();
-			$("#foto_tarjeta").show();
-			$("#card-cheque").hide();
-			break;
-		case "EFECTIVO":
-			$("#card-abono").show();
-			$("#card-cheque").hide();
-			$("#card-tarjeta").hide();
-			$("#card-cheque").hide();
-			break;
-	}
-};
+
 
 // Script para cambia el tab cliente de acuerdo al tipo de arriendo
 (tipoArriendo = () => {
@@ -76,16 +53,6 @@ const calcularDias = () => {
 };
 
 
-const calcularFolioArriendo = async () => {
-
-	const response = await ajax_function(null, "cargar_arriendos");
-	if (response) {
-		console.log(response)
-		const folio = Number(response.data.length + 1)
-		$("#inputFolioTarjeta").val(folio);
-	}
-
-}
 
 
 
@@ -327,53 +294,8 @@ $(document).ready(() => {
 		const inputNumeroConductor = $("#inputNumeroConductor").val();
 		const inputMunicipalidadConductor = $("#inputMunicipalidadConductor").val();
 
-		//datos garantia
-		const inputNumeroCheque = $("#inputNumeroCheque").val();
-		const inputCodigoCheque = $("#inputCodigoCheque").val();
-		const inputNumeroTarjeta = $("#inputNumeroTarjeta").val();
-		const inputFechaTarjeta = $("#inputFechaTarjeta").val();
-		const inputCodigoTarjeta = $("#inputCodigoTarjeta").val();
-		const inputAbono = $("#inputAbono").val();
 
-		const inputTipoGarantia = $("input:radio[name=customRadio0]:checked").val();
 		const inputTipoArriendo = $("#inputTipo").val();
-
-		//VALIDACION DE LA GARANTIA
-		switch (inputTipoGarantia) {
-			case "CHEQUE":
-				if (inputNumeroCheque.length == 0 || inputCodigoCheque.length == 0) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos de cheque en garantia ",
-					});
-					return;
-				}
-				break;
-			case "TARJETA":
-				if (
-					inputNumeroTarjeta.length == 0 ||
-					inputFechaTarjeta.length == 0 ||
-					inputCodigoTarjeta.length == 0 ||
-					inputAbono.length == 0
-				) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos de tarjeta en garantia ",
-					});
-					return;
-				}
-				break;
-			case "EFECTIVO":
-				if (inputAbono.length == 0) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos de Abono en garantia ",
-					});
-					return;
-				}
-				break;
-		}
-
 
 
 
@@ -571,7 +493,6 @@ $(document).ready(() => {
 		const c2 = document.getElementById("inputCiudadRecepcion");
 
 
-		console.log(id_remplazo + " " + rut_conductor + " " + rut_cliente + " " + rut_empresa)
 		const data = new FormData();
 		data.append("inputTipo", $("#inputTipo").val());
 		data.append("inputCiudadEntrega", c1.options[c1.selectedIndex].innerText);
@@ -589,7 +510,6 @@ $(document).ready(() => {
 		const response = await ajax_function(data, "registrar_arriendo");
 
 		if (response.success) {
-			await guardarDatosGarantia(response.data.id_arriendo);
 			await guardarDatosContacto(response.data.id_arriendo);
 			await cambiarEstadoVehiculo(response.data.patente_vehiculo);
 			Swal.fire("Arriendo Registrado", response.msg, "success");
@@ -597,21 +517,6 @@ $(document).ready(() => {
 		}
 	};
 
-
-	const guardarDatosGarantia = async (idArriendo) => {
-		const data = new FormData();
-		data.append("inputIdArriendo", idArriendo);
-		data.append("inputNumeroTarjeta", $("#inputNumeroTarjeta").val());
-		data.append("inputFechaTarjeta", $("#inputFechaTarjeta").val());
-		data.append("inputCodigoTarjeta", $("#inputCodigoTarjeta").val());
-		data.append("inputNumeroCheque", $("#inputNumeroCheque").val());
-		data.append("inputBancoCheque", $("#inputBancoCheque").val());
-		data.append("inputFolioTarjeta", $("#inputFolioTarjeta").val());
-		data.append("inputCodigoCheque", $("#inputCodigoCheque").val());
-		data.append("inputAbono", Number($("#inputAbono").val()));
-		data.append("customRadio0", $('[name="customRadio0"]:checked').val());
-		await ajax_function(data, "registrar_garantia");
-	};
 
 	const guardarDatosContacto = async (idArriendo) => {
 		const data = new FormData();

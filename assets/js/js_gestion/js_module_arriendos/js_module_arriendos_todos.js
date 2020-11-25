@@ -13,7 +13,7 @@ const buscarArriendo = async (id_arriendo, option) => {
 
 		switch (option) {
 			case 1:
-				mostrarArriendoModalEditar(arriendo);
+				mostrarArriendoModalVer(arriendo);
 				break;
 			case 2:
 				mostrarArriendoModalPago(arriendo);
@@ -31,9 +31,10 @@ const buscarArriendo = async (id_arriendo, option) => {
 
 
 
-const mostrarArriendoModalEditar = (arriendo) => {
+const mostrarArriendoModalVer = (arriendo) => {
 
 	$("#body_editarArriendo").show();
+	$("#inputFolioTarjeta").val(arriendo.id_arriendo);
 	$("#inputIdArriendoEditar").val(arriendo.id_arriendo);
 	$("#numeroArriendoEditar").text("Nº" + arriendo.id_arriendo);
 	$("#inputEditarTipoArriendo").val(arriendo.tipo_arriendo);
@@ -96,28 +97,12 @@ const mostrarArriendoModalEditar = (arriendo) => {
 			break;
 	}
 
-	switch (arriendo.garantia.id_modoPago) {
-		case 1:
-			//EFECTIVO
-			$("#nombre_garantia").html("EFECTIVO");
-			$("#card_efectivo").show();
-			break;
-		case 2:
-			//CHEQUE
-			$("#nombre_garantia").html("CHEQUE");
-			$("#card_cheque").show();
-			break;
-		case 3:
-			//TARJETA
-			$("#nombre_garantia").html("TARJETA");
-			$("#card_tarjeta").show();
-			break;
-		default:
-			break;
+	if (arriendo.garantia == null) {
+		$("#formGarantia").show();
 	}
 
-	if (arriendo.requisito) {
-		$("#ingresarDocumentos").hide();
+	if (arriendo.requisito == null) {
+		$("#formSubirDocumentos").show();
 	}
 };
 
@@ -263,6 +248,41 @@ const facturacion = (value) => {
 
 
 
+const tipoGarantia = (value) => {
+	switch (value) {
+		case "CHEQUE":
+			$("#card_cheque_garantia").show();
+			$("#foto_cheque").show();
+			$("#card_tarjeta_garantia").hide();
+			$("#card_abono_garantia").hide();
+			$("#card_tarjeta").hide();
+			$("#card_efectivo").hide();
+			$("#card_cheque").show();
+
+			break;
+		case "TARJETA":
+			$("#card_tarjeta_garantia").show();
+			$("#card_abono_garantia").show();
+			$("#foto_tarjeta").show();
+			$("#card_cheque_garantia").hide();
+			$("#card_efectivo").hide();
+			$("#card_cheque").hide();
+			$("#card_tarjeta").show();
+
+			break;
+		case "EFECTIVO":
+			$("#card_abono_garantia").show();
+			$("#card_cheque_garantia").hide();
+			$("#card_tarjeta_garantia").hide();
+			$("#card_cheque_garantia").hide();
+			$("#card_cheque").hide();
+			$("#card_tarjeta").hide();
+			$("#card_efectivo").show();
+			break;
+	}
+};
+
+
 const limpiarCampos = () => {
 	mostrarCanvasFirma("canvas-firma", "limpiar-firma");
 
@@ -277,6 +297,12 @@ const limpiarCampos = () => {
 
 	$("#formPagoArriendo")[0].reset();
 	$("#formSubirDocumentos")[0].reset();
+	$("#formGarantia")[0].reset();
+
+
+
+	$("#formSubirDocumentos").hide();
+	$("#formGarantia").hide();
 
 	$("#numeroArriendoConfirmacion").text("");
 	$("#numeroArriendoEditar").text("");
@@ -291,14 +317,22 @@ const limpiarCampos = () => {
 	$("#formSpinnerEditar").show();
 	$("#formSpinnerContrato").show();
 
+
+	//modal detalle arriendo
+	$("#card_tarjeta_garantia").hide();
+	$("#card_cheque_garantia").hide();
+
+	$("#card_tarjeta").hide();
+	$("#card_cheque").hide();
+	$("#card_efectivo").show();
+
+
 	$("#card_pago").hide();
 	$("#card_carnet").hide();
 	$("#card_domicilio").hide();
 	$("#card_cartaRemplazo").hide();
 	$("#card_licencia").hide();
-	$("#card_tarjeta").hide();
-	$("#card_cheque").hide();
-	$("#card_efectivo").hide();
+
 	$("#ingresarDocumentos").show();
 	$("#metodo_pago").hide();
 	base64_documento = null;
@@ -365,6 +399,56 @@ $(document).ready(() => {
 
 	$("#btn_subirDocumentos").click(() => {
 
+
+		//datos garantia
+		const inputNumeroCheque = $("#inputNumeroCheque").val();
+		const inputCodigoCheque = $("#inputCodigoCheque").val();
+		const inputNumeroTarjeta = $("#inputNumeroTarjeta").val();
+		const inputFechaTarjeta = $("#inputFechaTarjeta").val();
+		const inputCodigoTarjeta = $("#inputCodigoTarjeta").val();
+		const inputAbono = $("#inputAbono").val();
+		const inputTipoGarantia = $("input:radio[name=customRadio0]:checked").val();
+
+		//VALIDACION DE LA GARANTIA
+		switch (inputTipoGarantia) {
+			case "CHEQUE":
+				if (inputNumeroCheque.length == 0 || inputCodigoCheque.length == 0) {
+					Swal.fire({
+						icon: "warning",
+						title: "Faltan datos de cheque en garantia ",
+					});
+					return;
+				}
+				break;
+			case "TARJETA":
+				if (
+					inputNumeroTarjeta.length == 0 ||
+					inputFechaTarjeta.length == 0 ||
+					inputCodigoTarjeta.length == 0 ||
+					inputAbono.length == 0
+				) {
+					Swal.fire({
+						icon: "warning",
+						title: "Faltan datos de tarjeta en garantia ",
+					});
+					return;
+				}
+				break;
+			case "EFECTIVO":
+				if (inputAbono.length == 0) {
+					Swal.fire({
+						icon: "warning",
+						title: "Faltan datos de Abono en garantia ",
+					});
+					return;
+				}
+				break;
+		}
+
+
+
+
+
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de guardar los cambios!",
@@ -378,8 +462,10 @@ $(document).ready(() => {
 				$("#spinner_btn_subirDocumentos").show();
 				$("#btn_subirDocumentos").attr("disabled", true);
 				const id_arriendo = $("#inputIdArriendoEditar").val();
+				const garantia = await guardarDatosGarantia(id_arriendo);
 				const response = await guardarDocumentosRequistos(id_arriendo);
-				if (response.success) {
+				if (response.success && garantia.success) {
+
 					refrescarTabla();
 					Swal.fire(
 						"documentos subidos con exito!",
@@ -562,6 +648,25 @@ $(document).ready(() => {
 		});
 	});
 
+
+
+	const guardarDatosGarantia = async (idArriendo) => {
+		const data = new FormData();
+		data.append("inputIdArriendo", idArriendo);
+		data.append("inputNumeroTarjeta", $("#inputNumeroTarjeta").val());
+		data.append("inputFechaTarjeta", $("#inputFechaTarjeta").val());
+		data.append("inputCodigoTarjeta", $("#inputCodigoTarjeta").val());
+		data.append("inputNumeroCheque", $("#inputNumeroCheque").val());
+		data.append("inputBancoCheque", $("#inputBancoCheque").val());
+		data.append("inputFolioTarjeta", $("#inputFolioTarjeta").val());
+		data.append("inputCodigoCheque", $("#inputCodigoCheque").val());
+		data.append("inputAbono", Number($("#inputAbono").val()));
+		data.append("customRadio0", $('[name="customRadio0"]:checked').val());
+		return await ajax_function(data, "registrar_garantia");
+	};
+
+
+
 	const guardarDocumentoFactura = async (data) => {
 		return await ajax_function(data, "guardar_documentoFacturacion");
 	};
@@ -685,14 +790,14 @@ $(document).ready(() => {
 			tablaTotalArriendos.row
 				.add([
 					arriendo.id_arriendo,
-					cliente,
 					formatearFechaHora(arriendo.createdAt),
+					cliente,
 					arriendo.tipo_arriendo,
 					arriendo.estado_arriendo,
 					arriendo.usuario.nombre_usuario,
 					`
                     <button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
-                        data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn-outline-primary'><i class='far fa-eye'></i></button>
+                        data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn-outline-primary'><i class="fas fa-upload"></i></button>
                          
                         <button id='b${arriendo.id_arriendo}' value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,2)' 
                             data-toggle='modal' data-target='#modal_pago_arriendo' class='btn btn-outline-success'><i class="fas fa-money-bill-wave"></i></button> 
@@ -703,7 +808,8 @@ $(document).ready(() => {
 				])
 				.draw(false);
 
-			if (arriendo.requisito) {
+
+			if (arriendo.requisito && arriendo.garantia) {
 				$(`#a${arriendo.id_arriendo}`).removeClass("btn-outline-primary");
 				$(`#a${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
 			}

@@ -39,9 +39,6 @@ switch ($this->session->userdata('sucursal')) {
                     <a class="list-group-item list-group-item-action list-group-item-dark" id="list-conductor-list"
                         data-toggle="list" href="#list-conductor" role="tab" aria-controls="conductor"> Datos
                         conductor</a>
-                    <a class="list-group-item list-group-item-action list-group-item-dark" id="list-garantia-list"
-                        data-toggle="list" href="#list-garantia" role="tab" aria-controls="garantia"> Garantia
-                        requerida</a>
                     <a class="list-group-item list-group-item-action list-group-item-dark" id="list-vehiculo-list"
                         data-toggle="list" href="#list-vehiculo" role="tab" aria-controls="vehiculo"> Seleccion de
                         vehiculo</a>
@@ -402,79 +399,6 @@ switch ($this->session->userdata('sucursal')) {
                                     <label for="inputMunicipalidadConductor">Municipalidad</label>
                                     <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
                                         id="inputMunicipalidadConductor" name="inputMunicipalidadConductor" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="list-garantia" role="tabpanel" aria-labelledby="list-garantia-list">
-                        <div class="card  card-body">
-                            <br>
-
-                            <h4>Datos garantia</h4>
-                            <div class="form-row card-body">
-                                <div class="custom-control custom-radio custom-control-inline ">
-                                    <input onclick="tipoGarantia(this.value);" type="radio" value="EFECTIVO"
-                                        id="radioEfectivoGarantia" name="customRadio0" class="custom-control-input"
-                                        checked>
-                                    <label class="custom-control-label" for="radioEfectivoGarantia">Efectivo</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline ">
-                                    <input onclick="tipoGarantia(this.value);" type="radio" value="CHEQUE"
-                                        id="radioChequeGarantia" name="customRadio0" class="custom-control-input">
-                                    <label class="custom-control-label" for="radioChequeGarantia">Cheque</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline ">
-                                    <input onclick="tipoGarantia(this.value);" type="radio" value="TARJETA"
-                                        id="radioTarjetaGarantia" name="customRadio0" class="custom-control-input">
-                                    <label class="custom-control-label" for="radioTarjetaGarantia">Tarjeta</label>
-                                </div>
-                            </div>
-                            <div class="form-row card-body">
-                                <div class="form-group col-xl-62" id="card-tarjeta">
-                                    <label for="inputNumeroTarjeta">Tarjeta de credito</label>
-                                    <div class="input-group">
-                                        <input style="width: 40%;" oninput="this.value = soloNumeros(this)"
-                                            type="number" class="form-control" id="inputNumeroTarjeta"
-                                            name="inputNumeroTarjeta" maxLength="16" placeholder="Nº Tarjeta de credito"
-                                            required>
-                                        <input style="width: 20%;" name="inputFechaTarjeta" id="inputFechaTarjeta"
-                                            type="text" aria-label="Last name" class="form-control" maxLength="5"
-                                            placeholder="ej: 01/01" required>
-                                        <input style="width: 20%;" onclick="this.value = calcularFolioArriendo()"
-                                            name="inputFolioTarjeta" id="inputFolioTarjeta" type="number"
-                                            aria-label="Last name" class="form-control" maxLength="5"
-                                            placeholder="Nº folio" required>
-                                        <input style="width: 20%;" name="inputCodigoTarjeta" id="inputCodigoTarjeta"
-                                            type="text" aria-label="Last name" class="form-control" maxLength="20"
-                                            placeholder="codigo retencion" required>
-                                    </div>
-
-                                </div>
-                                <div class="form-group col-xl-62" id="card-cheque">
-                                    <label for="inputNumeroCheque">Cheque</label>
-                                    <div class="input-group">
-                                        <input style="width: 40%;" oninput="this.value = soloNumeros(this)"
-                                            type="number" class="form-control" id="inputNumeroCheque"
-                                            name="inputNumeroCheque" maxLength="25" placeholder="Nº Cheque" required>
-                                        <input style="width: 30%;" name="inputBancoCheque" id="inputBancoCheque"
-                                            type="text" aria-label="Last name" class="form-control" maxLength="20"
-                                            placeholder="Emisor cheque" required>
-                                        <input style="width: 30%;" name="inputCodigoCheque" id="inputCodigoCheque"
-                                            type="text" aria-label="Last name" class="form-control" maxLength="20"
-                                            placeholder="Codigo autorizacion" required>
-                                    </div>
-                                </div>
-                                <div class="input-group col-xl-62" id="card-abono">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Abono $</span>
-                                    </div>
-                                    <select id="inputAbono" name="inputAbono" class="form-control" required>
-                                        <option value="400000">400.000</option>
-                                        <option value="600000">600.000</option>
-                                        <option value="650000">650.000</option>
-
-
-                                    </select>
                                 </div>
                             </div>
                         </div>

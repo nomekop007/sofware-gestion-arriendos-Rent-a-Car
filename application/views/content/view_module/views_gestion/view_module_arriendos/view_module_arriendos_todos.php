@@ -11,8 +11,8 @@ $nombreUsuario = $this->session->userdata('nombre')
             <thead class="btn-dark">
                 <tr>
                     <th>Nº</th>
-                    <th>Cliente</th>
                     <th>fecha registro</th>
+                    <th>Cliente</th>
                     <th>tipo arriendo</th>
                     <th>estado</th>
                     <th>vendedor</th>
@@ -25,8 +25,8 @@ $nombreUsuario = $this->session->userdata('nombre')
             <tfoot class="btn-dark">
                 <tr>
                     <th>Nº</th>
-                    <th>Cliente</th>
                     <th>fecha registro</th>
+                    <th>Cliente</th>
                     <th>tipo arriendo</th>
                     <th>estado</th>
                     <th>vendedor</th>
@@ -135,12 +135,107 @@ $nombreUsuario = $this->session->userdata('nombre')
                     </div>
                 </form>
                 <br><br>
+                <form class="needs-validation" id="formGarantia" novalidate>
+                    <div class="card  card-body">
+                        <br>
+                        <h4>Datos garantia</h4>
+                        <div class="form-row card-body">
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="EFECTIVO"
+                                    id="radioEfectivoGarantia" name="customRadio0" class="custom-control-input" checked>
+                                <label class="custom-control-label" for="radioEfectivoGarantia">Efectivo</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="CHEQUE"
+                                    id="radioChequeGarantia" name="customRadio0" class="custom-control-input">
+                                <label class="custom-control-label" for="radioChequeGarantia">Cheque</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="TARJETA"
+                                    id="radioTarjetaGarantia" name="customRadio0" class="custom-control-input">
+                                <label class="custom-control-label" for="radioTarjetaGarantia">Tarjeta</label>
+                            </div>
+                        </div>
+                        <div class="form-row card-body">
+                            <div class="form-group col-xl-62" id="card_tarjeta_garantia">
+                                <label for="inputNumeroTarjeta">Tarjeta de credito</label>
+                                <div class="input-group">
+                                    <input style="width: 40%;" oninput="this.value = soloNumeros(this)" type="number"
+                                        class="form-control" id="inputNumeroTarjeta" name="inputNumeroTarjeta"
+                                        maxLength="16" placeholder="Nº Tarjeta de credito" required>
+                                    <input style="width: 20%;" name="inputFechaTarjeta" id="inputFechaTarjeta"
+                                        type="text" aria-label="Last name" class="form-control" maxLength="5"
+                                        placeholder="ej: 01/01" required>
+                                    <input style="width: 20%;" name="inputFolioTarjeta" id="inputFolioTarjeta"
+                                        type="number" aria-label="Last name" class="form-control" maxLength="5"
+                                        placeholder="Nº folio" required>
+                                    <input style="width: 20%;" name="inputCodigoTarjeta" id="inputCodigoTarjeta"
+                                        type="text" aria-label="Last name" class="form-control" maxLength="20"
+                                        placeholder="codigo retencion" required>
+                                </div>
 
+                            </div>
+                            <div class="form-group col-xl-62" id="card_cheque_garantia">
+                                <label for="inputNumeroCheque">Cheque</label>
+                                <div class="input-group">
+                                    <input style="width: 40%;" oninput="this.value = soloNumeros(this)" type="number"
+                                        class="form-control" id="inputNumeroCheque" name="inputNumeroCheque"
+                                        maxLength="25" placeholder="Nº Cheque" required>
+                                    <input style="width: 30%;" name="inputBancoCheque" id="inputBancoCheque" type="text"
+                                        aria-label="Last name" class="form-control" maxLength="20"
+                                        placeholder="Emisor cheque" required>
+                                    <input style="width: 30%;" name="inputCodigoCheque" id="inputCodigoCheque"
+                                        type="text" aria-label="Last name" class="form-control" maxLength="20"
+                                        placeholder="Codigo autorizacion" required>
+                                </div>
+                            </div>
+                            <div class="input-group col-xl-62" id="card_abono_garantia">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Abono $</span>
+                                </div>
+                                <select id="inputAbono" name="inputAbono" class="form-control" required>
+                                    <option value="400000">400.000</option>
+                                    <option value="600000">600.000</option>
+                                    <option value="650000">650.000</option>
+
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                </form>
                 <form class="needs-validation" id="formSubirDocumentos" novalidate>
                     <div id="ingresarDocumentos">
                         <div class="form-row">
                             <div class="container">
-                                <h5> adjuntar Documentos </h5>
+                                <br>
+                                <h5>Adjuntar garantia </h5>
+                                <br>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12" id="card_tarjeta">
+                                        <h6 for="inputTarjeta">Foto comprobante Tarjeta </h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputTarjeta" name="inputTarjeta"
+                                            required>
+                                        <br>
+                                    </div>
+                                    <div class="form-group col-md-12" id="card_cheque">
+                                        <h6 for="inputChequeGarantia">Foto comprobante cheque</h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputChequeGarantia"
+                                            name="inputChequeGarantia" required>
+                                        <br>
+                                    </div>
+                                    <div class="form-group col-md-12" id="card_efectivo">
+                                        <h6 for="inputBoletaEfectivo">Foto comprobante efectivo</h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputBoletaEfectivo"
+                                            name="inputBoletaEfectivo" required>
+                                        <br>
+                                    </div>
+                                </div>
+                                <h5>Adjuntar Documentos </h5>
                                 <div class="card bg-light" id="card_carnet">
                                     <h6>Foto Carnet</h6>
                                     <div class="row text-center">
@@ -194,35 +289,8 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         <br>
                                     </div>
                                 </div>
-                                <br>
-                                <h5>Documentos garantia en <span id="nombre_garantia"></span></h5>
-                                <br>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12" id="card_tarjeta">
-                                        <h6 for="inputTarjeta">Foto Tarjeta </h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputTarjeta" name="inputTarjeta"
-                                            required>
-                                        <br>
-                                    </div>
-                                    <div class="form-group col-md-12" id="card_cheque">
-                                        <h6 for="inputChequeGarantia">Foto cheque</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputChequeGarantia"
-                                            name="inputChequeGarantia" required>
-                                        <br>
-                                    </div>
-                                    <div class="form-group col-md-12" id="card_efectivo">
-                                        <h6 for="inputBoletaEfectivo">Foto boleta efectivo</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputBoletaEfectivo"
-                                            name="inputBoletaEfectivo" required>
-                                        <br>
-                                    </div>
-                                </div>
-                                <button type="submit" id="btn_subirDocumentos" class="btn btn-sm btn-primary">subir
-                                    documentos<span class="spinner-border spinner-border-sm" role="status"
-                                        aria-hidden="true" id="spinner_btn_subirDocumentos"></span></button>
+
+
                             </div>
                         </div>
                     </div>
@@ -230,6 +298,9 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
                     <button disabled type="button" class="btn btn-danger">Anular arriendo</button>
+                    <button type="submit" id="btn_subirDocumentos" class="btn  btn-primary">subir
+                        garantia y documentos<span class="spinner-border spinner-border-sm" role="status"
+                            aria-hidden="true" id="spinner_btn_subirDocumentos"></span></button>
                 </div>
             </div>
         </div>
