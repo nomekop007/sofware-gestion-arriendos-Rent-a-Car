@@ -13,7 +13,7 @@ class Facturacion_controller extends CI_Controller
     public function registrarFacturacion()
     {
         $dataArray = [
-            "id_modoPago" => $this->input->post("customRadio1"),
+            "tipo_facturacion" => $this->input->post("customRadio1"),
             "numero_facturacion" => $this->input->post("inputNumFacturacion"),
             "id_modoPago" => $this->input->post("customRadio2"),
         ];

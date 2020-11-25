@@ -81,7 +81,7 @@ switch ($this->session->userdata('sucursal')) {
                                 </div>
                                 <div class="form-group col-xl-6">
                                     <label for="inputNumeroDias">Numeros de Dias</label>
-                                    <input min="0" oninput="calcularDias()" type="number" class="form-control"
+                                    <input min="1" oninput="calcularDias()" type="number" class="form-control"
                                         name="inputNumeroDias" id="inputNumeroDias" required>
                                 </div>
                                 <div class="form-group col-xl-6">
@@ -322,85 +322,284 @@ switch ($this->session->userdata('sucursal')) {
                         <div class="card card-body">
                             <br>
                             <h4>Datos Conductor asignado</h4>
+                            <br>
                             <div class="form-row">
-                                <div class="form-group  col-xl-6">
-                                    <label for="inputRutConductor">Rut (ejemplo: 12.345.678-9)</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" maxLength="12" type="text"
-                                            id="inputRutConductor" name="inputRutConductor" required>
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="button"
-                                                id="btn_buscarConductor">
-                                                <span class="spinner-border spinner-border-sm" role="status"
-                                                    aria-hidden="true" id="spinner_conductor"></span>
-                                                Buscar</button>
-                                        </div>
-                                    </div>
+                                <div class="custom-control custom-radio custom-control-inline ">
+                                    <input onclick="cantidadConductores(this.value);" type="radio" value="1"
+                                        id="radioConductor1" name="customRadio5" class="custom-control-input" checked>
+                                    <label class="custom-control-label" for="radioConductor1">un conductor</label>
                                 </div>
-                                <div class="form-group col-xl-6">
-                                    <label for="inputNacionalidadConductor">Nacionalidad</label>
-                                    <select name="inputNacionalidadConductor" id="inputNacionalidadConductor"
-                                        class="form-control">
-                                        <option value="CHILENO/A" selected>Chileno/a</option>
-                                        <option value="EXTRANJERO/A">Extranjero/a</option>
-                                    </select>
+                                <div class="custom-control custom-radio custom-control-inline ">
+                                    <input onclick="cantidadConductores(this.value);" type="radio" value="2"
+                                        id="radioConductor2" name="customRadio5" class="custom-control-input">
+                                    <label class="custom-control-label" for="radioConductor2">dos conductores</label>
                                 </div>
-                                <div class="form-group col-xl-6">
-                                    <label for="inputNombreConductor">Nombre completo </label>
-                                    <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                                        id="inputNombreConductor" name="inputNombreConductor" required>
-                                </div>
-                                <div class="form-group col-xl-6">
-                                    <label for="inputDireccionConductor">Direccion</label>
-                                    <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                                        id="inputDireccionConductor" name="inputDireccionConductor" required>
-                                </div>
-                                <div class="form-group col-xl-6">
-                                    <label for="inputTelefonoConductor">Telefono </label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">+569</span>
-                                        </div>
-                                        <input oninput="this.value = soloNumeros(this)" maxLength="8" type="number"
-                                            class="form-control" id="inputTelefonoConductor"
-                                            name="inputTelefonoConductor" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group col-xl-6">
-                                    <label for="inputClaseConductor">Clase</label>
-                                    <select name="inputClaseConductor" id="inputClaseConductor" class="form-control">
-                                        <option value="Clase B" selected>Clase B</option>
-                                        <option value="Clase C">Clase C</option>
-                                        <option value="Clase D">Clase D</option>
-                                        <option value="Clase E">Clase E</option>
-                                        <option value="Clase F">Clase F</option>
-                                        <option value="Clase A1">Clase A1</option>
-                                        <option value="Clase A2">Clase A2</option>
-                                        <option value="Clase A3">Clase A3</option>
-                                        <option value="Clase A4">Clase A4</option>
-                                        <option value="Clase A5">Clase A5</option>
-                                        <option value="EXTRANJERA">Licencia extranjera</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-xl-6">
-                                    <label for="inputVCTOConductor">VCTO</label>
-                                    <input type="date" class="form-control" id="inputVCTOConductor"
-                                        name="inputVCTOConductor" required>
-                                </div>
-
-                                <div class="form-group col-xl-6">
-                                    <label for="inputNumeroConductor">Numero serie</label>
-                                    <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number"
-                                        class="form-control" id="inputNumeroConductor" name="inputNumeroConductor"
-                                        required>
-                                </div>
-                                <div class="form-group col-xl-6">
-                                    <label for="inputMunicipalidadConductor">Municipalidad</label>
-                                    <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
-                                        id="inputMunicipalidadConductor" name="inputMunicipalidadConductor" required>
+                                <div class="custom-control custom-radio custom-control-inline ">
+                                    <input onclick="cantidadConductores(this.value);" type="radio" value="3"
+                                        id="radioConducto3" name="customRadio5" class="custom-control-input">
+                                    <label class="custom-control-label" for="radioConducto3">tres conductores</label>
                                 </div>
                             </div>
+                            <br>
+                            <div class="card">
+                                <div class="form-row card-body">
+                                    <div class="form-group  col-xl-6">
+                                        <label for="inputRutConductor">Rut (ejemplo: 12.345.678-9)</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" maxLength="12" type="text"
+                                                id="inputRutConductor" name="inputRutConductor" required>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="btn_buscarConductor">
+                                                    <span class="spinner-border spinner-border-sm" role="status"
+                                                        aria-hidden="true" id="spinner_conductor"></span>
+                                                    Buscar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputNacionalidadConductor">Nacionalidad</label>
+                                        <select name="inputNacionalidadConductor" id="inputNacionalidadConductor"
+                                            class="form-control">
+                                            <option value="CHILENO/A" selected>Chileno/a</option>
+                                            <option value="EXTRANJERO/A">Extranjero/a</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputNombreConductor">Nombre completo </label>
+                                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                            id="inputNombreConductor" name="inputNombreConductor" required>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputDireccionConductor">Direccion</label>
+                                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                            id="inputDireccionConductor" name="inputDireccionConductor" required>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputTelefonoConductor">Telefono </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">+569</span>
+                                            </div>
+                                            <input oninput="this.value = soloNumeros(this)" maxLength="8" type="number"
+                                                class="form-control" id="inputTelefonoConductor"
+                                                name="inputTelefonoConductor" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputClaseConductor">Clase</label>
+                                        <select name="inputClaseConductor" id="inputClaseConductor"
+                                            class="form-control">
+                                            <option value="Clase B" selected>Clase B</option>
+                                            <option value="Clase C">Clase C</option>
+                                            <option value="Clase D">Clase D</option>
+                                            <option value="Clase E">Clase E</option>
+                                            <option value="Clase F">Clase F</option>
+                                            <option value="Clase A1">Clase A1</option>
+                                            <option value="Clase A2">Clase A2</option>
+                                            <option value="Clase A3">Clase A3</option>
+                                            <option value="Clase A4">Clase A4</option>
+                                            <option value="Clase A5">Clase A5</option>
+                                            <option value="EXTRANJERA">Licencia extranjera</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputVCTOConductor">VCTO</label>
+                                        <input type="date" class="form-control" id="inputVCTOConductor"
+                                            name="inputVCTOConductor" required>
+                                    </div>
+
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputNumeroConductor">Numero serie</label>
+                                        <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number"
+                                            class="form-control" id="inputNumeroConductor" name="inputNumeroConductor"
+                                            required>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputMunicipalidadConductor">Municipalidad</label>
+                                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                                            id="inputMunicipalidadConductor" name="inputMunicipalidadConductor"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="card" id="card_conductor_2">
+                                <br>
+                                <h4 class="text-center">Conductor 2 </h4>
+                                <div class="form-row card-body">
+                                    <div class="form-group  col-xl-6">
+                                        <label for="inputRutConductor2">Rut (ejemplo: 12.345.678-9)</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" maxLength="12" type="text"
+                                                id="inputRutConductor2" name="inputRutConductor2" required>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="btn_buscarConductor2">
+                                                    <span class="spinner-border spinner-border-sm" role="status"
+                                                        aria-hidden="true" id="spinner_conductor2"></span>
+                                                    Buscar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputNacionalidadConductor2">Nacionalidad</label>
+                                        <select name="inputNacionalidadConductor2" id="inputNacionalidadConductor2"
+                                            class="form-control">
+                                            <option value="CHILENO/A" selected>Chileno/a</option>
+                                            <option value="EXTRANJERO/A">Extranjero/a</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputNombreConductor2">Nombre completo </label>
+                                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                            id="inputNombreConductor2" name="inputNombreConductor2" required>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputDireccionConductor2">Direccion</label>
+                                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                            id="inputDireccionConductor2" name="inputDireccionConductor2" required>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputTelefonoConductor2">Telefono </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">+569</span>
+                                            </div>
+                                            <input oninput="this.value = soloNumeros(this)" maxLength="8" type="number"
+                                                class="form-control" id="inputTelefonoConductor2"
+                                                name="inputTelefonoConductor2" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputClaseConductor2">Clase</label>
+                                        <select name="inputClaseConductor2" id="inputClaseConductor2"
+                                            class="form-control">
+                                            <option value="Clase B" selected>Clase B</option>
+                                            <option value="Clase C">Clase C</option>
+                                            <option value="Clase D">Clase D</option>
+                                            <option value="Clase E">Clase E</option>
+                                            <option value="Clase F">Clase F</option>
+                                            <option value="Clase A1">Clase A1</option>
+                                            <option value="Clase A2">Clase A2</option>
+                                            <option value="Clase A3">Clase A3</option>
+                                            <option value="Clase A4">Clase A4</option>
+                                            <option value="Clase A5">Clase A5</option>
+                                            <option value="EXTRANJERA">Licencia extranjera</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputVCTOConductor2">VCTO</label>
+                                        <input type="date" class="form-control" id="inputVCTOConductor2"
+                                            name="inputVCTOConductor2" required>
+                                    </div>
+
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputNumeroConductor2">Numero serie</label>
+                                        <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number"
+                                            class="form-control" id="inputNumeroConductor2" name="inputNumeroConductor2"
+                                            required>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputMunicipalidadConductor2">Municipalidad</label>
+                                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                                            id="inputMunicipalidadConductor2" name="inputMunicipalidadConductor2"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="card" id="card_conductor_3">
+                                <br>
+                                <h4 class="text-center">Conductor 3 </h4>
+                                <div class="form-row card-body">
+                                    <div class="form-group  col-xl-6">
+                                        <label for="inputRutConductor3">Rut (ejemplo: 12.345.678-9)</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" maxLength="12" type="text"
+                                                id="inputRutConductor3" name="inputRutConductor3" required>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="btn_buscarConductor3">
+                                                    <span class="spinner-border spinner-border-sm" role="status"
+                                                        aria-hidden="true" id="spinner_conductor3"></span>
+                                                    Buscar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputNacionalidadConductor3">Nacionalidad</label>
+                                        <select name="inputNacionalidadConductor3" id="inputNacionalidadConductor3"
+                                            class="form-control">
+                                            <option value="CHILENO/A" selected>Chileno/a</option>
+                                            <option value="EXTRANJERO/A">Extranjero/a</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputNombreConductor3">Nombre completo </label>
+                                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                            id="inputNombreConductor3" name="inputNombreConductor3" required>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputDireccionConductor3">Direccion</label>
+                                        <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                            id="inputDireccionConductor3" name="inputDireccionConductor3" required>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputTelefonoConductor3">Telefono </label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">+569</span>
+                                            </div>
+                                            <input oninput="this.value = soloNumeros(this)" maxLength="8" type="number"
+                                                class="form-control" id="inputTelefonoConductor3"
+                                                name="inputTelefonoConductor3" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputClaseConductor3">Clase</label>
+                                        <select name="inputClaseConductor3" id="inputClaseConductor3"
+                                            class="form-control">
+                                            <option value="Clase B" selected>Clase B</option>
+                                            <option value="Clase C">Clase C</option>
+                                            <option value="Clase D">Clase D</option>
+                                            <option value="Clase E">Clase E</option>
+                                            <option value="Clase F">Clase F</option>
+                                            <option value="Clase A1">Clase A1</option>
+                                            <option value="Clase A2">Clase A2</option>
+                                            <option value="Clase A3">Clase A3</option>
+                                            <option value="Clase A4">Clase A4</option>
+                                            <option value="Clase A5">Clase A5</option>
+                                            <option value="EXTRANJERA">Licencia extranjera</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputVCTOConductor3">VCTO</label>
+                                        <input type="date" class="form-control" id="inputVCTOConductor3"
+                                            name="inputVCTOConductor3" required>
+                                    </div>
+
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputNumeroConductor3">Numero serie</label>
+                                        <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number"
+                                            class="form-control" id="inputNumeroConductor3" name="inputNumeroConductor3"
+                                            required>
+                                    </div>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputMunicipalidadConductor3">Municipalidad</label>
+                                        <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                                            id="inputMunicipalidadConductor3" name="inputMunicipalidadConductor3"
+                                            required>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                     <div class="tab-pane fade" id="list-vehiculo" role="tabpanel" aria-labelledby="list-vehiculo-list">

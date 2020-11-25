@@ -33,6 +33,7 @@ const buscarArriendo = async (id_arriendo, option) => {
 
 const mostrarArriendoModalVer = (arriendo) => {
 
+	console.log(arriendo)
 	$("#body_editarArriendo").show();
 	$("#inputFolioTarjeta").val(arriendo.id_arriendo);
 	$("#inputIdArriendoEditar").val(arriendo.id_arriendo);

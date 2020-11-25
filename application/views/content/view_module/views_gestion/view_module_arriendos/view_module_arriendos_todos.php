@@ -157,7 +157,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                             </div>
                         </div>
                         <div class="form-row card-body">
-                            <div class="form-group col-xl-62" id="card_tarjeta_garantia">
+                            <div class="form-group col-xl-12" id="card_tarjeta_garantia">
                                 <label for="inputNumeroTarjeta">Tarjeta de credito</label>
                                 <div class="input-group">
                                     <input style="width: 40%;" oninput="this.value = soloNumeros(this)" type="number"
@@ -175,11 +175,11 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 </div>
 
                             </div>
-                            <div class="form-group col-xl-62" id="card_cheque_garantia">
+                            <div class="form-group col-xl-12" id="card_cheque_garantia">
                                 <label for="inputNumeroCheque">Cheque</label>
                                 <div class="input-group">
                                     <input style="width: 40%;" oninput="this.value = soloNumeros(this)" type="number"
-                                        class="form-control" id="inputNumeroCheque" name="inputNumeroCheque"
+                                        class="form-control " id="inputNumeroCheque" name="inputNumeroCheque"
                                         maxLength="25" placeholder="Nº Cheque" required>
                                     <input style="width: 30%;" name="inputBancoCheque" id="inputBancoCheque" type="text"
                                         aria-label="Last name" class="form-control" maxLength="20"
@@ -189,7 +189,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         placeholder="Codigo autorizacion" required>
                                 </div>
                             </div>
-                            <div class="input-group col-xl-62" id="card_abono_garantia">
+                            <div class="input-group col-xl-12" id="card_abono_garantia">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Abono $</span>
                                 </div>
@@ -197,8 +197,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <option value="400000">400.000</option>
                                     <option value="600000">600.000</option>
                                     <option value="650000">650.000</option>
-
-
                                 </select>
                             </div>
                         </div>
@@ -271,7 +269,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         </div>
                                     </div>
                                 </div>
-
                                 <br>
                                 <div class="form-row">
                                     <div class="form-group col-md-12" id="card_domicilio">
@@ -289,8 +286,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         <br>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -441,15 +436,16 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <label class="custom-control-label" for="radioFactura">Factura</label>
                                 </div>
                             </div>
+                            <br>
                             <div id="metodo_pago" class="container">
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
-                                        <label for="inputNumFacturacion">Numero facturacion</label>
+                                        <label for="inputNumFacturacion">Numero comprobante</label>
                                         <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion"
                                             type="number" class="form-control" placeholder="Nº Boleta/Factura" required>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="inputFileFacturacion">documento facturacion</label>
+                                        <label for="inputFileFacturacion">documento</label>
                                         <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
                                             type="file" class="form-control-file" id="inputFileFacturacion"
                                             name="inputFileFacturacion" required>

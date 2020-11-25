@@ -1,9 +1,13 @@
 //espiners de los forms cliente , conductor y empresa
 $("#spinner_conductor").hide();
+$("#spinner_conductor2").hide();
+$("#spinner_conductor3").hide();
 $("#spinner_cliente").hide();
 $("#spinner_empresa").hide();
 $("#spinner_btn_registrar").hide();
 $("#spinner_btn_crearContrato").hide();
+$("#card_conductor_2").hide();
+$("#card_conductor_3").hide();
 
 
 
@@ -41,6 +45,8 @@ $("#spinner_btn_crearContrato").hide();
 	}
 })();
 
+
+
 const calcularDias = () => {
 	let fechaEntrega = $("#inputFechaEntrega").val();
 	let fechaRecepcion = $("#inputFechaRecepcion").val();
@@ -53,7 +59,22 @@ const calcularDias = () => {
 };
 
 
-
+const cantidadConductores = (opcion) => {
+	switch (opcion) {
+		case "1":
+			$("#card_conductor_2").hide();
+			$("#card_conductor_3").hide();
+			break;
+		case "2":
+			$("#card_conductor_2").show();
+			$("#card_conductor_3").hide();
+			break;
+		case "3":
+			$("#card_conductor_2").show();
+			$("#card_conductor_3").show();
+			break;
+	}
+}
 
 
 
@@ -214,18 +235,20 @@ $(document).ready(() => {
 		}
 	});
 
+
+
 	$("#btn_buscarConductor").click(async () => {
-		const data = new FormData();
 		let rut_conductor = $("#inputRutConductor").val();
 
-		if ($("#inputNacionalidadConductor").val() == "EXTRANJERO/A") {
-			rut_conductor = `@${rut_conductor}`;
-		}
-
-		data.append("rut_conductor", rut_conductor);
 		if (rut_conductor.length != 0) {
+
+			if ($("#inputNacionalidadConductor").val() == "EXTRANJERO/A") {
+				rut_conductor = `@${rut_conductor}`;
+			}
+
 			$("#spinner_conductor").show();
-			const response = await ajax_function(data, "buscar_conductor");
+			const response = await buscarConductor(rut_conductor);
+
 			if (response.success) {
 				const c = response.data;
 				$("#inputNombreConductor").val(c.nombre_conductor);
@@ -252,14 +275,99 @@ $(document).ready(() => {
 	});
 
 
+	$("#btn_buscarConductor2").click(async () => {
+		let rut_conductor = $("#inputRutConductor2").val();
+
+		if (rut_conductor.length != 0) {
+
+			if ($("#inputNacionalidadConductor2").val() == "EXTRANJERO/A") {
+				rut_conductor = `@${rut_conductor}`;
+			}
+
+			$("#spinner_conductor2").show();
+			const response = await buscarConductor(rut_conductor);
+
+			if (response.success) {
+				const c = response.data;
+				$("#inputNombreConductor2").val(c.nombre_conductor);
+				$("#inputTelefonoConductor2").val(c.telefono_conductor);
+				$("#inputClaseConductor2").val(c.clase_conductor);
+				$("#inputNumeroConductor2").val(c.numero_conductor);
+				$("#inputVCTOConductor2").val(
+					c.vcto_conductor ? c.vcto_conductor.substring(0, 10) : null
+				);
+				$("#inputNacionalidadConductor2").val(c.nacionalidad_conductor)
+				$("#inputMunicipalidadConductor2").val(c.municipalidad_conductor);
+				$("#inputDireccionConductor2").val(c.direccion_conductor);
+
+			} else {
+				$("#inputNombreConductor2").val("");
+				$("#inputTelefonoConductor2").val("");
+				$("#inputNumeroConductor2").val("");
+				$("#inputVCTOConductor2").val("");
+				$("#inputMunicipalidadConductor2").val("");
+				$("#inputDireccionConductor2").val("");
+			}
+			$("#spinner_conductor2").hide();
+		}
+	});
+
+	$("#btn_buscarConductor3").click(async () => {
+		let rut_conductor = $("#inputRutConductor3").val();
+
+		if (rut_conductor.length != 0) {
+
+			if ($("#inputNacionalidadConductor3").val() == "EXTRANJERO/A") {
+				rut_conductor = `@${rut_conductor}`;
+			}
+
+			$("#spinner_conductor3").show();
+			const response = await buscarConductor(rut_conductor);
+
+			if (response.success) {
+				const c = response.data;
+				$("#inputNombreConductor3").val(c.nombre_conductor);
+				$("#inputTelefonoConductor3").val(c.telefono_conductor);
+				$("#inputClaseConductor3").val(c.clase_conductor);
+				$("#inputNumeroConductor3").val(c.numero_conductor);
+				$("#inputVCTOConductor3").val(
+					c.vcto_conductor ? c.vcto_conductor.substring(0, 10) : null
+				);
+				$("#inputNacionalidadConductor3").val(c.nacionalidad_conductor)
+				$("#inputMunicipalidadConductor3").val(c.municipalidad_conductor);
+				$("#inputDireccionConductor3").val(c.direccion_conductor);
+
+			} else {
+				$("#inputNombreConductor3").val("");
+				$("#inputTelefonoConductor3").val("");
+				$("#inputNumeroConductor3").val("");
+				$("#inputVCTOConductor3").val("");
+				$("#inputMunicipalidadConductor3").val("");
+				$("#inputDireccionConductor3").val("");
+			}
+			$("#spinner_conductor3").hide();
+		}
+	});
+
+
+
+	const buscarConductor = async (rut_conductor) => {
+		const data = new FormData();
+		data.append("rut_conductor", rut_conductor);
+		return await ajax_function(data, "buscar_conductor");
+	}
+
+
+
+
+
+
 	$("#btn_crear_arriendo").click(async () => {
 		//AQUI SE VALIDAN TODOS LOS CAMPOS
 
 
 		//datos arriendo
 		const select_vehiculos = $("#select_vehiculos").val();
-		const inputCiudadEntrega = $("#inputCiudadEntrega").val();
-		const inputCiudadRecepcion = $("#inputCiudadRecepcion").val();
 		const inputFechaRecepcion = $("#inputFechaRecepcion").val();
 		const inputFechaEntrega = $("#inputFechaEntrega").val();
 		const inputNumeroDias = $("#inputNumeroDias").val();
@@ -284,6 +392,12 @@ $(document).ready(() => {
 		const inputRol = $("#inputRol").val();
 		const inputVigencia = $("#inputVigencia").val();
 
+		//datos contacto
+		const inputNombreContacto = $("#inputNombreContacto").val();
+		const inputDomicilioContacto = $("#inputDomicilioContacto").val();
+		const inputNumeroCasaContacto = $("#inputNumeroCasaContacto").val();
+		const inputCiudadContacto = $("#inputCiudadContacto").val();
+		const inputTelefonoContacto = $("#inputTelefonoContacto").val();
 
 		//datos conductor
 		const inputRutConductor = $("#inputRutConductor").val();
@@ -294,144 +408,260 @@ $(document).ready(() => {
 		const inputNumeroConductor = $("#inputNumeroConductor").val();
 		const inputMunicipalidadConductor = $("#inputMunicipalidadConductor").val();
 
+		//datos conductor 2
+		const inputRutConductor2 = $("#inputRutConductor2").val();
+		const inputNombreConductor2 = $("#inputNombreConductor2").val();
+		const inputTelefonoConductor2 = $("#inputTelefonoConductor2").val();
+		const inputDireccionConductor2 = $("#inputDireccionConductor2").val();
+		const inputVCTOConductor2 = $("#inputVCTOConductor2").val();
+		const inputNumeroConductor2 = $("#inputNumeroConductor2").val();
+		const inputMunicipalidadConductor2 = $("#inputMunicipalidadConductor2").val();
 
+		//datos conductor 3
+		const inputRutConductor3 = $("#inputRutConductor3").val();
+		const inputNombreConductor3 = $("#inputNombreConductor3").val();
+		const inputTelefonoConductor3 = $("#inputTelefonoConductor3").val();
+		const inputDireccionConductor3 = $("#inputDireccionConductor3").val();
+		const inputVCTOConductor3 = $("#inputVCTOConductor3").val();
+		const inputNumeroConductor3 = $("#inputNumeroConductor3").val();
+		const inputMunicipalidadConductor3 = $("#inputMunicipalidadConductor3").val();
+
+		//opciones
 		const inputTipoArriendo = $("#inputTipo").val();
+		const cantidadConductor = $('[name="customRadio5"]:checked').val();
 
-
-
-		//VALIDACION DEL FORMULARIO ARRIENDO
+		//validando los datos del arriendo
 		if (
-			inputRutConductor.length != 0 &&
-			inputNombreConductor.length != 0 &&
-			inputTelefonoConductor.length != 0 &&
-			inputDireccionConductor.length != 0 &&
-			inputVCTOConductor.length != 0 &&
-			inputNumeroConductor.length != 0 &&
-			inputMunicipalidadConductor.length != 0 &&
-			inputNumeroDias >= 0 &&
-			inputCiudadEntrega.length != 0 &&
-			inputFechaEntrega.length != 0 &&
-			inputCiudadRecepcion.length != 0 &&
-			inputFechaRecepcion.length != 0 &&
-			inputEntrada.length != 0 &&
-			inputMantencion.length != 0
-		) {
-
-			if (select_vehiculos == null || select_vehiculos == "null") {
-				Swal.fire({
-					icon: "warning",
-					title: "debe seleccionar un vehiculo!",
-				});
-				return;
-			}
-
-			Swal.fire({
-				title: "Estas seguro?",
-				text: "estas seguro de registrar este arriendo?",
-				icon: "warning",
-				showCancelButton: true,
-				confirmButtonText: "Si, seguro",
-				cancelButtonText: "No, cancelar!",
-				reverseButtons: true,
-			}).then(async (result) => {
-				if (result.isConfirmed) {
-
-					$("#btn_crear_arriendo").attr("disabled", true);
-					$("#spinner_btn_registrar").show();
-					//SE VALIDA EL FORMULARIO POR TIPO DE ARRIENDO
-					switch (inputTipoArriendo) {
-						case "PARTICULAR":
-							if (
-								inputRutCliente.length != 0 &&
-								inputNombreCliente.length != 0 &&
-								inputTelefonoCliente.length != 0 &&
-								inputCorreoCliente.length != 0 &&
-								inputDireccionCliente.length != 0 &&
-								inputFechaNacimiento.length != 0
-							) {
-								let cliente = await guardarDatosCliente();
-								if (cliente.success) {
-									let conductor = await guardarDatosConductor();
-									if (conductor.success) {
-										await guardarDatosArriendo(null, conductor.data.rut_conductor, cliente.data.rut_cliente, null);
-									}
-								}
-							} else {
-								Swal.fire({
-									icon: "warning",
-									title: "Faltan datos del cliente en el formulario!",
-								});
-							}
-							break;
-						case "REMPLAZO":
-							if (
-								inputRutCliente.length != 0 &&
-								inputNombreCliente.length != 0 &&
-								inputTelefonoCliente.length != 0 &&
-								inputCorreoCliente.length != 0 &&
-								inputDireccionCliente.length != 0 &&
-								inputFechaNacimiento.length != 0
-							) {
-								let cliente = await guardarDatosCliente();
-								if (cliente.success) {
-									let conductor = await guardarDatosConductor();
-									if (conductor.success) {
-										let remplazo = await guardarDatosRemplazo(cliente.data.rut_cliente);
-										if (remplazo.success) {
-											const id_remplazo = remplazo.data.id_remplazo;
-											await guardarDatosArriendo(id_remplazo, conductor.data.rut_conductor, cliente.data.rut_cliente, null);
-										}
-									}
-								}
-							} else {
-								Swal.fire({
-									icon: "warning",
-									title: "Faltan datos de la empresa o cliente en el formulario!",
-								});
-							}
-							break;
-						case "EMPRESA":
-							if (
-								inputRutEmpresa.length != 0 &&
-								inputNombreEmpresa.length != 0 &&
-								inputTelefonoEmpresa.length != 0 &&
-								inputCorreoEmpresa.length != 0 &&
-								inputDireccionEmpresa.length != 0 &&
-								inputVigencia.length != 0 &&
-								inputCiudadEmpresa.length != 0 &&
-								inputRol.length != 0
-							) {
-								let empresa = await guardarDatosEmpresa();
-								if (empresa.success) {
-									let conductor = await guardarDatosConductor();
-									if (conductor.success) {
-										await guardarDatosArriendo(null, conductor.data.rut_conductor, null, empresa.data.rut_empresa);
-									}
-								}
-							} else {
-								Swal.fire({
-									icon: "warning",
-									title: "Faltan datos de la empresa en el formulario!",
-								});
-							}
-							break;
-					}
-
-
-					$("#btn_crear_arriendo").attr("disabled", false);
-					$("#spinner_btn_registrar").hide();
-
-				}
-			});
-		} else {
+			inputNumeroDias <= 0 ||
+			inputNumeroDias.length == 0 ||
+			inputFechaEntrega.length == 0 ||
+			inputFechaRecepcion.length == 0) {
 			Swal.fire({
 				icon: "warning",
-				title: "Faltan datos en el formulario!",
+				title: "Faltan datos del arriendo!",
 			});
+			return;
 		}
+		//validar datos cliente
+		switch (inputTipoArriendo) {
+			case "PARTICULAR":
+				if (
+					inputRutCliente.length == 0 ||
+					inputNombreCliente.length == 0 ||
+					inputTelefonoCliente.length == 0 ||
+					inputCorreoCliente.length == 0 ||
+					inputDireccionCliente.length == 0 ||
+					inputFechaNacimiento.length == 0
+				) {
+					Swal.fire({
+						icon: "warning",
+						title: "Faltan datos del cliente!",
+					});
+					return;
+				}
+				break;
+			case "REMPLAZO":
+				if (
+					inputRutCliente.length == 0 ||
+					inputNombreCliente.length == 0 ||
+					inputTelefonoCliente.length == 0 ||
+					inputCorreoCliente.length == 0 ||
+					inputDireccionCliente.length == 0 ||
+					inputFechaNacimiento.length == 0
+				) {
+					Swal.fire({
+						icon: "warning",
+						title: "Faltan datos del cliente!",
+					});
+					return;
+				}
+				break;
+			case "EMPRESA":
+				if (
+					inputRutEmpresa.length == 0 ||
+					inputNombreEmpresa.length == 0 ||
+					inputTelefonoEmpresa.length == 0 ||
+					inputCorreoEmpresa.length == 0 ||
+					inputDireccionEmpresa.length == 0 ||
+					inputVigencia.length == 0 ||
+					inputCiudadEmpresa.length == 0 ||
+					inputRol.length == 0
+				) {
+					Swal.fire({
+						icon: "warning",
+						title: "Faltan datos de la empresa!",
+					});
+					return;
+				}
+				break;
+		}
+		//validando los datos del contacto
+		if (
+			inputNombreContacto.length == 0 ||
+			inputDomicilioContacto.length == 0 ||
+			inputNumeroCasaContacto.length == 0 ||
+			inputCiudadContacto.length == 0 ||
+			inputTelefonoContacto.length == 0) {
+			Swal.fire({
+				icon: "warning",
+				title: "Faltan datos del contacto de emergencia!",
+			});
+			return;
+		}
+		//validando el o los conductores
+		function validarConductor1() {
+			if (inputRutConductor.length == 0 ||
+				inputNombreConductor.length == 0 ||
+				inputTelefonoConductor.length == 0 ||
+				inputDireccionConductor.length == 0 ||
+				inputVCTOConductor.length == 0 ||
+				inputNumeroConductor.length == 0 ||
+				inputMunicipalidadConductor.length == 0) {
+				return false;
+			}
+			return true;
+		}
+
+		function validarConductor2() {
+			if (inputRutConductor2.length == 0 ||
+				inputNombreConductor2.length == 0 ||
+				inputTelefonoConductor2.length == 0 ||
+				inputDireccionConductor2.length == 0 ||
+				inputVCTOConductor2.length == 0 ||
+				inputNumeroConductor2.length == 0 ||
+				inputMunicipalidadConductor2.length == 0) {
+				return false;
+			}
+			return true;
+		}
+
+		function validarConductor3() {
+			if (inputRutConductor3.length == 0 ||
+				inputNombreConductor3.length == 0 ||
+				inputTelefonoConductor3.length == 0 ||
+				inputDireccionConductor3.length == 0 ||
+				inputVCTOConductor3.length == 0 ||
+				inputNumeroConductor3.length == 0 ||
+				inputMunicipalidadConductor3.length == 0) {
+
+				return false;
+			}
+			return true;
+		}
+
+		switch (cantidadConductor) {
+			case "1":
+				if (!validarConductor1()) {
+					Swal.fire({
+						icon: "warning",
+						title: "Faltan datos del conductor ",
+					});
+					return;
+				}
+				break;
+			case "2":
+				if (!validarConductor1() || !validarConductor2()) {
+					Swal.fire({
+						icon: "warning",
+						title: "Faltan datos de los conductores ",
+					});
+					return;
+				}
+				break;
+			case "3":
+				if (!validarConductor1() || !validarConductor2() || !validarConductor3()) {
+					Swal.fire({
+						icon: "warning",
+						title: "Faltan datos de los conductores",
+					});
+					return;
+				}
+				break;
+		}
+		//validando los datos del vehiculo
+		if (select_vehiculos == null ||
+			select_vehiculos == "null" ||
+			inputEntrada.length == 0 ||
+			inputMantencion.length == 0) {
+			Swal.fire({
+				icon: "warning",
+				title: "debes colocar los datos del vehiculo!",
+			});
+			return;
+		}
+
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas seguro de registrar este arriendo?",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#btn_crear_arriendo").attr("disabled", true);
+				$("#spinner_btn_registrar").show();
+
+				await registrarTodoElArriendo(inputTipoArriendo, cantidadConductor);
+
+
+				$("#btn_crear_arriendo").attr("disabled", false);
+				$("#spinner_btn_registrar").hide();
+			}
+		});
 	});
 
 
+
+
+
+
+	const registrarTodoElArriendo = async (inputTipoArriendo, cantidadConductor) => {
+
+		const conductores = {};
+		const conductor = await guardarDatosConductor();
+		conductores.rut_conductor = conductor.data.rut_conductor;
+
+		if (cantidadConductor == "2") {
+			const conductor2 = await guardarDatosConductor2();
+			conductores.rut_conductor2 = conductor2.data.rut_conductor;
+		}
+
+		if (cantidadConductor == "3") {
+			const conductor2 = await guardarDatosConductor2();
+			conductores.rut_conductor2 = conductor2.data.rut_conductor;
+
+			const conductor3 = await guardarDatosConductor3();
+			conductores.rut_conductor3 = conductor3.data.rut_conductor;
+
+		}
+
+		switch (inputTipoArriendo) {
+			case "PARTICULAR":
+				const cliente = await guardarDatosCliente();
+				if (conductor.success && cliente.success) {
+					await guardarDatosArriendo(null, conductores, cliente.data.rut_cliente, null);
+				}
+				break;
+			case "REMPLAZO":
+				const cliente2 = await guardarDatosCliente();
+				if (cliente2.success && conductor.success) {
+					const remplazo = await guardarDatosRemplazo(cliente2.data.rut_cliente);
+					if (remplazo.success) {
+						const id_remplazo = remplazo.data.id_remplazo;
+						await guardarDatosArriendo(id_remplazo, conductores, cliente2.data.rut_cliente, null);
+					}
+				}
+				break;
+			case "EMPRESA":
+				const empresa = await guardarDatosEmpresa();
+				if (empresa.success && conductor.success) {
+					await guardarDatosArriendo(null, conductores, null, empresa.data.rut_empresa);
+				}
+				break;
+		}
+	}
 
 
 	const guardarDatosCliente = async () => {
@@ -479,6 +709,38 @@ $(document).ready(() => {
 		return await ajax_function(data, "registrar_conductor");
 	};
 
+	const guardarDatosConductor2 = async () => {
+		const data = new FormData();
+		data.append("inputRutConductor", $("#inputRutConductor2").val());
+		data.append("inputNombreConductor", $("#inputNombreConductor2").val());
+		data.append("inputTelefonoConductor", $("#inputTelefonoConductor2").val());
+		data.append("inputClaseConductor", $("#inputClaseConductor2").val());
+		data.append("inputNumeroConductor", $("#inputNumeroConductor2").val());
+		data.append("inputVCTOConductor", $("#inputVCTOConductor2").val());
+		data.append("inputMunicipalidadConductor", $("#inputMunicipalidadConductor2").val());
+		data.append("inputDireccionConductor", $("#inputDireccionConductor2").val());
+		data.append("inputNacionalidadConductor", $("#inputNacionalidadConductor2").val());
+
+		return await ajax_function(data, "registrar_conductor");
+	};
+
+
+	const guardarDatosConductor3 = async () => {
+		const data = new FormData();
+		data.append("inputRutConductor", $("#inputRutConductor3").val());
+		data.append("inputNombreConductor", $("#inputNombreConductor3").val());
+		data.append("inputTelefonoConductor", $("#inputTelefonoConductor3").val());
+		data.append("inputClaseConductor", $("#inputClaseConductor3").val());
+		data.append("inputNumeroConductor", $("#inputNumeroConductor3").val());
+		data.append("inputVCTOConductor", $("#inputVCTOConductor3").val());
+		data.append("inputMunicipalidadConductor", $("#inputMunicipalidadConductor3").val());
+		data.append("inputDireccionConductor", $("#inputDireccionConductor3").val());
+		data.append("inputNacionalidadConductor", $("#inputNacionalidadConductor3").val());
+
+		return await ajax_function(data, "registrar_conductor");
+	};
+
+
 	const guardarDatosRemplazo = async (rut_cliente) => {
 		const data = new FormData();
 		data.append("inputCodigoEmpresaRemplazo", $("#inputCodigoEmpresaRemplazo").val());
@@ -486,12 +748,13 @@ $(document).ready(() => {
 		return await ajax_function(data, "registrar_remplazo");
 	};
 
-	const guardarDatosArriendo = async (id_remplazo, rut_conductor, rut_cliente, rut_empresa) => {
+	const guardarDatosArriendo = async (id_remplazo, conductores, rut_cliente, rut_empresa) => {
 
 
 		const c1 = document.getElementById("inputCiudadEntrega");
 		const c2 = document.getElementById("inputCiudadRecepcion");
 
+		const { rut_conductor, rut_conductor2, rut_conductor3 } = conductores;
 
 		const data = new FormData();
 		data.append("inputTipo", $("#inputTipo").val());
@@ -506,6 +769,9 @@ $(document).ready(() => {
 		data.append("inputRutCliente", rut_cliente);
 		data.append("inputRutEmpresa", rut_empresa);
 		data.append("inputRutConductor", rut_conductor);
+		data.append("inputRutConductor2", rut_conductor2);
+		data.append("inputRutConductor3", rut_conductor3);
+
 
 		const response = await ajax_function(data, "registrar_arriendo");
 
