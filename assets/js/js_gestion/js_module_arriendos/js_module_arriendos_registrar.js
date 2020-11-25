@@ -179,10 +179,19 @@ $(document).ready(() => {
 			const response = await ajax_function(data, "buscar_cliente");
 			if (response.success) {
 				const c = response.data;
-				$("#inputNombreCliente").val(c.nombre_cliente);
-				$("#inputDireccionCliente").val(c.direccion_cliente);
+
+				//se agrega un option para el select ciudad
+				const option = document.createElement('option');
+				option.value = c.ciudad_cliente;
+				option.text = c.ciudad_cliente;
+				document.getElementById("inputCiudadCliente").appendChild(option);
+
+
 				$("#inputComunaCliente").val(c.comuna_cliente);
 				$("#inputCiudadCliente").val(c.ciudad_cliente);
+				$("#inputNombreCliente").val(c.nombre_cliente);
+				$("#inputDireccionCliente").val(c.direccion_cliente);
+
 				$("#inputFechaNacimiento").val(
 					c.fechaNacimiento_cliente ?
 						c.fechaNacimiento_cliente.substring(0, 10) :
