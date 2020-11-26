@@ -83,7 +83,7 @@ const mostrarArriendoModalVer = (arriendo) => {
 				arriendo.cliente.nombre_cliente + " " + arriendo.cliente.rut_cliente
 			);
 			break;
-		case "REMPLAZO":
+		case "REEMPLAZO":
 			$("#card_cartaRemplazo").show();
 			$("#inputEditarClienteArriendo").val(
 				arriendo.remplazo.cliente.nombre_cliente +
@@ -129,7 +129,7 @@ const mostrarArriendoModalPago = (arriendo) => {
 				);
 
 				break;
-			case "REMPLAZO":
+			case "REEMPLAZO":
 				$(".pago_empresa_remplazo").show();
 				$("#inputDeudor").val(arriendo.remplazo.rut_cliente);
 				$("#inputDeudorCopago").val(arriendo.remplazo.codigo_empresaRemplazo);
@@ -610,7 +610,7 @@ $(document).ready(() => {
 					await guardarPago(data);
 
 					// en caso de ser tipo remplazo , se guarda el pago PENDIENTE de la empresa remplazo
-					if ($("#textTipo").val() === "REMPLAZO" && $("#inputPagoEmpresa").val() > 0) {
+					if ($("#textTipo").val() === "REEMPLAZO" && $("#inputPagoEmpresa").val() > 0) {
 						const data = new FormData();
 						data.append("inputEstado", "PENDIENTE");
 						data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
@@ -844,7 +844,7 @@ $(document).ready(() => {
 				case "PARTICULAR":
 					cliente = `${arriendo.cliente.nombre_cliente}`;
 					break;
-				case "REMPLAZO":
+				case "REEMPLAZO":
 					cliente = `${arriendo.remplazo.cliente.nombre_cliente}`;
 					break;
 				case "EMPRESA":

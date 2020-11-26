@@ -89,7 +89,7 @@ switch ($this->session->userdata('sucursal')) {
                                     <select onblur="tipoArriendo();" name="inputTipo" id="inputTipo"
                                         class="form-control">
                                         <option value="PARTICULAR" selected>ARRIENDO PARTICULAR</option>
-                                        <option value="REMPLAZO">ARRIENDO E. REEMPLAZO</option>
+                                        <option value="REEMPLAZO">ARRIENDO E. REEMPLAZO</option>
                                         <option value="EMPRESA">ARRIENDO EMPRESA</option>
                                     </select>
                                 </div>

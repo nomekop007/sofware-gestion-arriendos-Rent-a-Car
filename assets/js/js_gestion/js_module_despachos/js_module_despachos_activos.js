@@ -394,7 +394,7 @@ $(document).ready(() => {
 				case "PARTICULAR":
 					cliente = `${arriendo.cliente.nombre_cliente}`;
 					break;
-				case "REMPLAZO":
+				case "REEMPLAZO":
 					cliente = `${arriendo.remplazo.cliente.nombre_cliente}`;
 					break;
 				case "EMPRESA":

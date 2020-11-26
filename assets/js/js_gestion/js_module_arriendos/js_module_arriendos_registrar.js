@@ -24,7 +24,7 @@ $("#card_conductor_3").hide();
 			$("#form_empresa").hide();
 			$("#inputRutEmpresa").val("");
 			break;
-		case "REMPLAZO":
+		case "REEMPLAZO":
 			$("#titulo_cliente").show();
 			$("#form_cliente").show();
 			$("#titulo_remplazo").show();
@@ -478,7 +478,7 @@ $(document).ready(() => {
 					return;
 				}
 				break;
-			case "REMPLAZO":
+			case "REEMPLAZO":
 				if (
 					inputRutCliente.length == 0 ||
 					inputNombreCliente.length == 0 ||
@@ -662,7 +662,7 @@ $(document).ready(() => {
 					await guardarDatosArriendo(null, conductores, cliente.data.rut_cliente, null);
 				}
 				break;
-			case "REMPLAZO":
+			case "REEMPLAZO":
 				const cliente2 = await guardarDatosCliente();
 				if (cliente2.success && conductor.success) {
 					const remplazo = await guardarDatosRemplazo(cliente2.data.rut_cliente);
