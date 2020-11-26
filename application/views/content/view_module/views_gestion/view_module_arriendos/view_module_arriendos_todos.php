@@ -201,7 +201,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                             </div>
                         </div>
                         <br>
-                        <button type="submit" id="btn_registrar_garantia" class="btn  btn-primary col-xl-3">
+                        <button type="submit" id="btn_registrar_garantia" class="btn  btn-sm btn-info col-xl-3">
                             Registrar garantia</button><span class="spinner-border spinner-border-sm" role="status"
                             aria-hidden="true" id="spinner_btn_registrar_garantia"></span></button>
 
@@ -209,28 +209,28 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <br><br>
                 </form>
                 <form class="needs-validation" id="formSubirDocumentos" novalidate>
-                    <div id="ingresarDocumentos">
+                    <div class="container card  card-body" id="ingresarDocumentos">
                         <div class="form-row">
-                            <div class="container">
+                            <div class="container card-body">
                                 <br>
                                 <h5>Adjuntar garantia </h5>
                                 <br>
                                 <div class="form-row">
-                                    <div class="form-group col-md-12" id="card_tarjeta">
+                                    <div class="form-group col-xl-12" id="card_tarjeta">
                                         <h6 for="inputTarjeta">Foto comprobante Tarjeta </h6>
                                         <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
                                             type="file" class="form-control-file" id="inputTarjeta" name="inputTarjeta"
                                             required>
                                         <br>
                                     </div>
-                                    <div class="form-group col-md-12" id="card_cheque">
+                                    <div class="form-group col-xl-12" id="card_cheque">
                                         <h6 for="inputChequeGarantia">Foto comprobante cheque</h6>
                                         <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
                                             type="file" class="form-control-file" id="inputChequeGarantia"
                                             name="inputChequeGarantia" required>
                                         <br>
                                     </div>
-                                    <div class="form-group col-md-12" id="card_efectivo">
+                                    <div class="form-group col-xl-12" id="card_efectivo">
                                         <h6 for="inputBoletaEfectivo">Foto comprobante efectivo</h6>
                                         <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
                                             type="file" class="form-control-file" id="inputBoletaEfectivo"
@@ -238,17 +238,19 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         <br>
                                     </div>
                                 </div>
+                                <br>
                                 <h5>Adjuntar Documentos </h5>
+                                <br>
                                 <div class="card bg-light" id="card_carnet">
                                     <h6>Foto Carnet</h6>
                                     <div class="row text-center">
-                                        <div class="form-group col-md-6 ">
+                                        <div class="form-group col-xl-6 ">
                                             <label for="inputCarnetFrontal">(frontal)</label>
                                             <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
                                                 type="file" class="form-control-file" id="inputCarnetFrontal"
                                                 name="inputCarnetFrontal" required>
                                         </div>
-                                        <div class="form-group col-md-6 ">
+                                        <div class="form-group col-xl-6 ">
                                             <label for="inputCarnetTrasera">(trasera)</label>
                                             <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf"
                                                 type="file" class="form-control-file" id="inputCarnetTrasera"
@@ -260,13 +262,13 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <div class="card bg-light" id="card_licencia">
                                     <h6>Foto licencia de conducir</h6>
                                     <div class="row text-center">
-                                        <div class="form-group col-md-6 ">
+                                        <div class="form-group col-xl-6 ">
                                             <label for="inputlicenciaFrontal">(frontal)</label>
                                             <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
                                                 type="file" class="form-control-file" id="inputlicenciaFrontal"
                                                 name="inputlicenciaFrontal" required>
                                         </div>
-                                        <div class="form-group col-md-6 ">
+                                        <div class="form-group col-xl-6 ">
                                             <label for="inputlicenciaTrasera">(trasera)</label>
                                             <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf"
                                                 type="file" class="form-control-file" id="inputlicenciaTrasera"
@@ -276,24 +278,26 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 </div>
                                 <br>
                                 <div class="form-row">
-                                    <div class="form-group col-md-12" id="card_domicilio">
+                                    <div class="form-group col-xl-12" id="card_domicilio">
                                         <h6 for="inputComprobanteDomicilio">Comprobante de domicilio</h6>
                                         <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
                                             type="file" class="form-control-file" id="inputComprobanteDomicilio"
                                             name="inputComprobanteDomicilio" required>
                                         <br>
                                     </div>
-                                    <div class="form-group col-md-12" id="card_cartaRemplazo">
+                                    <div class="form-group col-xl-12" id="card_cartaRemplazo">
                                         <h6 for="inputCartaRemplazo">Carta Empresa Remplazo</h6>
                                         <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
                                             type="file" class="form-control-file" id="inputCartaRemplazo"
                                             name="inputCartaRemplazo" required>
                                         <br>
                                     </div>
+
+                                    <button type="submit" id="btn_subirDocumentos"
+                                        class="btn btn-sm  btn-info col-xl-3">subir
+                                        documentos<span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true" id="spinner_btn_subirDocumentos"></span></button>
                                 </div>
-                                <button type="submit" id="btn_subirDocumentos" class="btn  btn-primary">subir
-                                    documentos<span class="spinner-border spinner-border-sm" role="status"
-                                        aria-hidden="true" id="spinner_btn_subirDocumentos"></span></button>
                             </div>
                         </div>
                     </div>
