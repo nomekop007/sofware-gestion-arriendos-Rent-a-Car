@@ -29,4 +29,4 @@ $("#l_despacho").addClass("card");
 <script src="<?php echo base_route() ?>assets/js/canvasCombustible.js"></script>
 <script src="<?php echo base_route() ?>assets/js/canvasImgVehiculos.js"></script>
 <script src="<?php echo base_route() ?>assets/js/canvasVisorPDF.js"></script>
-<script src="<?php echo base_route() ?>assets/js/canvasFirmasActaEntrega.js"></script>
+<script src="<?php echo base_route() ?>assets/js/canvasDosFirmasDigitales.js"></script>

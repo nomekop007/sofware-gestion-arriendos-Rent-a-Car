@@ -1,8 +1,6 @@
 <?php
 
-
 defined('BASEPATH') or exit('No direct script access allowed');
-
 
 class Contrato_controller extends CI_Controller
 {
@@ -20,18 +18,18 @@ class Contrato_controller extends CI_Controller
     {
         $dataArray = [
             "id_arriendo" => $this->input->post("id_arriendo"),
-            "firmaPNG" => $this->input->post("inputFirmaPNG"),
+            "firmaClientePNG" => $this->input->post("inputFirmaClientePNG"),
+            "firmaUsuarioPNG" => $this->input->post("inputFirmaUsuarioPNG"),
             "geolocalizacion" => $this->input->post("geolocalizacion"),
-            "extension" => $this->input->post("extension")
+            "extension" => $this->input->post("extension"),
         ];
         echo post_function($dataArray, "contratos/generarPDFcontrato");
     }
 
-
     public function enviarCorreoContrato()
     {
         $arrayForm = [
-            "id_arriendo" => $this->input->post("id_arriendo")
+            "id_arriendo" => $this->input->post("id_arriendo"),
         ];
         echo post_function($arrayForm, "contratos/enviarCorreoContrato");
     }

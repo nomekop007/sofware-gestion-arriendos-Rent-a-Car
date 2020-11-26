@@ -558,32 +558,55 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     id="page_count_contrato"></span></span>
                             <canvas id="pdf_canvas_contrato" class="img-fluid rounded pdf-canvas"></canvas>
                 </div>
-
-
-                <div class="container" id="body-firma">
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
-                            <canvas id="canvas-firma" class="canvas-firma ">
-                            </canvas>
-                        </div>
-                        <div class="col-md-12 d-flex justify-content-center">
-                            <button type="button" id="limpiar-firma" class="btn btn-secondary btn-sm ">
-                                limpiar</button>
-                            <button type="button" id="btn_firmar_contrato" class="btn btn-success btn-sm ">
-                                firmar contrato
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_firmarContrato"></span>
-                            </button>
-                            <button type="button" id="btn_confirmar_contrato" class="btn btn-primary btn-sm ">
-                                guardar cambios
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_confirmarContrato"></span>
-                            </button>
+                <div class="row" id="body-firma">
+                    <div class="container col-md-6">
+                        <br>
+                        <h6 class="text-center">Firma arrendatario/a:</h6>
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
+                                <canvas id="canvas_firma_cliente" class="canvas-firma">
+                                </canvas>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <button type="button" id="limpiar_firma_cliente" class="btn btn-secondary btn-sm ">
+                                    limpiar</button>
+                            </div>
                         </div>
                     </div>
-                    <br>
+                    <div class="container col-md-6">
+                        <br>
+                        <h6 class="text-center">Firma Rent A Car:</h6>
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center" id="cont-canvas">
+                                <canvas id="canvas_firma_usuario" class="canvas-firma">
+                                </canvas>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <button type="button" id="limpiar_firma_usuario" class="btn btn-secondary btn-sm ">
+                                    limpiar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="col-md-12 text-center">
+                        <button type="button" id="btn_firmar_contrato" class="btn btn-success btn-sm ">
+                            firmar contrato
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                id="spinner_btn_firmarContrato"></span>
+                        </button>
+                        <button type="button" id="btn_confirmar_contrato" class="btn btn-primary btn-sm ">
+                            Guardar cambios
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                id="spinner_btn_confirmarContrato"></span>
+                        </button>
+                    </div>
                 </div>
+
+
+
+
+
+
 
 
             </div>

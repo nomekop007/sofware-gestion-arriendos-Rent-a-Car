@@ -307,7 +307,16 @@ const tipoGarantia = (value) => {
 
 
 const limpiarCampos = () => {
-	mostrarCanvasFirma("canvas-firma", "limpiar-firma");
+
+
+	mostrarCanvasDosFirmas(
+		["canvas_firma_cliente",
+			"canvas_firma_usuario",
+			"limpiar_firma_cliente",
+			"limpiar_firma_usuario"
+		]);
+
+	//mostrarCanvasFirma("canvas-firma", "limpiar-firma");
 
 	$("#spinner_btn_subirDocumentos").hide();
 	$("#spinner_btn_registrar_garantia").hide();
@@ -499,18 +508,6 @@ $(document).ready(() => {
 
 
 	$("#btn_subirDocumentos").click(() => {
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 		Swal.fire({
@@ -739,9 +736,13 @@ $(document).ready(() => {
 	}
 
 	const firmarContrato = (geo) => {
-		const canvas = document.getElementById("canvas-firma");
+		const canvasCliente = document.getElementById("canvas_firma_cliente");
+		const canvasUsuario = document.getElementById("canvas_firma_usuario");
+
 		const data = new FormData();
-		data.append("inputFirmaPNG", canvas.toDataURL("image/png"));
+		data.append("inputFirmaClientePNG", canvasCliente.toDataURL("image/png"));
+		data.append("inputFirmaUsuarioPNG", canvasUsuario.toDataURL("image/png"));
+
 		data.append("geolocalizacion", geo);
 		data.append("id_arriendo", $("#id_arriendo").val());
 		mostrarContratoModalContrato(data);
