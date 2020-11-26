@@ -205,6 +205,7 @@ const calcularCopago = () => {
 }
 
 const calcularValores = () => {
+
 	//variables
 	let valorArriendo = Number($("#inputSubTotalArriendo").val());
 	let iva = Number($("#inputIVA").val());
@@ -226,9 +227,30 @@ const calcularValores = () => {
 	total = TotalNeto + iva;
 	$("#inputNeto").val(TotalNeto);
 	$("#inputIVA").val(Math.round(iva));
-	$("#inputTotal").val(Math.round(total));
+	$("#inputTotal").val(decimalAdjust(Math.round(total), 1));
 };
 
+
+//redondea el ultimo valor de un numero 
+function decimalAdjust(value, exp) {
+	let type = 'round';
+	// Si el exp es indefinido o cero...
+	if (typeof exp === 'undefined' || +exp === 0) {
+		return Math[type](value);
+	}
+	value = +value;
+	exp = +exp;
+	// Si el valor no es un número o el exp no es un entero...
+	if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+		return NaN;
+	}
+	// Cambio
+	value = value.toString().split('e');
+	value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+	// Volver a cambiar
+	value = value.toString().split('e');
+	return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+}
 
 
 

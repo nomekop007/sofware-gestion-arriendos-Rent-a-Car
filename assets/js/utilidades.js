@@ -7,6 +7,7 @@ function mayus(e) {
 //Script para validar limite de numeros
 //oninput="this.value = soloNumeros(this)"
 function soloNumeros(evt) {
+
 	if (evt.value.length > evt.maxLength) {
 		return evt.value.slice(0, evt.maxLength);
 	} else {
