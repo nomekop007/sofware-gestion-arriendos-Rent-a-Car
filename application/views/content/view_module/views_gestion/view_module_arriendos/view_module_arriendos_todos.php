@@ -286,7 +286,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         <br>
                                     </div>
                                     <div class="form-group col-xl-12" id="card_cartaRemplazo">
-                                        <h6 for="inputCartaRemplazo">Carta Empresa Remplazo</h6>
+                                        <h6 for="inputCartaRemplazo">Carta Empresa Reemplazo</h6>
                                         <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
                                             type="file" class="form-control-file" id="inputCartaRemplazo"
                                             name="inputCartaRemplazo" required>
@@ -367,7 +367,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     de dias: X</span>
                             </div>
                             <div class="input-group col-md-12 pago_empresa_remplazo">
-                                <span style="width: 60%;" class="input-group-text form-control">Pago neto E. remplazo
+                                <span style="width: 60%;" class="input-group-text form-control">Pago neto E. reemplazo
                                     $</span>
                                 <input style="width: 40%;" id="inputPagoEmpresa" name="inputPagoEmpresa" maxLength="11"
                                     value="0" type="number" class="form-control" oninput="calcularValores()" required>

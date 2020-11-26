@@ -89,7 +89,7 @@ switch ($this->session->userdata('sucursal')) {
                                     <select onblur="tipoArriendo();" name="inputTipo" id="inputTipo"
                                         class="form-control">
                                         <option value="PARTICULAR" selected>ARRIENDO PARTICULAR</option>
-                                        <option value="REMPLAZO">ARRIENDO E. REMPLAZO</option>
+                                        <option value="REMPLAZO">ARRIENDO E. REEMPLAZO</option>
                                         <option value="EMPRESA">ARRIENDO EMPRESA</option>
                                     </select>
                                 </div>
@@ -105,10 +105,10 @@ switch ($this->session->userdata('sucursal')) {
                         <div class="card card-body">
                             <br>
                             <div id="form_remplazo">
-                                <h4 id="titulo_remplazo">Datos Empresa remplazo</h4>
+                                <h4 id="titulo_remplazo">Datos Empresa reemplazo</h4>
                                 <div class="form-row">
                                     <div class="form-group col-xl-lg-3">
-                                        <label for="inputCodigoEmpresaRemplazo">Empresa Remplazo</label>
+                                        <label for="inputCodigoEmpresaRemplazo">Empresa reemplazo</label>
                                         <select id="inputCodigoEmpresaRemplazo" name="inputCodigoEmpresaRemplazo"
                                             class="form-control">
                                         </select>
@@ -264,7 +264,7 @@ switch ($this->session->userdata('sucursal')) {
                                     </div>
                                 </div>
                                 <div class="form-group col-xl-6">
-                                    <label for="inputVigencia">Vigecia</label>
+                                    <label for="inputVigencia">Vigencia</label>
                                     <select id="inputVigencia" name="inputVigencia" class="form-control" required>
                                     </select>
                                 </div>
