@@ -195,8 +195,9 @@ $(document).on("change", 'input[type="file"]', function () {
 	}
 	//fileSize > 1048576  1mb
 
-	if (fileSize > 1572864) {
-		alert("El archivo tiene que pesar menos de 1.5mb");
+
+	if (fileSize > 1048576 * 5) {
+		alert("El archivo tiene que pesar menos de 5mb");
 		this.value = ""; // reset del valor
 		this.files[0].name = "";
 	}
