@@ -288,6 +288,7 @@ const limpiarCampos = () => {
 	mostrarCanvasFirma("canvas-firma", "limpiar-firma");
 
 	$("#spinner_btn_subirDocumentos").hide();
+	$("#spinner_btn_registrar_garantia").hide();
 	$("#spinner_btn_registrarPago").hide();
 	$("#spinner_btn_firmarContrato").hide();
 	$("#spinner_btn_confirmarContrato").hide();
@@ -377,11 +378,9 @@ $(document).ready(() => {
 		const response = await ajax_function(null, "cargar_accesorios");
 		if (response.success) {
 			$.each(response.data, (i, o) => {
-
 				if (o.id_accesorio == "1") {
 					o.precio_accesorio = "";
 				}
-
 				let fila = `
                 <div class='input-group col-md-12'>
                     <span style='width: 60%;' class='input-group-text form-control'>${o.nombre_accesorio} $${o.precio_accesorio} </span>
@@ -396,10 +395,7 @@ $(document).ready(() => {
 
 
 
-
-
-	$("#btn_subirDocumentos").click(() => {
-
+	$("#btn_registrar_garantia").click(() => {
 
 		//datos garantia
 		const inputNumeroCheque = $("#inputNumeroCheque").val();
@@ -446,6 +442,51 @@ $(document).ready(() => {
 				break;
 		}
 
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de guardar los cambios!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#spinner_btn_registrar_garantia").show();
+				$("#btn_registrar_garantia").attr("disabled", true);
+				const id_arriendo = $("#inputIdArriendoEditar").val();
+				const garantia = await guardarDatosGarantia(id_arriendo);
+
+				if (garantia.success) {
+
+					refrescarTabla();
+					Swal.fire(
+						"Garantia registrada con exito!",
+						"se guardaron la garantia",
+						"success"
+					);
+					$("#modal_editar_arriendo").modal("toggle");
+				}
+				$("#btn_registrar_garantia").attr("disabled", false);
+				$("#spinner_btn_registrar_garantia").hide();
+			}
+		});
+
+
+	})
+
+
+	$("#btn_subirDocumentos").click(() => {
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -463,9 +504,8 @@ $(document).ready(() => {
 				$("#spinner_btn_subirDocumentos").show();
 				$("#btn_subirDocumentos").attr("disabled", true);
 				const id_arriendo = $("#inputIdArriendoEditar").val();
-				const garantia = await guardarDatosGarantia(id_arriendo);
 				const response = await guardarDocumentosRequistos(id_arriendo);
-				if (response.success && garantia.success) {
+				if (response.success) {
 
 					refrescarTabla();
 					Swal.fire(

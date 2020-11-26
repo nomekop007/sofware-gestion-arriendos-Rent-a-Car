@@ -200,6 +200,11 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 </select>
                             </div>
                         </div>
+                        <br>
+                        <button type="submit" id="btn_registrar_garantia" class="btn  btn-primary col-xl-3">
+                            Registrar garantia</button><span class="spinner-border spinner-border-sm" role="status"
+                            aria-hidden="true" id="spinner_btn_registrar_garantia"></span></button>
+
                     </div>
                     <br><br>
                 </form>
@@ -286,6 +291,9 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         <br>
                                     </div>
                                 </div>
+                                <button type="submit" id="btn_subirDocumentos" class="btn  btn-primary">subir
+                                    documentos<span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true" id="spinner_btn_subirDocumentos"></span></button>
                             </div>
                         </div>
                     </div>
@@ -293,9 +301,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
                     <button disabled type="button" class="btn btn-danger">Anular arriendo</button>
-                    <button type="submit" id="btn_subirDocumentos" class="btn  btn-primary">subir
-                        garantia y documentos<span class="spinner-border spinner-border-sm" role="status"
-                            aria-hidden="true" id="spinner_btn_subirDocumentos"></span></button>
+
                 </div>
             </div>
         </div>

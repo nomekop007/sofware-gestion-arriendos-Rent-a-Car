@@ -223,10 +223,19 @@ $(document).ready(() => {
 			const response = await ajax_function(data, "buscar_empresa");
 			if (response.success) {
 				const c = response.data;
-				$("#inputNombreEmpresa").val(c.nombre_empresa);
-				$("#inputDireccionEmpresa").val(c.direccion_empresa);
+
+
+				//se agrega un option para el select ciudad
+				const option = document.createElement('option');
+				option.value = c.ciudad_empresa;
+				option.text = c.ciudad_empresa;
+				document.getElementById("inputCiudadEmpresa").appendChild(option);
+
 				$("#inputComunaEmpresa").val(c.comuna_empresa);
 				$("#inputCiudadEmpresa").val(c.ciudad_empresa);
+
+				$("#inputNombreEmpresa").val(c.nombre_empresa);
+				$("#inputDireccionEmpresa").val(c.direccion_empresa);
 				$("#inputTelefonoEmpresa").val(c.telefono_empresa);
 				$("#inputCorreoEmpresa").val(c.correo_empresa);
 				$("#inputVigencia").val(c.vigencia_empresa);

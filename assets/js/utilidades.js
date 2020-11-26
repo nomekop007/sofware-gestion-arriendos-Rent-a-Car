@@ -192,10 +192,10 @@ $(document).on("change", 'input[type="file"]', function () {
 			this.files[0].name = "";
 			break;
 	}
-	//fileSize > 21000000  10mb
-	//fileSize > 1500000
-	if (fileSize > 12000000) {
-		alert("El archivo tiene que pesar menos de 10mb");
+	//fileSize > 1048576  1mb
+
+	if (fileSize > 1572864) {
+		alert("El archivo tiene que pesar menos de 1.5mb");
 		this.value = ""; // reset del valor
 		this.files[0].name = "";
 	}
