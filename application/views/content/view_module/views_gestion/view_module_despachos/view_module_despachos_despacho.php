@@ -13,7 +13,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <th>Fecha Entrega</th>
                     <th>Fecha Recepecion</th>
                     <th>tipo arriendo</th>
-                    <th>Vendedor</th>
+                    <th>usuario</th>
                     <th></th>
                 </tr>
             </thead>
@@ -28,7 +28,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <th>Fecha Entrega</th>
                     <th>Fecha Recepecion</th>
                     <th>tipo arriendo</th>
-                    <th>Vendedor</th>
+                    <th>usuario</th>
                     <th></th>
                 </tr>
             </tfoot>
