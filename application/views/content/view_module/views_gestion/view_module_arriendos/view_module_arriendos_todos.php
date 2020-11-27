@@ -134,7 +134,10 @@ $nombreUsuario = $this->session->userdata('nombre')
                         </div>
                     </div>
                 </form>
-                <br><br>
+                <br>
+                <div id="card_documentos">
+                </div>
+                <br>
                 <form class="needs-validation" id="formGarantia" novalidate>
                     <div class="card  card-body">
                         <br>

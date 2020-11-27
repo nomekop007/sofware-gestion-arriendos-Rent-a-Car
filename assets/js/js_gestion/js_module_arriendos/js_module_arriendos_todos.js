@@ -33,7 +33,6 @@ const buscarArriendo = async (id_arriendo, option) => {
 
 const mostrarArriendoModalVer = (arriendo) => {
 
-	console.log(arriendo)
 	$("#body_editarArriendo").show();
 	$("#inputFolioTarjeta").val(arriendo.id_arriendo);
 	$("#inputIdArriendoEditar").val(arriendo.id_arriendo);
@@ -98,13 +97,56 @@ const mostrarArriendoModalVer = (arriendo) => {
 			break;
 	}
 
+
+	if (arriendo.requisito) {
+
+		if (arriendo.requisito.carnetFrontal_requisito) {
+			const a = document.createElement("span");
+			a.textContent = "Foto carnet frontal";
+			a.className = "badge badge-pill badge-info";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (arriendo.requisito.carnetTrasera_requisito) {
+			const a = document.createElement("span");
+			a.textContent = "Foto carnet Trasera";
+
+			a.className = "badge badge-pill badge-info";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (arriendo.requisito.cartaRemplazo_requisito) {
+			const a = document.createElement("span");
+			a.textContent = "Foto carta de remplazo";
+			a.className = "badge badge-pill badge-info";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (arriendo.requisito.chequeGarantia_requisito) {
+			const a = document.createElement("span");
+			a.className = "badge badge-pill badge-info";
+			a.textContent = "Foto cheque en garantia";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (arriendo.requisito.comprobanteDomicilio_requisito) {
+			const a = document.createElement("span");
+			a.textContent = "Foto comprobante de domicilio";
+			a.className = "badge badge-pill badge-info";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (arriendo.requisito.licenciaConducirFrontal_requisito) {
+			const a = document.createElement("span");
+			a.textContent = "Foto licencia de conducir frontal";
+			a.className = "badge badge-pill badge-info";
+			document.getElementById("card_documentos").append(a);
+		}
+
+	} else {
+		$("#formSubirDocumentos").show();
+	}
+
+
 	if (arriendo.garantia == null) {
 		$("#formGarantia").show();
 	}
 
-	if (arriendo.requisito == null) {
-		$("#formSubirDocumentos").show();
-	}
 };
 
 const mostrarArriendoModalPago = (arriendo) => {
@@ -179,8 +221,6 @@ const mostrarContratoModalContrato = async (data) => {
 		const a = document.getElementById("descargar_contrato");
 		a.href = `data:application/pdf;base64,${response.data.base64}`;
 		a.download = `contrato.pdf`;
-
-
 		base64_documento = response.data.base64;
 
 		if (response.data.firma) {
