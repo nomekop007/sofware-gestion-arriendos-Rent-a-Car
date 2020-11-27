@@ -103,38 +103,64 @@ const mostrarArriendoModalVer = (arriendo) => {
 		if (arriendo.requisito.carnetFrontal_requisito) {
 			const a = document.createElement("span");
 			a.textContent = "Foto carnet frontal";
-			a.className = "badge badge-pill badge-info";
+			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
 		if (arriendo.requisito.carnetTrasera_requisito) {
 			const a = document.createElement("span");
 			a.textContent = "Foto carnet Trasera";
 
-			a.className = "badge badge-pill badge-info";
+			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
-		if (arriendo.requisito.cartaRemplazo_requisito) {
+
+		if (arriendo.requisito.licenciaConducirFrontal_requisito) {
 			const a = document.createElement("span");
-			a.textContent = "Foto carta de remplazo";
-			a.className = "badge badge-pill badge-info";
+			a.textContent = "Foto licencia de conducir frontal";
+			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
+		if (arriendo.requisito.licenciaConducirTrasera_requisito) {
+			const a = document.createElement("span");
+			a.textContent = "Foto licencia de conducir trasera";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+
+
+		if (arriendo.requisito.tarjetaCredito_requisito) {
+			const a = document.createElement("span");
+			a.textContent = "Foto Tarjeta de credito";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+
 		if (arriendo.requisito.chequeGarantia_requisito) {
 			const a = document.createElement("span");
-			a.className = "badge badge-pill badge-info";
+			a.className = "badge badge-pill badge-info m-1";
 			a.textContent = "Foto cheque en garantia";
 			document.getElementById("card_documentos").append(a);
 		}
 		if (arriendo.requisito.comprobanteDomicilio_requisito) {
 			const a = document.createElement("span");
 			a.textContent = "Foto comprobante de domicilio";
-			a.className = "badge badge-pill badge-info";
+			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
-		if (arriendo.requisito.licenciaConducirFrontal_requisito) {
+
+
+		if (arriendo.requisito.cartaRemplazo_requisito) {
 			const a = document.createElement("span");
-			a.textContent = "Foto licencia de conducir frontal";
-			a.className = "badge badge-pill badge-info";
+			a.textContent = "Foto carta de remplazo";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+
+
+		if (arriendo.requisito.boletaEfectivo_requisito) {
+			const a = document.createElement("span");
+			a.textContent = "Foto boleta efectivo";
+			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
 
