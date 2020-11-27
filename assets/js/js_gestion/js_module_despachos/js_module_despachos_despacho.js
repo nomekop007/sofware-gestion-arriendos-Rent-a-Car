@@ -124,7 +124,7 @@ $(document).ready(() => {
 		if (inputImg != 0) {
 			const canvas = document.getElementById("canvas-fotoVehiculo");
 			const base64 = canvas.toDataURL("image/png");
-			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 2);
+			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
 			if (arrayImages.length < 5) {
 				arrayImages.push(url);
 				agregarFotoACarrucel(arrayImages);
@@ -247,7 +247,7 @@ $(document).ready(() => {
 			data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
 			data.append("arrayImages", JSON.stringify(arrayImages));
 			data.append("imageCombustible", url);
-			$("#btn_crear_ActaEntrega").attr("disabled", true);
+
 			$("#spinner_btn_generarActaEntrega").show();
 
 			$("#recibido").text($("#inputRecibidorDespacho").val());

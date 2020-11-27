@@ -256,7 +256,7 @@ $(document).ready(() => {
 		if (inputImg != 0) {
 			const canvas = document.getElementById("canvas_fotoVehiculo_recepcion");
 			const base64 = canvas.toDataURL("image/png");
-			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 2);
+			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
 			if (arrayImagesRecepcion.length < 5) {
 				arrayImagesRecepcion.push(url);
 				agregarFotoACarrucelRecepcion(arrayImagesRecepcion);
@@ -292,6 +292,8 @@ $(document).ready(() => {
 			$("#tablaPago").append(html);
 			n++;
 		})
+
+		$("#total_a_pagar").html("Total a pagar: " + totalPago)
 
 		console.log(totalPago)
 	}

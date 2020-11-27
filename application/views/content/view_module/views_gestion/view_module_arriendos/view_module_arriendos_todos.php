@@ -45,7 +45,6 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 
-
 <!-- Modal ver arriendo -->
 <div class="modal fade" id="modal_editar_arriendo" tabindex="-1" aria-labelledby="editarModal"
     style="overflow-y: scroll;" aria-hidden="true">

@@ -295,7 +295,13 @@
                         <tbody id="tablaPago">
                         </tbody>
                     </table>
+                    <span id="total_a_pagar"></span>
                 </div>
+
+
+
+
+
 
             </div>
             <div class="modal-footer">
