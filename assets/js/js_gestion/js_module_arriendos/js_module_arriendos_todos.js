@@ -75,6 +75,8 @@ const mostrarArriendoModalVer = (arriendo) => {
 
 	$("#card_carnet").show();
 	$("#card_licencia").show();
+
+
 	switch (arriendo.tipo_arriendo) {
 		case "PARTICULAR":
 			$("#card_domicilio").show();
@@ -98,79 +100,73 @@ const mostrarArriendoModalVer = (arriendo) => {
 	}
 
 
-	if (arriendo.requisito) {
 
-		if (arriendo.requisito.carnetFrontal_requisito) {
-			const a = document.createElement("span");
-			a.textContent = "Foto carnet frontal";
-			a.className = "badge badge-pill badge-info m-1";
-			document.getElementById("card_documentos").append(a);
-		}
-		if (arriendo.requisito.carnetTrasera_requisito) {
-			const a = document.createElement("span");
-			a.textContent = "Foto carnet Trasera";
+	if (arriendo.estado_arriendo != "ANULADO") {
+		if (arriendo.requisito) {
+			if (arriendo.requisito.carnetFrontal_requisito) {
+				const a = document.createElement("span");
+				a.textContent = "Foto carnet frontal";
+				a.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(a);
+			}
+			if (arriendo.requisito.carnetTrasera_requisito) {
+				const a = document.createElement("span");
+				a.textContent = "Foto carnet Trasera";
+				a.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(a);
+			}
+			if (arriendo.requisito.licenciaConducirFrontal_requisito) {
+				const a = document.createElement("span");
+				a.textContent = "Foto licencia de conducir frontal";
+				a.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(a);
+			}
+			if (arriendo.requisito.licenciaConducirTrasera_requisito) {
+				const a = document.createElement("span");
+				a.textContent = "Foto licencia de conducir trasera";
+				a.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(a);
+			}
+			if (arriendo.requisito.tarjetaCredito_requisito) {
+				const a = document.createElement("span");
+				a.textContent = "Foto Tarjeta de credito";
+				a.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(a);
+			}
+			if (arriendo.requisito.chequeGarantia_requisito) {
+				const a = document.createElement("span");
+				a.className = "badge badge-pill badge-info m-1";
+				a.textContent = "Foto cheque en garantia";
+				document.getElementById("card_documentos").append(a);
+			}
+			if (arriendo.requisito.comprobanteDomicilio_requisito) {
+				const a = document.createElement("span");
+				a.textContent = "Foto comprobante de domicilio";
+				a.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(a);
+			}
+			if (arriendo.requisito.cartaRemplazo_requisito) {
+				const a = document.createElement("span");
+				a.textContent = "Foto carta de remplazo";
+				a.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(a);
+			}
+			if (arriendo.requisito.boletaEfectivo_requisito) {
+				const a = document.createElement("span");
+				a.textContent = "Foto boleta efectivo";
+				a.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(a);
+			}
 
-			a.className = "badge badge-pill badge-info m-1";
-			document.getElementById("card_documentos").append(a);
-		}
-
-		if (arriendo.requisito.licenciaConducirFrontal_requisito) {
-			const a = document.createElement("span");
-			a.textContent = "Foto licencia de conducir frontal";
-			a.className = "badge badge-pill badge-info m-1";
-			document.getElementById("card_documentos").append(a);
-		}
-		if (arriendo.requisito.licenciaConducirTrasera_requisito) {
-			const a = document.createElement("span");
-			a.textContent = "Foto licencia de conducir trasera";
-			a.className = "badge badge-pill badge-info m-1";
-			document.getElementById("card_documentos").append(a);
-		}
-
-
-		if (arriendo.requisito.tarjetaCredito_requisito) {
-			const a = document.createElement("span");
-			a.textContent = "Foto Tarjeta de credito";
-			a.className = "badge badge-pill badge-info m-1";
-			document.getElementById("card_documentos").append(a);
-		}
-
-		if (arriendo.requisito.chequeGarantia_requisito) {
-			const a = document.createElement("span");
-			a.className = "badge badge-pill badge-info m-1";
-			a.textContent = "Foto cheque en garantia";
-			document.getElementById("card_documentos").append(a);
-		}
-		if (arriendo.requisito.comprobanteDomicilio_requisito) {
-			const a = document.createElement("span");
-			a.textContent = "Foto comprobante de domicilio";
-			a.className = "badge badge-pill badge-info m-1";
-			document.getElementById("card_documentos").append(a);
-		}
-
-
-		if (arriendo.requisito.cartaRemplazo_requisito) {
-			const a = document.createElement("span");
-			a.textContent = "Foto carta de remplazo";
-			a.className = "badge badge-pill badge-info m-1";
-			document.getElementById("card_documentos").append(a);
-		}
-
-
-		if (arriendo.requisito.boletaEfectivo_requisito) {
-			const a = document.createElement("span");
-			a.textContent = "Foto boleta efectivo";
-			a.className = "badge badge-pill badge-info m-1";
-			document.getElementById("card_documentos").append(a);
+		} else {
+			$("#formSubirDocumentos").show();
 		}
 
-	} else {
-		$("#formSubirDocumentos").show();
-	}
 
+		if (arriendo.garantia == null) {
+			$("#formGarantia").show();
+		}
 
-	if (arriendo.garantia == null) {
-		$("#formGarantia").show();
 	}
 
 };
@@ -939,18 +935,20 @@ $(document).ready(() => {
 				.draw(false);
 
 
-			if (arriendo.requisito && arriendo.garantia) {
+
+
+			if (arriendo.requisito && arriendo.garantia || arriendo.estado_arriendo == "ANULADO") {
 				$(`#a${arriendo.id_arriendo}`).removeClass("btn-outline-primary");
 				$(`#a${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
 			}
 
-			if (arriendo.estado_arriendo != "EXTENDIDO" && arriendo.estado_arriendo != "PENDIENTE") {
+			if (arriendo.estado_arriendo != "EXTENDIDO" && arriendo.estado_arriendo != "PENDIENTE" || arriendo.estado_arriendo == "ANULADO") {
 				$(`#b${arriendo.id_arriendo}`).attr("disabled", true);
 				$(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-success");
 				$(`#b${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
 			}
 
-			if (arriendo.estado_arriendo != "CONFIRMADO" && arriendo.estado_arriendo != "E-CONFIRMADO") {
+			if (arriendo.estado_arriendo != "CONFIRMADO" && arriendo.estado_arriendo != "E-CONFIRMADO" || arriendo.estado_arriendo == "ANULADO") {
 				$(`#c${arriendo.id_arriendo}`).attr("disabled", true);
 				$(`#c${arriendo.id_arriendo}`).removeClass("btn-outline-info");
 				$(`#c${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
