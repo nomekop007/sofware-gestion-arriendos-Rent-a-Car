@@ -2,8 +2,6 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'Sesion_controller';
 
-
-
 /* ruta de controller  session  */
 $route['cerrar_sesion'] = 'Sesion_controller/cerrarSesion';
 $route['crear_sesion'] = 'Sesion_controller/crearSesion';
@@ -63,7 +61,6 @@ $route['buscar_empresa'] = 'Empresa_controller/buscarEmpresa';
 /* rutas de controller remplazo */
 $route['registrar_remplazo'] = 'Remplazo_controller/crearRemplazo';
 
-
 /* rutas de controller PagoAccesorio */
 $route["registrar_pagoAccesorios"] = 'PagoAccesorio_controller/registrarPagosAccesorios';
 
@@ -72,11 +69,9 @@ $route["cargar_facturaciones"] = 'Facturacion_controller/cargarFacturaciones';
 $route["registrar_facturacion"] = 'Facturacion_controller/registrarFacturacion';
 $route["guardar_documentoFacturacion"] = 'Facturacion_controller/guardarDocumentoFacturacion';
 
-
 /* rutas de controller requisitos  */
 $route['registrar_requisitos'] = 'Requisito_controller/guardarDocumentosRequistosArriendo';
 $route['buscar_requisito'] = 'Requisito_controller/buscarRequisitoArriendo';
-
 
 /* rutas de controller Contrato */
 $route['generar_PDFcontrato'] = 'Contrato_controller/generarPDFcontrato';
@@ -90,7 +85,6 @@ $route['buscar_arriendo'] = 'Arriendo_controller/buscarArriendo';
 $route['cambiarEstado_arriendo'] = 'Arriendo_controller/cambiarEstadoArriendo';
 $route['extender_arriendo'] = 'Arriendo_controller/extenderArriendo';
 
-
 /* rutas de controller ActaEntrega */
 $route['registrar_actaEntrega'] = 'ActaEntrega_controller/registrarActaEntrega';
 $route['generar_PDFactaEntrega'] = 'ActaEntrega_controller/generarPDFactaEntrega';
@@ -100,12 +94,9 @@ $route['buscar_actaEntrega'] = 'ActaEntrega_controller/buscarActaEntrega';
 /* rutas de controller contacto */
 $route['registrar_contacto'] = 'Contacto_controller/registrarContacto';
 
-
 /* rutas de controller Despacho */
 $route['registrar_despacho'] = 'Despacho_controller/registrarDespacho';
 $route['registrar_revision'] = 'Despacho_controller/registrarRevision';
-
-
 
 /* rutas de controller pagoArriendo */
 $route['registrar_pagoArriendo'] = 'PagoArriendo_controller/registrarPagoArriendo';
@@ -113,16 +104,13 @@ $route['revisar_estadoPago'] = 'PagoArriendo_controller/revisarEstadoPago';
 
 /* rutas de controller pagos */
 $route['registrar_pago'] = 'Pago_controller/registrarPago';
-
+$route['actualizar_pago'] = 'Pago_controller/actualizarPago';
 
 /* rutas de controller empresaRemplazo */
 $route['cargar_empresasRemplazo'] = 'EmpresaRemplazo_controller/cargarEmpresasRemplazo';
 
-
 /* rutas de controller garantia */
 $route['registrar_garantia'] = 'Garantia_controller/registrarGarantia';
 
-
-
 $route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+$route['translate_uri_dashes'] = false;

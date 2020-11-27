@@ -1,4 +1,6 @@
 const arrayImagesRecepcion = [];
+const array_id_pagos_pendientes = [];
+
 
 
 const calcularDiasExtencion = () => {
@@ -34,6 +36,58 @@ const buscarArriendoExtender = async (id_arriendo) => {
 const buscarArriendoFinalizar = async (id_arriendo) => {
 	limpiarFormulario();
 
+
+	const data = new FormData();
+	data.append("id_arriendo", id_arriendo);
+
+	const response_estadoPago = await revisarEstadosPagos(data);
+	if (response_estadoPago.success) {
+
+		// si existe deuda , se levanta el modal para pagarla , si no el de recepcion
+		if (response_estadoPago.deuda) {
+			mostrarPagosPendientes(response_estadoPago.data);
+			$("#modalPagoArriendo").modal({
+				show: true,
+			});
+
+
+		} else {
+			await mostrarRecepcionArriendo(id_arriendo);
+			$("#modal_ArriendoFinalizar").modal({
+				show: true,
+			});
+
+
+		}
+	}
+	$("#formSpinner_finalizar_arriendo").hide();
+}
+
+
+
+const mostrarPagosPendientes = ({ arrayPago, totalPago }) => {
+	const formatter = new Intl.NumberFormat("CL");
+	let n = 1;
+	arrayPago.map((pago) => {
+		let html = `<tr>
+						<th scope="row">${n}</th>
+						<td>${pago.deudor_pago.replace("@", "")}</td>
+						<td>${pago.estado_pago}</td>
+						<td> $ ${formatter.format(pago.total_pago)}</td>
+						<td>${formatearFechaHora(pago.createdAt)}</td>
+					</tr>`;
+		$("#tablaPago").append(html);
+		n++;
+		array_id_pagos_pendientes.push(pago);
+	})
+	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(totalPago)}`)
+}
+
+
+
+
+const mostrarRecepcionArriendo = async (id_arriendo) => {
+
 	mostrarCanvasImgVehiculo([
 		"canvas_fotoVehiculo_recepcion",
 		"limpiar_fotoVehiculo_recepcion",
@@ -43,9 +97,9 @@ const buscarArriendoFinalizar = async (id_arriendo) => {
 	const data = new FormData();
 	data.append("id_despacho", id_arriendo);
 	data.append("id_arriendo", id_arriendo);
-	const response = await ajax_function(data, "buscar_actaEntrega");
-	if (response.success) {
-		const base64 = response.data.base64;
+	const responseActa = await ajax_function(data, "buscar_actaEntrega");
+	if (responseActa.success) {
+		const base64 = responseActa.data.base64;
 		mostrarVisorPDF(base64, [
 			"pdf_canvas_recepcion",
 			"page_count_recepcion",
@@ -53,31 +107,39 @@ const buscarArriendoFinalizar = async (id_arriendo) => {
 			"prev_recepcion",
 			"next_recepcion"
 		]);
-		const response2 = await ajax_function(data, "buscar_arriendo");
-		if (response2.success) {
-			const arriendo = response2.data;
-
+		const responseArriendo = await ajax_function(data, "buscar_arriendo");
+		if (responseArriendo.success) {
+			const arriendo = responseArriendo.data;
 			$("#numero_arriendo_recepcion").html("Nº " + arriendo.id_arriendo);
 			$("#body_recepcion_arriendo").show();
 			$("#id_vehiculo_recepcion").val(arriendo.patente_vehiculo);
 			$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
 		}
 	}
-	$("#formSpinner_finalizar_arriendo").hide();
 }
 
-const limpiarFormulario = () => {
 
+
+const revisarEstadosPagos = async (data) => {
+	return await ajax_function(data, "revisar_estadoPago");
+}
+
+
+
+const limpiarFormulario = () => {
 	$("#formSpinner_extender_arriendo").show();
 	$("#formSpinner_finalizar_arriendo").show();
 	$("#body_recepcion_arriendo").hide();
 	$("#body_extender_arriendo").hide();
 	$("#numeroArriendo").html("")
+	$("#spinner_btn_actualizar_pago").hide();
 	$("#spinner_btn_finalizar_contrato").hide();
 	$("#spinner_btn_extenderArriendo").hide();
 	$("#formExtenderArriendo")[0].reset();
 	arrayImagesRecepcion.length = 0;
+	array_id_pagos_pendientes.length = 0;
 	$("#carrucel_recepcion").empty();
+	$("#tablaPago").empty();
 	$("#id_vehiculo_recepcion").val("");
 	$("#id_arriendo_recepcion").val("");
 
@@ -181,9 +243,10 @@ $(document).ready(() => {
 		});
 	});
 
+
+
 	$("#btn_finalizar_arriendo").click(() => {
 		if (arrayImagesRecepcion.length > 0) {
-
 			Swal.fire({
 				title: "Estas seguro?",
 				text: "estas a punto de finalizar el arriendo!",
@@ -198,35 +261,22 @@ $(document).ready(() => {
 					$("#btn_finalizar_arriendo").attr("disable", true);
 
 					const data = new FormData();
-					$("#tablaPago").empty();
-					const response_estadoPago = await revisarEstadosPagos(data);
-					if (response_estadoPago.success) {
-
-						// si existe deuda , se levanta el modal para pagarla
-						if (response_estadoPago.deuda) {
-
-							mostrarPagosPendientes(response_estadoPago.data);
-							$("#modalPagoArriendo").modal({
-								show: true,
-							});
-
-						} else {
-							const response_revision = await guardarRevisionRecepcion(data);
-							if (response_revision.success) {
-								const response_vehiculo = await cambiarEstadoVehiculo(data);
-								if (response_vehiculo.success) {
-									await cambiarEstadoArriendo(data);
-								}
-							}
-							refrescarTablaActivos();
-							$("#modal_ArriendoFinalizar").modal("toggle");
-							Swal.fire(
-								"Arriendo finalizado!",
-								"Arriendo finalizado con exito!",
-								"success"
-							);
+					const response_revision = await guardarRevisionRecepcion(data);
+					if (response_revision.success) {
+						const response_vehiculo = await cambiarEstadoVehiculo(data);
+						if (response_vehiculo.success) {
+							await cambiarEstadoArriendo(data);
 						}
 					}
+					refrescarTablaActivos();
+					$("#modal_ArriendoFinalizar").modal("toggle");
+					Swal.fire(
+						"Arriendo finalizado!",
+						"Arriendo finalizado con exito!",
+						"success"
+					);
+
+
 					$("#spinner_btn_finalizar_contrato").hide();
 					$("#btn_finalizar_arriendo").attr("disable", false);
 				}
@@ -238,6 +288,8 @@ $(document).ready(() => {
 			});
 		}
 	});
+
+
 
 	$("#limpiarArrayFotosRecepcion").click(() => {
 		arrayImagesRecepcion.length = 0;
@@ -257,7 +309,7 @@ $(document).ready(() => {
 			const canvas = document.getElementById("canvas_fotoVehiculo_recepcion");
 			const base64 = canvas.toDataURL("image/png");
 			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
-			if (arrayImagesRecepcion.length < 5) {
+			if (arrayImagesRecepcion.length < 9) {
 				arrayImagesRecepcion.push(url);
 				agregarFotoACarrucelRecepcion(arrayImagesRecepcion);
 				limpiarTodoCanvasVehiculo();
@@ -265,7 +317,7 @@ $(document).ready(() => {
 			} else {
 				Swal.fire({
 					icon: "error",
-					title: "el maximo son 5 imagenes",
+					title: "el maximo son 9 imagenes",
 				});
 			}
 		} else {
@@ -277,31 +329,87 @@ $(document).ready(() => {
 	});
 
 
-	const mostrarPagosPendientes = ({ arrayPago, totalPago }) => {
-		const formatter = new Intl.NumberFormat("CL");
 
-		let n = 1;
-		arrayPago.map((pago) => {
-			let html = `<tr>
-							<th scope="row">${n}</th>
-							<td>${pago.deudor_pago.replace("@", "")}</td>
-							<td>${pago.estado_pago}</td>
-							<td> $ ${formatter.format(pago.total_pago)}</td>
-							<td>${formatearFechaHora(pago.createdAt)}</td>
-						</tr>`;
-			$("#tablaPago").append(html);
-			n++;
-		})
+	$("#actualizar_pago_arriendo").click(async () => {
 
-		$("#total_a_pagar").html("Total a pagar: " + totalPago)
+		const inputNumFacturacion = $("#inputNumFacturacion").val();
+		const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
 
-		console.log(totalPago)
+
+		if (inputNumFacturacion == 0 || $("#inputFileFacturacion").val().length == 0) {
+			Swal.fire(
+				"faltan datos en el formulario",
+				"debe ingresar el Nº facturacion con su respectivo comprobante",
+				"warning"
+			);
+			return;
+		}
+
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de guardar los cambios!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#spinner_btn_actualizar_pago").show();
+				$("#actualizar_pago_arriendo").attr("disabled", true);
+				const form = $("#form_pagos_pendientes")[0];
+				const data = new FormData(form);
+
+				const responseFactura = await guardarDatosFactura(data);
+				if (responseFactura.success) {
+					data.append("inputEstado", "PAGADO");
+					data.append("inputDocumento", inputFileFacturacion);
+					data.append("id_facturacion", responseFactura.data.id_facturacion);
+					data.append("arrayPagos", JSON.stringify(array_id_pagos_pendientes));
+
+					const responseDocumentoFActura = await guardarDocumentoFactura(data);
+					if (responseDocumentoFActura.success) {
+
+						const responsePago = await actualizarPagos(data);
+						if (responsePago.success) {
+							Swal.fire(
+								"Pago Actualizado!",
+								"se a actualizado exitosamente el pago",
+								"success"
+							)
+							$("#modalPagoArriendo").modal("toggle");
+						}
+					}
+				}
+				$("#spinner_btn_actualizar_pago").hide();
+				$("#actualizar_pago_arriendo").attr("disabled", false);
+			}
+		});
+	});
+
+
+	const guardarDatosFactura = async (data) => {
+		return await ajax_function(data, "registrar_facturacion");
+	};
+
+
+	const guardarDocumentoFactura = async (data) => {
+		return await ajax_function(data, "guardar_documentoFacturacion");
+	};
+
+
+	const actualizarPagos = async (data) => {
+		return await ajax_function(data, "actualizar_pago");
 	}
+
 
 	const agregarFotoACarrucelRecepcion = (array) => {
 		let items = "";
 		for (let i = 0; i < array.length; i++) {
-			items += `<div class="item"><img src="${array[i]}" /></div>`;
+			let base64str = array[i].split('base64,')[1];
+			let decoded = atob(base64str);
+			items += `<div class="item"><img src="${array[i]}" /> <span>${decoded.length} kB </span></div>`;
+
 		}
 		const html = `<div class="owl-carousel owl-theme" id="carruselVehiculos">${items}</div></div>`;
 		$("#carrucel_recepcion").html(html);
@@ -311,17 +419,12 @@ $(document).ready(() => {
 	};
 
 
-	const revisarEstadosPagos = async (data) => {
-		data.append("id_arriendo", $("#id_arriendo_recepcion").val());
-		return await ajax_function(data, "revisar_estadoPago");
-	}
-
-
 	const guardarRevisionRecepcion = async (data) => {
 		data.append("id_despacho", $("#id_arriendo_recepcion").val());
 		data.append("arrayImages", JSON.stringify(arrayImagesRecepcion));
 		return await ajax_function(data, "registrar_revision");
 	}
+
 
 	const cambiarEstadoArriendo = async (data) => {
 		data.append("id_arriendo", $("#id_arriendo_recepcion").val());
@@ -329,6 +432,7 @@ $(document).ready(() => {
 		data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
 		return await ajax_function(data, "cambiarEstado_arriendo");
 	};
+
 
 	const cambiarEstadoVehiculo = async (data) => {
 		data.append("inputPatenteVehiculo", $("#id_vehiculo_recepcion").val());
@@ -338,8 +442,6 @@ $(document).ready(() => {
 	};
 
 
-
-
 	const extenderContrato = async (data) => {
 		return await ajax_function(data, "extender_arriendo");
 	}
@@ -347,7 +449,6 @@ $(document).ready(() => {
 
 	const temporizador = (fechaRecepcion_arriendo, id_arriendo) => {
 		$(`#time${id_arriendo}`).text("");
-
 		const countDownDate = moment(fechaRecepcion_arriendo);
 		const fechaFinal = moment(fechaRecepcion_arriendo);
 		let time = countDownDate.diff(moment());
@@ -356,6 +457,7 @@ $(document).ready(() => {
 			alertaTemporizador(countDownDate, fechaFinal, time, id_arriendo);
 		}, 1000);
 	};
+
 
 	const alertaTemporizador = (countDownDate, fechaFinal, time, id_arriendo) => {
 		let diff = countDownDate.diff(moment());
@@ -389,6 +491,8 @@ $(document).ready(() => {
 		cargarArriendosActivos();
 	};
 
+
+
 	const cargarArriendoActivosEnTabla = (arriendo) => {
 		try {
 			let cliente = "";
@@ -415,7 +519,7 @@ $(document).ready(() => {
 					`<div id=time${arriendo.id_arriendo}> </div>`,
 					` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' 
                          class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> 
-                          <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)'  data-toggle='modal' data-target='#modal_ArriendoFinalizar'
+                          <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)' 
                              class='btn btn btn-outline-success'><i class="fas fa-external-link-square-alt"></i></button>
                     `,
 				])

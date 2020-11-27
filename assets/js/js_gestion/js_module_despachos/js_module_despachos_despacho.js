@@ -124,8 +124,12 @@ $(document).ready(() => {
 		if (inputImg != 0) {
 			const canvas = document.getElementById("canvas-fotoVehiculo");
 			const base64 = canvas.toDataURL("image/png");
+
+
+
+
 			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
-			if (arrayImages.length < 5) {
+			if (arrayImages.length < 9) {
 				arrayImages.push(url);
 				agregarFotoACarrucel(arrayImages);
 				limpiarTodoCanvasVehiculo();
@@ -133,7 +137,7 @@ $(document).ready(() => {
 			} else {
 				Swal.fire({
 					icon: "error",
-					title: "el maximo son 5 imagenes",
+					title: "el maximo son 9 imagenes",
 				});
 			}
 		} else {
@@ -294,7 +298,10 @@ $(document).ready(() => {
 	const agregarFotoACarrucel = (array) => {
 		let items = "";
 		for (let i = 0; i < array.length; i++) {
-			items += `<div class="item"><img src="${array[i]}" /></div>`;
+			let base64str = array[i].split('base64,')[1];
+			let decoded = atob(base64str);
+
+			items += `<div class="item"><img src="${array[i]}" /> <span>${decoded.length} kB </span></div>`;
 		}
 		const html = `<div class="owl-carousel owl-theme" id="carruselVehiculos">${items}</div></div>`;
 		$("#carrucel").html(html);

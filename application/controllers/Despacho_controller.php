@@ -1,8 +1,6 @@
 <?php
 
-
 defined('BASEPATH') or exit('No direct script access allowed');
-
 
 class Despacho_controller extends CI_Controller
 {
@@ -24,7 +22,7 @@ class Despacho_controller extends CI_Controller
     {
         $id_despacho = $this->input->post("id_despacho");
         $ArrayData = [
-            "arrayImages" => json_decode($this->input->post("arrayImages"))
+            "arrayImages" => json_decode($this->input->post("arrayImages")),
         ];
 
         echo put_function($id_despacho, $ArrayData, "despachos/registrarRevision");

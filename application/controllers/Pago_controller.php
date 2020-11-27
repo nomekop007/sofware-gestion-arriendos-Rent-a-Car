@@ -1,8 +1,6 @@
 <?php
 
-
 defined('BASEPATH') or exit('No direct script access allowed');
-
 
 class Pago_controller extends CI_Controller
 {
@@ -19,5 +17,15 @@ class Pago_controller extends CI_Controller
             "id_facturacion" => $this->input->post("id_facturacion"),
         ];
         echo post_function($dataArray, "pagos/registrarPago");
+    }
+
+    public function actualizarPago()
+    {
+        $dataArray = [
+            "id_facturacion" => $this->input->post("id_facturacion"),
+            "estado_pago" => $this->input->post("inputEstado"),
+            "arrayPagos" => json_decode($this->input->post("arrayPagos")),
+        ];
+        echo post_function($dataArray, "pagos/actualizarPago");
     }
 }

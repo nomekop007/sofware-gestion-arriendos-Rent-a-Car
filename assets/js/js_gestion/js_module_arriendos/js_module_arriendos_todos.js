@@ -480,7 +480,7 @@ $(document).ready(() => {
 				}
 				let fila = `
                 <div class='input-group col-md-12'>
-                    <span style='width: 60%;' class='input-group-text form-control'>${o.nombre_accesorio} $${o.precio_accesorio} </span>
+                    <span style='width: 60%;' class='input-group-text form-control'>${o.nombre_accesorio} ( + )  $${o.precio_accesorio} </span>
                     <input  style='width: 40%;' min='0' id='${o.id_accesorio}' maxLength='11' name='accesorios[]' 
                      value='0'  oninput="this.value = soloNumeros(this) ;calcularValores()"
                         type='number' class='form-control' required>

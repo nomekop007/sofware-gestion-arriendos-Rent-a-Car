@@ -357,7 +357,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                         </div>
                     </div>
                     <br><br>
-                    <h5>Valor Arriendo</h5>
+                    <h5>Valor Arriendo (neto)</h5>
                     <div class="card">
                         <div class="form-row card-body">
                             <div class="input-group col-md-12">
@@ -375,7 +375,8 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     value="0" type="number" class="form-control" oninput="calcularValores()" required>
                             </div>
                             <div class="input-group col-md-12 pago_empresa_remplazo">
-                                <span style="width: 60%;" class="input-group-text form-control">Valor copago $</span>
+                                <span style="width: 60%;" class="input-group-text form-control">Valor neto copago
+                                    $</span>
                                 <input style="width: 40%;" oninput="calcularCopago()" id="inputValorCopago"
                                     name="inputValorCopago" maxLength="11" value="0" type="number" class="form-control"
                                     oninput="this.value = soloNumeros(this) ;calcularValores()" required>
@@ -391,7 +392,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                         </div>
                     </div>
                     <br><br>
-                    <h5>Accesorios</h5>
+                    <h5>Accesorios (neto)</h5>
                     <div class="card">
                         <div class="form-row card-body" id="formAccesorios">
                             <!-- se meustran todos los accesoriso disponibles -->
@@ -402,7 +403,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <div class="card">
                         <div class="form-row card-body">
                             <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Descuento $</span>
+                                <span style="width: 60%;" class="input-group-text form-control">Descuento ( - ) $</span>
                                 <input style="width: 40%;" step="0" id="inputDescuento" name="inputDescuento"
                                     maxLength="11" value="0" type="number" min=0 class="form-control"
                                     oninput="this.value = soloNumeros(this) ;calcularValores()" required>

@@ -551,7 +551,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <div class="row">
                     <div class="form-group col-lg-4">
                         <input type="file" class="form-control-file" id="inputImagenVehiculo" accept="image/*">
-                        <h6>Maximo 5 fotos </h6>
+                        <h4>Maximo 9 fotos </h4>
                     </div>
                     <div class="form-group col-lg-2">
                         <button type="button" id="limpiar-fotoVehiculo" class="btn btn-secondary btn-sm form-control ">
