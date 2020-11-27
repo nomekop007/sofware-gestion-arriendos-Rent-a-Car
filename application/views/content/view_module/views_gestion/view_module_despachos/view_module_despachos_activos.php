@@ -154,7 +154,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                <button disabled type="button" class="btn btn-danger" data-toggle="modal"
+                <button type="button" class="btn btn-warning" data-toggle="modal"
                     data-target="#modalRegistrarDaño">Registrar daño</button>
                 <button type="button" class="btn btn-primary" id="btn_finalizar_arriendo">Finalizar Arriendo
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
@@ -250,6 +250,10 @@
                 <div class="form-row">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <span>se registrará junto con las fotos sacada al vehículo</span>
+                        </div>
+                        <br>
+                        <div class="form-group">
                             <label for="input_descripcion_danio">Descripcion de los daños</label>
                             <textarea onblur="mayus(this);" class="form-control" id="input_descripcion_danio"
                                 name="input_descripcion_danio" rows="3" maxLength="500"></textarea>
@@ -259,7 +263,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
-                <button type="button" class="btn btn-primary">Registrar daño</button>
+                <button type="button" id="registrar_danio_vehiculo" class="btn btn-warning">Registrar daño</button>
             </div>
         </div>
     </div>

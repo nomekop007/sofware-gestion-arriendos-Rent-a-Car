@@ -37,6 +37,7 @@ const buscarArriendoFinalizar = async (id_arriendo) => {
 	limpiarFormulario();
 
 
+	$("#id_arriendo_recepcion").val(id_arriendo);
 	const data = new FormData();
 	data.append("id_arriendo", id_arriendo);
 
@@ -387,6 +388,47 @@ $(document).ready(() => {
 		});
 	});
 
+
+
+	$("#registrar_danio_vehiculo").click(() => {
+		if (arrayImagesRecepcion.length > 0) {
+
+			const id_arriendo = $("#id_arriendo_recepcion").val();
+			const inputDescripcion = $("#input_descripcion_danio").val();
+
+
+
+			Swal.fire({
+				title: "Estas seguro?",
+				text: "estas a punto de guardar los cambios!",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonText: "Si, seguro",
+				cancelButtonText: "No, cancelar!",
+				reverseButtons: true,
+			}).then(async (result) => {
+				if (result.isConfirmed) {
+
+
+					const data = new FormData();
+					data.append("descripcion_danio", inputDescripcion);
+					data.append("arrayImagenes", arrayImagesRecepcion);
+					data.append("id_arriendo", id_arriendo);
+
+
+					/* 	const responseDanio = await ajax_function(data, "registrar_danio_vehiculo");
+						if (responseDanio.success) {
+	
+						} */
+				}
+			});
+		} else {
+			Swal.fire({
+				icon: "error",
+				title: "falta tomar fotos al vehiculo!",
+			});
+		}
+	});
 
 	const guardarDatosFactura = async (data) => {
 		return await ajax_function(data, "registrar_facturacion");
