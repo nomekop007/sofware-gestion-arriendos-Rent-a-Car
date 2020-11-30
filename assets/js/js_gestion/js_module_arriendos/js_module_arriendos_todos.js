@@ -913,16 +913,28 @@ $(document).ready(() => {
 					cliente = `${arriendo.empresa.nombre_empresa}`;
 					break;
 			}
+
+			let color = "";
+			switch (arriendo.estado_arriendo) {
+				case "CON DAÑO":
+					color = "text-danger"
+					break;
+				case "FINALIZADO":
+					color = "text-success"
+					break;
+				default:
+					break;
+			}
+
 			tablaTotalArriendos.row
 				.add([
 					arriendo.id_arriendo,
 					formatearFechaHora(arriendo.createdAt),
 					cliente,
 					arriendo.tipo_arriendo,
-					arriendo.estado_arriendo,
+					`<span class="${color}">${arriendo.estado_arriendo}</span>`,
 					arriendo.usuario.nombre_usuario,
-					`
-                    <button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
+					`<button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
                         data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn-outline-primary'><i class="fas fa-upload"></i></button>
                          
                         <button id='b${arriendo.id_arriendo}' value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,2)' 
@@ -933,8 +945,6 @@ $(document).ready(() => {
                                 `,
 				])
 				.draw(false);
-
-
 
 
 			if (arriendo.requisito && arriendo.garantia || arriendo.estado_arriendo == "ANULADO") {

@@ -263,7 +263,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
-                <button type="button" id="registrar_danio_vehiculo" class="btn btn-warning">Registrar daño</button>
+                <button type="button" id="registrar_danio_vehiculo" class="btn btn-warning">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                        id="spinner_btn_registrar_danio"></span>
+                    Registrar daño</button>
             </div>
         </div>
     </div>

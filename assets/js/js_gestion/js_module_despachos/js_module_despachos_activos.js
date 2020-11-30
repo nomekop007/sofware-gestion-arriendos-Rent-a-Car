@@ -136,6 +136,7 @@ const limpiarFormulario = () => {
 	$("#spinner_btn_actualizar_pago").hide();
 	$("#spinner_btn_finalizar_contrato").hide();
 	$("#spinner_btn_extenderArriendo").hide();
+	$("#spinner_btn_registrar_danio").hide();
 	$("#formExtenderArriendo")[0].reset();
 	arrayImagesRecepcion.length = 0;
 	array_id_pagos_pendientes.length = 0;
@@ -143,6 +144,7 @@ const limpiarFormulario = () => {
 	$("#tablaPago").empty();
 	$("#id_vehiculo_recepcion").val("");
 	$("#id_arriendo_recepcion").val("");
+	$("#input_descripcion_danio").val("");
 
 }
 
@@ -247,47 +249,58 @@ $(document).ready(() => {
 
 
 	$("#btn_finalizar_arriendo").click(() => {
-		if (arrayImagesRecepcion.length > 0) {
-			Swal.fire({
-				title: "Estas seguro?",
-				text: "estas a punto de finalizar el arriendo!",
-				icon: "warning",
-				showCancelButton: true,
-				confirmButtonText: "Si, seguro",
-				cancelButtonText: "No, cancelar!",
-				reverseButtons: true,
-			}).then(async (result) => {
-				if (result.isConfirmed) {
-					$("#spinner_btn_finalizar_contrato").show();
-					$("#btn_finalizar_arriendo").attr("disable", true);
 
-					const data = new FormData();
-					const response_revision = await guardarRevisionRecepcion(data);
-					if (response_revision.success) {
-						const response_vehiculo = await cambiarEstadoVehiculo(data);
-						if (response_vehiculo.success) {
-							await cambiarEstadoArriendo(data);
-						}
-					}
-					refrescarTablaActivos();
-					$("#modal_ArriendoFinalizar").modal("toggle");
-					Swal.fire(
-						"Arriendo finalizado!",
-						"Arriendo finalizado con exito!",
-						"success"
-					);
-
-
-					$("#spinner_btn_finalizar_contrato").hide();
-					$("#btn_finalizar_arriendo").attr("disable", false);
-				}
-			});
-		} else {
+		if (arrayImagesRecepcion.length === 0) {
 			Swal.fire({
 				icon: "error",
 				title: "falta tomar fotos al vehiculo!",
 			});
+			return;
 		}
+
+		if ($("#input_kilometraje_salida").val() == 0) {
+			Swal.fire({
+				icon: "error",
+				title: "falta colocar el kilometraje del vehiculo",
+			});
+			return;
+		}
+
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de finalizar el arriendo!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#spinner_btn_finalizar_contrato").show();
+				$("#btn_finalizar_arriendo").attr("disable", true);
+
+				const data = new FormData();
+				const response_revision = await guardarRevisionRecepcion(data);
+				if (response_revision.success) {
+					const response_vehiculo = await cambiarEstadoVehiculo(data);
+					if (response_vehiculo.success) {
+						await cambiarEstadoArriendo(data);
+					}
+				}
+				refrescarTablaActivos();
+				$("#modal_ArriendoFinalizar").modal("toggle");
+				Swal.fire(
+					"Arriendo finalizado!",
+					"Arriendo finalizado con exito!",
+					"success"
+				);
+
+
+				$("#spinner_btn_finalizar_contrato").hide();
+				$("#btn_finalizar_arriendo").attr("disable", false);
+			}
+		});
+
 	});
 
 
@@ -391,43 +404,51 @@ $(document).ready(() => {
 
 
 	$("#registrar_danio_vehiculo").click(() => {
-		if (arrayImagesRecepcion.length > 0) {
-
-			const id_arriendo = $("#id_arriendo_recepcion").val();
-			const inputDescripcion = $("#input_descripcion_danio").val();
-
-
-
-			Swal.fire({
-				title: "Estas seguro?",
-				text: "estas a punto de guardar los cambios!",
-				icon: "warning",
-				showCancelButton: true,
-				confirmButtonText: "Si, seguro",
-				cancelButtonText: "No, cancelar!",
-				reverseButtons: true,
-			}).then(async (result) => {
-				if (result.isConfirmed) {
-
-
-					const data = new FormData();
-					data.append("descripcion_danio", inputDescripcion);
-					data.append("arrayImagenes", arrayImagesRecepcion);
-					data.append("id_arriendo", id_arriendo);
-
-
-					/* 	const responseDanio = await ajax_function(data, "registrar_danio_vehiculo");
-						if (responseDanio.success) {
-	
-						} */
-				}
-			});
-		} else {
+		const id_arriendo = $("#id_arriendo_recepcion").val();
+		const inputDescripcion = $("#input_descripcion_danio").val();
+		if (arrayImagesRecepcion.length === 0) {
 			Swal.fire({
 				icon: "error",
 				title: "falta tomar fotos al vehiculo!",
 			});
+			return;
 		}
+
+
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de guardar los cambios!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#spinner_btn_registrar_danio").show();
+				$("#registrar_danio_vehiculo").attr("disabled", true);
+				const data = new FormData();
+				data.append("descripcion_danio", inputDescripcion);
+				data.append("arrayImagenes", JSON.stringify(arrayImagesRecepcion));
+				data.append("id_arriendo", id_arriendo);
+
+				const responseDanio = await ajax_function(data, "registrar_danio_vehiculo");
+				if (responseDanio.success) {
+					Swal.fire(
+						"se registro exitoso!",
+						"se registro el daño con exito",
+						"success"
+					)
+					$("#modalRegistrarDaño").modal("toggle");
+					$("#registrar_danio_vehiculo").attr("disabled", false);
+
+				}
+
+				$("#spinner_btn_registrar_danio").hide();
+
+			}
+		});
+
 	});
 
 	const guardarDatosFactura = async (data) => {
@@ -470,7 +491,16 @@ $(document).ready(() => {
 
 	const cambiarEstadoArriendo = async (data) => {
 		data.append("id_arriendo", $("#id_arriendo_recepcion").val());
-		data.append("estado", "FINALIZADO");
+
+
+		const response = await ajax_function(data, "revisar_danioVehiculo");
+
+		if (response.data) {
+			data.append("estado", "CON DAÑO");
+		} else {
+			data.append("estado", "FINALIZADO");
+		}
+
 		data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
 		return await ajax_function(data, "cambiarEstado_arriendo");
 	};
