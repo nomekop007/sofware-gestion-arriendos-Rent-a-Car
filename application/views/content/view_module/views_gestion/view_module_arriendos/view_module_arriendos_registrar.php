@@ -624,7 +624,7 @@ switch ($this->session->userdata('sucursal')) {
                                         class="form-control" id="inputEntrada" name="inputEntrada" required>
                                 </div>
                                 <div class="form-group col-xl-6">
-                                    <label for="inputMantencion">kilometros para siguiente mantencion</label>
+                                    <label for="inputMantencion">kilometros para siguiente mantencion (aprox)</label>
                                     <input oninput="this.value = soloNumeros(this)" value=0 maxLength="7" type="number"
                                         class="form-control" id="inputMantencion" name="inputMantencion" required>
                                 </div>
