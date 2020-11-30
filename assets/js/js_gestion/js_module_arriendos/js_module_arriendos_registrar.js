@@ -125,7 +125,7 @@ $(document).ready(() => {
 	})();
 
 
-	//cargar accesorios
+
 	(cargarEmpresasRemplazo = async () => {
 		const response = await ajax_function(null, "cargar_empresasRemplazo");
 		if (response.success) {

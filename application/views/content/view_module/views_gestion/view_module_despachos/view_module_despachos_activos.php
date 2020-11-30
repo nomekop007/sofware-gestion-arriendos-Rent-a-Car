@@ -314,13 +314,13 @@
                             <h6>Facturacion</h6>
                             <div class="form-row card-body">
                                 <div class="custom-control custom-radio custom-control-inline ">
-                                    <input type="radio" onclick="facturacion(this.value);" value="BOLETA"
-                                        id="radioBoleta" name="customRadio1" class="custom-control-input" checked>
+                                    <input type="radio" value="BOLETA" id="radioBoleta" name="customRadio1"
+                                        class="custom-control-input" checked>
                                     <label class="custom-control-label" for="radioBoleta">Boleta</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline ">
-                                    <input type="radio" onclick="facturacion(this.value);" value="FACTURA"
-                                        id="radioFactura" name="customRadio1" class="custom-control-input">
+                                    <input type="radio" value="FACTURA" id="radioFactura" name="customRadio1"
+                                        class="custom-control-input">
                                     <label class="custom-control-label" for="radioFactura">Factura</label>
                                 </div>
                             </div>
