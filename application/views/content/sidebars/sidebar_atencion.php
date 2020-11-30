@@ -8,16 +8,32 @@ $rol = $this->session->userdata("rol");
         <br>
         <ul class="nav flex-column">
             <br>
-            <?php if ($rol == 1 || $rol == 2) { ?>
+            <?php if ($rol == 1 || $rol == 2 || $rol == 3) {?>
             <li class="nav-item " id="l_facturacion">
                 <br>
                 <a id="m_facturacion" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=1">
                     <i class="fas fa-money-bill-wave"></i>
-                    Gestion de Facturacion
+                    Facturacion E. Remplazo
                 </a>
                 <br>
             </li>
-            <?php } ?>
+            <?php }?>
+            <li class="nav-item " id="l_danios">
+                <br>
+                <a id="m_danios" class="nav-link" href="">
+                    <i class="fas fa-car-crash"></i>
+                    Gestion de daños vehiculo
+                </a>
+                <br>
+            </li>
+            <li class="nav-item " id="l_tarifas">
+                <br>
+                <a id="m_tarifas" class="nav-link" href="">
+                    <i class="fas fa-tags"></i>
+                    Gestion de tarifas
+                </a>
+                <br>
+            </li>
         </ul>
     </div>
 </nav>
