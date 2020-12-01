@@ -79,7 +79,7 @@ const mostrarPagosPendientes = ({ arrayPago, totalPago }) => {
 					</tr>`;
 		$("#tablaPago").append(html);
 		n++;
-		array_id_pagos_pendientes.push(pago);
+		array_id_pagos_pendientes.push(pago.id_pago);
 	})
 	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(totalPago)}`)
 }

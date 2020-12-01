@@ -369,7 +369,8 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     de dias: X</span>
                             </div>
                             <div class="input-group col-md-12 pago_empresa_remplazo">
-                                <span style="width: 60%;" class="input-group-text form-control">Pago neto E. reemplazo
+                                <span style="width: 60%;" class="input-group-text form-control">Pago total neto E.
+                                    reemplazo
                                     $</span>
                                 <input style="width: 40%;" id="inputPagoEmpresa" name="inputPagoEmpresa" maxLength="11"
                                     value="0" type="number" class="form-control" oninput="calcularValores()" required>
@@ -381,21 +382,19 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     name="inputValorCopago" maxLength="11" value="0" type="number" class="form-control"
                                     oninput="this.value = soloNumeros(this) ;calcularValores()" required>
                             </div>
-
                             <div class="input-group col-md-12">
                                 <span style="width: 60%;" class="input-group-text form-control">Sub Total neto</span>
                                 <input style="width: 40%;" id="inputSubTotalArriendo" name="inputSubTotalArriendo"
                                     maxLength="11" value="0" type="number" class="form-control"
                                     oninput="this.value = soloNumeros(this) ;calcularValores()" required>
                             </div>
-
                         </div>
                     </div>
                     <br><br>
                     <h5>Accesorios (neto)</h5>
                     <div class="card">
                         <div class="form-row card-body" id="formAccesorios">
-                            <!-- se meustran todos los accesoriso disponibles -->
+                            <!-- se meustran todos los accesorios disponibles -->
                         </div>
                     </div>
                     <br><br>

@@ -28,9 +28,4 @@ class PagoArriendo_controller extends CI_Controller
         echo find_function($id_arriendo, "pagosArriendos/revisarEstadoPago");
     }
 
-    public function cargarPagosERpendientes()
-    {
-        echo get_function("pagosArriendos/cargarPagosERpendientes");
-    }
-
 }

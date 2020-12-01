@@ -85,13 +85,21 @@
                                     </div>
                                 </div>
                                 <br>
-
                                 <div class="form-row card-body">
-                                    <div class="form-group col-xl-4">
-                                        <label for="inputCodigoEmpresaRemplazo">Empresas reemplazos</label>
-                                        <select id="inputCodigoEmpresaRemplazo" name="inputCodigoEmpresaRemplazo"
-                                            class="form-control">
-                                        </select>
+                                    <div class="form-group col-xl-6">
+                                        <label for="inputCodigoEmpresaRemplazo">Empresas de reemplazo</label>
+                                        <div class="input-group">
+                                            <select id="inputCodigoEmpresaRemplazo" name="inputCodigoEmpresaRemplazo"
+                                                class="form-control">
+                                            </select>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="btn_buscarPagoEmpresa">
+                                                    <span class="spinner-border spinner-border-sm" role="status"
+                                                        aria-hidden="true" id="spinner_empresa_remplazo"></span>
+                                                    Buscar pagos pendientes</button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <br>
                                 </div>
@@ -102,34 +110,39 @@
                                     style="width:100%">
                                     <thead class="btn-dark">
                                         <tr>
+                                            <th></th>
+                                            <th>estado</th>
                                             <th>neto</th>
                                             <th>iva</th>
                                             <th>total</th>
-                                            <th>estado</th>
                                             <th>fecha registro</th>
-                                            <th></th>
+                                            <th>Nº Arriendo</th>
                                         </tr>
                                     </thead>
                                     <tbody id="vehiculos">
-                                        <br>
+
                                     </tbody>
                                     <tfoot class="btn-dark">
                                         <tr>
+                                            <th></th>
+                                            <th>estado</th>
                                             <th>neto</th>
                                             <th>iva</th>
                                             <th>total</th>
-                                            <th>estado</th>
                                             <th>fecha registro</th>
-                                            <th></th>
-
+                                            <th>Nº Arriendo</th>
                                         </tr>
                                     </tfoot>
                                 </table>
+                                <br><br>
+                                <button type="submit" id="btn_registrar_facturacion" class="btn btn-success">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                        id="spinner_registrar_facturacion"></span>
+                                    Ingresar facturacion</button>
+                                <br>
                             </div>
+                            <br>
                         </div>
-
-
-
                     </div>
                 </form>
             </div>
@@ -141,30 +154,27 @@
                     <table id="tabla_pagos" class="table table-striped table-bordered" style="width:100%">
                         <thead class="btn-dark">
                             <tr>
-                                <th>Nº</th>
-                                <th>Tipo</th>
-                                <th>codigo</th>
-                                <th>Nº de pagos</th>
+                                <th>E. Remplazo</th>
+                                <th>estado</th>
+                                <th>neto</th>
+                                <th>iva</th>
+                                <th>total</th>
                                 <th>fecha registro</th>
-                                <th>Usuario</th>
-                                <th>Documento</th>
-                                <th></th>
+                                <th>Nº Arriendo</th>
                             </tr>
                         </thead>
                         <tbody id="vehiculos">
-
+                            <br>
                         </tbody>
                         <tfoot class="btn-dark">
                             <tr>
-                                <th>Nº</th>
-                                <th>Tipo</th>
-                                <th>codigo</th>
-                                <th>Nº de pagos</th>
+                                <th>E. Remplazo</th>
+                                <th>estado</th>
+                                <th>neto</th>
+                                <th>iva</th>
+                                <th>total</th>
                                 <th>fecha registro</th>
-                                <th>Usuario</th>
-                                <th>Documento</th>
-                                <th></th>
-
+                                <th>Nº Arriendo</th>
                             </tr>
                         </tfoot>
                     </table>

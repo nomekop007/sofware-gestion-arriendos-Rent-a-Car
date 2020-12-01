@@ -101,11 +101,12 @@ $route['registrar_revision'] = 'Despacho_controller/registrarRevision';
 /* rutas de controller pagoArriendo */
 $route['registrar_pagoArriendo'] = 'PagoArriendo_controller/registrarPagoArriendo';
 $route['revisar_estadoPago'] = 'PagoArriendo_controller/revisarEstadoPago';
-$route['cargar_pagosERpendientes'] = 'PagoArriendo_controller/cargarPagosERpendientes';
 
 /* rutas de controller pagos */
+$route['cargar_pagosERpendientes'] = 'Pago_controller/cargarPagosERpendientes';
 $route['registrar_pago'] = 'Pago_controller/registrarPago';
 $route['actualizar_pago'] = 'Pago_controller/actualizarPago';
+$route['buscar_pagoER'] = 'Pago_controller/buscarPagoERpendientes';
 
 /* rutas de controller empresaRemplazo */
 $route['cargar_empresasRemplazo'] = 'EmpresaRemplazo_controller/cargarEmpresasRemplazo';
