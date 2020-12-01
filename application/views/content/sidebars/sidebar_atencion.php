@@ -20,7 +20,7 @@ $rol = $this->session->userdata("rol");
             <?php }?>
             <li class="nav-item " id="l_danios">
                 <br>
-                <a id="m_danios" class="nav-link" href="">
+                <a id="m_danios" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=2">
                     <i class="fas fa-car-crash"></i>
                     Gestion de daños vehiculo
                 </a>
