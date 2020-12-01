@@ -9,7 +9,7 @@
                 <li class="breadcrumb-item active" aria-current="page">Facturacion</li>
             </ol>
         </nav>
-        <h1 class="h3">Gestion de Facturaciones</h1>
+        <h1 class="h3">Gestion de Facturaciones E. Remplazo</h1>
     </div>
     <div>
         <nav>
