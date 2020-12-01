@@ -24,9 +24,8 @@ class PagoArriendo_controller extends CI_Controller
 
     public function revisarEstadoPago()
     {
-
         $id_arriendo = $this->input->post("id_arriendo");
-
         echo find_function($id_arriendo, "pagosArriendos/revisarEstadoPago");
     }
+
 }

@@ -154,7 +154,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                <button disabled type="button" class="btn btn-danger" data-toggle="modal"
+                <button type="button" class="btn btn-warning" data-toggle="modal"
                     data-target="#modalRegistrarDaño">Registrar daño</button>
                 <button type="button" class="btn btn-primary" id="btn_finalizar_arriendo">Finalizar Arriendo
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
@@ -250,6 +250,10 @@
                 <div class="form-row">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <span>se registrará junto con las fotos sacada al vehículo</span>
+                        </div>
+                        <br>
+                        <div class="form-group">
                             <label for="input_descripcion_danio">Descripcion de los daños</label>
                             <textarea onblur="mayus(this);" class="form-control" id="input_descripcion_danio"
                                 name="input_descripcion_danio" rows="3" maxLength="500"></textarea>
@@ -259,7 +263,10 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
-                <button type="button" class="btn btn-primary">Registrar daño</button>
+                <button type="button" id="registrar_danio_vehiculo" class="btn btn-warning">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                        id="spinner_btn_registrar_danio"></span>
+                    Registrar daño</button>
             </div>
         </div>
     </div>
@@ -307,13 +314,13 @@
                             <h6>Facturacion</h6>
                             <div class="form-row card-body">
                                 <div class="custom-control custom-radio custom-control-inline ">
-                                    <input type="radio" onclick="facturacion(this.value);" value="BOLETA"
-                                        id="radioBoleta" name="customRadio1" class="custom-control-input" checked>
+                                    <input type="radio" value="BOLETA" id="radioBoleta" name="customRadio1"
+                                        class="custom-control-input" checked>
                                     <label class="custom-control-label" for="radioBoleta">Boleta</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline ">
-                                    <input type="radio" onclick="facturacion(this.value);" value="FACTURA"
-                                        id="radioFactura" name="customRadio1" class="custom-control-input">
+                                    <input type="radio" value="FACTURA" id="radioFactura" name="customRadio1"
+                                        class="custom-control-input">
                                     <label class="custom-control-label" for="radioFactura">Factura</label>
                                 </div>
                             </div>

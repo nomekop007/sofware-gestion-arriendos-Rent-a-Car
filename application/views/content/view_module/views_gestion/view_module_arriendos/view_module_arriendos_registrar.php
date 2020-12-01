@@ -107,7 +107,7 @@ switch ($this->session->userdata('sucursal')) {
                             <div id="form_remplazo">
                                 <h4 id="titulo_remplazo">Datos Empresa reemplazo</h4>
                                 <div class="form-row">
-                                    <div class="form-group col-xl-lg-3">
+                                    <div class="form-group col-xl-3">
                                         <label for="inputCodigoEmpresaRemplazo">Empresa reemplazo</label>
                                         <select id="inputCodigoEmpresaRemplazo" name="inputCodigoEmpresaRemplazo"
                                             class="form-control">
@@ -157,7 +157,6 @@ switch ($this->session->userdata('sucursal')) {
                                         class="form-control" id="inputFechaNacimiento" name="inputFechaNacimiento"
                                         required>
                                 </div>
-
                                 <div class="form-group col-xl-6">
                                     <label for="inputEstadoCivil">Estado Civil</label>
                                     <select name="inputEstadoCivil" id="inputEstadoCivil" class="form-control">
@@ -168,7 +167,6 @@ switch ($this->session->userdata('sucursal')) {
                                         <option value="SEPARADO/A">Separado/a</option>
                                     </select>
                                 </div>
-
                                 <div class="form-group col-xl-6">
                                     <label for="inputComunaCliente">Comuna / region </label>
                                     <select class="form-control" id="inputComunaCliente" name="inputComunaCliente">

@@ -125,7 +125,7 @@ $(document).ready(() => {
 	})();
 
 
-	//cargar accesorios
+
 	(cargarEmpresasRemplazo = async () => {
 		const response = await ajax_function(null, "cargar_empresasRemplazo");
 		if (response.success) {
@@ -151,11 +151,15 @@ $(document).ready(() => {
 				var kilometros_actual = Number(response.data.kilometraje_vehiculo);
 				var kilometros_falta = Number(0);
 				do {
+					console.log(kilometros_mantencion)
 					kilometros_falta = Number(kilometros_mantencion - kilometros_actual);
+
 					if (kilometros_falta < 0) {
 						kilometros_mantencion = kilometros_mantencion + response.data.Tmantencion_vehiculo;
 					}
 				} while (kilometros_falta < 0);
+
+
 				$("#inputEntrada").val(kilometros_actual);
 				$("#inputMantencion").val(kilometros_falta);
 			}

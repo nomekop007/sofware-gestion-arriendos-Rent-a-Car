@@ -5,6 +5,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Pago_controller extends CI_Controller
 {
 
+    public function cargarPagosERpendientes()
+    {
+        echo get_function("pagos/cargarPagosERpendientes");
+    }
+
+    public function buscarPagoERpendientes()
+    {
+        $clave_empresaRemplazo = $this->input->post("clave_empresaRemplazo");
+        echo find_function($clave_empresaRemplazo, "pagos/buscarPagoERpendientes");
+    }
+
     public function registrarPago()
     {
         $dataArray = [

@@ -103,14 +103,20 @@ $route['registrar_pagoArriendo'] = 'PagoArriendo_controller/registrarPagoArriend
 $route['revisar_estadoPago'] = 'PagoArriendo_controller/revisarEstadoPago';
 
 /* rutas de controller pagos */
+$route['cargar_pagosERpendientes'] = 'Pago_controller/cargarPagosERpendientes';
 $route['registrar_pago'] = 'Pago_controller/registrarPago';
 $route['actualizar_pago'] = 'Pago_controller/actualizarPago';
+$route['buscar_pagoER'] = 'Pago_controller/buscarPagoERpendientes';
 
 /* rutas de controller empresaRemplazo */
 $route['cargar_empresasRemplazo'] = 'EmpresaRemplazo_controller/cargarEmpresasRemplazo';
 
 /* rutas de controller garantia */
 $route['registrar_garantia'] = 'Garantia_controller/registrarGarantia';
+
+/* rutas de controller danio */
+$route['registrar_danio_vehiculo'] = 'DanioVehiculo_controller/registrarDanioVehiculo';
+$route['revisar_danioVehiculo'] = 'DanioVehiculo_controller/revisarDanioVehiculo';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = false;
