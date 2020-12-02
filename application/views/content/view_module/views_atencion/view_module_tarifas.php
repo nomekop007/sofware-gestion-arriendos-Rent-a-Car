@@ -6,10 +6,10 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=2">Atencion</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Daños vehiculo</li>
+                <li class="breadcrumb-item active" aria-current="page">tarifas arriendo</li>
             </ol>
         </nav>
-        <h1 class="h3">Gestion de daño vehiculo</h1>
+        <h1 class="h3">Gestion de tarifas</h1>
     </div>
     <div>
 
@@ -25,4 +25,4 @@
 
 
 <!-- importando archivo js usuarios -->
-<script src="<?php echo base_route() ?>assets/js/js_atencion/js_module_daniosVehiculo.js"></script>
+<script src="<?php echo base_route() ?>assets/js/js_atencion/js_module_tarifas.js"></script>

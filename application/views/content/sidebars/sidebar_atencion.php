@@ -28,7 +28,7 @@ $rol = $this->session->userdata("rol");
             </li>
             <li class="nav-item " id="l_tarifas">
                 <br>
-                <a id="m_tarifas" class="nav-link" href="">
+                <a id="m_tarifas" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=3">
                     <i class="fas fa-tags"></i>
                     Gestion de tarifas
                 </a>

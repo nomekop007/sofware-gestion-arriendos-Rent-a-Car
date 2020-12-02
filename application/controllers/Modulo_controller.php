@@ -100,6 +100,13 @@ class Modulo_controller extends CI_Controller
                         redirect(base_url());
                     }
                     break;
+                case 3:
+                    if ($rol == 1 || $rol == 2) {
+                        $this->load->view('content/view_module/views_atencion/view_module_tarifas');
+                    } else {
+                        redirect(base_url());
+                    }
+                    break;
                 default:
                     redirect(base_url());
                     break;
