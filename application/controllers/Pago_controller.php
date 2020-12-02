@@ -39,4 +39,14 @@ class Pago_controller extends CI_Controller
         ];
         echo post_function($dataArray, "pagos/actualizarPago");
     }
+
+    public function aplicarDescuentoPago()
+    {
+        $dataArray = [
+            "descuento_pago" => $this->input->post("descuento_pago"),
+            "observacion_pago" => $this->input->post("inputObservaciones"),
+            "arrayPagos" => json_decode($this->input->post("arrayPagos")),
+        ];
+        echo post_function($dataArray, "pagos/aplicarDescuentoPago");
+    }
 }

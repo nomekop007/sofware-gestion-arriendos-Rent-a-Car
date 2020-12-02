@@ -102,6 +102,7 @@ $(document).ready(() => {
 	cargarOlder("inputVigencia");
 
 
+
 	//cargar vehiculos en select
 	(cargarVehiculos = async () => {
 		//select2 de los vehiculos

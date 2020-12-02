@@ -287,8 +287,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
-
                     <div class="container card">
                         <table class="table">
                             <thead>
@@ -304,10 +302,29 @@
                             </tbody>
                         </table>
                         <h5 id="total_a_pagar"></h5>
-                        <br>
+                        <h6 id="dias_totales"></h6>
+                        <div id="descuento_copago">
+                            <br>
+                            <div class="form-row">
+                                <div class="form-group col-xl-6">
+                                    <label for="descuento_pago">descuento ($) </label>
+                                    <input oninput="this.value = soloNumeros(this);recalcularPago(this.value)"
+                                        maxLength="11" value=0 id="descuento_pago" name="descuento_pago" type="number"
+                                        class="form-control" required>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <label for="dias_restantes">dias restantes</label>
+                                    <input id="dias_restantes" name="dias_restantes" type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-xl-12">
+                                    <label for="inputObservaciones">Observaciones</label>
+                                    <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
+                                        name="inputObservaciones" rows="3" maxLength="300"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <br><br>
-
                     <div class="container card">
                         <br>
                         <div class="container">

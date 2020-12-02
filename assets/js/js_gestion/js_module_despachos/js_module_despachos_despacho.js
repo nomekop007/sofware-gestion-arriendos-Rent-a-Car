@@ -125,9 +125,6 @@ $(document).ready(() => {
 			const canvas = document.getElementById("canvas-fotoVehiculo");
 			const base64 = canvas.toDataURL("image/png");
 
-
-
-
 			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
 			if (arrayImages.length < 9) {
 				arrayImages.push(url);
@@ -136,13 +133,13 @@ $(document).ready(() => {
 				console.log(arrayImages);
 			} else {
 				Swal.fire({
-					icon: "error",
+					icon: "warning",
 					title: "el maximo son 9 imagenes",
 				});
 			}
 		} else {
 			Swal.fire({
-				icon: "error",
+				icon: "warning",
 				title: "debe ingresar foto",
 			});
 		}
@@ -288,7 +285,7 @@ $(document).ready(() => {
 			$("#btn_crear_ActaEntrega").attr("disabled", false);
 		} else {
 			Swal.fire({
-				icon: "error",
+				icon: "warning",
 				title: "falta tomar fotos al vehiculo!",
 			});
 		}
