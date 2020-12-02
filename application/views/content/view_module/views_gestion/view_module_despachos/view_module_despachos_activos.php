@@ -306,6 +306,10 @@
                         <div id="descuento_copago">
                             <br>
                             <div class="form-row">
+                                <div class="form-group col-xl-12">
+                                    <span>en caso de que el cliente devuelva el vehículo antes de tiempo , se debe
+                                        aplicar un descuento en base a los días restantes.</span>
+                                </div>
                                 <div class="form-group col-xl-6">
                                     <label for="descuento_pago">descuento ($) </label>
                                     <input oninput="this.value = soloNumeros(this);recalcularPago(this.value)"

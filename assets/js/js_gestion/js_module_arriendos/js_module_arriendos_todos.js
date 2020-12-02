@@ -161,15 +161,28 @@ const mostrarArriendoModalVer = (arriendo) => {
 		} else {
 			$("#formSubirDocumentos").show();
 		}
-
-
 		if (arriendo.garantia) {
-			$("#inputEditarGarantiaArriendo").val(arriendo.garantia.modosPago.nombre_modoPago)
+			$("#inputEditarGarantiaArriendo").val(arriendo.garantia.modosPago.nombre_modoPago);
+			switch (arriendo.garantia.id_modoPago) {
+				case 1:
+					$("#card_cheque").hide();
+					$("#card_tarjeta").hide();
+					$("#card_efectivo").show();
+					break;
+				case 2:
+					$("#card_tarjeta").hide();
+					$("#card_efectivo").hide();
+					$("#card_cheque").show();
+					break;
+				case 3:
+					$("#card_efectivo").hide();
+					$("#card_cheque").hide();
+					$("#card_tarjeta").show();
+					break;
+			}
 		} else {
 			$("#formGarantia").show();
 		}
-
-
 	}
 
 };
