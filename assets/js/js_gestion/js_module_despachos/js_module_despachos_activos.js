@@ -310,7 +310,6 @@ $(document).ready(() => {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				$("#spinner_btn_finalizar_contrato").show();
-				$("#btn_finalizar_arriendo").attr("disable", true);
 
 				const data = new FormData();
 				const response_revision = await guardarRevisionRecepcion(data);
@@ -328,12 +327,9 @@ $(document).ready(() => {
 					"success"
 				);
 
-
 				$("#spinner_btn_finalizar_contrato").hide();
-				$("#btn_finalizar_arriendo").attr("disable", false);
 			}
 		});
-
 	});
 
 
@@ -402,7 +398,6 @@ $(document).ready(() => {
 			return;
 		}
 
-
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de guardar los cambios!",
@@ -422,8 +417,6 @@ $(document).ready(() => {
 				data.append("inputDocumento", inputFileFacturacion);
 				data.append("inputObservaciones", $("#inputObservaciones").val());
 				data.append("inputEstado", "PAGADO");
-
-
 
 				const responseDescuento = await descuentoPago(data);
 				if (responseDescuento.success) {
@@ -476,12 +469,10 @@ $(document).ready(() => {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				$("#spinner_btn_registrar_danio").show();
-				$("#registrar_danio_vehiculo").attr("disabled", true);
 				const data = new FormData();
 				data.append("descripcion_danio", inputDescripcion);
 				data.append("arrayImagenes", JSON.stringify(arrayImagesRecepcion));
 				data.append("id_arriendo", id_arriendo);
-
 				const responseDanio = await ajax_function(data, "registrar_danio_vehiculo");
 				if (responseDanio.success) {
 					Swal.fire(
@@ -490,15 +481,10 @@ $(document).ready(() => {
 						"success"
 					)
 					$("#modalRegistrarDaño").modal("toggle");
-					$("#registrar_danio_vehiculo").attr("disabled", false);
-
 				}
-
 				$("#spinner_btn_registrar_danio").hide();
-
 			}
 		});
-
 	});
 
 
