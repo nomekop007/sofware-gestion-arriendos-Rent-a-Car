@@ -234,7 +234,6 @@ const buscarDocumento = async (documento, tipo) => {
 	data.append("nombreDocumento", documento);
 	data.append("tipo", tipo);
 	const response = await ajax_function(data, "buscar_documento");
-	console.log(response)
 	if (response.success) {
 		let extencion = "image/png";
 		//pregunta si el archivo tiene extencion

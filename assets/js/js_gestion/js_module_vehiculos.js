@@ -59,9 +59,7 @@ const buscarFotoVehiculo = async (documento, tipo) => {
 	data.append("nombreDocumento", documento);
 	data.append("tipo", tipo);
 	const response = await ajax_function(data, "buscar_documento");
-	console.log(response)
 	if (response.success) {
-
 		let byteCharacters = atob(response.data.base64);
 		let byteNumbers = new Array(byteCharacters.length);
 		for (let i = 0; i < byteCharacters.length; i++) {
