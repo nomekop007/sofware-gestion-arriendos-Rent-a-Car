@@ -8,11 +8,11 @@
     <meta name="author" content="nomekop007">
 
 
-    <meta http-equiv="Expires" content="0">
+    <!--  <meta http-equiv="Expires" content="0">
     <meta http-equiv="Last-Modified" content="0">
     <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
     <meta http-equiv="Pragma" content="no-cache">
-
+ -->
     <link rel="shortcut icon" href="<?php echo base_route() ?>assets/images/logo3.png">
     <title>Gestino de Arriendos</title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/sweetalert2.min.css">
@@ -48,9 +48,9 @@
 
 <!-- importaciones -->
 <script src="<?php echo base_route(); ?>assets/js/jquery-3.3.1.min.js"></script>
-<script src="<?php echo base_route(); ?>assets/js/inicioSesion.js"></script>
 <script src="<?php echo base_route(); ?>assets/js/sweetalert2.all.min.js"></script>
+<script src="<?php echo base_route(); ?>assets/js/inicioSesion.js?v=<?php echo version(); ?>"></script>
 <!-- importacion utilidades -->
-<script src="<?php echo base_route() ?>assets/js/utilidades.js"></script>
+<script src="<?php echo base_route() ?>assets/js/utilidades.js?v=<?php echo version(); ?>"></script>
 
 </html>
