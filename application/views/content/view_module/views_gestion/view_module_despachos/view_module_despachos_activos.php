@@ -281,7 +281,8 @@
         <form class="needs-validation" id="form_pagos_pendientes" novalidate>
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalPagoArriendoLabel"></h5>
+                    <h5 class="modal-title" id="modalPagoArriendoLabel">Actualizacion de pago, arriendo <span
+                            id="numero_arriendo_pago">Nº</span> </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

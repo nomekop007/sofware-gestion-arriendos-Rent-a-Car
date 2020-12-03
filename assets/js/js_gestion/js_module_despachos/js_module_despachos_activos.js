@@ -69,6 +69,7 @@ const buscarArriendoFinalizar = async (id_arriendo) => {
 
 
 const mostrarPagosPendientes = ({ arrayPago, totalPago, arriendo }) => {
+	$("#numero_arriendo_pago").html("Nº " + arriendo.id_arriendo)
 	const formatter = new Intl.NumberFormat("CL");
 	let n = 1;
 	arrayPago.map(({ pago, pagoArriendo }) => {
