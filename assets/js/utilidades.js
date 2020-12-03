@@ -229,3 +229,27 @@ const resizeBase64Img = (base64, newWidth, newHeight, level) => {
 
 
 
+const buscarDocumento = async (documento, tipo) => {
+	const data = new FormData();
+	data.append("nombreDocumento", documento);
+	data.append("tipo", tipo);
+	const response = await ajax_function(data, "buscar_documento");
+	console.log(response)
+	if (response.success) {
+		let extencion = "image/png";
+		//pregunta si el archivo tiene extencion
+		response.data.nombre.includes(".pdf") ? extencion = "application/pdf" : extencion = "image/png";
+		let byteCharacters = atob(response.data.base64);
+		let byteNumbers = new Array(byteCharacters.length);
+		for (let i = 0; i < byteCharacters.length; i++) {
+			byteNumbers[i] = byteCharacters.charCodeAt(i);
+		}
+		let byteArray = new Uint8Array(byteNumbers);
+		let file = new Blob([byteArray], { type: `${extencion};base64` });
+		let fileURL = URL.createObjectURL(file);
+		window.open(fileURL);
+	}
+}
+
+
+

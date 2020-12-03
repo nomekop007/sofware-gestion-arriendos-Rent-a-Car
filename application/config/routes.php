@@ -11,8 +11,11 @@ $route['cargar_panel'] = 'Sesion_controller/cargarPanel';
 $route['modulos_gestion'] = 'Modulo_controller/cargarModulosGestion';
 $route['modulos_atencion'] = 'Modulo_controller/cargarModulosAtencion';
 
+/* ruta de controller utils */
+$route['buscar_documento'] = 'Utils_controller/buscarDocumento';
+
 /* rutas de controller region */
-$route["cargar_regiones"] = 'Region_controller/cargarRegiones';
+$route['cargar_regiones'] = 'Region_controller/cargarRegiones';
 
 /* rutas de controller sucursal */
 $route['cargar_Sucursales'] = 'Sucursal_controller/cargarSucursales';

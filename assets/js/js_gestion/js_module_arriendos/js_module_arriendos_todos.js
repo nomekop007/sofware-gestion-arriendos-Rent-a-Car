@@ -31,6 +31,10 @@ const buscarArriendo = async (id_arriendo, option) => {
 
 
 
+
+
+
+
 const mostrarArriendoModalVer = (arriendo) => {
 
 	$("#body_editarArriendo").show();
@@ -101,66 +105,98 @@ const mostrarArriendoModalVer = (arriendo) => {
 
 
 
+
 	if (arriendo.estado_arriendo != "ANULADO") {
 		if (arriendo.requisito) {
-			if (arriendo.requisito.carnetFrontal_requisito) {
-				const a = document.createElement("span");
+			const requisito = arriendo.requisito;
+
+			if (requisito.carnetFrontal_requisito) {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(requisito.carnetFrontal_requisito, "requisito"));
 				a.textContent = "Foto carnet frontal";
 				a.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos").append(a);
 			}
-			if (arriendo.requisito.carnetTrasera_requisito) {
-				const a = document.createElement("span");
+			if (requisito.carnetTrasera_requisito) {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(requisito.carnetTrasera_requisito, "requisito"));
 				a.textContent = "Foto carnet Trasera";
 				a.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos").append(a);
 			}
-			if (arriendo.requisito.licenciaConducirFrontal_requisito) {
-				const a = document.createElement("span");
+			if (requisito.licenciaConducirFrontal_requisito) {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirFrontal_requisito, "requisito"));
 				a.textContent = "Foto licencia de conducir frontal";
 				a.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos").append(a);
 			}
-			if (arriendo.requisito.licenciaConducirTrasera_requisito) {
-				const a = document.createElement("span");
+			if (requisito.licenciaConducirTrasera_requisito) {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirTrasera_requisito, "requisito"));
 				a.textContent = "Foto licencia de conducir trasera";
 				a.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos").append(a);
 			}
-			if (arriendo.requisito.tarjetaCredito_requisito) {
-				const a = document.createElement("span");
-				a.textContent = "Foto Tarjeta de credito";
+			if (requisito.tarjetaCredito_requisito) {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(requisito.tarjetaCredito_requisito, "requisito"));
+				a.textContent = "Foto comprobante Tarjeta de credito";
 				a.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos").append(a);
 			}
-			if (arriendo.requisito.chequeGarantia_requisito) {
-				const a = document.createElement("span");
+			if (requisito.chequeGarantia_requisito) {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(requisito.chequeGarantia_requisito, "requisito"));
 				a.className = "badge badge-pill badge-info m-1";
-				a.textContent = "Foto cheque en garantia";
+				a.textContent = "Foto comprobante cheque ";
 				document.getElementById("card_documentos").append(a);
 			}
-			if (arriendo.requisito.comprobanteDomicilio_requisito) {
-				const a = document.createElement("span");
+			if (requisito.comprobanteDomicilio_requisito) {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(requisito.comprobanteDomicilio_requisito, "requisito"));
 				a.textContent = "Foto comprobante de domicilio";
 				a.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos").append(a);
 			}
-			if (arriendo.requisito.cartaRemplazo_requisito) {
-				const a = document.createElement("span");
+			if (requisito.cartaRemplazo_requisito) {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(requisito.cartaRemplazo_requisito, "requisito"));
 				a.textContent = "Foto carta de remplazo";
 				a.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos").append(a);
 			}
-			if (arriendo.requisito.boletaEfectivo_requisito) {
-				const a = document.createElement("span");
-				a.textContent = "Foto boleta efectivo";
+			if (requisito.boletaEfectivo_requisito) {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(requisito.boletaEfectivo_requisito, "requisito"));
+				a.textContent = "Foto comprobante efectivo";
 				a.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos").append(a);
 			}
 
+
+			if (arriendo.despacho) {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(arriendo.despacho.actasEntrega.documento, "acta"));
+				a.textContent = "Acta de entrega";
+				a.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(a);
+			}
+			let numeroContrato = 1;
+			if (arriendo.contratos) {
+				arriendo.contratos.map(contrato => {
+					const a = document.createElement("button");
+					a.addEventListener("click", () => buscarDocumento(contrato.documento, "contrato"));
+					a.textContent = `Contrato Nº${numeroContrato}`;
+					a.className = "badge badge-pill badge-info m-1";
+					document.getElementById("card_documentos").append(a);
+					numeroContrato++;
+				})
+			}
 		} else {
 			$("#formSubirDocumentos").show();
 		}
+
 		if (arriendo.garantia) {
 			$("#inputEditarGarantiaArriendo").val(arriendo.garantia.modosPago.nombre_modoPago);
 			switch (arriendo.garantia.id_modoPago) {
@@ -269,7 +305,6 @@ const mostrarContratoModalContrato = async (data) => {
 	$("#spinner_btn_firmarContrato").hide();
 	$("#formSpinnerContrato").hide();
 };
-
 
 
 
@@ -501,6 +536,8 @@ $(document).ready(() => {
 			});
 		}
 	})();
+
+
 
 
 

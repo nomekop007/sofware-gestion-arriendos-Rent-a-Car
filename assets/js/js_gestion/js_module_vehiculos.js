@@ -15,11 +15,13 @@ const buscarVehiculo = async (patente) => {
 		//se pregunta si tiene imagen el vehiculo
 		if (vehiculo.foto_vehiculo) {
 			//se busca la url del storage
-			document.getElementById("imagen").src =
-				storage + "fotosVehiculos/" + vehiculo.foto_vehiculo;
+
+			buscarFotoVehiculo(vehiculo.foto_vehiculo, "fotoVehiculo");
+
+			/* 		document.getElementById("imagen").src =
+						storage + "fotosVehiculos/" + vehiculo.foto_vehiculo; */
 		} else {
-			document.getElementById("imagen").src =
-				base_route + "assets/images/imageDefault.png";
+			document.getElementById("imagen").src = base_route + "assets/images/imageDefault.png";
 		}
 		$("#inputEditarPatente").val(vehiculo.patente_vehiculo);
 		$("#exampleModalLongTitle").text(
@@ -48,6 +50,29 @@ const buscarVehiculo = async (patente) => {
 	}
 	$("#spinner_vehiculo").hide();
 };
+
+
+
+
+const buscarFotoVehiculo = async (documento, tipo) => {
+	const data = new FormData();
+	data.append("nombreDocumento", documento);
+	data.append("tipo", tipo);
+	const response = await ajax_function(data, "buscar_documento");
+	console.log(response)
+	if (response.success) {
+
+		let byteCharacters = atob(response.data.base64);
+		let byteNumbers = new Array(byteCharacters.length);
+		for (let i = 0; i < byteCharacters.length; i++) {
+			byteNumbers[i] = byteCharacters.charCodeAt(i);
+		}
+		let byteArray = new Uint8Array(byteNumbers);
+		let file = new Blob([byteArray], { type: `image/png;base64` });
+		let fileURL = URL.createObjectURL(file);
+		document.getElementById("imagen").src = fileURL;
+	}
+}
 
 const limpiarCampos = () => {
 	$("#spinner_vehiculo").show();
