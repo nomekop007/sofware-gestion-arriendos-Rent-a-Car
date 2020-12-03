@@ -20,7 +20,6 @@
     <!-- se envia la urls a los js -->
     <input id="url" value="<?php echo base_url(); ?>" hidden />
     <input id="route" value="<?php echo base_route(); ?>" hidden />
-    <input id="storage" value="<?php echo api_storage(); ?>" hidden />
 
 
 

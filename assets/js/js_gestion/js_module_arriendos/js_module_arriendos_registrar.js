@@ -102,12 +102,15 @@ $(document).ready(() => {
 	cargarOlder("inputVigencia");
 
 
+	cargarVehiculos();
+	cargarEmpresasRemplazo();
+
+
 
 	//cargar vehiculos en select
-	(cargarVehiculos = async () => {
+	const cargarVehiculos = async () => {
 		//select2 de los vehiculos
 		$("#select_vehiculos").select2(lenguajeSelect2);
-
 		const data = new FormData();
 		data.append("inputSucursal", $("#selectSucursal").val());
 		const response = await ajax_function(data, "cargar_VehiculosPorSucursal");
@@ -123,11 +126,11 @@ $(document).ready(() => {
 				$("#select_vehiculos").attr("disabled", false);
 			}
 		}
-	})();
+	}
 
 
 
-	(cargarEmpresasRemplazo = async () => {
+	const cargarEmpresasRemplazo = async () => {
 		const response = await ajax_function(null, "cargar_empresasRemplazo");
 		if (response.success) {
 			const select = document.getElementById("inputCodigoEmpresaRemplazo");
@@ -138,7 +141,10 @@ $(document).ready(() => {
 				select.appendChild(option);
 			});
 		}
-	})();
+	}
+
+
+
 
 	$('#select_vehiculos').on('select2:select', async (e) => {
 		const patente = e.params.data.id;
