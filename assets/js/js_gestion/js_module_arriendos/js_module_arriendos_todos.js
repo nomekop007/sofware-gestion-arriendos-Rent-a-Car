@@ -34,7 +34,6 @@ const buscarArriendo = async (id_arriendo, option) => {
 
 
 
-
 const mostrarArriendoModalVer = (arriendo) => {
 
 	$("#body_editarArriendo").show();
@@ -505,8 +504,6 @@ $(document).ready(() => {
 
 	$("#nav-arriendos-tab").click(() => refrescarTabla());
 
-	cargarAccesorios();
-
 
 	const cargarArriendos = async () => {
 		$("#spinner_tablaTotalArriendos").show();
@@ -520,8 +517,7 @@ $(document).ready(() => {
 	};
 
 
-
-	const cargarAccesorios = async () => {
+	cargarAccesorios = async () => {
 		const response = await ajax_function(null, "cargar_accesorios");
 		if (response.success) {
 			$.each(response.data, (i, o) => {
@@ -539,6 +535,7 @@ $(document).ready(() => {
 			});
 		}
 	}
+	cargarAccesorios();
 
 
 

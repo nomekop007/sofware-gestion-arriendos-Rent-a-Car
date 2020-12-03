@@ -102,15 +102,13 @@ $(document).ready(() => {
 	cargarOlder("inputVigencia");
 
 
-	cargarVehiculos();
-	cargarEmpresasRemplazo();
-
-
 
 	//cargar vehiculos en select
+
 	const cargarVehiculos = async () => {
 		//select2 de los vehiculos
 		$("#select_vehiculos").select2(lenguajeSelect2);
+
 		const data = new FormData();
 		data.append("inputSucursal", $("#selectSucursal").val());
 		const response = await ajax_function(data, "cargar_VehiculosPorSucursal");
@@ -127,7 +125,7 @@ $(document).ready(() => {
 			}
 		}
 	}
-
+	cargarVehiculos();
 
 
 	const cargarEmpresasRemplazo = async () => {
@@ -142,8 +140,7 @@ $(document).ready(() => {
 			});
 		}
 	}
-
-
+	cargarEmpresasRemplazo();
 
 
 	$('#select_vehiculos').on('select2:select', async (e) => {
