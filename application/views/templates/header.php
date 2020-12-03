@@ -8,10 +8,12 @@
     <meta name="description" content="sofware de arriendo">
     <meta name="author" content="nomekop007">
 
-    <meta http-equiv='cache-control' content='no-cache'>
-    <meta http-equiv='expires' content='0'>
-    <meta http-equiv='pragma' content='no-cache'>
 
+
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+    <meta http-equiv="Pragma" content="no-cache">
 
     <title>Dashboard Rentacar</title>
 
@@ -44,13 +46,14 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/owl.theme.default.min.css">
 
     <!-- dashboard core CSS -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/dashboard.css">
     <!-- Mi estilos css -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/myEstilo.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/myEstilo.css">
 
 
     <!-- importaciones del jquery -->
     <script src="<?php echo base_route() ?>assets/js/jquery-3.3.1.min.js"></script>
+
 
     <!-- importacion utilidades -->
     <script src="<?php echo base_route() ?>assets/js/funcionesAjax.js"></script>

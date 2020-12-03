@@ -1,11 +1,15 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+header("Expires: Sat, 1 Jul 2000 05:00:00 GMT"); // Fecha en el pasado
+
 class Modulo_controller extends CI_Controller
 {
 
     public function cargarModulosGestion()
     {
+
         $rol = $this->session->userdata("rol");
 
         if ($this->session->userdata("estado") === "true") {
@@ -77,6 +81,7 @@ class Modulo_controller extends CI_Controller
 
     public function cargarModulosAtencion()
     {
+
         $rol = $this->session->userdata("rol");
 
         if ($this->session->userdata("estado") === "true") {
@@ -93,6 +98,7 @@ class Modulo_controller extends CI_Controller
                         redirect(base_url());
                     }
                     break;
+
                 case 2:
                     if ($rol == 1 || $rol == 2) {
                         $this->load->view('content/view_module/views_atencion/view_module_danioVehiculo');

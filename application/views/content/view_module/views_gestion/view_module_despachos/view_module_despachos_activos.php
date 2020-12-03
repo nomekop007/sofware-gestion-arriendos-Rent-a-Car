@@ -281,14 +281,13 @@
         <form class="needs-validation" id="form_pagos_pendientes" novalidate>
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalPagoArriendoLabel"></h5>
+                    <h5 class="modal-title" id="modalPagoArriendoLabel">Actualizacion de pago, arriendo <span
+                            id="numero_arriendo_pago">Nº</span> </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-
-
                     <div class="container card">
                         <table class="table">
                             <thead>
@@ -297,6 +296,7 @@
                                     <th scope="col">Deudor</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Deuda</th>
+                                    <th scope="col">Dias</th>
                                     <th scope="col">Fecha registro</th>
                                 </tr>
                             </thead>
@@ -304,10 +304,33 @@
                             </tbody>
                         </table>
                         <h5 id="total_a_pagar"></h5>
-                        <br>
+                        <h6 id="dias_totales"></h6>
+                        <div id="descuento_copago">
+                            <br>
+                            <div class="form-row">
+                                <div class="form-group col-xl-12">
+                                    <span>en caso de que el cliente devuelva el vehículo antes de tiempo , se debe
+                                        aplicar un descuento en base a los días restantes.</span>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <label for="descuento_pago">descuento ($) </label>
+                                    <input oninput="this.value = soloNumeros(this);recalcularPago(this.value)"
+                                        maxLength="11" value=0 id="descuento_pago" name="descuento_pago" type="number"
+                                        class="form-control" required>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <label for="dias_restantes">dias restantes</label>
+                                    <input id="dias_restantes" name="dias_restantes" type="text" class="form-control">
+                                </div>
+                                <div class="form-group col-xl-12">
+                                    <label for="inputObservaciones">Observaciones</label>
+                                    <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
+                                        name="inputObservaciones" rows="3" maxLength="300"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <br><br>
-
                     <div class="container card">
                         <br>
                         <div class="container">

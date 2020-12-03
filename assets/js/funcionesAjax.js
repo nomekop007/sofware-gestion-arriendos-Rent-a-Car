@@ -44,8 +44,8 @@ async function ajax_function(data, dataUrl) {
 				console.log(dataUrl + " ERROR SERVER!");
 				Swal.fire({
 					icon: "error",
-					title: "Error en el servidor : " + dataUrl,
-					text: response.msg,
+					title: response.msg,
+					text: "Error en el servidor : " + dataUrl,
 				});
 			}
 		},
@@ -53,8 +53,8 @@ async function ajax_function(data, dataUrl) {
 			console.log(dataUrl + " ERROR CLIENT!");
 			Swal.fire({
 				icon: "error",
-				title: "Error en el cliente : " + dataUrl,
-				text: "contacte con informatica",
+				title: "contacte con informatica",
+				text: "Error en el cliente : " + dataUrl,
 			});
 		},
 	});

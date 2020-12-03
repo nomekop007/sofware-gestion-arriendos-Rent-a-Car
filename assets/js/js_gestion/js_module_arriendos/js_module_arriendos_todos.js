@@ -161,12 +161,28 @@ const mostrarArriendoModalVer = (arriendo) => {
 		} else {
 			$("#formSubirDocumentos").show();
 		}
-
-
-		if (arriendo.garantia == null) {
+		if (arriendo.garantia) {
+			$("#inputEditarGarantiaArriendo").val(arriendo.garantia.modosPago.nombre_modoPago);
+			switch (arriendo.garantia.id_modoPago) {
+				case 1:
+					$("#card_cheque").hide();
+					$("#card_tarjeta").hide();
+					$("#card_efectivo").show();
+					break;
+				case 2:
+					$("#card_tarjeta").hide();
+					$("#card_efectivo").hide();
+					$("#card_cheque").show();
+					break;
+				case 3:
+					$("#card_efectivo").hide();
+					$("#card_cheque").hide();
+					$("#card_tarjeta").show();
+					break;
+			}
+		} else {
 			$("#formGarantia").show();
 		}
-
 	}
 
 };
@@ -219,7 +235,7 @@ const mostrarArriendoModalPago = (arriendo) => {
 		}
 	} else {
 		Swal.fire({
-			icon: "error",
+			icon: "warning",
 			title: "este pago ya fue emitido",
 			text: "ya se registro este pago ",
 		});
@@ -393,7 +409,7 @@ const limpiarCampos = () => {
 	$("#formPagoArriendo")[0].reset();
 	$("#formSubirDocumentos")[0].reset();
 	$("#formGarantia")[0].reset();
-
+	$("#formEditarArriendo")[0].reset();
 
 
 	$("#formSubirDocumentos").hide();
@@ -613,7 +629,7 @@ $(document).ready(() => {
 				Swal.fire(
 					"debe ingresar el pago correspondiente",
 					"falta ingresar datos en el formulario",
-					"error"
+					"warning"
 				);
 				return;
 			}
@@ -622,7 +638,23 @@ $(document).ready(() => {
 			Swal.fire(
 				"Error en los totales",
 				"corriga los totales del arriendo",
-				"error"
+				"warning"
+			);
+			return;
+		}
+
+
+
+		if (
+			$("#inputPagoEmpresa").val().length == 0 ||
+			$("#inputValorCopago").val().length == 0 ||
+			$("#inputSubTotalArriendo").val().length == 0 ||
+			$("#inputDescuento").val().length == 0
+		) {
+			Swal.fire(
+				"Error en el formulario",
+				"coloque 0 en los campos vacios",
+				"warning"
 			);
 			return;
 		}
@@ -696,11 +728,12 @@ $(document).ready(() => {
 						"se registraron los datos pertinentes!",
 						"success"
 					);
+					$("#modal_pago_arriendo").modal("toggle");
 				}
 
 				$("#btn_registrar_pago").attr("disabled", false);
 				$("#spinner_btn_registrarPago").hide();
-				$("#modal_pago_arriendo").modal("toggle");
+
 			}
 		});
 	});

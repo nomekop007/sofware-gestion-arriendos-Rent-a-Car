@@ -1,5 +1,7 @@
 const arrayImagesRecepcion = [];
 const array_id_pagos_pendientes = [];
+let totalAPagar_arriendo = 0;
+
 
 
 
@@ -66,24 +68,51 @@ const buscarArriendoFinalizar = async (id_arriendo) => {
 
 
 
-const mostrarPagosPendientes = ({ arrayPago, totalPago }) => {
+const mostrarPagosPendientes = ({ arrayPago, totalPago, arriendo }) => {
+	$("#numero_arriendo_pago").html("Nº " + arriendo.id_arriendo)
 	const formatter = new Intl.NumberFormat("CL");
 	let n = 1;
-	arrayPago.map((pago) => {
+	arrayPago.map(({ pago, pagoArriendo }) => {
+		console.log(pagoArriendo)
 		let html = `<tr>
-						<th scope="row">${n}</th>
-						<td>${pago.deudor_pago.replace("@", "")}</td>
-						<td>${pago.estado_pago}</td>
-						<td> $ ${formatter.format(pago.total_pago)}</td>
-						<td>${formatearFechaHora(pago.createdAt)}</td>
+						<th scope="row"> ${n} </th>
+						<td> ${pago.deudor_pago.replace("@", "")} </td>
+						<td> ${pago.estado_pago}</td>
+						<td> $ ${formatter.format(pago.total_pago)} </td>
+						<td> ${pagoArriendo.dias_pagoArriendo} </td>
+						<td> ${formatearFechaHora(pago.createdAt)} </td>
 					</tr>`;
 		$("#tablaPago").append(html);
 		n++;
 		array_id_pagos_pendientes.push(pago.id_pago);
 	})
-	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(totalPago)}`)
+
+	totalAPagar_arriendo = totalPago;
+
+	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(totalAPagar_arriendo)} `);
+	$("#dias_totales").html(`dias totales: ${arriendo.diasAcumulados_arriendo}`);
+
+	if (arriendo.tipo_arriendo === "REEMPLAZO") {
+		$("#descuento_copago").show();
+
+		const fechaFinal = moment(arriendo.fechaRecepcion_arriendo);
+		const fechaActual = moment();
+		const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
+		const horasRestantes = moment.utc(fechaFinal.diff(moment())).format("HH");
+
+		$("#dias_restantes").val(`${diasRestantes} ${diasRestantes == 1 ? "dia" : "dias"}  ${horasRestantes} horas`);
+	}
 }
 
+
+const recalcularPago = (desc) => {
+	const formatter = new Intl.NumberFormat("CL");
+
+	let descuento = Number(desc);
+	let precioAntiguo = Number(totalAPagar_arriendo);
+	let precioNuevo = precioAntiguo - descuento;
+	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(precioNuevo)} `);
+}
 
 
 
@@ -132,20 +161,24 @@ const limpiarFormulario = () => {
 	$("#formSpinner_finalizar_arriendo").show();
 	$("#body_recepcion_arriendo").hide();
 	$("#body_extender_arriendo").hide();
+	$("#descuento_copago").hide();
+
 	$("#numeroArriendo").html("")
 	$("#spinner_btn_actualizar_pago").hide();
 	$("#spinner_btn_finalizar_contrato").hide();
 	$("#spinner_btn_extenderArriendo").hide();
 	$("#spinner_btn_registrar_danio").hide();
-	$("#formExtenderArriendo")[0].reset();
 	arrayImagesRecepcion.length = 0;
 	array_id_pagos_pendientes.length = 0;
+	totalAPagar_arriendo = 0;
 	$("#carrucel_recepcion").empty();
 	$("#tablaPago").empty();
 	$("#id_vehiculo_recepcion").val("");
 	$("#id_arriendo_recepcion").val("");
 	$("#input_descripcion_danio").val("");
 
+	$("#formExtenderArriendo")[0].reset();
+	$("#form_pagos_pendientes")[0].reset();
 }
 
 
@@ -200,7 +233,7 @@ $(document).ready(() => {
 			Swal.fire(
 				"faltan datos , o datos erroneos",
 				"corriga el formulario!",
-				"error"
+				"warning"
 			);
 			return;
 		}
@@ -208,7 +241,7 @@ $(document).ready(() => {
 			Swal.fire(
 				"Extencion fallida",
 				"la extencion del contrato tiene que ser mayor a 1 dia",
-				"error"
+				"warning"
 			);
 			return;
 		}
@@ -252,7 +285,7 @@ $(document).ready(() => {
 
 		if (arrayImagesRecepcion.length === 0) {
 			Swal.fire({
-				icon: "error",
+				icon: "warning",
 				title: "falta tomar fotos al vehiculo!",
 			});
 			return;
@@ -260,7 +293,7 @@ $(document).ready(() => {
 
 		if ($("#input_kilometraje_salida").val() == 0) {
 			Swal.fire({
-				icon: "error",
+				icon: "warning",
 				title: "falta colocar el kilometraje del vehiculo",
 			});
 			return;
@@ -359,6 +392,17 @@ $(document).ready(() => {
 			return;
 		}
 
+		const inputDescuento = $("#descuento_pago").val();
+		if (inputDescuento.length == 0 || inputDescuento < 0) {
+			Swal.fire(
+				"campo vacio",
+				"rellene los campos erroneos",
+				"warning"
+			);
+			return;
+		}
+
+
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de guardar los cambios!",
@@ -373,27 +417,33 @@ $(document).ready(() => {
 				$("#actualizar_pago_arriendo").attr("disabled", true);
 				const form = $("#form_pagos_pendientes")[0];
 				const data = new FormData(form);
+				data.append("arrayPagos", JSON.stringify(array_id_pagos_pendientes));
+				data.append("descuento_pago", inputDescuento);
+				data.append("inputDocumento", inputFileFacturacion);
+				data.append("inputObservaciones", $("#inputObservaciones").val());
+				data.append("inputEstado", "PAGADO");
 
-				const responseFactura = await guardarDatosFactura(data);
-				if (responseFactura.success) {
-					data.append("inputEstado", "PAGADO");
-					data.append("inputDocumento", inputFileFacturacion);
-					data.append("id_facturacion", responseFactura.data.id_facturacion);
-					data.append("arrayPagos", JSON.stringify(array_id_pagos_pendientes));
 
-					const responseDocumentoFActura = await guardarDocumentoFactura(data);
-					if (responseDocumentoFActura.success) {
 
-						const responsePago = await actualizarPagos(data);
-						if (responsePago.success) {
-							Swal.fire(
-								"Pago Actualizado!",
-								"se a actualizado exitosamente el pago",
-								"success"
-							)
-							$("#modalPagoArriendo").modal("toggle");
+				const responseDescuento = await descuentoPago(data);
+				if (responseDescuento.success) {
+					const responseFactura = await guardarDatosFactura(data);
+					if (responseFactura.success) {
+						data.append("id_facturacion", responseFactura.data.id_facturacion);
+						const responseDocumentoFActura = await guardarDocumentoFactura(data);
+						if (responseDocumentoFActura.success) {
+							const responsePago = await actualizarPagos(data);
+							if (responsePago.success) {
+								Swal.fire(
+									"Pago Actualizado!",
+									"se a actualizado exitosamente el pago",
+									"success"
+								)
+								$("#modalPagoArriendo").modal("toggle");
+							}
 						}
 					}
+
 				}
 				$("#spinner_btn_actualizar_pago").hide();
 				$("#actualizar_pago_arriendo").attr("disabled", false);
@@ -408,7 +458,7 @@ $(document).ready(() => {
 		const inputDescripcion = $("#input_descripcion_danio").val();
 		if (arrayImagesRecepcion.length === 0) {
 			Swal.fire({
-				icon: "error",
+				icon: "warning",
 				title: "falta tomar fotos al vehiculo!",
 			});
 			return;
@@ -450,6 +500,13 @@ $(document).ready(() => {
 		});
 
 	});
+
+
+
+	const descuentoPago = async (data) => {
+		return await ajax_function(data, "aplicarDescuento_UltimoPago");
+	}
+
 
 	const guardarDatosFactura = async (data) => {
 		return await ajax_function(data, "registrar_facturacion");
