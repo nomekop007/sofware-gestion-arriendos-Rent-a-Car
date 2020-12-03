@@ -20,9 +20,12 @@ function soloNumeros(evt) {
 
 // Script para cargar año vehiculo
 function cargarOlder(input) {
-	let n = new Date().getFullYear();
+	let n = new Date().getFullYear() + 1;
 	let select = document.getElementById(input);
-	for (let i = n; i >= 1970; i--) select.options.add(new Option(i, i));
+	for (let i = n; i >= 1970; i--) {
+
+		select.options.add(new Option(i, i));
+	}
 }
 
 // Script para validar los campos de un formulario
