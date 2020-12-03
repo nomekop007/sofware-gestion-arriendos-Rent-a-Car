@@ -295,6 +295,7 @@
                                     <th scope="col">Deudor</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Deuda</th>
+                                    <th scope="col">Dias</th>
                                     <th scope="col">Fecha registro</th>
                                 </tr>
                             </thead>

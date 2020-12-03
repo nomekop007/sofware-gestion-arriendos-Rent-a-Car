@@ -71,13 +71,15 @@ const buscarArriendoFinalizar = async (id_arriendo) => {
 const mostrarPagosPendientes = ({ arrayPago, totalPago, arriendo }) => {
 	const formatter = new Intl.NumberFormat("CL");
 	let n = 1;
-	arrayPago.map((pago) => {
+	arrayPago.map(({ pago, pagoArriendo }) => {
+		console.log(pagoArriendo)
 		let html = `<tr>
-						<th scope="row">${n}</th>
-						<td>${pago.deudor_pago.replace("@", "")}</td>
-						<td>${pago.estado_pago}</td>
-						<td> $ ${formatter.format(pago.total_pago)}</td>
-						<td>${formatearFechaHora(pago.createdAt)}</td>
+						<th scope="row"> ${n} </th>
+						<td> ${pago.deudor_pago.replace("@", "")} </td>
+						<td> ${pago.estado_pago}</td>
+						<td> $ ${formatter.format(pago.total_pago)} </td>
+						<td> ${pagoArriendo.dias_pagoArriendo} </td>
+						<td> ${formatearFechaHora(pago.createdAt)} </td>
 					</tr>`;
 		$("#tablaPago").append(html);
 		n++;
