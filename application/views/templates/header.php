@@ -10,17 +10,16 @@
 
 
 
-    <meta http-equiv="Expires" content="0">
+    <!-- <meta http-equiv="Expires" content="0">
     <meta http-equiv="Last-Modified" content="0">
     <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
-    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache"> -->
 
     <title>Dashboard Rentacar</title>
 
     <!-- se envia la urls a los js -->
     <input id="url" value="<?php echo base_url(); ?>" hidden />
     <input id="route" value="<?php echo base_route(); ?>" hidden />
-    <input id="storage" value="<?php echo api_storage(); ?>" hidden />
 
 
 
@@ -48,7 +47,8 @@
     <!-- dashboard core CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/dashboard.css">
     <!-- Mi estilos css -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/myEstilo.css">
+    <link rel="stylesheet" type="text/css"
+        href="<?php echo base_route() ?>assets/css/myEstilo.css?v=<?php echo version(); ?>">
 
 
     <!-- importaciones del jquery -->
@@ -56,8 +56,8 @@
 
 
     <!-- importacion utilidades -->
-    <script src="<?php echo base_route() ?>assets/js/funcionesAjax.js"></script>
-    <script src="<?php echo base_route() ?>assets/js/utilidades.js"></script>
+    <script src="<?php echo base_route() ?>assets/js/funcionesAjax.js?v=<?php echo version(); ?>"></script>
+    <script src="<?php echo base_route() ?>assets/js/utilidades.js?v=<?php echo version(); ?>"></script>
 
 
 </head>

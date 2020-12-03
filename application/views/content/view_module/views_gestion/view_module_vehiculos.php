@@ -333,4 +333,4 @@
 
 
 <!-- importando archivo js vehiculos -->
-<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_vehiculos.js"></script>
+<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_vehiculos.js?v=<?php echo version(); ?>"></script>

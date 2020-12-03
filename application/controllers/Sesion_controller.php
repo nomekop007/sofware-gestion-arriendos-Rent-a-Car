@@ -1,9 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-header("Expires: Sat, 1 Jul 2000 05:00:00 GMT"); // Fecha en el pasado
-
 class Sesion_controller extends CI_Controller
 {
 

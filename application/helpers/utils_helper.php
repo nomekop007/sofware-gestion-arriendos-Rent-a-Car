@@ -6,3 +6,10 @@ function borrarImagenes($arrayPath)
         unlink($path);
     }
 }
+
+//se cambia cada vez que se actualize los js
+function version()
+{
+    // return time();
+    return 6;
+}

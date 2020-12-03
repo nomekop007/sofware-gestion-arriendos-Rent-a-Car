@@ -20,9 +20,12 @@ function soloNumeros(evt) {
 
 // Script para cargar año vehiculo
 function cargarOlder(input) {
-	let n = new Date().getFullYear();
+	let n = new Date().getFullYear() + 1;
 	let select = document.getElementById(input);
-	for (let i = n; i >= 1970; i--) select.options.add(new Option(i, i));
+	for (let i = n; i >= 1970; i--) {
+
+		select.options.add(new Option(i, i));
+	}
 }
 
 // Script para validar los campos de un formulario
@@ -223,6 +226,29 @@ const resizeBase64Img = (base64, newWidth, newHeight, level) => {
 		};
 	});
 };
+
+
+
+const buscarDocumento = async (documento, tipo) => {
+	const data = new FormData();
+	data.append("nombreDocumento", documento);
+	data.append("tipo", tipo);
+	const response = await ajax_function(data, "buscar_documento");
+	if (response.success) {
+		let extencion = "image/png";
+		//pregunta si el archivo tiene extencion
+		response.data.nombre.includes(".pdf") ? extencion = "application/pdf" : extencion = "image/png";
+		let byteCharacters = atob(response.data.base64);
+		let byteNumbers = new Array(byteCharacters.length);
+		for (let i = 0; i < byteCharacters.length; i++) {
+			byteNumbers[i] = byteCharacters.charCodeAt(i);
+		}
+		let byteArray = new Uint8Array(byteNumbers);
+		let file = new Blob([byteArray], { type: `${extencion};base64` });
+		let fileURL = URL.createObjectURL(file);
+		window.open(fileURL);
+	}
+}
 
 
 

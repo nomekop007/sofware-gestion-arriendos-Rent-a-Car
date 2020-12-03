@@ -167,7 +167,6 @@ $(document).ready(() => {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				$("#spinner_btn_confirmarActaEntrega").show();
-				$("#btn_firmar_actaEntrega").attr("disabled", true);
 				$("#btn_confirmar_actaEntrega").attr("disabled", true);
 				const form = $("#formActaEntrega")[0];
 				const data = new FormData(form);
@@ -192,7 +191,6 @@ $(document).ready(() => {
 	});
 
 	$("#btn_firmar_actaEntrega").click(async () => {
-		$("#btn_firmar_actaEntrega").attr("disabled", true);
 		$("#spinner_btn_firmarActaEntrega").show();
 		obtenerGeolocalizacion();
 	});
@@ -248,9 +246,7 @@ $(document).ready(() => {
 			data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
 			data.append("arrayImages", JSON.stringify(arrayImages));
 			data.append("imageCombustible", url);
-
 			$("#spinner_btn_generarActaEntrega").show();
-
 			$("#recibido").text($("#inputRecibidorDespacho").val());
 			$("#entregado").text($("#inputEntregadorDespacho").val());
 			const response = await ajax_function(data, "generar_PDFactaEntrega");
@@ -261,7 +257,6 @@ $(document).ready(() => {
 				$("#body-documento").show();
 				$("#body-firma").show();
 				$("#body-sinContrato").hide();
-
 				mostrarVisorPDF(response.data.base64, [
 					"pdf_canvas_despacho",
 					"page_count_despacho",
@@ -272,16 +267,13 @@ $(document).ready(() => {
 				const a = document.getElementById("descargar_actaEntrega");
 				a.href = `data:application/pdf;base64,${response.data.base64}`;
 				a.download = `actaEntrega.pdf`;
-
 				base64_documento = response.data.base64;
-
 				if (response.data.firma1 && response.data.firma2) {
 					$("#btn_confirmar_actaEntrega").attr("disabled", false);
 				}
 			}
 			$("#spinner_btn_generarActaEntrega").hide();
 			$("#spinner_btn_firmarActaEntrega").hide();
-			$("#btn_firmar_actaEntrega").attr("disabled", false);
 			$("#btn_crear_ActaEntrega").attr("disabled", false);
 		} else {
 			Swal.fire({
@@ -310,7 +302,6 @@ $(document).ready(() => {
 	const capturarControlRecepcionArray = async () => {
 		//cacturando los accesorios
 		const matrizRecepcion = [];
-
 		matrizRecepcion.push(
 			$('[name="listA[]"]:checked')
 				.map(function () {
