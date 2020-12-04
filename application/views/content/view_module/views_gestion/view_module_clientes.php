@@ -55,6 +55,7 @@
                     </div>
                     <h6>Cargando Datos...</h6>
                 </div>
+                <br><br>
             </div>
             <div class="tab-pane fade" id="nav-empresas" role="tabpanel" aria-labelledby="nav-empresas-tab">
                 <div class="scroll">
@@ -89,6 +90,7 @@
                     </div>
                     <h6>Cargando Datos...</h6>
                 </div>
+                <br><br>
             </div>
             <div class="tab-pane fade" id="nav-conductores" role="tabpanel" aria-labelledby="nav-conductores-tab">
                 <div class="scroll">
@@ -123,6 +125,7 @@
                     <h6>Cargando Datos...</h6>
                 </div>
             </div>
+            <br><br>
         </div>
     </div>
 </main>
