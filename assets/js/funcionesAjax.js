@@ -28,35 +28,40 @@ function cargarSelect(ruta, idSelect) {
 }
 
 async function ajax_function(data, dataUrl) {
-	return await $.ajax({
-		url: base_url + dataUrl,
-		type: "post",
-		dataType: "json",
-		data: data,
-		enctype: "multipart/form-data",
-		processData: false,
-		contentType: false,
-		cache: false,
-		timeOut: false,
-		success: (response) => {
-			if (response.success) {
-				console.log(dataUrl + " SUCCESS!");
-			} else {
-				console.log(dataUrl + " ERROR SERVER!");
+
+	try {
+		return await $.ajax({
+			url: base_url + dataUrl,
+			type: "post",
+			dataType: "json",
+			data: data,
+			enctype: "multipart/form-data",
+			processData: false,
+			contentType: false,
+			cache: false,
+			timeOut: false,
+			success: (response) => {
+				if (response.success) {
+					console.log(dataUrl + " SUCCESS!");
+				} else {
+					console.log(dataUrl + " ERROR SERVER!");
+					Swal.fire({
+						icon: "error",
+						title: response.msg,
+						text: "Error en el servidor : " + dataUrl,
+					});
+				}
+			},
+			error: (error) => {
+				console.log(dataUrl + " ERROR CLIENT!");
 				Swal.fire({
 					icon: "error",
-					title: response.msg,
-					text: "Error en el servidor : " + dataUrl,
+					title: "contacte con informatica",
+					text: "Error en el cliente : " + dataUrl,
 				});
-			}
-		},
-		error: (error) => {
-			console.log(dataUrl + " ERROR CLIENT!");
-			Swal.fire({
-				icon: "error",
-				title: "contacte con informatica",
-				text: "Error en el cliente : " + dataUrl,
-			});
-		},
-	});
+			},
+		});
+	} catch (error) {
+		return { success: false, msg: error };
+	}
 }

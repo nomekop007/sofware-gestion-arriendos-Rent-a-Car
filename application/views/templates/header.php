@@ -44,6 +44,10 @@
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/owl.carousel.min.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/owl.theme.default.min.css">
 
+
+    <!-- input datatime core CSS -->
+    <link href="<?php echo base_route() ?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
     <!-- dashboard core CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/dashboard.css">
     <!-- Mi estilos css -->
@@ -53,6 +57,7 @@
 
     <!-- importaciones del jquery -->
     <script src="<?php echo base_route() ?>assets/js/jquery-3.3.1.min.js"></script>
+
 
 
     <!-- importacion utilidades -->

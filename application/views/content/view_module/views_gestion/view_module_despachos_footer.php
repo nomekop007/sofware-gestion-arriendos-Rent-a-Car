@@ -22,11 +22,9 @@ $("#l_despacho").addClass("card");
 
 
 <!-- importando archivo js despacho -->
-<script
-    src="<?php echo base_route() ?>assets/js/js_gestion/js_module_despachos/js_module_despachos_despacho.js?v=<?php echo version(); ?>">
+<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_despachos_despacho.js?v=<?php echo version(); ?>">
 </script>
-<script
-    src="<?php echo base_route() ?>assets/js/js_gestion/js_module_despachos/js_module_despachos_activos.js?v=<?php echo version(); ?>">
+<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_despachos_activos.js?v=<?php echo version(); ?>">
 </script>
 <script src="<?php echo base_route() ?>assets/js/canvasCombustible.js?v=<?php echo version(); ?>"></script>
 <script src="<?php echo base_route() ?>assets/js/canvasImgVehiculos.js?v=<?php echo version(); ?>"></script>

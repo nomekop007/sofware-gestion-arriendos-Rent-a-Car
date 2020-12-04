@@ -11,6 +11,13 @@
 <script src="<?php echo base_route() ?>assets/js/owl.carousel.min.js"></script>
 
 
+<!-- importacion input datatime -->
+<script type="text/javascript" src="<?php echo base_route() ?>assets/js/bootstrap-datetimepicker.min.js"
+    charset="UTF-8">
+</script>
+<script type="text/javascript" src="<?php echo base_route() ?>assets/js/bootstrap-datetimepicker.es.js" charset="UTF-8">
+</script>
+
 <!-- importacion moments -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
     integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="

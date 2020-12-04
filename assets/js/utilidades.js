@@ -108,6 +108,8 @@ function formatearFecha(fecha) {
 	return (fecha = f.toLocaleDateString("es-GB", opciones));
 }
 
+
+
 //lenguaje de los datatable
 var lenguaje = {
 	responsive: true,

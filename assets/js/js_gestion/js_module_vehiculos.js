@@ -14,15 +14,12 @@ const buscarVehiculo = async (patente) => {
 
 		//se pregunta si tiene imagen el vehiculo
 		if (vehiculo.foto_vehiculo) {
-			//se busca la url del storage
-
-			buscarFotoVehiculo(vehiculo.foto_vehiculo, "fotoVehiculo");
-
-			/* 		document.getElementById("imagen").src =
-						storage + "fotosVehiculos/" + vehiculo.foto_vehiculo; */
+			document.getElementById("imagen").src = await buscarFotoVehiculo(vehiculo.foto_vehiculo, "fotoVehiculo");
 		} else {
 			document.getElementById("imagen").src = base_route + "assets/images/imageDefault.png";
 		}
+
+
 		$("#inputEditarPatente").val(vehiculo.patente_vehiculo);
 		$("#exampleModalLongTitle").text(
 			"Editar Vehiculo " + vehiculo.patente_vehiculo
@@ -40,11 +37,11 @@ const buscarVehiculo = async (patente) => {
 		$("#inputEditarRegion").val(vehiculo.id_region);
 		$("#inputEditarCompra").val(vehiculo.compra_vehiculo);
 		$("#inputEditarPropietario").val(vehiculo.rut_propietario);
-		$("#inputEditarFechaCompra").val(
-			vehiculo.fechaCompra_vehiculo ?
-				vehiculo.fechaCompra_vehiculo.substring(0, 10) :
-				null
-		);
+
+
+		$("#dtp_input2").val(formatearFecha(vehiculo.fechaCompra_vehiculo ? vehiculo.fechaCompra_vehiculo : null));
+		$("#inputEditarFechaCompra").val(vehiculo.fechaCompra_vehiculo ? vehiculo.fechaCompra_vehiculo : null);
+
 		$("#inputCreateAt").val(formatearFechaHora(vehiculo.createdAt));
 		$("#modal_vehiculo").show();
 	}
@@ -67,9 +64,9 @@ const buscarFotoVehiculo = async (documento, tipo) => {
 		}
 		let byteArray = new Uint8Array(byteNumbers);
 		let file = new Blob([byteArray], { type: `image/png;base64` });
-		let fileURL = URL.createObjectURL(file);
-		document.getElementById("imagen").src = fileURL;
+		return URL.createObjectURL(file);
 	}
+	return base_route + "assets/images/imageDefault.png";
 }
 
 const limpiarCampos = () => {
@@ -97,6 +94,32 @@ $(document).ready(() => {
 	//cargar año vehiculo (input)
 	cargarOlder("inputedad");
 	cargarOlder("inputEditarEdad");
+
+
+	$('.form_datetime').datetimepicker({
+		format: "dd/mm/yyyy",
+		linkField: "inputFechaCompra",
+		linkFormat: "yyyy-mm-dd",
+		language: 'es',
+		autoclose: true,
+		todayBtn: true,
+		pickerPosition: "bottom-left"
+	});
+
+
+	$('.form_datetime2').datetimepicker({
+		format: "dd/mm/yyyy",
+		linkField: "inputEditarFechaCompra",
+		linkFormat: "yyyy-mm-dd",
+		language: 'es',
+		autoclose: true,
+		todayBtn: true,
+		pickerPosition: "bottom-left"
+	});
+
+
+
+
 
 	const cargarVehiculos = async () => {
 		$("#spinner_tablaVehiculos").show();

@@ -65,15 +65,29 @@
                     <div class="form-row">
                         <div class="form-group col-md-5">
                             <label for="inputFechaRecepcion_extenderPlazo">Fecha de recepcion</label>
-                            <input oninput="calcularDiasExtencion()" type="datetime-local" class="form-control"
-                                name="inputFechaRecepcion_extenderPlazo" id="inputFechaRecepcion_extenderPlazo" required
-                                disabled>
+                            <div class="input-group date form_datetime1 " data-link-field="dtp_input1">
+                                <input disabled required class="form-control" id="dtp_input1" size="16" type="text"
+                                    readonly>
+                                <span disabled class="input-group-addon"><span
+                                        class="glyphicon glyphicon-remove"></span></span>
+                                <span disabled class="input-group-addon"><span
+                                        class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input disabled hidden type="text" name="inputFechaRecepcion_extenderPlazo"
+                                id="inputFechaRecepcion_extenderPlazo" readonly required />
                         </div>
                         <div class="form-group col-md-5">
                             <label for="inputFechaExtender_extenderPlazo">Fecha a extender</label>
-                            <input oninput="calcularDiasExtencion()" type="datetime-local" class="form-control"
-                                name="inputFechaExtender_extenderPlazo" id="inputFechaExtender_extenderPlazo" required>
+                            <div class="input-group date form_datetime2 " data-link-field="dtp_input2">
+                                <input required class="form-control" id="dtp_input2" size="16" type="text" readonly
+                                    placeholder="ingrese fecha">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input hidden type="text" name="inputFechaExtender_extenderPlazo"
+                                id="inputFechaExtender_extenderPlazo" readonly required />
                         </div>
+
                         <div class="form-group col-md-2">
                             <label for="inputNumeroDias_extenderPlazo">Dias</label>
                             <input min="0" oninput="calcularDiasExtencion()" type="number" class="form-control"

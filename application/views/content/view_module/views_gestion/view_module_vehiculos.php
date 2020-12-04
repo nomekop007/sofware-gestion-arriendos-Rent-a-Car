@@ -107,11 +107,18 @@
                             </select>
                         </div>
 
-                        <div class="form-group col-lg-3">
+
+                        <div class="form-group col-xl-3">
                             <label for="inputFechaCompra">Fecha de compra</label>
-                            <input type="date" class="form-control" id="inputFechaCompra" name="inputFechaCompra"
-                                required>
+                            <div class="input-group date form_datetime " data-link-field="dtp_input1">
+                                <input class="form-control" size="16" type="text" readonly required
+                                    placeholder="ingrese fecha">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input hidden type="text" name="inputFechaCompra" id="inputFechaCompra" readonly required />
                         </div>
+
                         <div class="form-group col-lg-4">
 
                             <label for="inputFoto">Foto (opcional)</label>
@@ -264,11 +271,15 @@
                                                 class="form-control">
                                             </select>
                                         </div>
+
                                         <div class="form-group col-lg-4">
-                                            <label for="inputEditarCompra">Donde se compro</label>
-                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                                                id="inputEditarCompra" name="inputEditarCompra" required>
+                                            <label for="inputEditarkilomentrosMantencion">kilometros de
+                                                mantencion</label>
+                                            <input type="number" oninput="this.value = soloNumeros(this)" maxLength="6"
+                                                class="form-control" id="inputEditarkilomentrosMantencion"
+                                                name="inputEditarkilomentrosMantencion" required>
                                         </div>
+
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarEstado">Editar estado</label>
                                             <select id="inputEditarEstado" name="inputEditarEstado"
@@ -282,11 +293,22 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
-                                            <label for="inputEditarkilomentrosMantencion">kilometros de
-                                                mantencion</label>
-                                            <input type="number" oninput="this.value = soloNumeros(this)" maxLength="6"
-                                                class="form-control" id="inputEditarkilomentrosMantencion"
-                                                name="inputEditarkilomentrosMantencion" required>
+                                            <label for="inputEditarCompra">Donde se compro</label>
+                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                                id="inputEditarCompra" name="inputEditarCompra" required>
+                                        </div>
+                                        <div class="form-group col-xl-6">
+                                            <label for="inputEditarFechaCompra">Fecha de compra</label>
+                                            <div class="input-group date form_datetime2 " data-link-field="dtp_input2">
+                                                <input required class="form-control" size="16" type="text"
+                                                    id="dtp_input2" readonly>
+                                                <span class="input-group-addon"><span
+                                                        class="glyphicon glyphicon-remove"></span></span>
+                                                <span class="input-group-addon"><span
+                                                        class="glyphicon glyphicon-th"></span></span>
+                                            </div>
+                                            <input hidden type="text" name="inputEditarFechaCompra"
+                                                id="inputEditarFechaCompra" readonly required />
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarPropietario">Propietario</label>
@@ -294,13 +316,6 @@
                                                 class="form-control">
                                             </select>
                                         </div>
-
-                                        <div class="form-group col-lg-6">
-                                            <label for="inputEditarFechaCompra">Fecha de compra</label>
-                                            <input type="date" class="form-control" id="inputEditarFechaCompra"
-                                                name="inputEditarFechaCompra" required>
-                                        </div>
-
                                         <div class="form-group col-lg-6">
                                             <label for="inputCreateAt">Registrado El:</label>
                                             <input disabled type="text" class="form-control" id="inputCreateAt"

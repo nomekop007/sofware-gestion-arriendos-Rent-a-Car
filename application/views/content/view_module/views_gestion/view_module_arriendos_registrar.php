@@ -69,16 +69,35 @@ switch ($this->session->userdata('sucursal')) {
                                     <select id="inputCiudadRecepcion" name="inputCiudadRecepcion" class="form-control">
                                     </select>
                                 </div>
+
                                 <div class="form-group col-xl-6">
                                     <label for="inputFechaEntrega">Fecha de entrega</label>
-                                    <input oninput="calcularDias()" type="datetime-local" class="form-control"
-                                        name="inputFechaEntrega" id="inputFechaEntrega" required>
+                                    <div class="input-group date form_datetime1 " data-link-field="dtp_input1">
+                                        <input required class="form-control" size="16" type="text" readonly
+                                            placeholder="ingrese fecha">
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-th"></span></span>
+                                    </div>
+                                    <input hidden type="text" name="inputFechaEntrega" id="inputFechaEntrega" readonly
+                                        required />
                                 </div>
+
                                 <div class="form-group col-xl-6">
                                     <label for="inputFechaRecepcion">Fecha de Recepcion</label>
-                                    <input oninput="calcularDias()" type="datetime-local" class="form-control"
-                                        name="inputFechaRecepcion" id="inputFechaRecepcion" required>
+                                    <div class="input-group date form_datetime2 " data-link-field="dtp_input2">
+                                        <input required class="form-control" size="16" type="text" readonly
+                                            placeholder="ingrese fecha">
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-th"></span></span>
+                                    </div>
+                                    <input hidden type="text" name="inputFechaRecepcion" id="inputFechaRecepcion"
+                                        readonly required />
                                 </div>
+
                                 <div class="form-group col-xl-6">
                                     <label for="inputNumeroDias">Numeros de Dias</label>
                                     <input min="1" oninput="calcularDias()" type="number" class="form-control"
@@ -151,12 +170,22 @@ switch ($this->session->userdata('sucursal')) {
                                     <input onblur="mayus(this);" maxLength="40" type="text" class="form-control"
                                         id="inputDireccionCliente" name="inputDireccionCliente" required>
                                 </div>
+
+
                                 <div class="form-group col-xl-6">
-                                    <label for="inputFechaNacimiento">Fecha Nacimiento </label>
-                                    <input onblur="mayus(this);" value="1990-01-01" maxLength="30" type="date"
-                                        class="form-control" id="inputFechaNacimiento" name="inputFechaNacimiento"
-                                        required>
+                                    <label for="inputFechaNacimiento">Fecha Nacimiento</label>
+                                    <div class="input-group date form_datetime3 " data-link-field="dtp_input3">
+                                        <input required class="form-control" id="dtp_input3" size="16" type="text"
+                                            readonly placeholder="ingrese fecha">
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-remove"></span></span>
+                                        <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-th"></span></span>
+                                    </div>
+                                    <input hidden type="text" name="inputFechaNacimiento" id="inputFechaNacimiento"
+                                        readonly required />
                                 </div>
+
                                 <div class="form-group col-xl-6">
                                     <label for="inputEstadoCivil">Estado Civil</label>
                                     <select name="inputEstadoCivil" id="inputEstadoCivil" class="form-control">
@@ -369,6 +398,19 @@ switch ($this->session->userdata('sucursal')) {
                                             id="inputNombreConductor" name="inputNombreConductor" required>
                                     </div>
                                     <div class="form-group col-xl-6">
+                                        <label for="inputVCTOConductor">VCTO</label>
+                                        <div class="input-group date form_datetime4 " data-link-field="dtp_input4">
+                                            <input required class="form-control" id="dtp_input4" size="16" type="text"
+                                                readonly placeholder="ingrese fecha">
+                                            <span class="input-group-addon"><span
+                                                    class="glyphicon glyphicon-remove"></span></span>
+                                            <span class="input-group-addon"><span
+                                                    class="glyphicon glyphicon-th"></span></span>
+                                        </div>
+                                        <input hidden type="text" name="inputVCTOConductor" id="inputVCTOConductor"
+                                            readonly required />
+                                    </div>
+                                    <div class="form-group col-xl-6">
                                         <label for="inputDireccionConductor">Direccion</label>
                                         <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                             id="inputDireccionConductor" name="inputDireccionConductor" required>
@@ -402,12 +444,6 @@ switch ($this->session->userdata('sucursal')) {
                                             <option value="EXTRANJERA">Licencia extranjera</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-xl-6">
-                                        <label for="inputVCTOConductor">VCTO</label>
-                                        <input type="date" class="form-control" id="inputVCTOConductor"
-                                            name="inputVCTOConductor" required>
-                                    </div>
-
                                     <div class="form-group col-xl-6">
                                         <label for="inputNumeroConductor">Numero serie</label>
                                         <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number"
@@ -456,6 +492,19 @@ switch ($this->session->userdata('sucursal')) {
                                             id="inputNombreConductor2" name="inputNombreConductor2" required>
                                     </div>
                                     <div class="form-group col-xl-6">
+                                        <label for="inputVCTOConductor2">VCTO</label>
+                                        <div class="input-group date form_datetime5 " data-link-field="dtp_input5">
+                                            <input required class="form-control" id="dtp_input5" size="16" type="text"
+                                                readonly placeholder="ingrese fecha">
+                                            <span class="input-group-addon"><span
+                                                    class="glyphicon glyphicon-remove"></span></span>
+                                            <span class="input-group-addon"><span
+                                                    class="glyphicon glyphicon-th"></span></span>
+                                        </div>
+                                        <input hidden type="text" name="inputVCTOConductor2" id="inputVCTOConductor2"
+                                            readonly required />
+                                    </div>
+                                    <div class="form-group col-xl-6">
                                         <label for="inputDireccionConductor2">Direccion</label>
                                         <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                             id="inputDireccionConductor2" name="inputDireccionConductor2" required>
@@ -489,12 +538,6 @@ switch ($this->session->userdata('sucursal')) {
                                             <option value="EXTRANJERA">Licencia extranjera</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-xl-6">
-                                        <label for="inputVCTOConductor2">VCTO</label>
-                                        <input type="date" class="form-control" id="inputVCTOConductor2"
-                                            name="inputVCTOConductor2" required>
-                                    </div>
-
                                     <div class="form-group col-xl-6">
                                         <label for="inputNumeroConductor2">Numero serie</label>
                                         <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number"
@@ -543,6 +586,19 @@ switch ($this->session->userdata('sucursal')) {
                                             id="inputNombreConductor3" name="inputNombreConductor3" required>
                                     </div>
                                     <div class="form-group col-xl-6">
+                                        <label for="inputVCTOConductor3">VCTO</label>
+                                        <div class="input-group date form_datetime6 " data-link-field="dtp_input6">
+                                            <input required class="form-control" id="dtp_input6" size="16" type="text"
+                                                readonly placeholder="ingrese fecha">
+                                            <span class="input-group-addon"><span
+                                                    class="glyphicon glyphicon-remove"></span></span>
+                                            <span class="input-group-addon"><span
+                                                    class="glyphicon glyphicon-th"></span></span>
+                                        </div>
+                                        <input hidden type="text" name="inputVCTOConductor3" id="inputVCTOConductor3"
+                                            readonly required />
+                                    </div>
+                                    <div class="form-group col-xl-6">
                                         <label for="inputDireccionConductor3">Direccion</label>
                                         <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                             id="inputDireccionConductor3" name="inputDireccionConductor3" required>
@@ -576,12 +632,6 @@ switch ($this->session->userdata('sucursal')) {
                                             <option value="EXTRANJERA">Licencia extranjera</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-xl-6">
-                                        <label for="inputVCTOConductor3">VCTO</label>
-                                        <input type="date" class="form-control" id="inputVCTOConductor3"
-                                            name="inputVCTOConductor3" required>
-                                    </div>
-
                                     <div class="form-group col-xl-6">
                                         <label for="inputNumeroConductor3">Numero serie</label>
                                         <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number"

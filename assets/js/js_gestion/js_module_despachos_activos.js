@@ -9,8 +9,8 @@ const calcularDiasExtencion = () => {
 	let fechaRecepcion = $("#inputFechaRecepcion_extenderPlazo").val();
 	let fechaExtender = $("#inputFechaExtender_extenderPlazo").val();
 
-	let fechaini = new Date(fechaRecepcion);
-	let fechafin = new Date(fechaExtender);
+	let fechaini = new Date(moment(fechaRecepcion));
+	let fechafin = new Date(moment(fechaExtender));
 	let diasdif = fechafin.getTime() - fechaini.getTime();
 	let dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
 	$("#inputNumeroDias_extenderPlazo").val(dias);
@@ -24,9 +24,40 @@ const buscarArriendoExtender = async (id_arriendo) => {
 	const response = await ajax_function(data, "buscar_arriendo");
 	if (response.success) {
 		const arriendo = response.data;
+
+
+		$('.form_datetime1').datetimepicker({
+			format: "DD, dd/mm/yyyy hh:ii:ss",
+			linkField: "inputFechaRecepcion_extenderPlazo",
+			linkFormat: "yyyy-mm-dd hh:ii:ss",
+			language: 'es',
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "bottom-left"
+		}).on('changeDate', function (ev) {
+			calcularDiasExtencion()
+		});
+
+
+		$('.form_datetime2').datetimepicker({
+			format: "DD, dd/mm/yyyy hh:ii:ss",
+			startDate: "2013-02-14 10:00",
+			linkField: "inputFechaExtender_extenderPlazo",
+			linkFormat: "yyyy-mm-dd hh:ii:ss",
+			language: 'es',
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "bottom-left",
+			startDate: new Date(arriendo.fechaRecepcion_arriendo),
+		}).on('changeDate', function (ev) {
+			calcularDiasExtencion()
+		});
+
+
+
 		$("#numeroArriendo").html("Nº " + arriendo.id_arriendo)
-		$("#inputFechaRecepcion_extenderPlazo").val(arriendo.fechaRecepcion_arriendo.substring(0, 16));
-		$("#inputFechaExtender_extenderPlazo").prop('min', arriendo.fechaRecepcion_arriendo.substring(0, 16));
+		$("#inputFechaRecepcion_extenderPlazo").val(arriendo.fechaRecepcion_arriendo);
+		$("#dtp_input1").val(formatearFechaHora(arriendo.fechaRecepcion_arriendo));
 		$("#id_arriendo").val(arriendo.id_arriendo);
 		$("#dias_arriendo").val(arriendo.diasAcumulados_arriendo);
 		$("#body_extender_arriendo").show();
@@ -209,6 +240,16 @@ $(document).ready(() => {
 	const tablaArriendosActivos = $("#tablaArriendosActivos").DataTable(lenguaje);
 
 	$("#nav-activos-tab").click(() => refrescarTablaActivos());
+
+
+
+
+
+
+
+
+
+
 
 	const cargarArriendosActivos = async () => {
 		$("#spinner_tablaArriendoActivos").show();
