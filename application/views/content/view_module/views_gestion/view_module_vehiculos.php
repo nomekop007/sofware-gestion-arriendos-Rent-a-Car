@@ -77,8 +77,8 @@
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputNumeroMotor">Nº Motor</label>
-                            <input oninput="this.value = soloNumeros(this)" type="number" maxLength="11"
-                                class="form-control" id="inputNumeroMotor" name="inputNumeroMotor" required>
+                            <input type="text" maxLength="20" class="form-control" id="inputNumeroMotor"
+                                name="inputNumeroMotor" required>
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputEstado">Estado</label>
@@ -255,9 +255,8 @@
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarNumeroMotor">Nº Motor del Vehiculo</label>
-                                            <input oninput="this.value = soloNumeros(this)" type="number" maxLength="11"
-                                                class="form-control" id="inputEditarNumeroMotor"
-                                                name="inputEditarNumeroMotor" required>
+                                            <input type="text" maxLength="11" class="form-control"
+                                                id="inputEditarNumeroMotor" name="inputEditarNumeroMotor" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarRegion">Region</label>
