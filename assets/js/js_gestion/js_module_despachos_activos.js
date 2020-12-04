@@ -31,7 +31,7 @@ const buscarArriendoExtender = async (id_arriendo) => {
 			linkField: "inputFechaRecepcion_extenderPlazo",
 			linkFormat: "yyyy-mm-dd hh:ii:ss",
 			language: 'es',
-			autoclose: true,
+			todayHighlight: 1,
 			todayBtn: true,
 			pickerPosition: "bottom-left"
 		}).on('changeDate', function (ev) {
@@ -45,7 +45,7 @@ const buscarArriendoExtender = async (id_arriendo) => {
 			linkField: "inputFechaExtender_extenderPlazo",
 			linkFormat: "yyyy-mm-dd hh:ii:ss",
 			language: 'es',
-			autoclose: true,
+			todayHighlight: 1,
 			todayBtn: true,
 			pickerPosition: "bottom-left",
 			startDate: new Date(arriendo.fechaRecepcion_arriendo),

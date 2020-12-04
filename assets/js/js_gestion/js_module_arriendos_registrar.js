@@ -106,8 +106,8 @@ $(document).ready(() => {
 		linkField: "inputFechaEntrega",
 		linkFormat: "yyyy-mm-dd hh:ii:ss",
 		language: 'es',
-		autoclose: true,
 		todayBtn: true,
+		todayHighlight: 1,
 		pickerPosition: "bottom-left"
 
 	}).on('changeDate', function (ev) {
@@ -120,8 +120,8 @@ $(document).ready(() => {
 		linkField: "inputFechaRecepcion",
 		linkFormat: "yyyy-mm-dd hh:ii:ss",
 		language: 'es',
-		autoclose: true,
 		todayBtn: true,
+		todayHighlight: 1,
 		pickerPosition: "bottom-left"
 
 	}).on('changeDate', function (ev) {
@@ -133,6 +133,11 @@ $(document).ready(() => {
 		linkField: "inputFechaNacimiento",
 		linkFormat: "yyyy-mm-dd",
 		language: 'es',
+		weekStart: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0,
 		autoclose: true,
 		todayBtn: true,
 		pickerPosition: "bottom-left"
@@ -143,6 +148,11 @@ $(document).ready(() => {
 		linkField: "inputVCTOConductor",
 		linkFormat: "yyyy-mm-dd",
 		language: 'es',
+		weekStart: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0,
 		autoclose: true,
 		todayBtn: true,
 		pickerPosition: "bottom-left"
@@ -153,6 +163,11 @@ $(document).ready(() => {
 		linkField: "inputVCTOConductor2",
 		linkFormat: "yyyy-mm-dd",
 		language: 'es',
+		weekStart: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0,
 		autoclose: true,
 		todayBtn: true,
 		pickerPosition: "bottom-left"
@@ -163,6 +178,11 @@ $(document).ready(() => {
 		linkField: "inputVCTOConductor3",
 		linkFormat: "yyyy-mm-dd",
 		language: 'es',
+		weekStart: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0,
 		autoclose: true,
 		todayBtn: true,
 		pickerPosition: "bottom-left"

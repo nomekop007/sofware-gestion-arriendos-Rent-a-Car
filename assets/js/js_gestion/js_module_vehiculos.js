@@ -101,6 +101,11 @@ $(document).ready(() => {
 		linkField: "inputFechaCompra",
 		linkFormat: "yyyy-mm-dd",
 		language: 'es',
+		weekStart: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0,
 		autoclose: true,
 		todayBtn: true,
 		pickerPosition: "bottom-left"
@@ -113,6 +118,11 @@ $(document).ready(() => {
 		linkFormat: "yyyy-mm-dd",
 		language: 'es',
 		autoclose: true,
+		weekStart: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0,
 		todayBtn: true,
 		pickerPosition: "bottom-left"
 	});
