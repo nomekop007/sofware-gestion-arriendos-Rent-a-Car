@@ -153,8 +153,7 @@
                                 data-target="#modalFotosVehiculoRecepcion">
                                 Tomar Fotos al vehiculo
                             </button>
-                            <button type="button" class="  btn btn-danger btn-sm"
-                                id="limpiarArrayFotosRecepcion">limpiar
+                            <button type="button" class="btn btn-danger btn-sm" id="limpiarArrayFotosRecepcion">limpiar
                                 lista</button>
                         </div>
                         <div class="form-group col-lg-12">

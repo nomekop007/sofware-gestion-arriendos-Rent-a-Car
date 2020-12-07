@@ -121,6 +121,7 @@ $route['registrar_garantia'] = 'Garantia_controller/registrarGarantia';
 /* rutas de controller danio */
 $route['registrar_danio_vehiculo'] = 'DanioVehiculo_controller/registrarDanioVehiculo';
 $route['revisar_danioVehiculo'] = 'DanioVehiculo_controller/revisarDanioVehiculo';
+$route['cargar_todos_danios'] = 'DanioVehiculo_controller/cargarDanios';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = false;

@@ -1,5 +1,4 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-
     <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
@@ -12,14 +11,56 @@
         <h1 class="h3">Gestion de daño vehiculo</h1>
     </div>
     <div>
-
-        <h1>hola mundo</h1>
-
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="pendientes-tab" data-toggle="tab" href="#pendientes" role="tab"
+                    aria-controls="pendientes" aria-selected="true">Pendientes de cotizar</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="todos-tab" data-toggle="tab" href="#todos" role="tab" aria-controls="todos"
+                    aria-selected="false">Todos los daños registrados</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="pendientes" role="tabpanel" aria-labelledby="pendientes-tab">...
+            </div>
+            <div class="tab-pane fade" id="todos" role="tabpanel" aria-labelledby="todos-tab">
+                <br><br>
+                <div class="scroll">
+                    <table id="tabla_todos_danios" class="table table-striped table-bordered" style="width:100%">
+                        <thead class="btn-dark">
+                            <tr>
+                                <th>Nº daño </th>
+                                <th>Vehiculo</th>
+                                <th>cliente </th>
+                                <th>Evidencia</th>
+                                <th>comprobante pago</th>
+                            </tr>
+                        </thead>
+                        <tbody id="todos_danios">
+                        </tbody>
+                        <tfoot class="btn-dark">
+                            <tr>
+                                <th>Nº daño </th>
+                                <th>Vehiculo</th>
+                                <th>cliente </th>
+                                <th>Evidencia</th>
+                                <th>comprobante pago</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="text-center" id="spinner_tabla_danios">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <h6>Cargando Datos...</h6>
+                </div>
+            </div>
+            <br><br><br><br>
+        </div>
     </div>
-
-
 </main>
-
 </div>
 </div>
 
