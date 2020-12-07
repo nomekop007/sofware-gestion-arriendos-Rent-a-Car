@@ -162,12 +162,12 @@ switch ($this->session->userdata('sucursal')) {
                                 </div>
                                 <div class="form-group col-xl-6">
                                     <label for="inputNombreCliente">Nombre completo</label>
-                                    <input onblur="mayus(this);" maxLength="40" type="text" class="form-control"
+                                    <input onblur="mayus(this);" maxLength="60" type="text" class="form-control"
                                         id="inputNombreCliente" name="inputNombreCliente" required>
                                 </div>
                                 <div class="form-group col-xl-6">
                                     <label for="inputDireccionCliente">Direccion </label>
-                                    <input onblur="mayus(this);" maxLength="40" type="text" class="form-control"
+                                    <input onblur="mayus(this);" maxLength="60" type="text" class="form-control"
                                         id="inputDireccionCliente" name="inputDireccionCliente" required>
                                 </div>
 
@@ -227,7 +227,7 @@ switch ($this->session->userdata('sucursal')) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">@</span>
                                         </div>
-                                        <input onblur="mayus(this);" maxLength="40" type="email" class="form-control"
+                                        <input onblur="mayus(this);" maxLength="50" type="email" class="form-control"
                                             id="inputCorreoCliente" name="inputCorreoCliente" required>
                                     </div>
                                 </div>
@@ -251,7 +251,7 @@ switch ($this->session->userdata('sucursal')) {
                                 </div>
                                 <div class="form-group col-xl-6">
                                     <label for="inputNombreEmpresa">Nombre </label>
-                                    <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                    <input onblur="mayus(this);" maxLength="60" type="text" class="form-control"
                                         id="inputNombreEmpresa" name="inputNombreEmpresa" required>
                                 </div>
                                 <div class="form-group col-xl-6">
@@ -260,7 +260,7 @@ switch ($this->session->userdata('sucursal')) {
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">@</span>
                                         </div>
-                                        <input onblur="mayus(this);" maxLength="50" type="email" class="form-control"
+                                        <input onblur="mayus(this);" maxLength="60" type="email" class="form-control"
                                             id="inputCorreoEmpresa" name="inputCorreoEmpresa" required>
                                     </div>
                                 </div>
@@ -297,7 +297,7 @@ switch ($this->session->userdata('sucursal')) {
                                 </div>
                                 <div class="form-group col-xl-6">
                                     <label for="inputRol">Rol o rubro</label>
-                                    <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                                    <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                         name="inputRol" id="inputRol" required>
                                 </div>
                             </div>
@@ -316,18 +316,18 @@ switch ($this->session->userdata('sucursal')) {
                                 </div>
                                 <div class="form-group col-xl-6">
                                     <label for="inputDomicilioContacto">Domicilio </label>
-                                    <input onblur="mayus(this);" maxLength="20" type="text" class="form-control"
+                                    <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                         id="inputDomicilioContacto" name="inputDomicilioContacto" required>
                                 </div>
                                 <div class="form-group col-xl-6">
                                     <label for="inputNumeroCasaContacto">Numero casa </label>
-                                    <input oninput="this.value = soloNumeros(this)" maxLength="5" type="number"
+                                    <input oninput="this.value = soloNumeros(this)" maxLength="10" type="number"
                                         class="form-control" id="inputNumeroCasaContacto" name="inputNumeroCasaContacto"
                                         required>
                                 </div>
                                 <div class="form-group col-xl-6">
                                     <label for="inputCiudadContacto">Ciudad </label>
-                                    <input onblur="mayus(this);" maxLength="20" type="text" class="form-control"
+                                    <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                         id="inputCiudadContacto" name="inputCiudadContacto" required>
                                 </div>
                                 <div class="form-group col-xl-6">

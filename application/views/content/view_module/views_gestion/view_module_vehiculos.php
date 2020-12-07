@@ -72,12 +72,12 @@
 
                         <div class="form-group col-lg-2">
                             <label for="inputColor">Color</label>
-                            <input onblur="mayus(this);" maxLength="15" type="text" class="form-control" id="inputColor"
+                            <input onblur="mayus(this);" maxLength="40" type="text" class="form-control" id="inputColor"
                                 name="inputColor" required>
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputNumeroMotor">Nº Motor</label>
-                            <input type="text" maxLength="20" class="form-control" id="inputNumeroMotor"
+                            <input type="text" maxLength="40" class="form-control" id="inputNumeroMotor"
                                 name="inputNumeroMotor" required>
                         </div>
                         <div class="form-group col-lg-3">
@@ -257,12 +257,12 @@
 
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarColor">Color del Vehiculo</label>
-                                            <input onblur="mayus(this);" maxLength="15" type="text" class="form-control"
+                                            <input onblur="mayus(this);" maxLength="40" type="text" class="form-control"
                                                 id="inputEditarColor" name="inputEditarColor" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarNumeroMotor">Nº Motor del Vehiculo</label>
-                                            <input type="text" maxLength="11" class="form-control"
+                                            <input type="text" maxLength="40" class="form-control"
                                                 id="inputEditarNumeroMotor" name="inputEditarNumeroMotor" required>
                                         </div>
                                         <div class="form-group col-lg-4">
