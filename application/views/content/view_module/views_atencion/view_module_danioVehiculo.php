@@ -22,7 +22,45 @@
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="pendientes" role="tabpanel" aria-labelledby="pendientes-tab">...
+            <div class="tab-pane fade show active" id="pendientes" role="tabpanel" aria-labelledby="pendientes-tab">
+                <br><br>
+                <div class="scroll">
+                    <table id="tabla_pendientes_danios" class="table table-striped table-bordered" style="width:100%">
+                        <thead class="btn-dark">
+                            <tr>
+                                <th>Vehiculo</th>
+                                <th>Cliente involucrado </th>
+                                <th>Nº arriendo</th>
+                                <th>Registrado por</th>
+                                <th>Fecha registro</th>
+                                <th>Evidencia</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot class="btn-dark">
+                            <tr>
+                                <th>Vehiculo</th>
+                                <th>Cliente involucrado </th>
+                                <th>Nº arriendo</th>
+                                <th>Registrado por</th>
+                                <th>Fecha registro</th>
+                                <th>Evidencia</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="text-center" id="spinner_tabla_danios_pendientes">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <h6>Cargando Datos...</h6>
+                </div>
+
+
+
             </div>
             <div class="tab-pane fade" id="todos" role="tabpanel" aria-labelledby="todos-tab">
                 <br><br>
@@ -30,22 +68,24 @@
                     <table id="tabla_todos_danios" class="table table-striped table-bordered" style="width:100%">
                         <thead class="btn-dark">
                             <tr>
-                                <th>Nº daño </th>
                                 <th>Vehiculo</th>
-                                <th>cliente </th>
+                                <th>Cliente involucrado </th>
+                                <th>Nº arriendo</th>
+                                <th>Registrado por</th>
+                                <th>Fecha registro</th>
                                 <th>Evidencia</th>
-                                <th>comprobante pago</th>
                             </tr>
                         </thead>
-                        <tbody id="todos_danios">
+                        <tbody>
                         </tbody>
                         <tfoot class="btn-dark">
                             <tr>
-                                <th>Nº daño </th>
                                 <th>Vehiculo</th>
-                                <th>cliente </th>
+                                <th>Cliente involucrado </th>
+                                <th>Nº arriendo</th>
+                                <th>Registrado por</th>
+                                <th>Fecha registro</th>
                                 <th>Evidencia</th>
-                                <th>comprobante pago</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -62,6 +102,27 @@
     </div>
 </main>
 </div>
+</div>
+
+
+
+<!-- Modal descripcion -->
+<div class="modal fade" id="modal_mostrar_descripcion" tabindex="-1" aria-labelledby="modal_mostrar_descripcionLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_mostrar_descripcionLabel">Descripcion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="descripcion_danio"></p>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 

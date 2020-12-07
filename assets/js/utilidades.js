@@ -232,6 +232,15 @@ const resizeBase64Img = (base64, newWidth, newHeight, level) => {
 
 
 const buscarDocumento = async (documento, tipo) => {
+
+	//  case "contrato":
+	//  case "acta":
+	//  case "requisito":
+	//  case "facturacion":
+	//  case "recepcion":
+	//  case "fotosDañoVehiculo":
+	//  case "fotoVehiculo":
+
 	const data = new FormData();
 	data.append("nombreDocumento", documento);
 	data.append("tipo", tipo);
