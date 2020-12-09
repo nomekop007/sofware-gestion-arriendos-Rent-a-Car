@@ -28,11 +28,11 @@ class DanioVehiculo_controller extends CI_Controller
 
     public function cambiarEstadoDanio()
     {
-        $idpago = $this->input->post("id_danio");
+        $idDanioVehiculo = $this->input->post("id_danioVehiculo");
         $ArrayData = [
             "estado_danioVehiculo" => "PAGADO",
         ];
-        echo put_function($idpago, $ArrayData, "danioVehiculos/actualizarDanioVehiculo");
+        echo put_function($idDanioVehiculo, $ArrayData, "danioVehiculos/actualizarDanioVehiculo");
     }
 
 }

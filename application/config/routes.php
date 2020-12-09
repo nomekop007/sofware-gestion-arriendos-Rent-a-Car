@@ -120,8 +120,6 @@ $route['registrar_garantia'] = 'Garantia_controller/registrarGarantia';
 
 /* rutas de controller pagoDanio */
 $route['registrar_pagoDanio'] = 'PagoDanio_controller/registrarPagoDanio';
-$route['guardar_comprobantePagoDanio'] = 'PagoDanio_controller/subirComprobantePagoDanio';
-
 /* rutas de controller danio */
 $route['registrar_danio_vehiculo'] = 'DanioVehiculo_controller/registrarDanioVehiculo';
 $route['revisar_danioVehiculo'] = 'DanioVehiculo_controller/revisarDanioVehiculo';

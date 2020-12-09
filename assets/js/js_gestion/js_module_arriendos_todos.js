@@ -108,7 +108,7 @@ const mostrarArriendoModalVer = (arriendo) => {
 	if (arriendo.estado_arriendo != "ANULADO") {
 		if (arriendo.requisito) {
 			const requisito = arriendo.requisito;
-
+			$("#btn_guardar_garantiaRequisitos").hide();
 			if (requisito.carnetFrontal_requisito) {
 				const a = document.createElement("button");
 				a.addEventListener("click", () => buscarDocumento(requisito.carnetFrontal_requisito, "requisito"));
@@ -198,6 +198,7 @@ const mostrarArriendoModalVer = (arriendo) => {
 
 		if (arriendo.garantia) {
 			$("#inputEditarGarantiaArriendo").val(arriendo.garantia.modosPago.nombre_modoPago);
+			$("#btn_guardar_garantiaRequisitos").hide();
 			switch (arriendo.garantia.id_modoPago) {
 				case 1:
 					$("#card_cheque").hide();
@@ -428,13 +429,13 @@ const limpiarCampos = () => {
 			"limpiar_firma_usuario"
 		]);
 
-	//mostrarCanvasFirma("canvas-firma", "limpiar-firma");
-
+	$("#btn_guardar_garantiaRequisitos").show();
 	$("#spinner_btn_subirDocumentos").hide();
 	$("#spinner_btn_registrar_garantia").hide();
 	$("#spinner_btn_registrarPago").hide();
 	$("#spinner_btn_firmarContrato").hide();
 	$("#spinner_btn_confirmarContrato").hide();
+	$("#spinner_btn_guardar_garantiaRequisitos").hide();
 
 	$("#formPagoArriendo").hide();
 	$("#formContratoArriendo").hide();
@@ -538,10 +539,7 @@ $(document).ready(() => {
 	cargarAccesorios();
 
 
-
-
-
-	$("#btn_registrar_garantia").click(() => {
+	$("#btn_guardar_garantiaRequisitos").click(() => {
 
 		//datos garantia
 		const inputNumeroCheque = $("#inputNumeroCheque").val();
@@ -588,6 +586,12 @@ $(document).ready(() => {
 				break;
 		}
 
+
+		//VALIDACION DE LOS ARCHIVOS
+
+
+
+
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de guardar los cambios!",
@@ -598,62 +602,29 @@ $(document).ready(() => {
 			reverseButtons: true,
 		}).then(async (result) => {
 			if (result.isConfirmed) {
-				$("#spinner_btn_registrar_garantia").show();
-				$("#btn_registrar_garantia").attr("disabled", true);
+				$("#spinner_btn_guardar_garantiaRequisitos").show();
+				$("#btn_guardar_garantiaRequisitos").attr("disabled", true);
 				const id_arriendo = $("#inputIdArriendoEditar").val();
 				const garantia = await guardarDatosGarantia(id_arriendo);
-
-				if (garantia.success) {
+				const requisitos = await guardarDocumentosRequistos(id_arriendo);
+				if (garantia.success && requisitos) {
 
 					refrescarTabla();
 					Swal.fire(
-						"Garantia registrada con exito!",
-						"se guardaron la garantia",
+						"registros guardados con exito!",
+						"registros guardados",
 						"success"
 					);
 					$("#modal_editar_arriendo").modal("toggle");
 				}
-				$("#btn_registrar_garantia").attr("disabled", false);
-				$("#spinner_btn_registrar_garantia").hide();
+				$("#btn_guardar_garantiaRequisitos").attr("disabled", false);
+				$("#spinner_btn_guardar_garantiaRequisitos").hide();
 			}
 		});
-
-
 	})
 
 
-	$("#btn_subirDocumentos").click(() => {
 
-
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_subirDocumentos").show();
-				$("#btn_subirDocumentos").attr("disabled", true);
-				const id_arriendo = $("#inputIdArriendoEditar").val();
-				const response = await guardarDocumentosRequistos(id_arriendo);
-				if (response.success) {
-
-					refrescarTabla();
-					Swal.fire(
-						"documentos subidos con exito!",
-						"se guardaron los documentos",
-						"success"
-					);
-					$("#modal_editar_arriendo").modal("toggle");
-				}
-				$("#btn_subirDocumentos").attr("disabled", false);
-				$("#spinner_btn_subirDocumentos").hide();
-			}
-		});
-	});
 
 	$("#btn_registrar_pago").click(async () => {
 

@@ -331,7 +331,7 @@ $(document).ready(() => {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				$("#spinner_btn_finalizar_contrato").show();
-
+				$("#btn_finalizar_arriendo").attr("disabled", true);
 				const data = new FormData();
 				const response_revision = await guardarRevisionRecepcion(data);
 				if (response_revision.success) {
@@ -347,7 +347,7 @@ $(document).ready(() => {
 					"Arriendo finalizado con exito!",
 					"success"
 				);
-
+				$("#btn_finalizar_arriendo").attr("disabled", false);
 				$("#spinner_btn_finalizar_contrato").hide();
 			}
 		});
