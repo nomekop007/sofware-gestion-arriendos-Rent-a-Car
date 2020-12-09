@@ -996,15 +996,17 @@ $(document).ready(() => {
 					break;
 			}
 
-			tablaTotalArriendos.row
-				.add([
-					arriendo.id_arriendo,
-					formatearFechaHora(arriendo.createdAt),
-					cliente,
-					arriendo.tipo_arriendo,
-					`<span class="${color}">${arriendo.estado_arriendo}</span>`,
-					arriendo.usuario.nombre_usuario,
-					`<button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
+			if (arriendo.estado_arriendo != "ANULADO") {
+
+				tablaTotalArriendos.row
+					.add([
+						arriendo.id_arriendo,
+						formatearFechaHora(arriendo.createdAt),
+						cliente,
+						arriendo.tipo_arriendo,
+						`<span class="${color}">${arriendo.estado_arriendo}</span>`,
+						arriendo.usuario.nombre_usuario,
+						`<button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
                         data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn-outline-primary'><i class="fas fa-upload"></i></button>
                          
                         <button id='b${arriendo.id_arriendo}' value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,2)' 
@@ -1013,27 +1015,27 @@ $(document).ready(() => {
                             <button id='c${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,3)' 
                                 data-toggle='modal' data-target='#modal_firmar_contrato' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  
                                 `,
-				])
-				.draw(false);
+					])
+					.draw(false);
 
 
-			if (arriendo.requisito && arriendo.garantia || arriendo.estado_arriendo == "ANULADO") {
-				$(`#a${arriendo.id_arriendo}`).removeClass("btn-outline-primary");
-				$(`#a${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
+				if (arriendo.requisito && arriendo.garantia || arriendo.estado_arriendo == "ANULADO") {
+					$(`#a${arriendo.id_arriendo}`).removeClass("btn-outline-primary");
+					$(`#a${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
+				}
+
+				if (arriendo.estado_arriendo != "EXTENDIDO" && arriendo.estado_arriendo != "PENDIENTE" || arriendo.estado_arriendo == "ANULADO") {
+					$(`#b${arriendo.id_arriendo}`).attr("disabled", true);
+					$(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-success");
+					$(`#b${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
+				}
+
+				if (arriendo.estado_arriendo != "CONFIRMADO" && arriendo.estado_arriendo != "E-CONFIRMADO" || arriendo.estado_arriendo == "ANULADO") {
+					$(`#c${arriendo.id_arriendo}`).attr("disabled", true);
+					$(`#c${arriendo.id_arriendo}`).removeClass("btn-outline-info");
+					$(`#c${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
+				}
 			}
-
-			if (arriendo.estado_arriendo != "EXTENDIDO" && arriendo.estado_arriendo != "PENDIENTE" || arriendo.estado_arriendo == "ANULADO") {
-				$(`#b${arriendo.id_arriendo}`).attr("disabled", true);
-				$(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-success");
-				$(`#b${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
-			}
-
-			if (arriendo.estado_arriendo != "CONFIRMADO" && arriendo.estado_arriendo != "E-CONFIRMADO" || arriendo.estado_arriendo == "ANULADO") {
-				$(`#c${arriendo.id_arriendo}`).attr("disabled", true);
-				$(`#c${arriendo.id_arriendo}`).removeClass("btn-outline-info");
-				$(`#c${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
-			}
-
 		} catch (error) {
 			console.log("error al cargar este arriendo: " + error);
 		}

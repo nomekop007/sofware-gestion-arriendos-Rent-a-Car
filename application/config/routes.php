@@ -118,10 +118,15 @@ $route['cargar_empresasRemplazo'] = 'EmpresaRemplazo_controller/cargarEmpresasRe
 /* rutas de controller garantia */
 $route['registrar_garantia'] = 'Garantia_controller/registrarGarantia';
 
+/* rutas de controller pagoDanio */
+$route['registrar_pagoDanio'] = 'PagoDanio_controller/registrarPagoDanio';
+$route['guardar_comprobantePagoDanio'] = 'PagoDanio_controller/subirComprobantePagoDanio';
+
 /* rutas de controller danio */
 $route['registrar_danio_vehiculo'] = 'DanioVehiculo_controller/registrarDanioVehiculo';
 $route['revisar_danioVehiculo'] = 'DanioVehiculo_controller/revisarDanioVehiculo';
 $route['cargar_todos_danios'] = 'DanioVehiculo_controller/cargarDanios';
+$route['cambiar_estadoDanioVehiculo'] = 'DanioVehiculo_controller/cambiarEstadoDanio';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = false;

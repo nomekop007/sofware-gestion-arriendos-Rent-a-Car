@@ -28,9 +28,10 @@
                     <table id="tabla_pendientes_danios" class="table table-striped table-bordered" style="width:100%">
                         <thead class="btn-dark">
                             <tr>
+                                <th>Nº daño</th>
+                                <th>Nº arriendo</th>
                                 <th>Vehiculo</th>
                                 <th>Cliente involucrado </th>
-                                <th>Nº arriendo</th>
                                 <th>Registrado por</th>
                                 <th>Fecha registro</th>
                                 <th>Evidencia</th>
@@ -41,9 +42,10 @@
                         </tbody>
                         <tfoot class="btn-dark">
                             <tr>
+                                <th>Nº daño</th>
+                                <th>Nº arriendo</th>
                                 <th>Vehiculo</th>
                                 <th>Cliente involucrado </th>
-                                <th>Nº arriendo</th>
                                 <th>Registrado por</th>
                                 <th>Fecha registro</th>
                                 <th>Evidencia</th>
@@ -68,11 +70,13 @@
                     <table id="tabla_todos_danios" class="table table-striped table-bordered" style="width:100%">
                         <thead class="btn-dark">
                             <tr>
+                                <th>Nº daño</th>
+                                <th>Nº arriendo</th>
                                 <th>Vehiculo</th>
                                 <th>Cliente involucrado </th>
-                                <th>Nº arriendo</th>
                                 <th>Registrado por</th>
                                 <th>Fecha registro</th>
+                                <th>estado</th>
                                 <th>Evidencia</th>
                             </tr>
                         </thead>
@@ -80,11 +84,13 @@
                         </tbody>
                         <tfoot class="btn-dark">
                             <tr>
+                                <th>Nº daño</th>
+                                <th>Nº arriendo</th>
                                 <th>Vehiculo</th>
                                 <th>Cliente involucrado </th>
-                                <th>Nº arriendo</th>
                                 <th>Registrado por</th>
                                 <th>Fecha registro</th>
+                                <th>estado</th>
                                 <th>Evidencia</th>
                             </tr>
                         </tfoot>
@@ -120,10 +126,51 @@
             <div class="modal-body">
                 <p id="descripcion_danio"></p>
             </div>
-
         </div>
     </div>
 </div>
+
+
+<!-- Modal subir comprobante -->
+<div class="modal fade" id="modal_subir_comprobante" tabindex="-1" aria-labelledby="modal_subir_comprobanteLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_subir_comprobanteLabel">subir comprobante pago cliente <span
+                        id="id_danio"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form class="needs-validation" novalidate id="form_subir_comprobante">
+                        <div class="form-group col-xl-12">
+                            <label for="input_file_comprobante">Comprobante de pago</label>
+                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file"
+                                class="form-control-file" id="input_file_comprobante" name="input_file_comprobante"
+                                required>
+                        </div>
+                        <br>
+                        <div class="form-group col-xl-12">
+                            <label for="input_pago_total_danio">Pago total daño (bruto)</label>
+                            <input id="input_pago_total_danio" name="input_pago_total_danio"
+                                oninput="this.value = soloNumeros(this)" maxLength="11" type="number"
+                                class="form-control" required>
+                        </div>
+                        <button type="submit" id="btn_subir_comprobante" class="btn btn-success col-xl-12">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                id="spinner_btn_subir_comprobante"></span>
+                            subir comprobante</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 <!-- importando archivo js usuarios -->

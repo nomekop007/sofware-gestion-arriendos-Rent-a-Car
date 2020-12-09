@@ -4,6 +4,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class DanioVehiculo_controller extends CI_Controller
 {
+    public function cargarDanios()
+    {
+        echo get_function("danioVehiculos/cargarDaniosVehiculos");
+    }
 
     public function registrarDanioVehiculo()
     {
@@ -22,9 +26,13 @@ class DanioVehiculo_controller extends CI_Controller
         echo find_function($id_arriendo, "danioVehiculos/revisarDanioVehiculo");
     }
 
-    public function cargarDanios()
+    public function cambiarEstadoDanio()
     {
-        echo get_function("danioVehiculos/cargarDanios");
+        $idpago = $this->input->post("id_danio");
+        $ArrayData = [
+            "estado_danioVehiculo" => "PAGADO",
+        ];
+        echo put_function($idpago, $ArrayData, "danioVehiculos/actualizarDanioVehiculo");
     }
 
 }
