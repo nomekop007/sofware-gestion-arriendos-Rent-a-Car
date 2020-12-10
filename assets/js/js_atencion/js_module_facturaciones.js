@@ -152,7 +152,6 @@ $(document).ready(() => {
 
 
 	const cargarPagoER = (pagosPendientes) => {
-		console.log(pagosPendientes)
 		try {
 			tabla_pagoER.row
 				.add([

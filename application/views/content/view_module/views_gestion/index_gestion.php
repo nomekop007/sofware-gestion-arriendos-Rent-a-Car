@@ -33,20 +33,38 @@
     const response = await ajax_function(data, "cargar_arriendos");
     if (response.success) {
         $.each(response.data, (i, arriendo) => {
-            temporizador(arriendo.fechaRecepcion_arriendo, arriendo.id_arriendo);
+            temporizador(arriendo, arriendo.id_arriendo);
         });
     }
 })();
 
-const temporizador = (fechaRecepcion_arriendo, id_arriendo) => {
+const temporizador = ({
+    fechaRecepcion_arriendo,
+    diasActuales_arriendo
+}, id_arriendo) => {
     const countDownDate = moment(fechaRecepcion_arriendo);
 
     let time = countDownDate.diff(moment());
     // 1 segundo = 1.000
     // 1 minuto = 60.000
     // 1 hora = 3.600.000
-    if (time <= 3600000 * 2) {
+    if (diasActuales_arriendo < 2 && time <= 3600000 * 5) {
+        let fila = `
+            <div id="alert${id_arriendo}" class="alert  alert-dismissible fade show" role="alert">
+               ARRIENDO Nº${id_arriendo} <div id=time${id_arriendo}> </div>
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+            </button>
+            </div> `;
+        $("#card_alertas").append(fila);
+        alertaTemporizador(countDownDate, time, id_arriendo)
+        time = setInterval(function() {
+            alertaTemporizador(countDownDate, time, id_arriendo)
+        }, 1000);
+    }
 
+
+    if (diasActuales_arriendo >= 2 && time <= 3600000 * 12) {
         let fila = `
             <div id="alert${id_arriendo}" class="alert  alert-dismissible fade show" role="alert">
                ARRIENDO Nº${id_arriendo} <div id=time${id_arriendo}> </div>
@@ -74,7 +92,7 @@ const alertaTemporizador = (countDownDate, time, id_arriendo) => {
     } else {
         $(`#alert${id_arriendo}`).addClass("alert-warning");
         $(`#time${id_arriendo}`).text(
-            "queda menos de dos horas para expirar ( " + moment.utc(diff).format(" HH:mm:ss") + " horas )"
+            "queda menos de " + moment.utc(diff).format(" HH:mm:ss") + " horas para expirar"
         );
     }
 }

@@ -16,6 +16,26 @@ function soloNumeros(evt) {
 }
 
 
+//redondea el ultimo valor de un numero 
+function decimalAdjust(value, exp) {
+	let type = 'round';
+	// Si el exp es indefinido o cero...
+	if (typeof exp === 'undefined' || +exp === 0) {
+		return Math[type](value);
+	}
+	value = +value;
+	exp = +exp;
+	// Si el valor no es un número o el exp no es un entero...
+	if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+		return NaN;
+	}
+	// Cambio
+	value = value.toString().split('e');
+	value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+	// Volver a cambiar
+	value = value.toString().split('e');
+	return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+}
 
 
 // Script para cargar año vehiculo
@@ -232,6 +252,15 @@ const resizeBase64Img = (base64, newWidth, newHeight, level) => {
 
 
 const buscarDocumento = async (documento, tipo) => {
+
+	//  case "contrato":
+	//  case "acta":
+	//  case "requisito":
+	//  case "facturacion":
+	//  case "recepcion":
+	//  case "fotosDañoVehiculo":
+	//  case "fotoVehiculo":
+
 	const data = new FormData();
 	data.append("nombreDocumento", documento);
 	data.append("tipo", tipo);

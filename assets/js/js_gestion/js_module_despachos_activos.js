@@ -8,7 +8,6 @@ let totalAPagar_arriendo = 0;
 const calcularDiasExtencion = () => {
 	let fechaRecepcion = $("#inputFechaRecepcion_extenderPlazo").val();
 	let fechaExtender = $("#inputFechaExtender_extenderPlazo").val();
-
 	let fechaini = new Date(moment(fechaRecepcion));
 	let fechafin = new Date(moment(fechaExtender));
 	let diasdif = fechafin.getTime() - fechaini.getTime();
@@ -24,8 +23,6 @@ const buscarArriendoExtender = async (id_arriendo) => {
 	const response = await ajax_function(data, "buscar_arriendo");
 	if (response.success) {
 		const arriendo = response.data;
-
-
 		$('.form_datetime1').datetimepicker({
 			format: "DD, dd/mm/yyyy hh:ii:ss",
 			linkField: "inputFechaRecepcion_extenderPlazo",
@@ -37,8 +34,6 @@ const buscarArriendoExtender = async (id_arriendo) => {
 		}).on('changeDate', function (ev) {
 			calcularDiasExtencion()
 		});
-
-
 		$('.form_datetime2').datetimepicker({
 			format: "DD, dd/mm/yyyy hh:ii:ss",
 			startDate: "2013-02-14 10:00",
@@ -68,30 +63,22 @@ const buscarArriendoExtender = async (id_arriendo) => {
 
 const buscarArriendoFinalizar = async (id_arriendo) => {
 	limpiarFormulario();
-
-
 	$("#id_arriendo_recepcion").val(id_arriendo);
 	const data = new FormData();
 	data.append("id_arriendo", id_arriendo);
-
 	const response_estadoPago = await revisarEstadosPagos(data);
 	if (response_estadoPago.success) {
-
 		// si existe deuda , se levanta el modal para pagarla , si no el de recepcion
 		if (response_estadoPago.deuda) {
 			mostrarPagosPendientes(response_estadoPago.data);
 			$("#modalPagoArriendo").modal({
 				show: true,
 			});
-
-
 		} else {
 			await mostrarRecepcionArriendo(id_arriendo);
 			$("#modal_ArriendoFinalizar").modal({
 				show: true,
 			});
-
-
 		}
 	}
 	$("#formSpinner_finalizar_arriendo").hide();
@@ -117,28 +104,22 @@ const mostrarPagosPendientes = ({ arrayPago, totalPago, arriendo }) => {
 		n++;
 		array_id_pagos_pendientes.push(pago.id_pago);
 	})
-
 	totalAPagar_arriendo = totalPago;
-
 	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(totalAPagar_arriendo)} `);
 	$("#dias_totales").html(`dias totales: ${arriendo.diasAcumulados_arriendo}`);
-
 	if (arriendo.tipo_arriendo === "REEMPLAZO") {
 		$("#descuento_copago").show();
-
 		const fechaFinal = moment(arriendo.fechaRecepcion_arriendo);
 		const fechaActual = moment();
 		const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
 		const horasRestantes = moment.utc(fechaFinal.diff(moment())).format("HH");
-
-		$("#dias_restantes").val(`${diasRestantes} ${diasRestantes == 1 ? "dia" : "dias"}  ${horasRestantes} horas`);
+		$("#dias_restantes").val(`${diasRestantes} ${diasRestantes == 1 ? "dia" : "dias"} con  ${horasRestantes} horas`);
 	}
 }
 
 
 const recalcularPago = (desc) => {
 	const formatter = new Intl.NumberFormat("CL");
-
 	let descuento = Number(desc);
 	let precioAntiguo = Number(totalAPagar_arriendo);
 	let precioNuevo = precioAntiguo - descuento;
@@ -148,7 +129,6 @@ const recalcularPago = (desc) => {
 
 
 const mostrarRecepcionArriendo = async (id_arriendo) => {
-
 	mostrarCanvasImgVehiculo([
 		"canvas_fotoVehiculo_recepcion",
 		"limpiar_fotoVehiculo_recepcion",
@@ -207,7 +187,7 @@ const limpiarFormulario = () => {
 	$("#id_vehiculo_recepcion").val("");
 	$("#id_arriendo_recepcion").val("");
 	$("#input_descripcion_danio").val("");
-
+	$("#input_kilometraje_salida").val(0);
 	$("#formExtenderArriendo")[0].reset();
 	$("#form_pagos_pendientes")[0].reset();
 }
@@ -351,7 +331,7 @@ $(document).ready(() => {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				$("#spinner_btn_finalizar_contrato").show();
-
+				$("#btn_finalizar_arriendo").attr("disabled", true);
 				const data = new FormData();
 				const response_revision = await guardarRevisionRecepcion(data);
 				if (response_revision.success) {
@@ -367,7 +347,7 @@ $(document).ready(() => {
 					"Arriendo finalizado con exito!",
 					"success"
 				);
-
+				$("#btn_finalizar_arriendo").attr("disabled", false);
 				$("#spinner_btn_finalizar_contrato").hide();
 			}
 		});
@@ -477,7 +457,6 @@ $(document).ready(() => {
 							}
 						}
 					}
-
 				}
 				$("#spinner_btn_actualizar_pago").hide();
 				$("#actualizar_pago_arriendo").attr("disabled", false);
@@ -497,8 +476,6 @@ $(document).ready(() => {
 			});
 			return;
 		}
-
-
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de guardar los cambios!",

@@ -622,8 +622,9 @@ $nombreUsuario = $this->session->userdata('nombre')
                 </div>
                 <div id="body-firma">
                     <div class="container ">
-                        <a class="row justify-content-md-center" target="_blank" id="descargar_actaEntrega">Descargar
-                            Acta de entrega</a>
+                        <a class="row justify-content-md-center btn-success" target="_blank" id="descargar_actaEntrega">
+                            <i class="fas fa-download"></i>
+                            Descargar Acta de entrega</a>
                         <br>
                         <button id="prev_despacho" class=" btn-info">
                             < </button> <button id="next_despacho" class=" btn-info "> >

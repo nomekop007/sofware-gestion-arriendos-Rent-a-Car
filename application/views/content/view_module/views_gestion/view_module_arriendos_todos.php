@@ -207,10 +207,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                             </div>
                         </div>
                         <br>
-                        <button type="submit" id="btn_registrar_garantia" class="btn  btn-sm btn-info col-xl-3">
-                            Registrar garantia</button><span class="spinner-border spinner-border-sm" role="status"
-                            aria-hidden="true" id="spinner_btn_registrar_garantia"></span></button>
-
                     </div>
                     <br><br>
                 </form>
@@ -298,11 +294,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                                             name="inputCartaRemplazo" required>
                                         <br>
                                     </div>
-
-                                    <button type="submit" id="btn_subirDocumentos"
-                                        class="btn btn-sm  btn-info col-xl-3">subir
-                                        documentos<span class="spinner-border spinner-border-sm" role="status"
-                                            aria-hidden="true" id="spinner_btn_subirDocumentos"></span></button>
                                 </div>
                             </div>
                         </div>
@@ -311,7 +302,10 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
                     <button disabled type="button" class="btn btn-danger">Anular arriendo</button>
-
+                    <button type="submit" id="btn_guardar_garantiaRequisitos" class="btn  btn-primary col-xl-3">Guardar
+                        cambios
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            id="spinner_btn_guardar_garantiaRequisitos"></span></button>
                 </div>
             </div>
         </div>
@@ -328,7 +322,7 @@ $nombreUsuario = $this->session->userdata('nombre')
 <!-- Modal pago arriendo -->
 <div class="modal fade" id="modal_pago_arriendo" data-backdrop="static" style="overflow-y: scroll;"
     data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Arriendo <span id="numeroArriendoConfirmacion">Nº</span>
@@ -352,162 +346,172 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <input type="text" name="inputPatenteVehiculo" id="inputPatenteVehiculo" hidden />
                 <input type="text" name="inputEstadoArriendo_pago" id="inputEstadoArriendo_pago" hidden>
                 <div class="modal-body">
-                    <div class="card">
-                        <div class="form-row card-body text-center">
-                            <span style="width: 50%;" id="textCliente"
-                                class=" text-center input-group-text form-control"></span>
-                            <span style="width: 50%;" id="textVehiculo"
-                                class="  text-center input-group-text form-control"></span>
-                        </div>
-                    </div>
-                    <br><br>
-                    <h5>Valor Arriendo (neto)</h5>
-                    <div class="card">
-                        <div class="form-row card-body">
-                            <div class="input-group col-md-12">
-                                <span style="width: 50%;" id="textTipo" value=""
-                                    class="input-group-text form-control">Tipo
-                                    Arriendo:
-                                </span>
-                                <span style="width: 50%;" id="textDias" class="input-group-text form-control">Cantidad
-                                    de dias: X</span>
+                    <div class="form-row">
+                        <div class=" col-lg-4">
+                            <h5>Datos del arriendo</h5>
+                            <div class="form-group">
+                                <span id="textTipo" class="input-group-text form-control"></span>
                             </div>
-                            <div class="input-group col-md-12 pago_empresa_remplazo">
-                                <span style="width: 60%;" class="input-group-text form-control">Pago total neto E.
-                                    reemplazo
-                                    $</span>
-                                <input style="width: 40%;" id="inputPagoEmpresa" name="inputPagoEmpresa" maxLength="11"
-                                    value="0" type="number" class="form-control" oninput="calcularValores()" required>
+                            <div class="form-group">
+                                <span id="textDias" class="input-group-text form-control"></span>
                             </div>
-                            <div class="input-group col-md-12 pago_empresa_remplazo">
-                                <span style="width: 60%;" class="input-group-text form-control">Valor neto copago
-                                    $</span>
-                                <input style="width: 40%;" oninput="calcularCopago()" id="inputValorCopago"
-                                    name="inputValorCopago" maxLength="11" value="0" type="number" class="form-control"
-                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
+                            <div class="form-group">
+                                <span id="textVehiculo" class="input-group-text form-control"></span>
                             </div>
-                            <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Sub Total neto</span>
-                                <input style="width: 40%;" id="inputSubTotalArriendo" name="inputSubTotalArriendo"
-                                    maxLength="11" value="0" type="number" class="form-control"
-                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
+                            <div class="form-group">
+                                <span id="textCliente" class="input-group-text form-control"></span>
                             </div>
-                        </div>
-                    </div>
-                    <br><br>
-                    <h5>Accesorios (neto)</h5>
-                    <div class="card">
-                        <div class="form-row card-body" id="formAccesorios">
-                            <!-- se meustran todos los accesorios disponibles -->
-                        </div>
-                    </div>
-                    <br><br>
-                    <h5>Totales</h5>
-                    <div class="card">
-                        <div class="form-row card-body">
-                            <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Descuento ( - ) $</span>
-                                <input style="width: 40%;" step="0" id="inputDescuento" name="inputDescuento"
-                                    maxLength="11" value="0" type="number" min=0 class="form-control"
-                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
-                            </div>
-                            <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Total Neto $</span>
-                                <input oninput="calcularValores()" style="width: 40%;" id="inputNeto" name="inputNeto"
-                                    min="0" value="0" type="number" class="form-control" required>
-                            </div>
-                            <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">IVA $</span>
-                                <input style="width: 40%;" id="inputIVA" name="inputIVA" min="0" value="0" type="number"
-                                    class="form-control" oninput="calcularValores()">
-                            </div>
-                            <div class="input-group col-md-12">
-                                <span style="width: 60%;" class="input-group-text form-control">Total a Pagar
-                                    $</span>
-                                <input style="width: 40%;" value="0" id="inputTotal" name="inputTotal" type="number"
-                                    min="0" class="form-control" required oninput="calcularValores()">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="card_pago">
-
-                        <br><br>
-                        <h5>Pago</h5>
-                        <div class="card">
-                            <h6>Facturacion</h6>
-                            <div class="form-row card-body">
-                                <div class="custom-control custom-radio custom-control-inline ">
-                                    <input type="radio" onclick="facturacion(this.value);" value="PENDIENTE"
-                                        id="radioPendiente" name="customRadio1" class="custom-control-input" checked>
-                                    <label class="custom-control-label" for="radioPendiente">Pendiente</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline ">
-                                    <input type="radio" onclick="facturacion(this.value);" value="BOLETA"
-                                        id="radioBoleta" name="customRadio1" class="custom-control-input">
-                                    <label class="custom-control-label" for="radioBoleta">Boleta</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline ">
-                                    <input type="radio" onclick="facturacion(this.value);" value="FACTURA"
-                                        id="radioFactura" name="customRadio1" class="custom-control-input">
-                                    <label class="custom-control-label" for="radioFactura">Factura</label>
-                                </div>
+                            <div class="form-group">
+                                <span id="textRemplazo" class="input-group-text form-control"></span>
                             </div>
                             <br>
-                            <div id="metodo_pago" class="container">
+                            <h5>Agregar mas detalles</h5>
+                            <div class="form-group">
+                                <label for="inputDigitador">Digitado por</label>
+                                <input disabled type="text" class="form-control" id="inputDigitador"
+                                    name="inputDigitador" value="<?php echo $nombreUsuario ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputObservaciones">Observaciones</label>
+                                <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
+                                    name="inputObservaciones" rows="3" maxLength="300"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <h5>Pago Cliente</h5>
+                            <div class="form-group ">
+                                <label for="inputValorCopago">Valor neto copago / valor neto diario arriendo </label>
+                                <input value="0" type="number" class="form-control" id="inputValorCopago" maxLength="11"
+                                    name="inputValorCopago" oninput="this.value = soloNumeros(this) ;calcularCopago()"
+                                    required>
+                            </div>
+                            <div class="form-group ">
+                                <label for="inputSubTotalArriendo">Sub Total neto</label>
+                                <input value="0" type="number" class="form-control" id="inputSubTotalArriendo"
+                                    maxLength="11" name="inputSubTotalArriendo"
+                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
+                            </div>
+                            <p>
+                                <button class=" badge badge-info" type="button" data-toggle="collapse"
+                                    data-target="#collapseExample" aria-expanded="false"
+                                    aria-controls="collapseExample">
+                                    Agregar accesorios ( + )
+                                </button>
+                            </p>
+                            <div class="collapse" id="collapseExample">
+                                <h5>Accesorios (neto)</h5>
+                                <div id="formAccesorios"></div>
+                                <br>
+                            </div>
+                            <div class="form-group ">
+                                <label for="inputDescuento">Descuento ( - ) </label>
+                                <input min="0" value="0" type="number" class="form-control" id="inputDescuento"
+                                    maxLength="11" name="inputDescuento"
+                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
+                            </div>
+                            <div class="form-group ">
+                                <label for="inputNeto">Total neto</label>
+                                <input min="0" value="0" type="number" class="form-control" id="inputNeto"
+                                    maxLength="11" name="inputNeto" oninput="calcularValores()" required>
+                            </div>
+                            <div class="form-group ">
+                                <label for="inputIVA">Iva</label>
+                                <input min="0" value="0" type="number" class="form-control" id="inputIVA" maxLength="11"
+                                    name="inputIVA" oninput="calcularValores()" required>
+                            </div>
+                            <div class="form-group ">
+                                <label for="inputTotal" class="font-weight-bold">Total a pagar </label>
+                                <input min="0" value="0" type="number" class="form-control font-weight-bold"
+                                    id="inputTotal" maxLength="11" name="inputTotal" oninput="calcularValores()"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 ">
+                            <div class="pago_empresa_remplazo">
+                                <h5>Pago E. Remplazo</h5>
+                                <div class="form-group ">
+                                    <label for="inputPagoEmpresa">Pago neto E. reemplazo</label>
+                                    <input min="0" value="0" type="number" class="form-control" id="inputPagoEmpresa"
+                                        maxLength="11" name="inputPagoEmpresa"
+                                        oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="inputPagoIvaEmpresa">Iva E. reemplazo</label>
+                                    <input min="0" value="0" type="number" class="form-control" id="inputPagoIvaEmpresa"
+                                        maxLength="11" name="inputPagoIvaEmpresa"
+                                        oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="inputPagoTotalEmpresa">Pago total E. reemplazo</label>
+                                    <input min="0" value="0" type="number" class="form-control"
+                                        id="inputPagoTotalEmpresa" maxLength="11" name="inputPagoTotalEmpresa"
+                                        oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
+                                </div>
+                            </div>
+                            <div id="card_pago">
+                                <h5>Facturacion</h5>
+                                <br>
                                 <div class="form-row">
-                                    <div class="form-group col-md-4">
+                                    <div class="custom-control custom-radio custom-control-inline ">
+                                        <input type="radio" onclick="facturacion(this.value);" value="PENDIENTE"
+                                            id="radioPendiente" name="customRadio1" class="custom-control-input"
+                                            checked>
+                                        <label class="custom-control-label" for="radioPendiente">Pendiente</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline ">
+                                        <input type="radio" onclick="facturacion(this.value);" value="BOLETA"
+                                            id="radioBoleta" name="customRadio1" class="custom-control-input">
+                                        <label class="custom-control-label" for="radioBoleta">Boleta</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline ">
+                                        <input type="radio" onclick="facturacion(this.value);" value="FACTURA"
+                                            id="radioFactura" name="customRadio1" class="custom-control-input">
+                                        <label class="custom-control-label" for="radioFactura">Factura</label>
+                                    </div>
+                                </div>
+                                <br> <br>
+                                <div id="metodo_pago">
+                                    <div class="form-group">
                                         <label for="inputNumFacturacion">Numero comprobante</label>
                                         <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion"
                                             type="number" class="form-control" placeholder="Nº Boleta/Factura" required>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="inputFileFacturacion">documento</label>
+                                    <div class="form-group">
+                                        <label for="inputFileFacturacion">comprobante</label>
                                         <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
                                             type="file" class="form-control-file" id="inputFileFacturacion"
                                             name="inputFileFacturacion" required>
                                     </div>
-                                </div>
-                                <h6>Metodo de pago</h6>
-                                <div class="form-row card-body">
-                                    <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value=1 id="radioEfectivo" name="customRadio2"
-                                            class="custom-control-input" checked>
-                                        <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
+                                    <br><br>
+                                    <h5>Metodo de pago</h5>
+                                    <div class="form-row card-body m-2">
+                                        <div class="custom-control custom-radio custom-control-inline col-xl-12 ">
+                                            <input type="radio" value=1 id="radioEfectivo" name="customRadio2"
+                                                class="custom-control-input" checked>
+                                            <label class="custom-control-label" for="radioEfectivo">Pago en
+                                                efectivo</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline col-xl-12 ">
+                                            <input type="radio" value=2 id="radioCheque" name="customRadio2"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label" for="radioCheque">Pago con
+                                                cheque</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline col-xl-12 ">
+                                            <input type="radio" value=3 id="radioTarjeta" name="customRadio2"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label" for="radioTarjeta">Pago con Tarjeta
+                                                credito/debito</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline col-xl-12 ">
+                                            <input type="radio" value=4 id="radioTranferencia" name="customRadio2"
+                                                class="custom-control-input">
+                                            <label class="custom-control-label" for="radioTranferencia">
+                                                Pago con Transferencia
+                                                electronica</label>
+                                        </div>
                                     </div>
-                                    <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value=2 id="radioCheque" name="customRadio2"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="radioCheque">Cheque</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value=3 id="radioTarjeta" name="customRadio2"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="radioTarjeta">Tarjeta
-                                            credito/debito</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value=4 id="radioTranferencia" name="customRadio2"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="radioTranferencia">Transferencia
-                                            electronica</label>
-                                    </div>
-                                </div>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                    <br><br>
-                    <h5>Mas detalles</h5>
-                    <div class="card">
-                        <div class="form-row card-body">
-                            <div class="form-group col-md-12">
-                                <label for="inputDigitador">Digitado por</label>
-                                <input disabled type="text" class="form-control" id="inputDigitador"
-                                    name="inputDigitador" value="<?php echo $nombreUsuario ?>" required>
-                                <div class="form-group col-md-12">
-                                    <label for="inputObservaciones">Observaciones</label>
-                                    <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
-                                        name="inputObservaciones" rows="3" maxLength="300"></textarea>
+                                    <br>
                                 </div>
                             </div>
                         </div>
@@ -518,7 +522,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <button type="submit" id="btn_registrar_pago" class="btn btn-primary">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             id="spinner_btn_registrarPago"></span>
-                        Guardar Pago</button>
+                        Registrar Pago</button>
                 </div>
             </form>
         </div>
@@ -553,8 +557,9 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <input type="text" id="estado_arriendo" hidden>
 
                 <div class="container ">
-                    <a class="row justify-content-md-center" target="_blank" id="descargar_contrato">Descargar
-                        contrato</a>
+                    <a class="row justify-content-md-center btn-success" target="_blank" id="descargar_contrato">
+                        <i class="fas fa-download"></i>
+                        Descargar contrato</a>
                     <br>
                     <button id="prev_contrato" class=" btn-info">
                         < </button> <button id="next_contrato" class=" btn-info "> >
@@ -607,14 +612,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                         </button>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>

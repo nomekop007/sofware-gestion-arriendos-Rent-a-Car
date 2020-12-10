@@ -1,5 +1,4 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-
     <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
@@ -21,7 +20,6 @@
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-
             <!-- Tab Formulario de Registrar facturaciones -->
             <div class="tab-pane fade show active" id="nav-registrar" role="tabpanel"
                 aria-labelledby="nav-registrar-tab">
@@ -120,7 +118,6 @@
                                         </tr>
                                     </thead>
                                     <tbody id="vehiculos">
-
                                     </tbody>
                                     <tfoot class="btn-dark">
                                         <tr>
@@ -146,7 +143,6 @@
                     </div>
                 </form>
             </div>
-
             <!-- Tab con la tabla de los pagos -->
             <div class="tab-pane fade" id="nav-pagos" role="tabpanel" aria-labelledby="nav-pagos-tab">
                 <br><br>
@@ -188,12 +184,8 @@
             </div>
             <br><br><br><br>
         </div>
-
     </div>
-
-
 </main>
-
 </div>
 </div>
 
