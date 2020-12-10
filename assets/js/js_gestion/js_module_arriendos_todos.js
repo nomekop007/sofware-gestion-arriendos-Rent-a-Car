@@ -172,27 +172,19 @@ const mostrarArriendoModalVer = (arriendo) => {
 				a.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos").append(a);
 			}
-
-
-
 			if (arriendo.despacho) {
 				const a = document.createElement("button");
 				a.addEventListener("click", () => buscarDocumento(arriendo.despacho.actasEntrega.documento, "acta"));
 				a.textContent = "Acta de entrega";
 				a.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos").append(a);
-
 				if (arriendo.despacho.revision_recepcion) {
 					const a = document.createElement("button");
 					a.addEventListener("click", () => buscarDocumento(arriendo.despacho.revision_recepcion, "recepcion"));
 					a.textContent = "Revision recepcion";
 					a.className = "badge badge-pill badge-info m-1";
 					document.getElementById("card_documentos").append(a);
-
-
 				}
-
-
 			}
 			let numeroContrato = 1;
 			if (arriendo.contratos) {
@@ -251,7 +243,7 @@ const mostrarArriendoModalPago = (arriendo) => {
 		switch (arriendo.tipo_arriendo) {
 			case "PARTICULAR":
 				$("#card_pago").show();
-				$("#textCliente").html(arriendo.cliente.nombre_cliente);
+				$("#textCliente").html("Cliente: " + arriendo.cliente.nombre_cliente);
 				$("#inputDeudor").val(arriendo.rut_cliente);
 				$("#textVehiculo").html(
 					"Vehiculo : " + arriendo.vehiculo.patente_vehiculo
@@ -262,20 +254,14 @@ const mostrarArriendoModalPago = (arriendo) => {
 				$(".pago_empresa_remplazo").show();
 				$("#inputDeudor").val(arriendo.remplazo.rut_cliente);
 				$("#inputDeudorCopago").val(arriendo.remplazo.codigo_empresaRemplazo);
-
-				$("#textCliente").html(
-					arriendo.remplazo.cliente.nombre_cliente +
-					" - " +
-					arriendo.remplazo.codigo_empresaRemplazo
-				);
-				$("#textVehiculo").html(
-					"Vehiculo : " + arriendo.vehiculo.patente_vehiculo
-				);
+				$("#textCliente").html("Cliente: " + arriendo.remplazo.cliente.nombre_cliente);
+				$("#textRemplazo").html("E. Remplazo: " + arriendo.remplazo.codigo_empresaRemplazo);
+				$("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
 				break;
 			case "EMPRESA":
 				$("#card_pago").show();
 				$("#inputDeudor").val(arriendo.rut_empresa);
-				$("#textCliente").html(arriendo.empresa.nombre_empresa);
+				$("#textCliente").html("Cliente: " + arriendo.empresa.nombre_empresa);
 				$("#textVehiculo").html(
 					"Vehiculo : " + arriendo.vehiculo.patente_vehiculo
 				);
@@ -330,6 +316,17 @@ const calcularCopago = () => {
 	calcularValores();
 }
 
+
+const calcularIvaPagoERemplazo = () => {
+	let neto = Number($("#inputPagoEmpresa").val());
+	let iva = Number($("#inputPagoIvaEmpresa").val());
+	let total = Number($("#inputPagoTotalEmpresa").val());
+	iva = Number(neto * 0.19);
+	total = Number(neto + iva);
+	$("#inputPagoIvaEmpresa").val(Math.round(iva));
+	$("#inputPagoTotalEmpresa").val(decimalAdjust(Math.round(total), 1));
+}
+
 const calcularValores = () => {
 
 	//variables
@@ -355,28 +352,6 @@ const calcularValores = () => {
 	$("#inputIVA").val(Math.round(iva));
 	$("#inputTotal").val(decimalAdjust(Math.round(total), 1));
 };
-
-
-//redondea el ultimo valor de un numero 
-function decimalAdjust(value, exp) {
-	let type = 'round';
-	// Si el exp es indefinido o cero...
-	if (typeof exp === 'undefined' || +exp === 0) {
-		return Math[type](value);
-	}
-	value = +value;
-	exp = +exp;
-	// Si el valor no es un número o el exp no es un entero...
-	if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
-		return NaN;
-	}
-	// Cambio
-	value = value.toString().split('e');
-	value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
-	// Volver a cambiar
-	value = value.toString().split('e');
-	return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
-}
 
 
 
@@ -453,7 +428,6 @@ const limpiarCampos = () => {
 	$("#formPagoArriendo").hide();
 	$("#formContratoArriendo").hide();
 	$("#body_editarArriendo").hide();
-
 	$("#formPagoArriendo")[0].reset();
 	$("#formSubirDocumentos")[0].reset();
 	$("#formGarantia")[0].reset();
@@ -475,6 +449,14 @@ const limpiarCampos = () => {
 	$("#formSpinnerPago").show();
 	$("#formSpinnerEditar").show();
 	$("#formSpinnerContrato").show();
+
+
+	$("#textTipo").html("");
+	$("#textDias").html("");
+	$("#textVehiculo").html("");
+	$("#textCliente").html("");
+	$("#textRemplazo").html("");
+
 
 
 	//modal detalle arriendo
@@ -539,12 +521,13 @@ $(document).ready(() => {
 					o.precio_accesorio = "";
 				}
 				let fila = `
-                <div class='input-group col-md-12'>
-                    <span style='width: 60%;' class='input-group-text form-control'>${o.nombre_accesorio} ( + )  $${o.precio_accesorio} </span>
-                    <input  style='width: 40%;' min='0' id='${o.id_accesorio}' maxLength='11' name='accesorios[]' 
+                <div class='input-group '>
+                    <label style='width: 70%;font-size: 0.6rem;' class='form-control'>${o.nombre_accesorio}  $${o.precio_accesorio} </label>
+                    <input  style='width: 30%;font-size: 0.6rem;' min='0' id='${o.id_accesorio}' maxLength='11' name='accesorios[]' 
                      value='0'  oninput="this.value = soloNumeros(this) ;calcularValores()"
                         type='number' class='form-control' required>
-                </div>`;
+				</div>`;
+
 				$("#formAccesorios").append(fila);
 			});
 		}
@@ -561,20 +544,15 @@ $(document).ready(() => {
 		const inputFechaTarjeta = $("#inputFechaTarjeta").val();
 		const inputCodigoTarjeta = $("#inputCodigoTarjeta").val();
 		const inputAbono = $("#inputAbono").val();
-
-
-
 		const inputCarnetFrontal = $("#inputCarnetFrontal").val();
 		const inputCarnetTrasera = $("#inputCarnetTrasera").val();
 		const inputlicenciaFrontal = $("#inputlicenciaFrontal").val();
 		const inputlicenciaTrasera = $("#inputlicenciaTrasera").val();
 		const inputComprobanteDomicilio = $("#inputComprobanteDomicilio").val();
 		const inputCartaRemplazo = $("#inputCartaRemplazo").val();
-
 		const inputBoletaEfectivo = $("#inputBoletaEfectivo").val();
 		const inputChequeGarantia = $("#inputChequeGarantia").val();
 		const inputTarjeta = $("#inputTarjeta").val();
-
 		const inputTipoArriendo = $("#inputEditarTipoArriendo").val();
 		const inputTipoGarantia = $("input:radio[name=customRadio0]:checked").val();
 		//VALIDACION DE LA GARANTIA
@@ -649,9 +627,6 @@ $(document).ready(() => {
 
 				break;
 		}
-
-
-
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de guardar los cambios!",
@@ -688,6 +663,7 @@ $(document).ready(() => {
 
 	$("#btn_registrar_pago").click(async () => {
 
+		const tipoArriendo = $("#textTipo").val();
 		const tipoPago = $('[name="customRadio1"]:checked').val();
 		const numeroFacturacion = $("#inputNumFacturacion").val().length;
 		const totalNeto = $("#inputNeto").val();
@@ -695,7 +671,7 @@ $(document).ready(() => {
 		if (tipoPago != "PENDIENTE") {
 			if (numeroFacturacion == 0 || $("#inputFileFacturacion").val().length == 0) {
 				Swal.fire(
-					"debe ingresar el pago correspondiente",
+					"debe ingresar el comprobante de pago",
 					"falta ingresar datos en el formulario",
 					"warning"
 				);
@@ -710,6 +686,17 @@ $(document).ready(() => {
 			);
 			return;
 		}
+
+		//valdiacion para que solo los remplazos queden como pendiente
+		if (tipoArriendo != "REEMPLAZO" && tipoPago == "PENDIENTE") {
+			Swal.fire(
+				"Falta ingresar facturacion",
+				"solo los arriendos de remplazo pueden quedar con la facturacion pendiente",
+				"warning"
+			);
+			return;
+		}
+
 
 
 
@@ -778,14 +765,9 @@ $(document).ready(() => {
 						data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
 						data.append("inputDeudor", $("#inputDeudorCopago").val());
 
-						// se calcula el pago de la empresa remplazo
-						let valor = Number($("#inputPagoEmpresa").val());
-						let iva = Number(valor * 0.19);
-						let total = Number(valor + iva);
-
-						data.append("inputNeto", valor);
-						data.append("inputIVA", iva);
-						data.append("inputTotal", total);
+						data.append("inputNeto", Number($("#inputPagoEmpresa").val()));
+						data.append("inputIVA", Number($("#inputPagoIvaEmpresa").val()));
+						data.append("inputTotal", Number($("#inputPagoTotalEmpresa").val()));
 						await guardarPago(data);
 					}
 					await cambiarEstadoArriendo($("#inputEstadoArriendo_pago").val(), $("#inputIdArriendo").val());
