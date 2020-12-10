@@ -28,7 +28,7 @@
                 <form class="needs-validation" novalidate id="form_registrar_vehiculo">
                     <div class="form-row">
                         <div class="form-group col-lg-2">
-                            <label for="inputPatente">Patente</label>
+                            <label for="inputPatente">Patente (no modificable)</label>
                             <input onblur="mayus(this);" maxLength="10" type="text" class="form-control"
                                 id="inputPatente" name="inputPatente" required>
                         </div>

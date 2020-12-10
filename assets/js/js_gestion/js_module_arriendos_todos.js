@@ -174,12 +174,25 @@ const mostrarArriendoModalVer = (arriendo) => {
 			}
 
 
+
 			if (arriendo.despacho) {
 				const a = document.createElement("button");
 				a.addEventListener("click", () => buscarDocumento(arriendo.despacho.actasEntrega.documento, "acta"));
 				a.textContent = "Acta de entrega";
 				a.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos").append(a);
+
+				if (arriendo.despacho.revision_recepcion) {
+					const a = document.createElement("button");
+					a.addEventListener("click", () => buscarDocumento(arriendo.despacho.revision_recepcion, "recepcion"));
+					a.textContent = "Revision recepcion";
+					a.className = "badge badge-pill badge-info m-1";
+					document.getElementById("card_documentos").append(a);
+
+
+				}
+
+
 			}
 			let numeroContrato = 1;
 			if (arriendo.contratos) {
@@ -548,12 +561,26 @@ $(document).ready(() => {
 		const inputFechaTarjeta = $("#inputFechaTarjeta").val();
 		const inputCodigoTarjeta = $("#inputCodigoTarjeta").val();
 		const inputAbono = $("#inputAbono").val();
-		const inputTipoGarantia = $("input:radio[name=customRadio0]:checked").val();
 
+
+
+		const inputCarnetFrontal = $("#inputCarnetFrontal").val();
+		const inputCarnetTrasera = $("#inputCarnetTrasera").val();
+		const inputlicenciaFrontal = $("#inputlicenciaFrontal").val();
+		const inputlicenciaTrasera = $("#inputlicenciaTrasera").val();
+		const inputComprobanteDomicilio = $("#inputComprobanteDomicilio").val();
+		const inputCartaRemplazo = $("#inputCartaRemplazo").val();
+
+		const inputBoletaEfectivo = $("#inputBoletaEfectivo").val();
+		const inputChequeGarantia = $("#inputChequeGarantia").val();
+		const inputTarjeta = $("#inputTarjeta").val();
+
+		const inputTipoArriendo = $("#inputEditarTipoArriendo").val();
+		const inputTipoGarantia = $("input:radio[name=customRadio0]:checked").val();
 		//VALIDACION DE LA GARANTIA
 		switch (inputTipoGarantia) {
 			case "CHEQUE":
-				if (inputNumeroCheque.length == 0 || inputCodigoCheque.length == 0) {
+				if (inputNumeroCheque.length == 0 || inputChequeGarantia.length == 0 || inputCodigoCheque.length == 0) {
 					Swal.fire({
 						icon: "warning",
 						title: "Faltan datos de cheque en garantia ",
@@ -566,7 +593,8 @@ $(document).ready(() => {
 					inputNumeroTarjeta.length == 0 ||
 					inputFechaTarjeta.length == 0 ||
 					inputCodigoTarjeta.length == 0 ||
-					inputAbono.length == 0
+					inputAbono.length == 0 ||
+					inputTarjeta.length == 0
 				) {
 					Swal.fire({
 						icon: "warning",
@@ -576,7 +604,7 @@ $(document).ready(() => {
 				}
 				break;
 			case "EFECTIVO":
-				if (inputAbono.length == 0) {
+				if (inputAbono.length == 0 || inputBoletaEfectivo.length == 0) {
 					Swal.fire({
 						icon: "warning",
 						title: "Faltan datos de Abono en garantia ",
@@ -586,9 +614,41 @@ $(document).ready(() => {
 				break;
 		}
 
-
 		//VALIDACION DE LOS ARCHIVOS
+		if (inputCarnetFrontal.length == 0 || inputCarnetTrasera.length == 0 || inputlicenciaFrontal.length == 0 || inputlicenciaTrasera.length == 0) {
+			Swal.fire(
+				"faltan archivos por subir",
+				"se necesita subir los archivos requeridos",
+				"warning"
+			);
+			return;
+		}
 
+		switch (inputTipoArriendo) {
+			case "PARTICULAR":
+				if (inputComprobanteDomicilio.length == 0) {
+					Swal.fire(
+						"faltan archivos por subir",
+						"se necesita subir los archivos requeridos",
+						"warning"
+					);
+					return;
+				}
+				break;
+			case "REEMPLAZO":
+				if (inputCartaRemplazo.length == 0) {
+					Swal.fire(
+						"faltan archivos por subir",
+						"se necesita subir los archivos requeridos",
+						"warning"
+					);
+					return;
+				}
+				break;
+			case "EMPRESA":
+
+				break;
+		}
 
 
 

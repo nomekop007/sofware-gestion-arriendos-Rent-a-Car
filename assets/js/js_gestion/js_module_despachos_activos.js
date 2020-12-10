@@ -113,7 +113,7 @@ const mostrarPagosPendientes = ({ arrayPago, totalPago, arriendo }) => {
 		const fechaActual = moment();
 		const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
 		const horasRestantes = moment.utc(fechaFinal.diff(moment())).format("HH");
-		$("#dias_restantes").val(`${diasRestantes} ${diasRestantes == 1 ? "dia" : "dias"}  ${horasRestantes} horas`);
+		$("#dias_restantes").val(`${diasRestantes} ${diasRestantes == 1 ? "dia" : "dias"} con  ${horasRestantes} horas`);
 	}
 }
 

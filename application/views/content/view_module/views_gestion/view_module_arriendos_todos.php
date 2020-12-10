@@ -602,14 +602,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                         </button>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
             </div>
         </div>
     </div>
