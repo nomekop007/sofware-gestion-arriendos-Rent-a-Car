@@ -103,128 +103,125 @@ const mostrarArriendoModalVer = (arriendo) => {
 	}
 
 
-
-
-	if (arriendo.estado_arriendo != "ANULADO") {
-		if (arriendo.requisito) {
-			const requisito = arriendo.requisito;
-			$("#btn_guardar_garantiaRequisitos").hide();
-			if (requisito.carnetFrontal_requisito) {
-				const a = document.createElement("button");
-				a.addEventListener("click", () => buscarDocumento(requisito.carnetFrontal_requisito, "requisito"));
-				a.textContent = "Foto carnet frontal";
-				a.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos").append(a);
-			}
-			if (requisito.carnetTrasera_requisito) {
-				const a = document.createElement("button");
-				a.addEventListener("click", () => buscarDocumento(requisito.carnetTrasera_requisito, "requisito"));
-				a.textContent = "Foto carnet Trasera";
-				a.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos").append(a);
-			}
-			if (requisito.licenciaConducirFrontal_requisito) {
-				const a = document.createElement("button");
-				a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirFrontal_requisito, "requisito"));
-				a.textContent = "Foto licencia de conducir frontal";
-				a.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos").append(a);
-			}
-			if (requisito.licenciaConducirTrasera_requisito) {
-				const a = document.createElement("button");
-				a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirTrasera_requisito, "requisito"));
-				a.textContent = "Foto licencia de conducir trasera";
-				a.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos").append(a);
-			}
-			if (requisito.tarjetaCredito_requisito) {
-				const a = document.createElement("button");
-				a.addEventListener("click", () => buscarDocumento(requisito.tarjetaCredito_requisito, "requisito"));
-				a.textContent = "Foto comprobante Tarjeta de credito";
-				a.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos").append(a);
-			}
-			if (requisito.chequeGarantia_requisito) {
-				const a = document.createElement("button");
-				a.addEventListener("click", () => buscarDocumento(requisito.chequeGarantia_requisito, "requisito"));
-				a.className = "badge badge-pill badge-info m-1";
-				a.textContent = "Foto comprobante cheque ";
-				document.getElementById("card_documentos").append(a);
-			}
-			if (requisito.comprobanteDomicilio_requisito) {
-				const a = document.createElement("button");
-				a.addEventListener("click", () => buscarDocumento(requisito.comprobanteDomicilio_requisito, "requisito"));
-				a.textContent = "Foto comprobante de domicilio";
-				a.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos").append(a);
-			}
-			if (requisito.cartaRemplazo_requisito) {
-				const a = document.createElement("button");
-				a.addEventListener("click", () => buscarDocumento(requisito.cartaRemplazo_requisito, "requisito"));
-				a.textContent = "Foto carta de remplazo";
-				a.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos").append(a);
-			}
-			if (requisito.boletaEfectivo_requisito) {
-				const a = document.createElement("button");
-				a.addEventListener("click", () => buscarDocumento(requisito.boletaEfectivo_requisito, "requisito"));
-				a.textContent = "Foto comprobante efectivo";
-				a.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos").append(a);
-			}
-			if (arriendo.despacho) {
-				const a = document.createElement("button");
-				a.addEventListener("click", () => buscarDocumento(arriendo.despacho.actasEntrega.documento, "acta"));
-				a.textContent = "Acta de entrega";
-				a.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos").append(a);
-				if (arriendo.despacho.revision_recepcion) {
-					const a = document.createElement("button");
-					a.addEventListener("click", () => buscarDocumento(arriendo.despacho.revision_recepcion, "recepcion"));
-					a.textContent = "Revision recepcion";
-					a.className = "badge badge-pill badge-info m-1";
-					document.getElementById("card_documentos").append(a);
-				}
-			}
-			let numeroContrato = 1;
-			if (arriendo.contratos) {
-				arriendo.contratos.map(contrato => {
-					const a = document.createElement("button");
-					a.addEventListener("click", () => buscarDocumento(contrato.documento, "contrato"));
-					a.textContent = `Contrato Nº${numeroContrato}`;
-					a.className = "badge badge-pill badge-info m-1";
-					document.getElementById("card_documentos").append(a);
-					numeroContrato++;
-				})
-			}
-		} else {
-			$("#formSubirDocumentos").show();
+	if (arriendo.requisito) {
+		const requisito = arriendo.requisito;
+		$("#btn_guardar_garantiaRequisitos").hide();
+		if (requisito.carnetFrontal_requisito) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.carnetFrontal_requisito, "requisito"));
+			a.textContent = "Foto carnet frontal";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
 		}
-
-		if (arriendo.garantia) {
-			$("#inputEditarGarantiaArriendo").val(arriendo.garantia.modosPago.nombre_modoPago);
-			$("#btn_guardar_garantiaRequisitos").hide();
-			switch (arriendo.garantia.id_modoPago) {
-				case 1:
-					$("#card_cheque").hide();
-					$("#card_tarjeta").hide();
-					$("#card_efectivo").show();
-					break;
-				case 2:
-					$("#card_tarjeta").hide();
-					$("#card_efectivo").hide();
-					$("#card_cheque").show();
-					break;
-				case 3:
-					$("#card_efectivo").hide();
-					$("#card_cheque").hide();
-					$("#card_tarjeta").show();
-					break;
-			}
-		} else {
-			$("#formGarantia").show();
+		if (requisito.carnetTrasera_requisito) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.carnetTrasera_requisito, "requisito"));
+			a.textContent = "Foto carnet Trasera";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
 		}
+		if (requisito.licenciaConducirFrontal_requisito) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirFrontal_requisito, "requisito"));
+			a.textContent = "Foto licencia de conducir frontal";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.licenciaConducirTrasera_requisito) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirTrasera_requisito, "requisito"));
+			a.textContent = "Foto licencia de conducir trasera";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.tarjetaCredito_requisito) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.tarjetaCredito_requisito, "requisito"));
+			a.textContent = "Foto comprobante Tarjeta de credito";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.chequeGarantia_requisito) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.chequeGarantia_requisito, "requisito"));
+			a.className = "badge badge-pill badge-info m-1";
+			a.textContent = "Foto comprobante cheque ";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.comprobanteDomicilio_requisito) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.comprobanteDomicilio_requisito, "requisito"));
+			a.textContent = "Foto comprobante de domicilio";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.cartaRemplazo_requisito) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.cartaRemplazo_requisito, "requisito"));
+			a.textContent = "Foto carta de remplazo";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.boletaEfectivo_requisito) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.boletaEfectivo_requisito, "requisito"));
+			a.textContent = "Foto comprobante efectivo";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (arriendo.despacho) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(arriendo.despacho.actasEntrega.documento, "acta"));
+			a.textContent = "Acta de entrega";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+			if (arriendo.despacho.revision_recepcion) {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(arriendo.despacho.revision_recepcion, "recepcion"));
+				a.textContent = "Revision recepcion";
+				a.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(a);
+			}
+		}
+		let numeroContrato = 1;
+		if (arriendo.contratos) {
+			arriendo.contratos.map(contrato => {
+				const a = document.createElement("button");
+				a.addEventListener("click", () => buscarDocumento(contrato.documento, "contrato"));
+				a.textContent = `Contrato Nº${numeroContrato}`;
+				a.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(a);
+				numeroContrato++;
+			})
+		}
+	} else {
+		$("#formSubirDocumentos").show();
 	}
+
+	if (arriendo.garantia) {
+		$("#inputEditarGarantiaArriendo").val(arriendo.garantia.modosPago.nombre_modoPago);
+		$("#btn_guardar_garantiaRequisitos").hide();
+		switch (arriendo.garantia.id_modoPago) {
+			case 1:
+				$("#card_cheque").hide();
+				$("#card_tarjeta").hide();
+				$("#card_efectivo").show();
+				break;
+			case 2:
+				$("#card_tarjeta").hide();
+				$("#card_efectivo").hide();
+				$("#card_cheque").show();
+				break;
+			case 3:
+				$("#card_efectivo").hide();
+				$("#card_cheque").hide();
+				$("#card_tarjeta").show();
+				break;
+		}
+	} else {
+		$("#formGarantia").show();
+	}
+
 
 };
 
@@ -1009,17 +1006,15 @@ $(document).ready(() => {
 					break;
 			}
 
-			if (arriendo.estado_arriendo != "ANULADO") {
-
-				tablaTotalArriendos.row
-					.add([
-						arriendo.id_arriendo,
-						formatearFechaHora(arriendo.createdAt),
-						cliente,
-						arriendo.tipo_arriendo,
-						`<span class="${color}">${arriendo.estado_arriendo}</span>`,
-						arriendo.usuario.nombre_usuario,
-						`<button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
+			tablaTotalArriendos.row
+				.add([
+					arriendo.id_arriendo,
+					formatearFechaHora(arriendo.createdAt),
+					cliente,
+					arriendo.tipo_arriendo,
+					`<span class="${color}">${arriendo.estado_arriendo}</span>`,
+					arriendo.usuario.nombre_usuario,
+					`<button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
                         data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn-outline-primary'><i class="fas fa-upload"></i></button>
                          
                         <button id='b${arriendo.id_arriendo}' value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,2)' 
@@ -1028,27 +1023,27 @@ $(document).ready(() => {
                             <button id='c${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,3)' 
                                 data-toggle='modal' data-target='#modal_firmar_contrato' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  
                                 `,
-					])
-					.draw(false);
+				])
+				.draw(false);
 
 
-				if (arriendo.requisito && arriendo.garantia || arriendo.estado_arriendo == "ANULADO") {
-					$(`#a${arriendo.id_arriendo}`).removeClass("btn-outline-primary");
-					$(`#a${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
-				}
-
-				if (arriendo.estado_arriendo != "EXTENDIDO" && arriendo.estado_arriendo != "PENDIENTE" || arriendo.estado_arriendo == "ANULADO") {
-					$(`#b${arriendo.id_arriendo}`).attr("disabled", true);
-					$(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-success");
-					$(`#b${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
-				}
-
-				if (arriendo.estado_arriendo != "CONFIRMADO" && arriendo.estado_arriendo != "E-CONFIRMADO" || arriendo.estado_arriendo == "ANULADO") {
-					$(`#c${arriendo.id_arriendo}`).attr("disabled", true);
-					$(`#c${arriendo.id_arriendo}`).removeClass("btn-outline-info");
-					$(`#c${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
-				}
+			if (arriendo.requisito && arriendo.garantia || arriendo.estado_arriendo == "ANULADO") {
+				$(`#a${arriendo.id_arriendo}`).removeClass("btn-outline-primary");
+				$(`#a${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
 			}
+
+			if (arriendo.estado_arriendo != "EXTENDIDO" && arriendo.estado_arriendo != "PENDIENTE" || arriendo.estado_arriendo == "ANULADO") {
+				$(`#b${arriendo.id_arriendo}`).attr("disabled", true);
+				$(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-success");
+				$(`#b${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
+			}
+
+			if (arriendo.estado_arriendo != "CONFIRMADO" && arriendo.estado_arriendo != "E-CONFIRMADO" || arriendo.estado_arriendo == "ANULADO") {
+				$(`#c${arriendo.id_arriendo}`).attr("disabled", true);
+				$(`#c${arriendo.id_arriendo}`).removeClass("btn-outline-info");
+				$(`#c${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
+			}
+
 		} catch (error) {
 			console.log("error al cargar este arriendo: " + error);
 		}
