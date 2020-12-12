@@ -11,7 +11,7 @@
 				<img style="width:30%;margin: 40px" src="<?php echo base_route() ?>assets/images/logo.png" />
 			</div>
 		</div>
-		<div class="card  text-success">
+		<div hidden class="card  text-success">
 			<div class="m-4">
 				<h4>Sistema actualizado!</h4>
 				<span>Cambios realizados:</span>
