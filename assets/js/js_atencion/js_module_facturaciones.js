@@ -8,7 +8,7 @@ $(document).ready(() => {
 	const arrayClaveER = [];
 	const tabla_pagosER = $("#tabla_pagos").DataTable(lenguaje);
 	const tabla_pagoER = $("#tabla_pagoPendienteRemplazo").DataTable(lenguaje);
-
+	const formatter = new Intl.NumberFormat("CL");
 
 
 	$("#nav-pagos-tab").click(() => refrescarTabla());
@@ -157,9 +157,9 @@ $(document).ready(() => {
 				.add([
 					`<input type="checkbox" name="checkPago[]" value="${pagosPendientes.id_pago}" >`,
 					pagosPendientes.estado_pago,
-					pagosPendientes.neto_pago,
-					pagosPendientes.iva_pago,
-					pagosPendientes.total_pago,
+					"$ " + formatter.format(pagosPendientes.neto_pago),
+					"$ " + formatter.format(pagosPendientes.iva_pago),
+					"$ " + formatter.format(pagosPendientes.total_pago),
 					formatearFechaHora(pagosPendientes.createdAt),
 					pagosPendientes.pagosArriendo.id_arriendo
 				])
@@ -172,14 +172,15 @@ $(document).ready(() => {
 
 	const cargarPagosEnTabla = (pagosPendientes) => {
 
+
 		try {
 			tabla_pagosER.row
 				.add([
 					pagosPendientes.deudor_pago,
 					pagosPendientes.estado_pago,
-					pagosPendientes.neto_pago,
-					pagosPendientes.iva_pago,
-					pagosPendientes.total_pago,
+					"$ " + formatter.format(pagosPendientes.neto_pago),
+					"$ " + formatter.format(pagosPendientes.iva_pago),
+					"$ " + formatter.format(pagosPendientes.total_pago),
 					formatearFechaHora(pagosPendientes.createdAt),
 					pagosPendientes.pagosArriendo.id_arriendo
 				])

@@ -301,7 +301,11 @@ $nombreUsuario = $this->session->userdata('nombre')
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                    <button disabled type="button" class="btn btn-danger">Anular arriendo</button>
+                    <button id="btn_anular_arriendo" type="button" class="btn btn-danger col-xl-3">
+                        Anular arriendo
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            id="spinner_btn_anular_arriendo"></span></button>
+
                     <button type="submit" id="btn_guardar_garantiaRequisitos" class="btn  btn-primary col-xl-3">Guardar
                         cambios
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"

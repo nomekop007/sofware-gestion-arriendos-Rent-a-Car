@@ -23,31 +23,6 @@ const buscarArriendoExtender = async (id_arriendo) => {
 	const response = await ajax_function(data, "buscar_arriendo");
 	if (response.success) {
 		const arriendo = response.data;
-		$('.form_datetime1').datetimepicker({
-			format: "DD, dd/mm/yyyy hh:ii:ss",
-			linkField: "inputFechaRecepcion_extenderPlazo",
-			linkFormat: "yyyy-mm-dd hh:ii:ss",
-			language: 'es',
-			todayHighlight: 1,
-			todayBtn: true,
-			pickerPosition: "bottom-left"
-		}).on('changeDate', function (ev) {
-			calcularDiasExtencion()
-		});
-		$('.form_datetime2').datetimepicker({
-			format: "DD, dd/mm/yyyy hh:ii:ss",
-			startDate: "2013-02-14 10:00",
-			linkField: "inputFechaExtender_extenderPlazo",
-			linkFormat: "yyyy-mm-dd hh:ii:ss",
-			language: 'es',
-			todayHighlight: 1,
-			todayBtn: true,
-			pickerPosition: "bottom-left",
-			startDate: new Date(arriendo.fechaRecepcion_arriendo),
-		}).on('changeDate', function (ev) {
-			calcularDiasExtencion()
-		});
-
 
 
 		$("#numeroArriendo").html("Nº " + arriendo.id_arriendo)
@@ -221,10 +196,30 @@ $(document).ready(() => {
 
 	$("#nav-activos-tab").click(() => refrescarTablaActivos());
 
+	$('.form_datetime1').datetimepicker({
+		format: "DD, dd/mm/yyyy hh:ii:ss",
+		linkField: "inputFechaRecepcion_extenderPlazo",
+		linkFormat: "yyyy-mm-dd hh:ii:ss",
+		language: 'es',
+		todayHighlight: 1,
+		todayBtn: true,
+		pickerPosition: "bottom-left"
+	}).on('changeDate', function (ev) {
+		calcularDiasExtencion()
+	});
 
-
-
-
+	$('.form_datetime2').datetimepicker({
+		format: "DD, dd/mm/yyyy hh:ii:ss",
+		startDate: "2013-02-14 10:00",
+		linkField: "inputFechaExtender_extenderPlazo",
+		linkFormat: "yyyy-mm-dd hh:ii:ss",
+		language: 'es',
+		todayHighlight: 1,
+		todayBtn: true,
+		pickerPosition: "bottom-left",
+	}).on('changeDate', function (ev) {
+		calcularDiasExtencion()
+	});
 
 
 

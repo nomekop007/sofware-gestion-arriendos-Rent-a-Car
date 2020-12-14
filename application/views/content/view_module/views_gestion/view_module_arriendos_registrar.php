@@ -668,8 +668,10 @@ switch ($this->session->userdata('sucursal')) {
                                 <div class="form-group col-xl-6">
                                     <label for="inputEntrada">Actual</label>
                                     <input hidden type="text" id="Tmantencion_vehiculo" value=0>
-                                    <input oninput="this.value = soloNumeros(this)" value=0 maxLength="7" type="number"
-                                        class="form-control" id="inputEntrada" name="inputEntrada" required>
+                                    <input
+                                        oninput="this.value = soloNumeros(this) ; calcularMantencionVehiculo(this.value)"
+                                        value=0 maxLength="7" type="number" class="form-control" id="inputEntrada"
+                                        name="inputEntrada" required>
                                 </div>
                                 <div class="form-group col-xl-6">
                                     <label for="inputMantencion">kilometros para siguiente mantencion (aprox)</label>
