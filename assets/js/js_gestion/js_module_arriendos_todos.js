@@ -102,6 +102,10 @@ const mostrarArriendoModalVer = (arriendo) => {
 			break;
 	}
 
+	if (arriendo.estado_arriendo == "PENDIENTE") {
+		$("#btn_anular_arriendo").show();
+		$("#btn_anular_arriendo").attr("disabled", false);
+	}
 
 	if (arriendo.requisito) {
 		const requisito = arriendo.requisito;
@@ -421,6 +425,7 @@ const limpiarCampos = () => {
 	$("#spinner_btn_firmarContrato").hide();
 	$("#spinner_btn_confirmarContrato").hide();
 	$("#spinner_btn_guardar_garantiaRequisitos").hide();
+	$("#spinner_btn_anular_arriendo").hide();
 
 	$("#formPagoArriendo").hide();
 	$("#formContratoArriendo").hide();
@@ -440,7 +445,8 @@ const limpiarCampos = () => {
 	$("#card_documentos").empty();
 
 	$("#btn_confirmar_contrato").attr("disabled", true);
-
+	$("#btn_anular_arriendo").hide();
+	$("#btn_anular_arriendo").attr("disabled", true);
 	$("#nombre_documento").val("");
 	$(".pago_empresa_remplazo").hide();
 	$("#formSpinnerPago").show();
@@ -653,13 +659,13 @@ $(document).ready(() => {
 				$("#spinner_btn_guardar_garantiaRequisitos").hide();
 			}
 		});
-	})
+	});
+
 
 
 
 
 	$("#btn_registrar_pago").click(async () => {
-
 		const tipoArriendo = $("#textTipo").val();
 		const tipoPago = $('[name="customRadio1"]:checked').val();
 		const numeroFacturacion = $("#inputNumFacturacion").val().length;
@@ -683,20 +689,16 @@ $(document).ready(() => {
 			);
 			return;
 		}
-
 		//valdiacion para que solo los remplazos queden como pendiente
-		if (tipoArriendo != "REEMPLAZO" && tipoPago == "PENDIENTE") {
-			Swal.fire(
-				"Falta ingresar facturacion",
-				"solo los arriendos de remplazo pueden quedar con la facturacion pendiente",
-				"warning"
-			);
-			return;
-		}
-
-
-
-
+		/* 		if (tipoArriendo != "REEMPLAZO" && tipoPago == "PENDIENTE") {
+					Swal.fire(
+						"Falta ingresar facturacion",
+						"solo los arriendos de remplazo pueden quedar con la facturacion pendiente",
+						"warning"
+					);
+					return;
+				}
+		 */
 		if (
 			$("#inputPagoEmpresa").val().length == 0 ||
 			$("#inputValorCopago").val().length == 0 ||
@@ -710,7 +712,6 @@ $(document).ready(() => {
 			);
 			return;
 		}
-
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de guardar los cambios!",
@@ -723,13 +724,11 @@ $(document).ready(() => {
 			if (result.isConfirmed) {
 				$("#spinner_btn_registrarPago").show();
 				$("#btn_registrar_pago").attr("disabled", true);
-
 				const form = $("#formPagoArriendo")[0];
 				const data = new FormData(form);
 				const response = await guardarDatosPagoArriendo(data);
 				if (response.success) {
 					data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
-
 					//si existe accesorios los agrega al pagoArriendo
 					const matrizAccesorios = await capturarAccesorios();
 					console.log(matrizAccesorios);
@@ -748,10 +747,16 @@ $(document).ready(() => {
 							await guardarDocumentoFactura(data);
 						}
 					} else {
-						data.append("inputEstado", "PENDIENTE");
+						if (Number($("#inputTotal").val()) === 0) {
+							data.append("inputEstado", "PAGADO");
+						} else {
+							data.append("inputEstado", "PENDIENTE");
+						}
 					}
 
 					data.append("inputDeudor", $("#inputDeudor").val());
+
+
 					// se guarda el pago del cliente
 					await guardarPago(data);
 
@@ -784,6 +789,35 @@ $(document).ready(() => {
 			}
 		});
 	});
+
+
+	$("#btn_anular_arriendo").click(() => {
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de guardar los cambios!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#spinner_btn_anular_arriendo").show();
+				$("#btn_anular_arriendo").attr("disabled", true);
+				await cambiarEstadoArriendo("ANULADO", $("#inputIdArriendoEditar").val());
+				Swal.fire(
+					"Arriendo anulado",
+					"arriendo anulado con exito!",
+					"success"
+				);
+				refrescarTabla();
+				$("#btn_anular_arriendo").attr("disabled", false);
+				$("#spinner_btn_anular_arriendo").hide();
+			}
+		});
+
+	})
+
 
 	$("#btn_firmar_contrato").click(() => {
 		$("#btn_firmar_contrato").attr("disabled", true);
@@ -916,6 +950,9 @@ $(document).ready(() => {
 			case "E-CONFIRMADO":
 				data.append("estado", "ACTIVO");
 				break;
+			case "ANULADO":
+				data.append("estado", "ANULADO");
+				break;
 		}
 		await ajax_function(data, "cambiarEstado_arriendo");
 	};
@@ -933,10 +970,7 @@ $(document).ready(() => {
 		data.append("inputCheque", $("#inputChequeGarantia")[0].files[0]);
 		data.append("inputCartaRemplazo", $("#inputCartaRemplazo")[0].files[0]);
 		data.append("inputBoletaEfectivo", $("#inputBoletaEfectivo")[0].files[0]);
-		data.append(
-			"inputComprobante",
-			$("#inputComprobanteDomicilio")[0].files[0]
-		);
+		data.append("inputComprobante", $("#inputComprobanteDomicilio")[0].files[0]);
 		return await ajax_function(data, "registrar_requisitos");
 	};
 

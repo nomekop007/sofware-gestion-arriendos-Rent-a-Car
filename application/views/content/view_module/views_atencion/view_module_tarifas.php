@@ -12,8 +12,41 @@
         <h1 class="h3">Gestion de tarifas</h1>
     </div>
     <div>
-
-        <h1>hola mundo</h1>
+        <div class="nav justify-content-end">
+            <li class="nav-item " role="presentation">
+                <label for="inputSucursal">Sucursales</label>
+                <select id="inputSucursal" name="inputSucursal" class="form-control ">
+                </select>
+            </li>
+        </div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="precios_automovil-tab" data-toggle="tab" href="#precios_automovil"
+                    role="tab" aria-controls="precios_automovil" aria-selected="true">Precios automoviles</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="precios_accesorios-tab" data-toggle="tab" href="#precios_accesorios" role="tab"
+                    aria-controls="precios_accesorios" aria-selected="false">Precio accesorios</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="precios_E_remplazos-tab" data-toggle="tab" href="#precios_E_remplazos"
+                    role="tab" aria-controls="precios_E_remplazos" aria-selected="false">precios E.remplazos</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="precios_promociones-tab" data-toggle="tab" href="#precios_promociones"
+                    role="tab" aria-controls="precios_promociones" aria-selected="false">precios E.remplazos</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="precios_automovil" role="tabpanel"
+                aria-labelledby="precios_automovil-tab"> modulo precios automoviles</div>
+            <div class="tab-pane fade" id="precios_accesorios" role="tabpanel" aria-labelledby="precios_accesorios-tab">
+                modulo precios accesorios..</div>
+            <div class="tab-pane fade" id="precios_E_remplazos" role="tabpanel"
+                aria-labelledby="precios_E_remplazos-tab"> modulo precios E. remplazos</div>
+            <div class="tab-pane fade" id="precios_promociones" role="tabpanel"
+                aria-labelledby="precios_promociones-tab">promociones..</div>
+        </div>
 
     </div>
 
