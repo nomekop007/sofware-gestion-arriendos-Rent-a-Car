@@ -30,18 +30,40 @@
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="precios_E_remplazos-tab" data-toggle="tab" href="#precios_E_remplazos"
-                    role="tab" aria-controls="precios_E_remplazos" aria-selected="false">precios E.remplazos</a>
+                    role="tab" aria-controls="precios_E_remplazos" aria-selected="false">Precios E.remplazos</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="precios_promociones-tab" data-toggle="tab" href="#precios_promociones"
-                    role="tab" aria-controls="precios_promociones" aria-selected="false">precios E.remplazos</a>
+                    role="tab" aria-controls="precios_promociones" aria-selected="false">Promociones</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="precios_automovil" role="tabpanel"
                 aria-labelledby="precios_automovil-tab"> modulo precios automoviles</div>
             <div class="tab-pane fade" id="precios_accesorios" role="tabpanel" aria-labelledby="precios_accesorios-tab">
-                modulo precios accesorios..</div>
+                <br><br>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="card"><br><br><br><br></div>
+                    </div>
+                    <div class="col-md-7">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nombre accesorio</th>
+                                    <th scope="col">Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
             <div class="tab-pane fade" id="precios_E_remplazos" role="tabpanel"
                 aria-labelledby="precios_E_remplazos-tab"> modulo precios E. remplazos</div>
             <div class="tab-pane fade" id="precios_promociones" role="tabpanel"
