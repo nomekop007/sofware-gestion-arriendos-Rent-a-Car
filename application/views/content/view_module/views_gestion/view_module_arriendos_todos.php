@@ -19,7 +19,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style='font-size: 0.8rem;'>
 
             </tbody>
             <tfoot class="btn-dark">

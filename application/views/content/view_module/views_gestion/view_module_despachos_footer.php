@@ -1,8 +1,6 @@
 </div>
-<br><br>
+<br><br><br>
 </main>
-
-
 
 
 
@@ -11,12 +9,6 @@
 $("#m_despacho").addClass("active");
 $("#l_despacho").addClass("card");
 </script>
-
-
-
-
-
-
 
 
 
