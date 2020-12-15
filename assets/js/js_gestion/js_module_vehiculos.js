@@ -37,10 +37,8 @@ const buscarVehiculo = async (patente) => {
 		$("#inputEditarRegion").val(vehiculo.id_region);
 		$("#inputEditarCompra").val(vehiculo.compra_vehiculo);
 		$("#inputEditarPropietario").val(vehiculo.rut_propietario);
-
-
-		$("#dtp_input2").val(formatearFecha(vehiculo.fechaCompra_vehiculo ? vehiculo.fechaCompra_vehiculo : null));
-		$("#inputEditarFechaCompra").val(vehiculo.fechaCompra_vehiculo ? vehiculo.fechaCompra_vehiculo : null);
+		$("#inputEditarFechaCompra").val(
+			moment(vehiculo.fechaCompra_vehiculo ? vehiculo.fechaCompra_vehiculo : null).format('YYYY/MM/DD'));
 
 		$("#inputCreateAt").val(formatearFechaHora(vehiculo.createdAt));
 		$("#modal_vehiculo").show();
@@ -94,39 +92,6 @@ $(document).ready(() => {
 	//cargar año vehiculo (input)
 	cargarOlder("inputedad");
 	cargarOlder("inputEditarEdad");
-
-
-	$('.form_datetime').datetimepicker({
-		format: "dd/mm/yyyy",
-		linkField: "inputFechaCompra",
-		linkFormat: "yyyy-mm-dd",
-		language: 'es',
-		weekStart: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0,
-		autoclose: true,
-		todayBtn: true,
-		pickerPosition: "bottom-left"
-	});
-
-
-	$('.form_datetime2').datetimepicker({
-		format: "dd/mm/yyyy",
-		linkField: "inputEditarFechaCompra",
-		linkFormat: "yyyy-mm-dd",
-		language: 'es',
-		autoclose: true,
-		weekStart: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0,
-		todayBtn: true,
-		pickerPosition: "bottom-left"
-	});
-
 
 
 
@@ -204,30 +169,41 @@ $(document).ready(() => {
 	});
 
 	$("#btn_editar_vehiculo").click(async () => {
-		$("#btn_editar_vehiculo").attr("disabled", true);
-		$("#spinner_btn_editarVehiculo").show();
-
-		const form = $("#formEditarVehiculo")[0];
-		const data = new FormData(form);
-		const response = await ajax_function(data, "editar_vehiculo");
-		if (response.success) {
-			//pregunta si hay imagen para subir
-			if ($("#inputEditarFoto").val().length != 0) {
-				const file = $("#inputEditarFoto")[0].files[0];
-				const patente = $("#inputEditarPatente").val();
-				const responseFoto = await guardarImagenVehiculo(patente, file);
-				if (responseFoto.success) {
-					Swal.fire("Exito", responseFoto.msg, "success");
-					$("#modal_editar").modal("toggle");
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de guardar los cambios!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#btn_editar_vehiculo").attr("disabled", true);
+				$("#spinner_btn_editarVehiculo").show();
+				const form = $("#formEditarVehiculo")[0];
+				const data = new FormData(form);
+				const response = await ajax_function(data, "editar_vehiculo");
+				if (response.success) {
+					//pregunta si hay imagen para subir
+					if ($("#inputEditarFoto").val().length != 0) {
+						const file = $("#inputEditarFoto")[0].files[0];
+						const patente = $("#inputEditarPatente").val();
+						const responseFoto = await guardarImagenVehiculo(patente, file);
+						if (responseFoto.success) {
+							Swal.fire("Exito", responseFoto.msg, "success");
+							$("#modal_editar").modal("toggle");
+						}
+					} else {
+						Swal.fire("Exito", response.msg, "success");
+						$("#modal_editar").modal("toggle");
+					}
+					refrescarTabla();
 				}
-			} else {
-				Swal.fire("Exito", response.msg, "success");
-				$("#modal_editar").modal("toggle");
+				$("#btn_editar_vehiculo").attr("disabled", false);
+				$("#spinner_btn_editarVehiculo").hide();
 			}
-			refrescarTabla();
-		}
-		$("#btn_editar_vehiculo").attr("disabled", false);
-		$("#spinner_btn_editarVehiculo").hide();
+		});
 	});
 
 	//guarda exclusivamente la imagen en el servidor
