@@ -37,10 +37,8 @@ const buscarVehiculo = async (patente) => {
 		$("#inputEditarRegion").val(vehiculo.id_region);
 		$("#inputEditarCompra").val(vehiculo.compra_vehiculo);
 		$("#inputEditarPropietario").val(vehiculo.rut_propietario);
-
-
-		$("#dtp_input2").val(formatearFecha(vehiculo.fechaCompra_vehiculo ? vehiculo.fechaCompra_vehiculo : null));
-		$("#inputEditarFechaCompra").val(vehiculo.fechaCompra_vehiculo ? vehiculo.fechaCompra_vehiculo : null);
+		$("#inputEditarFechaCompra").val(
+			moment(vehiculo.fechaCompra_vehiculo ? vehiculo.fechaCompra_vehiculo : null).format('YYYY/MM/DD'));
 
 		$("#inputCreateAt").val(formatearFechaHora(vehiculo.createdAt));
 		$("#modal_vehiculo").show();
@@ -94,39 +92,6 @@ $(document).ready(() => {
 	//cargar año vehiculo (input)
 	cargarOlder("inputedad");
 	cargarOlder("inputEditarEdad");
-
-
-	$('.form_datetime').datetimepicker({
-		format: "dd/mm/yyyy",
-		linkField: "inputFechaCompra",
-		linkFormat: "yyyy-mm-dd",
-		language: 'es',
-		weekStart: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0,
-		autoclose: true,
-		todayBtn: true,
-		pickerPosition: "bottom-left"
-	});
-
-
-	$('.form_datetime2').datetimepicker({
-		format: "dd/mm/yyyy",
-		linkField: "inputEditarFechaCompra",
-		linkFormat: "yyyy-mm-dd",
-		language: 'es',
-		autoclose: true,
-		weekStart: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0,
-		todayBtn: true,
-		pickerPosition: "bottom-left"
-	});
-
 
 
 

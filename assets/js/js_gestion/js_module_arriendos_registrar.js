@@ -76,7 +76,7 @@ const cantidadConductores = (opcion) => {
 }
 
 
-const calcularMantencionVehiculo = (k) => {
+const calcularMantencionVehiculo = (k,) => {
 	var kilometros_mantencion = Number(10000);
 	var kilometros_actual = Number(k);
 	var kilometros_falta = Number(0);
@@ -113,92 +113,19 @@ $(document).ready(() => {
 	cargarOlder("inputVigencia");
 
 
-	$('.form_datetime1').datetimepicker({
-		format: "DD, dd/mm/yyyy hh:ii:ss",
-		linkField: "inputFechaEntrega",
-		linkFormat: "yyyy-mm-dd hh:ii:ss",
-		language: 'es',
-		todayBtn: true,
-		todayHighlight: 1,
-		pickerPosition: "bottom-left"
-
-	}).on('changeDate', function (ev) {
-		calcularDias();
+	$('#inputFechaEntrega').datetimepicker({
+		onChangeDateTime: function () {
+			calcularDias()
+		},
+	});
+	$('#inputFechaRecepcion').datetimepicker({
+		onChangeDateTime: function () {
+			calcularDias()
+		},
 	});
 
 
-	$('.form_datetime2').datetimepicker({
-		format: "DD, dd/mm/yyyy hh:ii:ss",
-		linkField: "inputFechaRecepcion",
-		linkFormat: "yyyy-mm-dd hh:ii:ss",
-		language: 'es',
-		todayBtn: true,
-		todayHighlight: 1,
-		pickerPosition: "bottom-left"
 
-	}).on('changeDate', function (ev) {
-		calcularDias();
-	});
-
-	$('.form_datetime3').datetimepicker({
-		format: "dd/mm/yyyy",
-		linkField: "inputFechaNacimiento",
-		linkFormat: "yyyy-mm-dd",
-		language: 'es',
-		weekStart: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0,
-		autoclose: true,
-		todayBtn: true,
-		pickerPosition: "bottom-left"
-	})
-
-	$('.form_datetime4').datetimepicker({
-		format: "dd/mm/yyyy",
-		linkField: "inputVCTOConductor",
-		linkFormat: "yyyy-mm-dd",
-		language: 'es',
-		weekStart: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0,
-		autoclose: true,
-		todayBtn: true,
-		pickerPosition: "bottom-left"
-	})
-
-	$('.form_datetime5').datetimepicker({
-		format: "dd/mm/yyyy",
-		linkField: "inputVCTOConductor2",
-		linkFormat: "yyyy-mm-dd",
-		language: 'es',
-		weekStart: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0,
-		autoclose: true,
-		todayBtn: true,
-		pickerPosition: "bottom-left"
-	})
-
-	$('.form_datetime6').datetimepicker({
-		format: "dd/mm/yyyy",
-		linkField: "inputVCTOConductor3",
-		linkFormat: "yyyy-mm-dd",
-		language: 'es',
-		weekStart: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0,
-		autoclose: true,
-		todayBtn: true,
-		pickerPosition: "bottom-left"
-	})
 
 	//cargar vehiculos en select
 
@@ -267,39 +194,29 @@ $(document).ready(() => {
 	$("#btn_buscarCliente").click(async () => {
 		const data = new FormData();
 		let rut_cliente = $("#inputRutCliente").val();
-
 		if ($("#inputNacionalidadCliente").val() == "EXTRANJERO/A") {
 			rut_cliente = `@${rut_cliente}`;
 		}
-
 		data.append("rut_cliente", rut_cliente);
 		if (rut_cliente.length != 0) {
 			$("#spinner_cliente").show();
 			const response = await ajax_function(data, "buscar_cliente");
 			if (response.success) {
 				const c = response.data;
-
 				//se agrega un option para el select ciudad
 				const option = document.createElement('option');
 				option.value = c.ciudad_cliente;
 				option.text = c.ciudad_cliente;
 				document.getElementById("inputCiudadCliente").appendChild(option);
-
-
 				$("#inputComunaCliente").val(c.comuna_cliente);
 				$("#inputCiudadCliente").val(c.ciudad_cliente);
 				$("#inputNombreCliente").val(c.nombre_cliente);
 				$("#inputDireccionCliente").val(c.direccion_cliente);
-
-				$("#dtp_input3").val(formatearFecha(c.fechaNacimiento_cliente ? c.fechaNacimiento_cliente : null));
-				$("#inputFechaNacimiento").val(c.fechaNacimiento_cliente ? c.fechaNacimiento_cliente : null);
-
-
+				$("#inputFechaNacimiento").val(moment(c.fechaNacimiento_cliente ? c.fechaNacimiento_cliente : null).format("YYYY/MM/DD"));
 				$("#inputTelefonoCliente").val(c.telefono_cliente);
 				$("#inputEstadoCivil").val(c.estadoCivil_cliente);
 				$("#inputCorreoCliente").val(c.correo_cliente);
 				$("#inputNacionalidadCliente").val(c.nacionalidad_cliente);
-
 			} else {
 				$("#inputNombreCliente").val("");
 				$("#inputDireccionCliente").val("");
@@ -321,17 +238,13 @@ $(document).ready(() => {
 			const response = await ajax_function(data, "buscar_empresa");
 			if (response.success) {
 				const c = response.data;
-
-
 				//se agrega un option para el select ciudad
 				const option = document.createElement('option');
 				option.value = c.ciudad_empresa;
 				option.text = c.ciudad_empresa;
 				document.getElementById("inputCiudadEmpresa").appendChild(option);
-
 				$("#inputComunaEmpresa").val(c.comuna_empresa);
 				$("#inputCiudadEmpresa").val(c.ciudad_empresa);
-
 				$("#inputNombreEmpresa").val(c.nombre_empresa);
 				$("#inputDireccionEmpresa").val(c.direccion_empresa);
 				$("#inputTelefonoEmpresa").val(c.telefono_empresa);
@@ -355,30 +268,22 @@ $(document).ready(() => {
 
 	$("#btn_buscarConductor").click(async () => {
 		let rut_conductor = $("#inputRutConductor").val();
-
 		if (rut_conductor.length != 0) {
-
 			if ($("#inputNacionalidadConductor").val() == "EXTRANJERO/A") {
 				rut_conductor = `@${rut_conductor}`;
 			}
-
 			$("#spinner_conductor").show();
 			const response = await buscarConductor(rut_conductor);
-
 			if (response.success) {
 				const c = response.data;
 				$("#inputNombreConductor").val(c.nombre_conductor);
 				$("#inputTelefonoConductor").val(c.telefono_conductor);
 				$("#inputClaseConductor").val(c.clase_conductor);
 				$("#inputNumeroConductor").val(c.numero_conductor);
-
-				$("#dtp_input4").val(formatearFecha(c.vcto_conductor ? c.vcto_conductor : null));
-				$("#inputVCTOConductor").val(c.vcto_conductor ? c.vcto_conductor : null);
-
+				$("#inputVCTOConductor").val(moment(c.vcto_conductor ? c.vcto_conductor : null).format("YYYY/MM/DD"));
 				$("#inputNacionalidadConductor").val(c.nacionalidad_conductor)
 				$("#inputMunicipalidadConductor").val(c.municipalidad_conductor);
 				$("#inputDireccionConductor").val(c.direccion_conductor);
-
 			} else {
 				$("#inputNombreConductor").val("");
 				$("#inputTelefonoConductor").val("");
@@ -400,24 +305,18 @@ $(document).ready(() => {
 			if ($("#inputNacionalidadConductor2").val() == "EXTRANJERO/A") {
 				rut_conductor = `@${rut_conductor}`;
 			}
-
 			$("#spinner_conductor2").show();
 			const response = await buscarConductor(rut_conductor);
-
 			if (response.success) {
 				const c = response.data;
 				$("#inputNombreConductor2").val(c.nombre_conductor);
 				$("#inputTelefonoConductor2").val(c.telefono_conductor);
 				$("#inputClaseConductor2").val(c.clase_conductor);
 				$("#inputNumeroConductor2").val(c.numero_conductor);
-
-				$("#dtp_input5").val(formatearFecha(c.vcto_conductor ? c.vcto_conductor : null));
-				$("#inputVCTOConductor2").val(c.vcto_conductor ? c.vcto_conductor : null);
-
+				$("#inputVCTOConductor2").val(moment(c.vcto_conductor ? c.vcto_conductor : null).format("YYYY/MM/DD"));
 				$("#inputNacionalidadConductor2").val(c.nacionalidad_conductor)
 				$("#inputMunicipalidadConductor2").val(c.municipalidad_conductor);
 				$("#inputDireccionConductor2").val(c.direccion_conductor);
-
 			} else {
 				$("#inputNombreConductor2").val("");
 				$("#inputTelefonoConductor2").val("");
@@ -438,24 +337,18 @@ $(document).ready(() => {
 			if ($("#inputNacionalidadConductor3").val() == "EXTRANJERO/A") {
 				rut_conductor = `@${rut_conductor}`;
 			}
-
 			$("#spinner_conductor3").show();
 			const response = await buscarConductor(rut_conductor);
-
 			if (response.success) {
 				const c = response.data;
 				$("#inputNombreConductor3").val(c.nombre_conductor);
 				$("#inputTelefonoConductor3").val(c.telefono_conductor);
 				$("#inputClaseConductor3").val(c.clase_conductor);
 				$("#inputNumeroConductor3").val(c.numero_conductor);
-
-				$("#dtp_input6").val(formatearFecha(c.vcto_conductor ? c.vcto_conductor : null));
-				$("#inputVCTOConductor3").val(c.vcto_conductor ? c.vcto_conductor : null);
-
+				$("#inputVCTOConductor3").val(moment(c.vcto_conductor ? c.vcto_conductor : null).format("YYYY/MM/DD"));
 				$("#inputNacionalidadConductor3").val(c.nacionalidad_conductor)
 				$("#inputMunicipalidadConductor3").val(c.municipalidad_conductor);
 				$("#inputDireccionConductor3").val(c.direccion_conductor);
-
 			} else {
 				$("#inputNombreConductor3").val("");
 				$("#inputTelefonoConductor3").val("");

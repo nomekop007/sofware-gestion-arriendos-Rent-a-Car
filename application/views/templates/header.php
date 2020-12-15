@@ -46,7 +46,7 @@
 
 
     <!-- input datatime core CSS -->
-    <link href="<?php echo base_route() ?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <link href="<?php echo base_route() ?>assets/css/jquery.datetimepicker.min.css" rel="stylesheet" media="screen">
 
     <!-- dashboard core CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/dashboard.css">

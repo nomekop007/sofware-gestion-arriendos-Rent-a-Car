@@ -12,10 +12,8 @@
 
 
 <!-- importacion input datatime -->
-<script type="text/javascript" src="<?php echo base_route() ?>assets/js/bootstrap-datetimepicker.min.js"
+<script type="text/javascript" src="<?php echo base_route() ?>assets/js/jquery.datetimepicker.full.min.js"
     charset="UTF-8">
-</script>
-<script type="text/javascript" src="<?php echo base_route() ?>assets/js/bootstrap-datetimepicker.es.js" charset="UTF-8">
 </script>
 
 <!-- importacion moments -->

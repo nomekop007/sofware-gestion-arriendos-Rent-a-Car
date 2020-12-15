@@ -72,30 +72,14 @@ switch ($this->session->userdata('sucursal')) {
 
                                 <div class="form-group col-xl-6">
                                     <label for="inputFechaEntrega">Fecha de entrega</label>
-                                    <div class="input-group date form_datetime1 " data-link-field="dtp_input1">
-                                        <input required class="form-control" size="16" type="text" readonly
-                                            placeholder="ingrese fecha">
-                                        <span class="input-group-addon"><span
-                                                class="glyphicon glyphicon-remove"></span></span>
-                                        <span class="input-group-addon"><span
-                                                class="glyphicon glyphicon-th"></span></span>
-                                    </div>
-                                    <input hidden type="text" name="inputFechaEntrega" id="inputFechaEntrega" readonly
-                                        required />
+                                    <input type="text" class="form-control " name="inputFechaEntrega"
+                                        id="inputFechaEntrega" required />
                                 </div>
 
                                 <div class="form-group col-xl-6">
                                     <label for="inputFechaRecepcion">Fecha de Recepcion</label>
-                                    <div class="input-group date form_datetime2 " data-link-field="dtp_input2">
-                                        <input required class="form-control" size="16" type="text" readonly
-                                            placeholder="ingrese fecha">
-                                        <span class="input-group-addon"><span
-                                                class="glyphicon glyphicon-remove"></span></span>
-                                        <span class="input-group-addon"><span
-                                                class="glyphicon glyphicon-th"></span></span>
-                                    </div>
-                                    <input hidden type="text" name="inputFechaRecepcion" id="inputFechaRecepcion"
-                                        readonly required />
+                                    <input type="text" class="form-control" name="inputFechaRecepcion"
+                                        id="inputFechaRecepcion" required />
                                 </div>
 
                                 <div class="form-group col-xl-6">
@@ -174,16 +158,8 @@ switch ($this->session->userdata('sucursal')) {
 
                                 <div class="form-group col-xl-6">
                                     <label for="inputFechaNacimiento">Fecha Nacimiento</label>
-                                    <div class="input-group date form_datetime3 " data-link-field="dtp_input3">
-                                        <input required class="form-control" id="dtp_input3" size="16" type="text"
-                                            readonly placeholder="ingrese fecha">
-                                        <span class="input-group-addon"><span
-                                                class="glyphicon glyphicon-remove"></span></span>
-                                        <span class="input-group-addon"><span
-                                                class="glyphicon glyphicon-th"></span></span>
-                                    </div>
-                                    <input hidden type="text" name="inputFechaNacimiento" id="inputFechaNacimiento"
-                                        readonly required />
+                                    <input type="text" class="form-control input_data" name="inputFechaNacimiento"
+                                        id="inputFechaNacimiento" required />
                                 </div>
 
                                 <div class="form-group col-xl-6">
@@ -399,16 +375,8 @@ switch ($this->session->userdata('sucursal')) {
                                     </div>
                                     <div class="form-group col-xl-6">
                                         <label for="inputVCTOConductor">VCTO</label>
-                                        <div class="input-group date form_datetime4 " data-link-field="dtp_input4">
-                                            <input required class="form-control" id="dtp_input4" size="16" type="text"
-                                                readonly placeholder="ingrese fecha">
-                                            <span class="input-group-addon"><span
-                                                    class="glyphicon glyphicon-remove"></span></span>
-                                            <span class="input-group-addon"><span
-                                                    class="glyphicon glyphicon-th"></span></span>
-                                        </div>
-                                        <input hidden type="text" name="inputVCTOConductor" id="inputVCTOConductor"
-                                            readonly required />
+                                        <input type="text" class="form-control input_data" name="inputVCTOConductor"
+                                            id="inputVCTOConductor" required />
                                     </div>
                                     <div class="form-group col-xl-6">
                                         <label for="inputDireccionConductor">Direccion</label>
@@ -493,16 +461,8 @@ switch ($this->session->userdata('sucursal')) {
                                     </div>
                                     <div class="form-group col-xl-6">
                                         <label for="inputVCTOConductor2">VCTO</label>
-                                        <div class="input-group date form_datetime5 " data-link-field="dtp_input5">
-                                            <input required class="form-control" id="dtp_input5" size="16" type="text"
-                                                readonly placeholder="ingrese fecha">
-                                            <span class="input-group-addon"><span
-                                                    class="glyphicon glyphicon-remove"></span></span>
-                                            <span class="input-group-addon"><span
-                                                    class="glyphicon glyphicon-th"></span></span>
-                                        </div>
-                                        <input hidden type="text" name="inputVCTOConductor2" id="inputVCTOConductor2"
-                                            readonly required />
+                                        <input type="text" class="form-control input_data" name="inputVCTOConductor2"
+                                            id="inputVCTOConductor2" required />
                                     </div>
                                     <div class="form-group col-xl-6">
                                         <label for="inputDireccionConductor2">Direccion</label>
@@ -587,16 +547,8 @@ switch ($this->session->userdata('sucursal')) {
                                     </div>
                                     <div class="form-group col-xl-6">
                                         <label for="inputVCTOConductor3">VCTO</label>
-                                        <div class="input-group date form_datetime6 " data-link-field="dtp_input6">
-                                            <input required class="form-control" id="dtp_input6" size="16" type="text"
-                                                readonly placeholder="ingrese fecha">
-                                            <span class="input-group-addon"><span
-                                                    class="glyphicon glyphicon-remove"></span></span>
-                                            <span class="input-group-addon"><span
-                                                    class="glyphicon glyphicon-th"></span></span>
-                                        </div>
-                                        <input hidden type="text" name="inputVCTOConductor3" id="inputVCTOConductor3"
-                                            readonly required />
+                                        <input type="text" class="form-control input_data" name="inputVCTOConductor3"
+                                            id="inputVCTOConductor3" required />
                                     </div>
                                     <div class="form-group col-xl-6">
                                         <label for="inputDireccionConductor3">Direccion</label>

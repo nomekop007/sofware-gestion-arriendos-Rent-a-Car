@@ -23,11 +23,8 @@ const buscarArriendoExtender = async (id_arriendo) => {
 	const response = await ajax_function(data, "buscar_arriendo");
 	if (response.success) {
 		const arriendo = response.data;
-
-
 		$("#numeroArriendo").html("Nº " + arriendo.id_arriendo)
-		$("#inputFechaRecepcion_extenderPlazo").val(arriendo.fechaRecepcion_arriendo);
-		$("#dtp_input1").val(formatearFechaHora(arriendo.fechaRecepcion_arriendo));
+		$("#inputFechaRecepcion_extenderPlazo").val(moment(arriendo.fechaRecepcion_arriendo).format("YYYY/MM/DD h:m"));
 		$("#id_arriendo").val(arriendo.id_arriendo);
 		$("#dias_arriendo").val(arriendo.diasAcumulados_arriendo);
 		$("#body_extender_arriendo").show();
@@ -196,29 +193,16 @@ $(document).ready(() => {
 
 	$("#nav-activos-tab").click(() => refrescarTablaActivos());
 
-	$('.form_datetime1').datetimepicker({
-		format: "DD, dd/mm/yyyy hh:ii:ss",
-		linkField: "inputFechaRecepcion_extenderPlazo",
-		linkFormat: "yyyy-mm-dd hh:ii:ss",
-		language: 'es',
-		todayHighlight: 1,
-		todayBtn: true,
-		pickerPosition: "bottom-left"
-	}).on('changeDate', function (ev) {
-		calcularDiasExtencion()
-	});
 
-	$('.form_datetime2').datetimepicker({
-		format: "DD, dd/mm/yyyy hh:ii:ss",
-		startDate: "2013-02-14 10:00",
-		linkField: "inputFechaExtender_extenderPlazo",
-		linkFormat: "yyyy-mm-dd hh:ii:ss",
-		language: 'es',
-		todayHighlight: 1,
-		todayBtn: true,
-		pickerPosition: "bottom-left",
-	}).on('changeDate', function (ev) {
-		calcularDiasExtencion()
+	$('#inputFechaRecepcion_extenderPlazo').datetimepicker({
+		onChangeDateTime: function () {
+			calcularDiasExtencion()
+		},
+	});
+	$('#inputFechaExtender_extenderPlazo').datetimepicker({
+		onChangeDateTime: function () {
+			calcularDiasExtencion()
+		},
 	});
 
 

@@ -110,13 +110,8 @@
 
                         <div class="form-group col-xl-3">
                             <label for="inputFechaCompra">Fecha de compra</label>
-                            <div class="input-group date form_datetime " data-link-field="dtp_input1">
-                                <input class="form-control" size="16" type="text" readonly required
-                                    placeholder="ingrese fecha">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
-                            </div>
-                            <input hidden type="text" name="inputFechaCompra" id="inputFechaCompra" readonly required />
+                            <input type="text" class="form-control input_data" name="inputFechaCompra"
+                                id="inputFechaCompra" required />
                         </div>
 
                         <div class="form-group col-lg-4">
@@ -299,16 +294,8 @@
                                         </div>
                                         <div class="form-group col-xl-6">
                                             <label for="inputEditarFechaCompra">Fecha de compra</label>
-                                            <div class="input-group date form_datetime2 " data-link-field="dtp_input2">
-                                                <input required class="form-control" size="16" type="text"
-                                                    id="dtp_input2" readonly>
-                                                <span class="input-group-addon"><span
-                                                        class="glyphicon glyphicon-remove"></span></span>
-                                                <span class="input-group-addon"><span
-                                                        class="glyphicon glyphicon-th"></span></span>
-                                            </div>
-                                            <input hidden type="text" name="inputEditarFechaCompra"
-                                                id="inputEditarFechaCompra" readonly required />
+                                            <input type="text" class="form-control input_data"
+                                                name="inputEditarFechaCompra" id="inputEditarFechaCompra" required />
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarPropietario">Propietario</label>

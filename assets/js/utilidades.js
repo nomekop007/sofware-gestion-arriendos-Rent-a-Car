@@ -128,10 +128,22 @@ function formatearFecha(fecha) {
 	return (fecha = f.toLocaleDateString("es-GB", opciones));
 }
 
+$(document).ready(() => {
+	// inputs estilos datatime
+	$.datetimepicker.setLocale('es');
+	$('.input_data').datetimepicker({
+		timepicker: false,
+		format: 'Y/m/d',
+	});
+	$('.input_datatime').datetimepicker({
+		timepicker: false,
+		format: 'Y/m/d  h:m',
+	});
+});
 
 
 //lenguaje de los datatable
-var lenguaje = {
+let lenguaje = {
 	responsive: true,
 	destroy: true,
 	language: {
@@ -161,7 +173,7 @@ var lenguaje = {
 	"order": [[0, "desc"]]
 };
 //lenguaje del select 2
-var lenguajeSelect2 = {
+let lenguajeSelect2 = {
 	placeholder: "Vehiculos disponibles",
 	allowClear: true,
 	language: {
