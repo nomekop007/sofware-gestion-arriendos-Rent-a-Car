@@ -27,6 +27,30 @@ function cargarSelect(ruta, idSelect) {
 	});
 }
 
+function cargarSelectSucursal(ruta, idSelect) {
+	const url = base_url + ruta;
+	const select = document.getElementById(idSelect);
+	$.getJSON(url, (response) => {
+		if (response.success) {
+			$.each(response.data, (i, object) => {
+				const option = document.createElement("option");
+				for (const key in object) {
+					if (key.includes("nombre")) {
+						option.innerHTML = object[key];
+					}
+					if (key.includes("id_sucursal")) {
+						option.value = object[key];
+					}
+				}
+				select.appendChild(option);
+			});
+		} else {
+			console.log("ah ocurrido un error al cargar" + ruta);
+		}
+	});
+}
+
+
 async function ajax_function(data, dataUrl) {
 
 	try {

@@ -1,6 +1,6 @@
 <?php
 
-function get_function($url)
+function get_function($url, $params = null)
 {
     if (isset($_SESSION["usertoken"])) {
         $token = $_SESSION["usertoken"];
@@ -8,6 +8,7 @@ function get_function($url)
     }
     $client = new GuzzleHttp\Client();
     $request = $client->request('GET', api_url() . $url, [
+        'query' => $params,
         'verify' => path_cert(),
         'headers' => [
             'usertoken' => $token,

@@ -7,11 +7,11 @@ class Vehiculo_controller extends CI_Controller
 
     public function cargarVehiculos()
     {
-        $arrayVehiculos = [
-            "id_sucursal" => $this->session->userdata('sucursal'),
-            "id_rol" => $this->session->userdata('rol'),
+        $params = [
+            "sucursal" => $this->session->userdata('sucursal'),
+            "rol" => $this->session->userdata('rol'),
         ];
-        echo post_function($arrayVehiculos, "vehiculos/cargarVehiculos");
+        echo get_function("vehiculos/cargarVehiculos", $params);
     }
 
     public function buscarVehiculo()

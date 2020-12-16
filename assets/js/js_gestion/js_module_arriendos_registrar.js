@@ -101,9 +101,9 @@ const calcularMantencionVehiculo = (k,) => {
 $(document).ready(() => {
 	//cargar sucursales  (ruta,select)
 
-	cargarSelect("cargar_Sucursales", "inputCiudadEntrega");
+	cargarSelectSucursal("cargar_Sucursales", "inputCiudadEntrega");
 
-	cargarSelect("cargar_Sucursales", "inputCiudadRecepcion");
+	cargarSelectSucursal("cargar_Sucursales", "inputCiudadRecepcion");
 
 	cargarComunas("inputComunaCliente", "inputCiudadCliente");
 
