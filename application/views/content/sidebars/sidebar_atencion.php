@@ -29,7 +29,7 @@ $rol = $this->session->userdata("rol");
             </li>
             <?php }?>
             <?php if ($rol == 1 || $rol == 2 || $rol == 3) {?>
-            <li class="nav-item " id="l_tarifas">
+            <li hidden class="nav-item " id="l_tarifas">
                 <br>
                 <a id="m_tarifas" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=3">
                     <i class="fas fa-tags"></i>
@@ -39,7 +39,7 @@ $rol = $this->session->userdata("rol");
             </li>
             <?php }?>
             <?php if ($rol == 1 || $rol == 2 || $rol == 3) {?>
-            <li class="nav-item " id="l_calendario">
+            <li hidden class="nav-item " id="l_calendario">
                 <br>
                 <a id="m_calendario" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=4">
                     <i class="far fa-calendar-alt"></i>

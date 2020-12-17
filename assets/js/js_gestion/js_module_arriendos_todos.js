@@ -106,6 +106,10 @@ const mostrarArriendoModalVer = (arriendo) => {
 		$("#btn_anular_arriendo").show();
 		$("#btn_anular_arriendo").attr("disabled", false);
 	}
+	if (arriendo.estado_arriendo == "ACTIVO" || arriendo.estado_arriendo == "FIRMADO") {
+		$("#btn_finalizar_arriendo").show();
+		$("#btn_finalizar_arriendo").attr("disabled", false);
+	}
 
 	if (arriendo.requisito) {
 		const requisito = arriendo.requisito;
@@ -235,7 +239,10 @@ const mostrarArriendoModalPago = (arriendo) => {
 		$("#formPagoArriendo").show();
 		$("#numeroArriendoConfirmacion").text("Nº" + arriendo.id_arriendo);
 		$("#inputIdArriendo").val(arriendo.id_arriendo);
-		$("#inputPatenteVehiculo").val(arriendo.vehiculo.patente_vehiculo);
+		const vehiculo = arriendo.vehiculo;
+		$("#inputPatenteVehiculo").val(vehiculo.patente_vehiculo);
+		$("#textModeloVehiculo").html(`Modelo:  ${vehiculo.marca_vehiculo} ${vehiculo.modelo_vehiculo}  ${vehiculo.año_vehiculo}`)
+		$("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
 		$("#textTipo").html("Tipo de Arriendo: " + arriendo.tipo_arriendo);
 		$("#textTipo").val(arriendo.tipo_arriendo);
 		$("#inputEstadoArriendo_pago").val(arriendo.estado_arriendo);
@@ -246,10 +253,6 @@ const mostrarArriendoModalPago = (arriendo) => {
 				$("#card_pago").show();
 				$("#textCliente").html("Cliente: " + arriendo.cliente.nombre_cliente);
 				$("#inputDeudor").val(arriendo.rut_cliente);
-				$("#textVehiculo").html(
-					"Vehiculo : " + arriendo.vehiculo.patente_vehiculo
-				);
-
 				break;
 			case "REEMPLAZO":
 				$(".pago_empresa_remplazo").show();
@@ -257,16 +260,11 @@ const mostrarArriendoModalPago = (arriendo) => {
 				$("#inputDeudorCopago").val(arriendo.remplazo.codigo_empresaRemplazo);
 				$("#textCliente").html("Cliente: " + arriendo.remplazo.cliente.nombre_cliente);
 				$("#textRemplazo").html("E. Remplazo: " + arriendo.remplazo.codigo_empresaRemplazo);
-				$("#textVehiculo").html("Vehiculo : " + arriendo.vehiculo.patente_vehiculo);
 				break;
 			case "EMPRESA":
 				$("#card_pago").show();
 				$("#inputDeudor").val(arriendo.rut_empresa);
 				$("#textCliente").html("Cliente: " + arriendo.empresa.nombre_empresa);
-				$("#textVehiculo").html(
-					"Vehiculo : " + arriendo.vehiculo.patente_vehiculo
-				);
-
 				break;
 		}
 	} else {
@@ -407,6 +405,20 @@ const tipoGarantia = (value) => {
 	}
 };
 
+const tipoContrato = (value) => {
+	switch (value) {
+		case "FIRMAR":
+			$("#body-firma").show();
+			$("#body-subir-contrato").hide();
+
+			break;
+		case "SUBIR":
+			$("#body-subir-contrato").show();
+			$("#body-firma").hide();
+			break;
+	}
+}
+
 
 const limpiarCampos = () => {
 
@@ -426,6 +438,8 @@ const limpiarCampos = () => {
 	$("#spinner_btn_confirmarContrato").hide();
 	$("#spinner_btn_guardar_garantiaRequisitos").hide();
 	$("#spinner_btn_anular_arriendo").hide();
+	$("#spinner_btn_finalizar_arriendo").hide();
+	$("#spinner_btn_subirContrato").hide();
 
 	$("#formPagoArriendo").hide();
 	$("#formContratoArriendo").hide();
@@ -434,7 +448,9 @@ const limpiarCampos = () => {
 	$("#formSubirDocumentos")[0].reset();
 	$("#formGarantia")[0].reset();
 	$("#formEditarArriendo")[0].reset();
-
+	$("#subir_contrato")[0].reset();
+	$("#body-firma").show();
+	$("#body-subir-contrato").hide();
 
 	$("#formSubirDocumentos").hide();
 	$("#formGarantia").hide();
@@ -445,8 +461,10 @@ const limpiarCampos = () => {
 	$("#card_documentos").empty();
 
 	$("#btn_confirmar_contrato").attr("disabled", true);
-	$("#btn_anular_arriendo").hide();
 	$("#btn_anular_arriendo").attr("disabled", true);
+	$("#btn_anular_arriendo").hide();
+	$("#btn_finalizar_arriendo").attr("disabled", true);
+	$("#btn_finalizar_arriendo").hide();
 	$("#nombre_documento").val("");
 	$(".pago_empresa_remplazo").hide();
 	$("#formSpinnerPago").show();
@@ -793,7 +811,7 @@ $(document).ready(() => {
 	$("#btn_anular_arriendo").click(() => {
 		Swal.fire({
 			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
+			text: "estas a punto de anular este arriendo!",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonText: "Si, seguro",
@@ -812,10 +830,39 @@ $(document).ready(() => {
 				refrescarTabla();
 				$("#btn_anular_arriendo").attr("disabled", false);
 				$("#spinner_btn_anular_arriendo").hide();
+				$("#modal_editar_arriendo").modal("toggle");
+			}
+		});
+	})
+
+	$("#btn_finalizar_arriendo").click(() => {
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de finalizar este arriendo!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#spinner_btn_finalizar_arriendo").show();
+				$("#btn_finalizar_arriendo").attr("disabled", true);
+				await cambiarEstadoArriendo("FINALIZADO", $("#inputIdArriendoEditar").val());
+				Swal.fire(
+					"Arriendo finalizado!",
+					"arriendo finalizado con exito!",
+					"success"
+				);
+				refrescarTabla();
+				$("#btn_finalizar_arriendo").attr("disabled", false);
+				$("#spinner_btn_finalizar_arriendo").hide();
+				$("#modal_editar_arriendo").modal("toggle");
 			}
 		});
 
-	})
+
+	});
 
 
 	$("#btn_firmar_contrato").click(() => {
@@ -883,6 +930,53 @@ $(document).ready(() => {
 		});
 	});
 
+	$("#btn_subir_contrato").click(() => {
+
+		const inputSubirContrato = $("#inputSubirContrato")[0].files[0];
+
+		if ($("#inputSubirContrato").val().length == 0) {
+			Swal.fire(
+				"Falta subir el archivo",
+				"se debe ingresar el contrato firmado",
+				"warning"
+			);
+			return;
+		}
+
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de subir el contrato firmado!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#spinner_btn_subirContrato").show();
+				$("#btn_subir_contrato").attr("disabled", true);
+
+				const data = new FormData();
+				data.append("id_arriendo", $("#id_arriendo").val());
+				data.append("inputContrato", inputSubirContrato);
+				await subirContrato(data);
+				await enviarCorreoContrato(data);
+				await cambiarEstadoArriendo($("#estado_arriendo").val(), $("#id_arriendo").val());
+
+				Swal.fire(
+					"Contrato subido!",
+					"contrato  registrado con exito!",
+					"success"
+				);
+				refrescarTabla();
+				$("#btn_subir_contrato").attr("disabled", false);
+				$("#spinner_btn_subirContrato").hide();
+				$("#modal_firmar_contrato").modal("toggle");
+			}
+		});
+
+	})
+
 
 
 	const guardarDatosGarantia = async (idArriendo) => {
@@ -928,6 +1022,10 @@ $(document).ready(() => {
 		await ajax_function(data, "registrar_contrato");
 	};
 
+	const subirContrato = async (data) => {
+		await ajax_function(data, "subir_contrato");
+	};
+
 	const enviarCorreoContrato = async (data) => {
 		await ajax_function(data, "enviar_correoContrato");
 	};
@@ -951,6 +1049,9 @@ $(document).ready(() => {
 				break;
 			case "ANULADO":
 				data.append("estado", "ANULADO");
+				break;
+			case "FINALIZADO":
+				data.append("estado", "FINALIZADO");
 				break;
 		}
 		await ajax_function(data, "cambiarEstado_arriendo");
