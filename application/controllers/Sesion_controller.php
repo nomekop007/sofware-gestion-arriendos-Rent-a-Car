@@ -66,4 +66,5 @@ class Sesion_controller extends CI_Controller
             redirect(base_url());
         }
     }
+
 }

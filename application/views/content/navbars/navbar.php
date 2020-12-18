@@ -15,9 +15,13 @@
                 <a class="dropdown-item" href="<?php echo base_url(); ?>cargar_panel?panel=1">Modulos Gestion</a>
                 <a class="dropdown-item" href="<?php echo base_url(); ?>cargar_panel?panel=2"> Modulos
                     Atencion</a>
-                <a hidden class="dropdown-item" href="<?php echo base_url(); ?>cargar_panel?panel=3"> Modulos
-                    Administracion</a>
-
+                <!--     <a class="dropdown-item" href="<?php echo base_url(); ?>cargar_panel?panel=3"> Modulos
+                    Administracion</a> -->
+                <a class="dropdown-item"
+                    href="http://localhost:4200/#/auth/<?php echo $_SESSION["id"]; ?>/<?php echo $_SESSION["usertoken"]; ?>">
+                    Modulos
+                    Administracion
+                </a>
             </div>
         </div>
 
