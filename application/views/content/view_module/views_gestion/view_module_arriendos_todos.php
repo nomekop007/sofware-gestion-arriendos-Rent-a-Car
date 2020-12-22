@@ -260,6 +260,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         </div>
                                     </div>
                                 </div>
+
                                 <br>
                                 <div class="card bg-light" id="card_licencia">
                                     <h6>Foto licencia de conducir</h6>
