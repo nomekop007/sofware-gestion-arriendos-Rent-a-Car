@@ -106,10 +106,10 @@ const mostrarArriendoModalVer = (arriendo) => {
 		$("#btn_anular_arriendo").show();
 		$("#btn_anular_arriendo").attr("disabled", false);
 	}
-	if (arriendo.estado_arriendo == "ACTIVO" || arriendo.estado_arriendo == "FIRMADO") {
-		//$("#btn_finalizar_arriendo").show();
-		//	$("#btn_finalizar_arriendo").attr("disabled", false);
-	}
+	/* 	if (arriendo.estado_arriendo == "ACTIVO" || arriendo.estado_arriendo == "FIRMADO") {
+			$("#btn_finalizar_arriendo").show();
+			$("#btn_finalizar_arriendo").attr("disabled", false);
+		} */
 
 	if (arriendo.requisito) {
 		const requisito = arriendo.requisito;
@@ -517,7 +517,9 @@ $(document).ready(() => {
 
 	"geolocation" in navigator ? console.log("Yeih! habemus geolocalización") : alert("el navegador no soporta la geolocalización");
 
-	const tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(lenguaje);
+	let config = lenguaje;
+	config.paging = false;
+	const tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(config);
 
 	$("#nav-arriendos-tab").click(() => refrescarTabla());
 
@@ -1158,7 +1160,7 @@ $(document).ready(() => {
                                 data-toggle='modal' data-target='#modal_firmar_contrato' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  
                                 `,
 				])
-				.draw(false);
+				.draw(true);
 
 
 			if (arriendo.requisito && arriendo.garantia || arriendo.estado_arriendo == "ANULADO") {
