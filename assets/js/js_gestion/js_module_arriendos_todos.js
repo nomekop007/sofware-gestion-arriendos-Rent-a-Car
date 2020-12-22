@@ -107,8 +107,8 @@ const mostrarArriendoModalVer = (arriendo) => {
 		$("#btn_anular_arriendo").attr("disabled", false);
 	}
 	if (arriendo.estado_arriendo == "ACTIVO" || arriendo.estado_arriendo == "FIRMADO") {
-		$("#btn_finalizar_arriendo").show();
-		$("#btn_finalizar_arriendo").attr("disabled", false);
+		//$("#btn_finalizar_arriendo").show();
+		//	$("#btn_finalizar_arriendo").attr("disabled", false);
 	}
 
 	if (arriendo.requisito) {
