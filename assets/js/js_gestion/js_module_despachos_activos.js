@@ -188,8 +188,9 @@ const limpiarFormulario = () => {
 
 $(document).ready(() => {
 
-
-	const tablaArriendosActivos = $("#tablaArriendosActivos").DataTable(lenguaje);
+	let config = lenguaje;
+	config.paging = false;
+	const tablaArriendosActivos = $("#tablaArriendosActivos").DataTable(config);
 
 	$("#nav-activos-tab").click(() => refrescarTablaActivos());
 
