@@ -88,6 +88,9 @@ $route['cargar_arriendos'] = 'Arriendo_controller/cargarArriendos';
 $route['buscar_arriendo'] = 'Arriendo_controller/buscarArriendo';
 $route['cambiarEstado_arriendo'] = 'Arriendo_controller/cambiarEstadoArriendo';
 $route['extender_arriendo'] = 'Arriendo_controller/extenderArriendo';
+$route['cargar_arriendosActivos'] = 'Arriendo_controller/cargarArriendosActivos';
+
+//
 
 /* rutas de controller ActaEntrega */
 $route['registrar_actaEntrega'] = 'ActaEntrega_controller/registrarActaEntrega';
@@ -104,7 +107,7 @@ $route['registrar_revision'] = 'Despacho_controller/registrarRevision';
 
 /* rutas de controller pagoArriendo */
 $route['registrar_pagoArriendo'] = 'PagoArriendo_controller/registrarPagoArriendo';
-$route['revisar_estadoPago'] = 'PagoArriendo_controller/revisarEstadoPago';
+$route['consultar_pagoArriendos'] = 'PagoArriendo_controller/consultarPagosArriendo';
 
 /* rutas de controller pagos */
 $route['cargar_pagosERpendientes'] = 'Pago_controller/cargarPagosERpendientes';

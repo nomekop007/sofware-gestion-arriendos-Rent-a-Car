@@ -162,7 +162,7 @@ $(document).ready(() => {
 				}
 				tabla_pendientes_danios.row
 					.add([
-						danio.id_danioVehiculo,
+
 						danio.arriendo.id_arriendo,
 						`${danio.arriendo.patente_vehiculo} ${danio.vehiculo.marca_vehiculo} ${danio.vehiculo.modelo_vehiculo}`,
 						cliente,
@@ -200,7 +200,6 @@ $(document).ready(() => {
 			}
 			tabla_todos_danios.row
 				.add([
-					danio.id_danioVehiculo,
 					danio.arriendo.id_arriendo,
 					`${danio.arriendo.patente_vehiculo} ${danio.vehiculo.marca_vehiculo} ${danio.vehiculo.modelo_vehiculo}`,
 					cliente,

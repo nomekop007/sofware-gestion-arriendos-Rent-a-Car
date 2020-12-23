@@ -14,6 +14,16 @@ class Arriendo_controller extends CI_Controller
         echo get_function("arriendos/cargarArriendos", $params);
     }
 
+    public function cargarArriendosActivos()
+    {
+        $params = [
+            "sucursal" => $this->session->userdata('sucursal'),
+            "rol" => $this->session->userdata('rol'),
+            "estado" => ["ACTIVO", "RECEPCIONADO"],
+        ];
+        echo get_function("arriendos/cargarArriendosActivos", $params);
+    }
+
     public function buscarArriendo()
     {
         $id_arriendo = $this->input->post("id_arriendo");

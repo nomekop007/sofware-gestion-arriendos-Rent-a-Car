@@ -1,5 +1,5 @@
 const arrayImagesRecepcion = [];
-const array_id_pagos_pendientes = [];
+const array_id_pagos = [];
 let totalAPagar_arriendo = 0;
 
 
@@ -35,14 +35,13 @@ const buscarArriendoExtender = async (id_arriendo) => {
 
 const buscarArriendoFinalizar = async (id_arriendo) => {
 	limpiarFormulario();
-	$("#id_arriendo_recepcion").val(id_arriendo);
 	const data = new FormData();
 	data.append("id_arriendo", id_arriendo);
-	const response_estadoPago = await revisarEstadosPagos(data);
-	if (response_estadoPago.success) {
-		// si existe deuda , se levanta el modal para pagarla , si no el de recepcion
-		if (response_estadoPago.deuda) {
-			mostrarPagosPendientes(response_estadoPago.data);
+	const response = await ajax_function(data, "buscar_arriendo");
+	if (response.success) {
+		const arriendo = response.data;
+		if (arriendo.estado_arriendo === "RECEPCIONADO") {
+			await mostrarPagosArriendo(id_arriendo);
 			$("#modalPagoArriendo").modal({
 				show: true,
 			});
@@ -58,12 +57,15 @@ const buscarArriendoFinalizar = async (id_arriendo) => {
 
 
 
-const mostrarPagosPendientes = ({ arrayPago, totalPago, arriendo }) => {
+const mostrarPagosArriendo = async (id_arriendo) => {
+	const data = new FormData();
+	data.append("id_arriendo", id_arriendo);
+	const response = await consultarPagos(data);
+	const { arrayPago, totalPago, arriendo } = response.data;
 	$("#numero_arriendo_pago").html("Nº " + arriendo.id_arriendo)
 	const formatter = new Intl.NumberFormat("CL");
 	let n = 1;
 	arrayPago.map(({ pago, pagoArriendo }) => {
-		console.log(pagoArriendo)
 		let html = `<tr>
 						<th scope="row"> ${n} </th>
 						<td> ${pago.deudor_pago.replace("@", "")} </td>
@@ -74,30 +76,20 @@ const mostrarPagosPendientes = ({ arrayPago, totalPago, arriendo }) => {
 					</tr>`;
 		$("#tablaPago").append(html);
 		n++;
-		array_id_pagos_pendientes.push(pago.id_pago);
+		array_id_pagos.push(pago.id_pago);
 	})
 	totalAPagar_arriendo = totalPago;
-	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(totalAPagar_arriendo)} `);
+	$("#total_a_pagar").html(`Total pago: ${formatter.format(totalAPagar_arriendo)} `);
 	$("#dias_totales").html(`dias totales: ${arriendo.diasAcumulados_arriendo}`);
-	if (arriendo.tipo_arriendo === "REEMPLAZO") {
-		$("#descuento_copago").show();
-		const fechaFinal = moment(arriendo.fechaRecepcion_arriendo);
-		const fechaActual = moment();
-		const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
-		const horasRestantes = moment.utc(fechaFinal.diff(moment())).format("HH");
-		$("#dias_restantes").val(`${diasRestantes} ${diasRestantes == 1 ? "dia" : "dias"} con  ${horasRestantes} horas`);
-	}
+	$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
+	$("#descuento_copago").show();
+	const fechaFinal = moment(arriendo.fechaRecepcion_arriendo);
+	const fechaActual = moment();
+	const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
+	const horasRestantes = moment.utc(fechaFinal.diff(moment())).format("HH");
+	$("#dias_restantes").val(`${diasRestantes} ${diasRestantes == 1 ? "dia" : "dias"} con  ${horasRestantes} horas`);
+
 }
-
-
-const recalcularPago = (desc) => {
-	const formatter = new Intl.NumberFormat("CL");
-	let descuento = Number(desc);
-	let precioAntiguo = Number(totalAPagar_arriendo);
-	let precioNuevo = precioAntiguo - descuento;
-	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(precioNuevo)} `);
-}
-
 
 
 const mostrarRecepcionArriendo = async (id_arriendo) => {
@@ -133,8 +125,30 @@ const mostrarRecepcionArriendo = async (id_arriendo) => {
 
 
 
-const revisarEstadosPagos = async (data) => {
-	return await ajax_function(data, "revisar_estadoPago");
+
+
+const recalcularPagoDescuento = (desc) => {
+	const formatter = new Intl.NumberFormat("CL");
+	let descuento = Number(desc);
+	let precioAntiguo = Number(totalAPagar_arriendo);
+	let precioNuevo = precioAntiguo - descuento;
+	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(precioNuevo)} `);
+}
+
+const recalcularPagoExtra = (desc) => {
+	const formatter = new Intl.NumberFormat("CL");
+	let cobro = Number(desc);
+	let precioAntiguo = Number(totalAPagar_arriendo);
+	let precioNuevo = precioAntiguo + cobro;
+	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(precioNuevo)} `);
+}
+
+
+
+
+
+const consultarPagos = async (data) => {
+	return await ajax_function(data, "consultar_pagoArriendos");
 }
 
 
@@ -152,7 +166,7 @@ const limpiarFormulario = () => {
 	$("#spinner_btn_extenderArriendo").hide();
 	$("#spinner_btn_registrar_danio").hide();
 	arrayImagesRecepcion.length = 0;
-	array_id_pagos_pendientes.length = 0;
+	array_id_pagos.length = 0;
 	totalAPagar_arriendo = 0;
 	$("#carrucel_recepcion").empty();
 	$("#tablaPago").empty();
@@ -213,10 +227,7 @@ $(document).ready(() => {
 
 	const cargarArriendosActivos = async () => {
 		$("#spinner_tablaArriendoActivos").show();
-		const data = new FormData();
-		data.append("filtro", "ACTIVO");
-		const response = await ajax_function(data, "cargar_arriendos");
-
+		const response = await ajax_function(null, "cargar_arriendosActivos");
 		if (response) {
 			$.each(response.data, (i, arriendo) => {
 				cargarArriendoActivosEnTabla(arriendo);
@@ -229,7 +240,6 @@ $(document).ready(() => {
 	$("#btn_extenderArriendo").click(() => {
 		const diasActuales = $("#dias_arriendo").val()
 		const diasExtendidos = $("#inputNumeroDias_extenderPlazo").val();
-
 		if (diasExtendidos.length == 0) {
 			Swal.fire(
 				"faltan datos , o datos erroneos",
@@ -260,10 +270,8 @@ $(document).ready(() => {
 				$("#btn_extenderArriendo").attr("disabled", true)
 				const form = $("#formExtenderArriendo")[0];
 				const data = new FormData(form);
-
 				data.append("diasActuales", Number(diasExtendidos));
 				data.append("diasAcumulados", Number(diasActuales) + Number(diasExtendidos));
-
 				const response = await extenderContrato(data);
 				if (response.success) {
 					refrescarTablaActivos();
@@ -283,7 +291,6 @@ $(document).ready(() => {
 
 
 	$("#btn_finalizar_arriendo").click(() => {
-
 		if (arrayImagesRecepcion.length === 0) {
 			Swal.fire({
 				icon: "warning",
@@ -291,7 +298,6 @@ $(document).ready(() => {
 			});
 			return;
 		}
-
 		if ($("#input_kilometraje_salida").val() == 0) {
 			Swal.fire({
 				icon: "warning",
@@ -299,7 +305,6 @@ $(document).ready(() => {
 			});
 			return;
 		}
-
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de finalizar el arriendo!",
@@ -317,10 +322,12 @@ $(document).ready(() => {
 				if (response_revision.success) {
 					const response_vehiculo = await cambiarEstadoVehiculo(data);
 					if (response_vehiculo.success) {
+						data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+						data.append("estado", "RECEPCIONADO");
+						data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
 						await cambiarEstadoArriendo(data);
 					}
 				}
-				refrescarTablaActivos();
 				$("#modal_ArriendoFinalizar").modal("toggle");
 				Swal.fire(
 					"Arriendo finalizado!",
@@ -375,7 +382,7 @@ $(document).ready(() => {
 
 
 	$("#actualizar_pago_arriendo").click(async () => {
-
+		console.log($("#id_arriendo_recepcion").val());
 		const inputNumFacturacion = $("#inputNumFacturacion").val();
 		const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
 
@@ -390,14 +397,28 @@ $(document).ready(() => {
 		}
 
 		const inputDescuento = $("#descuento_pago").val();
-		if (inputDescuento.length == 0 || inputDescuento < 0) {
+		const inputExtra = $("#extra_pago").val();
+		const inputObservaciones = `${$("#inputObservaciones").val()} ${$("#inputObservaciones2").val()} `
+
+		if (inputDescuento < 0 || inputExtra < 0 || inputDescuento.length == 0 || inputExtra.length == 0) {
 			Swal.fire(
-				"campo vacio",
+				"campo vacio o invalidos",
 				"rellene los campos erroneos",
 				"warning"
 			);
 			return;
 		}
+
+
+		if (inputDescuento > 0 && inputExtra > 0) {
+			Swal.fire(
+				"valores invalidos",
+				"no se puede aplicar un cobro extra y un descuento a la vez! , corriga",
+				"warning"
+			);
+			return;
+		}
+
 
 		Swal.fire({
 			title: "Estas seguro?",
@@ -413,12 +434,12 @@ $(document).ready(() => {
 				$("#actualizar_pago_arriendo").attr("disabled", true);
 				const form = $("#form_pagos_pendientes")[0];
 				const data = new FormData(form);
-				data.append("arrayPagos", JSON.stringify(array_id_pagos_pendientes));
+				data.append("arrayPagos", JSON.stringify(array_id_pagos));
 				data.append("descuento_pago", inputDescuento);
+				data.append("extra_pago", inputExtra);
 				data.append("inputDocumento", inputFileFacturacion);
-				data.append("inputObservaciones", $("#inputObservaciones").val());
+				data.append("inputObservaciones", inputObservaciones);
 				data.append("inputEstado", "PAGADO");
-
 				const responseDescuento = await descuentoPago(data);
 				if (responseDescuento.success) {
 					const responseFactura = await guardarDatosFactura(data);
@@ -428,6 +449,10 @@ $(document).ready(() => {
 						if (responseDocumentoFActura.success) {
 							const responsePago = await actualizarPagos(data);
 							if (responsePago.success) {
+								data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+								data.append("estado", "FINALIZADO");
+								await cambiarEstadoArriendo(data);
+								refrescarTablaActivos();
 								Swal.fire(
 									"Pago Actualizado!",
 									"se a actualizado exitosamente el pago",
@@ -531,18 +556,7 @@ $(document).ready(() => {
 
 
 	const cambiarEstadoArriendo = async (data) => {
-		data.append("id_arriendo", $("#id_arriendo_recepcion").val());
 
-
-		const response = await ajax_function(data, "revisar_danioVehiculo");
-
-		if (response.data) {
-			data.append("estado", "CON DAÑO");
-		} else {
-			data.append("estado", "FINALIZADO");
-		}
-
-		data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
 		return await ajax_function(data, "cambiarEstado_arriendo");
 	};
 

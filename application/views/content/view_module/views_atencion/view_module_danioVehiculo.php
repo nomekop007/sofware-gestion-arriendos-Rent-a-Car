@@ -28,7 +28,6 @@
                     <table id="tabla_pendientes_danios" class="table table-striped table-bordered" style="width:100%">
                         <thead class="btn-dark">
                             <tr>
-                                <th>Nº daño</th>
                                 <th>Nº arriendo</th>
                                 <th>Vehiculo</th>
                                 <th>Cliente involucrado </th>
@@ -42,7 +41,6 @@
                         </tbody>
                         <tfoot class="btn-dark">
                             <tr>
-                                <th>Nº daño</th>
                                 <th>Nº arriendo</th>
                                 <th>Vehiculo</th>
                                 <th>Cliente involucrado </th>
@@ -70,7 +68,6 @@
                     <table id="tabla_todos_danios" class="table table-striped table-bordered" style="width:100%">
                         <thead class="btn-dark">
                             <tr>
-                                <th>Nº daño</th>
                                 <th>Nº arriendo</th>
                                 <th>Vehiculo</th>
                                 <th>Cliente involucrado </th>
@@ -84,7 +81,6 @@
                         </tbody>
                         <tfoot class="btn-dark">
                             <tr>
-                                <th>Nº daño</th>
                                 <th>Nº arriendo</th>
                                 <th>Vehiculo</th>
                                 <th>Cliente involucrado </th>

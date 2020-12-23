@@ -770,14 +770,14 @@ $(document).ready(() => {
 			return;
 		}
 		//valdiacion para que solo los remplazos queden como pendiente
-		if (tipoArriendo != "REEMPLAZO" && tipoPago == "PENDIENTE") {
-			Swal.fire(
-				"Falta ingresar facturacion",
-				"solo los arriendos de remplazo pueden quedar con la facturacion pendiente",
-				"warning"
-			);
-			return;
-		}
+		/* 		if (tipoArriendo != "REEMPLAZO" && tipoPago == "PENDIENTE") {
+					Swal.fire(
+						"Falta ingresar facturacion",
+						"solo los arriendos de remplazo pueden quedar con la facturacion pendiente",
+						"warning"
+					);
+					return;
+				} */
 		if (
 			$("#inputPagoEmpresa").val().length == 0 ||
 			$("#inputValorCopago").val().length == 0 ||

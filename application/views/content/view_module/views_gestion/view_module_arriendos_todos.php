@@ -311,12 +311,12 @@ $nombreUsuario = $this->session->userdata('nombre')
                     </div>
                 </form>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                    <button id="btn_anular_arriendo" type="button" class="btn btn-danger col-xl-3">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">cerrar</button>
+                    <button id="btn_anular_arriendo" type="button" class="btn btn-sm btn-danger col-xl-3">
                         Anular arriendo
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             id="spinner_btn_anular_arriendo"></span></button>
-                    <button id="btn_finalizar_arriendo" type="button" class="btn btn-success col-xl-3">
+                    <button id="btn_finalizar_arriendo" type="button" class="btn  btn-success col-xl-3">
                         Finalizar arriendo
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             id="spinner_btn_finalizar_arriendo"></span></button>
@@ -479,12 +479,12 @@ $nombreUsuario = $this->session->userdata('nombre')
                                             checked>
                                         <label class="custom-control-label" for="radioPendiente">Pendiente</label>
                                     </div>
-                                    <div class="custom-control custom-radio custom-control-inline ">
+                                    <div hidden class="custom-control custom-radio custom-control-inline ">
                                         <input type="radio" onclick="facturacion(this.value);" value="BOLETA"
                                             id="radioBoleta" name="customRadio1" class="custom-control-input">
                                         <label class="custom-control-label" for="radioBoleta">Boleta</label>
                                     </div>
-                                    <div class="custom-control custom-radio custom-control-inline ">
+                                    <div hidden class="custom-control custom-radio custom-control-inline ">
                                         <input type="radio" onclick="facturacion(this.value);" value="FACTURA"
                                             id="radioFactura" name="customRadio1" class="custom-control-input">
                                         <label class="custom-control-label" for="radioFactura">Factura</label>

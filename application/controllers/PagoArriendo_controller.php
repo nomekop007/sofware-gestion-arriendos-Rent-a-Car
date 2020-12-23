@@ -22,10 +22,10 @@ class PagoArriendo_controller extends CI_Controller
         echo post_function($dataArray, "pagosArriendos/registrarPagoArriendo");
     }
 
-    public function revisarEstadoPago()
+    public function consultarPagosArriendo()
     {
         $id_arriendo = $this->input->post("id_arriendo");
-        echo find_function($id_arriendo, "pagosArriendos/revisarEstadoPago");
+        echo find_function($id_arriendo, "pagosArriendos/consultarPagosArriendo");
     }
 
 }
