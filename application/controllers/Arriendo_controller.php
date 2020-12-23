@@ -58,6 +58,22 @@ class Arriendo_controller extends CI_Controller
         echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
     }
 
+    public function editarArriendo()
+    {
+        $idArriendo = $this->input->post("id_arriendo");
+        $ArrayData = [
+            "kilometrosEntrada_arriendo" => $this->input->post("inputEditarKentradaArriendo"),
+            "ciudadEntrega_arriendo" => $this->input->post("inputEditarCiudadEntregaArriendo"),
+            "fechaEntrega_arriendo" => $this->input->post("inputEditarFechaInicioArriendo"),
+            "fechaRecepcion_arriendo" => $this->input->post("inputEditarFechaFinArriendo"),
+            "ciudadRecepcion_arriendo" => $this->input->post("inputEditarCiudadRecepcionArriendo"),
+            "diasActuales_arriendo" => $this->input->post("inputEditarDiasArriendo"),
+            "diasAcumulados_arriendo" => $this->input->post("inputEditarDiasArriendo"),
+            "patente_vehiculo" => $this->input->post("inputEditarVehiculoArriendo"),
+        ];
+        echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
+    }
+
     public function extenderArriendo()
     {
         // se validac que el usuario sea un admin o supervisor

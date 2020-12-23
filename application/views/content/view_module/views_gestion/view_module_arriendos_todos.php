@@ -69,7 +69,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <form class="needs-validation" id="formEditarArriendo" novalidate>
                     <input type="text" id="inputIdArriendoEditar" hidden>
                     <div class=" form-row">
-                        <div class="form-group col-lg-2">
+                        <div class="form-group col-lg-3">
                             <label for="inputEditarTipoArriendo">Tipo</label>
                             <input disabled type="text" class="form-control" id="inputEditarTipoArriendo">
                         </div>
@@ -81,41 +81,51 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <label for="inputEditarClienteArriendo">Cliente</label>
                             <input disabled type="text" class="form-control" id="inputEditarClienteArriendo">
                         </div>
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-3">
                             <label for="inputEditarConductorArriendo">Conductor</label>
                             <input disabled type="text" class="form-control" id="inputEditarConductorArriendo">
                         </div>
                         <div class="form-group col-lg-4">
                             <label for="inputEditarVehiculoArriendo">Vehiculo</label>
-                            <input disabled type="text" class="form-control" id="inputEditarVehiculoArriendo">
+                            <select class="custom-select " id="inputEditarVehiculoArriendo"
+                                name="inputEditarVehiculoArriendo" style="width: 100%;"
+                                aria-label="Example select with button addon">
+                            </select>
+                        </div>
+
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarCiudadEntregaArriendo">sucursal entrega</label>
+                            <input disabled type="text" class="form-control" name="inputEditarCiudadEntregaArriendo"
+                                id="inputEditarCiudadEntregaArriendo">
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarCiudadRecepcionArriendo">sucursal recepcion</label>
+                            <input disabled type="text" class="form-control" name="inputEditarCiudadRecepcionArriendo"
+                                id="inputEditarCiudadRecepcionArriendo">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarKentradaArriendo">kilometros inicio</label>
-                            <input disabled type="text" class="form-control" id="inputEditarKentradaArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarKentradaArriendo"
+                                id="inputEditarKentradaArriendo">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarKsalidaArriendo">kilometros termino</label>
                             <input disabled type="text" class="form-control" id="inputEditarKsalidaArriendo">
                         </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarCiudadEntregaArriendo">sucursal entrega</label>
-                            <input disabled type="text" class="form-control" id="inputEditarCiudadEntregaArriendo">
-                        </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarCiudadRecepcionArriendo">sucursal recepcion</label>
-                            <input disabled type="text" class="form-control" id="inputEditarCiudadRecepcionArriendo">
-                        </div>
                         <div class="form-group col-lg-3">
                             <label for="inputEditarFechaInicioArriendo">Fecha Inicio</label>
-                            <input disabled type="text" class="form-control" id="inputEditarFechaInicioArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarFechaInicioArriendo"
+                                id="inputEditarFechaInicioArriendo">
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputEditarFechaFinArriendo">Fecha Fin</label>
-                            <input disabled type="text" class="form-control" id="inputEditarFechaFinArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarFechaFinArriendo"
+                                id="inputEditarFechaFinArriendo">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarDiasArriendo">Total Dias</label>
-                            <input disabled type="text" class="form-control" id="inputEditarDiasArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarDiasArriendo"
+                                id="inputEditarDiasArriendo">
                         </div>
 
                         <div class="form-group col-lg-4">

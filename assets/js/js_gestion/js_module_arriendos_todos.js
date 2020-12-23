@@ -50,15 +50,7 @@ const mostrarArriendoModalVer = (arriendo) => {
 		" " +
 		arriendo.conductore.rut_conductor
 	);
-	$("#inputEditarVehiculoArriendo").val(
-		arriendo.vehiculo.patente_vehiculo +
-		" " +
-		arriendo.vehiculo.modelo_vehiculo +
-		"  " +
-		arriendo.vehiculo.marca_vehiculo +
-		" " +
-		arriendo.vehiculo.año_vehiculo
-	);
+	$("#inputEditarVehiculoArriendo").val(arriendo.patente_vehiculo);
 	$("#inputEditarKentradaArriendo").val(arriendo.kilometrosEntrada_arriendo);
 	$("#inputEditarKsalidaArriendo").val(arriendo.kilometrosSalida_arriendo);
 	$("#inputEditarKmantencionArriendo").val(
@@ -80,9 +72,8 @@ const mostrarArriendoModalVer = (arriendo) => {
 	$("#inputEditarRegistroArriendo").val(formatearFechaHora(arriendo.createdAt));
 
 
-
-
-	console.log(arriendo);
+	$("#card_licencia").show();
+	$("#card_carnet").show();
 
 
 
@@ -95,6 +86,7 @@ const mostrarArriendoModalVer = (arriendo) => {
 			break;
 		case "REEMPLAZO":
 			$("#card_cartaRemplazo").show();
+			$("#inputEditarTipoArriendo").val(arriendo.tipo_arriendo + " " + arriendo.remplazo.codigo_empresaRemplazo);
 			$("#inputEditarClienteArriendo").val(`${arriendo.remplazo.cliente.nombre_cliente}  ${arriendo.remplazo.cliente.rut_cliente}`);
 			documentoCliente = arriendo.remplazo.cliente.documentosCliente;
 			break;
@@ -105,11 +97,9 @@ const mostrarArriendoModalVer = (arriendo) => {
 	}
 
 
-
 	if (documentoCliente) {
 		global_documentosArriendo.documentoCliente = true;
 		const c1 = document.createElement("button");
-		console.log(documentoCliente);
 		c1.addEventListener("click", () => buscarDocumento(documentoCliente.carnetFrontal, "requisito"));
 		c1.textContent = "Foto carnet frontal";
 		c1.className = "badge badge-pill badge-info m-1";
@@ -119,8 +109,6 @@ const mostrarArriendoModalVer = (arriendo) => {
 		c2.textContent = "Foto carnet Trasera";
 		c2.className = "badge badge-pill badge-info m-1";
 		document.getElementById("card_documentos").append(c2);
-	} else {
-		$("#card_carnet").show();
 	}
 
 
@@ -136,12 +124,10 @@ const mostrarArriendoModalVer = (arriendo) => {
 		l2.textContent = "Foto licencia de conducir trasera";
 		l2.className = "badge badge-pill badge-info m-1";
 		document.getElementById("card_documentos").append(l2);
-	} else {
-		$("#card_licencia").show();
 	}
 
 
-	if (arriendo.estado_arriendo == "PENDIENTE") {
+	if (arriendo.estado_arriendo == "PENDIENTE" || arriendo.estado_arriendo == "CONFIRMADO" || arriendo.estado_arriendo == "FIRMADO") {
 		$("#btn_anular_arriendo").show();
 		$("#btn_anular_arriendo").attr("disabled", false);
 	}
@@ -149,6 +135,23 @@ const mostrarArriendoModalVer = (arriendo) => {
 			$("#btn_finalizar_arriendo").show();
 			$("#btn_finalizar_arriendo").attr("disabled", false);
 		} */
+
+
+	if (arriendo.pagosArriendos.length > 0) {
+		let N = 1;
+		arriendo.pagosArriendos.forEach((pagoArriendo) => {
+			if (pagoArriendo.pagos[0].facturacione) {
+				const doc = pagoArriendo.pagos[0].facturacione.documento_facturacion
+				const facturacion = document.createElement("button");
+				facturacion.addEventListener("click", () => buscarDocumento(doc, "facturacion"));
+				facturacion.textContent = "Factura Nº" + N;
+				facturacion.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos").append(facturacion);
+			}
+			N++;
+		})
+	}
+
 
 	if (arriendo.requisito) {
 		const requisito = arriendo.requisito;
@@ -549,6 +552,31 @@ $(document).ready(() => {
 	};
 
 
+	//cargar vehiculos en select
+
+	const cargarVehiculosEditar = async () => {
+		const data = new FormData();
+		const response = await ajax_function(data, "cargar_Vehiculos");
+		console.log(response);
+		if (response.success) {
+			if (response.data) {
+
+				const select = document.getElementById("inputEditarVehiculoArriendo");
+				$.each(response.data, (i, o) => {
+					const option = document.createElement("option");
+					option.innerHTML = `${o.patente_vehiculo} ${o.marca_vehiculo} ${o.modelo_vehiculo} ${o.año_vehiculo}`;
+					option.value = o.patente_vehiculo;
+					select.appendChild(option);
+				});
+				$("#inputEditarVehiculoArriendo").attr("disabled", false);
+			}
+		}
+	}
+	cargarVehiculosEditar();
+
+
+
+
 	cargarAccesorios = async () => {
 		const response = await ajax_function(null, "cargar_accesorios");
 		if (response.success) {
@@ -845,7 +873,7 @@ $(document).ready(() => {
 	$("#btn_anular_arriendo").click(() => {
 		Swal.fire({
 			title: "Estas seguro?",
-			text: "estas a punto de anular este arriendo!",
+			text: "estas a punto de anular este arriendo , una vez anulado no se podra modificar!",
 			icon: "warning",
 			showCancelButton: true,
 			confirmButtonText: "Si, seguro",
@@ -1174,6 +1202,9 @@ $(document).ready(() => {
 					break;
 			}
 
+			if (arriendo.estado_arriendo == "ANULADO") {
+				return;
+			}
 			tablaTotalArriendos.row
 				.add([
 					arriendo.id_arriendo,
@@ -1184,10 +1215,8 @@ $(document).ready(() => {
 					arriendo.usuario.nombre_usuario,
 					`<button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
                         data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn-outline-primary'><i class="fas fa-upload"></i></button>
-                         
                         <button id='b${arriendo.id_arriendo}' value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,2)' 
                             data-toggle='modal' data-target='#modal_pago_arriendo' class='btn btn-outline-success'><i class="fas fa-money-bill-wave"></i></button> 
-                     
                             <button id='c${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,3)' 
                                 data-toggle='modal' data-target='#modal_firmar_contrato' class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button>  
                                 `,
