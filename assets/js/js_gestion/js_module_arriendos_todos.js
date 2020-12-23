@@ -557,10 +557,8 @@ $(document).ready(() => {
 	const cargarVehiculosEditar = async () => {
 		const data = new FormData();
 		const response = await ajax_function(data, "cargar_Vehiculos");
-		console.log(response);
 		if (response.success) {
 			if (response.data) {
-
 				const select = document.getElementById("inputEditarVehiculoArriendo");
 				$.each(response.data, (i, o) => {
 					const option = document.createElement("option");
