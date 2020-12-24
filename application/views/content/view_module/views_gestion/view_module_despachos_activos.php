@@ -250,7 +250,7 @@
 
 <!-- Modal realizar pago -->
 <div class="modal fade" id="modalPagoArriendo" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalPagoArriendoLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-lg">
+	<div class="modal-dialog modal-lg">
 		<form class="needs-validation" id="form_pagos_pendientes" novalidate>
 			<div class="modal-content">
 				<div class="modal-header">
@@ -259,7 +259,14 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body">
+				<div class="modal-body" id="formSpinner_actualizarPago_arriendo">
+					<div class="text-center">
+						<div class="spinner-border" role="status">
+							<span class="sr-only">Loading...</span>
+						</div>
+					</div>
+				</div>
+				<div class="modal-body" id="body_actualizarPago_arriendo">
 					<div class="container card">
 						<table class="table">
 							<thead>

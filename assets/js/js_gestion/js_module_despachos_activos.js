@@ -33,40 +33,20 @@ const buscarArriendoExtender = async (id_arriendo) => {
 }
 
 
-const buscarArriendoFinalizar = async (id_arriendo) => {
+
+const mostrarPagosArriendo = async (id_arriendo) => {
 	limpiarFormulario();
 	const data = new FormData();
 	data.append("id_arriendo", id_arriendo);
-	const response = await ajax_function(data, "buscar_arriendo");
-	if (response.success) {
-		const arriendo = response.data;
-		if (arriendo.estado_arriendo === "RECEPCIONADO") {
-			await mostrarPagosArriendo(id_arriendo);
-			$("#modalPagoArriendo").modal({
-				show: true,
-			});
-		} else {
-			await mostrarRecepcionArriendo(id_arriendo);
-			$("#modal_ArriendoFinalizar").modal({
-				show: true,
-			});
-		}
-	}
-	$("#formSpinner_finalizar_arriendo").hide();
-}
-
-
-
-const mostrarPagosArriendo = async (id_arriendo) => {
-	const data = new FormData();
-	data.append("id_arriendo", id_arriendo);
 	const response = await consultarPagos(data);
-	const { arrayPago, totalPago, arriendo } = response.data;
-	$("#numero_arriendo_pago").html("Nº " + arriendo.id_arriendo)
-	const formatter = new Intl.NumberFormat("CL");
-	let n = 1;
-	arrayPago.map(({ pago, pagoArriendo }) => {
-		let html = `<tr>
+	if (response.success) {
+		const { arrayPago, totalPago, arriendo } = response.data;
+		$("#body_actualizarPago_arriendo").show()
+		$("#numero_arriendo_pago").html("Nº " + arriendo.id_arriendo)
+		const formatter = new Intl.NumberFormat("CL");
+		let n = 1;
+		arrayPago.map(({ pago, pagoArriendo }) => {
+			let html = `<tr>
 						<th scope="row"> ${n} </th>
 						<td> ${pago.deudor_pago.replace("@", "")} </td>
 						<td> ${pago.estado_pago}</td>
@@ -74,31 +54,28 @@ const mostrarPagosArriendo = async (id_arriendo) => {
 						<td> ${pagoArriendo.dias_pagoArriendo} </td>
 						<td> ${formatearFechaHora(pago.createdAt)} </td>
 					</tr>`;
-		$("#tablaPago").append(html);
-		n++;
-		array_id_pagos.push(pago.id_pago);
-	})
-	totalAPagar_arriendo = totalPago;
-	$("#total_a_pagar").html(`Total pago: ${formatter.format(totalAPagar_arriendo)} `);
-	$("#dias_totales").html(`dias totales: ${arriendo.diasAcumulados_arriendo}`);
-	$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
-	$("#descuento_copago").show();
-	const fechaFinal = moment(arriendo.fechaRecepcion_arriendo);
-	const fechaActual = moment();
-	const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
-	const horasRestantes = moment.utc(fechaFinal.diff(moment())).format("HH");
-	$("#dias_restantes").val(`${diasRestantes} ${diasRestantes == 1 ? "dia" : "dias"} con  ${horasRestantes} horas`);
-
+			$("#tablaPago").append(html);
+			n++;
+			array_id_pagos.push(pago.id_pago);
+		})
+		totalAPagar_arriendo = totalPago;
+		$("#total_a_pagar").html(`Total pago: ${formatter.format(totalAPagar_arriendo)} `);
+		$("#dias_totales").html(`dias totales: ${arriendo.diasAcumulados_arriendo}`);
+		$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
+		$("#descuento_copago").show();
+		const fechaFinal = moment(arriendo.fechaRecepcion_arriendo);
+		const fechaActual = moment();
+		const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
+		const horasRestantes = moment.utc(fechaFinal.diff(moment())).format("HH");
+		$("#dias_restantes").val(`${diasRestantes} ${diasRestantes == 1 ? "dia" : "dias"} con  ${horasRestantes} horas`);
+	}
+	$("#formSpinner_actualizarPago_arriendo").hide();
 }
 
 
 const mostrarRecepcionArriendo = async (id_arriendo) => {
-	mostrarCanvasImgVehiculo([
-		"canvas_fotoVehiculo_recepcion",
-		"limpiar_fotoVehiculo_recepcion",
-		"dibujar_canvas_recepcion",
-		"inputImagen_vehiculo_recepcion"
-	]);
+	limpiarFormulario();
+
 	const data = new FormData();
 	data.append("id_despacho", id_arriendo);
 	data.append("id_arriendo", id_arriendo);
@@ -112,15 +89,22 @@ const mostrarRecepcionArriendo = async (id_arriendo) => {
 			"prev_recepcion",
 			"next_recepcion"
 		]);
+		mostrarCanvasImgVehiculo([
+			"canvas_fotoVehiculo_recepcion",
+			"limpiar_fotoVehiculo_recepcion",
+			"dibujar_canvas_recepcion",
+			"inputImagen_vehiculo_recepcion"
+		]);
 		const responseArriendo = await ajax_function(data, "buscar_arriendo");
 		if (responseArriendo.success) {
 			const arriendo = responseArriendo.data;
 			$("#numero_arriendo_recepcion").html("Nº " + arriendo.id_arriendo);
-			$("#body_recepcion_arriendo").show();
 			$("#id_vehiculo_recepcion").val(arriendo.patente_vehiculo);
 			$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
+			$("#body_recepcion_arriendo").show();
 		}
 	}
+	$("#formSpinner_finalizar_arriendo").hide();
 }
 
 
@@ -156,6 +140,8 @@ const consultarPagos = async (data) => {
 const limpiarFormulario = () => {
 	$("#formSpinner_extender_arriendo").show();
 	$("#formSpinner_finalizar_arriendo").show();
+	$("#formSpinner_actualizarPago_arriendo").show();
+	$("#body_actualizarPago_arriendo").hide()
 	$("#body_recepcion_arriendo").hide();
 	$("#body_extender_arriendo").hide();
 	$("#descuento_copago").hide();
@@ -637,12 +623,15 @@ $(document).ready(() => {
 
 			let btnFinalizar = "";
 			let btnExtender = "";
+			let viewTime = "";
 			if (arriendo.estado_arriendo == "ACTIVO") {
+				viewTime = `<div id=time${arriendo.id_arriendo}> </div>`;
 				btnExtender = ` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> `
-				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)'  class='btn btn btn-outline-dark'><i class="fas fa-external-link-square-alt"></i></button>`;
+				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='mostrarRecepcionArriendo(this.value)' data-toggle='modal'  data-target='#modal_ArriendoFinalizar'  class='btn btn btn-outline-dark'><i class="fas fa-external-link-square-alt"></i></button>`;
 			} else {
+				viewTime = "<div> RECEPCIONADO </div>";
 				btnExtender = "";
-				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)'  class='btn btn btn-outline-success'><i class="fas fa-pager"></i></button>`;
+				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='mostrarPagosArriendo(this.value)' data-toggle='modal'  data-target='#modalPagoArriendo'  class='btn btn btn-outline-success'><i class="fas fa-pager"></i></button>`;
 			}
 
 			tablaArriendosActivos.row
@@ -652,7 +641,7 @@ $(document).ready(() => {
 					arriendo.vehiculo.patente_vehiculo,
 					arriendo.tipo_arriendo,
 					formatearFechaHora(arriendo.fechaRecepcion_arriendo),
-					`<div id=time${arriendo.id_arriendo}> </div>`,
+					`${viewTime}`,
 					` ${btnExtender}
 					  ${btnFinalizar}
                     `,
