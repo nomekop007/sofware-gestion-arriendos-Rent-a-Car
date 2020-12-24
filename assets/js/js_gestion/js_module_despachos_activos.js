@@ -383,24 +383,11 @@ $(document).ready(() => {
 
 
 	$("#actualizar_pago_arriendo").click(async () => {
-		console.log($("#id_arriendo_recepcion").val());
-		const inputNumFacturacion = $("#inputNumFacturacion").val();
-		const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
-
-
-		if (inputNumFacturacion == 0 || $("#inputFileFacturacion").val().length == 0) {
-			Swal.fire(
-				"faltan datos en el formulario",
-				"debe ingresar el Nº facturacion con su respectivo comprobante",
-				"warning"
-			);
-			return;
-		}
-
 		const inputDescuento = $("#descuento_pago").val();
 		const inputExtra = $("#extra_pago").val();
 		const inputObservaciones = `${$("#inputObservaciones").val()} ${$("#inputObservaciones2").val()} `
-
+		const inputNumFacturacion = $("#inputNumFacturacion").val();
+		const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
 		if (inputDescuento < 0 || inputExtra < 0 || inputDescuento.length == 0 || inputExtra.length == 0) {
 			Swal.fire(
 				"campo vacio o invalidos",
@@ -409,8 +396,6 @@ $(document).ready(() => {
 			);
 			return;
 		}
-
-
 		if (inputDescuento > 0 && inputExtra > 0) {
 			Swal.fire(
 				"valores invalidos",
@@ -419,8 +404,16 @@ $(document).ready(() => {
 			);
 			return;
 		}
-
-
+		if (totalAPagar_arriendo != 0 || inputDescuento != 0 || inputExtra != 0) {
+			if (inputNumFacturacion == 0 || $("#inputFileFacturacion").val().length == 0) {
+				Swal.fire(
+					"faltan datos en el formulario",
+					"debe ingresar el Nº facturacion con su respectivo comprobante",
+					"warning"
+				);
+				return;
+			}
+		}
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de guardar los cambios!",
@@ -441,27 +434,33 @@ $(document).ready(() => {
 				data.append("inputDocumento", inputFileFacturacion);
 				data.append("inputObservaciones", inputObservaciones);
 				data.append("inputEstado", "PAGADO");
+				data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+				data.append("estado", "FINALIZADO");
+
+
+
 				const responseDescuento = await descuentoPago(data);
 				if (responseDescuento.success) {
-					const responseFactura = await guardarDatosFactura(data);
-					if (responseFactura.success) {
-						data.append("id_facturacion", responseFactura.data.id_facturacion);
-						const responseDocumentoFActura = await guardarDocumentoFactura(data);
-						if (responseDocumentoFActura.success) {
-							const responsePago = await actualizarPagos(data);
-							if (responsePago.success) {
-								data.append("id_arriendo", $("#id_arriendo_recepcion").val());
-								data.append("estado", "FINALIZADO");
-								await cambiarEstadoArriendo(data);
-								refrescarTablaActivos();
-								Swal.fire(
-									"Pago Actualizado!",
-									"se a actualizado exitosamente el pago",
-									"success"
-								)
-								$("#modalPagoArriendo").modal("toggle");
-							}
+
+
+					if ($("#inputFileFacturacion").val().length != 0) {
+						const responseFactura = await guardarDatosFactura(data);
+						if (responseFactura.success) {
+							data.append("id_facturacion", responseFactura.data.id_facturacion);
+							await guardarDocumentoFactura(data);
 						}
+					}
+
+					const responsePago = await actualizarPagos(data);
+					if (responsePago.success) {
+						await cambiarEstadoArriendo(data);
+						refrescarTablaActivos();
+						$("#modalPagoArriendo").modal("toggle");
+						Swal.fire(
+							"Pago Actualizado!",
+							"se a actualizado exitosamente el pago",
+							"success"
+						)
 					}
 				}
 				$("#spinner_btn_actualizar_pago").hide();
@@ -636,11 +635,14 @@ $(document).ready(() => {
 			}
 			temporizador(arriendo.fechaRecepcion_arriendo, arriendo.id_arriendo);
 
-			let color = "";
+			let btnFinalizar = "";
+			let btnExtender = "";
 			if (arriendo.estado_arriendo == "ACTIVO") {
-				color = ` class='btn btn btn-outline-dark'><i class="fas fa-external-link-square-alt"></i></button>`;
+				btnExtender = ` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> `
+				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)'  class='btn btn btn-outline-dark'><i class="fas fa-external-link-square-alt"></i></button>`;
 			} else {
-				color = ` class='btn btn btn-outline-success'><i class="fas fa-pager"></i></button>`;
+				btnExtender = "";
+				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)'  class='btn btn btn-outline-success'><i class="fas fa-pager"></i></button>`;
 			}
 
 			tablaArriendosActivos.row
@@ -651,10 +653,8 @@ $(document).ready(() => {
 					arriendo.tipo_arriendo,
 					formatearFechaHora(arriendo.fechaRecepcion_arriendo),
 					`<div id=time${arriendo.id_arriendo}> </div>`,
-					` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' 
-                         class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> 
-                          <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)' 
-                            ${color}
+					` ${btnExtender}
+					  ${btnFinalizar}
                     `,
 				])
 				.draw(false);
