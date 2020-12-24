@@ -156,6 +156,52 @@ const mostrarArriendoModalVer = (arriendo) => {
 	if (arriendo.requisito) {
 		const requisito = arriendo.requisito;
 		$("#btn_guardar_garantiaRequisitos").hide();
+
+
+
+		if (requisito.carnetFrontal_requisito && !documentoCliente.carnetFrontal) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.carnetFrontal_requisito, "requisito"));
+			a.textContent = "Foto carnet frontal";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.carnetTrasera_requisito && !documentoCliente.carnetTrasera) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.carnetTrasera_requisito, "requisito"));
+			a.textContent = "Foto carnet Trasera";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.licenciaConducirFrontal_requisito && !arriendo.conductore.documentosConductore.licenciaConducirFrontal) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirFrontal_requisito, "requisito"));
+			a.textContent = "Foto licencia de conducir frontal";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.licenciaConducirTrasera_requisito && !arriendo.conductore.documentosConductore.licenciaConducirTrasera) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirTrasera_requisito, "requisito"));
+			a.textContent = "Foto licencia de conducir trasera";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		if (requisito.tarjetaCredito_requisito) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.tarjetaCredito_requisito, "requisito"));
