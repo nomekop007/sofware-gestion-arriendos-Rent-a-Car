@@ -326,14 +326,15 @@ $(document).ready(() => {
 						data.append("estado", "RECEPCIONADO");
 						data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
 						await cambiarEstadoArriendo(data);
+						refrescarTablaActivos();
+						$("#modal_ArriendoFinalizar").modal("toggle");
+						Swal.fire(
+							"Arriendo finalizado!",
+							"Arriendo finalizado con exito!",
+							"success"
+						);
 					}
 				}
-				$("#modal_ArriendoFinalizar").modal("toggle");
-				Swal.fire(
-					"Arriendo finalizado!",
-					"Arriendo finalizado con exito!",
-					"success"
-				);
 				$("#btn_finalizar_arriendo").attr("disabled", false);
 				$("#spinner_btn_finalizar_contrato").hide();
 			}
@@ -349,12 +350,12 @@ $(document).ready(() => {
 
 
 	$("#seleccionarFotoRecepcion").click(async () => {
-        /*
-        se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
+		/*
+		se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
 		el servidor solo puede recibir un maximo de 2mb en cada consulta.
-        Actualizado: es posible que esto cambie debido al ambiente de desarrollo
-        o capacidad de la maquina en la que se este ejecutando (local/produccion)
-        */
+		Actualizado: es posible que esto cambie debido al ambiente de desarrollo
+		o capacidad de la maquina en la que se este ejecutando (local/produccion)
+		*/
 		const inputImg = $("#inputImagen_vehiculo_recepcion").val();
 		if (inputImg != 0) {
 			const canvas = document.getElementById("canvas_fotoVehiculo_recepcion");
@@ -600,8 +601,7 @@ $(document).ready(() => {
 		} else {
 			if (diasRestantes > 0) {
 				$(`#time${id_arriendo}`).text(`
-                    ${diasRestantes}  ${
-					diasRestantes == 1 ? " dia" : " dias"
+                    ${diasRestantes}  ${diasRestantes == 1 ? " dia" : " dias"
 					}  y ${moment.utc(diff).format(" HH:mm:ss")} horas `);
 			} else {
 				$(`#time${id_arriendo}`).text(
@@ -636,6 +636,13 @@ $(document).ready(() => {
 			}
 			temporizador(arriendo.fechaRecepcion_arriendo, arriendo.id_arriendo);
 
+			let color = "";
+			if (arriendo.estado_arriendo == "ACTIVO") {
+				color = ` class='btn btn btn-outline-dark'><i class="fas fa-external-link-square-alt"></i></button>`;
+			} else {
+				color = ` class='btn btn btn-outline-success'><i class="fas fa-pager"></i></button>`;
+			}
+
 			tablaArriendosActivos.row
 				.add([
 					arriendo.id_arriendo,
@@ -647,7 +654,7 @@ $(document).ready(() => {
 					` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' 
                          class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> 
                           <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)' 
-                             class='btn btn btn-outline-success'><i class="fas fa-external-link-square-alt"></i></button>
+                            ${color}
                     `,
 				])
 				.draw(false);
