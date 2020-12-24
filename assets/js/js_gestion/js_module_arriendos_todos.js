@@ -159,28 +159,28 @@ const mostrarArriendoModalVer = (arriendo) => {
 
 
 
-		if (requisito.carnetFrontal_requisito && !documentoCliente.carnetFrontal) {
+		if (requisito.carnetFrontal_requisito && !documentoCliente) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.carnetFrontal_requisito, "requisito"));
 			a.textContent = "Foto carnet frontal";
 			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
-		if (requisito.carnetTrasera_requisito && !documentoCliente.carnetTrasera) {
+		if (requisito.carnetTrasera_requisito && !documentoCliente) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.carnetTrasera_requisito, "requisito"));
 			a.textContent = "Foto carnet Trasera";
 			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
-		if (requisito.licenciaConducirFrontal_requisito && !arriendo.conductore.documentosConductore.licenciaConducirFrontal) {
+		if (requisito.licenciaConducirFrontal_requisito && !arriendo.conductore.documentosConductore) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirFrontal_requisito, "requisito"));
 			a.textContent = "Foto licencia de conducir frontal";
 			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
-		if (requisito.licenciaConducirTrasera_requisito && !arriendo.conductore.documentosConductore.licenciaConducirTrasera) {
+		if (requisito.licenciaConducirTrasera_requisito && !arriendo.conductore.documentosConductore) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirTrasera_requisito, "requisito"));
 			a.textContent = "Foto licencia de conducir trasera";
