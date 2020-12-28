@@ -10,6 +10,6 @@ function borrarImagenes($arrayPath)
 //se cambia cada vez que se actualize los js
 function version()
 {
-    // return time();
-    return 19;
+	// return time();
+	return 24;
 }
