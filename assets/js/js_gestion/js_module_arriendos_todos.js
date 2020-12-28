@@ -241,7 +241,10 @@ const mostrarArriendoModalVer = (arriendo) => {
 				break;
 		}
 	} else {
-		$("#formGarantia").show();
+		$("#inputEditarGarantiaArriendo").val(" Sin Garantia ");
+		if (!arriendo.requisito) {
+			$("#formGarantia").show();
+		}
 	}
 
 
@@ -388,20 +391,20 @@ const facturacion = (value) => {
 const tipoGarantia = (value) => {
 	switch (value) {
 		case "CHEQUE":
-			$("#card_cheque_garantia").show();
-			$("#foto_cheque").show();
-			$("#card_tarjeta_garantia").hide();
 			$("#card_abono_garantia").hide();
-			$("#card_tarjeta").hide();
+			$("#card_cheque_garantia").show();
+			$("#card_tarjeta_garantia").hide();
+			//$("#foto_cheque").show();
 			$("#card_efectivo").hide();
 			$("#card_cheque").show();
+			$("#card_tarjeta").hide();
 
 			break;
 		case "TARJETA":
-			$("#card_tarjeta_garantia").show();
 			$("#card_abono_garantia").show();
-			$("#foto_tarjeta").show();
 			$("#card_cheque_garantia").hide();
+			$("#card_tarjeta_garantia").show();
+			//$("#foto_tarjeta").show();
 			$("#card_efectivo").hide();
 			$("#card_cheque").hide();
 			$("#card_tarjeta").show();
@@ -411,10 +414,18 @@ const tipoGarantia = (value) => {
 			$("#card_abono_garantia").show();
 			$("#card_cheque_garantia").hide();
 			$("#card_tarjeta_garantia").hide();
-			$("#card_cheque_garantia").hide();
+			$("#card_efectivo").show();
 			$("#card_cheque").hide();
 			$("#card_tarjeta").hide();
-			$("#card_efectivo").show();
+			break;
+		case "SIN":
+			$("#card_abono_garantia").hide();
+			$("#card_cheque_garantia").hide();
+			$("#card_tarjeta_garantia").hide();
+			$("#card_cheque").hide();
+			$("#card_tarjeta").hide();
+			$("#card_efectivo").hide();
+
 			break;
 	}
 };
@@ -473,7 +484,7 @@ const limpiarCampos = () => {
 	$("#numeroArriendoEditar").text("");
 	$("#id_arriendo").val("");
 	$("#card_documentos").empty();
-
+	$("#card_abono_garantia").show();
 	$("#btn_confirmar_contrato").attr("disabled", true);
 	$("#btn_anular_arriendo").attr("disabled", true);
 	$("#btn_anular_arriendo").hide();
@@ -654,6 +665,8 @@ $(document).ready(() => {
 					return;
 				}
 				break;
+			case "SIN":
+				break;
 		}
 
 
@@ -723,10 +736,11 @@ $(document).ready(() => {
 				$("#spinner_btn_guardar_garantiaRequisitos").show();
 				$("#btn_guardar_garantiaRequisitos").attr("disabled", true);
 				const id_arriendo = $("#inputIdArriendoEditar").val();
-				const garantia = await guardarDatosGarantia(id_arriendo);
+				if (inputTipoGarantia !== "SIN") {
+					await guardarDatosGarantia(id_arriendo);
+				}
 				const requisitos = await guardarDocumentosRequistos(id_arriendo);
-				if (garantia.success && requisitos) {
-
+				if (requisitos) {
 					refrescarTabla();
 					Swal.fire(
 						"registros guardados con exito!",
@@ -1224,7 +1238,7 @@ $(document).ready(() => {
 				.draw(true);
 
 
-			if (arriendo.requisito && arriendo.garantia || arriendo.estado_arriendo == "ANULADO") {
+			if (arriendo.requisito || arriendo.estado_arriendo == "ANULADO") {
 				$(`#a${arriendo.id_arriendo}`).removeClass("btn-outline-primary");
 				$(`#a${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
 			}

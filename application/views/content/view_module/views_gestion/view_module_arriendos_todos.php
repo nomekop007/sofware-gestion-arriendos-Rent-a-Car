@@ -171,6 +171,11 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     id="radioTarjetaGarantia" name="customRadio0" class="custom-control-input">
                                 <label class="custom-control-label" for="radioTarjetaGarantia">Tarjeta</label>
                             </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="SIN"
+                                    id="radioSinGarantia" name="customRadio0" class="custom-control-input">
+                                <label class="custom-control-label" for="radioSinGarantia">Sin garantia</label>
+                            </div>
                         </div>
                         <div class="form-row card-body">
                             <div class="form-group col-xl-12" id="card_tarjeta_garantia">
