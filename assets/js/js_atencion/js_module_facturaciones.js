@@ -156,33 +156,30 @@ $(document).ready(() => {
 			tabla_pagoER.row
 				.add([
 					`<input type="checkbox" name="checkPago[]" value="${pagosPendientes.id_pago}" >`,
+					pagosPendientes.pagosArriendo.id_arriendo,
 					pagosPendientes.estado_pago,
 					"$ " + formatter.format(pagosPendientes.neto_pago),
 					"$ " + formatter.format(pagosPendientes.iva_pago),
 					"$ " + formatter.format(pagosPendientes.total_pago),
-					formatearFechaHora(pagosPendientes.createdAt),
-					pagosPendientes.pagosArriendo.id_arriendo
+					formatearFechaHora(pagosPendientes.createdAt)
 				])
 				.draw(false);
 		} catch (error) {
 			console.log("error al cargar este pago")
 		}
-
 	}
 
 	const cargarPagosEnTabla = (pagosPendientes) => {
-
-
 		try {
 			tabla_pagosER.row
 				.add([
+					pagosPendientes.pagosArriendo.id_arriendo,
 					pagosPendientes.deudor_pago,
 					pagosPendientes.estado_pago,
 					"$ " + formatter.format(pagosPendientes.neto_pago),
 					"$ " + formatter.format(pagosPendientes.iva_pago),
 					"$ " + formatter.format(pagosPendientes.total_pago),
-					formatearFechaHora(pagosPendientes.createdAt),
-					pagosPendientes.pagosArriendo.id_arriendo
+					formatearFechaHora(pagosPendientes.createdAt)
 				])
 				.draw(false);
 		} catch (error) {

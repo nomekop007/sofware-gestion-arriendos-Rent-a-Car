@@ -20,7 +20,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                 </tr>
             </thead>
             <tbody style='font-size: 0.8rem;'>
-
             </tbody>
             <tfoot class="btn-dark">
                 <tr>
@@ -69,7 +68,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <form class="needs-validation" id="formEditarArriendo" novalidate>
                     <input type="text" id="inputIdArriendoEditar" hidden>
                     <div class=" form-row">
-                        <div class="form-group col-lg-2">
+                        <div class="form-group col-lg-3">
                             <label for="inputEditarTipoArriendo">Tipo</label>
                             <input disabled type="text" class="form-control" id="inputEditarTipoArriendo">
                         </div>
@@ -81,41 +80,51 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <label for="inputEditarClienteArriendo">Cliente</label>
                             <input disabled type="text" class="form-control" id="inputEditarClienteArriendo">
                         </div>
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-3">
                             <label for="inputEditarConductorArriendo">Conductor</label>
                             <input disabled type="text" class="form-control" id="inputEditarConductorArriendo">
                         </div>
                         <div class="form-group col-lg-4">
                             <label for="inputEditarVehiculoArriendo">Vehiculo</label>
-                            <input disabled type="text" class="form-control" id="inputEditarVehiculoArriendo">
+                            <select class="custom-select " id="inputEditarVehiculoArriendo"
+                                name="inputEditarVehiculoArriendo" style="width: 100%;"
+                                aria-label="Example select with button addon">
+                            </select>
+                        </div>
+
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarCiudadEntregaArriendo">sucursal entrega</label>
+                            <input disabled type="text" class="form-control" name="inputEditarCiudadEntregaArriendo"
+                                id="inputEditarCiudadEntregaArriendo">
+                        </div>
+                        <div class="form-group col-lg-2">
+                            <label for="inputEditarCiudadRecepcionArriendo">sucursal recepcion</label>
+                            <input disabled type="text" class="form-control" name="inputEditarCiudadRecepcionArriendo"
+                                id="inputEditarCiudadRecepcionArriendo">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarKentradaArriendo">kilometros inicio</label>
-                            <input disabled type="text" class="form-control" id="inputEditarKentradaArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarKentradaArriendo"
+                                id="inputEditarKentradaArriendo">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarKsalidaArriendo">kilometros termino</label>
                             <input disabled type="text" class="form-control" id="inputEditarKsalidaArriendo">
                         </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarCiudadEntregaArriendo">sucursal entrega</label>
-                            <input disabled type="text" class="form-control" id="inputEditarCiudadEntregaArriendo">
-                        </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputEditarCiudadRecepcionArriendo">sucursal recepcion</label>
-                            <input disabled type="text" class="form-control" id="inputEditarCiudadRecepcionArriendo">
-                        </div>
                         <div class="form-group col-lg-3">
                             <label for="inputEditarFechaInicioArriendo">Fecha Inicio</label>
-                            <input disabled type="text" class="form-control" id="inputEditarFechaInicioArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarFechaInicioArriendo"
+                                id="inputEditarFechaInicioArriendo">
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputEditarFechaFinArriendo">Fecha Fin</label>
-                            <input disabled type="text" class="form-control" id="inputEditarFechaFinArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarFechaFinArriendo"
+                                id="inputEditarFechaFinArriendo">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarDiasArriendo">Total Dias</label>
-                            <input disabled type="text" class="form-control" id="inputEditarDiasArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarDiasArriendo"
+                                id="inputEditarDiasArriendo">
                         </div>
 
                         <div class="form-group col-lg-4">
@@ -160,6 +169,11 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <input onclick="tipoGarantia(this.value);" type="radio" value="TARJETA"
                                     id="radioTarjetaGarantia" name="customRadio0" class="custom-control-input">
                                 <label class="custom-control-label" for="radioTarjetaGarantia">Tarjeta</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline ">
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="SIN"
+                                    id="radioSinGarantia" name="customRadio0" class="custom-control-input">
+                                <label class="custom-control-label" for="radioSinGarantia">Sin Garantia</label>
                             </div>
                         </div>
                         <div class="form-row card-body">
@@ -260,6 +274,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                         </div>
                                     </div>
                                 </div>
+
                                 <br>
                                 <div class="card bg-light" id="card_licencia">
                                     <h6>Foto licencia de conducir</h6>
@@ -300,12 +315,12 @@ $nombreUsuario = $this->session->userdata('nombre')
                     </div>
                 </form>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                    <button id="btn_anular_arriendo" type="button" class="btn btn-danger col-xl-3">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">cerrar</button>
+                    <button id="btn_anular_arriendo" type="button" class="btn btn-sm btn-danger col-xl-3">
                         Anular arriendo
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             id="spinner_btn_anular_arriendo"></span></button>
-                    <button id="btn_finalizar_arriendo" type="button" class="btn btn-success col-xl-3">
+                    <button id="btn_finalizar_arriendo" type="button" class="btn  btn-success col-xl-3">
                         Finalizar arriendo
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             id="spinner_btn_finalizar_arriendo"></span></button>
@@ -317,6 +332,7 @@ $nombreUsuario = $this->session->userdata('nombre')
             </div>
         </div>
     </div>
+
 </div>
 
 
@@ -390,7 +406,8 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <div class="col-lg-4">
                             <h5>Pago Cliente</h5>
                             <div class="form-group ">
-                                <label for="inputValorCopago">Valor neto copago / valor neto diario arriendo </label>
+                                <label for="inputValorCopago">Valor neto copago / valor neto diario arriendo
+                                </label>
                                 <input value="0" type="number" class="form-control" id="inputValorCopago" maxLength="11"
                                     name="inputValorCopago" oninput="this.value = soloNumeros(this) ;calcularCopago()"
                                     required>
@@ -468,12 +485,12 @@ $nombreUsuario = $this->session->userdata('nombre')
                                             checked>
                                         <label class="custom-control-label" for="radioPendiente">Pendiente</label>
                                     </div>
-                                    <div class="custom-control custom-radio custom-control-inline ">
+                                    <div hidden class="custom-control custom-radio custom-control-inline ">
                                         <input type="radio" onclick="facturacion(this.value);" value="BOLETA"
                                             id="radioBoleta" name="customRadio1" class="custom-control-input">
                                         <label class="custom-control-label" for="radioBoleta">Boleta</label>
                                     </div>
-                                    <div class="custom-control custom-radio custom-control-inline ">
+                                    <div hidden class="custom-control custom-radio custom-control-inline ">
                                         <input type="radio" onclick="facturacion(this.value);" value="FACTURA"
                                             id="radioFactura" name="customRadio1" class="custom-control-input">
                                         <label class="custom-control-label" for="radioFactura">Factura</label>
@@ -554,7 +571,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
             <div class="modal-body" id="formSpinnerContrato">
                 <div class="text-center">
                     <div class="spinner-border" role="status">
@@ -565,7 +581,6 @@ $nombreUsuario = $this->session->userdata('nombre')
             <div class="modal-body" id="formContratoArriendo">
                 <input type="text" id="id_arriendo" hidden>
                 <input type="text" id="estado_arriendo" hidden>
-
                 <div class="container ">
                     <a class="row justify-content-md-center btn-success" target="_blank" id="descargar_contrato">
                         <i class="fas fa-download"></i>
@@ -592,7 +607,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <label class="custom-control-label" for="radioSubir">Subir contrato firmado</label>
                         </div>
                     </div>
-
                     <div class="row" id="body-firma">
                         <div class="container col-md-6">
                             <br>
@@ -656,4 +670,7 @@ $nombreUsuario = $this->session->userdata('nombre')
             </div>
         </div>
     </div>
+</div>
+
+
 </div>

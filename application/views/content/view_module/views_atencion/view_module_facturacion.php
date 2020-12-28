@@ -108,12 +108,12 @@
                                 <thead class="btn-dark">
                                     <tr>
                                         <th></th>
+                                        <th>Nº Arriendo</th>
                                         <th>estado</th>
                                         <th>neto</th>
                                         <th>iva</th>
                                         <th>total</th>
                                         <th>fecha registro</th>
-                                        <th>Nº Arriendo</th>
                                     </tr>
                                 </thead>
                                 <tbody id="vehiculos">
@@ -121,12 +121,12 @@
                                 <tfoot class="btn-dark">
                                     <tr>
                                         <th></th>
+                                        <th>Nº Arriendo</th>
                                         <th>estado</th>
                                         <th>neto</th>
                                         <th>iva</th>
                                         <th>total</th>
                                         <th>fecha registro</th>
-                                        <th>Nº Arriendo</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -149,13 +149,13 @@
                     <table id="tabla_pagos" class="table table-striped table-bordered" style="width:100%">
                         <thead class="btn-dark">
                             <tr>
+                                <th>Nº Arriendo</th>
                                 <th>E. Remplazo</th>
                                 <th>estado</th>
                                 <th>neto</th>
                                 <th>iva</th>
                                 <th>total</th>
                                 <th>fecha registro</th>
-                                <th>Nº Arriendo</th>
                             </tr>
                         </thead>
                         <tbody id="vehiculos">
@@ -163,13 +163,13 @@
                         </tbody>
                         <tfoot class="btn-dark">
                             <tr>
+                                <th>Nº Arriendo</th>
                                 <th>E. Remplazo</th>
                                 <th>estado</th>
                                 <th>neto</th>
                                 <th>iva</th>
                                 <th>total</th>
                                 <th>fecha registro</th>
-                                <th>Nº Arriendo</th>
                             </tr>
                         </tfoot>
                     </table>

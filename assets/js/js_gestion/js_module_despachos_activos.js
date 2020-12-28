@@ -1,5 +1,5 @@
 const arrayImagesRecepcion = [];
-const array_id_pagos_pendientes = [];
+const array_id_pagos = [];
 let totalAPagar_arriendo = 0;
 
 
@@ -33,38 +33,20 @@ const buscarArriendoExtender = async (id_arriendo) => {
 }
 
 
-const buscarArriendoFinalizar = async (id_arriendo) => {
+
+const mostrarPagosArriendo = async (id_arriendo) => {
 	limpiarFormulario();
-	$("#id_arriendo_recepcion").val(id_arriendo);
 	const data = new FormData();
 	data.append("id_arriendo", id_arriendo);
-	const response_estadoPago = await revisarEstadosPagos(data);
-	if (response_estadoPago.success) {
-		// si existe deuda , se levanta el modal para pagarla , si no el de recepcion
-		if (response_estadoPago.deuda) {
-			mostrarPagosPendientes(response_estadoPago.data);
-			$("#modalPagoArriendo").modal({
-				show: true,
-			});
-		} else {
-			await mostrarRecepcionArriendo(id_arriendo);
-			$("#modal_ArriendoFinalizar").modal({
-				show: true,
-			});
-		}
-	}
-	$("#formSpinner_finalizar_arriendo").hide();
-}
-
-
-
-const mostrarPagosPendientes = ({ arrayPago, totalPago, arriendo }) => {
-	$("#numero_arriendo_pago").html("Nº " + arriendo.id_arriendo)
-	const formatter = new Intl.NumberFormat("CL");
-	let n = 1;
-	arrayPago.map(({ pago, pagoArriendo }) => {
-		console.log(pagoArriendo)
-		let html = `<tr>
+	const response = await consultarPagos(data);
+	if (response.success) {
+		const { arrayPago, totalPago, arriendo } = response.data;
+		$("#body_actualizarPago_arriendo").show()
+		$("#numero_arriendo_pago").html("Nº " + arriendo.id_arriendo)
+		const formatter = new Intl.NumberFormat("CL");
+		let n = 1;
+		arrayPago.map(({ pago, pagoArriendo }) => {
+			let html = `<tr>
 						<th scope="row"> ${n} </th>
 						<td> ${pago.deudor_pago.replace("@", "")} </td>
 						<td> ${pago.estado_pago}</td>
@@ -72,14 +54,14 @@ const mostrarPagosPendientes = ({ arrayPago, totalPago, arriendo }) => {
 						<td> ${pagoArriendo.dias_pagoArriendo} </td>
 						<td> ${formatearFechaHora(pago.createdAt)} </td>
 					</tr>`;
-		$("#tablaPago").append(html);
-		n++;
-		array_id_pagos_pendientes.push(pago.id_pago);
-	})
-	totalAPagar_arriendo = totalPago;
-	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(totalAPagar_arriendo)} `);
-	$("#dias_totales").html(`dias totales: ${arriendo.diasAcumulados_arriendo}`);
-	if (arriendo.tipo_arriendo === "REEMPLAZO") {
+			$("#tablaPago").append(html);
+			n++;
+			array_id_pagos.push(pago.id_pago);
+		})
+		totalAPagar_arriendo = totalPago;
+		$("#total_a_pagar").html(`Total pago: ${formatter.format(totalAPagar_arriendo)} `);
+		$("#dias_totales").html(`dias totales: ${arriendo.diasAcumulados_arriendo}`);
+		$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
 		$("#descuento_copago").show();
 		const fechaFinal = moment(arriendo.fechaRecepcion_arriendo);
 		const fechaActual = moment();
@@ -87,26 +69,13 @@ const mostrarPagosPendientes = ({ arrayPago, totalPago, arriendo }) => {
 		const horasRestantes = moment.utc(fechaFinal.diff(moment())).format("HH");
 		$("#dias_restantes").val(`${diasRestantes} ${diasRestantes == 1 ? "dia" : "dias"} con  ${horasRestantes} horas`);
 	}
+	$("#formSpinner_actualizarPago_arriendo").hide();
 }
-
-
-const recalcularPago = (desc) => {
-	const formatter = new Intl.NumberFormat("CL");
-	let descuento = Number(desc);
-	let precioAntiguo = Number(totalAPagar_arriendo);
-	let precioNuevo = precioAntiguo - descuento;
-	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(precioNuevo)} `);
-}
-
 
 
 const mostrarRecepcionArriendo = async (id_arriendo) => {
-	mostrarCanvasImgVehiculo([
-		"canvas_fotoVehiculo_recepcion",
-		"limpiar_fotoVehiculo_recepcion",
-		"dibujar_canvas_recepcion",
-		"inputImagen_vehiculo_recepcion"
-	]);
+	limpiarFormulario();
+
 	const data = new FormData();
 	data.append("id_despacho", id_arriendo);
 	data.append("id_arriendo", id_arriendo);
@@ -120,21 +89,50 @@ const mostrarRecepcionArriendo = async (id_arriendo) => {
 			"prev_recepcion",
 			"next_recepcion"
 		]);
+		mostrarCanvasImgVehiculo([
+			"canvas_fotoVehiculo_recepcion",
+			"limpiar_fotoVehiculo_recepcion",
+			"dibujar_canvas_recepcion",
+			"inputImagen_vehiculo_recepcion"
+		]);
 		const responseArriendo = await ajax_function(data, "buscar_arriendo");
 		if (responseArriendo.success) {
 			const arriendo = responseArriendo.data;
 			$("#numero_arriendo_recepcion").html("Nº " + arriendo.id_arriendo);
-			$("#body_recepcion_arriendo").show();
 			$("#id_vehiculo_recepcion").val(arriendo.patente_vehiculo);
 			$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
+			$("#body_recepcion_arriendo").show();
 		}
 	}
+	$("#formSpinner_finalizar_arriendo").hide();
 }
 
 
 
-const revisarEstadosPagos = async (data) => {
-	return await ajax_function(data, "revisar_estadoPago");
+
+
+const recalcularPagoDescuento = (desc) => {
+	const formatter = new Intl.NumberFormat("CL");
+	let descuento = Number(desc);
+	let precioAntiguo = Number(totalAPagar_arriendo);
+	let precioNuevo = precioAntiguo - descuento;
+	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(precioNuevo)} `);
+}
+
+const recalcularPagoExtra = (desc) => {
+	const formatter = new Intl.NumberFormat("CL");
+	let cobro = Number(desc);
+	let precioAntiguo = Number(totalAPagar_arriendo);
+	let precioNuevo = precioAntiguo + cobro;
+	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(precioNuevo)} `);
+}
+
+
+
+
+
+const consultarPagos = async (data) => {
+	return await ajax_function(data, "consultar_pagoArriendos");
 }
 
 
@@ -142,6 +140,8 @@ const revisarEstadosPagos = async (data) => {
 const limpiarFormulario = () => {
 	$("#formSpinner_extender_arriendo").show();
 	$("#formSpinner_finalizar_arriendo").show();
+	$("#formSpinner_actualizarPago_arriendo").show();
+	$("#body_actualizarPago_arriendo").hide()
 	$("#body_recepcion_arriendo").hide();
 	$("#body_extender_arriendo").hide();
 	$("#descuento_copago").hide();
@@ -152,7 +152,7 @@ const limpiarFormulario = () => {
 	$("#spinner_btn_extenderArriendo").hide();
 	$("#spinner_btn_registrar_danio").hide();
 	arrayImagesRecepcion.length = 0;
-	array_id_pagos_pendientes.length = 0;
+	array_id_pagos.length = 0;
 	totalAPagar_arriendo = 0;
 	$("#carrucel_recepcion").empty();
 	$("#tablaPago").empty();
@@ -188,8 +188,9 @@ const limpiarFormulario = () => {
 
 $(document).ready(() => {
 
-
-	const tablaArriendosActivos = $("#tablaArriendosActivos").DataTable(lenguaje);
+	let config = lenguaje;
+	config.paging = false;
+	const tablaArriendosActivos = $("#tablaArriendosActivos").DataTable(config);
 
 	$("#nav-activos-tab").click(() => refrescarTablaActivos());
 
@@ -212,10 +213,7 @@ $(document).ready(() => {
 
 	const cargarArriendosActivos = async () => {
 		$("#spinner_tablaArriendoActivos").show();
-		const data = new FormData();
-		data.append("filtro", "ACTIVO");
-		const response = await ajax_function(data, "cargar_arriendos");
-
+		const response = await ajax_function(null, "cargar_arriendosActivos");
 		if (response) {
 			$.each(response.data, (i, arriendo) => {
 				cargarArriendoActivosEnTabla(arriendo);
@@ -228,7 +226,6 @@ $(document).ready(() => {
 	$("#btn_extenderArriendo").click(() => {
 		const diasActuales = $("#dias_arriendo").val()
 		const diasExtendidos = $("#inputNumeroDias_extenderPlazo").val();
-
 		if (diasExtendidos.length == 0) {
 			Swal.fire(
 				"faltan datos , o datos erroneos",
@@ -259,10 +256,8 @@ $(document).ready(() => {
 				$("#btn_extenderArriendo").attr("disabled", true)
 				const form = $("#formExtenderArriendo")[0];
 				const data = new FormData(form);
-
 				data.append("diasActuales", Number(diasExtendidos));
 				data.append("diasAcumulados", Number(diasActuales) + Number(diasExtendidos));
-
 				const response = await extenderContrato(data);
 				if (response.success) {
 					refrescarTablaActivos();
@@ -282,7 +277,6 @@ $(document).ready(() => {
 
 
 	$("#btn_finalizar_arriendo").click(() => {
-
 		if (arrayImagesRecepcion.length === 0) {
 			Swal.fire({
 				icon: "warning",
@@ -290,7 +284,6 @@ $(document).ready(() => {
 			});
 			return;
 		}
-
 		if ($("#input_kilometraje_salida").val() == 0) {
 			Swal.fire({
 				icon: "warning",
@@ -298,7 +291,6 @@ $(document).ready(() => {
 			});
 			return;
 		}
-
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de finalizar el arriendo!",
@@ -316,16 +308,19 @@ $(document).ready(() => {
 				if (response_revision.success) {
 					const response_vehiculo = await cambiarEstadoVehiculo(data);
 					if (response_vehiculo.success) {
+						data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+						data.append("estado", "RECEPCIONADO");
+						data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
 						await cambiarEstadoArriendo(data);
+						refrescarTablaActivos();
+						$("#modal_ArriendoFinalizar").modal("toggle");
+						Swal.fire(
+							"Arriendo finalizado!",
+							"Arriendo finalizado con exito!",
+							"success"
+						);
 					}
 				}
-				refrescarTablaActivos();
-				$("#modal_ArriendoFinalizar").modal("toggle");
-				Swal.fire(
-					"Arriendo finalizado!",
-					"Arriendo finalizado con exito!",
-					"success"
-				);
 				$("#btn_finalizar_arriendo").attr("disabled", false);
 				$("#spinner_btn_finalizar_contrato").hide();
 			}
@@ -341,12 +336,12 @@ $(document).ready(() => {
 
 
 	$("#seleccionarFotoRecepcion").click(async () => {
-        /*
-        se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
+		/*
+		se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
 		el servidor solo puede recibir un maximo de 2mb en cada consulta.
-        Actualizado: es posible que esto cambie debido al ambiente de desarrollo
-        o capacidad de la maquina en la que se este ejecutando (local/produccion)
-        */
+		Actualizado: es posible que esto cambie debido al ambiente de desarrollo
+		o capacidad de la maquina en la que se este ejecutando (local/produccion)
+		*/
 		const inputImg = $("#inputImagen_vehiculo_recepcion").val();
 		if (inputImg != 0) {
 			const canvas = document.getElementById("canvas_fotoVehiculo_recepcion");
@@ -374,30 +369,37 @@ $(document).ready(() => {
 
 
 	$("#actualizar_pago_arriendo").click(async () => {
-
+		const inputDescuento = $("#descuento_pago").val();
+		const inputExtra = $("#extra_pago").val();
+		const inputObservaciones = `${$("#inputObservaciones").val()} ${$("#inputObservaciones2").val()} `
 		const inputNumFacturacion = $("#inputNumFacturacion").val();
 		const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
-
-
-		if (inputNumFacturacion == 0 || $("#inputFileFacturacion").val().length == 0) {
+		if (inputDescuento < 0 || inputExtra < 0 || inputDescuento.length == 0 || inputExtra.length == 0) {
 			Swal.fire(
-				"faltan datos en el formulario",
-				"debe ingresar el Nº facturacion con su respectivo comprobante",
-				"warning"
-			);
-			return;
-		}
-
-		const inputDescuento = $("#descuento_pago").val();
-		if (inputDescuento.length == 0 || inputDescuento < 0) {
-			Swal.fire(
-				"campo vacio",
+				"campo vacio o invalidos",
 				"rellene los campos erroneos",
 				"warning"
 			);
 			return;
 		}
-
+		if (inputDescuento > 0 && inputExtra > 0) {
+			Swal.fire(
+				"valores invalidos",
+				"no se puede aplicar un cobro extra y un descuento a la vez! , corriga",
+				"warning"
+			);
+			return;
+		}
+		if (totalAPagar_arriendo != 0 || inputDescuento != 0 || inputExtra != 0) {
+			if (inputNumFacturacion == 0 || $("#inputFileFacturacion").val().length == 0) {
+				Swal.fire(
+					"faltan datos en el formulario",
+					"debe ingresar el Nº facturacion con su respectivo comprobante",
+					"warning"
+				);
+				return;
+			}
+		}
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de guardar los cambios!",
@@ -412,29 +414,39 @@ $(document).ready(() => {
 				$("#actualizar_pago_arriendo").attr("disabled", true);
 				const form = $("#form_pagos_pendientes")[0];
 				const data = new FormData(form);
-				data.append("arrayPagos", JSON.stringify(array_id_pagos_pendientes));
+				data.append("arrayPagos", JSON.stringify(array_id_pagos));
 				data.append("descuento_pago", inputDescuento);
+				data.append("extra_pago", inputExtra);
 				data.append("inputDocumento", inputFileFacturacion);
-				data.append("inputObservaciones", $("#inputObservaciones").val());
+				data.append("inputObservaciones", inputObservaciones);
 				data.append("inputEstado", "PAGADO");
+				data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+				data.append("estado", "FINALIZADO");
+
+
 
 				const responseDescuento = await descuentoPago(data);
 				if (responseDescuento.success) {
-					const responseFactura = await guardarDatosFactura(data);
-					if (responseFactura.success) {
-						data.append("id_facturacion", responseFactura.data.id_facturacion);
-						const responseDocumentoFActura = await guardarDocumentoFactura(data);
-						if (responseDocumentoFActura.success) {
-							const responsePago = await actualizarPagos(data);
-							if (responsePago.success) {
-								Swal.fire(
-									"Pago Actualizado!",
-									"se a actualizado exitosamente el pago",
-									"success"
-								)
-								$("#modalPagoArriendo").modal("toggle");
-							}
+
+
+					if ($("#inputFileFacturacion").val().length != 0) {
+						const responseFactura = await guardarDatosFactura(data);
+						if (responseFactura.success) {
+							data.append("id_facturacion", responseFactura.data.id_facturacion);
+							await guardarDocumentoFactura(data);
 						}
+					}
+
+					const responsePago = await actualizarPagos(data);
+					if (responsePago.success) {
+						await cambiarEstadoArriendo(data);
+						refrescarTablaActivos();
+						$("#modalPagoArriendo").modal("toggle");
+						Swal.fire(
+							"Pago Actualizado!",
+							"se a actualizado exitosamente el pago",
+							"success"
+						)
 					}
 				}
 				$("#spinner_btn_actualizar_pago").hide();
@@ -530,18 +542,7 @@ $(document).ready(() => {
 
 
 	const cambiarEstadoArriendo = async (data) => {
-		data.append("id_arriendo", $("#id_arriendo_recepcion").val());
 
-
-		const response = await ajax_function(data, "revisar_danioVehiculo");
-
-		if (response.data) {
-			data.append("estado", "CON DAÑO");
-		} else {
-			data.append("estado", "FINALIZADO");
-		}
-
-		data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
 		return await ajax_function(data, "cambiarEstado_arriendo");
 	};
 
@@ -585,8 +586,7 @@ $(document).ready(() => {
 		} else {
 			if (diasRestantes > 0) {
 				$(`#time${id_arriendo}`).text(`
-                    ${diasRestantes}  ${
-					diasRestantes == 1 ? " dia" : " dias"
+                    ${diasRestantes}  ${diasRestantes == 1 ? " dia" : " dias"
 					}  y ${moment.utc(diff).format(" HH:mm:ss")} horas `);
 			} else {
 				$(`#time${id_arriendo}`).text(
@@ -621,6 +621,19 @@ $(document).ready(() => {
 			}
 			temporizador(arriendo.fechaRecepcion_arriendo, arriendo.id_arriendo);
 
+			let btnFinalizar = "";
+			let btnExtender = "";
+			let viewTime = "";
+			if (arriendo.estado_arriendo == "ACTIVO") {
+				viewTime = `<div id=time${arriendo.id_arriendo}> </div>`;
+				btnExtender = ` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> `
+				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='mostrarRecepcionArriendo(this.value)' data-toggle='modal'  data-target='#modal_ArriendoFinalizar'  class='btn btn btn-outline-dark'><i class="fas fa-external-link-square-alt"></i></button>`;
+			} else {
+				viewTime = "<div> RECEPCIONADO </div>";
+				btnExtender = "";
+				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='mostrarPagosArriendo(this.value)' data-toggle='modal'  data-target='#modalPagoArriendo'  class='btn btn btn-outline-success'><i class="fas fa-pager"></i></button>`;
+			}
+
 			tablaArriendosActivos.row
 				.add([
 					arriendo.id_arriendo,
@@ -628,11 +641,9 @@ $(document).ready(() => {
 					arriendo.vehiculo.patente_vehiculo,
 					arriendo.tipo_arriendo,
 					formatearFechaHora(arriendo.fechaRecepcion_arriendo),
-					`<div id=time${arriendo.id_arriendo}> </div>`,
-					` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' 
-                         class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> 
-                          <button value='${arriendo.id_arriendo}' onclick='buscarArriendoFinalizar(this.value)' 
-                             class='btn btn btn-outline-success'><i class="fas fa-external-link-square-alt"></i></button>
+					`${viewTime}`,
+					` ${btnExtender}
+					  ${btnFinalizar}
                     `,
 				])
 				.draw(false);

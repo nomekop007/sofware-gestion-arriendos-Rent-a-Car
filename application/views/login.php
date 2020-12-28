@@ -8,11 +8,11 @@
     <meta name="author" content="nomekop007">
 
 
-    <!--  <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Expires" content="0">
     <meta http-equiv="Last-Modified" content="0">
     <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
     <meta http-equiv="Pragma" content="no-cache">
- -->
+
     <link rel="shortcut icon" href="<?php echo base_route() ?>assets/images/logo3.png">
     <title>Gestino de Arriendos</title>
     <link rel="stylesheet" type="text/css" href="<?php echo base_route(); ?>assets/css/sweetalert2.min.css">
@@ -50,35 +50,33 @@
 <script src="<?php echo base_route(); ?>assets/js/jquery-3.3.1.min.js"></script>
 <script src="<?php echo base_route(); ?>assets/js/sweetalert2.all.min.js"></script>
 <script src="<?php echo base_route(); ?>assets/js/inicioSesion.js?v=<?php echo version(); ?>"></script>
+<!-- importacion utilidades -->
 <script>
-// Script para validar los campos de un formulario
-(() => {
-    "use strict";
-    window.addEventListener(
-        "load",
-        function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            let forms = document.getElementsByClassName("needs-validation");
-            // Loop over them and prevent submission
-            let validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener(
-                    "submit",
-                    function(event) {
-                        if (form.checkValidity() === false) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        } else {
-                            event.preventDefault();
-                        }
-                        form.classList.add("was-validated");
-                    },
-                    false
-                );
-            });
-        },
-        false
-    );
-})();
+"use strict";
+window.addEventListener(
+    "load",
+    function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        let forms = document.getElementsByClassName("needs-validation");
+        // Loop over them and prevent submission
+        let validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener(
+                "submit",
+                function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    } else {
+                        event.preventDefault();
+                    }
+                    form.classList.add("was-validated");
+                },
+                false
+            );
+        });
+    },
+    false
+);
 </script>
 
 </html>

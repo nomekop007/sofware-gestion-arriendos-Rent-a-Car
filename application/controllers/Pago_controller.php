@@ -44,6 +44,7 @@ class Pago_controller extends CI_Controller
     {
         $dataArray = [
             "descuento_pago" => $this->input->post("descuento_pago"),
+            "extra_pago" => $this->input->post("extra_pago"),
             "observacion_pago" => $this->input->post("inputObservaciones"),
             "arrayPagos" => json_decode($this->input->post("arrayPagos")),
         ];
