@@ -20,7 +20,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                 </tr>
             </thead>
             <tbody style='font-size: 0.8rem;'>
-
             </tbody>
             <tfoot class="btn-dark">
                 <tr>
@@ -174,7 +173,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <div class="custom-control custom-radio custom-control-inline ">
                                 <input onclick="tipoGarantia(this.value);" type="radio" value="SIN"
                                     id="radioSinGarantia" name="customRadio0" class="custom-control-input">
-                                <label class="custom-control-label" for="radioSinGarantia">Sin garantia</label>
+                                <label class="custom-control-label" for="radioSinGarantia">Sin Garantia</label>
                             </div>
                         </div>
                         <div class="form-row card-body">
@@ -570,7 +569,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
             <div class="modal-body" id="formSpinnerContrato">
                 <div class="text-center">
                     <div class="spinner-border" role="status">
@@ -581,7 +579,6 @@ $nombreUsuario = $this->session->userdata('nombre')
             <div class="modal-body" id="formContratoArriendo">
                 <input type="text" id="id_arriendo" hidden>
                 <input type="text" id="estado_arriendo" hidden>
-
                 <div class="container ">
                     <a class="row justify-content-md-center btn-success" target="_blank" id="descargar_contrato">
                         <i class="fas fa-download"></i>
@@ -608,7 +605,6 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <label class="custom-control-label" for="radioSubir">Subir contrato firmado</label>
                         </div>
                     </div>
-
                     <div class="row" id="body-firma">
                         <div class="container col-md-6">
                             <br>

@@ -156,6 +156,52 @@ const mostrarArriendoModalVer = (arriendo) => {
 	if (arriendo.requisito) {
 		const requisito = arriendo.requisito;
 		$("#btn_guardar_garantiaRequisitos").hide();
+
+
+
+		if (requisito.carnetFrontal_requisito && !documentoCliente) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.carnetFrontal_requisito, "requisito"));
+			a.textContent = "Foto carnet frontal";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.carnetTrasera_requisito && !documentoCliente) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.carnetTrasera_requisito, "requisito"));
+			a.textContent = "Foto carnet Trasera";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.licenciaConducirFrontal_requisito && !arriendo.conductore.documentosConductore) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirFrontal_requisito, "requisito"));
+			a.textContent = "Foto licencia de conducir frontal";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+		if (requisito.licenciaConducirTrasera_requisito && !arriendo.conductore.documentosConductore) {
+			const a = document.createElement("button");
+			a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirTrasera_requisito, "requisito"));
+			a.textContent = "Foto licencia de conducir trasera";
+			a.className = "badge badge-pill badge-info m-1";
+			document.getElementById("card_documentos").append(a);
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		if (requisito.tarjetaCredito_requisito) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.tarjetaCredito_requisito, "requisito"));
@@ -243,6 +289,7 @@ const mostrarArriendoModalVer = (arriendo) => {
 	} else {
 		$("#inputEditarGarantiaArriendo").val(" Sin Garantia ");
 		if (!arriendo.requisito) {
+			$("#inputEditarGarantiaArriendo").val("");
 			$("#formGarantia").show();
 		}
 	}
@@ -568,10 +615,8 @@ $(document).ready(() => {
 	const cargarVehiculosEditar = async () => {
 		const data = new FormData();
 		const response = await ajax_function(data, "cargar_Vehiculos");
-		console.log(response);
 		if (response.success) {
 			if (response.data) {
-
 				const select = document.getElementById("inputEditarVehiculoArriendo");
 				$.each(response.data, (i, o) => {
 					const option = document.createElement("option");
