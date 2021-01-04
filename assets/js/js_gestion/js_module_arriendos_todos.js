@@ -157,8 +157,6 @@ const mostrarArriendoModalVer = (arriendo) => {
 		const requisito = arriendo.requisito;
 		$("#btn_guardar_garantiaRequisitos").hide();
 
-
-
 		if (requisito.carnetFrontal_requisito && !documentoCliente) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.carnetFrontal_requisito, "requisito"));
@@ -187,21 +185,6 @@ const mostrarArriendoModalVer = (arriendo) => {
 			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		if (requisito.tarjetaCredito_requisito) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.tarjetaCredito_requisito, "requisito"));
@@ -293,12 +276,20 @@ const mostrarArriendoModalVer = (arriendo) => {
 			$("#formGarantia").show();
 		}
 	}
-
-
 };
 
-const mostrarArriendoModalPago = (arriendo) => {
+
+const mostrarArriendoModalPago = async (arriendo) => {
 	if (arriendo.estado_arriendo == "PENDIENTE" || arriendo.estado_arriendo == "EXTENDIDO") {
+		if (arriendo.tipoArriendo != "REEMPLAZO") {
+			const response = await buscarTarifaVehiculo(arriendo.patente_vehiculo, arriendo.diasActuales_arriendo);
+			if (response.success) {
+				$("#inputValorCopago").val(Number(response.data.valorDia));
+				$("#inputSubTotalArriendo").val(Number(response.data.valorNeto));
+				calcularValores();
+			}
+		}
+
 
 		$("#formPagoArriendo").show();
 		$("#numeroArriendoConfirmacion").text("Nº" + arriendo.id_arriendo);
@@ -340,6 +331,12 @@ const mostrarArriendoModalPago = (arriendo) => {
 	}
 };
 
+const buscarTarifaVehiculo = async (patente, dias) => {
+	const data = new FormData();
+	data.append("patente_vehiculo", patente);
+	data.append("dias_arriendo", dias);
+	return await ajax_function(data, "buscarTarifasVehiculo");
+}
 
 
 const mostrarContratoModalContrato = async (data) => {

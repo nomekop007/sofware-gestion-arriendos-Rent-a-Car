@@ -102,25 +102,6 @@ class Modulo_controller extends CI_Controller
                         redirect(base_url());
                     }
                     break;
-                case 3:
-                    if ($rol == 1 || $rol == 2) {
-                        $this->load->view('content/view_module/views_atencion/view_module_tarifas_header');
-                        $this->load->view('content/view_module/views_atencion/view_module_tarifas_vehiculos');
-                        $this->load->view('content/view_module/views_atencion/view_module_tarifas_accesorios');
-                        $this->load->view('content/view_module/views_atencion/view_module_tarifas_remplazos');
-                        $this->load->view('content/view_module/views_atencion/view_module_tarifas_promociones');
-                        $this->load->view('content/view_module/views_atencion/view_module_tarifas_footer');
-                    } else {
-                        redirect(base_url());
-                    }
-                    break;
-                case 4:
-                    if ($rol == 1 || $rol == 2) {
-                        $this->load->view('content/view_module/views_atencion/view_module_calendario');
-                    } else {
-                        redirect(base_url());
-                    }
-                    break;
                 default:
                     redirect(base_url());
                     break;
