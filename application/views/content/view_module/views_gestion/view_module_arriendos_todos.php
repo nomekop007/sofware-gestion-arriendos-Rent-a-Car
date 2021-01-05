@@ -309,6 +309,41 @@ $nombreUsuario = $this->session->userdata('nombre')
                                             name="inputCartaRemplazo" required>
                                         <br>
                                     </div>
+                                    <div class="form-group col-xl-12" id="card_estatuto">
+                                        <h6 for="inputEstatuto">Documento estatuto</h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputEstatuto"
+                                            name="inputEstatuto" required>
+                                        <br>
+                                    </div>
+                                    <div class="form-group col-xl-12" id="card_rol">
+                                        <h6 for="inputDocumentotRol">Documento rol </h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputDocumentotRol"
+                                            name="inputDocumentotRol" required>
+                                        <br>
+                                    </div>
+                                    <div class="form-group col-xl-12" id="card_vigencia">
+                                        <h6 for="inputDocumentoVigencia">Documento vigencia</h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputDocumentoVigencia"
+                                            name="inputDocumentoVigencia" required>
+                                        <br>
+                                    </div>
+                                    <div class="form-group col-xl-12" id="card_carpetaTributaria">
+                                        <h6 for="inputCarpetaTributaria">Carpeta tributaria (opcional)</h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputCarpetaTributaria"
+                                            name="inputCarpetaTributaria" required>
+                                        <br>
+                                    </div>
+                                    <div class="form-group col-xl-12" id="card_cartaAutorizacion">
+                                        <h6 for="inputCartaAutorizacion">Carta de autorizacion (opcional)</h6>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
+                                            type="file" class="form-control-file" id="inputCartaAutorizacion"
+                                            name="inputCartaAutorizacion" required>
+                                        <br>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -29,6 +29,8 @@ const buscarVehiculo = async (patente) => {
 		$("#inputEditarModelo").val(vehiculo.modelo_vehiculo);
 		$("#inputEditarEdad").val(vehiculo.año_vehiculo);
 		$("#inputEditarTipo").val(vehiculo.tipo_vehiculo);
+		$("#inputEditarNumeroGps").val(vehiculo.numero_gps_vehiculo);
+		$("#inputEditarNumeroTab").val(vehiculo.numero_tab_vehiculo);
 		$("#inputEditarTransmision").val(vehiculo.transmision_vehiculo);
 		$("#inputEditarChasis").val(vehiculo.chasis_vehiculo);
 		$("#inputEditarColor").val(vehiculo.color_vehiculo);
@@ -122,15 +124,10 @@ $(document).ready(() => {
 		const propietario = $("#inputPropietario").val();
 		const compra = $("#inputCompra").val();
 		const fechaCompra = $("#inputFechaCompra").val();
-		const chasis = $("#inputChasis").val();
-		const n_motor = $("#inputNumeroMotor").val();
 		const marca = $("#inputMarca").val();
-
 		if (
-			n_motor.length != 0 &&
-			marca.length != 0 &&
-			chasis.length != 0 &&
 			patente.length != 0 &&
+			marca.length != 0 &&
 			modelo.length != 0 &&
 			color.length != 0 &&
 			propietario.length != 0 &&

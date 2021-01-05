@@ -35,12 +35,13 @@ class Vehiculo_controller extends CI_Controller
             "id_region" => $this->input->post("inputRegion"),
             "chasis_vehiculo" => $this->input->post("inputChasis"),
             "numeroMotor_vehiculo" => $this->input->post("inputNumeroMotor"),
+            "numero_gps_vehiculo" => $this->input->post("inputNumeroGps"),
+            "numero_tab_vehiculo" => $this->input->post("inputNumeroTab"),
             "marca_vehiculo" => $this->input->post("inputMarca"),
             "estado_vehiculo" => $this->input->post("inputEstado"),
             "Tmantencion_vehiculo" => 10000,
             "kilometraje_vehiculo" => 0,
             "kilometrosMantencion_vehiculo" => 0,
-
         ];
         echo post_function($arrayVehiculo, "vehiculos/registrarVehiculo");
     }
@@ -62,9 +63,10 @@ class Vehiculo_controller extends CI_Controller
             "numeroMotor_vehiculo" => $this->input->post("inputEditarNumeroMotor"),
             "marca_vehiculo" => $this->input->post("inputEditarMarca"),
             "estado_vehiculo" => $this->input->post("inputEditarEstado"),
+            "numero_gps_vehiculo" => $this->input->post("inputEditarNumeroGps"),
+            "numero_tab_vehiculo" => $this->input->post("inputEditarNumeroTab"),
             "Tmantencion_vehiculo" => $this->input->post("inputEditarkilomentrosMantencion"),
         ];
-
         echo put_function($patente, $arrayVehiculo, "vehiculos/editarVehiculo");
     }
 
@@ -81,22 +83,17 @@ class Vehiculo_controller extends CI_Controller
 
     public function guardarFotoVehiculo()
     {
-
         $patente = $this->input->post("inputPatente");
-
         $file = 'inputFoto';
         $config['upload_path'] = "temp_files/";
         $config['allowed_types'] = "gif|jpg|jpeg|png";
-
         $this->load->library('upload', $config);
-
         if (!$this->upload->do_upload($file)) {
             //*** ocurrio un error
             echo json_encode(array("success" => false, "msg" => $this->upload->display_errors()));
             return;
         }
         $img['uploadSuccess'] = $this->upload->data();
-
         $datafile = [
             [
                 'name' => 'foto_vehiculo',
@@ -104,7 +101,6 @@ class Vehiculo_controller extends CI_Controller
                 'filename' => $img['uploadSuccess']["file_name"],
             ],
         ];
-
         echo file_function($patente, $datafile, "vehiculos/cargarImagen");
         unlink($img['uploadSuccess']["full_path"]); //elimina las imagenes
     }

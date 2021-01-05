@@ -2,7 +2,8 @@
 let global_base64_documento = null;
 const global_documentosArriendo = {
 	documentoCliente: false,
-	documentoConductor: false
+	documentoConductor: false,
+	documentoEmpresa: false
 }
 
 const buscarArriendo = async (id_arriendo, option) => {
@@ -77,48 +78,100 @@ const mostrarArriendoModalVer = (arriendo) => {
 
 
 
-	let documentoCliente = null;
+	let clienteDoc = null;
 	switch (arriendo.tipo_arriendo) {
 		case "PARTICULAR":
 			$("#card_domicilio").show();
 			$("#inputEditarClienteArriendo").val(`${arriendo.cliente.nombre_cliente}  ${arriendo.cliente.rut_cliente}`);
-			documentoCliente = arriendo.cliente.documentosCliente;
+			clienteDoc = arriendo.cliente;
 			break;
 		case "REEMPLAZO":
 			$("#card_cartaRemplazo").show();
 			$("#inputEditarTipoArriendo").val(arriendo.tipo_arriendo + " " + arriendo.remplazo.codigo_empresaRemplazo);
 			$("#inputEditarClienteArriendo").val(`${arriendo.remplazo.cliente.nombre_cliente}  ${arriendo.remplazo.cliente.rut_cliente}`);
-			documentoCliente = arriendo.remplazo.cliente.documentosCliente;
+			clienteDoc = arriendo.remplazo.cliente;
 			break;
 		case "EMPRESA":
+			$("#card_estatuto").show();
+			$("#card_rol").show();
+			$("#card_vigencia").show();
+			$("#card_carpetaTributaria").show();
+			$("#card_cartaAutorizacion").show();
 			$("#inputEditarClienteArriendo").val(`${arriendo.empresa.nombre_empresa}  ${arriendo.empresa.rut_empresa}`);
-			documentoCliente = arriendo.empresa.documentosEmpresa;
+			clienteDoc = arriendo.empresa;
 			break;
 	}
 
 
-	if (documentoCliente) {
+	if (clienteDoc.documentosCliente && !arriendo.requisito) {
 		global_documentosArriendo.documentoCliente = true;
+		$("#card_carnet").hide();
 		const c1 = document.createElement("button");
-		c1.addEventListener("click", () => buscarDocumento(documentoCliente.carnetFrontal, "requisito"));
+		c1.addEventListener("click", () => buscarDocumento(clienteDoc.documentosCliente.carnetFrontal, "requisito"));
 		c1.textContent = "Foto carnet frontal";
 		c1.className = "badge badge-pill badge-info m-1";
 		document.getElementById("card_documentos").append(c1);
+
 		const c2 = document.createElement("button");
-		c2.addEventListener("click", () => buscarDocumento(documentoCliente.carnetTrasera, "requisito"));
+		c2.addEventListener("click", () => buscarDocumento(clienteDoc.documentosCliente.carnetTrasera, "requisito"));
 		c2.textContent = "Foto carnet Trasera";
 		c2.className = "badge badge-pill badge-info m-1";
 		document.getElementById("card_documentos").append(c2);
 	}
 
 
-	if (arriendo.conductore.documentosConductore) {
+	if (clienteDoc.documentosEmpresa && !arriendo.requisito) {
+		global_documentosArriendo.documentoEmpresa = true;
+		$("#card_carnet").hide();
+		$("#card_licencia").hide();
+		$("#card_estatuto").hide();
+		$("#card_rol").hide();
+		$("#card_vigencia").hide();
+
+
+		const e1 = document.createElement("button");
+		e1.addEventListener("click", () => buscarDocumento(clienteDoc.documentosEmpresa.carnetFrontal, "requisito"));
+		e1.textContent = "Foto carnet frontal";
+		e1.className = "badge badge-pill badge-info m-1";
+		document.getElementById("card_documentos").append(e1);
+
+		const e2 = document.createElement("button");
+		e2.addEventListener("click", () => buscarDocumento(clienteDoc.documentosEmpresa.carnetTrasera, "requisito"));
+		e2.textContent = "Foto carnet Trasera";
+		e2.className = "badge badge-pill badge-info m-1";
+		document.getElementById("card_documentos").append(e2);
+
+		const e3 = document.createElement("button");
+		e3.addEventListener("click", () => buscarDocumento(clienteDoc.documentosEmpresa.documentoEstatuto, "requisito"));
+		e3.textContent = "Documento estatuto";
+		e3.className = "badge badge-pill badge-info m-1";
+		document.getElementById("card_documentos").append(e3);
+
+		const e4 = document.createElement("button");
+		e4.addEventListener("click", () => buscarDocumento(clienteDoc.documentosEmpresa.documentoRol, "requisito"));
+		e4.textContent = "Documento rol";
+		e4.className = "badge badge-pill badge-info m-1";
+		document.getElementById("card_documentos").append(e4);
+
+		const e5 = document.createElement("button");
+		e5.addEventListener("click", () => buscarDocumento(clienteDoc.documentosEmpresa.documentoVigencia, "requisito"));
+		e5.textContent = "Documento vigencia";
+		e5.className = "badge badge-pill badge-info m-1";
+		document.getElementById("card_documentos").append(e5);
+
+	}
+
+
+	if (arriendo.conductore.documentosConductore && !arriendo.requisito) {
 		global_documentosArriendo.documentoConductor = true;
+		$("#card_licencia").hide();
+
 		const l1 = document.createElement("button");
 		l1.addEventListener("click", () => buscarDocumento(arriendo.conductore.documentosConductore.licenciaConducirFrontal, "requisito"));
 		l1.textContent = "Foto licencia de conducir frontal";
 		l1.className = "badge badge-pill badge-info m-1";
 		document.getElementById("card_documentos").append(l1);
+
 		const l2 = document.createElement("button");
 		l2.addEventListener("click", () => buscarDocumento(arriendo.conductore.documentosConductore.licenciaConducirTrasera, "requisito"));
 		l2.textContent = "Foto licencia de conducir trasera";
@@ -157,28 +210,32 @@ const mostrarArriendoModalVer = (arriendo) => {
 		const requisito = arriendo.requisito;
 		$("#btn_guardar_garantiaRequisitos").hide();
 
-		if (requisito.carnetFrontal_requisito && !documentoCliente) {
+
+		console.log(arriendo.requisito);
+		//RECORRER EL OBJETO
+
+		if (requisito.carnetFrontal_requisito) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.carnetFrontal_requisito, "requisito"));
 			a.textContent = "Foto carnet frontal";
 			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
-		if (requisito.carnetTrasera_requisito && !documentoCliente) {
+		if (requisito.carnetTrasera_requisito) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.carnetTrasera_requisito, "requisito"));
 			a.textContent = "Foto carnet Trasera";
 			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
-		if (requisito.licenciaConducirFrontal_requisito && !arriendo.conductore.documentosConductore) {
+		if (requisito.licenciaConducirFrontal_requisito) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirFrontal_requisito, "requisito"));
 			a.textContent = "Foto licencia de conducir frontal";
 			a.className = "badge badge-pill badge-info m-1";
 			document.getElementById("card_documentos").append(a);
 		}
-		if (requisito.licenciaConducirTrasera_requisito && !arriendo.conductore.documentosConductore) {
+		if (requisito.licenciaConducirTrasera_requisito) {
 			const a = document.createElement("button");
 			a.addEventListener("click", () => buscarDocumento(requisito.licenciaConducirTrasera_requisito, "requisito"));
 			a.textContent = "Foto licencia de conducir trasera";
@@ -289,8 +346,6 @@ const mostrarArriendoModalPago = async (arriendo) => {
 				calcularValores();
 			}
 		}
-
-
 		$("#formPagoArriendo").show();
 		$("#numeroArriendoConfirmacion").text("Nº" + arriendo.id_arriendo);
 		$("#inputIdArriendo").val(arriendo.id_arriendo);
@@ -563,12 +618,19 @@ const limpiarCampos = () => {
 	$("#card_domicilio").hide();
 	$("#card_cartaRemplazo").hide();
 	$("#card_licencia").hide();
+	$("#card_estatuto").hide();
+	$("#card_rol").hide();
+	$("#card_vigencia").hide();
+	$("#card_carpetaTributaria").hide();
+	$("#card_cartaAutorizacion").hide();
+
 
 	$("#ingresarDocumentos").show();
 	$("#metodo_pago").hide();
 	global_base64_documento = null;
 	global_documentosArriendo.documentoCliente = false;
 	global_documentosArriendo.documentoConductor = false;
+	global_documentosArriendo.documentoEmpresa = false;
 };
 
 
@@ -644,7 +706,6 @@ $(document).ready(() => {
                      value='0'  oninput="this.value = soloNumeros(this) ;calcularValores()"
                         type='number' class='form-control' required>
 				</div>`;
-
 				$("#formAccesorios").append(fila);
 			});
 		}
@@ -671,6 +732,12 @@ $(document).ready(() => {
 		const inputChequeGarantia = $("#inputChequeGarantia").val();
 		const inputTarjeta = $("#inputTarjeta").val();
 		const inputTipoArriendo = $("#inputEditarTipoArriendo").val();
+		const inputEstatuto = $("#inputEstatuto").val();
+		const inputRol = $("#inputDocumentotRol").val();
+		const inputVigencia = $("#inputDocumentoVigencia").val();
+
+
+
 		const inputTipoGarantia = $("input:radio[name=customRadio0]:checked").val();
 		//VALIDACION DE LA GARANTIA
 		switch (inputTipoGarantia) {
@@ -714,55 +781,74 @@ $(document).ready(() => {
 
 		//VALIDACION DE LOS ARCHIVOS SI ES QUE NO EXISTEN ANTERIORMENTE
 
-		if (!global_documentosArriendo.documentoCliente) {
-			if (inputCarnetFrontal.length == 0 || inputCarnetTrasera.length == 0) {
-				Swal.fire(
-					"faltan archivos por subir",
-					"se necesita subir los archivos requeridos",
-					"warning"
-				);
-				return;
-			}
-		}
 
 		if (!global_documentosArriendo.documentoConductor) {
 			if (inputlicenciaFrontal.length == 0 || inputlicenciaTrasera.length == 0) {
 				Swal.fire(
-					"faltan archivos por subir",
+					"faltan archivos del conductor por subir",
 					"se necesita subir los archivos requeridos",
 					"warning"
 				);
 				return;
 			}
 		}
-
-
-
-
 
 		switch (inputTipoArriendo) {
 			case "PARTICULAR":
 				if (inputComprobanteDomicilio.length == 0) {
 					Swal.fire(
-						"faltan archivos por subir",
+						"faltan archivos del cliente por subir",
 						"se necesita subir los archivos requeridos",
 						"warning"
 					);
 					return;
+				}
+				if (!global_documentosArriendo.documentoCliente) {
+					if (inputCarnetFrontal.length == 0 || inputCarnetTrasera.length == 0) {
+						Swal.fire(
+							"faltan archivos del cliente por subir",
+							"se necesita subir los archivos requeridos",
+							"warning"
+						);
+						return;
+					}
 				}
 				break;
 			case "REEMPLAZO":
 				if (inputCartaRemplazo.length == 0) {
 					Swal.fire(
-						"faltan archivos por subir",
+						"faltan archivos del cliente por subir",
 						"se necesita subir los archivos requeridos",
 						"warning"
 					);
 					return;
 				}
+				if (!global_documentosArriendo.documentoCliente) {
+					if (inputCarnetFrontal.length == 0 || inputCarnetTrasera.length == 0) {
+						Swal.fire(
+							"faltan archivos del cliente por subir",
+							"se necesita subir los archivos requeridos",
+							"warning"
+						);
+						return;
+					}
+				}
 				break;
 			case "EMPRESA":
-
+				if (!global_documentosArriendo.documentoEmpresa) {
+					if (inputCarnetFrontal.length == 0 ||
+						inputCarnetTrasera.length == 0 ||
+						inputEstatuto.length == 0 ||
+						inputRol.length == 0 ||
+						inputVigencia.length == 0) {
+						Swal.fire(
+							"faltan archivos de la empresa por subir",
+							"se necesita subir los archivos requeridos",
+							"warning"
+						);
+						return;
+					}
+				}
 				break;
 		}
 		Swal.fire({
@@ -1178,7 +1264,6 @@ $(document).ready(() => {
 
 	const guardarDocumentosRequistos = async (idArriendo) => {
 		const data = new FormData();
-		//ERROR A SUBIR IMAGENES de mas de 3mbs
 		data.append("idArriendo", idArriendo);
 		data.append("inputCarnetFrontal", $("#inputCarnetFrontal")[0].files[0]);
 		data.append("inputCarnetTrasera", $("#inputCarnetTrasera")[0].files[0]);
@@ -1189,6 +1274,11 @@ $(document).ready(() => {
 		data.append("inputCartaRemplazo", $("#inputCartaRemplazo")[0].files[0]);
 		data.append("inputBoletaEfectivo", $("#inputBoletaEfectivo")[0].files[0]);
 		data.append("inputComprobante", $("#inputComprobanteDomicilio")[0].files[0]);
+		data.append("inputEstatuto", $("#inputEstatuto")[0].files[0]);
+		data.append("inputRol", $("#inputDocumentotRol")[0].files[0]);
+		data.append("inputVigencia", $("#inputDocumentoVigencia")[0].files[0]);
+		data.append("inputCarpetaTributaria", $("#inputCarpetaTributaria")[0].files[0]);
+		data.append("inputCartaAutorizacion", $("#inputCartaAutorizacion")[0].files[0]);
 		return await ajax_function(data, "registrar_requisitos");
 	};
 

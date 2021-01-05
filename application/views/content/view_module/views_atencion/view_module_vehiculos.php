@@ -57,29 +57,39 @@
                                 <option value="DOBLE CABINA">Doble Cabina</option>
                             </select>
                         </div>
-                        <div class="form-group col-lg-2">
+                        <div class="form-group col-lg-3">
+                            <label for="inputNumeroMotor">Nº Motor</label>
+                            <input type="text" maxLength="40" class="form-control" id="inputNumeroMotor"
+                                name="inputNumeroMotor">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="inputChasis">Chasis de Vehiculo</label>
+                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
+                                id="inputChasis" name="inputChasis">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="inputNumeroGps">Nº GPS del vehiculo</label>
+                            <input type="text" maxLength="40" class="form-control" id="inputNumeroGps"
+                                name="inputNumeroGps">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="inputNumeroTab">Nº Tab del Vehiculo</label>
+                            <input type="text" maxLength="40" class="form-control" id="inputNumeroTab"
+                                name="inputNumeroTab">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="inputColor">Color</label>
+                            <input onblur="mayus(this);" maxLength="40" type="text" class="form-control" id="inputColor"
+                                name="inputColor" required>
+                        </div>
+                        <div class="form-group col-lg-3">
                             <label for="inputTransmision">Transmision</label>
                             <select id="inputTransmision" name="inputTransmision" class="form-control">
                                 <option value="AUTOMATICO" selected>Automatico</option>
                                 <option value="MANUAL">Manual</option>
                             </select>
                         </div>
-                        <div class="form-group col-lg-2">
-                            <label for="inputChasis">Chasis de Vehiculo</label>
-                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                                id="inputChasis" name="inputChasis" required>
-                        </div>
 
-                        <div class="form-group col-lg-2">
-                            <label for="inputColor">Color</label>
-                            <input onblur="mayus(this);" maxLength="40" type="text" class="form-control" id="inputColor"
-                                name="inputColor" required>
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label for="inputNumeroMotor">Nº Motor</label>
-                            <input type="text" maxLength="40" class="form-control" id="inputNumeroMotor"
-                                name="inputNumeroMotor" required>
-                        </div>
                         <div class="form-group col-lg-3">
                             <label for="inputEstado">Estado</label>
                             <select id="inputEstado" name="inputEstado" class="form-control">
@@ -100,28 +110,23 @@
                             <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                 id="inputCompra" name="inputCompra" required>
                         </div>
-
                         <div class="form-group col-lg-3">
                             <label for="inputRegion">Region</label>
                             <select id="inputRegion" name="inputRegion" class="form-control">
                             </select>
                         </div>
-
-
                         <div class="form-group col-xl-3">
                             <label for="inputFechaCompra">Fecha de compra</label>
                             <input type="text" class="form-control input_data" name="inputFechaCompra"
                                 id="inputFechaCompra" required />
                         </div>
-
-                        <div class="form-group col-lg-4">
-
+                        <div class="form-group col-lg-2">
                             <label for="inputFoto">Foto (opcional)</label>
                             <input accept="image/*" type="file" class="form-control-file" id="inputFoto"
                                 name="inputFoto">
                         </div>
                     </div>
-                    <br><br>
+                    <br>
                     <button type="submit" class="btn btn-dark" id="btn_registrar_vehiculo">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                             id="spinner_btn_registrar"></span>
@@ -249,6 +254,21 @@
                                             <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                                 id="inputEditarChasis" name="inputEditarChasis" required>
                                         </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarNumeroMotor">Nº Motor del Vehiculo</label>
+                                            <input type="text" maxLength="40" class="form-control"
+                                                id="inputEditarNumeroMotor" name="inputEditarNumeroMotor" required>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarNumeroGps">Nº GPS del vehiculo</label>
+                                            <input type="text" maxLength="40" class="form-control"
+                                                id="inputEditarNumeroGps" name="inputEditarNumeroGps" required>
+                                        </div>
+                                        <div class="form-group col-lg-4">
+                                            <label for="inputEditarNumeroTab">Nº Tab del Vehiculo</label>
+                                            <input type="text" maxLength="40" class="form-control"
+                                                id="inputEditarNumeroTab" name="inputEditarNumeroTab" required>
+                                        </div>
 
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarColor">Color del Vehiculo</label>
@@ -256,26 +276,19 @@
                                                 id="inputEditarColor" name="inputEditarColor" required>
                                         </div>
                                         <div class="form-group col-lg-4">
-                                            <label for="inputEditarNumeroMotor">Nº Motor del Vehiculo</label>
-                                            <input type="text" maxLength="40" class="form-control"
-                                                id="inputEditarNumeroMotor" name="inputEditarNumeroMotor" required>
-                                        </div>
-                                        <div class="form-group col-lg-4">
-                                            <label for="inputEditarRegion">Region</label>
-                                            <select id="inputEditarRegion" name="inputEditarRegion"
-                                                class="form-control">
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group col-lg-4">
-                                            <label for="inputEditarkilomentrosMantencion">kilometros de
+                                            <label for="inputEditarkilomentrosMantencion">kilometros de ultima
                                                 mantencion</label>
                                             <input type="number" oninput="this.value = soloNumeros(this)" maxLength="6"
                                                 class="form-control" id="inputEditarkilomentrosMantencion"
                                                 name="inputEditarkilomentrosMantencion" required>
                                         </div>
-
-                                        <div class="form-group col-lg-4">
+                                        <div class="form-group col-lg-6">
+                                            <label for="inputEditarRegion">Region</label>
+                                            <select id="inputEditarRegion" name="inputEditarRegion"
+                                                class="form-control">
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-lg-6">
                                             <label for="inputEditarEstado">Editar estado</label>
                                             <select id="inputEditarEstado" name="inputEditarEstado"
                                                 class="form-control">
@@ -334,4 +347,5 @@
 
 
 <!-- importando archivo js vehiculos -->
-<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_vehiculos.js?v=<?php echo version(); ?>"></script>
+<script src="<?php echo base_route() ?>assets/js/js_atencion/js_module_vehiculos.js?v=<?php echo version(); ?>">
+</script>

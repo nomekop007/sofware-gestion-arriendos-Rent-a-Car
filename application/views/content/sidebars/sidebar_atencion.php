@@ -8,17 +8,17 @@ $rol = $this->session->userdata("rol");
         <br>
         <ul class="nav flex-column">
             <br>
-            <?php if ($rol == 1 || $rol == 2 || $rol == 3) {?>
-            <li class="nav-item " id="l_facturacion">
+            <?php if ($rol == 1 || $rol == 2) {?>
+            <li class="nav-item " id="l_vehiculo">
                 <br>
-                <a id="m_facturacion" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=1">
-                    <i class="fas fa-money-bill-wave"></i>
-                    Facturacion E. Remplazo
+                <a id="m_vehiculo" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=1">
+                    <i class="fas fa-car "></i>
+                    Gestion Vehiculos
                 </a>
                 <br>
             </li>
             <?php }?>
-            <?php if ($rol == 1 || $rol == 2 || $rol == 3) {?>
+            <?php if ($rol == 1 || $rol == 2) {?>
             <li class="nav-item " id="l_danios">
                 <br>
                 <a id="m_danios" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=2">
@@ -28,6 +28,27 @@ $rol = $this->session->userdata("rol");
                 <br>
             </li>
             <?php }?>
+            <?php if ($rol == 1 || $rol == 2) {?>
+            <li class="nav-item " id="l_facturacion">
+                <br>
+                <a id="m_facturacion" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=3">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Facturacion E. Remplazo
+                </a>
+                <br>
+            </li>
+            <?php }?>
+            <?php if ($rol == 1) {?>
+            <li class="nav-item" id="l_usuario">
+                <br>
+                <a id="m_usuario" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=4">
+                    <i class="fas fa-users-cog "></i>
+                    Gestion Usuarios
+                </a>
+                <br>
+            </li>
+            <?php }?>
+
         </ul>
     </div>
 </nav>

@@ -23,21 +23,15 @@ class Modulo_controller extends CI_Controller
                         redirect(base_url());
                     }
                     break;
+
                 case 1:
-                    if ($rol == 1 || $rol == 2) {
-                        $this->load->view('content/view_module/views_gestion/view_module_vehiculos');
-                    } else {
-                        redirect(base_url());
-                    }
-                    break;
-                case 2:
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
                         $this->load->view('content/view_module/views_gestion/view_module_clientes');
                     } else {
                         redirect(base_url());
                     }
                     break;
-                case 3:
+                case 2:
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
                         //se subdivide por su gran tamaño
                         $this->load->view('content/view_module/views_gestion/view_module_arriendos_header');
@@ -48,20 +42,13 @@ class Modulo_controller extends CI_Controller
                         redirect(base_url());
                     }
                     break;
-                case 4:
+                case 3:
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
                         //se subdivide por su gran tamaño
                         $this->load->view('content/view_module/views_gestion/view_module_despachos_header');
                         $this->load->view('content/view_module/views_gestion/view_module_despachos_despacho');
                         $this->load->view('content/view_module/views_gestion/view_module_despachos_activos');
                         $this->load->view('content/view_module/views_gestion/view_module_despachos_footer');
-                    } else {
-                        redirect(base_url());
-                    }
-                    break;
-                case 5:
-                    if ($rol == 1) {
-                        $this->load->view('content/view_module/views_gestion/view_module_usuarios');
                     } else {
                         redirect(base_url());
                     }
@@ -90,7 +77,7 @@ class Modulo_controller extends CI_Controller
             switch ($opcion) {
                 case 1:
                     if ($rol == 1 || $rol == 2) {
-                        $this->load->view('content/view_module/views_atencion/view_module_facturacion');
+                        $this->load->view('content/view_module/views_atencion/view_module_vehiculos');
                     } else {
                         redirect(base_url());
                     }
@@ -98,6 +85,20 @@ class Modulo_controller extends CI_Controller
                 case 2:
                     if ($rol == 1 || $rol == 2) {
                         $this->load->view('content/view_module/views_atencion/view_module_danioVehiculo');
+                    } else {
+                        redirect(base_url());
+                    }
+                    break;
+                case 3:
+                    if ($rol == 1 || $rol == 2) {
+                        $this->load->view('content/view_module/views_atencion/view_module_facturacion');
+                    } else {
+                        redirect(base_url());
+                    }
+                    break;
+                case 4:
+                    if ($rol == 1) {
+                        $this->load->view('content/view_module/views_atencion/view_module_usuarios');
                     } else {
                         redirect(base_url());
                     }

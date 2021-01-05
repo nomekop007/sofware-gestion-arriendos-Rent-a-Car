@@ -76,10 +76,10 @@ const cantidadConductores = (opcion) => {
 }
 
 
-const calcularMantencionVehiculo = (k,) => {
-	var kilometros_mantencion = Number(10000);
-	var kilometros_actual = Number(k);
-	var kilometros_falta = Number(0);
+/* const calcularMantencionVehiculo = (k) => {
+	let kilometros_mantencion = Number(10000);
+	let kilometros_actual = Number(k);
+	let kilometros_falta = Number(0);
 	do {
 		kilometros_falta = Number(kilometros_mantencion - kilometros_actual);
 		if (kilometros_falta < 0) {
@@ -89,7 +89,21 @@ const calcularMantencionVehiculo = (k,) => {
 	$("#inputEntrada").val(kilometros_actual);
 	$("#inputMantencion").val(kilometros_falta);
 }
+ */
 
+
+const calcularMantencionVehiculo = () => {
+	let cada = Number(10000);
+	let actual = Number($("#inputEntrada").val());
+	let ultima = Number($("#Tmantencion_vehiculo").val());
+	let siguiente = Number(0);
+
+
+	siguiente = cada - (actual - ultima)
+
+
+	$("#inputMantencion").val(siguiente);
+}
 
 
 
@@ -174,17 +188,11 @@ $(document).ready(() => {
 			data.append("patente", patente);
 			const response = await ajax_function(data, "buscar_vehiculo");
 			if (response.success) {
-				var kilometros_mantencion = Number(response.data.Tmantencion_vehiculo);
-				var kilometros_actual = Number(response.data.kilometraje_vehiculo);
-				var kilometros_falta = Number(0);
-				do {
-					kilometros_falta = Number(kilometros_mantencion - kilometros_actual);
-					if (kilometros_falta < 0) {
-						kilometros_mantencion = kilometros_mantencion + response.data.Tmantencion_vehiculo;
-					}
-				} while (kilometros_falta < 0);
+				let kilometros_actual = Number(response.data.kilometraje_vehiculo);
+				let kilometros_mantencion = Number(response.data.Tmantencion_vehiculo);
 				$("#inputEntrada").val(kilometros_actual);
-				$("#inputMantencion").val(kilometros_falta);
+				$("#Tmantencion_vehiculo").val(kilometros_mantencion);
+				calcularMantencionVehiculo();
 			}
 		}
 	});
