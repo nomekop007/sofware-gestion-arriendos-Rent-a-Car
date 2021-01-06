@@ -417,7 +417,8 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <span id="textVehiculo" class="input-group-text form-control"></span>
                             </div>
                             <div class="form-group">
-                                <span id="textModeloVehiculo" class="input-group-text form-control"></span>
+                                <span id="textModeloVehiculo" style='font-size: 0.8rem;'
+                                    class="input-group-text form-control"></span>
                             </div>
                             <div class="form-group">
                                 <span id="textCliente" class="input-group-text form-control"></span>

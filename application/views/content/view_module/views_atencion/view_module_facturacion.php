@@ -103,33 +103,35 @@
                         </div>
                         <br><br>
                         <div class="container">
-                            <table id="tabla_pagoPendienteRemplazo" class="table table-striped table-bordered"
-                                style="width:100%">
-                                <thead class="btn-dark">
-                                    <tr>
-                                        <th></th>
-                                        <th>Nº Arriendo</th>
-                                        <th>estado</th>
-                                        <th>neto</th>
-                                        <th>iva</th>
-                                        <th>total</th>
-                                        <th>fecha registro</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="vehiculos">
-                                </tbody>
-                                <tfoot class="btn-dark">
-                                    <tr>
-                                        <th></th>
-                                        <th>Nº Arriendo</th>
-                                        <th>estado</th>
-                                        <th>neto</th>
-                                        <th>iva</th>
-                                        <th>total</th>
-                                        <th>fecha registro</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <div class="scroll">
+                                <table id="tabla_pagoPendienteRemplazo" class="table table-striped table-bordered"
+                                    style="width:100%">
+                                    <thead class="btn-dark">
+                                        <tr>
+                                            <th></th>
+                                            <th>Nº Arriendo</th>
+                                            <th>estado</th>
+                                            <th>neto</th>
+                                            <th>iva</th>
+                                            <th>total</th>
+                                            <th>fecha registro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="vehiculos">
+                                    </tbody>
+                                    <tfoot class="btn-dark">
+                                        <tr>
+                                            <th></th>
+                                            <th>Nº Arriendo</th>
+                                            <th>estado</th>
+                                            <th>neto</th>
+                                            <th>iva</th>
+                                            <th>total</th>
+                                            <th>fecha registro</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                             <br><br>
                             <button type="submit" id="btn_registrar_facturacion" class="btn btn-success">
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
