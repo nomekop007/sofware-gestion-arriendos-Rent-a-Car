@@ -133,7 +133,7 @@
 </div>
 
 
-<!-- Modal particulares-->
+
 <div class="modal fade" id="modal_ver" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -157,7 +157,7 @@
                         <div class="form-row">
                             <div class="form-group col-lg-6">
                                 <label for="inputNombreCliente">Nombre Completo</label>
-                                <input disabled type="text" class="form-control" id="inputNombreCliente">
+                                <input onblur="mayus(this);" type="text" class="form-control" id="inputNombreCliente">
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputRutCliente">Rut </label>
@@ -165,35 +165,57 @@
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputEstadoCivilCliente">Estado Civil </label>
-                                <input disabled type="text" class="form-control" id="inputEstadoCivilCliente">
+                                <select name="inputEstadoCivilCliente" id="inputEstadoCivilCliente"
+                                    class="form-control">
+                                    <option value="SOLTERO/A" selected>Soltero/a</option>
+                                    <option value="CASADO/A">Casado/a</option>
+                                    <option value="VIUDO/A">Viudo/a</option>
+                                    <option value="DIVORCIADO/A">Divorciado/a</option>
+                                    <option value="SEPARADO/A">Separado/a</option>
+                                </select>
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputNacionalidadCliente">Nacionalidad</label>
-                                <input disabled type="text" class="form-control" id="inputNacionalidadCliente">
+                                <select name="inputNacionalidadCliente" id="inputNacionalidadCliente"
+                                    class="form-control">
+                                    <option value="CHILENO/A" selected>Chileno/a</option>
+                                    <option value="EXTRANJERO/A">Extranjero/a</option>
+                                </select>
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputNacimientoCliente">Fecha de Nacimiento </label>
-                                <input disabled type="text" class="form-control" id="inputNacimientoCliente">
+                                <input type="text" class="form-control input_data" name="inputNacimientoCliente"
+                                    id="inputNacimientoCliente" required />
                             </div>
                             <div class="form-group col-lg-6">
                                 <label for="inputCorreoCliente">Correo electronico </label>
-                                <input disabled type="email" class="form-control" id="inputCorreoCliente">
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <label for="inputTelefonoCliente">Numero contacto </label>
-                                <input disabled type="text" class="form-control" id="inputTelefonoCliente">
-                            </div>
-                            <div class="form-group col-lg-4">
-                                <label for="inputDireccionCliente">Direccion </label>
-                                <input disabled type="text" class="form-control" id="inputDireccionCliente">
+                                <input onblur="mayus(this);" type="email" class="form-control" id="inputCorreoCliente">
                             </div>
                             <div class="form-group col-lg-5">
-                                <label for="inputComunaCliente">Comuna </label>
-                                <input disabled type="text" class="form-control" id="inputComunaCliente">
+                                <label for="inputTelefonoCliente">Numero contacto </label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">+569</span>
+                                    </div>
+                                    <input oninput="this.value = soloNumeros(this)" maxLength="8" type="number"
+                                        class="form-control" id="inputTelefonoCliente" name="inputTelefonoCliente"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-7">
+                                <label for="inputDireccionCliente">Direccion </label>
+                                <input onblur="mayus(this);" type="text" class="form-control"
+                                    id="inputDireccionCliente">
                             </div>
                             <div class="form-group col-lg-4">
-                                <label for="inputCiudadCliente">Ciudad </label>
-                                <input disabled type="text" class="form-control" id="inputCiudadCliente">
+                                <label for="inputComunaCliente">Comuna / region </label>
+                                <select class="form-control" id="inputComunaCliente" name="inputComunaCliente">
+                                </select>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="inputCiudadCliente">Ciudad / pueblo</label>
+                                <select class="form-control" id="inputCiudadCliente" name="inputCiudadCliente">
+                                </select>
                             </div>
 
                             <div class="form-group col-lg-4">
@@ -201,6 +223,12 @@
                                 <input disabled type="text" class="form-control" id="inputCreateAtCliente">
                             </div>
                         </div>
+                        <br>
+                        <button type="submit" class="btn btn-dark" id="btn_editar_cliente">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                id="spinner_btn_editar_cliente"></span>
+                            Editar cliente</button>
+
                     </div>
                 </div>
             </div>
@@ -210,7 +238,7 @@
                         <div class="form-row">
                             <div class="form-group col-lg-6">
                                 <label for="inputNombreEmpresa">Nombre Empresa</label>
-                                <input disabled type="text" class="form-control" id="inputNombreEmpresa">
+                                <input type="text" class="form-control" id="inputNombreEmpresa">
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputRutEmpresa">Rut</label>
@@ -218,37 +246,42 @@
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputRolEmpresa">Rol</label>
-                                <input disabled type="text" class="form-control" id="inputRolEmpresa">
+                                <input type="text" class="form-control" id="inputRolEmpresa">
                             </div>
                             <div class="form-group col-lg-2">
                                 <label for="inputVigenciaEmpresa">Vigencia</label>
-                                <input disabled type="text" class="form-control" id="inputVigenciaEmpresa">
+                                <input type="text" class="form-control" id="inputVigenciaEmpresa">
                             </div>
                             <div class="form-group col-lg-5">
                                 <label for="inputDireccionEmpresa">Direccion</label>
-                                <input disabled type="text" class="form-control" id="inputDireccionEmpresa">
+                                <input type="text" class="form-control" id="inputDireccionEmpresa">
                             </div>
                             <div class="form-group col-lg-5">
                                 <label for="inputCorreoEmpresa">Correo</label>
-                                <input disabled type="text" class="form-control" id="inputCorreoEmpresa">
+                                <input type="text" class="form-control" id="inputCorreoEmpresa">
                             </div>
                             <div class="form-group col-lg-5">
                                 <label for="inputComunaEmpresa">Comuna </label>
-                                <input disabled type="text" class="form-control" id="inputComunaEmpresa">
+                                <input type="text" class="form-control" id="inputComunaEmpresa">
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="inputCiudadEmpresa">Ciudad</label>
-                                <input disabled type="text" class="form-control" id="inputCiudadEmpresa">
+                                <input type="text" class="form-control" id="inputCiudadEmpresa">
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputTelefonoEmpresa">Numero Contacto</label>
-                                <input disabled type="text" class="form-control" id="inputTelefonoEmpresa">
+                                <input type="text" class="form-control" id="inputTelefonoEmpresa">
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="inputCreateAtEmpresa">Registrado el</label>
                                 <input disabled type="text" class="form-control" id="inputCreateAtEmpresa">
                             </div>
                         </div>
+                        <br>
+                        <button type="submit" class="btn btn-dark" id="btn_editar_empresa">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                id="spinner_btn_editar_empresa"></span>
+                            Editar empresa</button>
                     </div>
                 </div>
             </div>
@@ -258,7 +291,7 @@
                         <div class="form-row">
                             <div class="form-group col-lg-6">
                                 <label for="inputNombreConductor">Nombre Completo</label>
-                                <input disabled type="text" class="form-control" id="inputNombreConductor">
+                                <input type="text" class="form-control" id="inputNombreConductor">
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputRutConductor">Rut</label>
@@ -266,37 +299,42 @@
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputNacionalidadConductor">Nacionalidad</label>
-                                <input disabled type="text" class="form-control" id="inputNacionalidadConductor">
+                                <input type="text" class="form-control" id="inputNacionalidadConductor">
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="inputTelefonoConductor">Numero de contacto</label>
-                                <input disabled type="text" class="form-control" id="inputTelefonoConductor">
+                                <input type="text" class="form-control" id="inputTelefonoConductor">
                             </div>
                             <div class="form-group col-lg-5">
                                 <label for="inputDireccionConductor">Direccion</label>
-                                <input disabled type="text" class="form-control" id="inputDireccionConductor">
+                                <input type="text" class="form-control" id="inputDireccionConductor">
                             </div>
                             <div class="form-group col-lg-3">
                                 <label for="inputClaseConductor">Clase licencia</label>
-                                <input disabled type="text" class="form-control" id="inputClaseConductor">
+                                <input type="text" class="form-control" id="inputClaseConductor">
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="inputNumeroConductor">Numero licencia</label>
-                                <input disabled type="text" class="form-control" id="inputNumeroConductor">
+                                <input type="text" class="form-control" id="inputNumeroConductor">
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="inputVCTOconductor">VCTO licencia</label>
-                                <input disabled type="text" class="form-control" id="inputVCTOconductor">
+                                <input type="text" class="form-control" id="inputVCTOconductor">
                             </div>
                             <div class="form-group col-lg-4">
                                 <label for="inputMunicipalidadConductor">Municipalidad</label>
-                                <input disabled type="text" class="form-control" id="inputMunicipalidadConductor">
+                                <input type="text" class="form-control" id="inputMunicipalidadConductor">
                             </div>
                             <div class="form-group col-lg-5">
                                 <label for="inputCreateAtConductor">Registrado el</label>
                                 <input disabled type="text" class="form-control" id="inputCreateAtConductor">
                             </div>
                         </div>
+                        <br>
+                        <button type="submit" class="btn btn-dark" id="btn_editar_conductor">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                                id="spinner_btn_editar_conductor"></span>
+                            Editar conductor</button>
                     </div>
                 </div>
             </div>
@@ -307,3 +345,5 @@
 
 <!-- importando archivo js vehiculos -->
 <script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_clientes.js?v=<?php echo version(); ?>"></script>
+
+<script src="<?php echo base_route() ?>assets/js/comunaCiudad.js?v=<?php echo version(); ?>"></script>
