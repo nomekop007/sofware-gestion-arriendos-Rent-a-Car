@@ -50,16 +50,19 @@ $route['cargar_accesorios'] = 'Accesorio_controller/cargarAccesorios';
 $route['registrar_cliente'] = 'Cliente_controller/crearCliente';
 $route['cargar_clientes'] = 'Cliente_controller/cargarClientes';
 $route['buscar_cliente'] = 'Cliente_controller/buscarCliente';
+$route['modificar_cliente'] = 'Cliente_controller/modificarCliente';
 
 /* rutas de controller conductor */
 $route['registrar_conductor'] = 'Conductor_controller/crearConductor';
 $route['cargar_conductores'] = 'Conductor_controller/cargarConductores';
 $route['buscar_conductor'] = 'Conductor_controller/buscarConductor';
+$route['modificar_conductor'] = 'Conductor_controller/modificarConductor';
 
 /* rutas de controller empresa */
 $route['registrar_empresa'] = 'Empresa_controller/crearEmpresa';
 $route['cargar_empresas'] = 'Empresa_controller/cargarEmpresas';
 $route['buscar_empresa'] = 'Empresa_controller/buscarEmpresa';
+$route['modificar_empresa'] = 'Empresa_controller/modificarEmpresa';
 
 /* rutas de controller remplazo */
 $route['registrar_remplazo'] = 'Remplazo_controller/crearRemplazo';

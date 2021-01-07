@@ -1,6 +1,5 @@
 <?php
 
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Cliente_controller extends CI_Controller
@@ -33,5 +32,22 @@ class Cliente_controller extends CI_Controller
         ];
 
         echo post_function($arrayData, "clientes/registrarCliente");
+    }
+
+    public function modificarCliente()
+    {
+        $rut_cliente = $this->input->post("inputRutCliente");
+        $arrayData = [
+            "nombre_cliente" => $this->input->post("inputNombreCliente"),
+            "estadoCivil_cliente" => $this->input->post("inputEstadoCivilCliente"),
+            "nacionalidad_cliente" => $this->input->post("inputNacionalidadCliente"),
+            "fechaNacimiento_cliente" => $this->input->post("inputNacimientoCliente"),
+            "correo_cliente" => $this->input->post("inputCorreoCliente"),
+            "telefono_cliente" => $this->input->post("inputTelefonoCliente"),
+            "direccion_cliente" => $this->input->post("inputDireccionCliente"),
+            "comuna_cliente" => $this->input->post("inputComunaCliente"),
+            "ciudad_cliente" => $this->input->post("inputCiudadCliente"),
+        ];
+        echo put_function($rut_cliente, $arrayData, "clientes/editarCliente");
     }
 }

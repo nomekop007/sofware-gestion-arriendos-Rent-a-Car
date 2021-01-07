@@ -236,8 +236,8 @@ const mostrarArriendoModalPago = async (arriendo) => {
 		if (arriendo.tipoArriendo != "REEMPLAZO") {
 			const response = await buscarTarifaVehiculo(arriendo.patente_vehiculo, arriendo.diasActuales_arriendo);
 			if (response.success) {
-				$("#inputValorCopago").val(Number(response.data.valorDia));
-				$("#inputSubTotalArriendo").val(Number(response.data.valorNeto));
+				$("#inputValorCopago").val(Number(response.data.valorDia).toFixed());
+				$("#inputSubTotalArriendo").val(Number(response.data.valorNeto).toFixed());
 				calcularValores();
 			}
 		}
@@ -317,7 +317,6 @@ const mostrarContratoModalContrato = async (data) => {
 
 
 
-
 const calcularCopago = () => {
 	let valorCopago = Number($("#inputValorCopago").val());
 	let dias = Number($("#input_pago_dias").val());
@@ -358,9 +357,15 @@ const calcularValores = () => {
 	TotalNeto = TotalNeto + valorArriendo - descuento;
 	iva = TotalNeto * 0.19;
 	total = TotalNeto + iva;
-	$("#inputNeto").val(TotalNeto);
+
+	$("#inputNeto").val(TotalNeto.toFixed());
 	$("#inputIVA").val(Math.round(iva));
 	$("#inputTotal").val(decimalAdjust(Math.round(total), 1));
+
+	const formatter = new Intl.NumberFormat("CL");
+	$("#lb_neto").html("( $ " + formatter.format(TotalNeto.toFixed()) + " )");
+	$("#lb_iva").html("( $ " + formatter.format(Math.round(iva)) + " )");
+	$("#lb_total").html("( $ " + formatter.format(decimalAdjust(Math.round(total), 1)) + " )");
 };
 
 
@@ -592,9 +597,10 @@ $(document).ready(() => {
 				if (o.id_accesorio == "1") {
 					o.precio_accesorio = "";
 				}
+				const formatter = new Intl.NumberFormat("CL");
 				let fila = `
                 <div class='input-group '>
-                    <label style='width: 70%;font-size: 0.6rem;' class='form-control'>${o.nombre_accesorio}  $${o.precio_accesorio} </label>
+                    <label style='width: 70%;font-size: 0.6rem;' class='form-control'>${o.nombre_accesorio}  $ ${formatter.format(o.precio_accesorio)} </label>
                     <input  style='width: 30%;font-size: 0.6rem;' min='0' id='${o.id_accesorio}' maxLength='11' name='accesorios[]' 
                      value='0'  oninput="this.value = soloNumeros(this) ;calcularValores()"
                         type='number' class='form-control' required>
@@ -1251,7 +1257,7 @@ $(document).ready(() => {
 					cliente,
 					arriendo.tipo_arriendo,
 					`<span class="${color}">${arriendo.estado_arriendo}</span>`,
-					arriendo.usuario.nombre_usuario,
+					arriendo.sucursale.nombre_sucursal,
 					`<button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
                         data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn-outline-primary'><i class="fas fa-upload"></i></button>
                         <button id='b${arriendo.id_arriendo}' value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,2)' 

@@ -8,7 +8,7 @@ const buscarCliente = async (rut_cliente) => {
 	const response = await ajax_function(data, "buscar_cliente");
 	if (response.success) {
 		const cliente = response.data;
-		$("#form_header").text("Cliente natural");
+		$("#form_header").text("Cliente particular");
 
 		//se agrega un option para el select ciudad
 		const option = document.createElement('option');
@@ -26,7 +26,19 @@ const buscarCliente = async (rut_cliente) => {
 		$("#inputDireccionCliente").val(cliente.direccion_cliente);
 		$("#inputTelefonoCliente").val(cliente.telefono_cliente);
 		$("#inputCreateAtCliente").val(formatearFechaHora(cliente.createdAt));
-		$("#form_cliente").show();
+
+		//carga los documentos
+		if (cliente.documentosCliente) {
+			const docs = cliente.documentosCliente;
+			for (const documento in docs) {
+				const button = document.createElement("button");
+				button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
+				button.textContent = documento;
+				button.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos_cliente").append(button);
+			}
+		}
+		$("#body_cliente").show();
 	}
 	$("#spinner_cliente").hide();
 };
@@ -39,17 +51,34 @@ const buscarEmpresa = async (rut_empresa) => {
 	if (response.success) {
 		const empresa = response.data;
 		$("#form_header").text("Cliente Empresa");
+
+		const option = document.createElement('option');
+		option.value = empresa.ciudad_empresa;
+		option.text = empresa.ciudad_empresa;
+		document.getElementById("inputCiudadEmpresa").appendChild(option);
 		$("#inputCiudadEmpresa").val(empresa.ciudad_empresa);
+		$("#inputComunaEmpresa").val(empresa.comuna_empresa);
 		$("#inputCorreoEmpresa").val(empresa.correo_empresa);
 		$("#inputCreateAtEmpresa").val(formatearFechaHora(empresa.createdAt));
 		$("#inputDireccionEmpresa").val(empresa.direccion_empresa);
 		$("#inputNombreEmpresa").val(empresa.nombre_empresa);
-		$("#inputComunaEmpresa").val(empresa.comuna_empresa);
 		$("#inputRolEmpresa").val(empresa.rol_empresa);
 		$("#inputRutEmpresa").val(empresa.rut_empresa);
-		$("#inputTelefonoEmpresa").val("+569 " + empresa.telefono_empresa);
+		$("#inputTelefonoEmpresa").val(empresa.telefono_empresa);
 		$("#inputVigenciaEmpresa").val(empresa.vigencia_empresa);
-		$("#form_empresa").show();
+
+		//carga los documentos
+		if (empresa.documentosEmpresa) {
+			const docs = empresa.documentosEmpresa;
+			for (const documento in docs) {
+				const button = document.createElement("button");
+				button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
+				button.textContent = documento;
+				button.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos_empresa").append(button);
+			}
+		}
+		$("#body_empresa").show();
 	}
 	$("#spinner_cliente").hide();
 };
@@ -70,51 +99,39 @@ const buscarConductor = async (rut_conductor) => {
 		$("#inputNombreConductor").val(conductor.nombre_conductor);
 		$("#inputNumeroConductor").val(conductor.numero_conductor);
 		$("#inputRutConductor").val(conductor.rut_conductor);
-		$("#inputTelefonoConductor").val("+569 " + conductor.telefono_conductor);
-		$("#inputVCTOconductor").val(
-			conductor.vcto_conductor ? formatearFecha(conductor.vcto_conductor) : ""
-		);
-		$("#form_conductor").show();
+		$("#inputTelefonoConductor").val(conductor.telefono_conductor);
+		$("#inputVCTOConductor").val(moment(conductor.vcto_conductor ? conductor.vcto_conductor : null).format("YYYY/MM/DD"));
+		//carga los documentos
+		if (conductor.documentosConductore) {
+			const docs = conductor.documentosConductore;
+			for (const documento in docs) {
+				const button = document.createElement("button");
+				button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
+				button.textContent = documento;
+				button.className = "badge badge-pill badge-info m-1";
+				document.getElementById("card_documentos_conductor").append(button);
+			}
+		}
+		$("#body_conductor").show();
 	}
 	$("#spinner_cliente").hide();
 };
 
 const limpiarCampos = () => {
-	$("#form_cliente").hide();
-	$("#form_empresa").hide();
-	$("#form_conductor").hide();
 	$("#spinner_cliente").show();
 	$("#form_header").text("");
-
-	$("#inputNombreCliente").val("");
-	$("#inputRutCliente").val("");
-	$("#inputEstadoCivilCliente").val("");
-	$("#inputNacimientoCliente").val("");
-	$("#inputCorreoCliente").val("");
-	$("#inputCiudadCliente").val("");
-	$("#inputDireccionCliente").val("");
-	$("#inputTelefonoCliente").val("");
-	$("#inputCreateAtCliente").val("");
-
-	$("#inputCiudadEmpresa").val("");
-	$("#inputCorreoEmpresa").val("");
-	$("#inputCreateAtEmpresa").val("");
-	$("#inputDireccionEmpresa").val("");
-	$("#inputNombreEmpresa").val("");
-	$("#inputRolEmpresa").val("");
-	$("#inputRutEmpresa").val("");
-	$("#inputTelefonoEmpresa").val("");
-	$("#inputVigenciaEmpresa").val("");
-
-	$("#inputClaseConductor").val("");
-	$("#inputCreateAtConductor").val("");
-	$("#inputDireccionConductor").val("");
-	$("#inputMunicipalidadConductor").val("");
-	$("#inputNombreConductor").val("");
-	$("#inputNumeroConductor").val("");
-	$("#inputRutConductor").val("");
-	$("#inputTelefonoConductor").val("");
-	$("#inputVCTOconductor").val("");
+	$("#card_documentos_cliente").empty();
+	$("#card_documentos_conductor").empty();
+	$("#card_documentos_empresa").empty();
+	$("#form_editar_cliente")[0].reset();
+	$("#form_editar_conductor")[0].reset();
+	$("#form_editar_empresa")[0].reset();
+	$("#body_cliente").hide();
+	$("#body_conductor").hide();
+	$("#body_empresa").hide();
+	$("#spinner_btn_editar_cliente").hide();
+	$("#spinner_btn_editar_empresa").hide();
+	$("#spinner_btn_editar_conductor").hide();
 };
 
 //----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
@@ -128,6 +145,8 @@ $(document).ready(() => {
 	cargarComunas("inputComunaCliente", "inputCiudadCliente");
 
 	cargarComunas("inputComunaEmpresa", "inputCiudadEmpresa");
+
+	cargarOlder("inputVigenciaEmpresa");
 
 
 	$("#nav-clientes-tab").click(() => refrescarTablaCliente());
@@ -154,7 +173,95 @@ $(document).ready(() => {
 		cargarConductores();
 	};
 
-	(cargarClientes = async () => {
+
+
+
+
+
+
+	$("#btn_editar_cliente").click(() => {
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de guardar los cambios!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#spinner_btn_editar_cliente").show();
+				$("#btn_editar_cliente").attr("disabled", true);
+				const form = $("#form_editar_cliente")[0];
+				const data = new FormData(form);
+				data.append("inputRutCliente", $("#inputRutCliente").val())
+				const response = await ajax_function(data, "modificar_cliente");
+				$("#btn_editar_cliente").attr("disabled", false);
+				$("#spinner_btn_editar_cliente").hide();
+				$("#modal_ver").modal("toggle");
+				Swal.fire("registro actualizado", response.msg, "success");
+				refrescarTablaCliente();
+			}
+		});
+	})
+
+	$("#btn_editar_empresa").click(() => {
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de guardar los cambios!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#spinner_btn_editar_empresa").show();
+				$("#btn_editar_empresa").attr("disabled", true);
+				const form = $("#form_editar_empresa")[0];
+				const data = new FormData(form);
+				data.append("inputRutEmpresa", $("#inputRutEmpresa").val())
+				const response = await ajax_function(data, "modificar_empresa");
+				$("#btn_editar_empresa").attr("disabled", false);
+				$("#spinner_btn_editar_empresa").hide();
+				$("#modal_ver").modal("toggle");
+				Swal.fire("registro actualizado", response.msg, "success");
+				refrescarTablaEmpresa();
+			}
+		});
+	})
+
+	$("#btn_editar_conductor").click(() => {
+		Swal.fire({
+			title: "Estas seguro?",
+			text: "estas a punto de guardar los cambios!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Si, seguro",
+			cancelButtonText: "No, cancelar!",
+			reverseButtons: true,
+		}).then(async (result) => {
+			if (result.isConfirmed) {
+				$("#spinner_btn_editar_conductor").show();
+				$("#btn_editar_conductor").attr("disabled", true);
+				const form = $("#form_editar_conductor")[0];
+				const data = new FormData(form);
+				data.append("inputRutConductor", $("#inputRutConductor").val())
+				const response = await ajax_function(data, "modificar_conductor");
+				$("#btn_editar_conductor").attr("disabled", false);
+				$("#spinner_btn_editar_conductor").hide();
+				$("#modal_ver").modal("toggle");
+				Swal.fire("registro actualizado", response.msg, "success");
+				refrescarTablaConductor();
+			}
+		});
+	})
+
+
+
+
+
+	const cargarClientes = async () => {
 		$("#spinner_tablaClientes").show();
 		const response = await ajax_function(null, "cargar_clientes");
 		if (response.success) {
@@ -175,7 +282,8 @@ $(document).ready(() => {
 			});
 		}
 		$("#spinner_tablaClientes").hide();
-	})();
+	}
+	cargarClientes();
 
 	const cargarEmpresas = async () => {
 		$("#spinner_tablaEmpresas").show();
@@ -222,4 +330,10 @@ $(document).ready(() => {
 		}
 		$("#spinner_tablaConductores").hide();
 	};
+
+
+
+
+
+
 });

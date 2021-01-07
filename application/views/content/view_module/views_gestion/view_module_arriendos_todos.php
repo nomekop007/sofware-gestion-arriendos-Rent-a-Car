@@ -15,7 +15,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <th>Cliente</th>
                     <th>tipo arriendo</th>
                     <th>estado</th>
-                    <th>usuario</th>
+                    <th>sucursal</th>
                     <th></th>
                 </tr>
             </thead>
@@ -28,7 +28,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <th>Cliente</th>
                     <th>tipo arriendo</th>
                     <th>estado</th>
-                    <th>usuario</th>
+                    <th>sucursal</th>
                     <th></th>
                 </tr>
             </tfoot>
@@ -473,17 +473,18 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     oninput="this.value = soloNumeros(this) ;calcularValores()" required>
                             </div>
                             <div class="form-group ">
-                                <label for="inputNeto">Total neto</label>
+                                <label for="inputNeto">Total neto</label> <span id="lb_neto"></span>
                                 <input min="0" value="0" type="number" class="form-control" id="inputNeto"
                                     maxLength="11" name="inputNeto" oninput="calcularValores()" required>
                             </div>
                             <div class="form-group ">
-                                <label for="inputIVA">Iva</label>
+                                <label for="inputIVA">Iva</label> <span id="lb_iva"></span>
                                 <input min="0" value="0" type="number" class="form-control" id="inputIVA" maxLength="11"
                                     name="inputIVA" oninput="calcularValores()" required>
                             </div>
                             <div class="form-group ">
-                                <label for="inputTotal" class="font-weight-bold">Total a pagar </label>
+                                <label for="inputTotal" class="font-weight-bold">Total a pagar </label> <span
+                                    id="lb_total"></span>
                                 <input min="0" value="0" type="number" class="form-control font-weight-bold"
                                     id="inputTotal" maxLength="11" name="inputTotal" oninput="calcularValores()"
                                     required>

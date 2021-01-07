@@ -1,6 +1,5 @@
 <?php
 
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Empresa_controller extends CI_Controller
@@ -9,7 +8,6 @@ class Empresa_controller extends CI_Controller
     {
         echo get_function("empresas/cargarEmpresas");
     }
-
 
     public function buscarEmpresa()
     {
@@ -32,5 +30,21 @@ class Empresa_controller extends CI_Controller
 
         ];
         echo post_function($arrayData, "empresas/registrarEmpresa");
+    }
+
+    public function modificarEmpresa()
+    {
+        $rut_empresa = $this->input->post("inputRutEmpresa");
+        $arrayData = [
+            "nombre_empresa" => $this->input->post("inputNombreEmpresa"),
+            "rol_empresa" => $this->input->post("inputRolEmpresa"),
+            "vigencia_empresa" => $this->input->post("inputVigenciaEmpresa"),
+            "direccion_empresa" => $this->input->post("inputDireccionEmpresa"),
+            "correo_empresa" => $this->input->post("inputCorreoEmpresa"),
+            "comuna_empresa" => $this->input->post("inputComunaEmpresa"),
+            "ciudad_empresa" => $this->input->post("inputCiudadEmpresa"),
+            "telefono_empresa" => $this->input->post("inputTelefonoEmpresa"),
+        ];
+        echo put_function($rut_empresa, $arrayData, "empresas/editarEmpresa");
     }
 }
