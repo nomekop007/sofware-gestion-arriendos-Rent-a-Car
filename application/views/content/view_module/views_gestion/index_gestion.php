@@ -12,14 +12,17 @@
                 <img style="width:30%;margin: 40px" src="<?php echo base_route() ?>assets/images/logo.png" />
             </div>
         </div>
-        <div hidden class="card  text-success">
+        <div class="card  text-success">
             <div class="m-4">
                 <h4>Sistema actualizado!</h4>
                 <span>Cambios realizados:</span>
-                <li>Se modifico la interfaz de la ventana mostrar arriendo</li>
-                <li>Se agrego validacion de los archivos requeridos (garantia,documentos) en mostrar arriendo</li>
-                <li>Se modifico la interfaz del pago de los arriendos </li>
-                <li>se agrego nuevo modulo gestion de daños de vehiculos</li>
+                <li>Se cambio el modulo "gestion vehiculo" y se translado a modulo atencion</li>
+                <li>Se agregaron los campos NºGps y Nº Tab al modulo gestion de vehiculo</li>
+                <li>Se agrego la funcionalidad de modificar los datos de los clientes , en modulo gestion clientes</li>
+                <li>Se agrego la funcionalidad de modificar los documentos subidos de los clientes , en modulo gestion
+                    clientes</li>
+                <li>se agrego los campos de subida de archivos (estatuto , rol , vigencia ,carta autorizacion y carpeta
+                    tributario) para empresas en ver arriendos </li>
             </div>
         </div>
         <div id="card_alertas"></div>
