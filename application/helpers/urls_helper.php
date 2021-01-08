@@ -12,8 +12,7 @@ function base_route()
 
 function client_url()
 {
-    $token = $_SESSION["usertoken"];
-    return "http://localhost:4200/#/auth/" . $token;
+    return "http://localhost:4200/#/auth/" . $_SESSION["usertoken"];
 }
 
 function path_cert()

@@ -4,18 +4,17 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=1">Gestion</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Despacho</li>
+                <li class="breadcrumb-item active" aria-current="page">Despacho y recepcion</li>
             </ol>
         </nav>
-        <h1 class="h3">Gestion Despachos</h1>
+        <h1 class="h3">Gestion Despachos y recepcion</h1>
     </div>
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-link active" id="nav-despachos-tab" data-toggle="tab" href="#nav-despachos" role="tab"
-                aria-controls="nav-despachos" aria-selected="true">Control de despacho </a>
+                aria-controls="nav-despachos" aria-selected="true">Control de despacho</a>
             <a class="nav-link" id="nav-activos-tab" data-toggle="tab" href="#nav-activos" role="tab"
-                aria-controls="nav-activos" aria-selected="false">Arriendos activos</a>
+                aria-controls="nav-activos" aria-selected="false">Control de recepcion</a>
         </div>
     </nav>
-
     <div class="tab-content" id="nav-tabContent">

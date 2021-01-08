@@ -46,5 +46,13 @@ class Empresa_controller extends CI_Controller
             "telefono_empresa" => $this->input->post("inputTelefonoEmpresa"),
         ];
         echo put_function($rut_empresa, $arrayData, "empresas/editarEmpresa");
-    }
+	}
+	
+	public function editarArchivosEmpresa()
+	{
+        $rut_empresa = $this->input->post("inputRutEmpresa");
+		$arrayInput = ["inputCarnetFrontalEmpresa","inputCarnetTraseraEmpresa","inputEstatuto","inputDocumentotRol","inputDocumentoVigencia"];
+        $arrayData = recorrerFicheros($arrayInput);
+		echo file_function($rut_empresa, $arrayData, "empresas/editarArchivos");
+	}
 }

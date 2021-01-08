@@ -1,3 +1,8 @@
+<?php
+$rol = $this->session->userdata("rol");
+?>
+
+
 <main role="main" class=" col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -28,8 +33,9 @@
                     <table id="tablaClientes" class="table table-striped table-bordered" style="width:100%">
                         <thead class="btn-dark">
                             <tr>
-                                <th>Nombre</th>
                                 <th>Rut</th>
+                                <th>Nombre</th>
+                                <th>Nacionalidad</th>
                                 <th>telefono</th>
                                 <th>Correo</th>
                                 <th></th>
@@ -40,8 +46,9 @@
                         </tbody>
                         <tfoot class="btn-dark">
                             <tr>
-                                <th>Nombre</th>
                                 <th>Rut</th>
+                                <th>Nombre</th>
+                                <th>Nacionalidad</th>
                                 <th>telefono</th>
                                 <th>Correo</th>
                                 <th></th>
@@ -60,12 +67,12 @@
             <div class="tab-pane fade" id="nav-empresas" role="tabpanel" aria-labelledby="nav-empresas-tab">
                 <div class="scroll">
                     <table id="tablaEmpresas" class="table table-striped table-bordered" style="width:100%">
-
                         <thead class="btn-dark">
                             <tr>
-                                <th>Nombre</th>
                                 <th>Rut</th>
+                                <th>Nombre</th>
                                 <th>Rol</th>
+                                <th>Telefono</th>
                                 <th>Correo</th>
                                 <th></th>
                             </tr>
@@ -75,9 +82,10 @@
                         </tbody>
                         <tfoot class="btn-dark">
                             <tr>
-                                <th>Nombre</th>
                                 <th>Rut</th>
+                                <th>Nombre</th>
                                 <th>Rol</th>
+                                <th>Telefono</th>
                                 <th>Correo</th>
                                 <th></th>
                             </tr>
@@ -97,8 +105,9 @@
                     <table id="tablaConductores" class="table table-striped table-bordered" style="width:100%">
                         <thead class="btn-dark">
                             <tr>
-                                <th>Nombre</th>
                                 <th>Rut</th>
+                                <th>Nombre</th>
+                                <th>Nacionalidad</th>
                                 <th>Clase</th>
                                 <th>telefono</th>
                                 <th></th>
@@ -109,8 +118,9 @@
                         </tbody>
                         <tfoot class="btn-dark">
                             <tr>
-                                <th>Nombre</th>
                                 <th>Rut</th>
+                                <th>Nombre</th>
+                                <th>Nacionalidad</th>
                                 <th>Clase</th>
                                 <th>telefono</th>
                                 <th></th>
@@ -229,6 +239,7 @@
                             <div id="card_documentos_cliente">
                             </div>
                             <br>
+                            <?php if ($rol == 1 || $rol == 2) {?>
                             <div class="card bg-light">
                                 <h6>Editar foto Carnet</h6>
                                 <div class="row text-center">
@@ -251,7 +262,7 @@
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                                     id="spinner_btn_editar_cliente"></span>
                                 Editar cliente</button>
-
+                            <?php }?>
                         </div>
                     </div>
             </div>
@@ -263,8 +274,8 @@
                             <div class="form-row">
                                 <div class="form-group col-lg-6">
                                     <label for="inputNombreEmpresa">Nombre Empresa</label>
-                                    <input type="text" class="form-control" name="inputNombreEmpresa"
-                                        id="inputNombreEmpresa">
+                                    <input type="text" onblur="mayus(this);" class="form-control"
+                                        name="inputNombreEmpresa" id="inputNombreEmpresa">
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="inputRutEmpresa">Rut</label>
@@ -272,7 +283,8 @@
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="inputRolEmpresa">Rol</label>
-                                    <input type="text" class="form-control" name="inputRolEmpresa" id="inputRolEmpresa">
+                                    <input type="text" onblur="mayus(this);" class="form-control" name="inputRolEmpresa"
+                                        id="inputRolEmpresa">
                                 </div>
                                 <div class="form-group col-lg-2">
                                     <label for="inputVigenciaEmpresa">Vigencia</label>
@@ -282,13 +294,13 @@
                                 </div>
                                 <div class="form-group col-lg-5">
                                     <label for="inputDireccionEmpresa">Direccion</label>
-                                    <input type="text" class="form-control" name="inputDireccionEmpresa"
-                                        id="inputDireccionEmpresa">
+                                    <input type="text" class="form-control" onblur="mayus(this);"
+                                        name="inputDireccionEmpresa" id="inputDireccionEmpresa">
                                 </div>
                                 <div class="form-group col-lg-5">
                                     <label for="inputCorreoEmpresa">Correo</label>
-                                    <input type="text" class="form-control" name="inputCorreoEmpresa"
-                                        id="inputCorreoEmpresa">
+                                    <input type="text" class="form-control" onblur="mayus(this);"
+                                        name="inputCorreoEmpresa" id="inputCorreoEmpresa">
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="inputComunaEmpresa">Comuna / Region </label>
@@ -321,6 +333,7 @@
                             <div id="card_documentos_empresa">
                             </div>
                             <br>
+                            <?php if ($rol == 1 || $rol == 2) {?>
                             <div class="card bg-light">
                                 <h6>Editar foto Carnet</h6>
                                 <div class="row text-center">
@@ -339,6 +352,7 @@
                                 </div>
                             </div>
                             <br><br>
+
                             <div class="form-row">
                                 <div class="form-group col-xl-6">
                                     <h6 for="inputEstatuto">Editar documento estatuto</h6>
@@ -367,6 +381,7 @@
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                                     id="spinner_btn_editar_empresa"></span>
                                 Editar empresa</button>
+                            <?php }?>
                         </div>
                     </div>
             </div>
@@ -378,8 +393,8 @@
                             <div class="form-row">
                                 <div class="form-group col-lg-6">
                                     <label for="inputNombreConductor">Nombre Completo</label>
-                                    <input type="text" class="form-control" name="inputNombreConductor"
-                                        id="inputNombreConductor">
+                                    <input type="text" class="form-control" onblur="mayus(this);"
+                                        name="inputNombreConductor" id="inputNombreConductor">
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="inputRutConductor">Rut</label>
@@ -402,14 +417,14 @@
                                             <span class="input-group-text">+569</span>
                                         </div>
                                         <input oninput="this.value = soloNumeros(this)" maxLength="8" type="number"
-                                            class="form-control" id="inputTelefonoConductor"
+                                            class="form-control" onblur="mayus(this);" id="inputTelefonoConductor"
                                             name="inputTelefonoConductor" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-lg-5">
                                     <label for="inputDireccionConductor">Direccion</label>
-                                    <input type="text" class="form-control" name="inputDireccionConductor"
-                                        id="inputDireccionConductor">
+                                    <input type="text" class="form-control" onblur="mayus(this);"
+                                        name="inputDireccionConductor" id="inputDireccionConductor">
                                 </div>
                                 <div class="form-group col-lg-3">
                                     <label for="inputClaseConductor">Clase licencia</label>
@@ -430,19 +445,19 @@
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label for="inputNumeroConductor">Numero serie</label>
-                                    <input type="text" class="form-control" name="inputNumeroConductor"
-                                        id="inputNumeroConductor">
+                                    <input type="text" class="form-control" onblur="mayus(this);"
+                                        name="inputNumeroConductor" id="inputNumeroConductor">
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label for="inputVCTOconductor">VCTO licencia</label>
-                                    <input type="text" class="form-control input_data" name="inputVCTOConductor"
-                                        id="inputVCTOConductor" required />
+                                    <input type="text" onblur="mayus(this);" class="form-control input_data"
+                                        name="inputVCTOConductor" id="inputVCTOConductor" required />
 
                                 </div>
                                 <div class="form-group col-lg-4">
                                     <label for="inputMunicipalidadConductor">Municipalidad</label>
-                                    <input type="text" class="form-control" name="inputMunicipalidadConductor"
-                                        id="inputMunicipalidadConductor">
+                                    <input type="text" class="form-control" onblur="mayus(this);"
+                                        name="inputMunicipalidadConductor" id="inputMunicipalidadConductor">
                                 </div>
                                 <div class="form-group col-lg-5">
                                     <label for="inputCreateAtConductor">Registrado el</label>
@@ -453,6 +468,7 @@
                             <div id="card_documentos_conductor">
                             </div>
                             <br>
+                            <?php if ($rol == 1 || $rol == 2) {?>
                             <div class="card bg-light">
                                 <h6>Editar foto licencia de conducir</h6>
                                 <div class="row text-center">
@@ -475,6 +491,7 @@
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
                                     id="spinner_btn_editar_conductor"></span>
                                 Editar conductor</button>
+                            <?php }?>
                         </div>
                     </div>
             </div>
@@ -486,5 +503,6 @@
 
 <!-- importando archivo js vehiculos -->
 <script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_clientes.js?v=<?php echo version(); ?>"></script>
+
 
 <script src="<?php echo base_route() ?>assets/js/comunaCiudad.js?v=<?php echo version(); ?>"></script>

@@ -14,7 +14,7 @@ $rol = $this->session->userdata("rol");
                 <br>
                 <a id="m_cliente" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=1">
                     <i class="fas fa-address-book "></i>
-                    Gestion Clientes
+                    Gestion de Clientes
                 </a>
                 <br>
             </li>
@@ -24,7 +24,7 @@ $rol = $this->session->userdata("rol");
                 <br>
                 <a id="m_arriendo" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=2">
                     <i class="fas fa-file-signature"></i>
-                    Gestion Arriendo
+                    Registro y gestion de Arriendo
                 </a>
                 <br>
             </li>
@@ -35,7 +35,7 @@ $rol = $this->session->userdata("rol");
                 <br>
                 <a id="m_despacho" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=3">
                     <i class="fas fa-concierge-bell"></i>
-                    Gestion despacho
+                    Gestion despacho y recepcion
                 </a>
                 <br>
             </li>

@@ -30,7 +30,6 @@ class Cliente_controller extends CI_Controller
             "nacionalidad_cliente" => $this->input->post("inputNacionalidadCliente"),
             "comuna_cliente" => $this->input->post("inputComunaCliente"),
         ];
-
         echo post_function($arrayData, "clientes/registrarCliente");
     }
 
@@ -50,4 +49,13 @@ class Cliente_controller extends CI_Controller
         ];
         echo put_function($rut_cliente, $arrayData, "clientes/editarCliente");
     }
+
+    public function editarArchivosCliente()
+    {
+        $rut_cliente = $this->input->post("inputRutCliente");
+		$arrayInput = ["inputCarnetTraseraCliente","inputCarnetFrontalCliente"];
+        $arrayData = recorrerFicheros($arrayInput);
+        echo file_function($rut_cliente, $arrayData, "clientes/editarArchivos");
+    }
+
 }

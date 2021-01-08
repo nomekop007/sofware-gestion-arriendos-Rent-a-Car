@@ -31,11 +31,13 @@ const buscarCliente = async (rut_cliente) => {
 		if (cliente.documentosCliente) {
 			const docs = cliente.documentosCliente;
 			for (const documento in docs) {
+				if (docs[documento]) {
 				const button = document.createElement("button");
 				button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
 				button.textContent = documento;
 				button.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos_cliente").append(button);
+				}
 			}
 		}
 		$("#body_cliente").show();
@@ -71,11 +73,13 @@ const buscarEmpresa = async (rut_empresa) => {
 		if (empresa.documentosEmpresa) {
 			const docs = empresa.documentosEmpresa;
 			for (const documento in docs) {
-				const button = document.createElement("button");
-				button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
-				button.textContent = documento;
-				button.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos_empresa").append(button);
+				if (docs[documento]) {
+					const button = document.createElement("button");
+					button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
+					button.textContent = documento;
+					button.className = "badge badge-pill badge-info m-1";
+					document.getElementById("card_documentos_empresa").append(button);
+				}
 			}
 		}
 		$("#body_empresa").show();
@@ -105,11 +109,13 @@ const buscarConductor = async (rut_conductor) => {
 		if (conductor.documentosConductore) {
 			const docs = conductor.documentosConductore;
 			for (const documento in docs) {
+				if (docs[documento]) {
 				const button = document.createElement("button");
 				button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
 				button.textContent = documento;
 				button.className = "badge badge-pill badge-info m-1";
 				document.getElementById("card_documentos_conductor").append(button);
+				}
 			}
 		}
 		$("#body_conductor").show();
@@ -196,11 +202,14 @@ $(document).ready(() => {
 				const data = new FormData(form);
 				data.append("inputRutCliente", $("#inputRutCliente").val())
 				const response = await ajax_function(data, "modificar_cliente");
-				$("#btn_editar_cliente").attr("disabled", false);
-				$("#spinner_btn_editar_cliente").hide();
-				$("#modal_ver").modal("toggle");
-				Swal.fire("registro actualizado", response.msg, "success");
-				refrescarTablaCliente();
+				if (response.success) {
+					await editarArchivoCliente(data);
+					$("#btn_editar_cliente").attr("disabled", false);
+					$("#spinner_btn_editar_cliente").hide();
+					$("#modal_ver").modal("toggle");
+					Swal.fire("registro actualizado", response.msg, "success");
+					refrescarTablaCliente();
+				}
 			}
 		});
 	})
@@ -222,11 +231,14 @@ $(document).ready(() => {
 				const data = new FormData(form);
 				data.append("inputRutEmpresa", $("#inputRutEmpresa").val())
 				const response = await ajax_function(data, "modificar_empresa");
-				$("#btn_editar_empresa").attr("disabled", false);
-				$("#spinner_btn_editar_empresa").hide();
-				$("#modal_ver").modal("toggle");
-				Swal.fire("registro actualizado", response.msg, "success");
-				refrescarTablaEmpresa();
+				if (response.success) {
+					await editarArchivoEmpresa(data);
+					$("#btn_editar_empresa").attr("disabled", false);
+					$("#spinner_btn_editar_empresa").hide();
+					$("#modal_ver").modal("toggle");
+					Swal.fire("registro actualizado", response.msg, "success");
+					refrescarTablaEmpresa();
+				}
 			}
 		});
 	})
@@ -248,16 +260,41 @@ $(document).ready(() => {
 				const data = new FormData(form);
 				data.append("inputRutConductor", $("#inputRutConductor").val())
 				const response = await ajax_function(data, "modificar_conductor");
-				$("#btn_editar_conductor").attr("disabled", false);
-				$("#spinner_btn_editar_conductor").hide();
-				$("#modal_ver").modal("toggle");
-				Swal.fire("registro actualizado", response.msg, "success");
-				refrescarTablaConductor();
+				if (response.success) {
+					await editarArchivoConductor(data);
+					$("#btn_editar_conductor").attr("disabled", false);
+					$("#spinner_btn_editar_conductor").hide();
+					$("#modal_ver").modal("toggle");
+					Swal.fire("registro actualizado", response.msg, "success");
+					refrescarTablaConductor();
+				}
+
 			}
 		});
 	})
 
 
+	const editarArchivoCliente = async (data) => {
+		if ($("#inputCarnetTraseraCliente").val().length != 0 || $("#inputCarnetFrontalCliente").val().length != 0) {
+		 await ajax_function(data, "editarArchivos_cliente");
+		}
+	}
+
+	const editarArchivoEmpresa = async (data) => {
+		if ($("#inputCarnetFrontalEmpresa").val().length != 0 ||
+			$("#inputCarnetTraseraEmpresa").val().length != 0 ||
+			$("#inputEstatuto").val().length != 0 ||
+			$("#inputDocumentotRol").val().length != 0 ||
+			$("#inputDocumentoVigencia").val().length != 0) {
+			 await ajax_function(data, "editarArchivos_empresa");
+		}
+	}
+
+	const editarArchivoConductor = async (data) => {
+		if ($("#inputlicenciaFrontalConductor").val().length != 0 || $("#inputlicenciaTraseraConductor").val().length != 0) {
+			 await ajax_function(data, "editarArchivos_conductor");
+		}
+	}
 
 
 
@@ -269,8 +306,9 @@ $(document).ready(() => {
 				try {
 					tablaCliente.row
 						.add([
-							o.nombre_cliente,
 							o.rut_cliente,
+							o.nombre_cliente,
+							o.nacionalidad_cliente,
 							"+569 " + o.telefono_cliente,
 							o.correo_cliente,
 							` <button value="${o.rut_cliente}"` +
@@ -293,9 +331,10 @@ $(document).ready(() => {
 				try {
 					tablaEmpresa.row
 						.add([
-							o.nombre_empresa,
 							o.rut_empresa,
+							o.nombre_empresa,
 							o.rol_empresa,
+							"+569 " + o.telefono_empresa,
 							o.correo_empresa,
 							` <button value="${o.rut_empresa}"` +
 							" onclick='buscarEmpresa(this.value)'" +
@@ -316,8 +355,9 @@ $(document).ready(() => {
 				try {
 					tablaConductor.row
 						.add([
-							o.nombre_conductor,
 							o.rut_conductor,
+							o.nombre_conductor,
+							o.nacionalidad_conductor,
 							o.clase_conductor,
 							"+569 " + o.telefono_conductor,
 							` <button value="${o.rut_conductor}"` +

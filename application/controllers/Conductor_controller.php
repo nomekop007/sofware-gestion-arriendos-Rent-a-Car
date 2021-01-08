@@ -45,5 +45,13 @@ class Conductor_controller extends CI_Controller
             "municipalidad_conductor" => $this->input->post("inputMunicipalidadConductor"),
         ];
         echo put_function($rut_conductor, $arrayData, "conductores/editarConductor");
-    }
+	}
+	
+	public function editarArchivosConductor()
+	{
+		$rut_conductor = $this->input->post('inputRutConductor');
+		$arrayInput = ["inputlicenciaFrontalConductor","inputlicenciaTraseraConductor"];
+		$arrayData = recorrerFicheros($arrayInput);   
+        echo file_function($rut_conductor, $arrayData, "conductores/editarArchivos");
+	}
 }
