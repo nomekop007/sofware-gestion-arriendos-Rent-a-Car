@@ -10,8 +10,8 @@
                 modulos
             </button>
             <div class="dropdown-menu " aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="<?php echo base_url(); ?>cargar_panel?panel=1">Modulos Gestion</a>
-                <a class="dropdown-item" href="<?php echo base_url(); ?>cargar_panel?panel=2"> Modulos Atencion</a>
+                <a class="dropdown-item" href="<?php echo base_url(); ?>cargar_panel?panel=1">Modulos Atencion</a>
+                <a class="dropdown-item" href="<?php echo base_url(); ?>cargar_panel?panel=2"> Modulos Gestion</a>
                 <a class="dropdown-item" href="<?php echo client_url() ?>">
                     Modulos
                     Administracion

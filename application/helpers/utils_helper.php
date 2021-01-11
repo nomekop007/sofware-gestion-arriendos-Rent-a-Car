@@ -34,5 +34,5 @@ function borrarImagenes($arrayPath)
 function version()
 {
     // return time();
-    return 71;
+    return 72;
 }
