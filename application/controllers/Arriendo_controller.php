@@ -97,6 +97,7 @@ class Arriendo_controller extends CI_Controller
             $idArriendo = $this->input->post("id_arriendo");
             $ArrayData = [
                 "estado_arriendo" => "EXTENDIDO",
+                "fechaEntrega_arriendo" => $this->input->post("fechaEntrega"),
                 "fechaRecepcion_arriendo" => $this->input->post("inputFechaExtender_extenderPlazo"),
                 "diasActuales_arriendo" => $this->input->post("diasActuales"),
                 "diasAcumulados_arriendo" => $this->input->post("diasAcumulados"),

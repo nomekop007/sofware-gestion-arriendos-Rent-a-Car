@@ -3,8 +3,6 @@ const array_id_pagos = [];
 let totalAPagar_arriendo = 0;
 
 
-
-
 const calcularDiasExtencion = () => {
 	let fechaRecepcion = $("#inputFechaRecepcion_extenderPlazo").val();
 	let fechaExtender = $("#inputFechaExtender_extenderPlazo").val();
@@ -258,6 +256,7 @@ $(document).ready(() => {
 				const data = new FormData(form);
 				data.append("diasActuales", Number(diasExtendidos));
 				data.append("diasAcumulados", Number(diasActuales) + Number(diasExtendidos));
+				data.append("fechaEntrega", $("#inputFechaRecepcion_extenderPlazo").val())
 				const response = await extenderContrato(data);
 				if (response.success) {
 					refrescarTablaActivos();
