@@ -38,7 +38,7 @@ class Sesion_controller extends CI_Controller
         if ($this->session->userdata("estado") === "true") {
             $this->load->view("templates/header");
             $this->load->view("content/navbars/navbar");
-
+            $this->load->view("content/navbars/alert");
             $opcion = $_GET["panel"];
 
             switch ($opcion) {

@@ -12,6 +12,7 @@ class Modulo_controller extends CI_Controller
         if ($this->session->userdata("estado") === "true") {
             $this->load->view("templates/header");
             $this->load->view("content/navbars/navbar");
+            $this->load->view("content/navbars/alert");
             $this->load->view("content/sidebars/sidebar_gestion");
 
             $opcion = $_GET["modulo"];
@@ -71,6 +72,7 @@ class Modulo_controller extends CI_Controller
         if ($this->session->userdata("estado") === "true") {
             $this->load->view("templates/header");
             $this->load->view("content/navbars/navbar");
+            $this->load->view("content/navbars/alert");
             $this->load->view("content/sidebars/sidebar_atencion");
 
             $opcion = $_GET["modulo"];

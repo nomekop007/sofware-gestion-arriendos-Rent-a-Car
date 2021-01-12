@@ -25,10 +25,12 @@
                     tributario) para empresas en ver arriendos </li>
             </div>
         </div>
+        <br><br><br>
         <div id="card_alertas"></div>
     </div>
     </div>
     <br><br>
+
 </main>
 
 

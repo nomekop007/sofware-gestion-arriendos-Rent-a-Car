@@ -86,12 +86,11 @@ $nombreUsuario = $this->session->userdata('nombre')
                         </div>
                         <div class="form-group col-lg-4">
                             <label for="inputEditarVehiculoArriendo">Vehiculo</label>
-                            <select class="custom-select " id="inputEditarVehiculoArriendo"
+                            <select disabled class="custom-select " id="inputEditarVehiculoArriendo"
                                 name="inputEditarVehiculoArriendo" style="width: 100%;"
                                 aria-label="Example select with button addon">
                             </select>
                         </div>
-
                         <div class="form-group col-lg-2">
                             <label for="inputEditarCiudadEntregaArriendo">sucursal entrega</label>
                             <input disabled type="text" class="form-control" name="inputEditarCiudadEntregaArriendo"

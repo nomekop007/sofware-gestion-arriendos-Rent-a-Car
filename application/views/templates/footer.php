@@ -7,8 +7,11 @@
 <!-- importacion sweetalert2 -->
 <script src="<?php echo base_route() ?>assets/js/sweetalert2.all.min.js"></script>
 
+
+
 <!-- importacion owl.carousel -->
 <script src="<?php echo base_route() ?>assets/js/owl.carousel.min.js"></script>
+
 
 
 <!-- importacion input datatime -->
@@ -26,12 +29,8 @@
     integrity="sha512-Z8CqofpIcnJN80feS2uccz+pXWgZzeKxDsDNMD/dJ6997/LSRY+W4NmEt9acwR+Gt9OHN0kkI1CTianCwoqcjQ=="
     crossorigin="anonymous"></script>
 
-
-
-
-
-</script>
-
 </body>
+
+
 
 </html>
