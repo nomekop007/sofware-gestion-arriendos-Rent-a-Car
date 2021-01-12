@@ -422,12 +422,8 @@ $(document).ready(() => {
 				data.append("id_arriendo", $("#id_arriendo_recepcion").val());
 				data.append("estado", "FINALIZADO");
 
-
-
 				const responseDescuento = await descuentoPago(data);
 				if (responseDescuento.success) {
-
-
 					if ($("#inputFileFacturacion").val().length != 0) {
 						const responseFactura = await guardarDatosFactura(data);
 						if (responseFactura.success) {
@@ -435,7 +431,6 @@ $(document).ready(() => {
 							await guardarDocumentoFactura(data);
 						}
 					}
-
 					const responsePago = await actualizarPagos(data);
 					if (responsePago.success) {
 						await cambiarEstadoArriendo(data);
@@ -523,7 +518,6 @@ $(document).ready(() => {
 			let base64str = array[i].split('base64,')[1];
 			let decoded = atob(base64str);
 			items += `<div class="item"><img src="${array[i]}" /> <span>${decoded.length} kB </span></div>`;
-
 		}
 		const html = `<div class="owl-carousel owl-theme" id="carruselVehiculos">${items}</div></div>`;
 		$("#carrucel_recepcion").html(html);
@@ -541,7 +535,6 @@ $(document).ready(() => {
 
 
 	const cambiarEstadoArriendo = async (data) => {
-
 		return await ajax_function(data, "cambiarEstado_arriendo");
 	};
 
