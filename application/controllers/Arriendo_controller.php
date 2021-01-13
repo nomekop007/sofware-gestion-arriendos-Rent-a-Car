@@ -112,11 +112,11 @@ class Arriendo_controller extends CI_Controller
 
     public function enviarCorreoAtraso()
     {
-        $params =[
+        $params = [
             "id_arriendo" => $this->input->post("id_arriendo"),
             "nombre_cliente" => $this->input->post("nombre_cliente"),
             "correo_cliente" => $this->input->post("correo_cliente")
         ];
-        echo get_function("arriendos/enviarCorreoAtraso",$params);
+        echo get_function("arriendos/enviarCorreoAtraso", $params);
     }
 }

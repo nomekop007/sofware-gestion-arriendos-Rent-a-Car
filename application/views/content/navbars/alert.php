@@ -188,18 +188,20 @@ $(document).ready(() => {
             cancelButtonText: "No, cancelar!",
             reverseButtons: true,
         }).then(async (result) => {
-            const data = new FormData();
-            data.append("id_arriendo", $("#alert_id_arriendo").text());
-            data.append("correo_cliente", $("#alert_correo_cliente").val())
-            data.append("nombre_cliente", $("#alert_nombre_cliente").val())
-            const response = await ajax_function(data, "enviarCorreo_alertaArriendo");
-            if (response.success) {
-                Swal.fire(
-                    "correo enviado con exito!",
-                    "se envio un correo al usuario avisando sobre el estado de su arriendo",
-                    "success"
-                )
-                $("#modalAlert").modal("toggle");
+            if (result.isConfirmed) {
+                const data = new FormData();
+                data.append("id_arriendo", $("#alert_id_arriendo").text());
+                data.append("correo_cliente", $("#alert_correo_cliente").val())
+                data.append("nombre_cliente", $("#alert_nombre_cliente").val())
+                const response = await ajax_function(data, "enviarCorreo_alertaArriendo");
+                if (response.success) {
+                    Swal.fire(
+                        "correo enviado con exito!",
+                        "se envio un correo al usuario avisando sobre el estado de su arriendo",
+                        "success"
+                    )
+                    $("#modalAlert").modal("toggle");
+                }
             }
         });
     })
