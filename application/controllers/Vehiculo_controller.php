@@ -84,24 +84,8 @@ class Vehiculo_controller extends CI_Controller
     public function guardarFotoVehiculo()
     {
         $patente = $this->input->post("inputPatente");
-        $file = 'inputFoto';
-        $config['upload_path'] = "temp_files/";
-        $config['allowed_types'] = "gif|jpg|jpeg|png";
-        $this->load->library('upload', $config);
-        if (!$this->upload->do_upload($file)) {
-            //*** ocurrio un error
-            echo json_encode(array("success" => false, "msg" => $this->upload->display_errors()));
-            return;
-        }
-        $img['uploadSuccess'] = $this->upload->data();
-        $datafile = [
-            [
-                'name' => 'foto_vehiculo',
-                'contents' => fopen($img['uploadSuccess']["full_path"], "r"),
-                'filename' => $img['uploadSuccess']["file_name"],
-            ],
-        ];
-        echo file_function($patente, $datafile, "vehiculos/cargarImagen");
-        unlink($img['uploadSuccess']["full_path"]); //elimina las imagenes
+        $arrayInput=["inputFoto"];
+        $arrayData = recorrerFicheros($arrayInput);
+        echo file_function($patente, $arrayData, "vehiculos/cargarImagen");
     }
 }

@@ -108,4 +108,15 @@ class Arriendo_controller extends CI_Controller
             echo json_encode(array("success" => false, "msg" => "no tienes los permisos necesarios para extender contrato"));
         }
     }
+
+
+    public function enviarCorreoAtraso()
+    {
+        $params =[
+            "id_arriendo" => $this->input->post("id_arriendo"),
+            "nombre_cliente" => $this->input->post("nombre_cliente"),
+            "correo_cliente" => $this->input->post("correo_cliente")
+        ];
+        echo get_function("arriendos/enviarCorreoAtraso",$params);
+    }
 }

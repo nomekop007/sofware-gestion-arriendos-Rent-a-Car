@@ -98,8 +98,8 @@ $route['buscar_arriendo'] = 'Arriendo_controller/buscarArriendo';
 $route['cambiarEstado_arriendo'] = 'Arriendo_controller/cambiarEstadoArriendo';
 $route['extender_arriendo'] = 'Arriendo_controller/extenderArriendo';
 $route['cargar_arriendosActivos'] = 'Arriendo_controller/cargarArriendosActivos';
+$route['enviarCorreo_alertaArriendo'] = 'Arriendo_controller/enviarCorreoAtraso';
 
-//
 
 /* rutas de controller ActaEntrega */
 $route['registrar_actaEntrega'] = 'ActaEntrega_controller/registrarActaEntrega';
@@ -133,6 +133,7 @@ $route['registrar_garantia'] = 'Garantia_controller/registrarGarantia';
 
 /* rutas de controller pagoDanio */
 $route['registrar_pagoDanio'] = 'PagoDanio_controller/registrarPagoDanio';
+
 /* rutas de controller danio */
 $route['registrar_danio_vehiculo'] = 'DanioVehiculo_controller/registrarDanioVehiculo';
 $route['revisar_danioVehiculo'] = 'DanioVehiculo_controller/revisarDanioVehiculo';

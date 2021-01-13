@@ -117,7 +117,6 @@ $(document).ready(() => {
     }
 
     const mostrarModalNotificacion = (arriendo) => {
-        console.log(arriendo)
         let nombreCliente = null;
         let rutCliente = null;
         let telefonoCliente = null;
@@ -165,10 +164,14 @@ $(document).ready(() => {
         $("#alert_vehiculo").html(
             `Vehiculo Patente: ${arriendo.patente_vehiculo} modelo : ${arriendo.vehiculo.marca_vehiculo} ${arriendo.vehiculo.modelo_vehiculo} ${arriendo.vehiculo.año_vehiculo}`
         );
-        $("#alert_nombre_cliente").html("Nombre : " + nombreCliente);
         $("#alert_rut_cliente").html("Rut : " + rutCliente);
         $("#alert_telefono_cliente").html("Telefono : +569 " + telefonoCliente);
+
+        $("#alert_nombre_cliente").html("Nombre : " + nombreCliente);
         $("#alert_correo_cliente").html("Correo : " + correoCliente);
+        $("#alert_nombre_cliente").val(nombreCliente);
+        $("#alert_correo_cliente").val(correoCliente);
+
         const inputTelefono = document.getElementById("alert_telefono_input_cliente");
         inputTelefono.href = "tel:+569" + telefonoCliente;
         inputTelefono.text = "Llamar cliente +569 " + telefonoCliente
@@ -187,7 +190,17 @@ $(document).ready(() => {
         }).then(async (result) => {
             const data = new FormData();
             data.append("id_arriendo", $("#alert_id_arriendo").text());
-            // const response = ajax_function(data, "enviarCorreo_alertaArriendo");
+            data.append("correo_cliente", $("#alert_correo_cliente").val())
+            data.append("nombre_cliente", $("#alert_nombre_cliente").val())
+            const response = await ajax_function(data, "enviarCorreo_alertaArriendo");
+            if (response.success) {
+                Swal.fire(
+                    "correo enviado con exito!",
+                    "se envio un correo al usuario avisando sobre el estado de su arriendo",
+                    "success"
+                )
+                $("#modalAlert").modal("toggle");
+            }
         });
     })
 
