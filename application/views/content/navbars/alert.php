@@ -39,10 +39,10 @@
                 <div class="card ">
                     <br>
                     <div class="form-row">
-                        <div class="form-group col-md-6 text-center">
+                        <div class="form-group col-lg-6 text-center">
                             <a class="btn btn-outline-info" id="alert_telefono_input_cliente">Llamar cliente </a>
                         </div>
-                        <div class="form-group col-md-6 text-center">
+                        <div class="form-group col-lg-6 text-center">
                             <button type="button" class="btn btn-outline-dark" id="alert_btn_enviar_correo">enviar
                                 correo autogenerado sobre vencimiento </button>
                         </div>

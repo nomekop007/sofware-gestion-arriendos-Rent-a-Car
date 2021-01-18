@@ -54,6 +54,8 @@
     <link rel="stylesheet" type="text/css"
         href="<?php echo base_route() ?>assets/css/myEstilo.css?v=<?php echo version(); ?>">
 
+    <!-- import alert -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 
     <!-- importaciones del jquery -->
@@ -64,10 +66,5 @@
     <script src="<?php echo base_route() ?>assets/js/funcionesAjax.js?v=<?php echo version(); ?>"></script>
     <script src="<?php echo base_route() ?>assets/js/utilidades.js?v=<?php echo version(); ?>"></script>
 
-    <!-- import alert -->
-    <!--    <link rel="stylesheet" src="<?php echo base_route() ?>assets/css/toastr.min.css"> -->
-    <!--     <script src="<?php echo base_route() ?>assets/js/toastr.min.js"></script>  -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 </head>
