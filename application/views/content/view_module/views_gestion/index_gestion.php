@@ -12,20 +12,22 @@
                 <img style="width:30%;margin: 40px" src="<?php echo base_route() ?>assets/images/logo.png" />
             </div>
         </div>
-        <div hidden class="card  text-success">
+        <div class="card  text-success">
             <div class="m-4">
-                <h4>Sistema actualizado!</h4>
+                <h2>SISTEMA ACTUALIZADO!</h2>
                 <span>Cambios realizados:</span>
-                <li>Se cambio el modulo "gestion vehiculo" y se translado a modulo atencion</li>
-                <li>Se agregaron los campos NºGps y Nº Tab al modulo gestion de vehiculo</li>
-                <li>Se agrego la funcionalidad de modificar los datos de los clientes , en modulo gestion clientes</li>
-                <li>Se agrego la funcionalidad de modificar los documentos subidos de los clientes , en modulo gestion
-                    clientes</li>
-                <li>se agrego los campos de subida de archivos (estatuto , rol , vigencia ,carta autorizacion y carpeta
-                    tributario) para empresas en ver arriendos </li>
+                <li>Se agrego nueva funcionalidad "Modificar arriendos" en el modulo administracion.</li>
+                <li>Se agregaron notificaciones push de los arriendos expirados.</li>
+                <li>Se agregaron una funcionalidad para llamar a los clientes con arriendo atrasados.</li>
+                <li>Se agregaron una funcionalidad para enviar correo autogenerado a los clientes con arriendo
+                    atrasados.
+                </li>
+
+
+
             </div>
         </div>
-        <br><br><br>
+        <br><br><br><br><br>
         <div id="card_alertas"></div>
     </div>
     </div>

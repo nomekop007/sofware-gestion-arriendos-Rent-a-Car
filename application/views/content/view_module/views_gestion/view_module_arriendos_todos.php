@@ -45,8 +45,7 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 <!-- Modal ver arriendo -->
-<div class="modal fade" id="modal_editar_arriendo" tabindex="-1" aria-labelledby="editarModal"
-    style="overflow-y: scroll;" aria-hidden="true">
+<div class="modal fade" id="modal_editar_arriendo" tabindex="-1" aria-labelledby="editarModal" style="overflow-y: scroll;" aria-hidden="true">
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -86,25 +85,19 @@ $nombreUsuario = $this->session->userdata('nombre')
                         </div>
                         <div class="form-group col-lg-4">
                             <label for="inputEditarVehiculoArriendo">Vehiculo</label>
-                            <select disabled class="custom-select " id="inputEditarVehiculoArriendo"
-                                name="inputEditarVehiculoArriendo" style="width: 100%;"
-                                aria-label="Example select with button addon">
-                            </select>
+                            <input disabled type="text" class="form-control" name="inputEditarVehiculoArriendo" id="inputEditarVehiculoArriendo">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarCiudadEntregaArriendo">sucursal entrega</label>
-                            <input disabled type="text" class="form-control" name="inputEditarCiudadEntregaArriendo"
-                                id="inputEditarCiudadEntregaArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarCiudadEntregaArriendo" id="inputEditarCiudadEntregaArriendo">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarCiudadRecepcionArriendo">sucursal recepcion</label>
-                            <input disabled type="text" class="form-control" name="inputEditarCiudadRecepcionArriendo"
-                                id="inputEditarCiudadRecepcionArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarCiudadRecepcionArriendo" id="inputEditarCiudadRecepcionArriendo">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarKentradaArriendo">kilometros inicio</label>
-                            <input disabled type="text" class="form-control" name="inputEditarKentradaArriendo"
-                                id="inputEditarKentradaArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarKentradaArriendo" id="inputEditarKentradaArriendo">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarKsalidaArriendo">kilometros termino</label>
@@ -112,18 +105,15 @@ $nombreUsuario = $this->session->userdata('nombre')
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputEditarFechaInicioArriendo">Fecha Inicio</label>
-                            <input disabled type="text" class="form-control" name="inputEditarFechaInicioArriendo"
-                                id="inputEditarFechaInicioArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarFechaInicioArriendo" id="inputEditarFechaInicioArriendo">
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="inputEditarFechaFinArriendo">Fecha Fin</label>
-                            <input disabled type="text" class="form-control" name="inputEditarFechaFinArriendo"
-                                id="inputEditarFechaFinArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarFechaFinArriendo" id="inputEditarFechaFinArriendo">
                         </div>
                         <div class="form-group col-lg-2">
                             <label for="inputEditarDiasArriendo">Total Dias</label>
-                            <input disabled type="text" class="form-control" name="inputEditarDiasArriendo"
-                                id="inputEditarDiasArriendo">
+                            <input disabled type="text" class="form-control" name="inputEditarDiasArriendo" id="inputEditarDiasArriendo">
                         </div>
 
                         <div class="form-group col-lg-4">
@@ -155,23 +145,19 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <h4>Datos garantia</h4>
                         <div class="form-row card-body">
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input onclick="tipoGarantia(this.value);" type="radio" value="EFECTIVO"
-                                    id="radioEfectivoGarantia" name="customRadio0" class="custom-control-input" checked>
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="EFECTIVO" id="radioEfectivoGarantia" name="customRadio0" class="custom-control-input" checked>
                                 <label class="custom-control-label" for="radioEfectivoGarantia">Efectivo</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input onclick="tipoGarantia(this.value);" type="radio" value="CHEQUE"
-                                    id="radioChequeGarantia" name="customRadio0" class="custom-control-input">
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="CHEQUE" id="radioChequeGarantia" name="customRadio0" class="custom-control-input">
                                 <label class="custom-control-label" for="radioChequeGarantia">Cheque</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input onclick="tipoGarantia(this.value);" type="radio" value="TARJETA"
-                                    id="radioTarjetaGarantia" name="customRadio0" class="custom-control-input">
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="TARJETA" id="radioTarjetaGarantia" name="customRadio0" class="custom-control-input">
                                 <label class="custom-control-label" for="radioTarjetaGarantia">Tarjeta</label>
                             </div>
                             <div class="custom-control custom-radio custom-control-inline ">
-                                <input onclick="tipoGarantia(this.value);" type="radio" value="SIN"
-                                    id="radioSinGarantia" name="customRadio0" class="custom-control-input">
+                                <input onclick="tipoGarantia(this.value);" type="radio" value="SIN" id="radioSinGarantia" name="customRadio0" class="custom-control-input">
                                 <label class="custom-control-label" for="radioSinGarantia">Sin Garantia</label>
                             </div>
                         </div>
@@ -179,33 +165,19 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <div class="form-group col-xl-12" id="card_tarjeta_garantia">
                                 <label for="inputNumeroTarjeta">Tarjeta de credito</label>
                                 <div class="input-group">
-                                    <input style="width: 40%;" oninput="this.value = soloNumeros(this)" type="number"
-                                        class="form-control" id="inputNumeroTarjeta" name="inputNumeroTarjeta"
-                                        maxLength="16" placeholder="Nº Tarjeta de credito" required>
-                                    <input style="width: 20%;" name="inputFechaTarjeta" id="inputFechaTarjeta"
-                                        type="text" aria-label="Last name" class="form-control" maxLength="5"
-                                        placeholder="ej: 01/01" required>
-                                    <input style="width: 20%;" name="inputFolioTarjeta" id="inputFolioTarjeta"
-                                        type="number" aria-label="Last name" class="form-control" maxLength="5"
-                                        placeholder="Nº folio" required>
-                                    <input style="width: 20%;" name="inputCodigoTarjeta" id="inputCodigoTarjeta"
-                                        type="text" aria-label="Last name" class="form-control" maxLength="20"
-                                        placeholder="codigo retencion" required>
+                                    <input style="width: 40%;" oninput="this.value = soloNumeros(this)" type="number" class="form-control" id="inputNumeroTarjeta" name="inputNumeroTarjeta" maxLength="16" placeholder="Nº Tarjeta de credito" required>
+                                    <input style="width: 20%;" name="inputFechaTarjeta" id="inputFechaTarjeta" type="text" aria-label="Last name" class="form-control" maxLength="5" placeholder="ej: 01/01" required>
+                                    <input style="width: 20%;" name="inputFolioTarjeta" id="inputFolioTarjeta" type="number" aria-label="Last name" class="form-control" maxLength="5" placeholder="Nº folio" required>
+                                    <input style="width: 20%;" name="inputCodigoTarjeta" id="inputCodigoTarjeta" type="text" aria-label="Last name" class="form-control" maxLength="20" placeholder="codigo retencion" required>
                                 </div>
 
                             </div>
                             <div class="form-group col-xl-12" id="card_cheque_garantia">
                                 <label for="inputNumeroCheque">Cheque</label>
                                 <div class="input-group">
-                                    <input style="width: 40%;" oninput="this.value = soloNumeros(this)" type="number"
-                                        class="form-control " id="inputNumeroCheque" name="inputNumeroCheque"
-                                        maxLength="25" placeholder="Nº Cheque" required>
-                                    <input style="width: 30%;" name="inputBancoCheque" id="inputBancoCheque" type="text"
-                                        aria-label="Last name" class="form-control" maxLength="20"
-                                        placeholder="Emisor cheque" required>
-                                    <input style="width: 30%;" name="inputCodigoCheque" id="inputCodigoCheque"
-                                        type="text" aria-label="Last name" class="form-control" maxLength="20"
-                                        placeholder="Codigo autorizacion" required>
+                                    <input style="width: 40%;" oninput="this.value = soloNumeros(this)" type="number" class="form-control " id="inputNumeroCheque" name="inputNumeroCheque" maxLength="25" placeholder="Nº Cheque" required>
+                                    <input style="width: 30%;" name="inputBancoCheque" id="inputBancoCheque" type="text" aria-label="Last name" class="form-control" maxLength="20" placeholder="Emisor cheque" required>
+                                    <input style="width: 30%;" name="inputCodigoCheque" id="inputCodigoCheque" type="text" aria-label="Last name" class="form-control" maxLength="20" placeholder="Codigo autorizacion" required>
                                 </div>
                             </div>
                             <div class="input-group col-xl-12" id="card_abono_garantia">
@@ -233,23 +205,17 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <div class="form-row">
                                     <div class="form-group col-xl-12" id="card_tarjeta">
                                         <h6 for="inputTarjeta">Foto comprobante Tarjeta </h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputTarjeta" name="inputTarjeta"
-                                            required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputTarjeta" name="inputTarjeta" required>
                                         <br>
                                     </div>
                                     <div class="form-group col-xl-12" id="card_cheque">
                                         <h6 for="inputChequeGarantia">Foto comprobante cheque</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputChequeGarantia"
-                                            name="inputChequeGarantia" required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputChequeGarantia" name="inputChequeGarantia" required>
                                         <br>
                                     </div>
                                     <div class="form-group col-xl-12" id="card_efectivo">
                                         <h6 for="inputBoletaEfectivo">Foto comprobante efectivo</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputBoletaEfectivo"
-                                            name="inputBoletaEfectivo" required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputBoletaEfectivo" name="inputBoletaEfectivo" required>
                                         <br>
                                     </div>
                                 </div>
@@ -261,15 +227,11 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="row text-center">
                                         <div class="form-group col-xl-6 ">
                                             <label for="inputCarnetFrontal">(frontal)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                                type="file" class="form-control-file" id="inputCarnetFrontal"
-                                                name="inputCarnetFrontal" required>
+                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCarnetFrontal" name="inputCarnetFrontal" required>
                                         </div>
                                         <div class="form-group col-xl-6 ">
                                             <label for="inputCarnetTrasera">(trasera)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf"
-                                                type="file" class="form-control-file" id="inputCarnetTrasera"
-                                                name="inputCarnetTrasera" required>
+                                            <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCarnetTrasera" name="inputCarnetTrasera" required>
                                         </div>
                                     </div>
                                 </div>
@@ -280,15 +242,11 @@ $nombreUsuario = $this->session->userdata('nombre')
                                     <div class="row text-center">
                                         <div class="form-group col-xl-6 ">
                                             <label for="inputlicenciaFrontal">(frontal)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                                type="file" class="form-control-file" id="inputlicenciaFrontal"
-                                                name="inputlicenciaFrontal" required>
+                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputlicenciaFrontal" name="inputlicenciaFrontal" required>
                                         </div>
                                         <div class="form-group col-xl-6 ">
                                             <label for="inputlicenciaTrasera">(trasera)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf"
-                                                type="file" class="form-control-file" id="inputlicenciaTrasera"
-                                                name="inputlicenciaTrasera" required>
+                                            <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf" type="file" class="form-control-file" id="inputlicenciaTrasera" name="inputlicenciaTrasera" required>
                                         </div>
                                     </div>
                                 </div>
@@ -296,51 +254,37 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <div class="form-row">
                                     <div class="form-group col-xl-12" id="card_domicilio">
                                         <h6 for="inputComprobanteDomicilio">Comprobante de domicilio</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputComprobanteDomicilio"
-                                            name="inputComprobanteDomicilio" required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputComprobanteDomicilio" name="inputComprobanteDomicilio" required>
                                         <br>
                                     </div>
                                     <div class="form-group col-xl-12" id="card_cartaRemplazo">
                                         <h6 for="inputCartaRemplazo">Carta Empresa Reemplazo</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputCartaRemplazo"
-                                            name="inputCartaRemplazo" required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCartaRemplazo" name="inputCartaRemplazo" required>
                                         <br>
                                     </div>
                                     <div class="form-group col-xl-12" id="card_estatuto">
                                         <h6 for="inputEstatuto">Documento estatuto</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputEstatuto"
-                                            name="inputEstatuto" required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputEstatuto" name="inputEstatuto" required>
                                         <br>
                                     </div>
                                     <div class="form-group col-xl-12" id="card_rol">
                                         <h6 for="inputDocumentotRol">Documento rol </h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputDocumentotRol"
-                                            name="inputDocumentotRol" required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputDocumentotRol" name="inputDocumentotRol" required>
                                         <br>
                                     </div>
                                     <div class="form-group col-xl-12" id="card_vigencia">
                                         <h6 for="inputDocumentoVigencia">Documento vigencia</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputDocumentoVigencia"
-                                            name="inputDocumentoVigencia" required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputDocumentoVigencia" name="inputDocumentoVigencia" required>
                                         <br>
                                     </div>
                                     <div class="form-group col-xl-12" id="card_carpetaTributaria">
                                         <h6 for="inputCarpetaTributaria">Carpeta tributaria (opcional)</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputCarpetaTributaria"
-                                            name="inputCarpetaTributaria" required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCarpetaTributaria" name="inputCarpetaTributaria" required>
                                         <br>
                                     </div>
                                     <div class="form-group col-xl-12" id="card_cartaAutorizacion">
                                         <h6 for="inputCartaAutorizacion">Carta de autorizacion (opcional)</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputCartaAutorizacion"
-                                            name="inputCartaAutorizacion" required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCartaAutorizacion" name="inputCartaAutorizacion" required>
                                         <br>
                                     </div>
                                 </div>
@@ -352,16 +296,13 @@ $nombreUsuario = $this->session->userdata('nombre')
                     <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">cerrar</button>
                     <button id="btn_anular_arriendo" type="button" class="btn btn-sm btn-danger col-xl-3">
                         Anular arriendo
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                            id="spinner_btn_anular_arriendo"></span></button>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_anular_arriendo"></span></button>
                     <button id="btn_finalizar_arriendo" type="button" class="btn  btn-success col-xl-3">
                         Finalizar arriendo
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                            id="spinner_btn_finalizar_arriendo"></span></button>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_finalizar_arriendo"></span></button>
                     <button type="submit" id="btn_guardar_garantiaRequisitos" class="btn  btn-primary col-xl-3">Guardar
                         cambios
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                            id="spinner_btn_guardar_garantiaRequisitos"></span></button>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_guardar_garantiaRequisitos"></span></button>
                 </div>
             </div>
         </div>
@@ -377,8 +318,7 @@ $nombreUsuario = $this->session->userdata('nombre')
 
 
 <!-- Modal pago arriendo -->
-<div class="modal fade" id="modal_pago_arriendo" data-backdrop="static" style="overflow-y: scroll;"
-    data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_pago_arriendo" data-backdrop="static" style="overflow-y: scroll;" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -416,8 +356,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <span id="textVehiculo" class="input-group-text form-control"></span>
                             </div>
                             <div class="form-group">
-                                <span id="textModeloVehiculo" style='font-size: 0.8rem;'
-                                    class="input-group-text form-control"></span>
+                                <span id="textModeloVehiculo" style='font-size: 0.8rem;' class="input-group-text form-control"></span>
                             </div>
                             <div class="form-group">
                                 <span id="textCliente" class="input-group-text form-control"></span>
@@ -429,13 +368,11 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <h5>Agregar mas detalles</h5>
                             <div class="form-group">
                                 <label for="inputDigitador">Digitado por</label>
-                                <input disabled type="text" class="form-control" id="inputDigitador"
-                                    name="inputDigitador" value="<?php echo $nombreUsuario ?>" required>
+                                <input disabled type="text" class="form-control" id="inputDigitador" name="inputDigitador" value="<?php echo $nombreUsuario ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputObservaciones">Observaciones</label>
-                                <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
-                                    name="inputObservaciones" rows="3" maxLength="300"></textarea>
+                                <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones" name="inputObservaciones" rows="3" maxLength="300"></textarea>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -443,20 +380,14 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <div class="form-group ">
                                 <label for="inputValorCopago">Valor neto copago / valor neto diario arriendo
                                 </label>
-                                <input value="0" type="number" class="form-control" id="inputValorCopago" maxLength="11"
-                                    name="inputValorCopago" oninput="this.value = soloNumeros(this) ;calcularCopago()"
-                                    required>
+                                <input value="0" type="number" class="form-control" id="inputValorCopago" maxLength="11" name="inputValorCopago" oninput="this.value = soloNumeros(this) ;calcularCopago()" required>
                             </div>
                             <div class="form-group ">
                                 <label for="inputSubTotalArriendo">Sub Total neto</label>
-                                <input value="0" type="number" class="form-control" id="inputSubTotalArriendo"
-                                    maxLength="11" name="inputSubTotalArriendo"
-                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
+                                <input value="0" type="number" class="form-control" id="inputSubTotalArriendo" maxLength="11" name="inputSubTotalArriendo" oninput="this.value = soloNumeros(this) ;calcularValores()" required>
                             </div>
                             <p>
-                                <button class=" badge badge-info" type="button" data-toggle="collapse"
-                                    data-target="#collapseExample" aria-expanded="false"
-                                    aria-controls="collapseExample">
+                                <button class=" badge badge-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                     Agregar accesorios ( + )
                                 </button>
                             </p>
@@ -467,26 +398,19 @@ $nombreUsuario = $this->session->userdata('nombre')
                             </div>
                             <div class="form-group ">
                                 <label for="inputDescuento">Descuento ( - ) </label>
-                                <input min="0" value="0" type="number" class="form-control" id="inputDescuento"
-                                    maxLength="11" name="inputDescuento"
-                                    oninput="this.value = soloNumeros(this) ;calcularValores()" required>
+                                <input min="0" value="0" type="number" class="form-control" id="inputDescuento" maxLength="11" name="inputDescuento" oninput="this.value = soloNumeros(this) ;calcularValores()" required>
                             </div>
                             <div class="form-group ">
                                 <label for="inputNeto">Total neto</label> <span id="lb_neto"></span>
-                                <input min="0" value="0" type="number" class="form-control" id="inputNeto"
-                                    maxLength="11" name="inputNeto" oninput="calcularValores()" required>
+                                <input min="0" value="0" type="number" class="form-control" id="inputNeto" maxLength="11" name="inputNeto" oninput="calcularValores()" required>
                             </div>
                             <div class="form-group ">
                                 <label for="inputIVA">Iva</label> <span id="lb_iva"></span>
-                                <input min="0" value="0" type="number" class="form-control" id="inputIVA" maxLength="11"
-                                    name="inputIVA" oninput="calcularValores()" required>
+                                <input min="0" value="0" type="number" class="form-control" id="inputIVA" maxLength="11" name="inputIVA" oninput="calcularValores()" required>
                             </div>
                             <div class="form-group ">
-                                <label for="inputTotal" class="font-weight-bold">Total a pagar </label> <span
-                                    id="lb_total"></span>
-                                <input min="0" value="0" type="number" class="form-control font-weight-bold"
-                                    id="inputTotal" maxLength="11" name="inputTotal" oninput="calcularValores()"
-                                    required>
+                                <label for="inputTotal" class="font-weight-bold">Total a pagar </label> <span id="lb_total"></span>
+                                <input min="0" value="0" type="number" class="form-control font-weight-bold" id="inputTotal" maxLength="11" name="inputTotal" oninput="calcularValores()" required>
                             </div>
                         </div>
                         <div class="col-lg-4 ">
@@ -494,21 +418,15 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <h5>Pago E. Remplazo</h5>
                                 <div class="form-group ">
                                     <label for="inputPagoEmpresa">Pago neto E. reemplazo</label>
-                                    <input min="0" value="0" type="number" class="form-control" id="inputPagoEmpresa"
-                                        maxLength="11" name="inputPagoEmpresa"
-                                        oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
+                                    <input min="0" value="0" type="number" class="form-control" id="inputPagoEmpresa" maxLength="11" name="inputPagoEmpresa" oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
                                 </div>
                                 <div class="form-group ">
                                     <label for="inputPagoIvaEmpresa">Iva E. reemplazo</label>
-                                    <input min="0" value="0" type="number" class="form-control" id="inputPagoIvaEmpresa"
-                                        maxLength="11" name="inputPagoIvaEmpresa"
-                                        oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
+                                    <input min="0" value="0" type="number" class="form-control" id="inputPagoIvaEmpresa" maxLength="11" name="inputPagoIvaEmpresa" oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
                                 </div>
                                 <div class="form-group ">
                                     <label for="inputPagoTotalEmpresa">Pago total E. reemplazo</label>
-                                    <input min="0" value="0" type="number" class="form-control"
-                                        id="inputPagoTotalEmpresa" maxLength="11" name="inputPagoTotalEmpresa"
-                                        oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
+                                    <input min="0" value="0" type="number" class="form-control" id="inputPagoTotalEmpresa" maxLength="11" name="inputPagoTotalEmpresa" oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
                                 </div>
                             </div>
                             <div id="card_pago">
@@ -516,19 +434,15 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <br>
                                 <div class="form-row">
                                     <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" onclick="facturacion(this.value);" value="PENDIENTE"
-                                            id="radioPendiente" name="customRadio1" class="custom-control-input"
-                                            checked>
+                                        <input type="radio" onclick="facturacion(this.value);" value="PENDIENTE" id="radioPendiente" name="customRadio1" class="custom-control-input" checked>
                                         <label class="custom-control-label" for="radioPendiente">Pendiente</label>
                                     </div>
                                     <div hidden class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" onclick="facturacion(this.value);" value="BOLETA"
-                                            id="radioBoleta" name="customRadio1" class="custom-control-input">
+                                        <input type="radio" onclick="facturacion(this.value);" value="BOLETA" id="radioBoleta" name="customRadio1" class="custom-control-input">
                                         <label class="custom-control-label" for="radioBoleta">Boleta</label>
                                     </div>
                                     <div hidden class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" onclick="facturacion(this.value);" value="FACTURA"
-                                            id="radioFactura" name="customRadio1" class="custom-control-input">
+                                        <input type="radio" onclick="facturacion(this.value);" value="FACTURA" id="radioFactura" name="customRadio1" class="custom-control-input">
                                         <label class="custom-control-label" for="radioFactura">Factura</label>
                                     </div>
                                 </div>
@@ -536,39 +450,32 @@ $nombreUsuario = $this->session->userdata('nombre')
                                 <div id="metodo_pago">
                                     <div class="form-group">
                                         <label for="inputNumFacturacion">Numero comprobante</label>
-                                        <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion"
-                                            type="number" class="form-control" placeholder="Nº Boleta/Factura" required>
+                                        <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion" type="number" class="form-control" placeholder="Nº Boleta/Factura" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputFileFacturacion">comprobante</label>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputFileFacturacion"
-                                            name="inputFileFacturacion" required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputFileFacturacion" name="inputFileFacturacion" required>
                                     </div>
                                     <br><br>
                                     <h5>Metodo de pago</h5>
                                     <div class="form-row card-body m-2">
                                         <div class="custom-control custom-radio custom-control-inline col-xl-12 ">
-                                            <input type="radio" value=1 id="radioEfectivo" name="customRadio2"
-                                                class="custom-control-input" checked>
+                                            <input type="radio" value=1 id="radioEfectivo" name="customRadio2" class="custom-control-input" checked>
                                             <label class="custom-control-label" for="radioEfectivo">Pago en
                                                 efectivo</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline col-xl-12 ">
-                                            <input type="radio" value=2 id="radioCheque" name="customRadio2"
-                                                class="custom-control-input">
+                                            <input type="radio" value=2 id="radioCheque" name="customRadio2" class="custom-control-input">
                                             <label class="custom-control-label" for="radioCheque">Pago con
                                                 cheque</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline col-xl-12 ">
-                                            <input type="radio" value=3 id="radioTarjeta" name="customRadio2"
-                                                class="custom-control-input">
+                                            <input type="radio" value=3 id="radioTarjeta" name="customRadio2" class="custom-control-input">
                                             <label class="custom-control-label" for="radioTarjeta">Pago con Tarjeta
                                                 credito/debito</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline col-xl-12 ">
-                                            <input type="radio" value=4 id="radioTranferencia" name="customRadio2"
-                                                class="custom-control-input">
+                                            <input type="radio" value=4 id="radioTranferencia" name="customRadio2" class="custom-control-input">
                                             <label class="custom-control-label" for="radioTranferencia">
                                                 Pago con Transferencia
                                                 electronica</label>
@@ -583,8 +490,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" id="btn_registrar_pago" class="btn btn-primary">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                            id="spinner_btn_registrarPago"></span>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_registrarPago"></span>
                         Registrar Pago</button>
                 </div>
             </form>
@@ -626,20 +532,17 @@ $nombreUsuario = $this->session->userdata('nombre')
                         < </button> <button id="next_contrato" class=" btn-info "> >
                             </button>
                             &nbsp; &nbsp;
-                            <span>Pagina: <span id="page_num_contrato"></span> / <span
-                                    id="page_count_contrato"></span></span>
+                            <span>Pagina: <span id="page_num_contrato"></span> / <span id="page_count_contrato"></span></span>
                             <canvas id="pdf_canvas_contrato" class="img-fluid rounded pdf-canvas"></canvas>
                 </div>
                 <form id="subir_contrato">
                     <div class="form-row card-body">
                         <div class="custom-control custom-radio custom-control-inline ">
-                            <input onclick="tipoContrato(this.value);" type="radio" value="FIRMAR" name="customRadio5"
-                                class="custom-control-input" id="radioFirma" checked>
+                            <input onclick="tipoContrato(this.value);" type="radio" value="FIRMAR" name="customRadio5" class="custom-control-input" id="radioFirma" checked>
                             <label class="custom-control-label" for="radioFirma">Firmar contrato</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline ">
-                            <input onclick="tipoContrato(this.value);" type="radio" value="SUBIR" name="customRadio5"
-                                class="custom-control-input" id="radioSubir">
+                            <input onclick="tipoContrato(this.value);" type="radio" value="SUBIR" name="customRadio5" class="custom-control-input" id="radioSubir">
                             <label class="custom-control-label" for="radioSubir">Subir contrato firmado</label>
                         </div>
                     </div>
@@ -676,13 +579,11 @@ $nombreUsuario = $this->session->userdata('nombre')
                         <div class="col-md-12 text-center">
                             <button type="button" id="btn_firmar_contrato" class="btn btn-success btn-sm ">
                                 firmar contrato
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_firmarContrato"></span>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_firmarContrato"></span>
                             </button>
                             <button type="button" id="btn_confirmar_contrato" class="btn btn-primary btn-sm ">
                                 Guardar cambios
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_confirmarContrato"></span>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_confirmarContrato"></span>
                             </button>
                         </div>
                     </div>
@@ -697,8 +598,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <br><br><br><br><br>
                             <button type="button" id="btn_subir_contrato" class="btn btn-primary  ">
                                 Subir contrato firmado
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_subirContrato"></span>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_subirContrato"></span>
                             </button>
                         </div>
                     </div>

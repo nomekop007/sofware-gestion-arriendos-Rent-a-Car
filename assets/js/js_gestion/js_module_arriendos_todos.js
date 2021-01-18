@@ -47,7 +47,7 @@ const mostrarArriendoModalVer = (arriendo) => {
 	$("#inputEditarTipoArriendo").val(arriendo.tipo_arriendo);
 	$("#inputEditarEstadoArriendo").val(arriendo.estado_arriendo);
 	$("#inputEditarConductorArriendo").val(`${arriendo.conductore.nombre_conductor} ${arriendo.conductore.rut_conductor}`);
-	$("#inputEditarVehiculoArriendo").val(arriendo.patente_vehiculo);
+	$("#inputEditarVehiculoArriendo").val(`${arriendo.vehiculo.patente_vehiculo} ${arriendo.vehiculo.marca_vehiculo} ${arriendo.vehiculo.modelo_vehiculo} ${arriendo.vehiculo.año_vehiculo}`);
 	$("#inputEditarKentradaArriendo").val(arriendo.kilometrosEntrada_arriendo);
 	$("#inputEditarKsalidaArriendo").val(arriendo.kilometrosSalida_arriendo);
 	$("#inputEditarKmantencionArriendo").val(arriendo.kilometrosMantencion_arriendo);
@@ -565,29 +565,6 @@ $(document).ready(() => {
 		}
 		$("#spinner_tablaTotalArriendos").hide();
 	};
-
-
-	//cargar vehiculos en select
-
-	const cargarVehiculosEditar = async () => {
-		const data = new FormData();
-		const response = await ajax_function(data, "cargar_Vehiculos");
-		if (response.success) {
-			if (response.data) {
-				const select = document.getElementById("inputEditarVehiculoArriendo");
-				$.each(response.data, (i, o) => {
-					const option = document.createElement("option");
-					option.innerHTML = `${o.patente_vehiculo} ${o.marca_vehiculo} ${o.modelo_vehiculo} ${o.año_vehiculo}`;
-					option.value = o.patente_vehiculo;
-					select.appendChild(option);
-				});
-				$("#inputEditarVehiculoArriendo").attr("disabled", false);
-			}
-		}
-	}
-	cargarVehiculosEditar();
-
-
 
 
 	cargarAccesorios = async () => {
