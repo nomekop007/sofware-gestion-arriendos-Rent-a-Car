@@ -104,7 +104,7 @@ $(document).ready(() => {
                 mostrarModalNotificacion(arriendo)
             },
             "progressBar": true,
-            timeOut: 0
+            timeOut: 10000
         }
         let diff = countDownDate.diff(moment());
         if (diff <= 0) {
