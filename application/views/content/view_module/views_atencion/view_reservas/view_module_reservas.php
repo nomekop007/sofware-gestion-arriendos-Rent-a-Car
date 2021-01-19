@@ -9,19 +9,27 @@
         </nav>
         <h1 class="h3">Calendario de reservas</h1>
     </div>
-
-    <div>
-
-        <div id="calendario"></div>
-
-
-    </div>
+    <br>
+    <div id="calendario"></div>
+    <br><br><br>
 
 </main>
 </div>
 </div>
 
-
+<!-- Modal -->
+<div class="modal fade" id="reservaModal" tabindex="-1" aria-labelledby="reservaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reservaModalLabel">Modal title</h5>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script

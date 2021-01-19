@@ -9,29 +9,29 @@
                 <br>
                 <h4>Datos arriendo</h4>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-lg-6">
                         <span id="alert_fecha_inicio" class="input-group-text form-control"></span>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-lg-6">
                         <span id="alert_fecha_fin" class="input-group-text form-control"></span>
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-lg-12">
                         <span id="alert_vehiculo" class="input-group-text form-control"></span>
                     </div>
                 </div>
                 <br>
                 <h4>Contacto Cliente</h4>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-lg-9">
                         <span id="alert_nombre_cliente" class="input-group-text form-control"></span>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-lg-3">
                         <span id="alert_rut_cliente" class="input-group-text form-control"></span>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-lg-6">
                         <span id="alert_telefono_cliente" class="input-group-text form-control"></span>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-lg-6">
                         <span id="alert_correo_cliente" class="input-group-text form-control"></span>
                     </div>
                 </div>
