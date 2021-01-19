@@ -18,7 +18,7 @@
 </div>
 </div>
 
-<script>
-$("#m_reserva").addClass("active");
-$("#l_reserva").addClass("card");
+
+<script
+    src="<?php echo base_route() ?>assets/js/js_atencion/js_reservas/js_module_reservas.js?v=<?php echo version(); ?>">
 </script>

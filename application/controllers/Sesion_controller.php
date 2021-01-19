@@ -43,12 +43,12 @@ class Sesion_controller extends CI_Controller
 
             switch ($opcion) {
                 case 1:
-                    $this->load->view("content/sidebars/sidebar_gestion");
-                    $this->load->view("content/view_module/views_gestion/index_gestion");
-                    break;
-                case 2:
                     $this->load->view("content/sidebars/sidebar_atencion");
                     $this->load->view("content/view_module/views_atencion/index_atencion");
+                    break;
+                case 2:
+                    $this->load->view("content/sidebars/sidebar_gestion");
+                    $this->load->view("content/view_module/views_gestion/index_gestion");
                     break;
                 case 3:
                     $this->load->view("content/sidebars/sidebar_administracion");
@@ -66,5 +66,4 @@ class Sesion_controller extends CI_Controller
             redirect(base_url());
         }
     }
-
 }

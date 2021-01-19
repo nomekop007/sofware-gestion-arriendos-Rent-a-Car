@@ -1,5 +1,6 @@
 <?php
 
+//REFACTORIZAR..
 
 switch ($this->session->userdata('rol')) {
     case '1':
@@ -35,9 +36,6 @@ switch ($this->session->userdata('sucursal')) {
         break;
 }
 
-
-
-
 if ($this->session->userdata('estado')) {
     $estado = "ACTIVO";
 } else {
@@ -50,8 +48,8 @@ if ($this->session->userdata('estado')) {
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=1">Atencion</a></li>
-                <li class="breadcrumb-item active" aria-current="page">usuario</li>
+                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=2">Gestion</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Mi perfil</li>
             </ol>
         </nav>
         <h1 class="h3">Perfil de usuario</h1>

@@ -192,4 +192,4 @@
 
 
 <!-- importando archivo js usuarios -->
-<script src="<?php echo base_route() ?>assets/js/js_atencion/js_module_facturaciones.js"></script>
+<script src="<?php echo base_route() ?>assets/js/js_gestion/js_facturacion/js_module_facturaciones.js"></script>

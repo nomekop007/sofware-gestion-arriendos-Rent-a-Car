@@ -1,4 +1,5 @@
 </div>
+</div>
 <br><br><br>
 </main>
 
@@ -17,10 +18,11 @@ $("#l_arriendo").addClass("card");
 
 <!-- importaciones del arriendos -->
 <script
-    src="<?php echo base_route() ?>assets/js/js_gestion/js_module_arriendos_registrar.js?v=<?php echo version(); ?>">
+    src="<?php echo base_route() ?>assets/js/js_atencion/js_arriendos/js_module_arriendos_registrar.js?v=<?php echo version(); ?>">
 </script>
 
-<script src="<?php echo base_route() ?>assets/js/js_gestion/js_module_arriendos_todos.js?v=<?php echo version(); ?>">
+<script
+    src="<?php echo base_route() ?>assets/js/js_atencion/js_arriendos/js_module_arriendos_todos.js?v=<?php echo version(); ?>">
 </script>
 
 <script src="<?php echo base_route() ?>assets/js/canvasVisorPDF.js?v=<?php echo version(); ?>"></script>

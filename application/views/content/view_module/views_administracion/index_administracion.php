@@ -15,5 +15,7 @@
     </div>
 </main>
 
+<!-- ESTE MODULO SE TRANSLADO AL ANGULAR -->
+
 </div>
 </div>
