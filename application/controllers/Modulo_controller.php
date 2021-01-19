@@ -4,6 +4,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Modulo_controller extends CI_Controller
 {
 
+    // SE CAMBIARON DE POSICION LOS NOMBRE DE GESTION Y ATENCION!!!
+
     public function cargarModulosGestion()
     {
 
@@ -50,6 +52,13 @@ class Modulo_controller extends CI_Controller
                         $this->load->view('content/view_module/views_gestion/view_module_despachos_despacho');
                         $this->load->view('content/view_module/views_gestion/view_module_despachos_activos');
                         $this->load->view('content/view_module/views_gestion/view_module_despachos_footer');
+                    } else {
+                        redirect(base_url());
+                    }
+                    break;
+                case 4:
+                    if ($rol == 1 || $rol == 2 || $rol == 3) {
+                        $this->load->view('content/view_module/views_gestion/view_module_reservas');
                     } else {
                         redirect(base_url());
                     }
