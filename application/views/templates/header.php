@@ -58,6 +58,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
 
+
     <!-- importaciones del jquery -->
     <script src="<?php echo base_route() ?>assets/js/jquery-3.3.1.min.js"></script>
 

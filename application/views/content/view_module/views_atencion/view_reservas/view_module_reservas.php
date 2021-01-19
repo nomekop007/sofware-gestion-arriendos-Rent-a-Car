@@ -11,12 +11,17 @@
     </div>
 
     <div>
-        <h6>contenido</h6>
+
+        <div id="calendario"></div>
+
+
     </div>
 
 </main>
 </div>
 </div>
+
+
 
 
 <script
