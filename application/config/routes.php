@@ -124,6 +124,7 @@ $route['registrar_pago'] = 'Pago_controller/registrarPago';
 $route['actualizar_pago'] = 'Pago_controller/actualizarPago';
 $route['buscar_pagoER'] = 'Pago_controller/buscarPagoERpendientes';
 $route['aplicarDescuento_UltimoPago'] = 'Pago_controller/aplicarDescuentoPago';
+$route['calcularTotal_pago'] = 'Pago_controller/calcularTotalPagos';
 
 /* rutas de controller empresaRemplazo */
 $route['cargar_empresasRemplazo'] = 'EmpresaRemplazo_controller/cargarEmpresasRemplazo';

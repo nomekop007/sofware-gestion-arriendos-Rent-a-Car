@@ -50,4 +50,12 @@ class Pago_controller extends CI_Controller
         ];
         echo post_function($dataArray, "pagos/aplicarDescuentoPago");
     }
+
+    public function calcularTotalPagos()
+    {
+        $dataArray = [
+            "arrayPagos" => json_decode($this->input->post("arrayPagos")),
+        ];
+        echo post_function($dataArray, "pagos/calcularTotalPagos");
+    }
 }

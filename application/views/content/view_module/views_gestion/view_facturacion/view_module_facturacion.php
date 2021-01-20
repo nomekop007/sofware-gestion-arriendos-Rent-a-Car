@@ -98,6 +98,12 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group col-xl-4"></div>
+                                <div class="form-group col-2">
+                                    <label>Total pago</label>
+                                    <input disabled maxLength="20" id="totalFactura" name="totalFactura" type="text"
+                                        class="form-control" required>
+                                </div>
                                 <br>
                             </div>
                         </div>
@@ -115,6 +121,7 @@
                                             <th>iva</th>
                                             <th>total</th>
                                             <th>fecha registro</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody id="vehiculos">
@@ -128,6 +135,7 @@
                                             <th>iva</th>
                                             <th>total</th>
                                             <th>fecha registro</th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -138,6 +146,9 @@
                                     id="spinner_registrar_facturacion"></span>
                                 Ingresar facturacion</button>
                             <br>
+
+
+
                         </div>
                         <br>
 
@@ -189,6 +200,31 @@
 </main>
 </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_pagoArriendo" tabindex="-1" aria-labelledby="modal_pagoArriendoLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_pagoArriendoLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 <!-- importando archivo js usuarios -->

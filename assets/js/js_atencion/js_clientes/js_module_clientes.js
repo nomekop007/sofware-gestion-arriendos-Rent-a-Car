@@ -32,11 +32,11 @@ const buscarCliente = async (rut_cliente) => {
 			const docs = cliente.documentosCliente;
 			for (const documento in docs) {
 				if (docs[documento]) {
-				const button = document.createElement("button");
-				button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
-				button.textContent = documento;
-				button.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos_cliente").append(button);
+					const button = document.createElement("button");
+					button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
+					button.textContent = documento;
+					button.className = "badge badge-pill badge-info m-1";
+					document.getElementById("card_documentos_cliente").append(button);
 				}
 			}
 		}
@@ -110,11 +110,11 @@ const buscarConductor = async (rut_conductor) => {
 			const docs = conductor.documentosConductore;
 			for (const documento in docs) {
 				if (docs[documento]) {
-				const button = document.createElement("button");
-				button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
-				button.textContent = documento;
-				button.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos_conductor").append(button);
+					const button = document.createElement("button");
+					button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
+					button.textContent = documento;
+					button.className = "badge badge-pill badge-info m-1";
+					document.getElementById("card_documentos_conductor").append(button);
 				}
 			}
 		}
@@ -276,7 +276,7 @@ $(document).ready(() => {
 
 	const editarArchivoCliente = async (data) => {
 		if ($("#inputCarnetTraseraCliente").val().length != 0 || $("#inputCarnetFrontalCliente").val().length != 0) {
-		 await ajax_function(data, "editarArchivos_cliente");
+			await ajax_function(data, "editarArchivos_cliente");
 		}
 	}
 
@@ -286,13 +286,13 @@ $(document).ready(() => {
 			$("#inputEstatuto").val().length != 0 ||
 			$("#inputDocumentotRol").val().length != 0 ||
 			$("#inputDocumentoVigencia").val().length != 0) {
-			 await ajax_function(data, "editarArchivos_empresa");
+			await ajax_function(data, "editarArchivos_empresa");
 		}
 	}
 
 	const editarArchivoConductor = async (data) => {
 		if ($("#inputlicenciaFrontalConductor").val().length != 0 || $("#inputlicenciaTraseraConductor").val().length != 0) {
-			 await ajax_function(data, "editarArchivos_conductor");
+			await ajax_function(data, "editarArchivos_conductor");
 		}
 	}
 
@@ -311,9 +311,7 @@ $(document).ready(() => {
 							o.nacionalidad_cliente,
 							"+569 " + o.telefono_cliente,
 							o.correo_cliente,
-							` <button value="${o.rut_cliente}"` +
-							" onclick='buscarCliente(this.value)'" +
-							" data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
+							` <button value='${o.rut_cliente}' onclick='buscarCliente(this.value)' data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>`,
 						])
 						.draw(false);
 				} catch (error) { }
@@ -336,9 +334,7 @@ $(document).ready(() => {
 							o.rol_empresa,
 							"+569 " + o.telefono_empresa,
 							o.correo_empresa,
-							` <button value="${o.rut_empresa}"` +
-							" onclick='buscarEmpresa(this.value)'" +
-							" data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
+							` <button value='${o.rut_empresa}' onclick='buscarEmpresa(this.value)' data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>`,
 						])
 						.draw(false);
 				} catch (error) { }
@@ -360,9 +356,7 @@ $(document).ready(() => {
 							o.nacionalidad_conductor,
 							o.clase_conductor,
 							"+569 " + o.telefono_conductor,
-							` <button value="${o.rut_conductor}"` +
-							" onclick='buscarConductor(this.value)'" +
-							" data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>",
+							` <button value='${o.rut_conductor}' onclick='buscarConductor(this.value)' data-toggle='modal' data-target='#modal_ver' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>`,
 						])
 						.draw(false);
 				} catch (error) { }

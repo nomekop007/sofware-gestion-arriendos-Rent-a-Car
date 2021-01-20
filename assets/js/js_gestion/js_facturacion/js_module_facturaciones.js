@@ -2,20 +2,52 @@ $("#m_facturacion").addClass("active");
 $("#l_facturacion").addClass("card");
 $("#spinner_empresa_remplazo").hide();
 $("#spinner_registrar_facturacion").hide();
+const formatter = new Intl.NumberFormat("CL");
+const arrayClaveER = [];
+
+
+const buscarPagoArriendo = (id_pagoArriendo) => {
+	console.log(id_pagoArriendo)
+	//buscar info del pago
+
+}
+
+const calcularTotalFactura = async () => {
+	const arrayCheck = cacturarCheckPago();
+	if (arrayCheck.length > 0) {
+		const data = new FormData();
+		data.append("arrayPagos", JSON.stringify(arrayCheck));
+		const response = await ajax_function(data, "calcularTotal_pago");
+		if (response.success) {
+			$("#totalFactura").val("$ " + formatter.format(response.data.total_factura));
+		}
+	} else {
+		$("#totalFactura").val("$ " + formatter.format(0));
+	}
+}
+
+const cacturarCheckPago = () => {
+	const array = [];
+	$('[name="checkPago[]"]:checked')
+		.map(function () {
+			array.push(this.value)
+		})
+		.get()
+	return array;
+};
 
 $(document).ready(() => {
 
-	const arrayClaveER = [];
+
 	const tabla_pagosER = $("#tabla_pagos").DataTable(lenguaje);
 	const tabla_pagoER = $("#tabla_pagoPendienteRemplazo").DataTable(lenguaje);
-	const formatter = new Intl.NumberFormat("CL");
-
 
 	$("#nav-pagos-tab").click(() => refrescarTabla());
 
 
 	$("#btn_buscarPagoEmpresa").click(async () => {
 		$("#spinner_empresa_remplazo").show();
+		$("#totalFactura").val("");
 		let codigoEmpresa = $("#inputCodigoEmpresaRemplazo").val();
 		const data = new FormData();
 		data.append("clave_empresaRemplazo", codigoEmpresa);
@@ -77,6 +109,7 @@ $(document).ready(() => {
 								"success"
 							)
 							tabla_pagoER.row().clear().draw(false);
+							$("#totalFactura").val(0);
 						}
 					}
 				}
@@ -117,6 +150,7 @@ $(document).ready(() => {
 
 
 
+
 	const refrescarTabla = () => {
 		//limpia la tabla
 		tabla_pagosER.row().clear().draw(false);
@@ -125,15 +159,7 @@ $(document).ready(() => {
 	};
 
 
-	const cacturarCheckPago = () => {
-		const array = [];
-		$('[name="checkPago[]"]:checked')
-			.map(function () {
-				array.push(this.value)
-			})
-			.get()
-		return array;
-	};
+
 
 	const cargarPagosPendientes = async () => {
 		$("#spinner_tabla_pagos").show();
@@ -151,22 +177,27 @@ $(document).ready(() => {
 	};
 
 
+
 	const cargarPagoER = (pagosPendientes) => {
 		try {
 			tabla_pagoER.row
 				.add([
-					`<input type="checkbox" name="checkPago[]" value="${pagosPendientes.id_pago}" >`,
+					`<input type="checkbox" onClick='calcularTotalFactura()' name="checkPago[]" value="${pagosPendientes.id_pago}" >`,
 					pagosPendientes.pagosArriendo.id_arriendo,
 					pagosPendientes.estado_pago,
 					"$ " + formatter.format(pagosPendientes.neto_pago),
 					"$ " + formatter.format(pagosPendientes.iva_pago),
 					"$ " + formatter.format(pagosPendientes.total_pago),
-					formatearFechaHora(pagosPendientes.createdAt)
+					formatearFechaHora(pagosPendientes.createdAt),
+					` <button value='${pagosPendientes.id_pago}' onclick='buscarPagoArriendo(this.value)' data-toggle='modal' data-target='#modal_pagoArriendo' class='btn btn-outline-info'><i class='far fa-edit'></i></button>`,
+
 				])
 				.draw(false);
 		} catch (error) {
 			console.log("error al cargar este pago")
 		}
+
+
 	}
 
 	const cargarPagosEnTabla = (pagosPendientes) => {
