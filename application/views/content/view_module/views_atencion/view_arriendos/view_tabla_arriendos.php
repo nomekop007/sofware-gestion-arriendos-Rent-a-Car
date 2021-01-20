@@ -8,9 +8,9 @@
                     <th>Nº</th>
                     <th>fecha registro</th>
                     <th>Cliente</th>
+                    <th>vehiculo</th>
                     <th>tipo arriendo</th>
                     <th>estado</th>
-                    <th>sucursal</th>
                     <th></th>
                 </tr>
             </thead>
@@ -21,9 +21,9 @@
                     <th>Nº</th>
                     <th>fecha registro</th>
                     <th>Cliente</th>
+                    <th>vehiculo</th>
                     <th>tipo arriendo</th>
                     <th>estado</th>
-                    <th>sucursal</th>
                     <th></th>
                 </tr>
             </tfoot>

@@ -97,11 +97,13 @@ const mostrarArriendoModalVer = (arriendo) => {
 		$("#card_carnet").hide();
 		const docs = clienteDoc.documentosCliente;
 		for (const documento in docs) {
-			const button = document.createElement("button");
-			button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
-			button.textContent = documento;
-			button.className = "badge badge-pill badge-warning m-1";
-			document.getElementById("card_documentos").append(button);
+			if (docs[documento]) {
+				const button = document.createElement("button");
+				button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
+				button.textContent = documento;
+				button.className = "badge badge-pill badge-warning m-1";
+				document.getElementById("card_documentos").append(button);
+			}
 		}
 	}
 
@@ -115,11 +117,13 @@ const mostrarArriendoModalVer = (arriendo) => {
 		$("#card_vigencia").hide();
 		const docs = clienteDoc.documentosEmpresa;
 		for (const documento in docs) {
-			const button = document.createElement("button");
-			button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
-			button.textContent = documento;
-			button.className = "badge badge-pill badge-warning m-1";
-			document.getElementById("card_documentos").append(button);
+			if (docs[documento]) {
+				const button = document.createElement("button");
+				button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
+				button.textContent = documento;
+				button.className = "badge badge-pill badge-warning m-1";
+				document.getElementById("card_documentos").append(button);
+			}
 		}
 	}
 
@@ -129,11 +133,13 @@ const mostrarArriendoModalVer = (arriendo) => {
 		$("#card_licencia").hide();
 		const docs = arriendo.conductore.documentosConductore;
 		for (const documento in docs) {
-			const button = document.createElement("button");
-			button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
-			button.textContent = documento;
-			button.className = "badge badge-pill badge-warning m-1";
-			document.getElementById("card_documentos").append(button);
+			if (docs[documento]) {
+				const button = document.createElement("button");
+				button.addEventListener("click", () => buscarDocumento(docs[documento], "requisito"));
+				button.textContent = documento;
+				button.className = "badge badge-pill badge-warning m-1";
+				document.getElementById("card_documentos").append(button)
+			}
 		}
 	}
 
@@ -143,11 +149,13 @@ const mostrarArriendoModalVer = (arriendo) => {
 		$("#btn_guardar_garantiaRequisitos").hide();
 		for (const documento in requisito) {
 			if (requisito[documento]) {
-				const button = document.createElement("button");
-				button.addEventListener("click", () => buscarDocumento(requisito[documento], "requisito"));
-				button.textContent = documento;
-				button.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos").append(button);
+				if (requisito[documento]) {
+					const button = document.createElement("button");
+					button.addEventListener("click", () => buscarDocumento(requisito[documento], "requisito"));
+					button.textContent = documento;
+					button.className = "badge badge-pill badge-info m-1";
+					document.getElementById("card_documentos").append(button);
+				}
 			}
 		}
 	} else {
@@ -671,14 +679,14 @@ $(document).ready(() => {
 
 		switch (inputTipoArriendo) {
 			case "PARTICULAR":
-				if (inputComprobanteDomicilio.length == 0) {
-					Swal.fire(
-						"faltan archivos del cliente por subir",
-						"se necesita subir los archivos requeridos",
-						"warning"
-					);
-					return;
-				}
+				/* 	if (inputComprobanteDomicilio.length == 0) {
+						Swal.fire(
+							"faltan archivos del cliente por subir",
+							"se necesita subir los archivos requeridos",
+							"warning"
+						);
+						return;
+					} */
 				if (!global_documentosArriendo.documentoCliente) {
 					if (inputCarnetFrontal.length == 0 || inputCarnetTrasera.length == 0) {
 						Swal.fire(
@@ -1215,10 +1223,13 @@ $(document).ready(() => {
 			let color = "";
 			switch (arriendo.estado_arriendo) {
 				case "CON DAÑO":
-					color = "text-danger"
+					color = "btn-danger"
 					break;
 				case "FINALIZADO":
-					color = "text-success"
+					color = "btn-success"
+					break;
+				case "RECEPCIONADO":
+					color = "btn-warning"
 					break;
 				default:
 					break;
@@ -1232,9 +1243,9 @@ $(document).ready(() => {
 					arriendo.id_arriendo,
 					formatearFechaHora(arriendo.createdAt),
 					cliente,
+					arriendo.patente_vehiculo,
 					arriendo.tipo_arriendo,
-					`<span class="${color}">${arriendo.estado_arriendo}</span>`,
-					arriendo.sucursale.nombre_sucursal,
+					`<span class="${color}"> ${arriendo.estado_arriendo} </span>`,
 					`<button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
                         data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn-outline-primary'><i class="fas fa-upload"></i></button>
                         <button id='b${arriendo.id_arriendo}' value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,2)' 
@@ -1244,7 +1255,6 @@ $(document).ready(() => {
                                 `,
 				])
 				.draw(true);
-
 
 			if (arriendo.requisito || arriendo.estado_arriendo == "ANULADO") {
 				$(`#a${arriendo.id_arriendo}`).removeClass("btn-outline-primary");
