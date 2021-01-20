@@ -350,7 +350,6 @@ $(document).ready(() => {
 				arrayImagesRecepcion.push(url);
 				agregarFotoACarrucelRecepcion(arrayImagesRecepcion);
 				limpiarTodoCanvasVehiculo();
-				console.log(arrayImagesRecepcion);
 			} else {
 				Swal.fire({
 					icon: "error",

@@ -114,12 +114,12 @@ $(document).ready(() => {
 	})();
 
 	$("#seleccionarFoto").click(async () => {
-        /*
-        se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
+		/*
+		se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
 		el servidor solo puede recibir un maximo de 2mb en cada consulta.
-        Actualizado: es posible que esto cambie debido al ambiente de desarrollo
-        o capacidad de la maquina en la que se este ejecutando
-        */
+		Actualizado: es posible que esto cambie debido al ambiente de desarrollo
+		o capacidad de la maquina en la que se este ejecutando
+		*/
 		const inputImg = $("#inputImagenVehiculo").val();
 		if (inputImg != 0) {
 			const canvas = document.getElementById("canvas-fotoVehiculo");
@@ -130,7 +130,6 @@ $(document).ready(() => {
 				arrayImages.push(url);
 				agregarFotoACarrucel(arrayImages);
 				limpiarTodoCanvasVehiculo();
-				console.log(arrayImages);
 			} else {
 				Swal.fire({
 					icon: "warning",
@@ -148,11 +147,7 @@ $(document).ready(() => {
 	$("#btn_crear_ActaEntrega").click(async () => {
 		const form = $("#formActaEntrega")[0];
 		const data = new FormData(form);
-
-		console.log($("#inputPatenteVehiculoDespacho").val());
-		console.log($("#inputKilomentrajeVehiculoDespacho").val());
-
-		generarActaEntrega(data);
+		await generarActaEntrega(data);
 	});
 
 	$("#btn_confirmar_actaEntrega").click(() => {
@@ -227,7 +222,7 @@ $(document).ready(() => {
 		);
 	};
 
-	const firmarActaEntrega = (geo) => {
+	const firmarActaEntrega = async (geo) => {
 		const canvas1 = document.getElementById("canvas-firma1");
 		const canvas2 = document.getElementById("canvas-firma2");
 		const form = $("#formActaEntrega")[0];
@@ -235,7 +230,7 @@ $(document).ready(() => {
 		data.append("inputFirma1PNG", canvas1.toDataURL("image/png"));
 		data.append("inputFirma2PNG", canvas2.toDataURL("image/png"));
 		data.append("geolocalizacion", geo);
-		generarActaEntrega(data);
+		await generarActaEntrega(data);
 	};
 
 	const generarActaEntrega = async (data) => {
