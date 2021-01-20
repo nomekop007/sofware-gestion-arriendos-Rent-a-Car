@@ -12,7 +12,7 @@ $rol = $this->session->userdata("rol");
             <li class="nav-item" id="l_reserva">
                 <br>
                 <a id="m_reserva" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=4">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i hidden class="fas fa-calendar-alt"></i>
                     Calendario de reservas
                 </a>
                 <br>
