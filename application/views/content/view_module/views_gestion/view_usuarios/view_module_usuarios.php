@@ -19,12 +19,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputNombreUsuario">Nombre Completo</label>
-                            <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                            <input onblur="mayus(this);" maxLength="80" type="text" class="form-control"
                                 id="inputNombreUsuario" name="inputNombreUsuario" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputCorreoUsuario">correo</label>
-                            <input onblur="mayus(this);" maxLength="30" type="email" class="form-control"
+                            <input onblur="mayus(this);" maxLength="80" type="email" class="form-control"
                                 id="inputCorreoUsuario" name="inputCorreoUsuario" required>
                         </div>
                         <div class="form-group col-md-3">
@@ -41,7 +41,7 @@
                         <div class=" form-group col-md-4">
                             <label for="inputClaveUsuario">Constraseña</label>
                             <div class="input-group">
-                                <input maxLength="30" minlength="9" type="password" class="form-control"
+                                <input maxLength="50" minlength="9" type="password" class="form-control"
                                     id="inputClaveUsuario" name="inputClaveUsuario" required>
                                 <div class="input-group-append">
                                     <button class="btn btn-dark show_password" type="button"
@@ -137,12 +137,12 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="inputEditNombreUsuario">Nombre Completo</label>
-                                    <input onblur="mayus(this);" maxLength="30" type="text" class="form-control"
+                                    <input onblur="mayus(this);" maxLength="80" type="text" class="form-control"
                                         id="inputEditNombreUsuario" name="inputEditNombreUsuario" required>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputEditCorreoUsuario">correo</label>
-                                    <input onblur="mayus(this);" maxLength="30" type="email" class="form-control"
+                                    <input onblur="mayus(this);" maxLength="80" type="email" class="form-control"
                                         id="inputEditCorreoUsuario" name="inputEditCorreoUsuario" required>
                                 </div>
                                 <div class="form-group col-md-12">
@@ -161,7 +161,7 @@
                                 <div class=" form-group col-md-12">
                                     <label for="inputEditClaveUsuario">Cambiar constraseña</label>
                                     <div class="input-group">
-                                        <input maxLength="30" minlength="8" type="password" class="form-control"
+                                        <input maxLength="50" minlength="8" type="password" class="form-control"
                                             id="inputEditClaveUsuario" name="inputEditClaveUsuario">
                                         <div class="input-group-append">
                                             <button class="btn btn-dark show_password" type="button"

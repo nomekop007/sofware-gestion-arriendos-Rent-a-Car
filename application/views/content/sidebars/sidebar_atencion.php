@@ -9,7 +9,7 @@ $rol = $this->session->userdata("rol");
         <ul class="nav flex-column">
             <br>
             <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
-            <li class="nav-item" id="l_reserva">
+            <li hidden class="nav-item" id="l_reserva">
                 <br>
                 <a id="m_reserva" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=4">
                     <i class="fas fa-calendar-alt"></i>
