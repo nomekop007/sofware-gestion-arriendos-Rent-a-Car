@@ -17,12 +17,18 @@
             </div>
             <form class="needs-validation" id="formEditarVehiculo" novalidate>
                 <div class="modal-body" id="modal_vehiculo">
-                    <input type="text" id="inputEditarPatente" name="inputEditarPatente" hidden />
+                    <input type="text" id="inputEditarId" name="inputEditarId" hidden />
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-row">
+                                        <div class="form-group col-lg-6">
+                                            <label for="inputEditarPatente">Patente del Vehiculo</label>
+                                            <input onblur="mayus(this);" maxLength="10" type="text" class="form-control"
+                                                id="inputEditarPatente" name="inputEditarPatente" required>
+                                        </div>
+
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarMarca">Marca del Vehiculo</label>
                                             <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"

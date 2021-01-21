@@ -21,6 +21,7 @@ const buscarVehiculo = async (patente) => {
 
 
 		$("#inputEditarPatente").val(vehiculo.patente_vehiculo);
+		$("#inputEditarId").val(vehiculo.id_vehiculo)
 		$("#exampleModalLongTitle").text(
 			"Editar Vehiculo " + vehiculo.patente_vehiculo
 		);
@@ -166,6 +167,11 @@ $(document).ready(() => {
 	});
 
 	$("#btn_editar_vehiculo").click(async () => {
+		const patente = $("#inputEditarPatente").val();
+		if (patente.length === 0) {
+			Swal.fire("campos vacios", "es obligatorio contar con la patente", "warning");
+			return;
+		}
 		Swal.fire({
 			title: "Estas seguro?",
 			text: "estas a punto de guardar los cambios!",

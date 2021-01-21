@@ -48,8 +48,9 @@ class Vehiculo_controller extends CI_Controller
 
     public function editarVehiculo()
     {
-        $patente = $this->input->post("inputEditarPatente");
+        $id = $this->input->post("inputEditarId");
         $arrayVehiculo = [
+            "patente_vehiculo" => $this->input->post("inputEditarPatente"),
             "transmision_vehiculo" => $this->input->post("inputEditarTransmision"),
             "modelo_vehiculo" => $this->input->post("inputEditarModelo"),
             "tipo_vehiculo" => $this->input->post("inputEditarTipo"),
@@ -67,7 +68,7 @@ class Vehiculo_controller extends CI_Controller
             "numero_tab_vehiculo" => $this->input->post("inputEditarNumeroTab"),
             "Tmantencion_vehiculo" => $this->input->post("inputEditarkilomentrosMantencion"),
         ];
-        echo put_function($patente, $arrayVehiculo, "vehiculos/editarVehiculo");
+        echo put_function($id, $arrayVehiculo, "vehiculos/editarVehiculo");
     }
 
     public function cambiarEstadoVehiculo()
@@ -84,7 +85,7 @@ class Vehiculo_controller extends CI_Controller
     public function guardarFotoVehiculo()
     {
         $patente = $this->input->post("inputPatente");
-        $arrayInput=["inputFoto"];
+        $arrayInput = ["inputFoto"];
         $arrayData = recorrerFicheros($arrayInput);
         echo file_function($patente, $arrayData, "vehiculos/cargarImagen");
     }
