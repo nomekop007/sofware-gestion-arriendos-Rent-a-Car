@@ -28,7 +28,16 @@
                                             <input onblur="mayus(this);" maxLength="10" type="text" class="form-control"
                                                 id="inputEditarPatente" name="inputEditarPatente" required>
                                         </div>
-
+                                        <div class="form-group col-lg-6">
+                                            <label for="inputEditarTipo">Tipo de Vehiculo</label>
+                                            <select id="inputEditarTipo" name="inputEditarTipo" class="form-control">
+                                                <option value="AUTOMOVIL" selected>Automovil</option>
+                                                <option value="CAMIONETA">Camioneta</option>
+                                                <option value="FURGON">Furgón</option>
+                                                <option value="CONVERTIBLE">Convertible</option>
+                                                <option value="DOBLE CABINA">Doble Cabina</option>
+                                            </select>
+                                        </div>
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarMarca">Marca del Vehiculo</label>
                                             <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
@@ -39,24 +48,11 @@
                                             <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
                                                 id="inputEditarModelo" name="inputEditarModelo" required>
                                         </div>
-
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarEdad">Año del Vehiculo</label>
                                             <select id="inputEditarEdad" name="inputEditarEdad" class="form-control">
                                             </select>
                                         </div>
-
-                                        <div class="form-group col-lg-4">
-                                            <label for="inputEditarTipo">Tipo de Vehiculo</label>
-                                            <select id="inputEditarTipo" name="inputEditarTipo" class="form-control">
-                                                <option value="AUTOMOVIL" selected>Automovil</option>
-                                                <option value="CAMIONETA">Camioneta</option>
-                                                <option value="FURGON">Furgón</option>
-                                                <option value="CONVERTIBLE">Convertible</option>
-                                                <option value="DOBLE CABINA">Doble Cabina</option>
-                                            </select>
-                                        </div>
-
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarTransmision">Transmision del Vehiculo</label>
                                             <select id="inputEditarTransmision" name="inputEditarTransmision"
@@ -85,7 +81,6 @@
                                             <input type="text" maxLength="40" class="form-control"
                                                 id="inputEditarNumeroTab" name="inputEditarNumeroTab" required>
                                         </div>
-
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarColor">Color del Vehiculo</label>
                                             <input onblur="mayus(this);" maxLength="40" type="text" class="form-control"
@@ -98,13 +93,7 @@
                                                 class="form-control" id="inputEditarkilomentrosMantencion"
                                                 name="inputEditarkilomentrosMantencion" required>
                                         </div>
-                                        <div class="form-group col-lg-6">
-                                            <label for="inputEditarRegion">Region</label>
-                                            <select id="inputEditarRegion" name="inputEditarRegion"
-                                                class="form-control">
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-lg-6">
+                                        <div class="form-group col-lg-4">
                                             <label for="inputEditarEstado">Editar estado</label>
                                             <select id="inputEditarEstado" name="inputEditarEstado"
                                                 class="form-control">
@@ -116,6 +105,13 @@
                                                 <option value="MANTENCION">En mantencion</option>
                                             </select>
                                         </div>
+                                        <div class="form-group col-lg-6">
+                                            <label for="inputEditarRegion">Region</label>
+                                            <select id="inputEditarRegion" name="inputEditarRegion"
+                                                class="form-control">
+                                            </select>
+                                        </div>
+
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarCompra">Donde se compro</label>
                                             <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
