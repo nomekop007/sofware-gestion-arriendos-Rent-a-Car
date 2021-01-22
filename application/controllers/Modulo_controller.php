@@ -109,6 +109,7 @@ class Modulo_controller extends CI_Controller
                 case 2:
                     if ($rol == 1 || $rol == 2) {
                         $this->load->view('content/view_module/views_gestion/view_danioVehiculo/view_module_danioVehiculo');
+                        $this->load->view('content/view_module/views_gestion/view_danioVehiculo/view_modal_subirComprobante');
                     } else {
                         redirect(base_url());
                     }
@@ -116,6 +117,7 @@ class Modulo_controller extends CI_Controller
                 case 3:
                     if ($rol == 1 || $rol == 2) {
                         $this->load->view('content/view_module/views_gestion/view_facturacion/view_module_facturacion');
+                        $this->load->view('content/view_module/views_gestion/view_facturacion/view_modal_editarFactura');
                     } else {
                         redirect(base_url());
                     }
@@ -123,6 +125,7 @@ class Modulo_controller extends CI_Controller
                 case 4:
                     if ($rol == 1) {
                         $this->load->view('content/view_module/views_gestion/view_usuarios/view_module_usuarios');
+                        $this->load->view('content/view_module/views_gestion/view_usuarios/view_modal_editarUsuario');
                     } else {
                         redirect(base_url());
                     }

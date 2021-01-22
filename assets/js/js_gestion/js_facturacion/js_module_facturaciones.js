@@ -6,10 +6,23 @@ const formatter = new Intl.NumberFormat("CL");
 const arrayClaveER = [];
 
 
-const buscarPagoArriendo = (id_pagoArriendo) => {
-	console.log(id_pagoArriendo)
-	//buscar info del pago
-
+const buscarPago = async (id_pago) => {
+	const data = new FormData();
+	limpiarCampos();
+	data.append("id_pago", id_pago);
+	const response = await ajax_function(data, "buscar_pago");
+	if (response.success) {
+		const pago = response.data;
+		console.log(pago)
+		$("#modal_pagoArriendoLabel").html(`Pago E.remplazo del Arriendo Nº ${pago.pagosArriendo.id_arriendo}`);
+		$("#deudor_pago").val(pago.deudor_pago);
+		$("#dias_pago").val(pago.pagosArriendo.dias_pagoArriendo);
+		$("#editar_neto_pago").val(Number(pago.neto_pago));
+		$("#editar_iva_pago").val(Number(pago.iva_pago));
+		$("#editar_bruto_pago").val(Number(pago.total_pago));
+		$("#form_editar_factura").show();
+	}
+	$("#spinner_editar_factura").hide();
 }
 
 const calcularTotalFactura = async () => {
@@ -35,6 +48,26 @@ const cacturarCheckPago = () => {
 		.get()
 	return array;
 };
+
+
+const calcularIvaPagoERemplazo = () => {
+	let neto = Number($("#editar_neto_pago").val());
+	let iva = Number($("#editar_iva_pago").val());
+	let total = Number($("#editar_bruto_pago").val());
+	iva = Number(neto * 0.19);
+	total = Number(neto + iva);
+	$("#editar_iva_pago").val(Math.round(iva));
+	$("#editar_bruto_pago").val(decimalAdjust(Math.round(total), 1));
+}
+
+
+
+const limpiarCampos = () => {
+	$("#spinner_editar_factura").show();
+	$("#form_editar_factura").hide();
+	$("#form_editar_factura")[0].reset();
+
+}
 
 $(document).ready(() => {
 
@@ -184,20 +217,18 @@ $(document).ready(() => {
 				.add([
 					`<input type="checkbox" onClick='calcularTotalFactura()' name="checkPago[]" value="${pagosPendientes.id_pago}" >`,
 					pagosPendientes.pagosArriendo.id_arriendo,
+					pagosPendientes.pagosArriendo.dias_pagoArriendo,
 					pagosPendientes.estado_pago,
 					"$ " + formatter.format(pagosPendientes.neto_pago),
 					"$ " + formatter.format(pagosPendientes.iva_pago),
 					"$ " + formatter.format(pagosPendientes.total_pago),
 					formatearFechaHora(pagosPendientes.createdAt),
-					` <button value='${pagosPendientes.id_pago}' onclick='buscarPagoArriendo(this.value)' data-toggle='modal' data-target='#modal_pagoArriendo' class='btn btn-outline-info'><i class='far fa-edit'></i></button>`,
-
+					` <button value='${pagosPendientes.id_pago}' onclick='buscarPago(this.value)' data-toggle='modal' data-target='#modal_pagoArriendo' class='btn btn-outline-info'><i class='far fa-edit'></i></button>`,
 				])
 				.draw(false);
 		} catch (error) {
 			console.log("error al cargar este pago")
 		}
-
-
 	}
 
 	const cargarPagosEnTabla = (pagosPendientes) => {
