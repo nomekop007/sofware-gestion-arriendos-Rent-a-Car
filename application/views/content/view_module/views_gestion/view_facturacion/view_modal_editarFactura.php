@@ -31,18 +31,18 @@
                                     required>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="editar_neto_pago">Valor neto</label>
+                                <label for="editar_neto_pago">Valor neto <span id="lb_neto"></span> </label>
                                 <input oninput="calcularIvaPagoERemplazo()" type="number" class="form-control"
                                     id="editar_neto_pago" name="editar_neto_pago" required>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="editar_iva_pago">Valor iva</label>
+                                <label for="editar_iva_pago">Valor iva <span id="lb_iva"></span></label>
                                 <input oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()"
                                     type="number" class="form-control" id="editar_iva_pago" name="editar_iva_pago"
                                     required>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="editar_bruto_pago">Valor total bruto</label>
+                                <label for="editar_bruto_pago">Valor total bruto <span id="lb_total"></span></label>
                                 <input oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()"
                                     type="number" class="form-control" id="editar_bruto_pago" name="editar_bruto_pago"
                                     required>

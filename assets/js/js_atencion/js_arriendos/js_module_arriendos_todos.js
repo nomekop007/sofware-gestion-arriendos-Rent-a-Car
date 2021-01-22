@@ -1,3 +1,5 @@
+const formatter = new Intl.NumberFormat("CL");
+
 //aqui se guarda el base64 del documento seleccionando
 let global_base64_documento = null;
 const global_documentosArriendo = {
@@ -342,10 +344,13 @@ const calcularIvaPagoERemplazo = () => {
 	total = Number(neto + iva);
 	$("#inputPagoIvaEmpresa").val(Math.round(iva));
 	$("#inputPagoTotalEmpresa").val(decimalAdjust(Math.round(total), 1));
+	$("#lb_neto_er").html("( $ " + formatter.format(neto) + " )");
+	$("#lb_iva_er").html("( $ " + formatter.format(Math.round(iva)) + " )");
+	$("#lb_total_er").html("( $ " + formatter.format(decimalAdjust(Math.round(total), 1)) + " )");
+
 }
 
 const calcularValores = () => {
-
 	//variables
 	let valorArriendo = Number($("#inputSubTotalArriendo").val());
 	let iva = Number($("#inputIVA").val());
@@ -369,8 +374,6 @@ const calcularValores = () => {
 	$("#inputNeto").val(TotalNeto.toFixed());
 	$("#inputIVA").val(Math.round(iva));
 	$("#inputTotal").val(decimalAdjust(Math.round(total), 1));
-
-	const formatter = new Intl.NumberFormat("CL");
 	$("#lb_neto").html("( $ " + formatter.format(TotalNeto.toFixed()) + " )");
 	$("#lb_iva").html("( $ " + formatter.format(Math.round(iva)) + " )");
 	$("#lb_total").html("( $ " + formatter.format(decimalAdjust(Math.round(total), 1)) + " )");
@@ -415,7 +418,6 @@ const tipoGarantia = (value) => {
 			$("#card_efectivo").hide();
 			$("#card_cheque").hide();
 			$("#card_tarjeta").show();
-
 			break;
 		case "EFECTIVO":
 			$("#card_abono_garantia").show();
@@ -582,7 +584,6 @@ $(document).ready(() => {
 				if (o.id_accesorio == "1") {
 					o.precio_accesorio = "";
 				}
-				const formatter = new Intl.NumberFormat("CL");
 				let fila = `
                 <div class='input-group '>
                     <label style='width: 70%;font-size: 0.6rem;' class='form-control'>${o.nombre_accesorio}  $ ${formatter.format(o.precio_accesorio)} </label>
@@ -679,14 +680,14 @@ $(document).ready(() => {
 
 		switch (inputTipoArriendo) {
 			case "PARTICULAR":
-				/* 	if (inputComprobanteDomicilio.length == 0) {
-						Swal.fire(
-							"faltan archivos del cliente por subir",
-							"se necesita subir los archivos requeridos",
-							"warning"
-						);
-						return;
-					} */
+				if (inputComprobanteDomicilio.length == 0) {
+					Swal.fire(
+						"faltan archivos del cliente por subir",
+						"se necesita subir los archivos requeridos",
+						"warning"
+					);
+					return;
+				}
 				if (!global_documentosArriendo.documentoCliente) {
 					if (inputCarnetFrontal.length == 0 || inputCarnetTrasera.length == 0) {
 						Swal.fire(
