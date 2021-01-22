@@ -20,15 +20,16 @@
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-body">
+                            <input hidden type="text" class="form-control" id="id_pago" name="id_pago">
+                            <input hidden type="text" class="form-control" id="id_pagoArriendo" name="id_pagoArriendo">
                             <div class="form-group col-md-12">
-                                <label for="deudor_pago">empresa de remplazo</label>
+                                <label for="deudor_pago">Empresa de remplazo</label>
                                 <input disabled type="text" class="form-control" id="deudor_pago" name="deudor_pago"
                                     required>
                             </div>
                             <div class="form-group col-md-12">
-                                <label for="dias_pago">dias correspondientes</label>
-                                <input disabled type="number" class="form-control" id="dias_pago" name="dias_pago"
-                                    required>
+                                <label for="dias_pago">Dias correspondientes</label>
+                                <input type="number" class="form-control" id="dias_pago" name="dias_pago" required>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="editar_neto_pago">Valor neto <span id="lb_neto"></span> </label>
@@ -48,16 +49,17 @@
                                     required>
                             </div>
                             <div class="form-group col-xl-12">
-                                <label for="editar_observaciones_pago">añadir razon de modificacion</label>
-                                <textarea onblur="mayus(this);" class="form-control" id="editar_observaciones_pago"
-                                    name="editar_observaciones_pago" rows="3" maxLength="300"></textarea>
+                                <label for="editar_observaciones_pago">Añadir razon de modificacion</label>
+                                <textarea required onblur="mayus(this);" class="form-control"
+                                    id="editar_observaciones_pago" name="editar_observaciones_pago" rows="3"
+                                    maxLength="300"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                    <button type="button" class="btn btn-success">Guardar cambios</button>
+                    <button type="submit" id="btn_editar_pago" class="btn btn-success">Guardar cambios</button>
                 </div>
             </form>
         </div>

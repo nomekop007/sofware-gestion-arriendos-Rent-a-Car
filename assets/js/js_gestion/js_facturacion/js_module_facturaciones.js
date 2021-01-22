@@ -13,15 +13,15 @@ const buscarPago = async (id_pago) => {
 	const response = await ajax_function(data, "buscar_pago");
 	if (response.success) {
 		const pago = response.data;
-		console.log(pago)
 		$("#modal_pagoArriendoLabel").html(`Pago E.remplazo del Arriendo Nº ${pago.pagosArriendo.id_arriendo}`);
+		$("#id_pago").val(pago.id_pago);
+		$("#id_pagoArriendo").val(pago.id_pagoArriendo);
 		$("#deudor_pago").val(pago.deudor_pago);
 		$("#dias_pago").val(pago.pagosArriendo.dias_pagoArriendo);
 		$("#editar_neto_pago").val(Number(pago.neto_pago));
 		$("#editar_iva_pago").val(Number(pago.iva_pago));
 		$("#editar_bruto_pago").val(Number(pago.total_pago));
 		$("#form_editar_factura").show();
-
 		$("#lb_neto").html("( $ " + formatter.format(Number(pago.neto_pago)) + " )");
 		$("#lb_iva").html("( $ " + formatter.format(Math.round(Number(pago.iva_pago))) + " )");
 		$("#lb_total").html("( $ " + formatter.format(decimalAdjust(Math.round(Number(pago.total_pago)), 1)) + " )");
@@ -73,15 +73,32 @@ const limpiarCampos = () => {
 	$("#spinner_editar_factura").show();
 	$("#form_editar_factura").hide();
 	$("#form_editar_factura")[0].reset();
-
 }
+
+
+
+
+
+
+
+
+//----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
+
+
+
+
+
+
+
+
+
+
 
 $(document).ready(() => {
 
 
 	const tabla_pagosER = $("#tabla_pagos").DataTable(lenguaje);
 	const tabla_pagoER = $("#tabla_pagoPendienteRemplazo").DataTable(lenguaje);
-
 	$("#nav-pagos-tab").click(() => refrescarTabla());
 
 
@@ -100,62 +117,58 @@ $(document).ready(() => {
 			});
 		}
 		$("#spinner_empresa_remplazo").hide();
-
 	});
 
 
 	$("#btn_registrar_facturacion").click(() => {
-
 		const arrayCheck = cacturarCheckPago();
 		const inputNumFacturacion = $("#inputNumFacturacion").val();
 		const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
 		if (arrayCheck.length == 0 || inputNumFacturacion.length == 0 || $("#inputFileFacturacion").val().length == 0) {
-			Swal.fire(
-				"faltan datos",
-				"faltan datos en el formulario",
-				"warning"
-			);
+			Swal.fire("faltan datos", "faltan datos en el formulario", "warning");
 			return;
 		}
-
-
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#btn_registrar_facturacion").attr("disabled", true);
-				$("#spinner_registrar_facturacion").show();
-				const form = $("#form_registrar_factura")[0];
-				const data = new FormData(form);
-				const responseFac = await guardarDatosFactura(data);
-				if (responseFac.success) {
-					data.append("inputEstado", "PAGADO");
-					data.append("inputDocumento", inputFileFacturacion);
-					data.append("id_facturacion", responseFac.data.id_facturacion);
-					data.append("arrayPagos", JSON.stringify(arrayCheck));
-					const responseDoc = await guardarDocumentoFactura(data);
-					if (responseDoc.success) {
-						const responsePago = await actualizarPagos(data);
-						if (responsePago.success) {
-							Swal.fire(
-								"Pago Actualizado!",
-								"se a actualizado exitosamente el pago",
-								"success"
-							)
-							tabla_pagoER.row().clear().draw(false);
-							$("#totalFactura").val(0);
-						}
+		alertQuestion(async () => {
+			$("#btn_registrar_facturacion").attr("disabled", true);
+			$("#spinner_registrar_facturacion").show();
+			const form = $("#form_registrar_factura")[0];
+			const data = new FormData(form);
+			const responseFac = await guardarDatosFactura(data);
+			if (responseFac.success) {
+				data.append("inputEstado", "PAGADO");
+				data.append("inputDocumento", inputFileFacturacion);
+				data.append("id_facturacion", responseFac.data.id_facturacion);
+				data.append("arrayPagos", JSON.stringify(arrayCheck));
+				const responseDoc = await guardarDocumentoFactura(data);
+				if (responseDoc.success) {
+					const responsePago = await actualizarPagos(data);
+					if (responsePago.success) {
+						Swal.fire("factura generada!", "se a actualizado exitosamente el pago y la factura", "success")
+						tabla_pagoER.row().clear().draw(false);
+						$("#totalFactura").val("");
 					}
 				}
-				$("#spinner_registrar_facturacion").hide();
-				$("#btn_registrar_facturacion").attr("disabled", false);
+			}
+			$("#spinner_registrar_facturacion").hide();
+			$("#btn_registrar_facturacion").attr("disabled", false);
+		})
+	});
 
+
+	$("#btn_editar_pago").click(async () => {
+		if ($("#editar_neto_pago").val().length === 0 || $("#editar_observaciones_pago").val().length === 0) {
+			Swal.fire("campos vacio!", "por favor rellene el campo precio", "warning");
+			return;
+		}
+		alertQuestion(async () => {
+			const form = $("#form_editar_factura")[0];
+			const data = new FormData(form);
+			const response = await ajax_function(data, "modificar_pago");
+			if (response.success) {
+				Swal.fire("Pago Actualizado!", "se a actualizado exitosamente el pago", "success")
+				tabla_pagoER.row().clear().draw(false);
+				$("#totalFactura").val("");
+				$("#modal_pagoArriendo").modal("toggle");
 			}
 		});
 	});
@@ -169,7 +182,7 @@ $(document).ready(() => {
 	};
 
 	const actualizarPagos = async (data) => {
-		return await ajax_function(data, "actualizar_pago");
+		return await ajax_function(data, "actualizar_pagos");
 	}
 
 

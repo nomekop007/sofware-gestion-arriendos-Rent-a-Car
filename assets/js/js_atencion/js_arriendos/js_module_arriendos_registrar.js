@@ -9,7 +9,7 @@ $("#spinner_btn_crearContrato").hide();
 $("#card_conductor_2").hide();
 $("#card_conductor_3").hide();
 
-
+let dataFormArriendo = null;
 
 // Script para cambia el tab cliente de acuerdo al tipo de arriendo
 (tipoArriendo = () => {
@@ -76,32 +76,13 @@ const cantidadConductores = (opcion) => {
 }
 
 
-/* const calcularMantencionVehiculo = (k) => {
-	let kilometros_mantencion = Number(10000);
-	let kilometros_actual = Number(k);
-	let kilometros_falta = Number(0);
-	do {
-		kilometros_falta = Number(kilometros_mantencion - kilometros_actual);
-		if (kilometros_falta < 0) {
-			kilometros_mantencion = kilometros_mantencion + 10000;
-		}
-	} while (kilometros_falta < 0);
-	$("#inputEntrada").val(kilometros_actual);
-	$("#inputMantencion").val(kilometros_falta);
-}
- */
-
 
 const calcularMantencionVehiculo = () => {
 	let cada = Number(10000);
 	let actual = Number($("#inputEntrada").val());
 	let ultima = Number($("#Tmantencion_vehiculo").val());
 	let siguiente = Number(0);
-
-
 	siguiente = cada - (actual - ultima)
-
-
 	$("#inputMantencion").val(siguiente);
 }
 
@@ -146,7 +127,6 @@ $(document).ready(() => {
 	const cargarVehiculos = async () => {
 		//select2 de los vehiculos
 		$("#select_vehiculos").select2(lenguajeSelect2);
-
 		const data = new FormData();
 		data.append("inputSucursal", $("#selectSucursal").val());
 		const response = await ajax_function(data, "cargar_VehiculosPorSucursal");
@@ -307,9 +287,7 @@ $(document).ready(() => {
 
 	$("#btn_buscarConductor2").click(async () => {
 		let rut_conductor = $("#inputRutConductor2").val();
-
 		if (rut_conductor.length != 0) {
-
 			if ($("#inputNacionalidadConductor2").val() == "EXTRANJERO/A") {
 				rut_conductor = `@${rut_conductor}`;
 			}
@@ -339,9 +317,7 @@ $(document).ready(() => {
 
 	$("#btn_buscarConductor3").click(async () => {
 		let rut_conductor = $("#inputRutConductor3").val();
-
 		if (rut_conductor.length != 0) {
-
 			if ($("#inputNacionalidadConductor3").val() == "EXTRANJERO/A") {
 				rut_conductor = `@${rut_conductor}`;
 			}
@@ -376,9 +352,6 @@ $(document).ready(() => {
 		data.append("rut_conductor", rut_conductor);
 		return await ajax_function(data, "buscar_conductor");
 	}
-
-
-
 
 
 
@@ -456,10 +429,7 @@ $(document).ready(() => {
 			inputNumeroDias.length == 0 ||
 			inputFechaEntrega.length == 0 ||
 			inputFechaRecepcion.length == 0) {
-			Swal.fire({
-				icon: "warning",
-				title: "Faltan datos del arriendo!",
-			});
+			Swal.fire({ icon: "warning", title: "Faltan datos del arriendo!", });
 			return;
 		}
 		//validar datos cliente
@@ -473,10 +443,7 @@ $(document).ready(() => {
 					inputDireccionCliente.length == 0 ||
 					inputFechaNacimiento.length == 0
 				) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos del cliente!",
-					});
+					Swal.fire({ icon: "warning", title: "Faltan datos del cliente!", });
 					return;
 				}
 				break;
@@ -489,10 +456,7 @@ $(document).ready(() => {
 					inputDireccionCliente.length == 0 ||
 					inputFechaNacimiento.length == 0
 				) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos del cliente!",
-					});
+					Swal.fire({ icon: "warning", title: "Faltan datos del cliente!", });
 					return;
 				}
 				break;
@@ -507,10 +471,7 @@ $(document).ready(() => {
 					inputCiudadEmpresa.length == 0 ||
 					inputRol.length == 0
 				) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos de la empresa!",
-					});
+					Swal.fire({ icon: "warning", title: "Faltan datos de la empresa!", });
 					return;
 				}
 				break;
@@ -572,28 +533,19 @@ $(document).ready(() => {
 		switch (cantidadConductor) {
 			case "1":
 				if (!validarConductor1()) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos del conductor ",
-					});
+					Swal.fire({ icon: "warning", title: "Faltan datos del conductor ", });
 					return;
 				}
 				break;
 			case "2":
 				if (!validarConductor1() || !validarConductor2()) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos de los conductores ",
-					});
+					Swal.fire({ icon: "warning", title: "Faltan datos de los conductores ", });
 					return;
 				}
 				break;
 			case "3":
 				if (!validarConductor1() || !validarConductor2() || !validarConductor3()) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos de los conductores",
-					});
+					Swal.fire({ icon: "warning", title: "Faltan datos de los conductores", });
 					return;
 				}
 				break;
@@ -603,33 +555,22 @@ $(document).ready(() => {
 			select_vehiculos == "null" ||
 			inputEntrada.length == 0 ||
 			inputMantencion.length == 0) {
-			Swal.fire({
-				icon: "warning",
-				title: "debes colocar los datos del vehiculo!",
-			});
+			Swal.fire({ icon: "warning", title: "debes colocar los datos del vehiculo!", });
 			return;
 		}
 
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas seguro de registrar este arriendo?",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#btn_crear_arriendo").attr("disabled", true);
-				$("#spinner_btn_registrar").show();
 
-				await registrarTodoElArriendo(inputTipoArriendo, cantidadConductor);
+		//SI PASAN TODAS LAS VALIDACIONES , SE GUARDA
 
-
-				$("#btn_crear_arriendo").attr("disabled", false);
-				$("#spinner_btn_registrar").hide();
-			}
-		});
+		alertQuestion(async () => {
+			$("#btn_crear_arriendo").attr("disabled", true);
+			$("#spinner_btn_registrar").show();
+			const form = $("#form_registrar_arriendo")[0];
+			dataFormArriendo = new FormData(form);
+			await registrarTodoElArriendo(inputTipoArriendo, cantidadConductor);
+			$("#btn_crear_arriendo").attr("disabled", false);
+			$("#spinner_btn_registrar").hide();
+		})
 	});
 
 
@@ -638,23 +579,18 @@ $(document).ready(() => {
 
 
 	const registrarTodoElArriendo = async (inputTipoArriendo, cantidadConductor) => {
-
 		const conductores = {};
 		const conductor = await guardarDatosConductor();
 		conductores.rut_conductor = conductor.data.rut_conductor;
-
 		if (cantidadConductor == "2") {
 			const conductor2 = await guardarDatosConductor2();
 			conductores.rut_conductor2 = conductor2.data.rut_conductor;
 		}
-
 		if (cantidadConductor == "3") {
 			const conductor2 = await guardarDatosConductor2();
 			conductores.rut_conductor2 = conductor2.data.rut_conductor;
-
 			const conductor3 = await guardarDatosConductor3();
 			conductores.rut_conductor3 = conductor3.data.rut_conductor;
-
 		}
 
 		switch (inputTipoArriendo) {
@@ -685,116 +621,44 @@ $(document).ready(() => {
 
 
 	const guardarDatosCliente = async () => {
-		const data = new FormData();
-		data.append("inputRutCliente", $("#inputRutCliente").val());
-		data.append("inputNombreCliente", $("#inputNombreCliente").val());
-		data.append("inputDireccionCliente", $("#inputDireccionCliente").val());
-		data.append("inputCiudadCliente", $("#inputCiudadCliente").val());
-		data.append("inputFechaNacimiento", $("#inputFechaNacimiento").val());
-		data.append("inputTelefonoCliente", $("#inputTelefonoCliente").val());
-		data.append("inputEstadoCivil", $("#inputEstadoCivil").val());
-		data.append("inputCorreoCliente", $("#inputCorreoCliente").val());
-		data.append("inputNacionalidadCliente", $("#inputNacionalidadCliente").val());
-		data.append("inputComunaCliente", $("#inputComunaCliente").val());
-
-		return await ajax_function(data, "registrar_cliente");
+		return await ajax_function(dataFormArriendo, "registrar_cliente");
 	};
 
 	const guardarDatosEmpresa = async () => {
-		const data = new FormData();
-		data.append("inputRutEmpresa", $("#inputRutEmpresa").val());
-		data.append("inputNombreEmpresa", $("#inputNombreEmpresa").val());
-		data.append("inputDireccionEmpresa", $("#inputDireccionEmpresa").val());
-		data.append("inputCiudadEmpresa", $("#inputCiudadEmpresa").val());
-		data.append("inputTelefonoEmpresa", $("#inputTelefonoEmpresa").val());
-		data.append("inputCorreoEmpresa", $("#inputCorreoEmpresa").val());
-		data.append("inputVigencia", $("#inputVigencia").val());
-		data.append("inputRol", $("#inputRol").val());
-		data.append("inputComunaEmpresa", $("#inputComunaEmpresa").val());
-
-		return await ajax_function(data, "registrar_empresa");
+		return await ajax_function(dataFormArriendo, "registrar_empresa");
 	};
 	const guardarDatosConductor = async () => {
-		const data = new FormData();
-		data.append("inputRutConductor", $("#inputRutConductor").val());
-		data.append("inputNombreConductor", $("#inputNombreConductor").val());
-		data.append("inputTelefonoConductor", $("#inputTelefonoConductor").val());
-		data.append("inputClaseConductor", $("#inputClaseConductor").val());
-		data.append("inputNumeroConductor", $("#inputNumeroConductor").val());
-		data.append("inputVCTOConductor", $("#inputVCTOConductor").val());
-		data.append("inputMunicipalidadConductor", $("#inputMunicipalidadConductor").val());
-		data.append("inputDireccionConductor", $("#inputDireccionConductor").val());
-		data.append("inputNacionalidadConductor", $("#inputNacionalidadConductor").val());
-
-		return await ajax_function(data, "registrar_conductor");
+		return await ajax_function(dataFormArriendo, "registrar_conductor");
 	};
 
 	const guardarDatosConductor2 = async () => {
-		const data = new FormData();
-		data.append("inputRutConductor", $("#inputRutConductor2").val());
-		data.append("inputNombreConductor", $("#inputNombreConductor2").val());
-		data.append("inputTelefonoConductor", $("#inputTelefonoConductor2").val());
-		data.append("inputClaseConductor", $("#inputClaseConductor2").val());
-		data.append("inputNumeroConductor", $("#inputNumeroConductor2").val());
-		data.append("inputVCTOConductor", $("#inputVCTOConductor2").val());
-		data.append("inputMunicipalidadConductor", $("#inputMunicipalidadConductor2").val());
-		data.append("inputDireccionConductor", $("#inputDireccionConductor2").val());
-		data.append("inputNacionalidadConductor", $("#inputNacionalidadConductor2").val());
-
-		return await ajax_function(data, "registrar_conductor");
+		return await ajax_function(dataFormArriendo, "registrar_conductor");
 	};
 
 
 	const guardarDatosConductor3 = async () => {
-		const data = new FormData();
-		data.append("inputRutConductor", $("#inputRutConductor3").val());
-		data.append("inputNombreConductor", $("#inputNombreConductor3").val());
-		data.append("inputTelefonoConductor", $("#inputTelefonoConductor3").val());
-		data.append("inputClaseConductor", $("#inputClaseConductor3").val());
-		data.append("inputNumeroConductor", $("#inputNumeroConductor3").val());
-		data.append("inputVCTOConductor", $("#inputVCTOConductor3").val());
-		data.append("inputMunicipalidadConductor", $("#inputMunicipalidadConductor3").val());
-		data.append("inputDireccionConductor", $("#inputDireccionConductor3").val());
-		data.append("inputNacionalidadConductor", $("#inputNacionalidadConductor3").val());
-
-		return await ajax_function(data, "registrar_conductor");
+		return await ajax_function(dataFormArriendo, "registrar_conductor");
 	};
 
 
 	const guardarDatosRemplazo = async (rut_cliente) => {
-		const data = new FormData();
-		data.append("inputCodigoEmpresaRemplazo", $("#inputCodigoEmpresaRemplazo").val());
-		data.append("inputRutCliente", rut_cliente);
-		return await ajax_function(data, "registrar_remplazo");
+		dataFormArriendo.append("inputRutCliente", rut_cliente);
+		return await ajax_function(dataFormArriendo, "registrar_remplazo");
 	};
 
 	const guardarDatosArriendo = async (id_remplazo, conductores, rut_cliente, rut_empresa) => {
-
-
 		const c1 = document.getElementById("inputCiudadEntrega");
 		const c2 = document.getElementById("inputCiudadRecepcion");
-
 		const { rut_conductor, rut_conductor2, rut_conductor3 } = conductores;
-
-		const data = new FormData();
-		data.append("inputTipo", $("#inputTipo").val());
-		data.append("inputCiudadEntrega", c1.options[c1.selectedIndex].innerText);
-		data.append("inputFechaEntrega", $("#inputFechaEntrega").val());
-		data.append("inputCiudadRecepcion", c2.options[c2.selectedIndex].innerText);
-		data.append("inputFechaRecepcion", $("#inputFechaRecepcion").val());
-		data.append("inputNumeroDias", $("#inputNumeroDias").val());
-		data.append("inputEntrada", $("#inputEntrada").val());
-		data.append("select_vehiculos", $("#select_vehiculos").val());
-		data.append("inputIdRemplazo", id_remplazo);
-		data.append("inputRutCliente", rut_cliente);
-		data.append("inputRutEmpresa", rut_empresa);
-		data.append("inputRutConductor", rut_conductor);
-		data.append("inputRutConductor2", rut_conductor2);
-		data.append("inputRutConductor3", rut_conductor3);
-
-
-		const response = await ajax_function(data, "registrar_arriendo");
-
+		dataFormArriendo.append("inputCiudadRecepcion", c2.options[c2.selectedIndex].innerText);
+		dataFormArriendo.append("inputCiudadEntrega", c1.options[c1.selectedIndex].innerText);
+		dataFormArriendo.append("inputIdRemplazo", id_remplazo);
+		dataFormArriendo.append("inputRutCliente", rut_cliente);
+		dataFormArriendo.append("inputRutEmpresa", rut_empresa);
+		dataFormArriendo.append("inputRutConductor", rut_conductor);
+		dataFormArriendo.append("inputRutConductor2", rut_conductor2);
+		dataFormArriendo.append("inputRutConductor3", rut_conductor3);
+		const response = await ajax_function(dataFormArriendo, "registrar_arriendo");
 		if (response.success) {
 			await guardarDatosContacto(response.data.id_arriendo);
 			await cambiarEstadoVehiculo(response.data.patente_vehiculo);
@@ -830,8 +694,13 @@ $(document).ready(() => {
 		$("#form_registrar_arriendo")[0].reset();
 		$("#card-tarjeta").hide();
 		$("#card-cheque").hide();
-
+		dataFormArriendo = null;
 		$("#select_vehiculos").empty();
 		cargarVehiculos();
 	};
+
+
+
+
+
 });

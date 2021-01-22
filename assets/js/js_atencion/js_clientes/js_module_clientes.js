@@ -1,6 +1,7 @@
 $("#m_cliente").addClass("active");
 $("#l_cliente").addClass("card");
 
+
 const buscarCliente = async (rut_cliente) => {
 	limpiarCampos();
 	const data = new FormData();
@@ -9,7 +10,6 @@ const buscarCliente = async (rut_cliente) => {
 	if (response.success) {
 		const cliente = response.data;
 		$("#form_header").text("Cliente particular");
-
 		//se agrega un option para el select ciudad
 		const option = document.createElement('option');
 		option.value = cliente.ciudad_cliente;
@@ -26,7 +26,6 @@ const buscarCliente = async (rut_cliente) => {
 		$("#inputDireccionCliente").val(cliente.direccion_cliente);
 		$("#inputTelefonoCliente").val(cliente.telefono_cliente);
 		$("#inputCreateAtCliente").val(formatearFechaHora(cliente.createdAt));
-
 		//carga los documentos
 		if (cliente.documentosCliente) {
 			const docs = cliente.documentosCliente;
@@ -45,6 +44,8 @@ const buscarCliente = async (rut_cliente) => {
 	$("#spinner_cliente").hide();
 };
 
+
+
 const buscarEmpresa = async (rut_empresa) => {
 	limpiarCampos();
 	const data = new FormData();
@@ -53,7 +54,6 @@ const buscarEmpresa = async (rut_empresa) => {
 	if (response.success) {
 		const empresa = response.data;
 		$("#form_header").text("Cliente Empresa");
-
 		const option = document.createElement('option');
 		option.value = empresa.ciudad_empresa;
 		option.text = empresa.ciudad_empresa;
@@ -68,7 +68,6 @@ const buscarEmpresa = async (rut_empresa) => {
 		$("#inputRutEmpresa").val(empresa.rut_empresa);
 		$("#inputTelefonoEmpresa").val(empresa.telefono_empresa);
 		$("#inputVigenciaEmpresa").val(empresa.vigencia_empresa);
-
 		//carga los documentos
 		if (empresa.documentosEmpresa) {
 			const docs = empresa.documentosEmpresa;
@@ -86,6 +85,8 @@ const buscarEmpresa = async (rut_empresa) => {
 	}
 	$("#spinner_cliente").hide();
 };
+
+
 
 const buscarConductor = async (rut_conductor) => {
 	limpiarCampos();
@@ -123,6 +124,9 @@ const buscarConductor = async (rut_conductor) => {
 	$("#spinner_cliente").hide();
 };
 
+
+
+
 const limpiarCampos = () => {
 	$("#spinner_cliente").show();
 	$("#form_header").text("");
@@ -140,7 +144,17 @@ const limpiarCampos = () => {
 	$("#spinner_btn_editar_conductor").hide();
 };
 
+
+
+
+
+
 //----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
+
+
+
+
+
 
 $(document).ready(() => {
 	//se inician los datatable
@@ -186,91 +200,65 @@ $(document).ready(() => {
 
 
 	$("#btn_editar_cliente").click(() => {
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_editar_cliente").show();
-				$("#btn_editar_cliente").attr("disabled", true);
-				const form = $("#form_editar_cliente")[0];
-				const data = new FormData(form);
-				data.append("inputRutCliente", $("#inputRutCliente").val())
-				const response = await ajax_function(data, "modificar_cliente");
-				if (response.success) {
-					await editarArchivoCliente(data);
-					$("#btn_editar_cliente").attr("disabled", false);
-					$("#spinner_btn_editar_cliente").hide();
-					$("#modal_ver").modal("toggle");
-					Swal.fire("registro actualizado", response.msg, "success");
-					refrescarTablaCliente();
-				}
+		alertQuestion(async () => {
+			$("#spinner_btn_editar_cliente").show();
+			$("#btn_editar_cliente").attr("disabled", true);
+			const form = $("#form_editar_cliente")[0];
+			const data = new FormData(form);
+			data.append("inputRutCliente", $("#inputRutCliente").val())
+			const response = await ajax_function(data, "modificar_cliente");
+			if (response.success) {
+				await editarArchivoCliente(data);
+				$("#btn_editar_cliente").attr("disabled", false);
+				$("#spinner_btn_editar_cliente").hide();
+				$("#modal_ver").modal("toggle");
+				Swal.fire("registro actualizado", response.msg, "success");
+				refrescarTablaCliente();
 			}
 		});
 	})
 
+
+
+
+
 	$("#btn_editar_empresa").click(() => {
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_editar_empresa").show();
-				$("#btn_editar_empresa").attr("disabled", true);
-				const form = $("#form_editar_empresa")[0];
-				const data = new FormData(form);
-				data.append("inputRutEmpresa", $("#inputRutEmpresa").val())
-				const response = await ajax_function(data, "modificar_empresa");
-				if (response.success) {
-					await editarArchivoEmpresa(data);
-					$("#btn_editar_empresa").attr("disabled", false);
-					$("#spinner_btn_editar_empresa").hide();
-					$("#modal_ver").modal("toggle");
-					Swal.fire("registro actualizado", response.msg, "success");
-					refrescarTablaEmpresa();
-				}
+		alertQuestion(async () => {
+			$("#spinner_btn_editar_empresa").show();
+			$("#btn_editar_empresa").attr("disabled", true);
+			const form = $("#form_editar_empresa")[0];
+			const data = new FormData(form);
+			data.append("inputRutEmpresa", $("#inputRutEmpresa").val())
+			const response = await ajax_function(data, "modificar_empresa");
+			if (response.success) {
+				await editarArchivoEmpresa(data);
+				$("#btn_editar_empresa").attr("disabled", false);
+				$("#spinner_btn_editar_empresa").hide();
+				$("#modal_ver").modal("toggle");
+				Swal.fire("registro actualizado", response.msg, "success");
+				refrescarTablaEmpresa();
 			}
-		});
+		})
 	})
 
 	$("#btn_editar_conductor").click(() => {
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_editar_conductor").show();
-				$("#btn_editar_conductor").attr("disabled", true);
-				const form = $("#form_editar_conductor")[0];
-				const data = new FormData(form);
-				data.append("inputRutConductor", $("#inputRutConductor").val())
-				const response = await ajax_function(data, "modificar_conductor");
-				if (response.success) {
-					await editarArchivoConductor(data);
-					$("#btn_editar_conductor").attr("disabled", false);
-					$("#spinner_btn_editar_conductor").hide();
-					$("#modal_ver").modal("toggle");
-					Swal.fire("registro actualizado", response.msg, "success");
-					refrescarTablaConductor();
-				}
-
+		alertQuestion(async () => {
+			$("#spinner_btn_editar_conductor").show();
+			$("#btn_editar_conductor").attr("disabled", true);
+			const form = $("#form_editar_conductor")[0];
+			const data = new FormData(form);
+			data.append("inputRutConductor", $("#inputRutConductor").val())
+			const response = await ajax_function(data, "modificar_conductor");
+			if (response.success) {
+				await editarArchivoConductor(data);
+				$("#btn_editar_conductor").attr("disabled", false);
+				$("#spinner_btn_editar_conductor").hide();
+				$("#modal_ver").modal("toggle");
+				Swal.fire("registro actualizado", response.msg, "success");
+				refrescarTablaConductor();
 			}
-		});
+
+		})
 	})
 
 
@@ -321,6 +309,9 @@ $(document).ready(() => {
 	}
 	cargarClientes();
 
+
+
+
 	const cargarEmpresas = async () => {
 		$("#spinner_tablaEmpresas").show();
 		const response = await ajax_function(null, "cargar_empresas");
@@ -342,6 +333,8 @@ $(document).ready(() => {
 		}
 		$("#spinner_tablaEmpresas").hide();
 	};
+
+
 
 	const cargarConductores = async () => {
 		$("#spinner_tablaConductores").show();

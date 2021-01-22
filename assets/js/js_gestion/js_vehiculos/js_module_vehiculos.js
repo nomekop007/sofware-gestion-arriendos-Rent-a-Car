@@ -11,20 +11,15 @@ const buscarVehiculo = async (patente) => {
 	const response = await ajax_function(data, "buscar_vehiculo");
 	if (response.success) {
 		const vehiculo = response.data;
-
 		//se pregunta si tiene imagen el vehiculo
 		if (vehiculo.foto_vehiculo) {
 			document.getElementById("imagen").src = await buscarFotoVehiculo(vehiculo.foto_vehiculo, "fotoVehiculo");
 		} else {
 			document.getElementById("imagen").src = base_route + "assets/images/imageDefault.png";
 		}
-
-
 		$("#inputEditarPatente").val(vehiculo.patente_vehiculo);
 		$("#inputEditarId").val(vehiculo.id_vehiculo)
-		$("#exampleModalLongTitle").text(
-			"Editar Vehiculo " + vehiculo.patente_vehiculo
-		);
+		$("#exampleModalLongTitle").text(`Editar Vehiculo ${vehiculo.patente_vehiculo}`);
 		$("#inputEditarEstado").val(vehiculo.estado_vehiculo);
 		$("#inputEditarMarca").val(vehiculo.marca_vehiculo);
 		$("#inputEditarModelo").val(vehiculo.modelo_vehiculo);
@@ -70,6 +65,9 @@ const buscarFotoVehiculo = async (documento, tipo) => {
 	return base_route + "assets/images/imageDefault.png";
 }
 
+
+
+
 const limpiarCampos = () => {
 	$("#spinner_vehiculo").show();
 	$("#spinner_btn_editarVehiculo").hide();
@@ -79,7 +77,21 @@ const limpiarCampos = () => {
 	document.getElementById("imagen").src = "";
 };
 
+
+
+
+
+
+
+
 //----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
+
+
+
+
+
+
+
 
 $(document).ready(() => {
 	const tablaVehiculos = $("#tablaVehiculos").DataTable(lenguaje);
@@ -110,12 +122,18 @@ $(document).ready(() => {
 		$("#spinner_tablaVehiculos").hide();
 	};
 
+
+
+
 	const refrescarTabla = () => {
 		//limpia la tabla
 		tablaVehiculos.row().clear().draw(false);
 		//carga nuevamente
 		cargarVehiculos();
 	};
+
+
+
 
 	//Registrar Vehiculo
 	$("#btn_registrar_vehiculo").click(async () => {
@@ -166,48 +184,43 @@ $(document).ready(() => {
 		}
 	});
 
+
+
+
 	$("#btn_editar_vehiculo").click(async () => {
 		const patente = $("#inputEditarPatente").val();
 		if (patente.length === 0) {
 			Swal.fire("campos vacios", "es obligatorio contar con la patente", "warning");
 			return;
 		}
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#btn_editar_vehiculo").attr("disabled", true);
-				$("#spinner_btn_editarVehiculo").show();
-				const form = $("#formEditarVehiculo")[0];
-				const data = new FormData(form);
-				const response = await ajax_function(data, "editar_vehiculo");
-				if (response.success) {
-					//pregunta si hay imagen para subir
-					if ($("#inputEditarFoto").val().length != 0) {
-						const file = $("#inputEditarFoto")[0].files[0];
-						const patente = $("#inputEditarPatente").val();
-						const responseFoto = await guardarImagenVehiculo(patente, file);
-						if (responseFoto.success) {
-							Swal.fire("Exito", responseFoto.msg, "success");
-							$("#modal_editar").modal("toggle");
-						}
-					} else {
-						Swal.fire("Exito", response.msg, "success");
+		alertQuestion(async () => {
+			$("#btn_editar_vehiculo").attr("disabled", true);
+			$("#spinner_btn_editarVehiculo").show();
+			const form = $("#formEditarVehiculo")[0];
+			const data = new FormData(form);
+			const response = await ajax_function(data, "editar_vehiculo");
+			if (response.success) {
+				//pregunta si hay imagen para subir
+				if ($("#inputEditarFoto").val().length != 0) {
+					const file = $("#inputEditarFoto")[0].files[0];
+					const patente = $("#inputEditarPatente").val();
+					const responseFoto = await guardarImagenVehiculo(patente, file);
+					if (responseFoto.success) {
+						Swal.fire("Exito", responseFoto.msg, "success");
 						$("#modal_editar").modal("toggle");
 					}
-					refrescarTabla();
+				} else {
+					Swal.fire("Exito", response.msg, "success");
+					$("#modal_editar").modal("toggle");
 				}
-				$("#btn_editar_vehiculo").attr("disabled", false);
-				$("#spinner_btn_editarVehiculo").hide();
+				refrescarTabla();
 			}
+			$("#btn_editar_vehiculo").attr("disabled", false);
+			$("#spinner_btn_editarVehiculo").hide();
 		});
 	});
+
+
 
 	//guarda exclusivamente la imagen en el servidor
 	const guardarImagenVehiculo = async (patente, file) => {
@@ -216,6 +229,8 @@ $(document).ready(() => {
 		data.append("inputFoto", file);
 		return await ajax_function(data, "guardar_fotoVehiculo");
 	};
+
+
 
 	const cargarVehiculoEnTabla = (vehiculo) => {
 		try {
