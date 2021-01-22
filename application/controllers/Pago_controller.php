@@ -30,15 +30,36 @@ class Pago_controller extends CI_Controller
         echo post_function($dataArray, "pagos/registrarPago");
     }
 
-    public function actualizarPago()
+    public function actualizarPagos()
     {
         $dataArray = [
             "id_facturacion" => $this->input->post("id_facturacion"),
             "estado_pago" => $this->input->post("inputEstado"),
             "arrayPagos" => json_decode($this->input->post("arrayPagos")),
         ];
-        echo post_function($dataArray, "pagos/actualizarPago");
+        echo post_function($dataArray, "pagos/actualizarPagos");
     }
+
+
+    public function modificarPago()
+    {
+        $id_pago = $this->input->post("id_pago");
+        $dataArray = [
+            "pagoArriendo" => [
+                "dias_pagoArriendo" => intval($this->input->post("dias_pago")),
+                "observaciones_pagoArriendo" => $this->input->post("editar_observaciones_pago"),
+                "remplazo_pagoArriendo" => intval($this->input->post("editar_neto_pago")),
+                "id_pagoArriendo" => $this->input->post("id_pagoArriendo"),
+            ],
+            "pago" => [
+                "neto_pago" => intval($this->input->post("editar_neto_pago")),
+                "iva_pago" => intval($this->input->post("editar_iva_pago")),
+                "total_pago" => intval($this->input->post("editar_bruto_pago")),
+            ],
+        ];
+        echo put_function($id_pago, $dataArray, "pagos/modificarPago");
+    }
+
 
     public function aplicarDescuentoPago()
     {

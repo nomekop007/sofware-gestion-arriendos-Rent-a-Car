@@ -16,7 +16,6 @@ const buscarArriendo = async (id_arriendo, option) => {
 	if (response.success) {
 		const arriendo = response.data;
 		// si es true carga modal confirmar ; false carga modal editar
-
 		switch (option) {
 			case 1:
 				mostrarArriendoModalVer(arriendo);
@@ -628,10 +627,7 @@ $(document).ready(() => {
 		switch (inputTipoGarantia) {
 			case "CHEQUE":
 				if (inputNumeroCheque.length == 0 || inputChequeGarantia.length == 0 || inputCodigoCheque.length == 0) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos de cheque en garantia ",
-					});
+					Swal.fire({ icon: "warning", title: "Faltan datos de cheque en garantia ", });
 					return;
 				}
 				break;
@@ -643,19 +639,13 @@ $(document).ready(() => {
 					inputAbono.length == 0 ||
 					inputTarjeta.length == 0
 				) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos de tarjeta en garantia ",
-					});
+					Swal.fire({ icon: "warning", title: "Faltan datos de tarjeta en garantia ", });
 					return;
 				}
 				break;
 			case "EFECTIVO":
 				if (inputAbono.length == 0 || inputBoletaEfectivo.length == 0) {
-					Swal.fire({
-						icon: "warning",
-						title: "Faltan datos de Abono en garantia ",
-					});
+					Swal.fire({ icon: "warning", title: "Faltan datos de Abono en garantia ", });
 					return;
 				}
 				break;
@@ -669,11 +659,7 @@ $(document).ready(() => {
 
 		if (!global_documentosArriendo.documentoConductor) {
 			if (inputlicenciaFrontal.length == 0 || inputlicenciaTrasera.length == 0) {
-				Swal.fire(
-					"faltan archivos del conductor por subir",
-					"se necesita subir los archivos requeridos",
-					"warning"
-				);
+				Swal.fire("faltan archivos del conductor por subir", "se necesita subir los archivos requeridos", "warning");
 				return;
 			}
 		}
@@ -681,40 +667,24 @@ $(document).ready(() => {
 		switch (inputTipoArriendo) {
 			case "PARTICULAR":
 				if (inputComprobanteDomicilio.length == 0) {
-					Swal.fire(
-						"faltan archivos del cliente por subir",
-						"se necesita subir los archivos requeridos",
-						"warning"
-					);
+					Swal.fire("faltan archivos del cliente por subir", "se necesita subir los archivos requeridos", "warning");
 					return;
 				}
 				if (!global_documentosArriendo.documentoCliente) {
 					if (inputCarnetFrontal.length == 0 || inputCarnetTrasera.length == 0) {
-						Swal.fire(
-							"faltan archivos del cliente por subir",
-							"se necesita subir los archivos requeridos",
-							"warning"
-						);
+						Swal.fire("faltan archivos del cliente por subir", "se necesita subir los archivos requeridos", "warning");
 						return;
 					}
 				}
 				break;
 			case "REEMPLAZO":
 				if (inputCartaRemplazo.length == 0) {
-					Swal.fire(
-						"faltan archivos del cliente por subir",
-						"se necesita subir los archivos requeridos",
-						"warning"
-					);
+					Swal.fire("faltan archivos del cliente por subir", "se necesita subir los archivos requeridos", "warning");
 					return;
 				}
 				if (!global_documentosArriendo.documentoCliente) {
 					if (inputCarnetFrontal.length == 0 || inputCarnetTrasera.length == 0) {
-						Swal.fire(
-							"faltan archivos del cliente por subir",
-							"se necesita subir los archivos requeridos",
-							"warning"
-						);
+						Swal.fire("faltan archivos del cliente por subir", "se necesita subir los archivos requeridos", "warning");
 						return;
 					}
 				}
@@ -726,46 +696,28 @@ $(document).ready(() => {
 						inputEstatuto.length == 0 ||
 						inputRol.length == 0 ||
 						inputVigencia.length == 0) {
-						Swal.fire(
-							"faltan archivos de la empresa por subir",
-							"se necesita subir los archivos requeridos",
-							"warning"
-						);
+						Swal.fire("faltan archivos de la empresa por subir", "se necesita subir los archivos requeridos", "warning");
 						return;
 					}
 				}
 				break;
 		}
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_guardar_garantiaRequisitos").show();
-				$("#btn_guardar_garantiaRequisitos").attr("disabled", true);
-				const id_arriendo = $("#inputIdArriendoEditar").val();
-				if (inputTipoGarantia !== "SIN") {
-					await guardarDatosGarantia(id_arriendo);
-				}
-				const requisitos = await guardarDocumentosRequistos(id_arriendo);
-				if (requisitos) {
-					refrescarTabla();
-					Swal.fire(
-						"registros guardados con exito!",
-						"registros guardados",
-						"success"
-					);
-					$("#modal_editar_arriendo").modal("toggle");
-				}
-				$("#btn_guardar_garantiaRequisitos").attr("disabled", false);
-				$("#spinner_btn_guardar_garantiaRequisitos").hide();
+		alertQuestion(async () => {
+			$("#spinner_btn_guardar_garantiaRequisitos").show();
+			$("#btn_guardar_garantiaRequisitos").attr("disabled", true);
+			const id_arriendo = $("#inputIdArriendoEditar").val();
+			if (inputTipoGarantia !== "SIN") {
+				await guardarDatosGarantia(id_arriendo);
 			}
-		});
+			const requisitos = await guardarDocumentosRequistos(id_arriendo);
+			if (requisitos) {
+				refrescarTabla();
+				Swal.fire("registros guardados con exito!", "registros guardados", "success");
+				$("#modal_editar_arriendo").modal("toggle");
+			}
+			$("#btn_guardar_garantiaRequisitos").attr("disabled", false);
+			$("#spinner_btn_guardar_garantiaRequisitos").hide();
+		})
 	});
 
 
@@ -780,20 +732,12 @@ $(document).ready(() => {
 		const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
 		if (tipoPago != "PENDIENTE") {
 			if (numeroFacturacion == 0 || $("#inputFileFacturacion").val().length == 0) {
-				Swal.fire(
-					"debe ingresar el comprobante de pago",
-					"falta ingresar datos en el formulario",
-					"warning"
-				);
+				Swal.fire("debe ingresar el comprobante de pago", "falta ingresar datos en el formulario", "warning");
 				return;
 			}
 		}
 		if (totalNeto < 0) {
-			Swal.fire(
-				"Error en los totales",
-				"corriga los totales del arriendo",
-				"warning"
-			);
+			Swal.fire("Error en los totales", "corriga los totales del arriendo", "warning");
 			return;
 		}
 		//valdiacion para que solo los remplazos queden como pendiente
@@ -804,153 +748,95 @@ $(document).ready(() => {
 						"warning"
 					);
 					return;
-				} */
+		} */
 		if (
 			$("#inputPagoEmpresa").val().length == 0 ||
 			$("#inputValorCopago").val().length == 0 ||
 			$("#inputSubTotalArriendo").val().length == 0 ||
 			$("#inputDescuento").val().length == 0
 		) {
-			Swal.fire(
-				"Error en el formulario",
-				"coloque 0 en los campos vacios",
-				"warning"
-			);
+			Swal.fire("Error en el formulario", "coloque 0 en los campos vacios", "warning");
 			return;
 		}
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_registrarPago").show();
-				$("#btn_registrar_pago").attr("disabled", true);
-				const form = $("#formPagoArriendo")[0];
-				const data = new FormData(form);
-				const response = await guardarDatosPagoArriendo(data);
-				if (response.success) {
-					data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
-					//si existe accesorios los agrega al pagoArriendo
-					const matrizAccesorios = await capturarAccesorios();
-					console.log(matrizAccesorios);
-					if (matrizAccesorios[0].length != 0) {
-						data.append("matrizAccesorios", JSON.stringify(matrizAccesorios));
-						await guardarDatosPagoAccesorios(data);
-					}
-
-					// si se ingreso boleta/factura se guarda junto con el pago y cambia el estado
-					if (numeroFacturacion > 0 && tipoPago != "PENDIENTE") {
-						const responseFac = await guardarDatosFactura(data);
-						if (responseFac.success) {
-							data.append("inputEstado", "PAGADO");
-							data.append("inputDocumento", inputFileFacturacion);
-							data.append("id_facturacion", responseFac.data.id_facturacion);
-							await guardarDocumentoFactura(data);
-						}
-					} else {
-						if (Number($("#inputTotal").val()) === 0) {
-							data.append("inputEstado", "PAGADO");
-						} else {
-							data.append("inputEstado", "PENDIENTE");
-						}
-					}
-
-					data.append("inputDeudor", $("#inputDeudor").val());
-
-
-					// se guarda el pago del cliente
-					await guardarPago(data);
-
-					// en caso de ser tipo remplazo , se guarda el pago PENDIENTE de la empresa remplazo
-					if ($("#textTipo").val() === "REEMPLAZO" && $("#inputPagoEmpresa").val() > 0) {
-						const data = new FormData();
-						data.append("inputEstado", "PENDIENTE");
-						data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
-						data.append("inputDeudor", $("#inputDeudorCopago").val());
-
-						data.append("inputNeto", Number($("#inputPagoEmpresa").val()));
-						data.append("inputIVA", Number($("#inputPagoIvaEmpresa").val()));
-						data.append("inputTotal", Number($("#inputPagoTotalEmpresa").val()));
-						await guardarPago(data);
-					}
-					await cambiarEstadoArriendo($("#inputEstadoArriendo_pago").val(), $("#inputIdArriendo").val());
-
-					refrescarTabla();
-					Swal.fire(
-						"datos registrados con exito",
-						"se registraron los datos pertinentes!",
-						"success"
-					);
-					$("#modal_pago_arriendo").modal("toggle");
+		alertQuestion(async () => {
+			$("#spinner_btn_registrarPago").show();
+			$("#btn_registrar_pago").attr("disabled", true);
+			const form = $("#formPagoArriendo")[0];
+			const data = new FormData(form);
+			const response = await guardarDatosPagoArriendo(data);
+			if (response.success) {
+				data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
+				//si existe accesorios los agrega al pagoArriendo
+				const matrizAccesorios = await capturarAccesorios();
+				if (matrizAccesorios[0].length != 0) {
+					data.append("matrizAccesorios", JSON.stringify(matrizAccesorios));
+					await guardarDatosPagoAccesorios(data);
 				}
-
-				$("#btn_registrar_pago").attr("disabled", false);
-				$("#spinner_btn_registrarPago").hide();
-
+				// si se ingreso boleta/factura se guarda junto con el pago y cambia el estado
+				if (numeroFacturacion > 0 && tipoPago != "PENDIENTE") {
+					const responseFac = await guardarDatosFactura(data);
+					if (responseFac.success) {
+						data.append("inputEstado", "PAGADO");
+						data.append("inputDocumento", inputFileFacturacion);
+						data.append("id_facturacion", responseFac.data.id_facturacion);
+						await guardarDocumentoFactura(data);
+					}
+				} else {
+					if (Number($("#inputTotal").val()) === 0) {
+						data.append("inputEstado", "PAGADO");
+					} else {
+						data.append("inputEstado", "PENDIENTE");
+					}
+				}
+				data.append("inputDeudor", $("#inputDeudor").val());
+				// se guarda el pago del cliente
+				await guardarPago(data);
+				// en caso de ser tipo remplazo , se guarda el pago PENDIENTE de la empresa remplazo
+				if ($("#textTipo").val() === "REEMPLAZO" && $("#inputPagoEmpresa").val() > 0) {
+					const data = new FormData();
+					data.append("inputEstado", "PENDIENTE");
+					data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
+					data.append("inputDeudor", $("#inputDeudorCopago").val());
+					data.append("inputNeto", Number($("#inputPagoEmpresa").val()));
+					data.append("inputIVA", Number($("#inputPagoIvaEmpresa").val()));
+					data.append("inputTotal", Number($("#inputPagoTotalEmpresa").val()));
+					await guardarPago(data);
+				}
+				await cambiarEstadoArriendo($("#inputEstadoArriendo_pago").val(), $("#inputIdArriendo").val());
+				refrescarTabla();
+				Swal.fire("datos registrados con exito", "se registraron los datos pertinentes!", "success");
+				$("#modal_pago_arriendo").modal("toggle");
 			}
-		});
+			$("#btn_registrar_pago").attr("disabled", false);
+			$("#spinner_btn_registrarPago").hide();
+		})
 	});
 
 
 	$("#btn_anular_arriendo").click(() => {
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de anular este arriendo , una vez anulado no se podra modificar!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_anular_arriendo").show();
-				$("#btn_anular_arriendo").attr("disabled", true);
-				await cambiarEstadoArriendo("ANULADO", $("#inputIdArriendoEditar").val());
-				Swal.fire(
-					"Arriendo anulado",
-					"arriendo anulado con exito!",
-					"success"
-				);
-				refrescarTabla();
-				$("#btn_anular_arriendo").attr("disabled", false);
-				$("#spinner_btn_anular_arriendo").hide();
-				$("#modal_editar_arriendo").modal("toggle");
-			}
-		});
+		alertQuestion(async () => {
+			$("#spinner_btn_anular_arriendo").show();
+			$("#btn_anular_arriendo").attr("disabled", true);
+			await cambiarEstadoArriendo("ANULADO", $("#inputIdArriendoEditar").val());
+			Swal.fire("Arriendo anulado", "arriendo anulado con exito!", "success");
+			refrescarTabla();
+			$("#btn_anular_arriendo").attr("disabled", false);
+			$("#spinner_btn_anular_arriendo").hide();
+			$("#modal_editar_arriendo").modal("toggle");
+		})
 	})
 
 	$("#btn_finalizar_arriendo").click(() => {
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de finalizar este arriendo!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_finalizar_arriendo").show();
-				$("#btn_finalizar_arriendo").attr("disabled", true);
-				await cambiarEstadoArriendo("FINALIZADO", $("#inputIdArriendoEditar").val());
-				Swal.fire(
-					"Arriendo finalizado!",
-					"arriendo finalizado con exito!",
-					"success"
-				);
-				refrescarTabla();
-				$("#btn_finalizar_arriendo").attr("disabled", false);
-				$("#spinner_btn_finalizar_arriendo").hide();
-				$("#modal_editar_arriendo").modal("toggle");
-			}
-		});
-
-
+		alertQuestion(async () => {
+			$("#spinner_btn_finalizar_arriendo").show();
+			$("#btn_finalizar_arriendo").attr("disabled", true);
+			await cambiarEstadoArriendo("FINALIZADO", $("#inputIdArriendoEditar").val());
+			Swal.fire("Arriendo finalizado!", "arriendo finalizado con exito!", "success");
+			refrescarTabla();
+			$("#btn_finalizar_arriendo").attr("disabled", false);
+			$("#spinner_btn_finalizar_arriendo").hide();
+			$("#modal_editar_arriendo").modal("toggle");
+		})
 	});
 
 
@@ -984,86 +870,45 @@ $(document).ready(() => {
 	});
 
 	$("#btn_confirmar_contrato").click(() => {
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_confirmarContrato").show();
-				$("#btn_firmar_contrato").attr("disabled", true);
-				$("#btn_confirmar_contrato").attr("disabled", true);
-
-				const data = new FormData();
-				data.append("id_arriendo", $("#id_arriendo").val());
-
-				await guardarContrato(data);
-				await enviarCorreoContrato(data);
-				await cambiarEstadoArriendo($("#estado_arriendo").val(), $("#id_arriendo").val());
-
-				refrescarTabla();
-				Swal.fire(
-					"Contrato Firmado!",
-					"contrato firmado y registrado con exito!",
-					"success"
-				);
-				$("#btn_firmar_contrato").attr("disabled", false);
-				$("#btn_confirmar_contrato").attr("disabled", false);
-				$("#spinner_btn_confirmarContrato").hide();
-				$("#modal_firmar_contrato").modal("toggle");
-			}
-		});
+		alertQuestion(async () => {
+			$("#spinner_btn_confirmarContrato").show();
+			$("#btn_firmar_contrato").attr("disabled", true);
+			$("#btn_confirmar_contrato").attr("disabled", true);
+			const data = new FormData();
+			data.append("id_arriendo", $("#id_arriendo").val());
+			await guardarContrato(data);
+			await enviarCorreoContrato(data);
+			await cambiarEstadoArriendo($("#estado_arriendo").val(), $("#id_arriendo").val());
+			refrescarTabla();
+			Swal.fire("Contrato Firmado!", "contrato firmado y registrado con exito!", "success");
+			$("#btn_firmar_contrato").attr("disabled", false);
+			$("#btn_confirmar_contrato").attr("disabled", false);
+			$("#spinner_btn_confirmarContrato").hide();
+			$("#modal_firmar_contrato").modal("toggle");
+		})
 	});
 
 	$("#btn_subir_contrato").click(() => {
-
 		const inputSubirContrato = $("#inputSubirContrato")[0].files[0];
-
 		if ($("#inputSubirContrato").val().length == 0) {
-			Swal.fire(
-				"Falta subir el archivo",
-				"se debe ingresar el contrato firmado",
-				"warning"
-			);
+			Swal.fire("Falta subir el archivo", "se debe ingresar el contrato firmado", "warning");
 			return;
 		}
-
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de subir el contrato firmado!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_subirContrato").show();
-				$("#btn_subir_contrato").attr("disabled", true);
-
-				const data = new FormData();
-				data.append("id_arriendo", $("#id_arriendo").val());
-				data.append("inputContrato", inputSubirContrato);
-				await subirContrato(data);
-				await enviarCorreoContrato(data);
-				await cambiarEstadoArriendo($("#estado_arriendo").val(), $("#id_arriendo").val());
-
-				Swal.fire(
-					"Contrato subido!",
-					"contrato  registrado con exito!",
-					"success"
-				);
-				refrescarTabla();
-				$("#btn_subir_contrato").attr("disabled", false);
-				$("#spinner_btn_subirContrato").hide();
-				$("#modal_firmar_contrato").modal("toggle");
-			}
-		});
-
+		alertQuestion(async () => {
+			$("#spinner_btn_subirContrato").show();
+			$("#btn_subir_contrato").attr("disabled", true);
+			const data = new FormData();
+			data.append("id_arriendo", $("#id_arriendo").val());
+			data.append("inputContrato", inputSubirContrato);
+			await subirContrato(data);
+			await enviarCorreoContrato(data);
+			await cambiarEstadoArriendo($("#estado_arriendo").val(), $("#id_arriendo").val());
+			Swal.fire("Contrato subido!", "contrato  registrado con exito!", "success");
+			refrescarTabla();
+			$("#btn_subir_contrato").attr("disabled", false);
+			$("#spinner_btn_subirContrato").hide();
+			$("#modal_firmar_contrato").modal("toggle");
+		})
 	})
 
 
@@ -1096,11 +941,9 @@ $(document).ready(() => {
 	const firmarContrato = (geo) => {
 		const canvasCliente = document.getElementById("canvas_firma_cliente");
 		const canvasUsuario = document.getElementById("canvas_firma_usuario");
-
 		const data = new FormData();
 		data.append("inputFirmaClientePNG", canvasCliente.toDataURL("image/png"));
 		data.append("inputFirmaUsuarioPNG", canvasUsuario.toDataURL("image/png"));
-
 		data.append("geolocalizacion", geo);
 		data.append("id_arriendo", $("#id_arriendo").val());
 		mostrarContratoModalContrato(data);
@@ -1220,7 +1063,6 @@ $(document).ready(() => {
 					cliente = `${arriendo.empresa.nombre_empresa}`;
 					break;
 			}
-
 			let color = "";
 			switch (arriendo.estado_arriendo) {
 				case "CON DAÑO":
@@ -1256,24 +1098,20 @@ $(document).ready(() => {
                                 `,
 				])
 				.draw(true);
-
 			if (arriendo.requisito || arriendo.estado_arriendo == "ANULADO") {
 				$(`#a${arriendo.id_arriendo}`).removeClass("btn-outline-primary");
 				$(`#a${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
 			}
-
 			if (arriendo.estado_arriendo != "EXTENDIDO" && arriendo.estado_arriendo != "PENDIENTE" || arriendo.estado_arriendo == "ANULADO") {
 				$(`#b${arriendo.id_arriendo}`).attr("disabled", true);
 				$(`#b${arriendo.id_arriendo}`).removeClass("btn-outline-success");
 				$(`#b${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
 			}
-
 			if (arriendo.estado_arriendo != "CONFIRMADO" && arriendo.estado_arriendo != "E-CONFIRMADO" || arriendo.estado_arriendo == "ANULADO") {
 				$(`#c${arriendo.id_arriendo}`).attr("disabled", true);
 				$(`#c${arriendo.id_arriendo}`).removeClass("btn-outline-info");
 				$(`#c${arriendo.id_arriendo}`).addClass("btn-outline-secondary");
 			}
-
 		} catch (error) {
 			console.log("error al cargar este arriendo: " + error);
 		}

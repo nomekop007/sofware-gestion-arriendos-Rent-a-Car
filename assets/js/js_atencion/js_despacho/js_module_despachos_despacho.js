@@ -14,9 +14,7 @@ const buscarArriendo = async (id_arriendo) => {
 		$("#inputEdadVehiculoDespacho").val(arriendo.vehiculo.año_vehiculo);
 		$("#inputColorVehiculoDespacho").val(arriendo.vehiculo.color_vehiculo);
 		$("#inputPatenteVehiculoDespacho").val(arriendo.vehiculo.patente_vehiculo);
-		$("#inputKilomentrajeVehiculoDespacho").val(
-			arriendo.vehiculo.kilometraje_vehiculo
-		);
+		$("#inputKilomentrajeVehiculoDespacho").val(arriendo.vehiculo.kilometraje_vehiculo);
 		$("#formActaEntrega").show();
 		switch (arriendo.tipo_arriendo) {
 			case "PARTICULAR":
@@ -131,18 +129,15 @@ $(document).ready(() => {
 				agregarFotoACarrucel(arrayImages);
 				limpiarTodoCanvasVehiculo();
 			} else {
-				Swal.fire({
-					icon: "warning",
-					title: "el maximo son 9 imagenes",
-				});
+				Swal.fire({ icon: "warning", title: "el maximo son 9 imagenes", });
 			}
 		} else {
-			Swal.fire({
-				icon: "warning",
-				title: "debe ingresar foto",
-			});
+			Swal.fire({ icon: "warning", title: "debe ingresar foto", });
 		}
 	});
+
+
+
 
 	$("#btn_crear_ActaEntrega").click(async () => {
 		const form = $("#formActaEntrega")[0];
@@ -150,40 +145,30 @@ $(document).ready(() => {
 		await generarActaEntrega(data);
 	});
 
+
+
+
 	$("#btn_confirmar_actaEntrega").click(() => {
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_confirmarActaEntrega").show();
-				$("#btn_confirmar_actaEntrega").attr("disabled", true);
-				const form = $("#formActaEntrega")[0];
-				const data = new FormData(form);
-
-				//metodos
-				const response = await guardarDatosDespacho(data);
-				await guardarActaEntrega(data, response.id_despacho);
-				await cambiarEstadoArriendo(data);
-				await cambiarEstadoVehiculo(data);
-				await enviarCorreoDespacho(data);
-
-				refrescarTabla();
-				Swal.fire(
-					"Acta de entrega Firmado!",
-					"acta de entrega firmado y registrado con exito!",
-					"success"
-				);
-				$("#modal_signature").modal("toggle");
-				$("#modal_despachar_arriendo").modal("toggle");
-			}
-		});
+		alertQuestion(async () => {
+			$("#spinner_btn_confirmarActaEntrega").show();
+			$("#btn_confirmar_actaEntrega").attr("disabled", true);
+			const form = $("#formActaEntrega")[0];
+			const data = new FormData(form);
+			//metodos
+			const response = await guardarDatosDespacho(data);
+			await guardarActaEntrega(data, response.id_despacho);
+			await cambiarEstadoArriendo(data);
+			await cambiarEstadoVehiculo(data);
+			await enviarCorreoDespacho(data);
+			refrescarTabla();
+			Swal.fire("Acta de entrega Firmado!", "acta de entrega firmado y registrado con exito!", "success"
+			);
+			$("#modal_signature").modal("toggle");
+			$("#modal_despachar_arriendo").modal("toggle");
+		})
 	});
+
+
 
 	$("#btn_firmar_actaEntrega").click(async () => {
 		$("#spinner_btn_firmarActaEntrega").show();
@@ -271,10 +256,7 @@ $(document).ready(() => {
 			$("#spinner_btn_firmarActaEntrega").hide();
 			$("#btn_crear_ActaEntrega").attr("disabled", false);
 		} else {
-			Swal.fire({
-				icon: "warning",
-				title: "falta tomar fotos al vehiculo!",
-			});
+			Swal.fire({ icon: "warning", title: "falta tomar fotos al vehiculo!", });
 		}
 	};
 
@@ -293,6 +275,7 @@ $(document).ready(() => {
 			margin: 5,
 		});
 	};
+
 
 	const capturarControlRecepcionArray = async () => {
 		//cacturando los accesorios

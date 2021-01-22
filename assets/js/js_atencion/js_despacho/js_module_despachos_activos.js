@@ -225,105 +225,68 @@ $(document).ready(() => {
 		const diasActuales = $("#dias_arriendo").val()
 		const diasExtendidos = $("#inputNumeroDias_extenderPlazo").val();
 		if (diasExtendidos.length == 0) {
-			Swal.fire(
-				"faltan datos , o datos erroneos",
-				"corriga el formulario!",
-				"warning"
-			);
+			Swal.fire("faltan datos , o datos erroneos", "corriga el formulario!", "warning");
 			return;
 		}
 		if (diasExtendidos <= 0) {
-			Swal.fire(
-				"Extencion fallida",
-				"la extencion del contrato tiene que ser mayor a 1 dia",
-				"warning"
-			);
+			Swal.fire("Extencion fallida", "la extencion del contrato tiene que ser mayor a 1 dia", "warning");
 			return;
 		}
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de extender el plazo de un arriendo!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_extenderArriendo").show();
-				$("#btn_extenderArriendo").attr("disabled", true)
-				const form = $("#formExtenderArriendo")[0];
-				const data = new FormData(form);
-				data.append("diasActuales", Number(diasExtendidos));
-				data.append("diasAcumulados", Number(diasActuales) + Number(diasExtendidos));
-				data.append("fechaEntrega", $("#inputFechaRecepcion_extenderPlazo").val())
-				const response = await extenderContrato(data);
-				if (response.success) {
-					refrescarTablaActivos();
-					Swal.fire(
-						"Arriendo extendido",
-						"Arriendo extendido con exito!, proseguir a firmar el contrato",
-						"success"
-					);
-					$("#modal_ArriendoExtender").modal("toggle");
-				}
-				$("#spinner_btn_extenderArriendo").hide();
-				$("#btn_extenderArriendo").attr("disabled", false)
+		alertQuestion(async () => {
+			$("#spinner_btn_extenderArriendo").show();
+			$("#btn_extenderArriendo").attr("disabled", true)
+			const form = $("#formExtenderArriendo")[0];
+			const data = new FormData(form);
+			data.append("diasActuales", Number(diasExtendidos));
+			data.append("diasAcumulados", Number(diasActuales) + Number(diasExtendidos));
+			data.append("fechaEntrega", $("#inputFechaRecepcion_extenderPlazo").val())
+			const response = await extenderContrato(data);
+			if (response.success) {
+				refrescarTablaActivos();
+				Swal.fire("Arriendo extendido", "Arriendo extendido con exito!, proseguir a firmar el contrato", "success");
+				$("#modal_ArriendoExtender").modal("toggle");
 			}
-		});
+			$("#spinner_btn_extenderArriendo").hide();
+			$("#btn_extenderArriendo").attr("disabled", false)
+		})
 	});
 
 
 
 	$("#btn_finalizar_arriendo").click(() => {
 		if (arrayImagesRecepcion.length === 0) {
-			Swal.fire({
-				icon: "warning",
-				title: "falta tomar fotos al vehiculo!",
-			});
+			Swal.fire({ icon: "warning", title: "falta tomar fotos al vehiculo!", });
 			return;
 		}
 		if ($("#input_kilometraje_salida").val() == 0) {
-			Swal.fire({
-				icon: "warning",
-				title: "falta colocar el kilometraje del vehiculo",
-			});
+			Swal.fire({ icon: "warning", title: "falta colocar el kilometraje del vehiculo", });
 			return;
 		}
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de finalizar el arriendo!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_finalizar_contrato").show();
-				$("#btn_finalizar_arriendo").attr("disabled", true);
-				const data = new FormData();
-				const response_revision = await guardarRevisionRecepcion(data);
-				if (response_revision.success) {
-					const response_vehiculo = await cambiarEstadoVehiculo(data);
-					if (response_vehiculo.success) {
-						data.append("id_arriendo", $("#id_arriendo_recepcion").val());
-						data.append("estado", "RECEPCIONADO");
-						data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
-						await cambiarEstadoArriendo(data);
-						refrescarTablaActivos();
-						$("#modal_ArriendoFinalizar").modal("toggle");
-						Swal.fire(
-							"Arriendo finalizado!",
-							"Arriendo finalizado con exito!",
-							"success"
-						);
-					}
+		alertQuestion(async () => {
+			$("#spinner_btn_finalizar_contrato").show();
+			$("#btn_finalizar_arriendo").attr("disabled", true);
+			const data = new FormData();
+			const response_revision = await guardarRevisionRecepcion(data);
+			if (response_revision.success) {
+				const response_vehiculo = await cambiarEstadoVehiculo(data);
+				if (response_vehiculo.success) {
+					data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+					data.append("estado", "RECEPCIONADO");
+					data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
+					await cambiarEstadoArriendo(data);
+					refrescarTablaActivos();
+					$("#modal_ArriendoFinalizar").modal("toggle");
+					Swal.fire(
+						"Arriendo finalizado!",
+						"Arriendo finalizado con exito!",
+						"success"
+					);
 				}
-				$("#btn_finalizar_arriendo").attr("disabled", false);
-				$("#spinner_btn_finalizar_contrato").hide();
 			}
-		});
+			$("#btn_finalizar_arriendo").attr("disabled", false);
+			$("#spinner_btn_finalizar_contrato").hide();
+
+		})
 	});
 
 
@@ -373,79 +336,52 @@ $(document).ready(() => {
 		const inputNumFacturacion = $("#inputNumFacturacion").val();
 		const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
 		if (inputDescuento < 0 || inputExtra < 0 || inputDescuento.length == 0 || inputExtra.length == 0) {
-			Swal.fire(
-				"campo vacio o invalidos",
-				"rellene los campos erroneos",
-				"warning"
-			);
+			Swal.fire("campo vacio o invalidos", "rellene los campos erroneos", "warning");
 			return;
 		}
 		if (inputDescuento > 0 && inputExtra > 0) {
-			Swal.fire(
-				"valores invalidos",
-				"no se puede aplicar un cobro extra y un descuento a la vez! , corriga",
-				"warning"
-			);
+			Swal.fire("valores invalidos", "no se puede aplicar un cobro extra y un descuento a la vez! , corriga", "warning");
 			return;
 		}
 		if (totalAPagar_arriendo != 0 || inputDescuento != 0 || inputExtra != 0) {
 			if (inputNumFacturacion == 0 || $("#inputFileFacturacion").val().length == 0) {
-				Swal.fire(
-					"faltan datos en el formulario",
-					"debe ingresar el Nº facturacion con su respectivo comprobante",
-					"warning"
-				);
+				Swal.fire("faltan datos en el formulario", "debe ingresar el Nº facturacion con su respectivo comprobante", "warning");
 				return;
 			}
 		}
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_actualizar_pago").show();
-				$("#actualizar_pago_arriendo").attr("disabled", true);
-				const form = $("#form_pagos_pendientes")[0];
-				const data = new FormData(form);
-				data.append("arrayPagos", JSON.stringify(array_id_pagos));
-				data.append("descuento_pago", inputDescuento);
-				data.append("extra_pago", inputExtra);
-				data.append("inputDocumento", inputFileFacturacion);
-				data.append("inputObservaciones", inputObservaciones);
-				data.append("inputEstado", "PAGADO");
-				data.append("id_arriendo", $("#id_arriendo_recepcion").val());
-				data.append("estado", "FINALIZADO");
-
-				const responseDescuento = await descuentoPago(data);
-				if (responseDescuento.success) {
-					if ($("#inputFileFacturacion").val().length != 0) {
-						const responseFactura = await guardarDatosFactura(data);
-						if (responseFactura.success) {
-							data.append("id_facturacion", responseFactura.data.id_facturacion);
-							await guardarDocumentoFactura(data);
-						}
-					}
-					const responsePago = await actualizarPagos(data);
-					if (responsePago.success) {
-						await cambiarEstadoArriendo(data);
-						refrescarTablaActivos();
-						$("#modalPagoArriendo").modal("toggle");
-						Swal.fire(
-							"Pago Actualizado!",
-							"se a actualizado exitosamente el pago",
-							"success"
-						)
+		alertQuestion(async () => {
+			$("#spinner_btn_actualizar_pago").show();
+			$("#actualizar_pago_arriendo").attr("disabled", true);
+			const form = $("#form_pagos_pendientes")[0];
+			const data = new FormData(form);
+			data.append("arrayPagos", JSON.stringify(array_id_pagos));
+			data.append("descuento_pago", inputDescuento);
+			data.append("extra_pago", inputExtra);
+			data.append("inputDocumento", inputFileFacturacion);
+			data.append("inputObservaciones", inputObservaciones);
+			data.append("inputEstado", "PAGADO");
+			data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+			data.append("estado", "FINALIZADO");
+			const responseDescuento = await descuentoPago(data);
+			if (responseDescuento.success) {
+				if ($("#inputFileFacturacion").val().length != 0) {
+					const responseFactura = await guardarDatosFactura(data);
+					if (responseFactura.success) {
+						data.append("id_facturacion", responseFactura.data.id_facturacion);
+						await guardarDocumentoFactura(data);
 					}
 				}
-				$("#spinner_btn_actualizar_pago").hide();
-				$("#actualizar_pago_arriendo").attr("disabled", false);
+				const responsePago = await actualizarPagos(data);
+				if (responsePago.success) {
+					await cambiarEstadoArriendo(data);
+					refrescarTablaActivos();
+					$("#modalPagoArriendo").modal("toggle");
+					Swal.fire("Pago Actualizado!", "se a actualizado exitosamente el pago", "success")
+				}
 			}
-		});
+			$("#spinner_btn_actualizar_pago").hide();
+			$("#actualizar_pago_arriendo").attr("disabled", false);
+		})
 	});
 
 
@@ -454,39 +390,22 @@ $(document).ready(() => {
 		const id_arriendo = $("#id_arriendo_recepcion").val();
 		const inputDescripcion = $("#input_descripcion_danio").val();
 		if (arrayImagesRecepcion.length === 0) {
-			Swal.fire({
-				icon: "warning",
-				title: "falta tomar fotos al vehiculo!",
-			});
+			Swal.fire({ icon: "warning", title: "falta tomar fotos al vehiculo!", });
 			return;
 		}
-		Swal.fire({
-			title: "Estas seguro?",
-			text: "estas a punto de guardar los cambios!",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonText: "Si, seguro",
-			cancelButtonText: "No, cancelar!",
-			reverseButtons: true,
-		}).then(async (result) => {
-			if (result.isConfirmed) {
-				$("#spinner_btn_registrar_danio").show();
-				const data = new FormData();
-				data.append("descripcion_danio", inputDescripcion);
-				data.append("arrayImagenes", JSON.stringify(arrayImagesRecepcion));
-				data.append("id_arriendo", id_arriendo);
-				const responseDanio = await ajax_function(data, "registrar_danio_vehiculo");
-				if (responseDanio.success) {
-					Swal.fire(
-						"se registro exitoso!",
-						"se registro el daño con exito",
-						"success"
-					)
-					$("#modalRegistrarDaño").modal("toggle");
-				}
-				$("#spinner_btn_registrar_danio").hide();
+		alertQuestion(async () => {
+			$("#spinner_btn_registrar_danio").show();
+			const data = new FormData();
+			data.append("descripcion_danio", inputDescripcion);
+			data.append("arrayImagenes", JSON.stringify(arrayImagesRecepcion));
+			data.append("id_arriendo", id_arriendo);
+			const responseDanio = await ajax_function(data, "registrar_danio_vehiculo");
+			if (responseDanio.success) {
+				Swal.fire("se registro exitoso!", "se registro el daño con exito", "success")
+				$("#modalRegistrarDaño").modal("toggle");
 			}
-		});
+			$("#spinner_btn_registrar_danio").hide();
+		})
 	});
 
 
@@ -507,7 +426,7 @@ $(document).ready(() => {
 
 
 	const actualizarPagos = async (data) => {
-		return await ajax_function(data, "actualizar_pago");
+		return await ajax_function(data, "actualizar_pagos");
 	}
 
 
@@ -611,7 +530,6 @@ $(document).ready(() => {
 					break;
 			}
 			temporizador(arriendo.fechaRecepcion_arriendo, arriendo.id_arriendo);
-
 			let btnFinalizar = "";
 			let btnExtender = "";
 			let viewTime = "";
@@ -624,7 +542,6 @@ $(document).ready(() => {
 				btnExtender = "";
 				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='mostrarPagosArriendo(this.value)' data-toggle='modal'  data-target='#modalPagoArriendo'  class='btn btn btn-outline-success'><i class="fas fa-pager"></i></button>`;
 			}
-
 			tablaArriendosActivos.row
 				.add([
 					arriendo.id_arriendo,

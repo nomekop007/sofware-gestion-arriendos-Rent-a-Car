@@ -51,7 +51,19 @@ const limpiarCampos = () => {
 	$("#btn_cambiarEstado_usuario").removeClass();
 };
 
+
+
+
+
+
+
 //----------------------------------------------- DENTRO DEL DOCUMENT.READY ------------------------------------//
+
+
+
+
+
+
 
 $(document).ready(() => {
 	const tablaUsuario = $("#tablaUsuarios").DataTable(lenguaje);
@@ -74,18 +86,18 @@ $(document).ready(() => {
 		$("#spinner_tablaUsuarios").hide();
 	})();
 
+
+
+
 	$("#btn_registrar_usuario").click(async () => {
 		const nombre = $("#inputNombreUsuario").val();
 		const correo = $("#inputCorreoUsuario").val();
 		const clave = $("#inputClaveUsuario").val();
-
 		const form = $("#form_registrar_usuario")[0];
 		const data = new FormData(form);
-
 		if (nombre.length != 0 && correo.length != 0 && clave.length > 8) {
 			$("#btn_registrar_usuario").attr("disabled", true);
 			$("#spinner_btn_registrar").show();
-
 			const response = await ajax_function(data, "registrar_usuario");
 			if (response) {
 				if (response.data) {
@@ -104,11 +116,13 @@ $(document).ready(() => {
 		}
 	});
 
+
+
+
 	$("#btn_editar_usuario").click(async () => {
 		const nombre = $("#inputEditNombreUsuario").val();
 		const correo = $("#inputEditCorreoUsuario").val();
 		const clave = $("#inputEditClaveUsuario").val();
-
 		const form = $("#form_editar_usuario")[0];
 		const data = new FormData(form);
 		if (nombre.length != 0 && correo.length != 0) {
@@ -130,10 +144,12 @@ $(document).ready(() => {
 		}
 	});
 
+
+
+
 	$("#btn_cambiarEstado_usuario").click(() => {
 		const accion = $("#btn_cambiarEstado_usuario").text();
 		const id_usuario = $("#inputUsuario").val();
-
 		let config = "";
 		if (accion == "inhabilitar") {
 			config = {
@@ -169,12 +185,16 @@ $(document).ready(() => {
 		});
 	});
 
+
+
 	const refrescarTabla = () => {
 		//limpia la tabla
 		tablaUsuario.row().clear().draw(false);
 		//carga nuevamente
 		cargarUsuarios();
 	};
+
+
 
 	const cargarUsuarioEnTabla = (usuario) => {
 		try {

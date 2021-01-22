@@ -1,52 +1,5 @@
-//funcion que tranforma en mayuscula
-//onblur="mayus(this);"
-function mayus(e) {
-	e.value = e.value.toUpperCase();
-}
-
-//Script para validar limite de numeros
-//oninput="this.value = soloNumeros(this)"
-function soloNumeros(evt) {
-
-	if (evt.value.length > evt.maxLength) {
-		return evt.value.slice(0, evt.maxLength);
-	} else {
-		return evt.value;
-	}
-}
 
 
-//redondea el ultimo valor de un numero 
-function decimalAdjust(value, exp) {
-	let type = 'round';
-	// Si el exp es indefinido o cero...
-	if (typeof exp === 'undefined' || +exp === 0) {
-		return Math[type](value);
-	}
-	value = +value;
-	exp = +exp;
-	// Si el valor no es un número o el exp no es un entero...
-	if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
-		return NaN;
-	}
-	// Cambio
-	value = value.toString().split('e');
-	value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
-	// Volver a cambiar
-	value = value.toString().split('e');
-	return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
-}
-
-
-// Script para cargar año vehiculo
-function cargarOlder(input) {
-	let n = new Date().getFullYear() + 1;
-	let select = document.getElementById(input);
-	for (let i = n; i >= 1970; i--) {
-
-		select.options.add(new Option(i, i));
-	}
-}
 
 // Script para validar los campos de un formulario
 (() => {
@@ -77,8 +30,112 @@ function cargarOlder(input) {
 	);
 })();
 
+
+
+
+const alertQuestion = (func) => {
+	Swal.fire({
+		title: "Estas seguro?",
+		text: "verifique bien los datos antes de continuar.",
+		icon: "warning",
+		showCancelButton: true,
+		confirmButtonText: "Si, seguro",
+		cancelButtonText: "No, cancelar!",
+		reverseButtons: true,
+	}).then((result) => {
+		if (result.isConfirmed) {
+			func();
+		}
+	});
+}
+
+
+
+
+
+//funcion que tranforma en mayuscula
+//onblur="mayus(this);"
+const mayus = (e) => {
+	e.value = e.value.toUpperCase();
+}
+
+
+
+
+
+
+
+
+//Script para validar limite de numeros
+//oninput="this.value = soloNumeros(this)"
+const soloNumeros = (evt) => {
+	if (evt.value.length > evt.maxLength) {
+		return evt.value.slice(0, evt.maxLength);
+	} else {
+		return evt.value;
+	}
+}
+
+
+
+
+
+
+
+
+
+//redondea el ultimo valor de un numero 
+const decimalAdjust = (value, exp) => {
+	let type = 'round';
+	// Si el exp es indefinido o cero...
+	if (typeof exp === 'undefined' || +exp === 0) {
+		return Math[type](value);
+	}
+	value = +value;
+	exp = +exp;
+	// Si el valor no es un número o el exp no es un entero...
+	if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+		return NaN;
+	}
+	// Cambio
+	value = value.toString().split('e');
+	value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+	// Volver a cambiar
+	value = value.toString().split('e');
+	return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+}
+
+
+
+
+
+
+
+
+
+
+
+// Script para cargar año vehiculo
+const cargarOlder = (input) => {
+	let n = new Date().getFullYear() + 1;
+	let select = document.getElementById(input);
+	for (let i = n; i >= 1970; i--) {
+
+		select.options.add(new Option(i, i));
+	}
+}
+
+
+
+
+
+
+
+
+
+
 // funcion para formatear rut
-function formateaRut(rut) {
+const formateaRut = (rut) => {
 	//onblur="this.value=formateaRut(this.value)"
 	let actual = rut.replace(/^0+/, "");
 	if (actual != "" && actual.length > 1) {
@@ -102,8 +159,17 @@ function formateaRut(rut) {
 	return rutPuntos;
 }
 
+
+
+
+
+
+
+
+
+
 //funcion para formatear fechas
-function formatearFechaHora(fecha) {
+const formatearFechaHora = (fecha) => {
 	let f = new Date(fecha);
 	let opciones = {
 		weekday: "long",
@@ -117,8 +183,16 @@ function formatearFechaHora(fecha) {
 	return (fecha = f.toLocaleDateString("es-GB", opciones));
 }
 
+
+
+
+
+
+
+
+
 //funcion para formatear fechas
-function formatearFecha(fecha) {
+const formatearFecha = (fecha) => {
 	let f = new Date(fecha);
 	let opciones = {
 		year: "numeric",
@@ -128,18 +202,81 @@ function formatearFecha(fecha) {
 	return (fecha = f.toLocaleDateString("es-GB", opciones));
 }
 
-$(document).ready(() => {
-	// inputs estilos datatime
-	$.datetimepicker.setLocale('es');
-	$('.input_data').datetimepicker({
-		timepicker: false,
-		format: 'Y/m/d',
+
+
+
+
+
+
+
+
+
+
+// redimenciona una imagen en formato base 64 (base64, canvas.width, canvas.height)
+//ES ASINCRONO
+const resizeBase64Img = (base64, newWidth, newHeight, level) => {
+	return new Promise((resolve, reject) => {
+		let canvas = document.createElement("canvas");
+		canvas.width = newWidth / level;
+		canvas.height = newHeight / level;
+		let context = canvas.getContext("2d");
+		let img = document.createElement("img");
+		img.src = base64;
+		img.onload = function () {
+			context.scale(
+				newWidth / level / img.width,
+				newHeight / level / img.height
+			);
+			context.drawImage(img, 0, 0);
+			resolve(canvas.toDataURL());
+		};
 	});
-	$('.input_datatime').datetimepicker({
-		timepicker: false,
-		format: 'Y/m/d  h:m',
-	});
-});
+};
+
+
+
+
+
+
+
+
+
+
+//metodo que busca y devuelve un documento en una pagina nueva
+const buscarDocumento = async (documento, tipo) => {
+	//  case "contrato":
+	//  case "acta":
+	//  case "requisito":
+	//  case "facturacion":
+	//  case "recepcion":
+	//  case "fotosDañoVehiculo":
+	//  case "fotoVehiculo":
+	const data = new FormData();
+	data.append("nombreDocumento", documento);
+	data.append("tipo", tipo);
+	const response = await ajax_function(data, "buscar_documento");
+	if (response.success) {
+		let extencion = "image/png";
+		//pregunta si el archivo tiene extencion
+		response.data.nombre.includes(".pdf") ? extencion = "application/pdf" : extencion = "image/png";
+		let byteCharacters = atob(response.data.base64);
+		let byteNumbers = new Array(byteCharacters.length);
+		for (let i = 0; i < byteCharacters.length; i++) {
+			byteNumbers[i] = byteCharacters.charCodeAt(i);
+		}
+		let byteArray = new Uint8Array(byteNumbers);
+		let file = new Blob([byteArray], { type: `${extencion};base64` });
+		let fileURL = URL.createObjectURL(file);
+		window.open(fileURL);
+	}
+}
+
+
+
+
+
+
+
 
 
 //lenguaje de los datatable
@@ -172,6 +309,16 @@ let lenguaje = {
 	},
 	"order": [[0, "desc"]]
 };
+
+
+
+
+
+
+
+
+
+
 //lenguaje del select 2
 let lenguajeSelect2 = {
 	placeholder: "Vehiculos disponibles",
@@ -186,19 +333,13 @@ let lenguajeSelect2 = {
 	},
 };
 
-// script que oscurece los modal dentro de otro modal
-$(document).ready(() => {
-	let modal_lv = 0;
-	$('.modal').on('shown.bs.modal', function (e) {
-		$('.modal-backdrop:last').css('zIndex', 1051 + modal_lv);
-		$(e.currentTarget).css('zIndex', 1052 + modal_lv);
-		modal_lv++
-	});
 
-	$('.modal').on('hidden.bs.modal', function (e) {
-		modal_lv--
-	});
-});
+
+
+
+
+
+
 
 //se valida los input files
 $(document).on("change", 'input[type="file"]', function () {
@@ -231,8 +372,6 @@ $(document).on("change", 'input[type="file"]', function () {
 			break;
 	}
 	//fileSize > 1048576  1mb
-
-
 	if (fileSize > 1048576 * 10) {
 		alert("El archivo tiene que pesar menos de 10mb");
 		this.value = ""; // reset del valor
@@ -240,58 +379,42 @@ $(document).on("change", 'input[type="file"]', function () {
 	}
 });
 
-// redimenciona una imagen en formato base 64 (base64, canvas.width, canvas.height)
-//ES ASINCRONO
-const resizeBase64Img = (base64, newWidth, newHeight, level) => {
-	return new Promise((resolve, reject) => {
-		let canvas = document.createElement("canvas");
-		canvas.width = newWidth / level;
-		canvas.height = newHeight / level;
-		let context = canvas.getContext("2d");
-		let img = document.createElement("img");
-		img.src = base64;
-		img.onload = function () {
-			context.scale(
-				newWidth / level / img.width,
-				newHeight / level / img.height
-			);
-			context.drawImage(img, 0, 0);
-			resolve(canvas.toDataURL());
-		};
+
+
+
+
+
+
+// inputs estilos datatime
+$(document).ready(() => {
+	$.datetimepicker.setLocale('es');
+	$('.input_data').datetimepicker({
+		timepicker: false,
+		format: 'Y/m/d',
 	});
-};
+	$('.input_datatime').datetimepicker({
+		timepicker: false,
+		format: 'Y/m/d  h:m',
+	});
+});
 
 
 
-const buscarDocumento = async (documento, tipo) => {
-
-	//  case "contrato":
-	//  case "acta":
-	//  case "requisito":
-	//  case "facturacion":
-	//  case "recepcion":
-	//  case "fotosDañoVehiculo":
-	//  case "fotoVehiculo":
-
-	const data = new FormData();
-	data.append("nombreDocumento", documento);
-	data.append("tipo", tipo);
-	const response = await ajax_function(data, "buscar_documento");
-	if (response.success) {
-		let extencion = "image/png";
-		//pregunta si el archivo tiene extencion
-		response.data.nombre.includes(".pdf") ? extencion = "application/pdf" : extencion = "image/png";
-		let byteCharacters = atob(response.data.base64);
-		let byteNumbers = new Array(byteCharacters.length);
-		for (let i = 0; i < byteCharacters.length; i++) {
-			byteNumbers[i] = byteCharacters.charCodeAt(i);
-		}
-		let byteArray = new Uint8Array(byteNumbers);
-		let file = new Blob([byteArray], { type: `${extencion};base64` });
-		let fileURL = URL.createObjectURL(file);
-		window.open(fileURL);
-	}
-}
 
 
 
+
+
+// script que oscurece los modal dentro de otro modal
+$(document).ready(() => {
+	let modal_lv = 0;
+	$('.modal').on('shown.bs.modal', function (e) {
+		$('.modal-backdrop:last').css('zIndex', 1051 + modal_lv);
+		$(e.currentTarget).css('zIndex', 1052 + modal_lv);
+		modal_lv++
+	});
+
+	$('.modal').on('hidden.bs.modal', function (e) {
+		modal_lv--
+	});
+});
