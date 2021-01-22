@@ -21,6 +21,10 @@ const buscarPago = async (id_pago) => {
 		$("#editar_iva_pago").val(Number(pago.iva_pago));
 		$("#editar_bruto_pago").val(Number(pago.total_pago));
 		$("#form_editar_factura").show();
+
+		$("#lb_neto").html("( $ " + formatter.format(Number(pago.neto_pago)) + " )");
+		$("#lb_iva").html("( $ " + formatter.format(Math.round(Number(pago.iva_pago))) + " )");
+		$("#lb_total").html("( $ " + formatter.format(decimalAdjust(Math.round(Number(pago.total_pago)), 1)) + " )");
 	}
 	$("#spinner_editar_factura").hide();
 }
@@ -58,6 +62,9 @@ const calcularIvaPagoERemplazo = () => {
 	total = Number(neto + iva);
 	$("#editar_iva_pago").val(Math.round(iva));
 	$("#editar_bruto_pago").val(decimalAdjust(Math.round(total), 1));
+	$("#lb_neto").html("( $ " + formatter.format(neto) + " )");
+	$("#lb_iva").html("( $ " + formatter.format(Math.round(iva)) + " )");
+	$("#lb_total").html("( $ " + formatter.format(decimalAdjust(Math.round(total), 1)) + " )");
 }
 
 

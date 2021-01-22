@@ -119,19 +119,22 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <div class="pago_empresa_remplazo">
                                 <h5>Pago E. Remplazo</h5>
                                 <div class="form-group ">
-                                    <label for="inputPagoEmpresa">Pago neto E. reemplazo</label>
+                                    <label for="inputPagoEmpresa">Pago neto E. reemplazo <span
+                                            id="lb_neto_er"></span></label>
                                     <input min="0" value="0" type="number" class="form-control" id="inputPagoEmpresa"
                                         maxLength="11" name="inputPagoEmpresa"
                                         oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
                                 </div>
                                 <div class="form-group ">
-                                    <label for="inputPagoIvaEmpresa">Iva E. reemplazo</label>
+                                    <label for="inputPagoIvaEmpresa">Iva E. reemplazo <span
+                                            id="lb_iva_er"></span></label>
                                     <input min="0" value="0" type="number" class="form-control" id="inputPagoIvaEmpresa"
                                         maxLength="11" name="inputPagoIvaEmpresa"
                                         oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
                                 </div>
                                 <div class="form-group ">
-                                    <label for="inputPagoTotalEmpresa">Pago total E. reemplazo</label>
+                                    <label for="inputPagoTotalEmpresa">Pago total E. reemplazo <span
+                                            id="lb_total_er"></span></label>
                                     <input min="0" value="0" type="number" class="form-control"
                                         id="inputPagoTotalEmpresa" maxLength="11" name="inputPagoTotalEmpresa"
                                         oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
