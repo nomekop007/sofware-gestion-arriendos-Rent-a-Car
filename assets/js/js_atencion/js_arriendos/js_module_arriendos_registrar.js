@@ -669,23 +669,14 @@ $(document).ready(() => {
 
 
 	const guardarDatosContacto = async (idArriendo) => {
-		const data = new FormData();
-		data.append("inputIdArriendo", idArriendo);
-		data.append("inputNombreContacto", $("#inputNombreContacto").val());
-		data.append("inputDomicilioContacto", $("#inputDomicilioContacto").val());
-		data.append("inputNumeroCasaContacto", $("#inputNumeroCasaContacto").val());
-		data.append("inputCiudadContacto", $("#inputCiudadContacto").val());
-		data.append("inputTelefonoContacto", $("#inputTelefonoContacto").val());
-		await ajax_function(data, "registrar_contacto");
+		dataFormArriendo.append("inputIdArriendo", idArriendo);
+		await ajax_function(dataFormArriendo, "registrar_contacto");
 	}
 
 	const cambiarEstadoVehiculo = async (patente) => {
-		const data = new FormData();
-		data.append("inputPatenteVehiculo", patente);
-		data.append("inputEstado", "RESERVADO");
-		data.append("kilometros_mantencion", $("#inputMantencion").val());
-		data.append("kilometraje_vehiculo", $("#inputEntrada").val());
-		await ajax_function(data, "cambiarEstado_vehiculo");
+		dataFormArriendo.append("inputPatenteVehiculo", patente);
+		dataFormArriendo.append("inputEstado", "RESERVADO");
+		await ajax_function(dataFormArriendo, "cambiarEstado_vehiculo");
 	};
 
 	const limpiarCampos = () => {
