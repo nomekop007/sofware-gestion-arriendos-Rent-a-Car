@@ -58,4 +58,10 @@ class Pago_controller extends CI_Controller
         ];
         echo post_function($dataArray, "pagos/calcularTotalPagos");
     }
+
+    public function buscarPago()
+    {
+        $id_pago = $this->input->post("id_pago");
+        echo find_function($id_pago, "pagos/buscarPago");
+    }
 }

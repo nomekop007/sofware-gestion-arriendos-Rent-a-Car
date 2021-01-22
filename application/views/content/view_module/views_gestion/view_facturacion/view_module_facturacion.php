@@ -116,7 +116,8 @@
                                         <tr>
                                             <th></th>
                                             <th>Nº Arriendo</th>
-                                            <th>estado</th>
+                                            <th>Dias</th>
+                                            <th>estado pago</th>
                                             <th>neto</th>
                                             <th>iva</th>
                                             <th>total</th>
@@ -130,7 +131,8 @@
                                         <tr>
                                             <th></th>
                                             <th>Nº Arriendo</th>
-                                            <th>estado</th>
+                                            <th>Dias</th>
+                                            <th>estado pago</th>
                                             <th>neto</th>
                                             <th>iva</th>
                                             <th>total</th>
@@ -146,12 +148,8 @@
                                     id="spinner_registrar_facturacion"></span>
                                 Ingresar facturacion</button>
                             <br>
-
-
-
                         </div>
                         <br>
-
                     </div>
                 </form>
             </div>
@@ -164,7 +162,7 @@
                             <tr>
                                 <th>Nº Arriendo</th>
                                 <th>E. Remplazo</th>
-                                <th>estado</th>
+                                <th>estado pago</th>
                                 <th>neto</th>
                                 <th>iva</th>
                                 <th>total</th>
@@ -178,7 +176,7 @@
                             <tr>
                                 <th>Nº Arriendo</th>
                                 <th>E. Remplazo</th>
-                                <th>estado</th>
+                                <th>estado pago</th>
                                 <th>neto</th>
                                 <th>iva</th>
                                 <th>total</th>
@@ -202,27 +200,7 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="modal_pagoArriendo" tabindex="-1" aria-labelledby="modal_pagoArriendoLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal_pagoArriendoLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 
