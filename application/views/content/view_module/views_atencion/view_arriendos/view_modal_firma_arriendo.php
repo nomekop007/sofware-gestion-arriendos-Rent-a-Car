@@ -3,7 +3,7 @@
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal_firmar_contrato">Firmar Contrato </h5>
+                <h5 class="modal-title" id="modal_firmar_contrato">Firmar Contrato <span id=title_contrato></span> </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="modal-body" id="formContratoArriendo">
-                <input type="text" id="id_arriendo" hidden>
+                <input type="text" id="id_arriendoContrato" hidden>
                 <input type="text" id="estado_arriendo" hidden>
                 <div class="container ">
                     <a class="row justify-content-md-center btn-success" target="_blank" id="descargar_contrato">
@@ -27,20 +27,17 @@
                         < </button> <button id="next_contrato" class=" btn-info "> >
                             </button>
                             &nbsp; &nbsp;
-                            <span>Pagina: <span id="page_num_contrato"></span> / <span
-                                    id="page_count_contrato"></span></span>
+                            <span>Pagina: <span id="page_num_contrato"></span> / <span id="page_count_contrato"></span></span>
                             <canvas id="pdf_canvas_contrato" class="img-fluid rounded pdf-canvas"></canvas>
                 </div>
                 <form id="subir_contrato">
                     <div class="form-row card-body">
                         <div class="custom-control custom-radio custom-control-inline ">
-                            <input onclick="tipoContrato(this.value);" type="radio" value="FIRMAR" name="customRadio5"
-                                class="custom-control-input" id="radioFirma" checked>
+                            <input onclick="tipoContrato(this.value);" type="radio" value="FIRMAR" name="customRadio5" class="custom-control-input" id="radioFirma" checked>
                             <label class="custom-control-label" for="radioFirma">Firmar contrato</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline ">
-                            <input onclick="tipoContrato(this.value);" type="radio" value="SUBIR" name="customRadio5"
-                                class="custom-control-input" id="radioSubir">
+                            <input onclick="tipoContrato(this.value);" type="radio" value="SUBIR" name="customRadio5" class="custom-control-input" id="radioSubir">
                             <label class="custom-control-label" for="radioSubir">Subir contrato firmado</label>
                         </div>
                     </div>
@@ -77,13 +74,11 @@
                         <div class="col-md-12 text-center">
                             <button type="button" id="btn_firmar_contrato" class="btn btn-success btn-sm ">
                                 firmar contrato
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_firmarContrato"></span>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_firmarContrato"></span>
                             </button>
                             <button type="button" id="btn_confirmar_contrato" class="btn btn-primary btn-sm ">
                                 Guardar cambios
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_confirmarContrato"></span>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_confirmarContrato"></span>
                             </button>
                         </div>
                     </div>
@@ -98,8 +93,7 @@
                             <br><br><br><br><br>
                             <button type="button" id="btn_subir_contrato" class="btn btn-primary  ">
                                 Subir contrato firmado
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_subirContrato"></span>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_subirContrato"></span>
                             </button>
                         </div>
                     </div>
