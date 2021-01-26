@@ -101,5 +101,19 @@ function file_function($id, $formData, $url)
 
 function delete_function($id, $url)
 {
-    //pendiente
+    if (isset($_SESSION["usertoken"])) {
+        $token = $_SESSION["usertoken"];
+        $name = $_SESSION["nombre"];
+    }
+    $client = new GuzzleHttp\Client();
+    $request = $client->request('DELETE', api_url() . $url . "/" . $id, [
+        'verify' => path_cert(),
+        'headers' => [
+            'usertoken' => $token,
+            'userat' => $name,
+        ],
+        'timeout' => 10,
+        'connect_timeout' => 10,
+    ]);
+    return $request->getBody();
 }
