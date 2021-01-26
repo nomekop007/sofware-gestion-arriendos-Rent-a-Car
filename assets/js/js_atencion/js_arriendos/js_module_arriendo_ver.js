@@ -283,7 +283,7 @@ const limpiarCamposModalver = () => {
 	$("#btn_finalizar_arriendo").hide();
 	$("#nombre_documento").val("");
 	$("#formSpinnerEditar").show();
-
+	$("#spanTipoArriendo").html("");
 	$("#optionCard_abono_garantia").show();
 	$("#optionCard_tarjeta_garantia").hide();
 	$("#optionCard_cheque_garantia").hide();
