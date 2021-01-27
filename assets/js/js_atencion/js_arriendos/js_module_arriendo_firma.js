@@ -14,7 +14,6 @@ const mostrarContratoModalContrato = async (arriendo) => {
 const cargarContrato = async (data) => {
 	const response = await ajax_function(data, "generar_PDFcontrato");
 	if (response.success) {
-		$("#formContratoArriendo").show();
 		mostrarVisorPDF(response.data.base64, [
 			"pdf_canvas_contrato",
 			"page_count_contrato",
@@ -29,6 +28,7 @@ const cargarContrato = async (data) => {
 		if (response.data.firma) {
 			$("#btn_confirmar_contrato").attr("disabled", false);
 		}
+		$("#formContratoArriendo").show();
 	}
 	$("#btn_firmar_contrato").attr("disabled", false);
 	$("#spinner_btn_firmarContrato").hide();
@@ -50,18 +50,19 @@ const tipoContrato = (value) => {
 }
 
 const limpiarCamposModalFirma = () => {
+	$("#formContratoArriendo").hide();
+	$("#spinner_btn_firmarContrato").hide();
+	$("#spinner_btn_confirmarContrato").hide();
+	$("#spinner_btn_subirContrato").hide();
+	$("#btn_confirmar_contrato").attr("disabled", true);
+
 	mostrarCanvasDosFirmas(
 		["canvas_firma_cliente",
 			"canvas_firma_usuario",
 			"limpiar_firma_cliente",
 			"limpiar_firma_usuario"
 		]);
-	$("#spinner_btn_firmarContrato").hide();
-	$("#spinner_btn_confirmarContrato").hide();
-	$("#spinner_btn_subirContrato").hide();
-	$("#btn_confirmar_contrato").attr("disabled", true);
 
-	$("#formContratoArriendo").hide();
 	$("#subir_contrato")[0].reset();
 	$("#body-firma").show();
 	$("#body-subir-contrato").hide();

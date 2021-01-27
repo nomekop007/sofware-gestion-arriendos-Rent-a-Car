@@ -148,5 +148,14 @@ $route['cambiar_estadoDanioVehiculo'] = 'DanioVehiculo_controller/cambiarEstadoD
 /* rutas de controller TarifasVehiculo */
 $route['buscarTarifasVehiculo'] = 'TarifaVehiculo_controller/buscarTarifasVehiculo';
 
+
+/* rutas de controller reservas */
+$route['cargar_reservas'] = 'Reserva_controller/cargarReservas';
+$route['buscar_reserva'] = 'Reserva_controller/buscarReserva';
+$route['registrar_reserva'] = 'Reserva_controller/registrarReserva';
+$route['editar_reserva'] = 'Reserva_controller/editarReserva';
+$route['eliminar_reserva'] = 'Reserva_controller/eliminarReserva';
+
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = false;
