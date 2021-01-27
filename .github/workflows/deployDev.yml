@@ -4,7 +4,7 @@ on:
     branches: [ development ]
 
   jobs:
-    job_one:
+    deployment:
       name: deployment
       runs-on: ubuntu-latest
       steps:
