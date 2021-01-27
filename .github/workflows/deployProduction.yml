@@ -25,4 +25,5 @@ jobs:
           cd /var/www/imlchile.cl/rentacar/
           git checkout master
           git pull
+          composer install
           exit
