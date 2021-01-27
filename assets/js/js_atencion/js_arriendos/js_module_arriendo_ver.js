@@ -22,7 +22,7 @@ let global_documentosArriendo = {
 
 const mostrarArriendoModalVer = (arriendo) => {
 	limpiarCamposModalver();
-	$("#body_editarArriendo").show();
+
 	$("#inputFolioTarjeta").val(arriendo.id_arriendo);
 	$("#inputIdArriendoEditar").val(arriendo.id_arriendo);
 	$("#numeroArriendoEditar").text("Nº" + arriendo.id_arriendo);
@@ -215,8 +215,8 @@ const mostrarArriendoModalVer = (arriendo) => {
 				break;
 		}
 	}
-
 	$("#formSpinnerEditar").hide();
+	$("#body_editarArriendo").show();
 };
 
 

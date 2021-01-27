@@ -17,7 +17,14 @@ class Reserva_controller extends CI_Controller
 
     public function registrarReserva()
     {
-        $arrayData = $this->input->post(); // []
+        $arrayData = [
+            "titulo_reserva" =>  $this->input->post("titulo_reserva"),
+            "descripcion_reserva" =>  $this->input->post("descripcion"),
+            "inicio_reserva" =>  $this->input->post("fecha_inicio"),
+            "fin_reserva" =>  $this->input->post("fecha_fin"),
+            "rut_cliente" =>  $this->input->post("inputRutCliente"),
+            "patente_vehiculo" =>  $this->input->post("vehiculo"),
+        ];
         echo post_function($arrayData, "reservas/registrarReserva");
     }
 
