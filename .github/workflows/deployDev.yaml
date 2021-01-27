@@ -1,13 +1,12 @@
 name: deployment workflow development directory
-
   on:[push]
-
   jobs:
-    job_one:
-      name: Deployment
-      runs-on: ubuntu-latest
-      steps:
-      - name: 
+
+  build:
+    name: deployment
+    runs-on: ubuntu-latest
+    steps:
+    - name: 
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
