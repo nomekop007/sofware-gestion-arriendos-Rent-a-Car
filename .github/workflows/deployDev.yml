@@ -13,7 +13,7 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME_HOST }}
-        key: ${{ secrets.KEY_HOST }}
+        password: ${{ secrets.PASSWORD_HOST }}
         port: ${{ secrets.PORT_HOST }}
         script: |
           cd /var/www/imlchile.cl/rentacar_test/
