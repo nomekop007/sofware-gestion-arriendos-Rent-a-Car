@@ -50,11 +50,13 @@ let dataFormArriendo = null;
 const calcularDias = () => {
 	let fechaEntrega = $("#inputFechaEntrega").val();
 	let fechaRecepcion = $("#inputFechaRecepcion").val();
-	let fechaini = new Date(moment(fechaEntrega));
-	let fechafin = new Date(moment(fechaRecepcion));
-	let diasdif = fechafin.getTime() - fechaini.getTime();
-	let dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
-	$("#inputNumeroDias").val(dias);
+	if (fechaEntrega.length != 0 && fechaRecepcion.length != 0) {
+		let fechaini = new Date(moment(fechaEntrega));
+		let fechafin = new Date(moment(fechaRecepcion));
+		let diasdif = fechafin.getTime() - fechaini.getTime();
+		let dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
+		$("#inputNumeroDias").val(dias);
+	}
 };
 
 
@@ -97,14 +99,9 @@ $(document).ready(() => {
 	//cargar sucursales  (ruta,select)
 
 	cargarSelectSucursal("cargar_Sucursales", "inputCiudadEntrega");
-
 	cargarSelectSucursal("cargar_Sucursales", "inputCiudadRecepcion");
-
 	cargarComunas("inputComunaCliente", "inputCiudadCliente");
-
 	cargarComunas("inputComunaEmpresa", "inputCiudadEmpresa");
-
-	//cargar vigencia Empresa (input)
 	cargarOlder("inputVigencia");
 
 
@@ -355,14 +352,15 @@ $(document).ready(() => {
 
 
 
+
+
+
+
 	$("#btn_crear_arriendo").click(async () => {
-
 		//AQUI SE VALIDAN TODOS LOS CAMPOS
-
 		//opciones
 		const inputTipoArriendo = $("#inputTipo").val();
 		const cantidadConductor = $('[name="customRadio5"]:checked').val();
-
 		//validando los datos del arriendo
 		if (
 			$("#inputNumeroDias").val() <= 0 ||
@@ -442,7 +440,6 @@ $(document).ready(() => {
 			}
 			return true;
 		}
-
 		function validarConductor2() {
 			if ($("#inputRutConductor2").val().length == 0 ||
 				$("#inputNombreConductor2").val().length == 0 ||
@@ -455,7 +452,6 @@ $(document).ready(() => {
 			}
 			return true;
 		}
-
 		function validarConductor3() {
 			if ($("#inputRutConductor3").val().length == 0 ||
 				$("#inputNombreConductor3").val().length == 0 ||
@@ -464,12 +460,10 @@ $(document).ready(() => {
 				$("#inputVCTOConductor3").val().length == 0 ||
 				$("#inputNumeroConductor3").val().length == 0 ||
 				$("#inputMunicipalidadConductor3").val().length == 0) {
-
 				return false;
 			}
 			return true;
 		}
-
 		switch (cantidadConductor) {
 			case "1":
 				if (!validarConductor1()) {
@@ -498,10 +492,7 @@ $(document).ready(() => {
 			Swal.fire({ icon: "warning", title: "debes colocar los datos del vehiculo!", });
 			return;
 		}
-
-
 		//SI PASAN TODAS LAS VALIDACIONES , SE GUARDA
-
 		alertQuestion(async () => {
 			$("#btn_crear_arriendo").attr("disabled", true);
 			$("#spinner_btn_registrar").show();
@@ -512,6 +503,8 @@ $(document).ready(() => {
 			$("#spinner_btn_registrar").hide();
 		})
 	});
+
+
 
 
 

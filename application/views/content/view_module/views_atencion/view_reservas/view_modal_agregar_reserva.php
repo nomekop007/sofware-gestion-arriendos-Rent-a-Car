@@ -29,10 +29,20 @@ switch ($this->session->userdata('sucursal')) {
             </div>
             <div class="modal-body">
                 <form class="needs-validation" novalidate id="form_reserva">
-                    <div class="card">
+                    <input hidden type="text" id="selectSucursal" name="selectSucursal" value="<?php echo $sucursal ?>" disabled>
+                    <div class="form-row card-body">
+                        <div class="custom-control custom-radio custom-control-inline ">
+                            <input onclick="tipoCliente(this.value);" type="radio" value="PARTICULAR" id="radioParticular" name="customRadio0" class="custom-control-input" checked>
+                            <label class="custom-control-label" for="radioParticular">Cliente natural</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ">
+                            <input onclick="tipoCliente(this.value);" type="radio" value="EMPRESA" id="radioEmpresa" name="customRadio0" class="custom-control-input">
+                            <label class="custom-control-label" for="radioEmpresa">Cliente empresa</label>
+                        </div>
+                    </div>
+                    <div class="card" id="option_natural">
                         <div class="card-body">
                             <h5>Datos del cliente particular</h5>
-                            <input hidden type="text" id="selectSucursal" name="selectSucursal" value="<?php echo $sucursal ?>" disabled>
                             <div class="form-row">
                                 <div class="form-group col-xl-6">
                                     <label for="inputRutCliente">Rut o Pasaporte (ejemplo: 12.345.678-9)</label>
@@ -112,6 +122,71 @@ switch ($this->session->userdata('sucursal')) {
                             </div>
                         </div>
                     </div>
+                    <div class="card" id="option_empresa">
+                        <div class="card-body">
+                            <h5>Datos Empresa</h5>
+                            <div class="form-row">
+                                <div class="form-group col-xl-6">
+                                    <label for="inputRutEmpresa">Rut (ejemplo: 12.345.678-9) </label>
+                                    <div class="input-group">
+                                        <input maxLength="12" type="text" type="text" class="form-control" id="inputRutEmpresa" name="inputRutEmpresa" required>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="button" id="btn_buscarEmpresa">
+                                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_empresa"></span>
+                                                Buscar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <label for="inputNombreEmpresa">Nombre </label>
+                                    <input onblur="mayus(this);" maxLength="60" type="text" class="form-control" id="inputNombreEmpresa" name="inputNombreEmpresa" required>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <label for="inputCorreoEmpresa">Correo electronico</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">@</span>
+                                        </div>
+                                        <input onblur="mayus(this);" maxLength="60" type="email" class="form-control" id="inputCorreoEmpresa" name="inputCorreoEmpresa" required>
+                                    </div>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <label for="inputDireccionEmpresa">Direccion comercial</label>
+                                    <input onblur="mayus(this);" maxLength="50" type="text" class="form-control" id="inputDireccionEmpresa" name="inputDireccionEmpresa" required>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <label for="inputComunaEmpresa">Comuna / region </label>
+                                    <select class="form-control" id="inputComunaEmpresa" name="inputComunaEmpresa">
+                                    </select>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <label for="inputCiudadEmpresa">Ciudad / pueblo </label>
+                                    <select class="form-control" id="inputCiudadEmpresa" name="inputCiudadEmpresa">
+                                    </select>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <label for="inputTelefonoEmpresa">Telefono </label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">+569</span>
+                                        </div>
+                                        <input oninput="this.value = soloNumeros(this)" maxLength="8" type="number" class="form-control" id="inputTelefonoEmpresa" name="inputTelefonoEmpresa" required>
+                                    </div>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <label for="inputVigencia">Vigencia</label>
+                                    <select id="inputVigencia" name="inputVigencia" class="form-control" required>
+                                    </select>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <label for="inputRol">Rol o rubro</label>
+                                    <input onblur="mayus(this);" maxLength="50" type="text" class="form-control" name="inputRol" id="inputRol" required>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                     <br><br>
                     <div class="card">
                         <div class="card-body">
@@ -144,7 +219,7 @@ switch ($this->session->userdata('sucursal')) {
                                 </div>
                                 <div class="form-group col-xl-12">
                                     <label for="descripcion">descripcion</label>
-                                    <textarea onblur="mayus(this);" class="form-control" id="descripcion" name="descripcion" rows="3" maxLength="300"></textarea>
+                                    <textarea required onblur="mayus(this);" class="form-control" id="descripcion" name="descripcion" rows="3" maxLength="300"></textarea>
                                 </div>
                             </div>
                         </div>

@@ -22,7 +22,6 @@ let global_documentosArriendo = {
 
 const mostrarArriendoModalVer = (arriendo) => {
 	limpiarCamposModalver();
-
 	$("#inputFolioTarjeta").val(arriendo.id_arriendo);
 	$("#inputIdArriendoEditar").val(arriendo.id_arriendo);
 	$("#numeroArriendoEditar").text("Nº" + arriendo.id_arriendo);
@@ -41,13 +40,10 @@ const mostrarArriendoModalVer = (arriendo) => {
 	$("#inputEditarUsuarioArriendo").val(arriendo.usuario.nombre_usuario);
 	$("#inputEditarSucursal").val(arriendo.sucursale.nombre_sucursal);
 	$("#inputEditarRegistroArriendo").val(formatearFechaHora(arriendo.createdAt));
-
-
 	if (arriendo.estado_arriendo == "PENDIENTE" || arriendo.estado_arriendo == "CONFIRMADO" || arriendo.estado_arriendo == "FIRMADO") {
 		$("#btn_anular_arriendo").show();
 		$("#btn_anular_arriendo").attr("disabled", false);
 	}
-
 	let clienteDoc = null;
 	switch (arriendo.tipo_arriendo) {
 		case "PARTICULAR":
@@ -77,8 +73,6 @@ const mostrarArriendoModalVer = (arriendo) => {
 			clienteDoc = arriendo.empresa;
 			break;
 	}
-
-
 	if (clienteDoc.documentosCliente && !arriendo.requisito) {
 		const docs = clienteDoc.documentosCliente;
 		for (const documento in docs) {
@@ -92,8 +86,6 @@ const mostrarArriendoModalVer = (arriendo) => {
 			}
 		}
 	}
-
-
 	if (clienteDoc.documentosEmpresa && !arriendo.requisito) {
 		const docs = clienteDoc.documentosEmpresa;
 		for (const documento in docs) {
@@ -107,8 +99,6 @@ const mostrarArriendoModalVer = (arriendo) => {
 			}
 		}
 	}
-
-
 	if (arriendo.conductore.documentosConductore && !arriendo.requisito) {
 		const docs = arriendo.conductore.documentosConductore;
 		for (const documento in docs) {
@@ -122,7 +112,6 @@ const mostrarArriendoModalVer = (arriendo) => {
 			}
 		}
 	}
-
 	if (arriendo.pagosArriendos.length > 0) {
 		let N = 1;
 		arriendo.pagosArriendos.forEach((pagoArriendo) => {
@@ -137,8 +126,6 @@ const mostrarArriendoModalVer = (arriendo) => {
 			N++;
 		})
 	}
-
-
 	if (arriendo.despacho) {
 		const a = document.createElement("button");
 		a.addEventListener("click", () => buscarDocumento(arriendo.despacho.actasEntrega.documento, "acta"));
@@ -153,8 +140,6 @@ const mostrarArriendoModalVer = (arriendo) => {
 			document.getElementById("card_documentos").append(a);
 		}
 	}
-
-
 	if (arriendo.contratos) {
 		let numeroContrato = 1;
 		arriendo.contratos.map(contrato => {
@@ -166,16 +151,11 @@ const mostrarArriendoModalVer = (arriendo) => {
 			numeroContrato++;
 		})
 	}
-
-
-
 	if (arriendo.garantia) {
 		$("#inputEditarGarantiaArriendo").val(arriendo.garantia.modosPago.nombre_modoPago);
 	} else {
 		$("#inputEditarGarantiaArriendo").val(" Sin Garantia ");
 	}
-
-
 	if (arriendo.requisito) {
 		const requisito = arriendo.requisito;
 		$("#btn_guardar_garantiaRequisitos").hide();
@@ -269,7 +249,7 @@ const limpiarCamposModalver = () => {
 	$("#spinner_btn_guardar_garantiaRequisitos").hide();
 	$("#spinner_btn_anular_arriendo").hide();
 	$("#spinner_btn_finalizar_arriendo").hide();
-	$("#body_editarArriendo").hide();
+
 	$("#formSubirDocumentos")[0].reset();
 	$("#formGarantia")[0].reset();
 	$("#formEditarArriendo")[0].reset();
@@ -303,7 +283,7 @@ const limpiarCamposModalver = () => {
 	$("#card_cartaAutorizacion").hide();
 
 	$("#ingresarDocumentos").show();
-
+	$("#body_editarArriendo").hide();
 	global_documentosArriendo = {
 		documentoCliente: {
 			carnetFrontal: false,
