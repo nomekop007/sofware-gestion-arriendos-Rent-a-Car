@@ -78,6 +78,7 @@ async function ajax_function(data, dataUrl) {
 			},
 			error: (error) => {
 				console.log(dataUrl + " ERROR CLIENT!");
+				//crear end poit que cacture errores del lado del cliente
 				Swal.fire({
 					icon: "error",
 					title: "contacte con informatica",

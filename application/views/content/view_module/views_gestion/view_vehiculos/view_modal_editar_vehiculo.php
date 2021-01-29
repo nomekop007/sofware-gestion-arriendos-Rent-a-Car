@@ -1,5 +1,4 @@
-<div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
+<div class="modal fade" id="modal_editar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -25,8 +24,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarPatente">Patente del Vehiculo</label>
-                                            <input onblur="mayus(this);" maxLength="10" type="text" class="form-control"
-                                                id="inputEditarPatente" name="inputEditarPatente" required>
+                                            <input onblur="mayus(this);" maxLength="10" type="text" class="form-control" id="inputEditarPatente" name="inputEditarPatente" required>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarTipo">Tipo de Vehiculo</label>
@@ -40,13 +38,11 @@
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarMarca">Marca del Vehiculo</label>
-                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                                                id="inputEditarMarca" name="inputEditarMarca" required>
+                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control" id="inputEditarMarca" name="inputEditarMarca" required>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarModelo">Modelo del Vehiculo</label>
-                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                                                id="inputEditarModelo" name="inputEditarModelo" required>
+                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control" id="inputEditarModelo" name="inputEditarModelo" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarEdad">Año del Vehiculo</label>
@@ -55,48 +51,39 @@
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarTransmision">Transmision del Vehiculo</label>
-                                            <select id="inputEditarTransmision" name="inputEditarTransmision"
-                                                class="form-control">
+                                            <select id="inputEditarTransmision" name="inputEditarTransmision" class="form-control">
                                                 <option value="AUTOMATICO" selected>Automatico</option>
                                                 <option value="MANUAL">Manual</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarChasis">Chasis de Vehiculo</label>
-                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                                                id="inputEditarChasis" name="inputEditarChasis" required>
+                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control" id="inputEditarChasis" name="inputEditarChasis" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarNumeroMotor">Nº Motor del Vehiculo</label>
-                                            <input type="text" maxLength="40" class="form-control"
-                                                id="inputEditarNumeroMotor" name="inputEditarNumeroMotor" required>
+                                            <input type="text" maxLength="40" class="form-control" id="inputEditarNumeroMotor" name="inputEditarNumeroMotor" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarNumeroGps">Nº GPS del vehiculo</label>
-                                            <input type="text" maxLength="40" class="form-control"
-                                                id="inputEditarNumeroGps" name="inputEditarNumeroGps" required>
+                                            <input type="text" maxLength="40" class="form-control" id="inputEditarNumeroGps" name="inputEditarNumeroGps" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarNumeroTab">Nº Tab del Vehiculo</label>
-                                            <input type="text" maxLength="40" class="form-control"
-                                                id="inputEditarNumeroTab" name="inputEditarNumeroTab" required>
+                                            <input type="text" maxLength="40" class="form-control" id="inputEditarNumeroTab" name="inputEditarNumeroTab" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarColor">Color del Vehiculo</label>
-                                            <input onblur="mayus(this);" maxLength="40" type="text" class="form-control"
-                                                id="inputEditarColor" name="inputEditarColor" required>
+                                            <input onblur="mayus(this);" maxLength="40" type="text" class="form-control" id="inputEditarColor" name="inputEditarColor" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarkilomentrosMantencion">kilometros de ultima
                                                 mantencion</label>
-                                            <input type="number" oninput="this.value = soloNumeros(this)" maxLength="6"
-                                                class="form-control" id="inputEditarkilomentrosMantencion"
-                                                name="inputEditarkilomentrosMantencion" required>
+                                            <input type="number" oninput="this.value = soloNumeros(this)" maxLength="6" class="form-control" id="inputEditarkilomentrosMantencion" name="inputEditarkilomentrosMantencion" required>
                                         </div>
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarEstado">Editar estado</label>
-                                            <select id="inputEditarEstado" name="inputEditarEstado"
-                                                class="form-control">
+                                            <select id="inputEditarEstado" name="inputEditarEstado" class="form-control">
                                                 <option value="DISPONIBLE" selected>Disponible</option>
                                                 <option value="INACTIVO">Inactivo</option>
                                                 <option value="ARRENDADO">Arrendado</option>
@@ -107,31 +94,26 @@
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarRegion">Region</label>
-                                            <select id="inputEditarRegion" name="inputEditarRegion"
-                                                class="form-control">
+                                            <select id="inputEditarRegion" name="inputEditarRegion" class="form-control">
                                             </select>
                                         </div>
 
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarCompra">Donde se compro</label>
-                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control"
-                                                id="inputEditarCompra" name="inputEditarCompra" required>
+                                            <input onblur="mayus(this);" maxLength="50" type="text" class="form-control" id="inputEditarCompra" name="inputEditarCompra" required>
                                         </div>
                                         <div class="form-group col-xl-6">
                                             <label for="inputEditarFechaCompra">Fecha de compra</label>
-                                            <input type="text" class="form-control input_data"
-                                                name="inputEditarFechaCompra" id="inputEditarFechaCompra" required />
+                                            <input type="text" class="form-control input_data" name="inputEditarFechaCompra" readonly id="inputEditarFechaCompra" required />
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="inputEditarPropietario">Propietario</label>
-                                            <select id="inputEditarPropietario" name="inputEditarPropietario"
-                                                class="form-control">
+                                            <select id="inputEditarPropietario" name="inputEditarPropietario" class="form-control">
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="inputCreateAt">Registrado El:</label>
-                                            <input disabled type="text" class="form-control" id="inputCreateAt"
-                                                name="inputCreateAt">
+                                            <input disabled type="text" class="form-control" id="inputCreateAt" name="inputCreateAt">
                                         </div>
                                     </div>
                                 </div>
@@ -148,8 +130,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" id="btn_editar_vehiculo" class="btn btn-primary">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                            id="spinner_btn_editarVehiculo"></span>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_editarVehiculo"></span>
                         Guardar cambios</button>
                 </div>
             </form>
