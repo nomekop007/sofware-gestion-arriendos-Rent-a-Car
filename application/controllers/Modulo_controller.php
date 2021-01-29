@@ -67,7 +67,7 @@ class Modulo_controller extends CI_Controller
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
                         $this->load->view('content/view_module/views_atencion/view_reservas/view_module_reservas');
                         $this->load->view('content/view_module/views_atencion/view_reservas/view_modal_agregar_reserva');
-                        $this->load->view('content/view_module/views_atencion/view_reservas/view_modal_editar_reserva');
+                        $this->load->view('content/view_module/views_atencion/view_reservas/view_modal_mostrar_reserva');
                     } else {
                         redirect(base_url());
                     }

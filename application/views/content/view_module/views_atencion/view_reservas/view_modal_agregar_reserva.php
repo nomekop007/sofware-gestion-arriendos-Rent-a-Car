@@ -196,15 +196,12 @@ switch ($this->session->userdata('sucursal')) {
                                     <label for="titulo_reserva">titulo de la reserva</label>
                                     <input type="text" class="form-control " name="titulo_reserva" id="titulo_reserva" required />
                                 </div>
-
                                 <div class="form-group col-xl-6">
                                     <label for="vehiculo">seleccionar vehiculo</label>
                                     <select id="vehiculo" name="vehiculo" class="form-control">
                                         <option value="null" selected="selected">Seleccione un vehiculo</option>
                                     </select>
-
                                 </div>
-
                                 <div class="form-group col-xl-5">
                                     <label for="fecha_inicio">fecha inicio</label>
                                     <input type="text" readonly class="form-control " name="fecha_inicio" id="fecha_inicio" required />
@@ -217,9 +214,13 @@ switch ($this->session->userdata('sucursal')) {
                                     <label for="inputNumeroDias">Numeros de Dias</label>
                                     <input min="1" oninput="calcularDias()" type="number" class="form-control" name="inputNumeroDias" id="inputNumeroDias" required>
                                 </div>
-                                <div class="form-group col-xl-12">
+                                <div class="form-group col-xl-10">
                                     <label for="descripcion">descripcion</label>
                                     <textarea required onblur="mayus(this);" class="form-control" id="descripcion" name="descripcion" rows="3" maxLength="300"></textarea>
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label for="color_reserva">color</label>
+                                    <input type="color" class=" form-control" name="color_reserva" id="color_reserva">
                                 </div>
                             </div>
                         </div>
