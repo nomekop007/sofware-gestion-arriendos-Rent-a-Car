@@ -6,7 +6,7 @@ const tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(config);
 $("#nav-arriendos-tab").click(() => refrescarTabla());
 
 const buscarArriendo = async (id_arriendo, option) => {
-	//limpiarCampos();
+	limpiarCampos();
 	const data = new FormData();
 	data.append("id_arriendo", id_arriendo);
 	const response = await ajax_function(data, "buscar_arriendo");
@@ -24,6 +24,12 @@ const buscarArriendo = async (id_arriendo, option) => {
 				break;
 		}
 	}
+};
+
+const limpiarCampos = () => {
+	limpiarCamposModalver();
+	limpiarCamposModalPago();
+	limpiarCamposModalFirma();
 };
 
 

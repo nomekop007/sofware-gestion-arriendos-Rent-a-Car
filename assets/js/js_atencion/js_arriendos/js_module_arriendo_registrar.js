@@ -50,11 +50,13 @@ let dataFormArriendo = null;
 const calcularDias = () => {
 	let fechaEntrega = $("#inputFechaEntrega").val();
 	let fechaRecepcion = $("#inputFechaRecepcion").val();
-	let fechaini = new Date(moment(fechaEntrega));
-	let fechafin = new Date(moment(fechaRecepcion));
-	let diasdif = fechafin.getTime() - fechaini.getTime();
-	let dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
-	$("#inputNumeroDias").val(dias);
+	if (fechaEntrega.length != 0 && fechaRecepcion.length != 0) {
+		let fechaini = new Date(moment(fechaEntrega));
+		let fechafin = new Date(moment(fechaRecepcion));
+		let diasdif = fechafin.getTime() - fechaini.getTime();
+		let dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
+		$("#inputNumeroDias").val(dias);
+	}
 };
 
 
@@ -97,14 +99,9 @@ $(document).ready(() => {
 	//cargar sucursales  (ruta,select)
 
 	cargarSelectSucursal("cargar_Sucursales", "inputCiudadEntrega");
-
 	cargarSelectSucursal("cargar_Sucursales", "inputCiudadRecepcion");
-
 	cargarComunas("inputComunaCliente", "inputCiudadCliente");
-
 	cargarComunas("inputComunaEmpresa", "inputCiudadEmpresa");
-
-	//cargar vigencia Empresa (input)
 	cargarOlder("inputVigencia");
 
 
@@ -355,80 +352,21 @@ $(document).ready(() => {
 
 
 
+
+
+
+
 	$("#btn_crear_arriendo").click(async () => {
 		//AQUI SE VALIDAN TODOS LOS CAMPOS
-
-
-		//datos arriendo
-		const select_vehiculos = $("#select_vehiculos").val();
-		const inputFechaRecepcion = $("#inputFechaRecepcion").val();
-		const inputFechaEntrega = $("#inputFechaEntrega").val();
-		const inputNumeroDias = $("#inputNumeroDias").val();
-		const inputEntrada = $("#inputEntrada").val();
-		const inputMantencion = $("#inputMantencion").val();
-
-		//datos particular
-		const inputRutCliente = $("#inputRutCliente").val();
-		const inputNombreCliente = $("#inputNombreCliente").val();
-		const inputTelefonoCliente = $("#inputTelefonoCliente").val();
-		const inputCorreoCliente = $("#inputCorreoCliente").val();
-		const inputDireccionCliente = $("#inputDireccionCliente").val();
-		const inputFechaNacimiento = $("#inputFechaNacimiento").val();
-
-		//datos empresa
-		const inputRutEmpresa = $("#inputRutEmpresa").val();
-		const inputNombreEmpresa = $("#inputNombreEmpresa").val();
-		const inputTelefonoEmpresa = $("#inputTelefonoEmpresa").val();
-		const inputCorreoEmpresa = $("#inputCorreoEmpresa").val();
-		const inputDireccionEmpresa = $("#inputDireccionEmpresa").val();
-		const inputCiudadEmpresa = $("#inputCiudadEmpresa").val();
-		const inputRol = $("#inputRol").val();
-		const inputVigencia = $("#inputVigencia").val();
-
-		//datos contacto
-		const inputNombreContacto = $("#inputNombreContacto").val();
-		const inputDomicilioContacto = $("#inputDomicilioContacto").val();
-		const inputNumeroCasaContacto = $("#inputNumeroCasaContacto").val();
-		const inputCiudadContacto = $("#inputCiudadContacto").val();
-		const inputTelefonoContacto = $("#inputTelefonoContacto").val();
-
-		//datos conductor
-		const inputRutConductor = $("#inputRutConductor").val();
-		const inputNombreConductor = $("#inputNombreConductor").val();
-		const inputTelefonoConductor = $("#inputTelefonoConductor").val();
-		const inputDireccionConductor = $("#inputDireccionConductor").val();
-		const inputVCTOConductor = $("#inputVCTOConductor").val();
-		const inputNumeroConductor = $("#inputNumeroConductor").val();
-		const inputMunicipalidadConductor = $("#inputMunicipalidadConductor").val();
-
-		//datos conductor 2
-		const inputRutConductor2 = $("#inputRutConductor2").val();
-		const inputNombreConductor2 = $("#inputNombreConductor2").val();
-		const inputTelefonoConductor2 = $("#inputTelefonoConductor2").val();
-		const inputDireccionConductor2 = $("#inputDireccionConductor2").val();
-		const inputVCTOConductor2 = $("#inputVCTOConductor2").val();
-		const inputNumeroConductor2 = $("#inputNumeroConductor2").val();
-		const inputMunicipalidadConductor2 = $("#inputMunicipalidadConductor2").val();
-
-		//datos conductor 3
-		const inputRutConductor3 = $("#inputRutConductor3").val();
-		const inputNombreConductor3 = $("#inputNombreConductor3").val();
-		const inputTelefonoConductor3 = $("#inputTelefonoConductor3").val();
-		const inputDireccionConductor3 = $("#inputDireccionConductor3").val();
-		const inputVCTOConductor3 = $("#inputVCTOConductor3").val();
-		const inputNumeroConductor3 = $("#inputNumeroConductor3").val();
-		const inputMunicipalidadConductor3 = $("#inputMunicipalidadConductor3").val();
-
 		//opciones
 		const inputTipoArriendo = $("#inputTipo").val();
 		const cantidadConductor = $('[name="customRadio5"]:checked').val();
-
 		//validando los datos del arriendo
 		if (
-			inputNumeroDias <= 0 ||
-			inputNumeroDias.length == 0 ||
-			inputFechaEntrega.length == 0 ||
-			inputFechaRecepcion.length == 0) {
+			$("#inputNumeroDias").val() <= 0 ||
+			$("#inputNumeroDias").val().length == 0 ||
+			$("#inputFechaEntrega").val().length == 0 ||
+			$("#inputFechaRecepcion").val().length == 0) {
 			Swal.fire({ icon: "warning", title: "Faltan datos del arriendo!", });
 			return;
 		}
@@ -436,12 +374,12 @@ $(document).ready(() => {
 		switch (inputTipoArriendo) {
 			case "PARTICULAR":
 				if (
-					inputRutCliente.length == 0 ||
-					inputNombreCliente.length == 0 ||
-					inputTelefonoCliente.length == 0 ||
-					inputCorreoCliente.length == 0 ||
-					inputDireccionCliente.length == 0 ||
-					inputFechaNacimiento.length == 0
+					$("#inputRutCliente").val().length == 0 ||
+					$("#inputNombreCliente").val().length == 0 ||
+					$("#inputTelefonoCliente").val().length == 0 ||
+					$("#inputCorreoCliente").val().length == 0 ||
+					$("#inputDireccionCliente").val().length == 0 ||
+					$("#inputFechaNacimiento").val().length == 0
 				) {
 					Swal.fire({ icon: "warning", title: "Faltan datos del cliente!", });
 					return;
@@ -449,12 +387,12 @@ $(document).ready(() => {
 				break;
 			case "REEMPLAZO":
 				if (
-					inputRutCliente.length == 0 ||
-					inputNombreCliente.length == 0 ||
-					inputTelefonoCliente.length == 0 ||
-					inputCorreoCliente.length == 0 ||
-					inputDireccionCliente.length == 0 ||
-					inputFechaNacimiento.length == 0
+					$("#inputRutCliente").val().length == 0 ||
+					$("#inputNombreCliente").val().length == 0 ||
+					$("#inputTelefonoCliente").val().length == 0 ||
+					$("#inputCorreoCliente").val().length == 0 ||
+					$("#inputDireccionCliente").val().length == 0 ||
+					$("#inputFechaNacimiento").val().length == 0
 				) {
 					Swal.fire({ icon: "warning", title: "Faltan datos del cliente!", });
 					return;
@@ -462,14 +400,14 @@ $(document).ready(() => {
 				break;
 			case "EMPRESA":
 				if (
-					inputRutEmpresa.length == 0 ||
-					inputNombreEmpresa.length == 0 ||
-					inputTelefonoEmpresa.length == 0 ||
-					inputCorreoEmpresa.length == 0 ||
-					inputDireccionEmpresa.length == 0 ||
-					inputVigencia.length == 0 ||
-					inputCiudadEmpresa.length == 0 ||
-					inputRol.length == 0
+					$("#inputRutEmpresa").val().length == 0 ||
+					$("#inputNombreEmpresa").val().length == 0 ||
+					$("#inputTelefonoEmpresa").val().length == 0 ||
+					$("#inputCorreoEmpresa").val().length == 0 ||
+					$("#inputDireccionEmpresa").val().length == 0 ||
+					$("#inputVigencia").val().length == 0 ||
+					$("#inputCiudadEmpresa").val().length == 0 ||
+					$("#inputRol").val().length == 0
 				) {
 					Swal.fire({ icon: "warning", title: "Faltan datos de la empresa!", });
 					return;
@@ -478,11 +416,11 @@ $(document).ready(() => {
 		}
 		//validando los datos del contacto
 		if (
-			inputNombreContacto.length == 0 ||
-			inputDomicilioContacto.length == 0 ||
-			inputNumeroCasaContacto.length == 0 ||
-			inputCiudadContacto.length == 0 ||
-			inputTelefonoContacto.length == 0) {
+			$("#inputNombreContacto").val().length == 0 ||
+			$("#inputDomicilioContacto").val().length == 0 ||
+			$("#inputNumeroCasaContacto").val().length == 0 ||
+			$("#inputCiudadContacto").val().length == 0 ||
+			$("#inputTelefonoContacto").val().length == 0) {
 			Swal.fire({
 				icon: "warning",
 				title: "Faltan datos del contacto de emergencia!",
@@ -491,45 +429,41 @@ $(document).ready(() => {
 		}
 		//validando el o los conductores
 		function validarConductor1() {
-			if (inputRutConductor.length == 0 ||
-				inputNombreConductor.length == 0 ||
-				inputTelefonoConductor.length == 0 ||
-				inputDireccionConductor.length == 0 ||
-				inputVCTOConductor.length == 0 ||
-				inputNumeroConductor.length == 0 ||
-				inputMunicipalidadConductor.length == 0) {
+			if ($("#inputRutConductor").val().length == 0 ||
+				$("#inputNombreConductor").val().length == 0 ||
+				$("#inputTelefonoConductor").val().length == 0 ||
+				$("#inputDireccionConductor").val().length == 0 ||
+				$("#inputVCTOConductor").val().length == 0 ||
+				$("#inputNumeroConductor").val().length == 0 ||
+				$("#inputMunicipalidadConductor").val().length == 0) {
 				return false;
 			}
 			return true;
 		}
-
 		function validarConductor2() {
-			if (inputRutConductor2.length == 0 ||
-				inputNombreConductor2.length == 0 ||
-				inputTelefonoConductor2.length == 0 ||
-				inputDireccionConductor2.length == 0 ||
-				inputVCTOConductor2.length == 0 ||
-				inputNumeroConductor2.length == 0 ||
-				inputMunicipalidadConductor2.length == 0) {
+			if ($("#inputRutConductor2").val().length == 0 ||
+				$("#inputNombreConductor2").val().length == 0 ||
+				$("#inputTelefonoConductor2").val().length == 0 ||
+				$("#inputDireccionConductor2").val().length == 0 ||
+				$("#inputVCTOConductor2").val().length == 0 ||
+				$("#inputNumeroConductor2").val().length == 0 ||
+				$("#inputMunicipalidadConductor2").val().length == 0) {
 				return false;
 			}
 			return true;
 		}
-
 		function validarConductor3() {
-			if (inputRutConductor3.length == 0 ||
-				inputNombreConductor3.length == 0 ||
-				inputTelefonoConductor3.length == 0 ||
-				inputDireccionConductor3.length == 0 ||
-				inputVCTOConductor3.length == 0 ||
-				inputNumeroConductor3.length == 0 ||
-				inputMunicipalidadConductor3.length == 0) {
-
+			if ($("#inputRutConductor3").val().length == 0 ||
+				$("#inputNombreConductor3").val().length == 0 ||
+				$("#inputTelefonoConductor3").val().length == 0 ||
+				$("#inputDireccionConductor3").val().length == 0 ||
+				$("#inputVCTOConductor3").val().length == 0 ||
+				$("#inputNumeroConductor3").val().length == 0 ||
+				$("#inputMunicipalidadConductor3").val().length == 0) {
 				return false;
 			}
 			return true;
 		}
-
 		switch (cantidadConductor) {
 			case "1":
 				if (!validarConductor1()) {
@@ -551,17 +485,14 @@ $(document).ready(() => {
 				break;
 		}
 		//validando los datos del vehiculo
-		if (select_vehiculos == null ||
-			select_vehiculos == "null" ||
-			inputEntrada.length == 0 ||
-			inputMantencion.length == 0) {
+		if ($("#select_vehiculos").val() == null ||
+			$("#select_vehiculos").val() == "null" ||
+			$("#inputEntrada").val().length == 0 ||
+			$("#inputMantencion").val().length == 0) {
 			Swal.fire({ icon: "warning", title: "debes colocar los datos del vehiculo!", });
 			return;
 		}
-
-
 		//SI PASAN TODAS LAS VALIDACIONES , SE GUARDA
-
 		alertQuestion(async () => {
 			$("#btn_crear_arriendo").attr("disabled", true);
 			$("#spinner_btn_registrar").show();
@@ -572,6 +503,8 @@ $(document).ready(() => {
 			$("#spinner_btn_registrar").hide();
 		})
 	});
+
+
 
 
 
