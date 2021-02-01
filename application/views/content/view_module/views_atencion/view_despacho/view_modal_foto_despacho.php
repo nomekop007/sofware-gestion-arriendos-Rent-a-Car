@@ -1,6 +1,5 @@
 <!-- Modal fotos auto -->
-<div class="modal fade" id="canvasFotosVehiculo" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="canvasFotosVehiculo" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -24,8 +23,7 @@
                     </div>
                     <div class="form-group col-lg-2">
                         <label for="grosor">Grosor de linea</label>
-                        <input type="range" id="grosor" class="custom-range" oninput="defgrosor(this.value)" value="0"
-                            min="1" max="5">
+                        <input type="range" id="grosor" class="custom-range" oninput="defgrosor(this.value)" value="0" min="1" max="5">
                     </div>
                     <div class="form-group col-lg-3">
                         <button type="button" id="seleccionarFoto" class="btn btn-success btn-sm form-control ">
@@ -33,11 +31,9 @@
                     </div>
                     <div class="form-group col-lg-12 text-center">
                         <br>
-                        <p><i class="far fa-square"></i> Abolladuras <i class="far fa-circle"></i> Rayaduras <i
-                                class="fas fa-times"></i> Piezas rotas </p>
+                        <p><i class="far fa-square"></i> Abolladuras <i class="far fa-circle"></i> Rayaduras <i class="fas fa-times"></i> Piezas rotas </p>
                         <div class="form-group form-check">
-                            <label class="form-check-label" for="dibujarCanvas"><input type="checkbox"
-                                    class="form-check-input" id="dibujarCanvas" name="dibujarCanvas">dibujar en
+                            <label class="form-check-label" for="dibujarCanvas"><input type="checkbox" class="form-check-input" id="dibujarCanvas" name="dibujarCanvas">dibujar en
                                 pizarra</label>
                         </div>
                     </div>

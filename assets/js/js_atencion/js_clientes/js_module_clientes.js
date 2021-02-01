@@ -163,10 +163,14 @@ $(document).ready(() => {
 	const tablaConductor = $("#tablaConductores").DataTable(lenguaje);
 
 	cargarComunas("inputComunaCliente", "inputCiudadCliente");
+	cargarComunas("inputComunaClienteRegistrar", "inputCiudadClienteRegistrar");
 
 	cargarComunas("inputComunaEmpresa", "inputCiudadEmpresa");
+	cargarComunas("inputComunaEmpresaRegistrar", "inputCiudadEmpresaRegistrar");
 
 	cargarOlder("inputVigenciaEmpresa");
+	cargarOlder("inputVigenciaEmpresaRegistrar");
+
 
 
 	$("#nav-clientes-tab").click(() => refrescarTablaCliente());
@@ -196,6 +200,79 @@ $(document).ready(() => {
 
 
 
+	$("#btn_registrar_cliente").click(() => {
+		if ($("#rut_cliente_registrar").val().length == 0 ||
+			$("#nombre_cliente_registrar").val().length === 0) {
+			Swal.fire({ icon: "warning", title: "Faltan datos requeridos!", });
+			return;
+		}
+		if ($("#fechaN_cliente_registrar").val().length === 0) {
+			Swal.fire({ icon: "warning", title: "debe ingresar la fecha de nacimiento!", });
+			return;
+		}
+		alertQuestion(async () => {
+			$("#btn_registrar_cliente").attr("disabled", true);
+			const form = $("#form_registrar_cliente")[0];
+			const data = new FormData(form);
+			const response = await ajax_function(data, "registrar_cliente");
+			if (response.success) {
+				$("#modal_registrar_cliente").modal("toggle");
+				Swal.fire("cliente registrado!", response.msg, "success");
+				refrescarTablaCliente();
+				$("#form_registrar_cliente")[0].reset();
+			}
+			$("#btn_registrar_cliente").attr("disabled", false);
+		})
+	});
+
+
+	$("#btn_registrar_empresa").click(() => {
+		if ($("#rut_empresa_registrar").val().length == 0 ||
+			$("#nombre_empresa_registrar").val().length === 0) {
+			Swal.fire({ icon: "warning", title: "Faltan datos requeridos!", });
+			return;
+		}
+		alertQuestion(async () => {
+			$("#btn_registrar_empresa").attr("disabled", true);
+			const form = $("#form_registrar_empresa")[0];
+			const data = new FormData(form);
+			const response = await ajax_function(data, "registrar_empresa");
+			if (response.success) {
+				$("#modal_registrar_empresa").modal("toggle");
+				Swal.fire("empresa registrada", response.msg, "success");
+				refrescarTablaEmpresa();
+				$("#form_registrar_empresa")[0].reset();
+			}
+			$("#btn_registrar_empresa").attr("disabled", false);
+		})
+	});
+
+
+
+	$("#btn_registrar_conductor").click(() => {
+		if ($("#rut_conductor_registrar").val().length === 0 ||
+			$("#nombre_conductor_registrar").val().length === 0) {
+			Swal.fire({ icon: "warning", title: "Faltan datos requeridos!", });
+			return;
+		}
+		if ($("#vcto_conductor_registrar").val().length === 0) {
+			Swal.fire({ icon: "warning", title: "debe ingresar la fecha de vencimiento (VCTO)!", });
+			return;
+		}
+		alertQuestion(async () => {
+			$("#btn_registrar_conductor").attr("disabled", true);
+			const form = $("#form_registrar_conductor")[0];
+			const data = new FormData(form);
+			const response = await ajax_function(data, "registrar_conductor");
+			if (response.success) {
+				$("#modal_registrar_conductor").modal("toggle");
+				Swal.fire("conductor registrado", response.msg, "success");
+				refrescarTablaConductor();
+				$("#form_registrar_conductor")[0].reset();
+			}
+			$("#btn_registrar_conductor").attr("disabled", false);
+		})
+	});
 
 
 
