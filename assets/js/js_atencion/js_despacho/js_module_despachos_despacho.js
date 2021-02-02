@@ -21,9 +21,7 @@ const buscarArriendo = async (id_arriendo) => {
 				$("#inputRecibidorDespacho").val(arriendo.cliente.nombre_cliente);
 				break;
 			case "REEMPLAZO":
-				$("#inputRecibidorDespacho").val(
-					arriendo.remplazo.cliente.nombre_cliente
-				);
+				$("#inputRecibidorDespacho").val(arriendo.remplazo.cliente.nombre_cliente);
 				break;
 			case "EMPRESA":
 				$("#inputRecibidorDespacho").val(arriendo.empresa.nombre_empresa);
@@ -112,12 +110,6 @@ $(document).ready(() => {
 	})();
 
 	$("#seleccionarFoto").click(async () => {
-		/*
-		se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
-		el servidor solo puede recibir un maximo de 2mb en cada consulta.
-		Actualizado: es posible que esto cambie debido al ambiente de desarrollo
-		o capacidad de la maquina en la que se este ejecutando
-		*/
 		$("#spinner_btn_seleccionar").show();
 		$("#seleccionarFoto").attr("disabled", true);
 		const inputImg = $("#inputImagenVehiculo").val();
@@ -140,17 +132,6 @@ $(document).ready(() => {
 		$("#spinner_btn_seleccionar").hide();
 
 	});
-
-
-
-
-	$("#btn_crear_ActaEntrega").click(async () => {
-		const form = $("#formActaEntrega")[0];
-		const data = new FormData(form);
-		await generarActaEntrega(data);
-	});
-
-
 
 
 	$("#btn_confirmar_actaEntrega").click(() => {
@@ -212,6 +193,31 @@ $(document).ready(() => {
 		);
 	};
 
+
+
+	$("#btn_crear_ActaEntrega").click(async () => {
+		const form = $("#formActaEntrega")[0];
+		const data = new FormData(form);
+		if (arrayImages.length === 0) {
+			Swal.fire({ icon: "warning", title: "falta tomar fotos al vehiculo!", });
+			return;
+		}
+		$("#spinner_btn_generarActaEntrega").show();
+		arrayImages.forEach((url, i) => {
+			let blob = dataURItoBlob(url);
+			let file = imagen = new File([blob], 'imagen.png', { type: 'image/png' });
+			data.append(`file${i}`, file);
+		});
+		const response = await ajax_function(data, "guardar_fotosVehiculo");
+		if (response.success) {
+			await generarActaEntrega(data);
+		}
+		$("#spinner_btn_generarActaEntrega").hide();
+	});
+
+
+
+
 	const firmarActaEntrega = async (geo) => {
 		const canvas1 = document.getElementById("canvas-firma1");
 		const canvas2 = document.getElementById("canvas-firma2");
@@ -223,49 +229,36 @@ $(document).ready(() => {
 		await generarActaEntrega(data);
 	};
 
+
+
 	const generarActaEntrega = async (data) => {
-		if (arrayImages.length > 0) {
-			const canvas = document.getElementById("canvas-combustible");
-			const url = canvas.toDataURL("image/png");
-			const matrizRecepcion = await capturarControlRecepcionArray();
-			arrayImages.forEach((url, i) => {
-				let blob = dataURItoBlob(url);
-				let file = imagen = new File([blob], 'imagen.png', { type: 'image/png' });
-				data.append(`file${i}`, file);
-			});
-			const responseFotos = await ajax_function(data, "guardar_fotosVehiculo");
-			if (responseFotos.success) {
-				data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
-				data.append("imageCombustible", url);
-				$("#spinner_btn_generarActaEntrega").show();
-				$("#recibido").text($("#inputRecibidorDespacho").val());
-				$("#entregado").text($("#inputEntregadorDespacho").val());
-				const response = await ajax_function(data, "generar_PDFactaEntrega");
-				console.log(response.msg);
-				if (response.success) {
-					$("#modal_signature").modal({ show: true });
-					$("#body-documento").show();
-					$("#body-firma").show();
-					$("#body-sinContrato").hide();
-					mostrarVisorPDF(response.data.base64, [
-						"pdf_canvas_despacho", "page_count_despacho",
-						"page_num_despacho", "prev_despacho",
-						"next_despacho"]);
-					const a = document.getElementById("descargar_actaEntrega");
-					a.href = `data:application/pdf;base64,${response.data.base64}`;
-					a.download = `actaEntrega.pdf`;
-					base64_documento = response.data.base64;
-					if (response.data.firma1 && response.data.firma2) {
-						$("#btn_confirmar_actaEntrega").attr("disabled", false);
-					}
-				}
+		const canvas = document.getElementById("canvas-combustible");
+		const url = canvas.toDataURL("image/png");
+		const matrizRecepcion = await capturarControlRecepcionArray();
+		data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
+		data.append("imageCombustible", url);
+		$("#recibido").text($("#inputRecibidorDespacho").val());
+		$("#entregado").text($("#inputEntregadorDespacho").val());
+		const response = await ajax_function(data, "generar_PDFactaEntrega");
+		if (response.success) {
+			$("#modal_signature").modal({ show: true });
+			$("#body-documento").show();
+			$("#body-firma").show();
+			$("#body-sinContrato").hide();
+			mostrarVisorPDF(response.data.base64, [
+				"pdf_canvas_despacho", "page_count_despacho",
+				"page_num_despacho", "prev_despacho",
+				"next_despacho"]);
+			const a = document.getElementById("descargar_actaEntrega");
+			a.href = `data:application/pdf;base64,${response.data.base64}`;
+			a.download = `actaEntrega.pdf`;
+			base64_documento = response.data.base64;
+			if (response.data.firma1 && response.data.firma2) {
+				$("#btn_confirmar_actaEntrega").attr("disabled", false);
 			}
-			$("#spinner_btn_generarActaEntrega").hide();
-			$("#spinner_btn_firmarActaEntrega").hide();
-			$("#btn_crear_ActaEntrega").attr("disabled", false);
-		} else {
-			Swal.fire({ icon: "warning", title: "falta tomar fotos al vehiculo!", });
 		}
+		$("#spinner_btn_firmarActaEntrega").hide();
+		$("#btn_crear_ActaEntrega").attr("disabled", false);
 	};
 
 
