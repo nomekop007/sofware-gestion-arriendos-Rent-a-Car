@@ -33,7 +33,7 @@
                             <br>
                             <div class="container" id="carrucel">
                             </div>
-                            <br> <br>
+                            <br>
                             <button type="button" class="btn btn-danger btn-sm form-control " id="limpiarArrayFotos"> <i class="fas fa-trash-alt"></i> limpiar
                                 lista</button>
                         </div>
