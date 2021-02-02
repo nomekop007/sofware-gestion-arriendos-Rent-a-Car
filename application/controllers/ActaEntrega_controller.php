@@ -26,23 +26,10 @@ class ActaEntrega_controller extends CI_Controller
 
     public function generarPDFactaEntrega()
     {
-
-        $id_arriendo = $this->input->post("inputIdArriendo");
-
-        $arrayFile = [
-            "file0",
-            "file1", "file2", "file3", "file4", "file5",
-            "file6", "file7", "file8", "file9", "file10"
-        ];
-        $arrayData = recorrerFicheros($arrayFile);
-
-        file_function($id_arriendo, $arrayData, "actasEntregas/guardarFotosVehiculos");
-
         $ArrayData = [
             "firma1PNG" => $this->input->post("inputFirma1PNG"),
             "firma2PNG" => $this->input->post("inputFirma2PNG"),
             "id_arriendo" => $this->input->post("inputIdArriendo"),
-            "arrayImages" => json_decode($this->input->post("arrayImages")),
             "matrizRecepcion" => json_decode($this->input->post("matrizRecepcion")),
             "imageCombustible" => $this->input->post("imageCombustible"),
             "destinoDespacho" => $this->input->post("inputDestinoDespacho"),
@@ -54,6 +41,18 @@ class ActaEntrega_controller extends CI_Controller
             "geolocalizacion" => $this->input->post("geolocalizacion"),
         ];
         echo post_function($ArrayData, "actasEntregas/generarPDFactaEntrega");
+    }
+
+    public function guardarFotosVehiculo()
+    {
+        $id_arriendo = $this->input->post("inputIdArriendo");
+        $arrayFile = [
+            "file0",
+            "file1", "file2", "file3", "file4", "file5",
+            "file6", "file7", "file8", "file9", "file10"
+        ];
+        $arrayData = recorrerFicheros($arrayFile);
+        echo  file_function($id_arriendo, $arrayData, "actasEntregas/guardarFotosVehiculos");
     }
 
 
