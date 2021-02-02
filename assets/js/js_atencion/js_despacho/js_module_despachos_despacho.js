@@ -161,10 +161,14 @@ $(document).ready(() => {
 		obtenerGeolocalizacion();
 	});
 
+
 	$("#limpiarArrayFotos").click(() => {
-		arrayImages.length = 0;
-		$("#carrucel").empty();
+		alertQuestion(() => {
+			arrayImages.length = 0;
+			$("#carrucel").empty();
+		})
 	});
+
 
 	const obtenerGeolocalizacion = () => {
 		const options = {

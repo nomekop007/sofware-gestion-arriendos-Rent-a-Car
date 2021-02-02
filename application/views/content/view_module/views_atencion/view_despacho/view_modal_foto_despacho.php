@@ -1,11 +1,11 @@
 <!-- Modal fotos auto -->
 <div class="modal fade" id="canvasFotosVehiculo" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-full">
+    <div class="modal-dialog  modal-full">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title " id="staticBackdropLabel">Capturar Fotos del vehiculo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <button aria-hidden="true" type="button" class="btn btn-primary" data-dismiss="modal">Listo</button>
                 </button>
             </div>
             <div class="modal-body">
@@ -14,7 +14,12 @@
                         <div class="form-group col-lg-12">
                             <input type="file" class="form-control-file" id="inputImagenVehiculo" accept="image/*">
                         </div>
-                        <br>
+                        <br><br>
+                        <div class="form-group col-12">
+                            <button type="button" id="seleccionarFoto" class="btn btn-success btn-sm form-control ">
+                                <i class="fas fa-plus-circle"></i>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_seleccionar"></span> Agregar foto </button>
+                        </div>
                         <div class="form-group row m-3">
                             <button type="button" id="limpiar-fotoVehiculo" class="btn btn-secondary btn-sm form-control  col-lg-6 ">
                                 <i class="fas fa-broom"></i> </button>
@@ -24,16 +29,11 @@
                             <input type="range" id="grosor" class="custom-range" oninput="defgrosor(this.value)" value="0" min="1" max="5">
                         </div>
                         <br>
-                        <div class="form-group col-12">
-                            <button type="button" id="seleccionarFoto" class="btn btn-success btn-sm form-control ">
-                                <i class="fas fa-plus-circle"></i>
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_seleccionar"></span> Agregar foto </button>
-                        </div>
                         <div class="form-group col-lg-12">
                             <br>
                             <div class="container" id="carrucel">
                             </div>
-                            <br>
+                            <br> <br>
                             <button type="button" class="btn btn-danger btn-sm form-control " id="limpiarArrayFotos"> <i class="fas fa-trash-alt"></i> limpiar
                                 lista</button>
                         </div>
@@ -53,10 +53,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">cancelar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Listo</button>
             </div>
         </div>
     </div>
