@@ -17,6 +17,7 @@
                 <span>Cambios realizados:</span>
                 <li>Se agrego nuevo modulo "calendario de reservas".</li>
                 <li>Se modifico el modulo "gestion de clientes" y se agrego funcionalidad de registar cliente , registrar empresa y registrar conductor.</li>
+                <li>Se corrigio la baja calidad de imagen de las fotos en el modulo "gestion de despachos" .</li>
             </div>
         </div>
         <br><br><br><br><br>

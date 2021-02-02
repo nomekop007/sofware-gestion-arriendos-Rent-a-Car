@@ -14,7 +14,7 @@ const buscarArriendo = async (id_arriendo) => {
 		$("#inputEdadVehiculoDespacho").val(arriendo.vehiculo.año_vehiculo);
 		$("#inputColorVehiculoDespacho").val(arriendo.vehiculo.color_vehiculo);
 		$("#inputPatenteVehiculoDespacho").val(arriendo.vehiculo.patente_vehiculo);
-		$("#inputKilomentrajeVehiculoDespacho").val(arriendo.vehiculo.kilometraje_vehiculo);
+		$("#inputKilomentrajeVehiculoDespacho").val(arriendo.vehiculo.kilometraje_vehiculo ? arriendo.vehiculo.kilometraje_vehiculo : 0);
 		$("#formActaEntrega").show();
 		switch (arriendo.tipo_arriendo) {
 			case "PARTICULAR":
@@ -67,7 +67,7 @@ const limpiarCampos = () => {
 	$("#spinner_btn_firmarActaEntrega").hide();
 	$("#spinner_btn_confirmarActaEntrega").hide();
 	$("#btn_confirmar_actaEntrega").attr("disabled", true);
-
+	$("#spinner_btn_seleccionar").hide();
 	arrayImages.length = 0;
 	base64_documento = null;
 	$("#carrucel").empty();
@@ -118,22 +118,27 @@ $(document).ready(() => {
 		Actualizado: es posible que esto cambie debido al ambiente de desarrollo
 		o capacidad de la maquina en la que se este ejecutando
 		*/
+		$("#spinner_btn_seleccionar").show();
+		$("#seleccionarFoto").attr("disabled", true);
 		const inputImg = $("#inputImagenVehiculo").val();
 		if (inputImg != 0) {
 			const canvas = document.getElementById("canvas-fotoVehiculo");
 			const base64 = canvas.toDataURL("image/png");
-
-			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
-			if (arrayImages.length < 9) {
-				arrayImages.push(url);
-				agregarFotoACarrucel(arrayImages);
-				limpiarTodoCanvasVehiculo();
-			} else {
-				Swal.fire({ icon: "warning", title: "el maximo son 9 imagenes", });
+			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 1);
+			if (arrayImages.length > 9) {
+				Swal.fire({ icon: "warning", title: "el maximo son 10 imagenes", });
+				return;
 			}
+			arrayImages.push(url);
+			agregarFotoACarrucel(arrayImages);
+			limpiarTodoCanvasVehiculo();
 		} else {
 			Swal.fire({ icon: "warning", title: "debe ingresar foto", });
 		}
+		console.log(arrayImages);
+		$("#seleccionarFoto").attr("disabled", false);
+		$("#spinner_btn_seleccionar").hide();
+
 	});
 
 
@@ -223,33 +228,36 @@ $(document).ready(() => {
 			const canvas = document.getElementById("canvas-combustible");
 			const url = canvas.toDataURL("image/png");
 			const matrizRecepcion = await capturarControlRecepcionArray();
-			data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
-			data.append("arrayImages", JSON.stringify(arrayImages));
-			data.append("imageCombustible", url);
-			$("#spinner_btn_generarActaEntrega").show();
-			$("#recibido").text($("#inputRecibidorDespacho").val());
-			$("#entregado").text($("#inputEntregadorDespacho").val());
-			const response = await ajax_function(data, "generar_PDFactaEntrega");
-			if (response.success) {
-				$("#modal_signature").modal({
-					show: true,
-				});
-				$("#body-documento").show();
-				$("#body-firma").show();
-				$("#body-sinContrato").hide();
-				mostrarVisorPDF(response.data.base64, [
-					"pdf_canvas_despacho",
-					"page_count_despacho",
-					"page_num_despacho",
-					"prev_despacho",
-					"next_despacho"
-				]);
-				const a = document.getElementById("descargar_actaEntrega");
-				a.href = `data:application/pdf;base64,${response.data.base64}`;
-				a.download = `actaEntrega.pdf`;
-				base64_documento = response.data.base64;
-				if (response.data.firma1 && response.data.firma2) {
-					$("#btn_confirmar_actaEntrega").attr("disabled", false);
+			arrayImages.forEach((url, i) => {
+				let blob = dataURItoBlob(url);
+				let file = imagen = new File([blob], 'imagen.png', { type: 'image/png' });
+				data.append(`file${i}`, file);
+			});
+			const responseFotos = await ajax_function(data, "guardar_fotosVehiculo");
+			if (responseFotos.success) {
+				data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
+				data.append("imageCombustible", url);
+				$("#spinner_btn_generarActaEntrega").show();
+				$("#recibido").text($("#inputRecibidorDespacho").val());
+				$("#entregado").text($("#inputEntregadorDespacho").val());
+				const response = await ajax_function(data, "generar_PDFactaEntrega");
+				console.log(response.msg);
+				if (response.success) {
+					$("#modal_signature").modal({ show: true });
+					$("#body-documento").show();
+					$("#body-firma").show();
+					$("#body-sinContrato").hide();
+					mostrarVisorPDF(response.data.base64, [
+						"pdf_canvas_despacho", "page_count_despacho",
+						"page_num_despacho", "prev_despacho",
+						"next_despacho"]);
+					const a = document.getElementById("descargar_actaEntrega");
+					a.href = `data:application/pdf;base64,${response.data.base64}`;
+					a.download = `actaEntrega.pdf`;
+					base64_documento = response.data.base64;
+					if (response.data.firma1 && response.data.firma2) {
+						$("#btn_confirmar_actaEntrega").attr("disabled", false);
+					}
 				}
 			}
 			$("#spinner_btn_generarActaEntrega").hide();
@@ -267,13 +275,13 @@ $(document).ready(() => {
 			let base64str = array[i].split('base64,')[1];
 			let decoded = atob(base64str);
 
-			items += `<div class="item"><img src="${array[i]}" /> <span>${decoded.length} kB </span></div>`;
+			items += `<div class="item"><img value="${i}" src="${array[i]}" /> <span>${decoded.length} kB </span></div>`;
 		}
 		const html = `<div class="owl-carousel owl-theme" id="carruselVehiculos">${items}</div></div>`;
 		$("#carrucel").html(html);
 		$(".owl-carousel").owlCarousel({
-			margin: 5,
-		});
+			items: 1,
+		})
 	};
 
 
