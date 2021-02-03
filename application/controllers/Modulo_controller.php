@@ -133,6 +133,13 @@ class Modulo_controller extends CI_Controller
                         redirect(base_url());
                     }
                     break;
+                case 5:
+                    if ($rol == 1) {
+                        $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_tabla_pagoCliente');
+                    } else {
+                        redirect(base_url());
+                    }
+                    break;
                 default:
                     redirect(base_url());
                     break;
