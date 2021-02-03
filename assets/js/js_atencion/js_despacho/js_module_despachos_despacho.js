@@ -208,7 +208,10 @@ $(document).ready(() => {
 			Swal.fire({ icon: "warning", title: "falta tomar fotos al vehiculo!", });
 			return;
 		}
+
 		$("#spinner_btn_generarActaEntrega").show();
+		$("#btn_crear_ActaEntrega").attr("disabled", true);
+
 		arrayImages.forEach((url, i) => {
 			let blob = dataURItoBlob(url);
 			let file = imagen = new File([blob], 'imagen.png', { type: 'image/png' });
@@ -219,6 +222,8 @@ $(document).ready(() => {
 			await generarActaEntrega(data);
 		}
 		$("#spinner_btn_generarActaEntrega").hide();
+		$("#btn_crear_ActaEntrega").attr("disabled", true);
+
 	});
 
 
