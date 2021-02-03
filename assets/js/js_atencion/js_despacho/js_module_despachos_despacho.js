@@ -134,6 +134,8 @@ $(document).ready(() => {
 	});
 
 
+
+
 	$("#btn_confirmar_actaEntrega").click(() => {
 		alertQuestion(async () => {
 			$("#spinner_btn_confirmarActaEntrega").show();

@@ -77,35 +77,59 @@ const mostrarRecepcionArriendo = async (id_arriendo) => {
 	const data = new FormData();
 	data.append("id_despacho", id_arriendo);
 	data.append("id_arriendo", id_arriendo);
+
+	const responseArriendo = await ajax_function(data, "buscar_arriendo");
 	const responseActa = await ajax_function(data, "buscar_actaEntrega");
-	if (responseActa.success) {
-		const base64 = responseActa.data.base64;
-		mostrarVisorPDF(base64, [
-			"pdf_canvas_recepcion",
-			"page_count_recepcion",
-			"page_num_recepcion",
-			"prev_recepcion",
-			"next_recepcion"
-		]);
+
+	if (responseArriendo.success) {
+		const arriendo = responseArriendo.data;
+		if (arriendo.fotosDespachos.length > 0) {
+			console.log(responseActa)
+			fotoDespachoCarrucelRecepcion(arriendo.fotosDespachos, responseActa.data.url);
+			$("#ventana_fotosDespacho").show();
+		} else {
+			if (responseActa.success) {
+				const base64 = responseActa.data.base64;
+				mostrarVisorPDF(base64, [
+					"pdf_canvas_recepcion",
+					"page_count_recepcion",
+					"page_num_recepcion",
+					"prev_recepcion",
+					"next_recepcion"
+				]);
+			}
+			$("#ventana_actaEntrega").show();
+		}
+
 		mostrarCanvasImgVehiculo([
 			"canvas_fotoVehiculo_recepcion",
 			"limpiar_fotoVehiculo_recepcion",
 			"dibujar_canvas_recepcion",
 			"inputImagen_vehiculo_recepcion"
 		]);
-		const responseArriendo = await ajax_function(data, "buscar_arriendo");
-		if (responseArriendo.success) {
-			const arriendo = responseArriendo.data;
-			$("#numero_arriendo_recepcion").html("Nº " + arriendo.id_arriendo);
-			$("#id_vehiculo_recepcion").val(arriendo.patente_vehiculo);
-			$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
-			$("#body_recepcion_arriendo").show();
-		}
+		$("#numero_arriendo_recepcion").html("Nº " + arriendo.id_arriendo);
+		$("#id_vehiculo_recepcion").val(arriendo.patente_vehiculo);
+		$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
+		$("#body_recepcion_arriendo").show();
 	}
 	$("#formSpinner_finalizar_arriendo").hide();
 }
 
 
+const fotoDespachoCarrucelRecepcion = (array, url) => {
+	let items = "";
+	array.map(({ url_fotoDespacho }) => {
+		const link = `${url}/${url_fotoDespacho}`;
+		console.log(link);
+		items += `<div class="item"><img src="${link}" /></div>`;
+
+	});
+	const html = `<div class="owl-carousel owl-theme">${items}</div></div>`;
+	$("#ventana_fotosDespacho").html(html);
+	$(".owl-carousel").owlCarousel({
+		items: 1,
+	});
+};
 
 
 
@@ -160,6 +184,10 @@ const limpiarFormulario = () => {
 	$("#input_kilometraje_salida").val(0);
 	$("#formExtenderArriendo")[0].reset();
 	$("#form_pagos_pendientes")[0].reset();
+
+
+	$("#ventana_fotosDespacho").hide();
+	$("#ventana_actaEntrega").hide();
 }
 
 
@@ -285,25 +313,20 @@ $(document).ready(() => {
 			}
 			$("#btn_finalizar_arriendo").attr("disabled", false);
 			$("#spinner_btn_finalizar_contrato").hide();
-
 		})
 	});
 
 
 
 	$("#limpiarArrayFotosRecepcion").click(() => {
-		arrayImagesRecepcion.length = 0;
-		$("#carrucel_recepcion").empty();
+		alertQuestion(() => {
+			arrayImagesRecepcion.length = 0;
+			$("#carrucel_recepcion").empty();
+		})
 	});
 
 
 	$("#seleccionarFotoRecepcion").click(async () => {
-		/*
-		se redimenciona la imagen por que los archivos base64 tiene un peso de caracteres elevado y 
-		el servidor solo puede recibir un maximo de 2mb en cada consulta.
-		Actualizado: es posible que esto cambie debido al ambiente de desarrollo
-		o capacidad de la maquina en la que se este ejecutando (local/produccion)
-		*/
 		const inputImg = $("#inputImagen_vehiculo_recepcion").val();
 		if (inputImg != 0) {
 			const canvas = document.getElementById("canvas_fotoVehiculo_recepcion");
@@ -475,7 +498,6 @@ $(document).ready(() => {
 		const countDownDate = moment(fechaRecepcion_arriendo);
 		const fechaFinal = moment(fechaRecepcion_arriendo);
 		let time = countDownDate.diff(moment());
-
 		time = setInterval(function () {
 			alertaTemporizador(countDownDate, fechaFinal, time, id_arriendo);
 		}, 1000);
@@ -484,10 +506,8 @@ $(document).ready(() => {
 
 	const alertaTemporizador = (countDownDate, fechaFinal, time, id_arriendo) => {
 		let diff = countDownDate.diff(moment());
-
 		const fechaActual = moment();
 		const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
-
 		if (diff <= 0) {
 			clearInterval(time);
 			// If the count down is finished, write some text
