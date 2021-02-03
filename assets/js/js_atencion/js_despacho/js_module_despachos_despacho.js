@@ -222,7 +222,7 @@ $(document).ready(() => {
 			await generarActaEntrega(data);
 		}
 		$("#spinner_btn_generarActaEntrega").hide();
-		$("#btn_crear_ActaEntrega").attr("disabled", true);
+		$("#btn_crear_ActaEntrega").attr("disabled", false);
 
 	});
 
