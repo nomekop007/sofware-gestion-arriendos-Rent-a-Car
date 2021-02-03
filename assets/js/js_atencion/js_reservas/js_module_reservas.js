@@ -1,8 +1,9 @@
 $("#m_reserva").addClass("active");
 $("#l_reserva").addClass("card");
 
+let calendar_global = null;
 
-const calcularDias = () => {
+const calcularDiasRegistrar = () => {
     let fechaEntrega = $("#fecha_inicio").val();
     let fechaRecepcion = $("#fecha_fin").val();
     if (fechaEntrega.length != 0 && fechaRecepcion.length != 0) {
@@ -13,6 +14,20 @@ const calcularDias = () => {
         $("#inputNumeroDias").val(dias);
     }
 };
+
+
+const calcularDiasMostrar = () => {
+    let fechaEntrega = $("#fecha_inicio_mostrar").val();
+    let fechaRecepcion = $("#fecha_fin_mostrar").val();
+    if (fechaEntrega.length != 0 && fechaRecepcion.length != 0) {
+        let fechaini = new Date(moment(fechaEntrega));
+        let fechafin = new Date(moment(fechaRecepcion));
+        let diasdif = fechafin.getTime() - fechaini.getTime();
+        let dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
+        $("#inputNumeroDias_mostrar").val(dias);
+    }
+};
+
 
 const tipoCliente = (value) => {
     switch (value) {
@@ -31,7 +46,6 @@ const tipoCliente = (value) => {
 $(document).ready(() => {
     $("#spinner_cliente").hide();
     $("#spinner_empresa").hide();
-
     cargarComunas("inputComunaCliente", "inputCiudadCliente");
     cargarComunas("inputComunaEmpresa", "inputCiudadEmpresa");
     cargarOlder("inputVigencia");
@@ -39,19 +53,29 @@ $(document).ready(() => {
 
     $('#fecha_inicio').datetimepicker({
         onChangeDateTime: function () {
-            calcularDias()
+            calcularDiasRegistrar()
         },
     });
     $('#fecha_fin').datetimepicker({
         onChangeDateTime: function () {
-            calcularDias()
+            calcularDiasRegistrar()
+        },
+    });
+
+    $('#fecha_inicio_mostrar').datetimepicker({
+        onChangeDateTime: function () {
+            calcularDiasMostrar()
+        },
+    });
+    $('#fecha_fin_mostrar').datetimepicker({
+        onChangeDateTime: function () {
+            calcularDiasMostrar()
         },
     });
 
 
-    (cargarRevervas = async () => {
+    (cargarReservas = async () => {
         const response = await ajax_function(null, "cargar_reservas");
-        console.log(response);
         if (response.success) {
             const array_calendario = response.data.map((reserva) => (
                 {
@@ -60,9 +84,9 @@ $(document).ready(() => {
                         info: reserva
                     },
                     start: reserva.inicio_reserva,
-                    allDay: false,
-                    color: "#FF0F0",
-                    textColor: '#FFFFFF'
+                    color: reserva.color_reserva,
+                    textColor: 'yellow',
+                    url: '#'
                 }))
             generarCalendario(array_calendario);
         }
@@ -77,11 +101,16 @@ $(document).ready(() => {
         if (response.success) {
             if (response.data) {
                 const select = document.getElementById("vehiculo");
+                const select_muestra = document.getElementById("vehiculo_mostrar");
                 $.each(response.data.regione.vehiculos, (i, o) => {
                     let option = document.createElement("option");
+                    let option_muestra = document.createElement("option");
                     option.innerHTML = `${o.patente_vehiculo} ${o.marca_vehiculo} ${o.modelo_vehiculo} ${o.año_vehiculo}`;
+                    option_muestra.innerHTML = `${o.patente_vehiculo} ${o.marca_vehiculo} ${o.modelo_vehiculo} ${o.año_vehiculo}`;
                     option.value = o.patente_vehiculo;
+                    option_muestra.value = o.patente_vehiculo;
                     select.appendChild(option);
+                    select_muestra.appendChild(option_muestra);
                 });
                 $("#vehiculo").attr("disabled", false);
             }
@@ -92,13 +121,13 @@ $(document).ready(() => {
 
     const generarCalendario = (array_calendario) => {
         const calendarEl = document.getElementById('calendario');
-        const calendar = new FullCalendar.Calendar(calendarEl, {
+        calendar_global = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             locale: 'es',
             headerToolbar: {
                 left: 'today,prev,next btnModalRecerva',
                 center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                right: 'dayGridMonth,timeGridWeek,timeGridDay',
             },
             customButtons: {
                 btnModalRecerva: {
@@ -113,19 +142,44 @@ $(document).ready(() => {
             },
             eventSources: [{
                 events: array_calendario,
-                color: 'black',
-                textColor: 'yellow'
             }],
-            eventClick: (e) => {
-                console.log(e.event.extendedProps)
-                $('#tituloReserva').html(e.event.title);
-                $("#modal_mostrar_reserva").modal();
-            }
+            eventClick: mostrarReserva,
+            eventDrop: editarConDrop,
+            editable: true
         });
-        calendar.render();
+        calendar_global.render();
     }
 
 
+    const editarConDrop = async (e) => {
+        const reserva = e.event.extendedProps.info;
+        const data = new FormData();
+        data.append("id_reserva", reserva.id_reserva);
+        data.append("fecha_inicio_mostrar", e.event.start);
+        await ajax_function(data, "editar_reserva");
+        cargarReservas()
+        // calendar_global.refetchEvents();
+    }
+
+
+    const mostrarReserva = (e) => {
+        $("#form_mostrar_reserva")[0].reset();
+        const reserva = e.event.extendedProps.info;
+        console.log(reserva);
+        let cliente = null;
+        if (reserva.reservasCliente) cliente = reserva.reservasCliente.cliente.nombre_cliente;
+        if (reserva.reservasEmpresa) cliente = reserva.reservasEmpresa.empresa.nombre_empresa;
+        $("#id_reserva").val(reserva.id_reserva);
+        $('#tituloReserva').html(e.event.title);
+        $("#vehiculo_mostrar").val(reserva.patente_vehiculo);
+        $("#cliente_mostrar").val(cliente);
+        $("#color_reserva_mostrar").val(reserva.color_reserva);
+        $("#fecha_inicio_mostrar").val(moment(reserva.inicio_reserva).format('YYYY/MM/DD hh:mm'));
+        $("#fecha_fin_mostrar").val(moment(reserva.fin_reserva).format('YYYY/MM/DD hh:mm'));
+        $("#descripcion_mostrar").val(reserva.descripcion_reserva);
+        calcularDiasMostrar();
+        $("#modal_mostrar_reserva").modal();
+    }
 
 
     $("#btn_buscarCliente").click(async () => {
@@ -168,6 +222,7 @@ $(document).ready(() => {
 
 
 
+
     $("#btn_buscarEmpresa").click(async () => {
         const data = new FormData();
         const rut_empresa = $("#inputRutEmpresa").val();
@@ -204,9 +259,39 @@ $(document).ready(() => {
     });
 
 
+    $("#btn_eliminar_reserva").click(async () => {
+        alertQuestion(async () => {
+            const data = new FormData();
+            data.append("id_reserva", $("#id_reserva").val());
+            const response = await ajax_function(data, "eliminar_reserva");
+            if (response.success) {
+                Swal.fire("reserva eliminada!", response.msg, "success");
+                $("#modal_mostrar_reserva").modal("toggle");
+                cargarReservas()
+                //calendar_global.refetchEvents();
+            }
+        });
+    });
+
+
+
+
+    $("#btn_editar_reserva").click(async () => {
+        alertQuestion(async () => {
+            const form = $("#form_mostrar_reserva")[0];
+            const data = new FormData(form);
+            const response = await ajax_function(data, "editar_reserva");
+            if (response.success) {
+                Swal.fire("reserva modificada!", response.msg, "success");
+                $("#modal_mostrar_reserva").modal("toggle");
+                cargarReservas()
+                // calendar_global.refetchEvents();
+            }
+        });
+    });
+
 
     $("#btn_guardarReserva").click(async () => {
-
         if ($('[name="customRadio0"]:checked').val() === "PARTICULAR") {
             if (
                 $("#inputRutCliente").val().length == 0 ||
@@ -268,19 +353,12 @@ $(document).ready(() => {
                     Swal.fire("reserva guardada!", responseReserva.msg, "success");
                     $("#form_reserva")[0].reset();
                     $("#modal_add_reserva").modal("toggle");
-                    cargarRevervas();
+                    cargarReservas()
+                    // calendar_global.refetchEvents();
                 }
             }
         })
     });
-
-    /* 
-    $route['cargar_reservas'] = 'Reserva_controller/cargarReservas';
-    $route['buscar_reserva'] = 'Reserva_controller/buscarReserva';
-    $route['registrar_reserva'] = 'Reserva_controller/registrarReserva';
-    $route['editar_reserva'] = 'Reserva_controller/editarReserva';
-    $route['eliminar_reserva'] = 'Reserva_controller/eliminarReserva';
-    */
 
 
 

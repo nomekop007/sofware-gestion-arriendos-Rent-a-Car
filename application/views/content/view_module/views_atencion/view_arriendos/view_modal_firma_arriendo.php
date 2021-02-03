@@ -19,7 +19,7 @@
                 <input type="text" id="id_arriendoContrato" hidden>
                 <input type="text" id="estado_arriendo" hidden>
                 <div class="container ">
-                    <a class="row justify-content-md-center btn-success" target="_blank" id="descargar_contrato">
+                    <a class="row justify-content-md-center btn-success" id="descargar_contrato">
                         <i class="fas fa-download"></i>
                         Descargar contrato</a>
                     <br>

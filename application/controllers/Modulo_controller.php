@@ -25,14 +25,16 @@ class Modulo_controller extends CI_Controller
                 case 1:
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
                         $this->load->view('content/view_module/views_atencion/view_clientes/view_tablas_clientes');
-                        $this->load->view('content/view_module/views_atencion/view_clientes/view_modal_cliente');
+                        $this->load->view('content/view_module/views_atencion/view_clientes/view_modal_ver_clientes');
+                        $this->load->view('content/view_module/views_atencion/view_clientes/view_modal_registrarCliente');
+                        $this->load->view('content/view_module/views_atencion/view_clientes/view_modal_registrarEmpresa');
+                        $this->load->view('content/view_module/views_atencion/view_clientes/view_modal_registrarConductor');
                     } else {
                         redirect(base_url());
                     }
                     break;
                 case 2:
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
-                        //se subdivide por su gran tamaño
                         $this->load->view('content/view_module/views_atencion/view_arriendos/view_header_arriendo');
                         $this->load->view('content/view_module/views_atencion/view_arriendos/view_registrar_arriendo');
                         $this->load->view('content/view_module/views_atencion/view_arriendos/view_tabla_arriendos');
@@ -46,7 +48,6 @@ class Modulo_controller extends CI_Controller
                     break;
                 case 3:
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
-                        //se subdivide por su gran tamaño
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_header_despacho');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_tabla_despacho');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_despachar_arriendo');
@@ -67,7 +68,7 @@ class Modulo_controller extends CI_Controller
                     if ($rol == 1 || $rol == 2 || $rol == 3) {
                         $this->load->view('content/view_module/views_atencion/view_reservas/view_module_reservas');
                         $this->load->view('content/view_module/views_atencion/view_reservas/view_modal_agregar_reserva');
-                        $this->load->view('content/view_module/views_atencion/view_reservas/view_modal_editar_reserva');
+                        $this->load->view('content/view_module/views_atencion/view_reservas/view_modal_mostrar_reserva');
                     } else {
                         redirect(base_url());
                     }

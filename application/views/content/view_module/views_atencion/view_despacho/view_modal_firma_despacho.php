@@ -15,7 +15,7 @@
                 </div>
                 <div id="body-firma">
                     <div class="container ">
-                        <a class="row justify-content-md-center btn-success" target="_blank" id="descargar_actaEntrega">
+                        <a class="row justify-content-md-center btn-success" id="descargar_actaEntrega">
                             <i class="fas fa-download"></i>
                             Descargar Acta de entrega</a>
                         <br>
@@ -24,8 +24,7 @@
                                 </button>
 
                                 &nbsp; &nbsp;
-                                <span>Pagina: <span id="page_num_despacho"></span> / <span
-                                        id="page_count_despacho"></span></span>
+                                <span>Pagina: <span id="page_num_despacho"></span> / <span id="page_count_despacho"></span></span>
                                 <canvas id="pdf_canvas_despacho" class="img-fluid rounded pdf-canvas"></canvas>
                     </div>
                     <div class="row" id="body-firma">
@@ -63,13 +62,11 @@
                         <div class="col-md-12 text-center">
                             <button type="button" id="btn_firmar_actaEntrega" class="btn btn-success btn-sm ">
                                 Firmar acta entrega
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_firmarActaEntrega"></span>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_firmarActaEntrega"></span>
                             </button>
                             <button type="button" id="btn_confirmar_actaEntrega" class="btn btn-primary btn-sm ">
                                 Guardar cambios
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                    id="spinner_btn_confirmarActaEntrega"></span>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_confirmarActaEntrega"></span>
                             </button>
                         </div>
                     </div>
