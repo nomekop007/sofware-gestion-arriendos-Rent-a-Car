@@ -513,6 +513,7 @@ $(document).ready(() => {
 
 	const registrarTodoElArriendo = async (inputTipoArriendo, cantidadConductor) => {
 		const conductores = {};
+		console.log(conductores);
 		const conductor = await guardarDatosConductor();
 		conductores.rut_conductor = conductor.data.rut_conductor;
 		if (cantidadConductor == "2") {
@@ -565,12 +566,34 @@ $(document).ready(() => {
 	};
 
 	const guardarDatosConductor2 = async () => {
-		return await ajax_function(dataFormArriendo, "registrar_conductor");
+		//no modificar
+		const dataConductor2 = new FormData();
+		dataConductor2.append("inputRutConductor", $("#inputRutConductor2").val());
+		dataConductor2.append("inputNombreConductor", $("#inputNombreConductor2").val());
+		dataConductor2.append("inputTelefonoConductor", $("#inputTelefonoConductor2").val());
+		dataConductor2.append("inputClaseConductor", $("#inputClaseConductor2").val());
+		dataConductor2.append("inputNumeroConductor", $("#inputNumeroConductor2").val());
+		dataConductor2.append("inputVCTOConductor", $("#inputVCTOConductor2").val());
+		dataConductor2.append("inputMunicipalidadConductor", $("#inputMunicipalidadConductor2").val());
+		dataConductor2.append("inputDireccionConductor", $("#inputDireccionConductor2").val())
+		dataConductor2.append("inputNacionalidadConductor", $("#inputNacionalidadConductor2").val());
+		return await ajax_function(dataConductor2, "registrar_conductor");
 	};
 
 
 	const guardarDatosConductor3 = async () => {
-		return await ajax_function(dataFormArriendo, "registrar_conductor");
+		//no modificar
+		const dataConductor3 = new FormData();
+		dataConductor3.append("inputRutConductor", $("#inputRutConductor3").val());
+		dataConductor3.append("inputNombreConductor", $("#inputNombreConductor3").val());
+		dataConductor3.append("inputTelefonoConductor", $("#inputTelefonoConductor3").val());
+		dataConductor3.append("inputClaseConductor", $("#inputClaseConductor3").val());
+		dataConductor3.append("inputNumeroConductor", $("#inputNumeroConductor3").val());
+		dataConductor3.append("inputVCTOConductor", $("#inputVCTOConductor3").val());
+		dataConductor3.append("inputMunicipalidadConductor", $("#inputMunicipalidadConductor3").val());
+		dataConductor3.append("inputDireccionConductor", $("#inputDireccionConductor3").val())
+		dataConductor3.append("inputNacionalidadConductor", $("#inputNacionalidadConductor3").val());
+		return await ajax_function(dataConductor3, "registrar_conductor");
 	};
 
 
