@@ -283,8 +283,7 @@ const buscarDocumento = async (documento, tipo) => {
 		let byteArray = new Uint8Array(byteNumbers);
 		let file = new Blob([byteArray], { type: `${extencion};base64` });
 		let fileURL = URL.createObjectURL(file);
-		console.log(fileURL)
-		window.location.href = fileURL;
+		window.open(fileURL);
 	}
 }
 

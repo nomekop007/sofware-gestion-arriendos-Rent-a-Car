@@ -124,7 +124,8 @@ $route['cargar_pagosERpendientes'] = 'Pago_controller/cargarPagosERpendientes';
 $route['registrar_pago'] = 'Pago_controller/registrarPago';
 $route['actualizar_pagos'] = 'Pago_controller/actualizarPagos';
 $route['modificar_pago'] = 'Pago_controller/modificarPago';
-
+$route['buscar_pagoCliente'] = 'Pago_controller/buscarPagoClientes';
+$route['cargar_pagosCliente'] = 'Pago_controller/cargarPagosClientesPendientes';
 $route['buscar_pagoER'] = 'Pago_controller/buscarPagoERpendientes';
 $route['aplicarDescuento_UltimoPago'] = 'Pago_controller/aplicarDescuentoPago';
 $route['calcularTotal_pago'] = 'Pago_controller/calcularTotalPagos';

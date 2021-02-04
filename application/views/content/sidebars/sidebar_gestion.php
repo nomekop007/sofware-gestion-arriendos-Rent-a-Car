@@ -43,7 +43,7 @@ $rol = $this->session->userdata("rol");
                     <br>
                     <a id="m_pagoCliente" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=5">
                         <i class="fas fa-money-bill-wave"></i>
-                        gestion de pagos clientes
+                        Facturacion pago clientes
                     </a>
                     <br>
                 </li>

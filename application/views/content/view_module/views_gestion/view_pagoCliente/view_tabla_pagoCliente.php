@@ -4,64 +4,90 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=2">Gestion</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Gestion de Pagos clientes</li>
+                <li class="breadcrumb-item active" aria-current="page">Gestion de Facturacion pagos clientes</li>
             </ol>
         </nav>
         <h1 class="h3">Gestion de Pagos clientes</h1>
     </div>
     <div>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <br>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button class="btn btn-outline-secondary" ype="button">Buscar pagos </button>
+
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-link active" id="nav-registrar-tab" data-toggle="tab" href="#nav-registrar" role="tab" aria-controls="nav-registrar" aria-selected="true">subir factura de pago pendiente</a>
+                <a class="nav-link" id="nav-pagos-tab" data-toggle="tab" href="#nav-pagos" role="tab" aria-controls="nav-pagos" aria-selected="false">listado de pagos pendientes</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-registrar" role="tabpanel" aria-labelledby="nav-registrar-tab">
+                <br><br>
+                <input id="id_arriendo" type="text" hidden>
+                <div class="row">
+                    <div class="col-md-4">
+                        <br>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary" id="btn_buscar_pagos" type="button">Buscar pagos </button>
+                            </div>
+                            <input type="number" id="txt_id_arriendo" class="form-control" placeholder="Nº Arriendo">
+                        </div>
                     </div>
-                    <input type="number" #inputBuscar class="form-control" placeholder="ingrese Nº de Folio del arriendo" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <div class="col-md-3">
+                        <br>
+                        <div class="form-group">
+                            <input disabled type="text" class="form-control" id="inputTipoArriendo">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <br>
+                        <div class="form-group">
+                            <input disabled type="text" class="form-control" id="nombreCliente">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="scroll">
+                    <table id="tabla_pagosCliente" class="table table-striped table-bordered" style="width:100%">
+                        <thead class="btn-dark">
+                            <tr>
+                                <th>Nº</th>
+                                <th>dias</th>
+                                <th>estado</th>
+                                <th>deuda</th>
+                                <th>fecha registro</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                        <tfoot class="btn-dark">
+                            <tr>
+                                <th>Nº</th>
+                                <th>dias</th>
+                                <th>estado</th>
+                                <th>deuda</th>
+                                <th>fecha registro</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
-            <div class="col-md-3"></div>
-        </div>
-    </div>
-    <br>
-    <div class="scroll">
-        <table id="tabla_pagosCliente" class="table table-striped table-bordered" style="width:100%">
-            <thead class="btn-dark">
-                <tr>
-                    <th>dias</th>
-                    <th>estado pago</th>
-                    <th>neto</th>
-                    <th>iva</th>
-                    <th>total</th>
-                    <th>fecha registro</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="vehiculos">
-                <br>
-            </tbody>
-            <tfoot class="btn-dark">
-                <tr>
-                    <th>dias</th>
-                    <th>estado pago</th>
-                    <th>neto</th>
-                    <th>iva</th>
-                    <th>total</th>
-                    <th>fecha registro</th>
-                    <th></th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-    <div class="text-center" id="spinner_tabla_pagos">
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-        <h6>Cargando Datos...</h6>
-    </div>
+            <br>
 
-    <br><br><br><br>
+
+            <div class="tab-pane fade" id="nav-pagos" role="tabpanel" aria-labelledby="nav-pagos-tab">
+                <br><br>
+
+
+            </div>
+        </div>
+    </div>
+    </nav>
+
+
+
+
 </main>
 </div>
 </div>

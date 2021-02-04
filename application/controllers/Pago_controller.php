@@ -16,6 +16,17 @@ class Pago_controller extends CI_Controller
         echo find_function($clave_empresaRemplazo, "pagos/buscarPagoERpendientes");
     }
 
+    public function buscarPagoClientes()
+    {
+        $id_arriendo = $this->input->post("id_arriendo");
+        echo find_function($id_arriendo, "pagos/buscarPagosClientePendiente");
+    }
+
+    public function cargarPagosClientesPendientes()
+    {
+        echo get_function("pagos/cargarPagosClientePendientes");
+    }
+
     public function registrarPago()
     {
         $dataArray = [
