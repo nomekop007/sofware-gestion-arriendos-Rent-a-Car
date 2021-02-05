@@ -142,17 +142,22 @@ $(document).ready(() => {
 			$("#btn_confirmar_actaEntrega").attr("disabled", true);
 			const form = $("#formActaEntrega")[0];
 			const data = new FormData(form);
-			//metodos
 			const response = await guardarDatosDespacho(data);
-			await guardarActaEntrega(data, response.id_despacho);
-			await cambiarEstadoArriendo(data);
-			await cambiarEstadoVehiculo(data);
-			await enviarCorreoDespacho(data);
-			refrescarTabla();
-			Swal.fire("Acta de entrega Firmado!", "acta de entrega firmado y registrado con exito!", "success"
-			);
-			$("#modal_signature").modal("toggle");
-			$("#modal_despachar_arriendo").modal("toggle");
+			console.log(response);
+			if (response.success) {
+				const response2 = await guardarActaEntrega(data, response.id_despacho);
+				if (response2.success) {
+					await cambiarEstadoArriendo(data);
+					await cambiarEstadoVehiculo(data);
+					await enviarCorreoDespacho(data);
+					refrescarTabla();
+					Swal.fire("Acta de entrega Firmado!", "acta de entrega firmado y registrado con exito!", "success"
+					);
+					$("#modal_signature").modal("toggle");
+					$("#modal_despachar_arriendo").modal("toggle");
+				}
+			}
+			$("#btn_confirmar_actaEntrega").attr("disabled", false);
 		})
 	});
 
@@ -326,7 +331,7 @@ $(document).ready(() => {
 	const guardarActaEntrega = async (data, id_despacho) => {
 		data.append("base64", base64_documento);
 		data.append("inputIdDespacho", id_despacho);
-		await ajax_function(data, "registrar_actaEntrega");
+		return await ajax_function(data, "registrar_actaEntrega");
 	};
 
 	const cambiarEstadoArriendo = async (data) => {
