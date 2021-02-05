@@ -117,7 +117,9 @@ $(document).ready(() => {
 	});
 
 
-
+	$("#btn_refresh_vehiculos").click(() => {
+		cargarVehiculos();
+	})
 
 	//cargar vehiculos en select
 
@@ -141,6 +143,7 @@ $(document).ready(() => {
 		}
 	}
 	cargarVehiculos();
+
 
 
 	const cargarEmpresasRemplazo = async () => {

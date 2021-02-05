@@ -22,9 +22,9 @@ class Pago_controller extends CI_Controller
         echo find_function($id_arriendo, "pagos/buscarPagosClientePendiente");
     }
 
-    public function cargarPagosClientesPendientes()
+    public function cargarPagosClientes()
     {
-        echo get_function("pagos/cargarPagosClientePendientes");
+        echo get_function("pagos/cargarPagosClientes");
     }
 
     public function registrarPago()
@@ -50,6 +50,8 @@ class Pago_controller extends CI_Controller
         ];
         echo post_function($dataArray, "pagos/actualizarPagos");
     }
+
+
 
 
     public function modificarPago()
@@ -95,5 +97,16 @@ class Pago_controller extends CI_Controller
     {
         $id_pago = $this->input->post("id_pago");
         echo find_function($id_pago, "pagos/buscarPago");
+    }
+
+
+    public function actualizarUnPagoAPagado()
+    {
+        $id_pago = $this->input->post("id_pago");
+        $dataArray = [
+            "id_facturacion" => $this->input->post("id_facturacion"),
+            "estado_pago" => "PAGADO",
+        ];
+        echo put_function($id_pago, $dataArray, "pagos/actualizarUnPagoAPagado");
     }
 }

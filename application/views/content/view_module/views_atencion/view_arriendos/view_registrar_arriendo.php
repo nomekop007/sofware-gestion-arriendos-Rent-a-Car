@@ -12,6 +12,9 @@ switch ($this->session->userdata('sucursal')) {
     case '4':
         $sucursal = "CONCEPCION";
         break;
+    case '5':
+        $sucursal = "RANCAGUA";
+        break;
     default:
         $sucursal = "DESCONOCIDO";
         break;
@@ -526,6 +529,9 @@ switch ($this->session->userdata('sucursal')) {
                                     <select class="custom-select " id="select_vehiculos" name="select_vehiculos" style="width: 100%;" aria-label="Example select with button addon">
                                         <option value="null" selected="selected">Seleccione un vehiculo</option>
                                     </select>
+                                </div>
+                                <div class="input-group col-xl-6">
+                                    <button type="button" class="btn btn-outline-dark btn-sm" id="btn_refresh_vehiculos"><i class="fas fa-sync"></i> </button>
                                 </div>
                             </div>
                             <br><br>

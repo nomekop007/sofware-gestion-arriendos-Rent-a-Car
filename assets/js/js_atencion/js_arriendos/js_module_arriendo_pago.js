@@ -150,6 +150,31 @@ const limpiarCamposModalPago = () => {
 
 $(document).ready(() => {
 
+
+
+	cargarAccesorios = async () => {
+		const response = await ajax_function(null, "cargar_accesorios");
+		if (response.success) {
+			$.each(response.data, (i, o) => {
+				if (o.id_accesorio == "1") {
+					o.precio_accesorio = "";
+				}
+				let fila = `
+                <div class='input-group '>
+                    <label style='width: 70%;font-size: 0.6rem;' class='form-control'>${o.nombre_accesorio}  $ ${formatter.format(o.precio_accesorio)} </label>
+                    <input  style='width: 30%;font-size: 0.6rem;' min='0' id='${o.id_accesorio}' maxLength='11' name='accesorios[]' 
+                     value='0'  oninput="this.value = soloNumeros(this) ;calcularValores()"
+                        type='number' class='form-control' required>
+				</div>`;
+				$("#formAccesorios").append(fila);
+			});
+		}
+	}
+	cargarAccesorios();
+
+
+
+
 	$("#btn_registrar_pago").click(async () => {
 		const tipoPago = $('[name="customRadio1"]:checked').val();
 		const numeroFacturacion = $("#inputNumFacturacion").val().length;

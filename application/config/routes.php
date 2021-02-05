@@ -125,12 +125,12 @@ $route['registrar_pago'] = 'Pago_controller/registrarPago';
 $route['actualizar_pagos'] = 'Pago_controller/actualizarPagos';
 $route['modificar_pago'] = 'Pago_controller/modificarPago';
 $route['buscar_pagoCliente'] = 'Pago_controller/buscarPagoClientes';
-$route['cargar_pagosCliente'] = 'Pago_controller/cargarPagosClientesPendientes';
+$route['cargar_pagosCliente'] = 'Pago_controller/cargarPagosClientes';
 $route['buscar_pagoER'] = 'Pago_controller/buscarPagoERpendientes';
 $route['aplicarDescuento_UltimoPago'] = 'Pago_controller/aplicarDescuentoPago';
 $route['calcularTotal_pago'] = 'Pago_controller/calcularTotalPagos';
 $route['buscar_pago'] = 'Pago_controller/buscarPago';
-
+$route['actualizar_pagoAPagado'] = 'Pago_controller/actualizarUnPagoAPagado';
 
 /* rutas de controller empresaRemplazo */
 $route['cargar_empresasRemplazo'] = 'EmpresaRemplazo_controller/cargarEmpresasRemplazo';
