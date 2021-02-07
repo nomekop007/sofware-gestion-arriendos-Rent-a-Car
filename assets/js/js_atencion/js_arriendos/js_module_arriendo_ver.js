@@ -112,20 +112,6 @@ const mostrarArriendoModalVer = (arriendo) => {
 			}
 		}
 	}
-	if (arriendo.pagosArriendos.length > 0) {
-		let N = 1;
-		arriendo.pagosArriendos.forEach((pagoArriendo) => {
-			if (pagoArriendo.pagos[0].facturacione) {
-				const doc = pagoArriendo.pagos[0].facturacione.documento_facturacion
-				const facturacion = document.createElement("button");
-				facturacion.addEventListener("click", () => buscarDocumento(doc, "facturacion"));
-				facturacion.textContent = "Factura Nº" + N;
-				facturacion.className = "badge badge-pill badge-info m-1";
-				document.getElementById("card_documentos").append(facturacion);
-			}
-			N++;
-		})
-	}
 	if (arriendo.despacho) {
 		const a = document.createElement("button");
 		a.addEventListener("click", () => buscarDocumento(arriendo.despacho.actasEntrega.documento, "acta"));

@@ -23,7 +23,7 @@
                             <input id="info_estado_arriendo" disabled type="text" class="form-control">
                         </div>
                         <div class="form-group col-md-12">
-                            <textarea id="info_descripcion_pago" disabled class="form-control" rows="1"></textarea>
+                            <textarea id="info_descripcion_pago" disabled class="form-control" rows=2"></textarea>
                         </div>
                     </div>
                     <br>

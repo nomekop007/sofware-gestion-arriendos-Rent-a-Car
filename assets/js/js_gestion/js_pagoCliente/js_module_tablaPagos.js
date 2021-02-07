@@ -105,6 +105,8 @@ $(document).ready(() => {
                 }
             })
             if (!cliente) return;
+            if (pago.pagosArriendo.arriendo.estado_arriendo === "ANULADO") return;
+
             if (pago.abonos.length > 0 || pago.estado_pago == 'PAGADO') {
                 btnInfo = ` <button value='${pago.id_pago}' onclick='buscarInfoPago(this.value)' data-toggle='modal' 
                 data-target='#modal_infoPago' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>`;
@@ -115,8 +117,7 @@ $(document).ready(() => {
                 estado = `<p class='text-danger'>  ${pago.estado_pago} </p>`
             }
             if (pago.pagosArriendo.arriendo.tipo_arriendo === "REEMPLAZO") {
-                estado = `<p class='text-warning'> VIGENTE </p>`
-
+                if (pago.estado_pago == 'PENDIENTE') estado = `<p class='text-warning'> VIGENTE </p>`;
             }
             tabla_totalPagos.row
                 .add([

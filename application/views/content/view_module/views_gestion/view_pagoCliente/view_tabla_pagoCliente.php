@@ -20,6 +20,7 @@
             <div class="tab-pane fade show active" id="nav-registrar" role="tabpanel" aria-labelledby="nav-registrarFactura-tab">
                 <br>
                 <input id="id_arriendo" type="text" hidden>
+                <input id="tipo_arriendo" type="text" hidden>
                 <div class="row">
                     <div class="col-md-4">
                         <br>
@@ -47,7 +48,7 @@
                     </div>
                 </div>
                 <br>
-                <h6>Cada pago que se muestra corresponde a cada contrato y extencion del arriendo </h6>
+                <h6>Cada pago que se muestra corresponde a cada contrato y extencion del arriendo. </h6>
                 <br>
                 <div class="scroll" id="tabla_cliente">
                     <table id="tabla_pagosCliente" class="table table-striped table-bordered" style="width:100%">
@@ -79,7 +80,7 @@
                 </div>
                 <div id="tabla_clienteRemplazo">
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-7">
                             <div class="scroll container">
                                 <table class="table">
                                     <thead>
@@ -97,10 +98,19 @@
                                 </table>
                             </div>
                             <br>
-                            <h5 id="total_a_pagar"></h5>
-                            <h6 id="dias_totales"></h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h5 id="total_a_pagar"></h5>
+                                    <h6 id="dias_totales"></h6>
+                                </div>
+                                <div class="col-md-8">
+                                    <button data-toggle='modal' data-target='#modal_pago' onclick="modalSubirPagoRemplazo()" class="btn btn-success">
+                                        añadir comprobante
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div id="descuento_copago">
                                 <p>
                                     <button class="badge badge-info" type="button" data-toggle="collapse" data-target="#collapseDescuento" aria-expanded="false" aria-controls="collapseDescuento">
@@ -119,21 +129,20 @@
                                                     cualquier inconveniente se
                                                     puede aplicar un descuento al último pago realizado </span>
                                             </div>
-                                            <div class="form-group col-xl-12">
+                                            <div class="form-group col-xl-6">
                                                 <label for="descuento_pago">descuento (bruto)($) </label>
                                                 <input oninput="this.value = soloNumeros(this);recalcularPagoDescuento(this.value)" maxLength="11" value=0 id="descuento_pago" name="descuento_pago" type="number" class="form-control" required>
                                             </div>
-                                            <div class="form-group col-xl-12">
+                                            <div class="form-group col-xl-6">
                                                 <label for="dias_restantes">dias restantes</label>
                                                 <input oninput="this.value = soloNumeros(this);recalculaDiasRestantes(this.value)" maxLength="11" value=0 id="dias_restantes" name="dias_restantes" type="number" class="form-control" required>
                                             </div>
                                             <div class="form-group col-xl-12">
                                                 <label for="inputObservaciones">Observaciones</label>
-                                                <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones" name="inputObservaciones" rows="3" maxLength="300"></textarea>
+                                                <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones" name="inputObservaciones" rows="2" maxLength="300"></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                    <br>
                                 </div>
                                 <div class="collapse" id="collapseExtra">
                                     <div class="card card-body">
@@ -150,7 +159,7 @@
                                             </div>
                                             <div class="form-group col-xl-12">
                                                 <label for="inputObservaciones2">Observaciones</label>
-                                                <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones2" name="inputObservaciones2" rows="3" maxLength="300"></textarea>
+                                                <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones2" name="inputObservaciones2" rows="2" maxLength="300"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -160,6 +169,7 @@
                     </div>
 
                 </div>
+
             </div>
 
             <div class="tab-pane fade" id="nav-pagos" role="tabpanel" aria-labelledby="nav-pagostotal-tab">
@@ -205,7 +215,7 @@
     </div>
     </nav>
 
-
+    <br><br><br><br>
 </main>
 </div>
 </div>

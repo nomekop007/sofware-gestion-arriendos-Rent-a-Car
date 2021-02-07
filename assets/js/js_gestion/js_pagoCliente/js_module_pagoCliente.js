@@ -9,12 +9,20 @@ const array_id_pagosRemplazo = [];
 let totalPago_remplazo = 0;
 let totalDias_remplazo = 0;
 
-
-
 const formatter = new Intl.NumberFormat("CL");
 
 
-const buscarPago = async (id_pago) => {
+
+
+const modalSubirPagoRemplazo = () => {
+    limpiar();
+    $("#titulo_modal").html(`Subir comprobante del arriendo Nº ${$("#id_arriendo").val()}`);
+    $("#deuda_pago").val($("#total_a_pagar").html());
+    $("#dias_pago").val($("#dias_totales").html());
+    $("#fecha_registro").val("cantidad de pagos: " + array_id_pagosRemplazo.length);
+}
+
+const modalSubirPago = async (id_pago) => {
     limpiar();
     const data = new FormData();
     data.append("id_pago", id_pago);
@@ -30,7 +38,6 @@ const buscarPago = async (id_pago) => {
 }
 
 const recalcularPagoDescuento = (desc) => {
-    const formatter = new Intl.NumberFormat("CL");
     let descuento = Number(desc);
     let precioAntiguo = Number(totalPago_remplazo);
     let precioNuevo = precioAntiguo - descuento;
@@ -38,15 +45,14 @@ const recalcularPagoDescuento = (desc) => {
 }
 
 const recalcularPagoExtra = (desc) => {
-    const formatter = new Intl.NumberFormat("CL");
     let cobro = Number(desc);
     let precioAntiguo = Number(totalPago_remplazo);
     let precioNuevo = precioAntiguo + cobro;
     $("#total_a_pagar").html(`Total pago: ${formatter.format(precioNuevo)} `);
 }
 
-const recalculaDiasRestantes = (rest) => {
-    let dias = Number(totalDias_remplazo) - Number(rest);
+const recalculaDiasRestantes = (dias_restantes) => {
+    let dias = Number(totalDias_remplazo) - Number(dias_restantes);
     $("#dias_totales").html(`dias totales: ${dias}`);
 }
 
@@ -112,16 +118,20 @@ const limpiar = () => {
     $("#spinner_btn_registrarPago").hide();
     $("#spinner_btn_registrarPagos").hide();
     $("#tbody_tabla_pagos").html('');
+    $("#id_pago").val('');
+    $("#titulo_modal").html('');
+    $("#deuda_pago").val('');
+    $("#dias_pago").val('');
+    $("#fecha_registro").val('');
 }
 
 
 
 
 $(document).ready(() => {
+
+
     const tabla_pagos = $("#tabla_pagosCliente").DataTable(lenguaje);
-
-
-
 
 
     (cargarMetodoPagos = async () => {
@@ -129,20 +139,21 @@ $(document).ready(() => {
     })();
 
 
-
     $("#btn_buscar_pagos").click(async () => {
-        tabla_pagos.row().clear().draw(false);
-        $("#tablaPago").html('');
-        $("#tabla_clienteRemplazo").hide();
-        $("#tabla_cliente").hide();
-        $("#btn_pagoExtra").hide();
+        limpiarBuscarPagos();
         const id_arriendo = $("#txt_id_arriendo").val();
         if (id_arriendo.length > 0) {
             const data = new FormData();
             data.append("id_arriendo", id_arriendo);
             const response = await ajax_function(data, "buscar_pagoCliente");
             if (response.success) {
+                if (response.data.arriendo.estado_arriendo === "ANULADO" ||
+                    response.data.arriendo.estado_arriendo == "PENDIENTE") {
+                    Swal.fire({ icon: "error", title: "Este arriendo esta pendiente o anulador!", });
+                    return;
+                }
                 $("#id_arriendo").val(id_arriendo);
+                $("#tipo_arriendo").val(response.data.arriendo.tipo_arriendo);
                 $("#inputTipoArriendo").val("TIPO: " + response.data.arriendo.tipo_arriendo);
                 $("#nombreCliente").val("CLIENTE: " + response.data.cliente);
                 if (response.data.arriendo.tipo_arriendo === "REEMPLAZO") {
@@ -150,12 +161,11 @@ $(document).ready(() => {
                 } else {
                     mostrarTablaCliente(response.data.pagos);
                 }
-            } else {
-                $("#inputTipoArriendo").val("");
-                $("#nombreCliente").val("")
             }
         }
     });
+
+
 
 
     const mostrarTablaCliente = (pagos) => {
@@ -173,23 +183,33 @@ $(document).ready(() => {
         data.append('id_arriendo', id_arriendo);
         const response = await ajax_function(data, "consultar_pagoArriendos");
         if (response.success) {
-            $("#tabla_clienteRemplazo").show();
             const { arrayPago, totalPago, arriendo } = response.data;
             $.each(arrayPago, (i, object) => {
                 cargarPagosRemplazoEnTabla(object, i + 1);
             })
             totalPago_remplazo = totalPago;
-            $("#total_a_pagar").html(`Total pago: ${formatter.format(totalPago_remplazo)} `);
             totalDias_remplazo = arriendo.diasAcumulados_arriendo;
+            $("#total_a_pagar").html(`Total pago: ${formatter.format(totalPago_remplazo)} `);
             $("#dias_totales").html(`dias totales: ${arriendo.diasAcumulados_arriendo}`);
+            $("#tabla_clienteRemplazo").show();
         }
-
-
     }
 
 
 
     $("#btn_subirComprobantePagoTotal").click(() => {
+        // se evalua si es un arriendo de reemplazo o no
+        ($("#tipo_arriendo").val() === 'REEMPLAZO') ? guardarComprobanteRemplazo() : guardarComprobante();
+    })
+
+    $("#btn_subirComprobates").click(() => {
+        // se evalua si es un arriendo de reemplazo o no
+        ($("#tipo_arriendo").val() === 'REEMPLAZO') ? guardarMuchosComprobantesRemplazo() : guardarMuchosComprobantes();
+    })
+
+
+
+    const guardarComprobante = () => {
         if ($("#inputNumFacturacion").val().length == 0 ||
             $("#inputFileFacturacion").val().length == 0) {
             Swal.fire("debe ingresar el comprobante de pago", "falta ingresar datos en el formulario", "warning");
@@ -208,7 +228,7 @@ $(document).ready(() => {
                 await ajax_function(data, "guardar_documentoFacturacion");
                 const response = await ajax_function(data, "actualizar_pagoAPagado");
                 if (response.success) {
-                    refrescarTabla();
+                    limpiarBuscarPagos();
                     Swal.fire("pago actualizado!", "se registraron los datos exitosamente!", "success");
                     $("#modal_pago").modal("toggle");
                 }
@@ -216,12 +236,66 @@ $(document).ready(() => {
             $("#spinner_btn_registrarPago").hide();
             $("#btn_subirComprobantePagoTotal").attr("disabled", false)
         })
-    })
+    }
+
+
+    const guardarComprobanteRemplazo = () => {
+        if ($("#descuento_pago").val() < 0 ||
+            $("#extra_pago").val() < 0 ||
+            $("#descuento_pago").val().length == 0 ||
+            $("#extra_pago").val().length == 0) {
+            Swal.fire("campo vacio o invalidos", "rellene los campos erroneos", "warning");
+            return;
+        }
+        if ($("#descuento_pago").val() > 0 &&
+            $("#extra_pago").val() > 0) {
+            Swal.fire("valores invalidos", "no se puede aplicar un cobro extra y un descuento a la vez! , corriga", "warning");
+            return;
+        }
+        if (totalPago_remplazo != 0 ||
+            $("#descuento_pago").val() != 0 ||
+            $("#extra_pago").val() != 0) {
+            if ($("#inputNumFacturacion").val().length == 0 ||
+                $("#inputFileFacturacion").val().length == 0) {
+                Swal.fire("faltan datos en el formulario", "debe ingresar el Nº facturacion con su respectivo comprobante", "warning");
+                return;
+            }
+        }
+        alertQuestion(async () => {
+            $("#spinner_btn_registrarPago").show();
+            $("#btn_subirComprobantePagoTotal").attr("disabled", true)
+            const form = $("#formPagoCliente")[0];
+            const data = new FormData(form);
+            data.append("arrayPagos", JSON.stringify(array_id_pagosRemplazo));
+            data.append("descuento_pago", $("#descuento_pago").val());
+            data.append("extra_pago", $("#extra_pago").val());
+            data.append("inputDocumento", $("#inputFileFacturacion")[0].files[0]);
+            data.append('dias_restantes', $("#dias_restantes").val());
+            data.append("inputObservaciones", `${$("#inputObservaciones").val()} ${$("#inputObservaciones2").val()} `);
+            const responseDescuento = await ajax_function(data, "aplicarDescuento_UltimoPago");
+            if (responseDescuento.success) {
+                if ($("#inputFileFacturacion").val().length != 0) {
+                    const responseFactura = await ajax_function(data, "registrar_facturacion");
+                    if (responseFactura.success) {
+                        data.append("id_facturacion", responseFactura.data.id_facturacion);
+                        await ajax_function(data, "guardar_documentoFacturacion");
+                    }
+                }
+                const responsePago = await ajax_function(data, "actualizar_pagos");
+                if (responsePago.success) {
+                    limpiarBuscarPagos();
+                    Swal.fire("pago actualizado!", "se registraron los datos exitosamente!", "success");
+                    $("#modal_pago").modal("toggle");
+                }
+            }
+            $("#spinner_btn_registrarPago").hide();
+            $("#btn_subirComprobantePagoTotal").attr("disabled", false)
+        });
+    }
 
 
 
-
-    $("#btn_subirComprobates").click(() => {
+    const guardarMuchosComprobantes = () => {
         let validacion = true;
         for (let i = 0; i < $("#inputCantidad").val(); i++) {
             if ($(`#abono${i}`).val().length === 0 || $(`#numeroDoc${i}`).val().length === 0 || $(`#fileComprobante${i}`).val().length === 0) {
@@ -251,17 +325,76 @@ $(document).ready(() => {
                     data.append('id_pago', $("#id_pago").val());
                     await ajax_function(data, "actualizar_pagoAPagado")
                 }
-                refrescarTabla();
+                limpiarBuscarPagos();
                 Swal.fire("pago actualizado!", "se registraron los datos exitosamente!", "success");
                 $("#modal_pago").modal("toggle");
             });
         }
-    })
-
-
-    const refrescarTabla = () => {
-        tabla_pagos.row().clear().draw(false);
     }
+
+
+    const guardarMuchosComprobantesRemplazo = () => {
+        let validacion = true;
+        for (let i = 0; i < $("#inputCantidad").val(); i++) {
+            if ($(`#abono${i}`).val().length === 0 || $(`#numeroDoc${i}`).val().length === 0 || $(`#fileComprobante${i}`).val().length === 0) {
+                Swal.fire("faltan datos", "falta ingresar datos en la tabla", "warning");
+                validacion = false;
+                return;
+            }
+        }
+        if ($("#descuento_pago").val() < 0 ||
+            $("#extra_pago").val() < 0 ||
+            $("#descuento_pago").val().length == 0 ||
+            $("#extra_pago").val().length == 0) {
+            Swal.fire("campo vacio o invalidos", "rellene los campos erroneos", "warning");
+            return;
+        }
+        if ($("#descuento_pago").val() > 0 &&
+            $("#extra_pago").val() > 0) {
+            Swal.fire("valores invalidos", "no se puede aplicar un cobro extra y un descuento a la vez! , corriga", "warning");
+            return;
+        }
+        if (validacion && $("#inputCantidad").val() != 'null') {
+            alertQuestion(async () => {
+                const form = $("#formPagoCliente")[0];
+                const data = new FormData(form);
+                data.append("arrayPagos", JSON.stringify(array_id_pagosRemplazo));
+                data.append("descuento_pago", $("#descuento_pago").val());
+                data.append("extra_pago", $("#extra_pago").val());
+                data.append('dias_restantes', $("#dias_restantes").val());
+                data.append("inputObservaciones", `${$("#inputObservaciones").val()} ${$("#inputObservaciones2").val()} `);
+                const responseDescuento = await ajax_function(data, "aplicarDescuento_UltimoPago");
+                if (responseDescuento.success) {
+                    console.log(responseDescuento)
+                    array_id_pagosRemplazo.map(async (id_pago) => {
+                        for (let i = 0; i < $("#inputCantidad").val(); i++) {
+                            const data = new FormData();
+                            data.append('id_pago', id_pago);
+                            data.append('pago_abono', $(`#abono${i}`).val());
+                            data.append('tipo_facturacion', $(`#tipoFacturacion${i}`).val());
+                            data.append('id_modoPago', $(`#tipoModoPago${i}`).val());
+                            data.append('numero_facturacion', $(`#numeroDoc${i}`).val());
+                            const response = await ajax_function(data, "registrar_abono");
+                            if (response.success) {
+                                data.append('id_facturacion', response.data.id_facturacion);
+                                data.append('inputDocumento', $(`#fileComprobante${i}`)[0].files[0]);
+                                await ajax_function(data, "guardar_documentoFacturacion");
+                            }
+                        }
+                        if ($('[name="customRadio3"]:checked').val() === "si") {
+                            const data = new FormData();
+                            data.append('id_pago', id_pago);
+                            await ajax_function(data, "actualizar_pagoAPagado")
+                        }
+                    })
+                    limpiarBuscarPagos();
+                    Swal.fire("pago actualizado!", "se registraron los datos exitosamente!", "success");
+                    $("#modal_pago").modal("toggle");
+                }
+            });
+        }
+    }
+
 
     const cargarPagosRemplazoEnTabla = ({ pago, pagoArriendo }, n) => {
         let html = `
@@ -277,6 +410,9 @@ $(document).ready(() => {
         array_id_pagosRemplazo.push(pago.id_pago);
     }
 
+
+
+
     const cargarPagosPendientesEnTabla = (pago, n) => {
         try {
             tabla_pagos.row
@@ -287,7 +423,7 @@ $(document).ready(() => {
                     "$ " + formatter.format(pago.total_pago),
                     pago.pagosArriendo.dias_pagoArriendo,
                     formatearFechaHora(pago.createdAt),
-                    ` <button value='${pago.id_pago}' onclick='buscarPago(this.value)' data-toggle='modal' 
+                    ` <button value='${pago.id_pago}' onclick='modalSubirPago(this.value)' data-toggle='modal' 
                         data-target='#modal_pago' class='btn btn-outline-success'><i class="fas fa-money-bill-wave"></i></button>`
                 ])
                 .draw(false);
@@ -296,7 +432,17 @@ $(document).ready(() => {
         }
     };
 
-
+    const limpiarBuscarPagos = () => {
+        tabla_pagos.row().clear().draw(false);
+        array_id_pagosRemplazo.length = 0;
+        $("#tablaPago").html('');
+        $("#tabla_clienteRemplazo").hide();
+        $("#tabla_cliente").hide();
+        $("#btn_pagoExtra").hide();
+        $("#inputTipoArriendo").val("");
+        $("#nombreCliente").val("");
+        $("#tipo_arriendo").val("");
+    }
 
 
 

@@ -45,7 +45,7 @@ class Pago_controller extends CI_Controller
     {
         $dataArray = [
             "id_facturacion" => $this->input->post("id_facturacion"),
-            "estado_pago" => $this->input->post("inputEstado"),
+            "estado_pago" => 'PAGADO',
             "arrayPagos" => json_decode($this->input->post("arrayPagos")),
         ];
         echo post_function($dataArray, "pagos/actualizarPagos");
@@ -77,6 +77,7 @@ class Pago_controller extends CI_Controller
     public function aplicarDescuentoPago()
     {
         $dataArray = [
+            "dias_restantes" => $this->input->post("dias_restantes"),
             "descuento_pago" => $this->input->post("descuento_pago"),
             "extra_pago" => $this->input->post("extra_pago"),
             "observacion_pago" => $this->input->post("inputObservaciones"),

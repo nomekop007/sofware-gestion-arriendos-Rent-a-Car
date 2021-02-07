@@ -65,6 +65,11 @@ async function ajax_function(data, dataUrl) {
 			cache: false,
 			timeOut: false,
 			success: (response) => {
+				if (response.sinToken) {
+					setTimeout(() => {
+						window.location = base_url;
+					}, 4000);
+				}
 				if (response.success) {
 					console.log(dataUrl + " SUCCESS!");
 				} else {
