@@ -5,6 +5,11 @@ $("#tabla_clienteRemplazo").hide();
 $("#tabla_cliente").hide();
 $("#btn_pagoExtra").hide();
 
+const array_id_pagosRemplazo = [];
+let totalPago_remplazo = 0;
+let totalDias_remplazo = 0;
+
+
 
 const formatter = new Intl.NumberFormat("CL");
 
@@ -24,6 +29,26 @@ const buscarPago = async (id_pago) => {
     }
 }
 
+const recalcularPagoDescuento = (desc) => {
+    const formatter = new Intl.NumberFormat("CL");
+    let descuento = Number(desc);
+    let precioAntiguo = Number(totalPago_remplazo);
+    let precioNuevo = precioAntiguo - descuento;
+    $("#total_a_pagar").html(`Total pago: ${formatter.format(precioNuevo)} `);
+}
+
+const recalcularPagoExtra = (desc) => {
+    const formatter = new Intl.NumberFormat("CL");
+    let cobro = Number(desc);
+    let precioAntiguo = Number(totalPago_remplazo);
+    let precioNuevo = precioAntiguo + cobro;
+    $("#total_a_pagar").html(`Total pago: ${formatter.format(precioNuevo)} `);
+}
+
+const recalculaDiasRestantes = (rest) => {
+    let dias = Number(totalDias_remplazo) - Number(rest);
+    $("#dias_totales").html(`dias totales: ${dias}`);
+}
 
 
 const tipoComprobante = (value) => {
@@ -107,6 +132,7 @@ $(document).ready(() => {
 
     $("#btn_buscar_pagos").click(async () => {
         tabla_pagos.row().clear().draw(false);
+        $("#tablaPago").html('');
         $("#tabla_clienteRemplazo").hide();
         $("#tabla_cliente").hide();
         $("#btn_pagoExtra").hide();
@@ -120,13 +146,9 @@ $(document).ready(() => {
                 $("#inputTipoArriendo").val("TIPO: " + response.data.arriendo.tipo_arriendo);
                 $("#nombreCliente").val("CLIENTE: " + response.data.cliente);
                 if (response.data.arriendo.tipo_arriendo === "REEMPLAZO") {
-                    $("#tabla_clienteRemplazo").show();
+                    mostrarTablaClienteRemplazo(id_arriendo);
                 } else {
-                    $("#btn_pagoExtra").show();
-                    $("#tabla_cliente").show();
-                    $.each(response.data.pagos, (i, pago) => {
-                        cargarPagosPendientesEnTabla(pago, i + 1);
-                    })
+                    mostrarTablaCliente(response.data.pagos);
                 }
             } else {
                 $("#inputTipoArriendo").val("");
@@ -134,6 +156,36 @@ $(document).ready(() => {
             }
         }
     });
+
+
+    const mostrarTablaCliente = (pagos) => {
+        $("#btn_pagoExtra").show();
+        $("#tabla_cliente").show();
+        $.each(pagos, (i, pago) => {
+            cargarPagosPendientesEnTabla(pago, i + 1);
+        })
+    }
+
+
+
+    const mostrarTablaClienteRemplazo = async (id_arriendo) => {
+        const data = new FormData();
+        data.append('id_arriendo', id_arriendo);
+        const response = await ajax_function(data, "consultar_pagoArriendos");
+        if (response.success) {
+            $("#tabla_clienteRemplazo").show();
+            const { arrayPago, totalPago, arriendo } = response.data;
+            $.each(arrayPago, (i, object) => {
+                cargarPagosRemplazoEnTabla(object, i + 1);
+            })
+            totalPago_remplazo = totalPago;
+            $("#total_a_pagar").html(`Total pago: ${formatter.format(totalPago_remplazo)} `);
+            totalDias_remplazo = arriendo.diasAcumulados_arriendo;
+            $("#dias_totales").html(`dias totales: ${arriendo.diasAcumulados_arriendo}`);
+        }
+
+
+    }
 
 
 
@@ -148,14 +200,13 @@ $(document).ready(() => {
             $("#btn_subirComprobantePagoTotal").attr("disabled", true)
             const form = $("#formPagoCliente")[0];
             const data = new FormData(form);
-            const responseFac = await guardarDatosFactura(data);
-            console.log(responseFac);
+            const responseFac = await ajax_function(data, "registrar_facturacion");
             if (responseFac.success) {
                 data.append("inputDocumento", $("#inputFileFacturacion")[0].files[0]);
                 data.append("id_facturacion", responseFac.data.id_facturacion);
                 data.append("id_pago", $("#id_pago").val());
-                await guardarDocumentoFactura(data);
-                const response = await actualizarUnPagoAPagado(data);
+                await ajax_function(data, "guardar_documentoFacturacion");
+                const response = await ajax_function(data, "actualizar_pagoAPagado");
                 if (response.success) {
                     refrescarTabla();
                     Swal.fire("pago actualizado!", "se registraron los datos exitosamente!", "success");
@@ -171,48 +222,60 @@ $(document).ready(() => {
 
 
     $("#btn_subirComprobates").click(() => {
-
-
+        let validacion = true;
         for (let i = 0; i < $("#inputCantidad").val(); i++) {
-            //validar los campos de la tabla
-        }
-
-
-        alertQuestion(async () => {
-
-            for (let i = 0; i < $("#inputCantidad").val(); i++) {
-
-                const tipo_facturacion = $(`#tipoFacturacion${i}`).val();
-                const id_modoPago = $(`#tipoModoPago${i}`).val();
-                const abono = $(`#abono${i}`).val();
-                const n_comprobante = $(`#numeroDoc${i}`).val();
-                const file_comprobante = $(`#fileComprobante${i}`)[0].files[0];
-
-                //guardar en cada interaccion
+            if ($(`#abono${i}`).val().length === 0 || $(`#numeroDoc${i}`).val().length === 0 || $(`#fileComprobante${i}`).val().length === 0) {
+                Swal.fire("faltan datos", "falta ingresar datos en la tabla", "warning");
+                validacion = false;
+                return;
             }
-
-        });
-
+        }
+        if (validacion && $("#inputCantidad").val() != 'null') {
+            alertQuestion(async () => {
+                for (let i = 0; i < $("#inputCantidad").val(); i++) {
+                    const data = new FormData();
+                    data.append('id_pago', $("#id_pago").val());
+                    data.append('pago_abono', $(`#abono${i}`).val());
+                    data.append('tipo_facturacion', $(`#tipoFacturacion${i}`).val());
+                    data.append('id_modoPago', $(`#tipoModoPago${i}`).val());
+                    data.append('numero_facturacion', $(`#numeroDoc${i}`).val());
+                    const response = await ajax_function(data, "registrar_abono");
+                    if (response.success) {
+                        data.append('id_facturacion', response.data.id_facturacion);
+                        data.append('inputDocumento', $(`#fileComprobante${i}`)[0].files[0]);
+                        await ajax_function(data, "guardar_documentoFacturacion");
+                    }
+                }
+                if ($('[name="customRadio3"]:checked').val() === "si") {
+                    const data = new FormData();
+                    data.append('id_pago', $("#id_pago").val());
+                    await ajax_function(data, "actualizar_pagoAPagado")
+                }
+                refrescarTabla();
+                Swal.fire("pago actualizado!", "se registraron los datos exitosamente!", "success");
+                $("#modal_pago").modal("toggle");
+            });
+        }
     })
 
-
-    const guardarDatosFactura = async (data) => {
-        return await ajax_function(data, "registrar_facturacion");
-    };
-
-    const guardarDocumentoFactura = async (data) => {
-        return await ajax_function(data, "guardar_documentoFacturacion");
-    };
-
-    const actualizarUnPagoAPagado = async (data) => {
-        return await ajax_function(data, "actualizar_pagoAPagado");
-    }
 
     const refrescarTabla = () => {
         tabla_pagos.row().clear().draw(false);
     }
 
-
+    const cargarPagosRemplazoEnTabla = ({ pago, pagoArriendo }, n) => {
+        let html = `
+        <tr>
+            <th scope="row"> ${n} </th>
+            <td> ${pago.deudor_pago.replace("@", "")} </td>
+            <td> ${pago.estado_pago}</td>
+            <td> $ ${formatter.format(pago.total_pago)} </td>
+            <td> ${pagoArriendo.dias_pagoArriendo} </td>
+            <td> ${formatearFechaHora(pago.createdAt)} </td>
+        </tr>`;
+        $("#tablaPago").append(html);
+        array_id_pagosRemplazo.push(pago.id_pago);
+    }
 
     const cargarPagosPendientesEnTabla = (pago, n) => {
         try {

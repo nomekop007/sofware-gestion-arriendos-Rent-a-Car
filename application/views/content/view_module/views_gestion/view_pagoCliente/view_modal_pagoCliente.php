@@ -96,6 +96,7 @@
                                     <label for="inputCantidad">cantidad de comprobantes</label>
                                     <select onblur="cantidadComprobantes(this.value);" name="inputCantidad" id="inputCantidad" class="form-control">
                                         <option value="null" selected>seleccionar</option>
+                                        <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
@@ -106,6 +107,19 @@
                                         <option value="9">9</option>
                                         <option value="10">10</option>
                                     </select>
+                                </div>
+                                <div class="form-group col-xl-6"></div>
+                                <div class="form-group col-xl-3">
+                                    <label>sin deuda?</label>
+                                    <br>
+                                    <div class="custom-control custom-radio custom-control-inline ">
+                                        <input type="radio" value="si" id="si" name="customRadio3" class="custom-control-input" checked>
+                                        <label class="custom-control-label" for="si">si</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline ">
+                                        <input type="radio" value="no" id="no" name="customRadio3" class="custom-control-input">
+                                        <label class="custom-control-label" for="no">no</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="scroll">

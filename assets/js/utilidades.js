@@ -260,6 +260,7 @@ const dataURItoBlob = (dataURI) => {
 
 //metodo que busca y devuelve un documento en una pagina nueva
 const buscarDocumento = async (documento, tipo) => {
+	console.log(documento)
 	//  case "contrato":
 	//  case "acta":
 	//  case "requisito":

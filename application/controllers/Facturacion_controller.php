@@ -22,7 +22,6 @@ class Facturacion_controller extends CI_Controller
 
     public function guardarDocumentoFacturacion()
     {
-
         $id_facturacion = $this->input->post("id_facturacion");
         $arrayInput = ["inputDocumento"];
         $arrayData = recorrerFicheros($arrayInput);

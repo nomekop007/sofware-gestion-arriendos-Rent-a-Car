@@ -18,14 +18,14 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-registrar" role="tabpanel" aria-labelledby="nav-registrarFactura-tab">
-                <br><br>
+                <br>
                 <input id="id_arriendo" type="text" hidden>
                 <div class="row">
                     <div class="col-md-4">
                         <br>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <button class="btn btn-outline-secondary" id="btn_buscar_pagos" type="button">Buscar pagos </button>
+                                <button class="btn btn-outline-secondary" id="btn_buscar_pagos" type="button">Buscar pagos por Folio </button>
                             </div>
                             <input type="number" id="txt_id_arriendo" class="form-control" placeholder="Nº Arriendo">
                         </div>
@@ -43,19 +43,20 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <br>
-                        <button class="btn btn-outline-success" id="btn_pagoExtra" type="button">Añadir Pago Extra</button>
+                        <button disabled class="btn btn-success btn-sm" id="btn_pagoExtra" type="button">Añadir Pago Extra</button>
                     </div>
                 </div>
+                <br>
+                <h6>Cada pago que se muestra corresponde a cada contrato y extencion del arriendo </h6>
                 <br>
                 <div class="scroll" id="tabla_cliente">
                     <table id="tabla_pagosCliente" class="table table-striped table-bordered" style="width:100%">
                         <thead class="btn-dark">
                             <tr>
                                 <th scope="row">#</th>
-                                <th>deudor</th>
+                                <th>cliente</th>
                                 <th>estado</th>
-                                <th>deuda</th>
+                                <th>monto</th>
                                 <th>dias</th>
                                 <th>fecha registro</th>
                                 <th></th>
@@ -66,9 +67,9 @@
                         <tfoot class="btn-dark">
                             <tr>
                                 <th scope="row">#</th>
-                                <th>deudor</th>
+                                <th>cliente</th>
                                 <th>estado</th>
-                                <th>deuda</th>
+                                <th>monto</th>
                                 <th>dias</th>
                                 <th>fecha registro</th>
                                 <th></th>
@@ -77,10 +78,90 @@
                     </table>
                 </div>
                 <div id="tabla_clienteRemplazo">
-                    <h6>clientes remplazo.. modulo en construccion!</h6>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="scroll container">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">deudor</th>
+                                            <th scope="col">estado</th>
+                                            <th scope="col">monto</th>
+                                            <th scope="col">dias</th>
+                                            <th scope="col">fecha registro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaPago">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <h5 id="total_a_pagar"></h5>
+                            <h6 id="dias_totales"></h6>
+                        </div>
+                        <div class="col-md-4">
+                            <div id="descuento_copago">
+                                <p>
+                                    <button class="badge badge-info" type="button" data-toggle="collapse" data-target="#collapseDescuento" aria-expanded="false" aria-controls="collapseDescuento">
+                                        aplicar descuento
+                                    </button>
+                                    <button class="badge badge-primary" type="button" data-toggle="collapse" data-target="#collapseExtra" aria-expanded="false" aria-controls="collapseExtra">
+                                        agregar pago extra
+                                    </button>
+                                </p>
+                                <div class="collapse" id="collapseDescuento">
+                                    <div class="card card-body">
+                                        <div class="form-row">
+                                            <div class="form-group col-xl-12">
+                                                <h6>Aplicar descuento al pago total</h6>
+                                                <span style='font-size: 0.6rem;'>en caso de que el cliente devuelva el vehículo antes de tiempo ,o por
+                                                    cualquier inconveniente se
+                                                    puede aplicar un descuento al último pago realizado </span>
+                                            </div>
+                                            <div class="form-group col-xl-12">
+                                                <label for="descuento_pago">descuento (bruto)($) </label>
+                                                <input oninput="this.value = soloNumeros(this);recalcularPagoDescuento(this.value)" maxLength="11" value=0 id="descuento_pago" name="descuento_pago" type="number" class="form-control" required>
+                                            </div>
+                                            <div class="form-group col-xl-12">
+                                                <label for="dias_restantes">dias restantes</label>
+                                                <input oninput="this.value = soloNumeros(this);recalculaDiasRestantes(this.value)" maxLength="11" value=0 id="dias_restantes" name="dias_restantes" type="number" class="form-control" required>
+                                            </div>
+                                            <div class="form-group col-xl-12">
+                                                <label for="inputObservaciones">Observaciones</label>
+                                                <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones" name="inputObservaciones" rows="3" maxLength="300"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="collapse" id="collapseExtra">
+                                    <div class="card card-body">
+                                        <div class="form-row">
+                                            <div class="form-group col-xl-12">
+                                                <h6>Agregar pagos extras</h6>
+                                                <span style='font-size: 0.6rem;'>En caso de existir gastos extras , los cuales no figuraron en el
+                                                    contrato , se deben detallar en observaciones y colocar el pago extra el
+                                                    cual se le sumara al ultimo pago</span>
+                                            </div>
+                                            <div class="form-group col-xl-12">
+                                                <label for="extra_pago">Pago adicional (bruto)($) </label>
+                                                <input oninput="this.value = soloNumeros(this);recalcularPagoExtra(this.value)" maxLength="11" value=0 id="extra_pago" name="extra_pago" type="number" class="form-control" required>
+                                            </div>
+                                            <div class="form-group col-xl-12">
+                                                <label for="inputObservaciones2">Observaciones</label>
+                                                <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones2" name="inputObservaciones2" rows="3" maxLength="300"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <br>
+
             <div class="tab-pane fade" id="nav-pagos" role="tabpanel" aria-labelledby="nav-pagostotal-tab">
                 <br><br>
                 <div class="scroll">
@@ -88,10 +169,10 @@
                         <thead class="btn-dark">
                             <tr>
                                 <th scope="row">Nº arriendo</th>
-                                <th>deudor</th>
+                                <th>cliente</th>
                                 <th>tipo </th>
                                 <th>estado</th>
-                                <th>Deuda</th>
+                                <th>monto</th>
                                 <th>dias</th>
                                 <th>fecha registro</th>
                                 <th></th>
@@ -102,10 +183,10 @@
                         <tfoot class="btn-dark">
                             <tr>
                                 <th scope="row">Nº arriendo</th>
-                                <th>deudor</th>
+                                <th>cliente</th>
                                 <th>tipo </th>
                                 <th>estado</th>
-                                <th>Deuda</th>
+                                <th>monto</th>
                                 <th>dias</th>
                                 <th>fecha registro</th>
                                 <th></th>

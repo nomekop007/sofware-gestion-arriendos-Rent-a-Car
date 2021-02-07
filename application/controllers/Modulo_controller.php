@@ -137,6 +137,7 @@ class Modulo_controller extends CI_Controller
                     if ($rol == 1) {
                         $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_tabla_pagoCliente');
                         $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_modal_pagoCliente');
+                        $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_modal_infoPago');
                     } else {
                         redirect(base_url());
                     }

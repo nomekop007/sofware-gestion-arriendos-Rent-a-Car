@@ -159,5 +159,8 @@ $route['editar_reserva'] = 'Reserva_controller/editarReserva';
 $route['eliminar_reserva'] = 'Reserva_controller/eliminarReserva';
 
 
+/* rutas de controller abono */
+$route['registrar_abono'] = 'Abono_controller/registrarAbono';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = false;
