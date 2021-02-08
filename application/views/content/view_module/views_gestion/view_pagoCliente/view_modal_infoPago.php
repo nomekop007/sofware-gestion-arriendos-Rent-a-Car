@@ -8,7 +8,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
+            <div class="modal-body" id="formSpinnerInfoPago">
+                <div class="text-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
             <form id="formInfoPago" novalidate>
                 <div class="modal-body">
 
@@ -24,6 +30,12 @@
                         </div>
                         <div class="form-group col-md-12">
                             <textarea id="info_descripcion_pago" disabled class="form-control" rows=2"></textarea>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input id="info_valor_total_arriendo" disabled type="text" class="form-control">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <input id="info_patente_vehiculo" disabled type="text" class="form-control">
                         </div>
                     </div>
                     <br>

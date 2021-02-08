@@ -68,7 +68,7 @@ async function ajax_function(data, dataUrl) {
 				if (response.sinToken) {
 					setTimeout(() => {
 						window.location = base_url;
-					}, 4000);
+					}, 3000);
 				}
 				if (response.success) {
 					console.log(dataUrl + " SUCCESS!");

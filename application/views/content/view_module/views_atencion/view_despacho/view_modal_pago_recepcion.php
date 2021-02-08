@@ -1,12 +1,10 @@
 <!-- Modal realizar pago -->
-<div class="modal fade" id="modalPagoArriendo" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    aria-labelledby="modalPagoArriendoLabel" aria-hidden="true">
+<div class="modal fade" id="modalPagoArriendo" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalPagoArriendoLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <form class="needs-validation" id="form_pagos_pendientes" novalidate>
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalPagoArriendoLabel">Actualizacion de pago, arriendo <span
-                            id="numero_arriendo_pago">Nº</span> </h5>
+                    <h5 class="modal-title" id="modalPagoArriendoLabel">Actualizacion de pago, arriendo <span id="numero_arriendo_pago">Nº</span> </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -42,9 +40,7 @@
                         <div id="descuento_copago">
                             <br>
                             <p>
-                                <button class="badge badge-info" type="button" data-toggle="collapse"
-                                    data-target="#collapseDescuento" aria-expanded="false"
-                                    aria-controls="collapseDescuento">
+                                <button class="badge badge-info" type="button" data-toggle="collapse" data-target="#collapseDescuento" aria-expanded="false" aria-controls="collapseDescuento">
                                     aplicar descuento
                                 </button>
                             </p>
@@ -59,28 +55,22 @@
                                         </div>
                                         <div class="form-group col-xl-5">
                                             <label for="descuento_pago">descuento (bruto)($) </label>
-                                            <input
-                                                oninput="this.value = soloNumeros(this);recalcularPagoDescuento(this.value)"
-                                                maxLength="11" value=0 id="descuento_pago" name="descuento_pago"
-                                                type="number" class="form-control" required>
+                                            <input oninput="this.value = soloNumeros(this);recalcularPagoDescuento(this.value)" maxLength="11" value=0 id="descuento_pago" name="descuento_pago" type="number" class="form-control" required>
                                         </div>
                                         <div class="form-group col-xl-7">
                                             <label for="dias_restantes">dias restantes</label>
-                                            <input id="dias_restantes" name="dias_restantes" type="text"
-                                                class="form-control">
+                                            <input id="dias_restantes" name="dias_restantes" type="text" class="form-control">
                                         </div>
                                         <div class="form-group col-xl-12">
                                             <label for="inputObservaciones">Observaciones</label>
-                                            <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones"
-                                                name="inputObservaciones" rows="3" maxLength="300"></textarea>
+                                            <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones" name="inputObservaciones" rows="3" maxLength="300"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <br>
                             </div>
                             <p>
-                                <button class="badge badge-primary" type="button" data-toggle="collapse"
-                                    data-target="#collapseExtra" aria-expanded="false" aria-controls="collapseExtra">
+                                <button class="badge badge-primary" type="button" data-toggle="collapse" data-target="#collapseExtra" aria-expanded="false" aria-controls="collapseExtra">
                                     agregar pago extra
                                 </button>
                             </p>
@@ -95,18 +85,13 @@
                                         </div>
                                         <div class="form-group col-xl-5">
                                             <label for="extra_pago">Pago adicional (bruto)($) </label>
-                                            <input
-                                                oninput="this.value = soloNumeros(this);recalcularPagoExtra(this.value)"
-                                                maxLength="11" value=0 id="extra_pago" name="extra_pago" type="number"
-                                                class="form-control" required>
+                                            <input oninput="this.value = soloNumeros(this);recalcularPagoExtra(this.value)" maxLength="11" value=0 id="extra_pago" name="extra_pago" type="number" class="form-control" required>
                                         </div>
                                         <div class="form-group col-xl-7">
                                         </div>
                                         <div class="form-group col-xl-12">
                                             <label for="inputObservaciones2">Observaciones</label>
-                                            <textarea onblur="mayus(this);" class="form-control"
-                                                id="inputObservaciones2" name="inputObservaciones2" rows="3"
-                                                maxLength="300"></textarea>
+                                            <textarea onblur="mayus(this);" class="form-control" id="inputObservaciones2" name="inputObservaciones2" rows="3" maxLength="300"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -119,13 +104,11 @@
                                 <h6>Facturacion</h6>
                                 <div class="form-row card-body">
                                     <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value="BOLETA" id="radioBoleta" name="customRadio1"
-                                            class="custom-control-input" checked>
+                                        <input type="radio" value="BOLETA" id="radioBoleta" name="customRadio1" class="custom-control-input" checked>
                                         <label class="custom-control-label" for="radioBoleta">Boleta</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value="FACTURA" id="radioFactura" name="customRadio1"
-                                            class="custom-control-input">
+                                        <input type="radio" value="FACTURA" id="radioFactura" name="customRadio1" class="custom-control-input">
                                         <label class="custom-control-label" for="radioFactura">Factura</label>
                                     </div>
                                 </div>
@@ -134,37 +117,30 @@
                                 <div class="form-row card-body">
                                     <div class="form-group col-xl-4">
                                         <label for="inputNumFacturacion">Numero comprobante</label>
-                                        <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion"
-                                            type="number" class="form-control" placeholder="Nº Boleta/Factura" required>
+                                        <input maxLength="20" id="inputNumFacturacion" name="inputNumFacturacion" type="number" class="form-control" placeholder="Nº Boleta/Factura" required>
                                     </div>
                                     <div class="form-group col-xl-6">
                                         <label for="inputFileFacturacion">Comprobante</label>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf"
-                                            type="file" class="form-control-file" id="inputFileFacturacion"
-                                            name="inputFileFacturacion" required>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputFileFacturacion" name="inputFileFacturacion" required>
                                     </div>
                                 </div>
                                 <h6>Metodo de pago</h6>
                                 <div class="form-row card-body">
                                     <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value=1 id="radioEfectivo" name="customRadio2"
-                                            class="custom-control-input" checked>
+                                        <input type="radio" value=1 id="radioEfectivo" name="customRadio2" class="custom-control-input" checked>
                                         <label class="custom-control-label" for="radioEfectivo">Efectivo</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value=2 id="radioCheque" name="customRadio2"
-                                            class="custom-control-input">
+                                        <input type="radio" value=2 id="radioCheque" name="customRadio2" class="custom-control-input">
                                         <label class="custom-control-label" for="radioCheque">Cheque</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value=3 id="radioTarjeta" name="customRadio2"
-                                            class="custom-control-input">
+                                        <input type="radio" value=3 id="radioTarjeta" name="customRadio2" class="custom-control-input">
                                         <label class="custom-control-label" for="radioTarjeta">Tarjeta
                                             credito/debito</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value=4 id="radioTranferencia" name="customRadio2"
-                                            class="custom-control-input">
+                                        <input type="radio" value=4 id="radioTranferencia" name="customRadio2" class="custom-control-input">
                                         <label class="custom-control-label" for="radioTranferencia">Transferencia
                                             electronica</label>
                                     </div>
@@ -177,9 +153,8 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                        <button type="submit" class="btn btn-success" id="actualizar_pago_arriendo">
-                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                                id="spinner_btn_actualizar_pago"></span>Actualizar estado de pago</button>
+                        <button disabled type="submit" class="btn btn-success" id="actualizar_pago_arriendo">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_actualizar_pago"></span>Actualizar estado de pago</button>
                     </div>
 
                 </div>

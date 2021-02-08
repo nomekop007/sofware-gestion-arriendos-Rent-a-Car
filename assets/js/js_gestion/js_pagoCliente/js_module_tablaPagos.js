@@ -3,39 +3,49 @@ let arrayClaveER = [];
 
 const buscarInfoPago = async (id_pago) => {
     $("#formInfoPago")[0].reset();
+    $("#formInfoPago").hide();
+    $("#formSpinnerInfoPago").show();
     const arrayComprobantes = [];
     const data = new FormData();
     data.append('id_pago', id_pago);
     const response = await ajax_function(data, "buscar_pago");
-    const pago = response.data;
-    console.log(pago)
-    $("#titulo_modal_infoPago").html(`Arriendo N° ${pago.pagosArriendo.id_arriendo} -  monto: ${"$ " + formatter.format(pago.total_pago)}`)
-    $("#info_rut_cliente").val('cliente: ' + pago.deudor_pago)
-    $("#info_tipo_arriendo").val('tipo arriendo: ' + pago.pagosArriendo.arriendo.tipo_arriendo)
-    $("#info_estado_arriendo").val('estado pago: ' + pago.estado_pago);
-    $("#info_descripcion_pago").val(pago.pagosArriendo.observaciones_pagoArriendo);
-
-    if (pago.facturacione) {
-        arrayComprobantes.push({
-            numDoc: pago.facturacione.numero_facturacion,
-            facturacion: pago.facturacione.tipo_facturacion,
-            modoPago: pago.facturacione.modosPago.nombre_modoPago,
-            monto: "$ " + formatter.format(pago.total_pago),
-            fecha: formatearFechaHora(pago.facturacione.createdAt),
-            documento: pago.facturacione.documento_facturacion
-        })
+    if (response.success) {
+        const pago = response.data;
+        data.append('id_arriendo', pago.pagosArriendo.id_arriendo);
+        const responsePago = await ajax_function(data, "consultar_pagoArriendos");
+        if (responsePago.success) {
+            $("#info_valor_total_arriendo").val(`Valor total arriendo: ${"$ " + formatter.format(responsePago.data.totalPago)}`);
+            $("#titulo_modal_infoPago").html(`Arriendo N° ${pago.pagosArriendo.id_arriendo} -  monto: ${"$ " + formatter.format(pago.total_pago)} `)
+            $("#info_rut_cliente").val('cliente: ' + pago.deudor_pago)
+            $("#info_tipo_arriendo").val('tipo arriendo: ' + pago.pagosArriendo.arriendo.tipo_arriendo)
+            $("#info_estado_arriendo").val('estado pago: ' + pago.estado_pago);
+            $("#info_descripcion_pago").val(pago.pagosArriendo.observaciones_pagoArriendo);
+            $("#info_patente_vehiculo").val('Patente vehiculo: ' + pago.pagosArriendo.arriendo.patente_vehiculo);
+            if (pago.facturacione) {
+                arrayComprobantes.push({
+                    numDoc: pago.facturacione.numero_facturacion,
+                    facturacion: pago.facturacione.tipo_facturacion,
+                    modoPago: pago.facturacione.modosPago.nombre_modoPago,
+                    monto: "$ " + formatter.format(pago.total_pago),
+                    fecha: formatearFechaHora(pago.facturacione.createdAt),
+                    documento: pago.facturacione.documento_facturacion
+                })
+            }
+            pago.abonos.map((abono) => {
+                arrayComprobantes.push({
+                    numDoc: abono.facturacione.numero_facturacion,
+                    facturacion: abono.facturacione.tipo_facturacion,
+                    modoPago: abono.facturacione.modosPago.nombre_modoPago,
+                    monto: "$ " + formatter.format(abono.pago_abono),
+                    fecha: formatearFechaHora(abono.facturacione.createdAt),
+                    documento: abono.facturacione.documento_facturacion
+                })
+            });
+            cargarTablaInfoPago(arrayComprobantes);
+            $("#formSpinnerInfoPago").hide();
+            $("#formInfoPago").show();
+        }
     }
-    pago.abonos.map((abono) => {
-        arrayComprobantes.push({
-            numDoc: abono.facturacione.numero_facturacion,
-            facturacion: abono.facturacione.tipo_facturacion,
-            modoPago: abono.facturacione.modosPago.nombre_modoPago,
-            monto: "$ " + formatter.format(abono.pago_abono),
-            fecha: formatearFechaHora(abono.facturacione.createdAt),
-            documento: abono.facturacione.documento_facturacion
-        })
-    });
-    cargarTablaInfoPago(arrayComprobantes);
 }
 
 
@@ -50,7 +60,7 @@ const cargarTablaInfoPago = (arrayComprobantes) => {
             <td> ${monto} </td>
             <td> ${fecha} </td>
             <td>
-            <button class="btn btn-primary btn-sm" type="button" onClick="buscarDocumento('${documento}','facturacion')"> <i class="fas fa-upload"></i> </button>
+            <button class="btn btn-dark btn-sm" type="button" onClick="buscarDocumento('${documento}','facturacion')"> <i class="fas fa-upload"></i> </button>
             </td>
         </tr>`;
         $("#tbody_comprobantes").append(fila)

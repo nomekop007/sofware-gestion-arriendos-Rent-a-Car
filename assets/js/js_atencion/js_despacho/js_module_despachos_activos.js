@@ -560,7 +560,7 @@ $(document).ready(() => {
 			} else {
 				viewTime = "<div> RECEPCIONADO </div>";
 				btnExtender = "";
-				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='mostrarPagosArriendo(this.value)' data-toggle='modal'  data-target='#modalPagoArriendo'  class='btn btn btn-outline-success'><i class="fas fa-pager"></i></button>`;
+				btnFinalizar = ` <button disabled value='${arriendo.id_arriendo}' onclick='mostrarPagosArriendo(this.value)' data-toggle='modal'  data-target='#modalPagoArriendo'  class='btn btn btn-outline-success'><i class="fas fa-pager"></i></button>`;
 			}
 			tablaArriendosActivos.row
 				.add([
