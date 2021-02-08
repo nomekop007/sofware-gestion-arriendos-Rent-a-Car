@@ -146,7 +146,7 @@
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_registrarPago"></span>
                         subir comprobante Pago</button>
                     <button type="submit" id="btn_subirComprobates" class="btn btn-primary">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_registrarPagos"></span>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_registrarMuchosPagos"></span>
                         subir todos los comprobantes</button>
                 </div>
             </form>

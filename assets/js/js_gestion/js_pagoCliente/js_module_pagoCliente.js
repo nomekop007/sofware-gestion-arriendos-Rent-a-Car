@@ -116,7 +116,7 @@ const limpiar = () => {
     $("#btn_subirComprobates").hide();
     $("#formPagoCliente")[0].reset();
     $("#spinner_btn_registrarPago").hide();
-    $("#spinner_btn_registrarPagos").hide();
+    $("#spinner_btn_registrarMuchosPagos").hide();
     $("#tbody_tabla_pagos").html('');
     $("#id_pago").val('');
     $("#titulo_modal").html('');
@@ -306,6 +306,8 @@ $(document).ready(() => {
         }
         if (validacion && $("#inputCantidad").val() != 'null') {
             alertQuestion(async () => {
+                $("#spinner_btn_registrarMuchosPagos").show();
+                $("#btn_subirComprobates").attr("disabled", true)
                 for (let i = 0; i < $("#inputCantidad").val(); i++) {
                     const data = new FormData();
                     data.append('id_pago', $("#id_pago").val());
@@ -325,6 +327,8 @@ $(document).ready(() => {
                     data.append('id_pago', $("#id_pago").val());
                     await ajax_function(data, "actualizar_pagoAPagado")
                 }
+                $("#spinner_btn_registrarMuchosPagos").hide();
+                $("#btn_subirComprobates").attr("disabled", false)
                 limpiarBuscarPagos();
                 Swal.fire("pago actualizado!", "se registraron los datos exitosamente!", "success");
                 $("#modal_pago").modal("toggle");
@@ -356,6 +360,8 @@ $(document).ready(() => {
         }
         if (validacion && $("#inputCantidad").val() != 'null') {
             alertQuestion(async () => {
+                $("#spinner_btn_registrarMuchosPagos").show();
+                $("#btn_subirComprobates").attr("disabled", true)
                 const form = $("#formPagoCliente")[0];
                 const data = new FormData(form);
                 data.append("arrayPagos", JSON.stringify(array_id_pagosRemplazo));
@@ -365,7 +371,6 @@ $(document).ready(() => {
                 data.append("inputObservaciones", `${$("#inputObservaciones").val()} ${$("#inputObservaciones2").val()} `);
                 const responseDescuento = await ajax_function(data, "aplicarDescuento_UltimoPago");
                 if (responseDescuento.success) {
-                    console.log(responseDescuento)
                     array_id_pagosRemplazo.map(async (id_pago) => {
                         for (let i = 0; i < $("#inputCantidad").val(); i++) {
                             const data = new FormData();
@@ -391,6 +396,8 @@ $(document).ready(() => {
                     Swal.fire("pago actualizado!", "se registraron los datos exitosamente!", "success");
                     $("#modal_pago").modal("toggle");
                 }
+                $("#spinner_btn_registrarMuchosPagos").hide();
+                $("#btn_subirComprobates").attr("disabled", false)
             });
         }
     }
