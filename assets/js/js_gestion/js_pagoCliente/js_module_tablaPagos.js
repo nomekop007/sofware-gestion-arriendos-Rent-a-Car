@@ -21,6 +21,9 @@ const buscarInfoPago = async (id_pago) => {
             $("#info_estado_arriendo").val('estado pago: ' + pago.estado_pago);
             $("#info_descripcion_pago").val(pago.pagosArriendo.observaciones_pagoArriendo);
             $("#info_patente_vehiculo").val('Patente vehiculo: ' + pago.pagosArriendo.arriendo.patente_vehiculo);
+            $("#info_cantidad_contratos").val('cantidad de contratos: ' + responsePago.data.arrayPago.length);
+
+
             if (pago.facturacione) {
                 arrayComprobantes.push({
                     numDoc: pago.facturacione.numero_facturacion,

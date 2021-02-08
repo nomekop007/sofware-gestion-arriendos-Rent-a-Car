@@ -37,6 +37,10 @@
                         <div class="form-group col-md-6">
                             <input id="info_patente_vehiculo" disabled type="text" class="form-control">
                         </div>
+                        <div class="form-group col-md-6">
+                            <input id="info_cantidad_contratos" disabled type="text" class="form-control">
+                        </div>
+
                     </div>
                     <br>
 
