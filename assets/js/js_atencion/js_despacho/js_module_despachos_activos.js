@@ -1,20 +1,10 @@
 const arrayImagesRecepcion = [];
-const array_id_pagos = [];
-let totalAPagar_arriendo = 0;
+const formatter = new Intl.NumberFormat("CL");
 
 
-const calcularDiasExtencion = () => {
-	let fechaRecepcion = $("#inputFechaRecepcion_extenderPlazo").val();
-	let fechaExtender = $("#inputFechaExtender_extenderPlazo").val();
-	let fechaini = new Date(moment(fechaRecepcion));
-	let fechafin = new Date(moment(fechaExtender));
-	let diasdif = fechafin.getTime() - fechaini.getTime();
-	let dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
-	$("#inputNumeroDias_extenderPlazo").val(dias);
-};
 
 
-const buscarArriendoExtender = async (id_arriendo) => {
+const mostrarArriendoExtender = async (id_arriendo) => {
 	limpiarFormulario();
 	const data = new FormData();
 	data.append("id_arriendo", id_arriendo);
@@ -22,65 +12,41 @@ const buscarArriendoExtender = async (id_arriendo) => {
 	if (response.success) {
 		const arriendo = response.data;
 		$("#numeroArriendo").html("Nº " + arriendo.id_arriendo)
-		$("#inputFechaRecepcion_extenderPlazo").val(moment(arriendo.fechaRecepcion_arriendo).format("YYYY/MM/DD h:m"));
-		$("#id_arriendo").val(arriendo.id_arriendo);
-		$("#dias_arriendo").val(arriendo.diasAcumulados_arriendo);
+		$("#titulo_numero_arriendo").html("Nº " + arriendo.id_arriendo)
+		$("#inputFechaRecepcion_extenderPlazo").val(moment(arriendo.fechaRecepcion_arriendo).format("YYYY/MM/DD hh:mm"));
+		$("#id_arriendo_extencion").val(arriendo.id_arriendo);
+		$("#inputVehiculo_extenderPlazo").val(arriendo.patente_vehiculo);
 		$("#body_extender_arriendo").show();
+		$("#inputTipoArriendo_extenderPlazo").val(arriendo.tipo_arriendo);
+		$("#inputDiasAcumulados_extenderPlazo").val(arriendo.diasAcumulados_arriendo);
+		switch (arriendo.tipo_arriendo) {
+			case "PARTICULAR":
+				$("#inputDeudor_extenderPlazo").val(arriendo.rut_cliente);
+				break;
+			case "REEMPLAZO":
+				$("#inputDeudor_extenderPlazo").val(arriendo.remplazo.rut_cliente);
+				$("#inputDeudorCopago_extenderPlazo").val(arriendo.remplazo.codigo_empresaRemplazo);
+				$(".ventana_pago_empresa_remplazo").show();
+				break;
+			case "EMPRESA":
+				$("#inputDeudor_extenderPlazo").val(arriendo.rut_empresa);
+				break;
+		}
 	}
 	$("#formSpinner_extender_arriendo").hide();
 }
 
 
 
-const mostrarPagosArriendo = async (id_arriendo) => {
-	limpiarFormulario();
-	const data = new FormData();
-	data.append("id_arriendo", id_arriendo);
-	const response = await consultarPagos(data);
-	if (response.success) {
-		const { arrayPago, totalPago, arriendo } = response.data;
-		$("#body_actualizarPago_arriendo").show()
-		$("#numero_arriendo_pago").html("Nº " + arriendo.id_arriendo)
-		const formatter = new Intl.NumberFormat("CL");
-		let n = 1;
-		arrayPago.map(({ pago, pagoArriendo }) => {
-			let html = `<tr>
-						<th scope="row"> ${n} </th>
-						<td> ${pago.deudor_pago.replace("@", "")} </td>
-						<td> ${pago.estado_pago}</td>
-						<td> $ ${formatter.format(pago.total_pago)} </td>
-						<td> ${pagoArriendo.dias_pagoArriendo} </td>
-						<td> ${formatearFechaHora(pago.createdAt)} </td>
-					</tr>`;
-			$("#tablaPago").append(html);
-			n++;
-			array_id_pagos.push(pago.id_pago);
-		})
-		totalAPagar_arriendo = totalPago;
-		$("#total_a_pagar").html(`Total pago: ${formatter.format(totalAPagar_arriendo)} `);
-		$("#dias_totales").html(`dias totales: ${arriendo.diasAcumulados_arriendo}`);
-		$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
-		$("#descuento_copago").show();
-		const fechaFinal = moment(arriendo.fechaRecepcion_arriendo);
-		const fechaActual = moment();
-		const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
-		const horasRestantes = moment.utc(fechaFinal.diff(moment())).format("HH");
-		$("#dias_restantes").val(`${diasRestantes} ${diasRestantes == 1 ? "dia" : "dias"} con  ${horasRestantes} horas`);
-	}
-	$("#formSpinner_actualizarPago_arriendo").hide();
-}
 
 
 const mostrarRecepcionArriendo = async (id_arriendo) => {
 	limpiarFormulario();
-
 	const data = new FormData();
 	data.append("id_despacho", id_arriendo);
 	data.append("id_arriendo", id_arriendo);
-
 	const responseArriendo = await ajax_function(data, "buscar_arriendo");
 	const responseActa = await ajax_function(data, "buscar_actaEntrega");
-
 	if (responseArriendo.success) {
 		const arriendo = responseArriendo.data;
 		if (arriendo.fotosDespachos.length > 0) {
@@ -100,7 +66,6 @@ const mostrarRecepcionArriendo = async (id_arriendo) => {
 			}
 			$("#ventana_actaEntrega").show();
 		}
-
 		mostrarCanvasImgVehiculo([
 			"canvas_fotoVehiculo_recepcion",
 			"limpiar_fotoVehiculo_recepcion",
@@ -116,13 +81,15 @@ const mostrarRecepcionArriendo = async (id_arriendo) => {
 }
 
 
+
+
+
 const fotoDespachoCarrucelRecepcion = (array, url) => {
 	let items = "";
 	array.map(({ url_fotoDespacho }) => {
 		const link = `${url}/${url_fotoDespacho}`;
 		console.log(link);
 		items += `<div class="item"><img src="${link}" /></div>`;
-
 	});
 	const html = `<div class="owl-carousel owl-theme">${items}</div></div>`;
 	$("#ventana_fotosDespacho").html(html);
@@ -133,65 +100,93 @@ const fotoDespachoCarrucelRecepcion = (array, url) => {
 
 
 
-const recalcularPagoDescuento = (desc) => {
-	const formatter = new Intl.NumberFormat("CL");
-	let descuento = Number(desc);
-	let precioAntiguo = Number(totalAPagar_arriendo);
-	let precioNuevo = precioAntiguo - descuento;
-	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(precioNuevo)} `);
+const calcularDiasExtencion = () => {
+	let fechaRecepcion = $("#inputFechaRecepcion_extenderPlazo").val();
+	let fechaExtender = $("#inputFechaExtender_extenderPlazo").val();
+	let fechaini = new Date(moment(fechaRecepcion));
+	let fechafin = new Date(moment(fechaExtender));
+	let diasdif = fechafin.getTime() - fechaini.getTime();
+	let dias = Math.round(diasdif / (1000 * 60 * 60 * 24));
+	$("#inputNumeroDias_extenderPlazo").val(Number(dias));
+	calcularCopago()
+};
+
+
+const calcularCopago = () => {
+	let valorCopago = Number($("#inputValorCopago_extenderPlazo").val());
+	let dias = Number($("#inputNumeroDias_extenderPlazo").val());
+	let NewSubtotal = Number(valorCopago * dias);
+	$("#inputSubTotalArriendo_extenderPlazo").val(NewSubtotal);
+	calcularValores();
 }
 
-const recalcularPagoExtra = (desc) => {
-	const formatter = new Intl.NumberFormat("CL");
-	let cobro = Number(desc);
-	let precioAntiguo = Number(totalAPagar_arriendo);
-	let precioNuevo = precioAntiguo + cobro;
-	$("#total_a_pagar").html(`Total a pagar: ${formatter.format(precioNuevo)} `);
+
+const calcularIvaPagoERemplazo = () => {
+	let neto = Number($("#inputPagoEmpresa_extenderPlazo").val());
+	let iva = Number($("#inputPagoIvaEmpresa_extenderPlazo").val());
+	let total = Number($("#inputPagoTotalEmpresa_extenderPlazo").val());
+	iva = Number(neto * 0.19);
+	total = Number(neto + iva);
+	$("#inputPagoIvaEmpresa_extenderPlazo").val(Math.round(iva));
+	$("#inputPagoTotalEmpresa_extenderPlazo").val(decimalAdjust(Math.round(total), 1));
+	$("#lb_neto_er").html("( $ " + formatter.format(neto) + " )");
+	$("#lb_iva_er").html("( $ " + formatter.format(Math.round(iva)) + " )");
+	$("#lb_total_er").html("( $ " + formatter.format(decimalAdjust(Math.round(total), 1)) + " )");
 }
 
 
+const calcularValores = () => {
+	//variables
+	let valorArriendo = Number($("#inputSubTotalArriendo_extenderPlazo").val());
+	let iva = Number($("#inputIVA_extenderPlazo").val());
+	let descuento = Number($("#inputDescuento_extenderPlazo").val());
+	let total = Number($("#inputTotal_extenderPlazo").val());
+	let TotalNeto = 0;
+	//revisa todos los check y guardas sus valores en un array si estan okey
+	let ArrayAccesorios = $('[name="accesorios[]"]')
+		.map(function () {
+			return this.value;
+		})
+		.get();
+	for (let i = 0; i < ArrayAccesorios.length; i++) {
+		const precioAccesorio = ArrayAccesorios[i];
+		TotalNeto += Number(precioAccesorio);
+	}
+	TotalNeto = TotalNeto + valorArriendo - descuento;
+	iva = TotalNeto * 0.19;
+	total = TotalNeto + iva;
+	$("#inputNeto_extenderPlazo").val(TotalNeto.toFixed());
+	$("#inputIVA_extenderPlazo").val(Math.round(iva));
+	$("#inputTotal_extenderPlazo").val(decimalAdjust(Math.round(total), 1));
+	$("#lb_neto").html("( $ " + formatter.format(TotalNeto.toFixed()) + " )");
+	$("#lb_iva").html("( $ " + formatter.format(Math.round(iva)) + " )");
+	$("#lb_total").html("( $ " + formatter.format(decimalAdjust(Math.round(total), 1)) + " )");
+};
 
-
-
-const consultarPagos = async (data) => {
-	return await ajax_function(data, "consultar_pagoArriendos");
-}
 
 
 
 const limpiarFormulario = () => {
 	$("#formSpinner_extender_arriendo").show();
 	$("#formSpinner_finalizar_arriendo").show();
-	$("#formSpinner_actualizarPago_arriendo").show();
-	$("#body_actualizarPago_arriendo").hide()
 	$("#body_recepcion_arriendo").hide();
 	$("#body_extender_arriendo").hide();
-	$("#descuento_copago").hide();
-
+	$("#titulo_numero_arriendo").html("")
 	$("#numeroArriendo").html("")
-	$("#spinner_btn_actualizar_pago").hide();
 	$("#spinner_btn_finalizar_contrato").hide();
 	$("#spinner_btn_extenderArriendo").hide();
 	$("#spinner_btn_registrar_danio").hide();
 	arrayImagesRecepcion.length = 0;
-	array_id_pagos.length = 0;
-	totalAPagar_arriendo = 0;
 	$("#carrucel_recepcion").empty();
-	$("#tablaPago").empty();
 	$("#id_vehiculo_recepcion").val("");
 	$("#id_arriendo_recepcion").val("");
 	$("#input_descripcion_danio").val("");
 	$("#input_kilometraje_salida").val(0);
 	$("#formExtenderArriendo")[0].reset();
-	$("#form_pagos_pendientes")[0].reset();
-
-
+	$(".ventana_pago_empresa_remplazo").hide();
 	$("#ventana_fotosDespacho").hide();
 	$("#ventana_actaEntrega").hide();
 }
-
-
-
 
 
 
@@ -233,11 +228,45 @@ $(document).ready(() => {
 	});
 
 
+	(cargarAccesorios = async () => {
+		const response = await ajax_function(null, "cargar_accesorios");
+		if (response.success) {
+			$.each(response.data, (i, o) => {
+				if (o.id_accesorio == "1") {
+					o.precio_accesorio = "";
+				}
+				let fila = `
+                <div class='input-group '>
+                    <label style='width: 70%;font-size: 0.6rem;' class='form-control'>${o.nombre_accesorio}  $ ${formatter.format(o.precio_accesorio)} </label>
+                    <input  style='width: 30%;font-size: 0.6rem;' min='0' id='${o.id_accesorio}' maxLength='11' name='accesorios[]' 
+                     value='0'  oninput="this.value = soloNumeros(this) ;calcularValores()"
+                        type='number' class='form-control' required>
+				</div>`;
+				$("#formAccesorios").append(fila);
+			});
+		}
+	})();
+
+
+	(cargarVehiculos = async () => {
+		const response = await ajax_function(null, "cargar_Vehiculos");
+		if (response.success) {
+			if (response.data) {
+				const select = document.getElementById("inputVehiculo_extenderPlazo");
+				$.each(response.data, (i, o) => {
+					let option = document.createElement("option");
+					option.innerHTML = `${o.patente_vehiculo} ${o.marca_vehiculo} ${o.modelo_vehiculo} ${o.año_vehiculo}`;
+					option.value = o.patente_vehiculo;
+					select.appendChild(option);
+				});
+				$("#vehiculo").attr("disabled", false);
+			}
+		}
+	})();
 
 
 
-
-	const cargarArriendosActivos = async () => {
+	(cargarArriendosActivos = async () => {
 		$("#spinner_tablaArriendoActivos").show();
 		const response = await ajax_function(null, "cargar_arriendosActivos");
 		if (response) {
@@ -246,11 +275,12 @@ $(document).ready(() => {
 			});
 		}
 		$("#spinner_tablaArriendoActivos").hide();
-	};
+	})();
+
+
 
 
 	$("#btn_extenderArriendo").click(() => {
-		const diasActuales = $("#dias_arriendo").val()
 		const diasExtendidos = $("#inputNumeroDias_extenderPlazo").val();
 		if (diasExtendidos.length == 0) {
 			Swal.fire("faltan datos , o datos erroneos", "corriga el formulario!", "warning");
@@ -260,24 +290,64 @@ $(document).ready(() => {
 			Swal.fire("Extencion fallida", "la extencion del contrato tiene que ser mayor a 1 dia", "warning");
 			return;
 		}
+		if ($("#inputNeto_extenderPlazo").val() < 0) {
+			Swal.fire("Error en los totales", "corriga los totales del arriendo", "warning");
+			return;
+		}
+		if (
+			$("#inputPagoEmpresa_extenderPlazo").val().length == 0 ||
+			$("#inputValorCopago_extenderPlazo").val().length == 0 ||
+			$("#inputSubTotalArriendo_extenderPlazo").val().length == 0 ||
+			$("#inputDescuento_extenderPlazo").val().length == 0
+		) {
+			Swal.fire("Error en el formulario", "coloque 0 en los campos vacios", "warning");
+			return;
+		}
+
+
 		alertQuestion(async () => {
 			$("#spinner_btn_extenderArriendo").show();
 			$("#btn_extenderArriendo").attr("disabled", true)
-			const form = $("#formExtenderArriendo")[0];
-			const data = new FormData(form);
-			data.append("diasActuales", Number(diasExtendidos));
-			data.append("diasAcumulados", Number(diasActuales) + Number(diasExtendidos));
-			data.append("fechaEntrega", $("#inputFechaRecepcion_extenderPlazo").val())
-			const response = await extenderContrato(data);
-			if (response.success) {
-				refrescarTablaActivos();
-				Swal.fire("Arriendo extendido", "Arriendo extendido con exito!, proseguir a firmar el contrato", "success");
-				$("#modal_ArriendoExtender").modal("toggle");
+
+			const data = new FormData();
+
+			await actualizarArriendo(data);
+
+
+			const responsePagoArriendo = await guardarPagoArriendo(data);
+			data.append("id_pagoArriendo", responsePagoArriendo.pagoArriendo.id_pagoArriendo);
+
+			const matrizAccesorios = await capturarAccesorios();
+			if (matrizAccesorios[0].length != 0) {
+				data.append("matrizAccesorios", JSON.stringify(matrizAccesorios));
+				await ajax_function(data, "registrar_pagoAccesorios")
 			}
+
+			await guardarPagoCliente(data);
+
+			if ($("#inputTipoArriendo_extenderPlazo").val() === "REEMPLAZO" && $("#inputPagoEmpresa_extenderPlazo").val() > 0) {
+				await guardarPagoRemplazo(data);
+			}
+
+
+
+			// crear entidad extencion con los datos
+			data.append("patente_vehiculo", $("#inputVehiculo_extenderPlazo").val());
+			data.append("id_arriendo", $("#id_arriendo_extencion").val());
+			//data.append("id_pagoArriendo",responsePagoArriendo.pagoArriendo.id_pagoArriendo)
+			//data.append("diasActuales", $("#inputNumeroDias_extenderPlazo").val());
+			data.append("fechaInicio", $("#inputFechaRecepcion_extenderPlazo").val())
+			data.append("fechaFin", $("#inputFechaExtender_extenderPlazo").val())
+			data.append("estado_extencion", "Sin firmar");
+
+
 			$("#spinner_btn_extenderArriendo").hide();
 			$("#btn_extenderArriendo").attr("disabled", false)
 		})
 	});
+
+
+
 
 
 
@@ -318,6 +388,8 @@ $(document).ready(() => {
 
 
 
+
+
 	$("#limpiarArrayFotosRecepcion").click(() => {
 		alertQuestion(() => {
 			arrayImagesRecepcion.length = 0;
@@ -352,60 +424,7 @@ $(document).ready(() => {
 
 
 
-	$("#actualizar_pago_arriendo").click(async () => {
-		const inputDescuento = $("#descuento_pago").val();
-		const inputExtra = $("#extra_pago").val();
-		const inputObservaciones = `${$("#inputObservaciones").val()} ${$("#inputObservaciones2").val()} `
-		const inputNumFacturacion = $("#inputNumFacturacion").val();
-		const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
-		if (inputDescuento < 0 || inputExtra < 0 || inputDescuento.length == 0 || inputExtra.length == 0) {
-			Swal.fire("campo vacio o invalidos", "rellene los campos erroneos", "warning");
-			return;
-		}
-		if (inputDescuento > 0 && inputExtra > 0) {
-			Swal.fire("valores invalidos", "no se puede aplicar un cobro extra y un descuento a la vez! , corriga", "warning");
-			return;
-		}
-		if (totalAPagar_arriendo != 0 || inputDescuento != 0 || inputExtra != 0) {
-			if (inputNumFacturacion == 0 || $("#inputFileFacturacion").val().length == 0) {
-				Swal.fire("faltan datos en el formulario", "debe ingresar el Nº facturacion con su respectivo comprobante", "warning");
-				return;
-			}
-		}
-		alertQuestion(async () => {
-			$("#spinner_btn_actualizar_pago").show();
-			$("#actualizar_pago_arriendo").attr("disabled", true);
-			const form = $("#form_pagos_pendientes")[0];
-			const data = new FormData(form);
-			data.append("arrayPagos", JSON.stringify(array_id_pagos));
-			data.append("descuento_pago", inputDescuento);
-			data.append("extra_pago", inputExtra);
-			data.append("inputDocumento", inputFileFacturacion);
-			data.append("inputObservaciones", inputObservaciones);
-			data.append("inputEstado", "PAGADO");
-			data.append("id_arriendo", $("#id_arriendo_recepcion").val());
-			data.append("estado", "FINALIZADO");
-			const responseDescuento = await descuentoPago(data);
-			if (responseDescuento.success) {
-				if ($("#inputFileFacturacion").val().length != 0) {
-					const responseFactura = await guardarDatosFactura(data);
-					if (responseFactura.success) {
-						data.append("id_facturacion", responseFactura.data.id_facturacion);
-						await guardarDocumentoFactura(data);
-					}
-				}
-				const responsePago = await actualizarPagos(data);
-				if (responsePago.success) {
-					await cambiarEstadoArriendo(data);
-					refrescarTablaActivos();
-					$("#modalPagoArriendo").modal("toggle");
-					Swal.fire("Pago Actualizado!", "se a actualizado exitosamente el pago", "success")
-				}
-			}
-			$("#spinner_btn_actualizar_pago").hide();
-			$("#actualizar_pago_arriendo").attr("disabled", false);
-		})
-	});
+
 
 
 
@@ -433,24 +452,6 @@ $(document).ready(() => {
 
 
 
-	const descuentoPago = async (data) => {
-		return await ajax_function(data, "aplicarDescuento_UltimoPago");
-	}
-
-
-	const guardarDatosFactura = async (data) => {
-		return await ajax_function(data, "registrar_facturacion");
-	};
-
-
-	const guardarDocumentoFactura = async (data) => {
-		return await ajax_function(data, "guardar_documentoFacturacion");
-	};
-
-
-	const actualizarPagos = async (data) => {
-		return await ajax_function(data, "actualizar_pagos");
-	}
 
 
 	const agregarFotoACarrucelRecepcion = (array) => {
@@ -487,10 +488,48 @@ $(document).ready(() => {
 		return await ajax_function(data, "cambiarEstado_vehiculo");
 	};
 
-
-	const extenderContrato = async (data) => {
+	const actualizarArriendo = async (data) => {
+		data.append("diasActuales", $("#inputNumeroDias_extenderPlazo").val());
+		data.append("diasAcumulados", Number($("#inputDiasAcumulados_extenderPlazo").val()) + Number($("#inputNumeroDias_extenderPlazo").val()));
+		data.append("inputFechaExtender_extenderPlazo", $("#inputFechaExtender_extenderPlazo").val())
 		return await ajax_function(data, "extender_arriendo");
 	}
+
+	const guardarPagoArriendo = async (data) => {
+		data.append("inputIdArriendo", $("#id_arriendo_extencion").val());
+		data.append("inputSubTotalArriendo", $("#inputSubTotalArriendo_extenderPlazo").val());
+		data.append("inputPagoEmpresa", $("#inputPagoEmpresa_extenderPlazo").val());
+		data.append("inputValorCopago", $("#inputValorCopago_extenderPlazo").val());
+		data.append("inputNeto", $("#inputNeto_extenderPlazo").val());
+		data.append("inputIVA", $("#inputIVA_extenderPlazo").val());
+		data.append("inputDescuento", $("#inputDescuento_extenderPlazo").val());
+		data.append("inputTotal", $("#inputTotal_extenderPlazo").val());
+		data.append("inputObservaciones", $("#inputObservaciones_extenderPlazo").val());
+		data.append("digitador", $("#inputDigitador_extenderPlazo").val());
+		return await ajax_function(data, "registrar_pagoArriendo");
+	}
+
+	const guardarPagoCliente = async (data) => {
+		data.append("inputDeudor", $("#inputDeudor_extenderPlazo").val());
+		data.append("inputNeto", $("#inputNeto_extenderPlazo").val());
+		data.append("inputIVA", $("#inputIVA_extenderPlazo").val());
+		data.append("inputTotal", $("#inputTotal_extenderPlazo").val());
+		data.append("inputEstado", "PENDIENTE");
+		return await ajax_function(data, "registrar_pago");
+	}
+
+
+	const guardarPagoRemplazo = async (data) => {
+		data.append("inputEstado", "PENDIENTE");
+		data.append("inputDeudor", $("#inputDeudorCopago_extenderPlazo").val());
+		data.append("inputNeto", $("#inputPagoEmpresa_extenderPlazo").val());
+		data.append("inputIVA", $("#inputPagoIvaEmpresa_extenderPlazo").val());
+		data.append("inputTotal", $("#inputPagoTotalEmpresa_extenderPlazo").val());
+		return await ajax_function(data, "registrar_pago");
+	}
+
+
+
 
 
 	const temporizador = (fechaRecepcion_arriendo, id_arriendo) => {
@@ -501,6 +540,26 @@ $(document).ready(() => {
 		time = setInterval(function () {
 			alertaTemporizador(countDownDate, fechaFinal, time, id_arriendo);
 		}, 1000);
+	};
+
+	const capturarAccesorios = async () => {
+		//cacturando los accesorios
+		const matrizAccesorios = [];
+		const arrayIdAccesorios = [];
+		const arrayValorAccesorios = [];
+		const list = $('[name="accesorios[]"]');
+		for (let i = 0; i < list.length; i++) {
+			let element = list[i];
+
+			if (element.value > 0 && element.length != 0) {
+				arrayIdAccesorios.push(element.id);
+				arrayValorAccesorios.push(element.value);
+			}
+		}
+		matrizAccesorios.push(arrayIdAccesorios);
+		matrizAccesorios.push(arrayValorAccesorios);
+
+		return matrizAccesorios;
 	};
 
 
@@ -555,7 +614,7 @@ $(document).ready(() => {
 			let viewTime = "";
 			if (arriendo.estado_arriendo == "ACTIVO") {
 				viewTime = `<div id=time${arriendo.id_arriendo}> </div>`;
-				btnExtender = ` <button value='${arriendo.id_arriendo}' onclick='buscarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> `
+				btnExtender = ` <button value='${arriendo.id_arriendo}' onclick='mostrarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> `
 				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='mostrarRecepcionArriendo(this.value)' data-toggle='modal'  data-target='#modal_ArriendoFinalizar'  class='btn btn btn-outline-dark'><i class="fas fa-external-link-square-alt"></i></button>`;
 			} else {
 				viewTime = "<div> RECEPCIONADO </div>";
