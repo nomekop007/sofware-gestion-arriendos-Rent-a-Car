@@ -322,7 +322,7 @@ $(document).ready(() => {
                         await ajax_function(data, "guardar_documentoFacturacion");
                     }
                 }
-                if ($('[name="customRadio3"]:checked').val() === "si") {
+                if ($('[name="customRadio3"]:checked').val() === "no") {
                     const data = new FormData();
                     data.append('id_pago', $("#id_pago").val());
                     await ajax_function(data, "actualizar_pagoAPagado")
@@ -386,7 +386,7 @@ $(document).ready(() => {
                                 await ajax_function(data, "guardar_documentoFacturacion");
                             }
                         }
-                        if ($('[name="customRadio3"]:checked').val() === "si") {
+                        if ($('[name="customRadio3"]:checked').val() === "no") {
                             const data = new FormData();
                             data.append('id_pago', id_pago);
                             await ajax_function(data, "actualizar_pagoAPagado")
