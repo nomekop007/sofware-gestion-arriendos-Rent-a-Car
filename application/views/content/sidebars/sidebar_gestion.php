@@ -38,7 +38,7 @@ $rol = $this->session->userdata("rol");
                     <br>
                 </li>
             <?php } ?>
-            <?php if ($rol == 1) { ?>
+            <?php if ($rol == 1 || $rol == 2) { ?>
                 <li class="nav-item" id="l_pagoCliente">
                     <br>
                     <a id="m_pagoCliente" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=5">

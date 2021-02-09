@@ -3,14 +3,14 @@ const formatter = new Intl.NumberFormat("CL");
 
 
 
-
 const mostrarArriendoExtender = async (id_arriendo) => {
-	limpiarFormulario();
+	limpiarFormularios();
 	const data = new FormData();
 	data.append("id_arriendo", id_arriendo);
 	const response = await ajax_function(data, "buscar_arriendo");
 	if (response.success) {
 		const arriendo = response.data;
+		await cargarExtencionesEnTabla(data)
 		$("#numeroArriendo").html("Nº " + arriendo.id_arriendo)
 		$("#titulo_numero_arriendo").html("Nº " + arriendo.id_arriendo)
 		$("#inputFechaRecepcion_extenderPlazo").val(moment(arriendo.fechaRecepcion_arriendo).format("YYYY/MM/DD hh:mm"));
@@ -36,12 +36,31 @@ const mostrarArriendoExtender = async (id_arriendo) => {
 	$("#formSpinner_extender_arriendo").hide();
 }
 
-
+const cargarExtencionesEnTabla = async (data) => {
+	//cargar en tabla solo se necesita la id_arriendo
+	const response = await ajax_function(data, "cargar_extenciones");
+	$.each(response.data, (i, { id_extencion, fechaInicio_extencion, fechaFin_extencion, dias_extencion, estado_extencion, patente_vehiculo }) => {
+		let fila = `
+        <tr>
+            <td scope="row"> ${i + 1} </td>
+            <td> ${moment(fechaInicio_extencion).format("YYYY/MM/DD hh:mm")} </td>
+            <td> ${moment(fechaFin_extencion).format("YYYY/MM/DD hh:mm")} </td>
+            <td> ${dias_extencion} </td>
+			<td> ${estado_extencion} </td>
+            <td> ${patente_vehiculo} </td>
+            <td>
+				<button class='btn btn-outline-info'  value='${id_extencion}'  onclick='mostrarExtencionContrato(this.value,${i + 1})' 
+				data-toggle='modal' data-target='#modal_firmar_contrato'><i class='fas fa-feather-alt'></i></button>
+			</td>
+        </tr>`;
+		$("#tbody_extenciones").append(fila)
+	})
+}
 
 
 
 const mostrarRecepcionArriendo = async (id_arriendo) => {
-	limpiarFormulario();
+	limpiarFormularios();
 	const data = new FormData();
 	data.append("id_despacho", id_arriendo);
 	data.append("id_arriendo", id_arriendo);
@@ -166,7 +185,7 @@ const calcularValores = () => {
 
 
 
-const limpiarFormulario = () => {
+const limpiarFormularios = () => {
 	$("#formSpinner_extender_arriendo").show();
 	$("#formSpinner_finalizar_arriendo").show();
 	$("#body_recepcion_arriendo").hide();
@@ -186,6 +205,7 @@ const limpiarFormulario = () => {
 	$(".ventana_pago_empresa_remplazo").hide();
 	$("#ventana_fotosDespacho").hide();
 	$("#ventana_actaEntrega").hide();
+	$("#tbody_extenciones").empty();
 }
 
 
@@ -303,44 +323,33 @@ $(document).ready(() => {
 			Swal.fire("Error en el formulario", "coloque 0 en los campos vacios", "warning");
 			return;
 		}
-
-
 		alertQuestion(async () => {
 			$("#spinner_btn_extenderArriendo").show();
 			$("#btn_extenderArriendo").attr("disabled", true)
-
 			const data = new FormData();
-
-			await actualizarArriendo(data);
-
-
-			const responsePagoArriendo = await guardarPagoArriendo(data);
-			data.append("id_pagoArriendo", responsePagoArriendo.pagoArriendo.id_pagoArriendo);
-
-			const matrizAccesorios = await capturarAccesorios();
-			if (matrizAccesorios[0].length != 0) {
-				data.append("matrizAccesorios", JSON.stringify(matrizAccesorios));
-				await ajax_function(data, "registrar_pagoAccesorios")
+			const response1 = await actualizarArriendo(data);
+			if (response1.success) {
+				const response2 = await guardarPagoArriendo(data);
+				if (response2.success) {
+					data.append("id_pagoArriendo", response2.pagoArriendo.id_pagoArriendo);
+					const matrizAccesorios = await capturarAccesorios();
+					if (matrizAccesorios[0].length != 0) {
+						data.append("matrizAccesorios", JSON.stringify(matrizAccesorios));
+						await ajax_function(data, "registrar_pagoAccesorios");
+					}
+					await guardarPagoCliente(data);
+					if ($("#inputTipoArriendo_extenderPlazo").val() === "REEMPLAZO" && $("#inputPagoEmpresa_extenderPlazo").val() > 0) {
+						await guardarPagoRemplazo(data);
+					}
+					const response3 = await guardarExtencion(data);
+					if (response3.success) {
+						await mostrarArriendoExtender(response3.data.id_arriendo);
+						refrescarTablaActivos();
+						Swal.fire("datos registrados con exito", "se registro la nueva extencion!", "success");
+						$("#modal_registrar_extencion").modal("toggle");
+					}
+				}
 			}
-
-			await guardarPagoCliente(data);
-
-			if ($("#inputTipoArriendo_extenderPlazo").val() === "REEMPLAZO" && $("#inputPagoEmpresa_extenderPlazo").val() > 0) {
-				await guardarPagoRemplazo(data);
-			}
-
-
-
-			// crear entidad extencion con los datos
-			data.append("patente_vehiculo", $("#inputVehiculo_extenderPlazo").val());
-			data.append("id_arriendo", $("#id_arriendo_extencion").val());
-			//data.append("id_pagoArriendo",responsePagoArriendo.pagoArriendo.id_pagoArriendo)
-			//data.append("diasActuales", $("#inputNumeroDias_extenderPlazo").val());
-			data.append("fechaInicio", $("#inputFechaRecepcion_extenderPlazo").val())
-			data.append("fechaFin", $("#inputFechaExtender_extenderPlazo").val())
-			data.append("estado_extencion", "Sin firmar");
-
-
 			$("#spinner_btn_extenderArriendo").hide();
 			$("#btn_extenderArriendo").attr("disabled", false)
 		})
@@ -374,11 +383,7 @@ $(document).ready(() => {
 					await cambiarEstadoArriendo(data);
 					refrescarTablaActivos();
 					$("#modal_ArriendoFinalizar").modal("toggle");
-					Swal.fire(
-						"Arriendo finalizado!",
-						"Arriendo finalizado con exito!",
-						"success"
-					);
+					Swal.fire("Arriendo finalizado!", "Arriendo finalizado con exito!", "success");
 				}
 			}
 			$("#btn_finalizar_arriendo").attr("disabled", false);
@@ -489,6 +494,7 @@ $(document).ready(() => {
 	};
 
 	const actualizarArriendo = async (data) => {
+		data.append("id_arriendo", $("#id_arriendo_extencion").val());
 		data.append("diasActuales", $("#inputNumeroDias_extenderPlazo").val());
 		data.append("diasAcumulados", Number($("#inputDiasAcumulados_extenderPlazo").val()) + Number($("#inputNumeroDias_extenderPlazo").val()));
 		data.append("inputFechaExtender_extenderPlazo", $("#inputFechaExtender_extenderPlazo").val())
@@ -529,7 +535,12 @@ $(document).ready(() => {
 	}
 
 
-
+	const guardarExtencion = async (data) => {
+		data.append("patente_vehiculo", $("#inputVehiculo_extenderPlazo").val());
+		data.append("fechaInicio", $("#inputFechaRecepcion_extenderPlazo").val())
+		data.append("fechaFin", $("#inputFechaExtender_extenderPlazo").val())
+		return await ajax_function(data, "registrar_extencion")
+	}
 
 
 	const temporizador = (fechaRecepcion_arriendo, id_arriendo) => {
@@ -570,7 +581,7 @@ $(document).ready(() => {
 		if (diff <= 0) {
 			clearInterval(time);
 			// If the count down is finished, write some text
-			$(`#time${id_arriendo}`).text("EXPIRADO");
+			$(`#time${id_arriendo}`).html("<div> EXPIRADO </div>");
 			$(`#time${id_arriendo}`).addClass("text-danger");
 		} else {
 			if (diasRestantes > 0) {
@@ -613,7 +624,7 @@ $(document).ready(() => {
 			let btnExtender = "";
 			let viewTime = "";
 			if (arriendo.estado_arriendo == "ACTIVO") {
-				viewTime = `<div id=time${arriendo.id_arriendo}> </div>`;
+				viewTime = `<div id=time${arriendo.id_arriendo}> EXPIRADO </div>`;
 				btnExtender = ` <button value='${arriendo.id_arriendo}' onclick='mostrarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> `
 				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='mostrarRecepcionArriendo(this.value)' data-toggle='modal'  data-target='#modal_ArriendoFinalizar'  class='btn btn btn-outline-dark'><i class="fas fa-external-link-square-alt"></i></button>`;
 			} else {

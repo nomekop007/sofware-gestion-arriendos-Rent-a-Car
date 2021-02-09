@@ -30,21 +30,14 @@
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
-                            <tbody id="tablaExtenciones">
-                                <tr>
-                                    <th scope="row"> 1 </th>
-                                    <td> 03-02-2020 </td>
-                                    <td> 05-02-2020</td>
-                                    <td> 2 </td>
-                                    <td> SIN FIRMA </td>
-                                    <td>FF-X5-6</td>
-                                    <td> <button class='btn btn-outline-info'><i class='fas fa-feather-alt'></i></button> </td>
-                                </tr>
+                            <tbody id="tbody_extenciones">
+
                             </tbody>
                         </table>
                     </div>
+                    <br>
+                    <button data-toggle='modal' data-target='#modal_registrar_extencion' type="button" class="btn btn-outline-primary">registrar nueva extencion </button>
                 </div>
-                <button data-toggle='modal' data-target='#modal_registrar_extencion' type="button" class="btn btn-outline-primary">registrar nueva extencion </button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>

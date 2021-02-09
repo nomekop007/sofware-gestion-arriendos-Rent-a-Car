@@ -159,6 +159,11 @@ $route['editar_reserva'] = 'Reserva_controller/editarReserva';
 $route['eliminar_reserva'] = 'Reserva_controller/eliminarReserva';
 
 
+/* rutas de controller extencion */
+$route['registrar_extencion'] = 'Extencion_controller/registrarExtencion';
+$route['cargar_extenciones'] = 'Extencion_controller/cargarExtenciones';
+
+
 /* rutas de controller abono */
 $route['registrar_abono'] = 'Abono_controller/registrarAbono';
 
