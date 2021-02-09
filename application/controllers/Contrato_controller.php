@@ -14,6 +14,16 @@ class Contrato_controller extends CI_Controller
         echo post_function($dataArray, "contratos/registrarContrato");
     }
 
+    public function registrarExtencionContrato()
+    {
+        $dataArray = [
+            "id_extencion" => $this->input->post("id_extencion"),
+            "base64" => $this->input->post("base64"),
+        ];
+        echo post_function($dataArray, "contratos/registrarExtencionContrato");
+    }
+
+
     public function subirContrato()
     {
         $id_arriendo = $this->input->post("id_arriendo");
@@ -21,6 +31,16 @@ class Contrato_controller extends CI_Controller
         $arrayData = recorrerFicheros($arrayInput);
         echo file_function($id_arriendo, $arrayData, "contratos/subirContrato");
     }
+
+    public function subirExtencionContrato()
+    {
+        $id_extencion = $this->input->post("id_extencion");
+        $arrayInput = ["inputContrato"];
+        $arrayData = recorrerFicheros($arrayInput);
+        echo file_function($id_extencion, $arrayData, "contratos/subirExtencionContrato");
+    }
+
+
 
     public function generarPDFcontrato()
     {
@@ -38,6 +58,7 @@ class Contrato_controller extends CI_Controller
     {
         $dataArray = [
             "id_extencion" => $this->input->post("id_extencion"),
+            "n_extencion" => $this->input->post("n_extencion"),
             "firmaClientePNG" => $this->input->post("inputFirmaClientePNG"),
             "firmaUsuarioPNG" => $this->input->post("inputFirmaUsuarioPNG"),
             "geolocalizacion" => $this->input->post("geolocalizacion"),
@@ -51,5 +72,13 @@ class Contrato_controller extends CI_Controller
             "id_arriendo" => $this->input->post("id_arriendo"),
         ];
         echo post_function($arrayForm, "contratos/enviarCorreoContrato");
+    }
+
+    public function enviarCorreoContratoExtencion()
+    {
+        $arrayForm = [
+            "id_extencion" => $this->input->post("id_extencion"),
+        ];
+        echo post_function($arrayForm, "contratos/enviarCorreoContratoExtencion");
     }
 }

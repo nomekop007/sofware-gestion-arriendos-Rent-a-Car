@@ -3,7 +3,7 @@
     <div class="modal-dialog  modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal_firmar_contrato">Firmar Extencion  <span id=title_contrato></span> </h5>
+                <h5 class="modal-title" id="modal_firmar_contrato">Firmar contrato extencion <span id=title_contrato></span> </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -16,8 +16,8 @@
                 </div>
             </div>
             <div class="modal-body" id="formContratoArriendo">
-                <input type="text" id="id_arriendoContrato" hidden>
-                <input type="text" id="estado_arriendo" hidden>
+                <input type="text" id="id_extencion" hidden>
+                <input type="text" id="n_extencion" hidden>
                 <div class="container ">
                     <a class="row justify-content-md-center btn-success" id="descargar_contrato">
                         <i class="fas fa-download"></i>
@@ -41,7 +41,7 @@
                             <label class="custom-control-label" for="radioSubir">Subir contrato firmado</label>
                         </div>
                     </div>
-                    <div class="row" id="body-firma">
+                    <div class="row" id="body-firma-extencion">
                         <div class="container col-md-6">
                             <br>
                             <h6 class="text-center">Firma arrendatario/a:</h6>
@@ -72,26 +72,26 @@
                         </div>
                         <br><br>
                         <div class="col-md-12 text-center">
-                            <button type="button" id="btn_firmar_contrato" class="btn btn-success btn-sm ">
+                            <button type="button" id="btn_firmar_extencion" class="btn btn-success btn-sm ">
                                 firmar contrato
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_firmarContrato"></span>
                             </button>
-                            <button type="button" id="btn_confirmar_contrato" class="btn btn-primary btn-sm ">
+                            <button type="button" id="btn_confirmar_extencion" class="btn btn-primary btn-sm ">
                                 Guardar cambios
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_confirmarContrato"></span>
                             </button>
                         </div>
                     </div>
-                    <div class="row" id="body-subir-contrato">
+                    <div class="row" id="body-subir-extencion">
                         <div class="container col-md-12">
                             <br><br><br><br>
                             <div class="row justify-content-md-center">
-                                <input type="file" id="inputSubirContrato" name="inputSubirContrato">
+                                <input type="file" id="inputSubirExtencion" name="inputSubirExtencion">
                             </div>
                         </div>
                         <div class="container col-md-12 text-center">
                             <br><br><br><br><br>
-                            <button type="button" id="btn_subir_contrato" class="btn btn-primary  ">
+                            <button type="button" id="btn_subir_extencion" class="btn btn-primary  ">
                                 Subir contrato firmado
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_subirContrato"></span>
                             </button>

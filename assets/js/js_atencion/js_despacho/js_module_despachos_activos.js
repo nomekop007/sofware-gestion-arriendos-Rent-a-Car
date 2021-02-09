@@ -39,19 +39,31 @@ const mostrarArriendoExtender = async (id_arriendo) => {
 const cargarExtencionesEnTabla = async (data) => {
 	//cargar en tabla solo se necesita la id_arriendo
 	const response = await ajax_function(data, "cargar_extenciones");
-	$.each(response.data, (i, { id_extencion, fechaInicio_extencion, fechaFin_extencion, dias_extencion, estado_extencion, patente_vehiculo }) => {
+	const resposeArriendo = await ajax_function(data, "buscar_arriendo");
+	let array = orderByCreatedAt(resposeArriendo.data.pagosArriendos);
+	array = array.map((pago) => pago.id_pagoArriendo);
+	$.each(response.data, (i, { id_pagoArriendo, id_extencion, fechaInicio_extencion, fechaFin_extencion, dias_extencion, estado_extencion, patente_vehiculo }) => {
+		let n = array.indexOf(id_pagoArriendo);
+		let btn = '';
+		let estado = '';
+		if (estado_extencion != "FIRMADO") {
+			btn = `<button class='btn btn-outline-info'  value='${id_extencion}'  onclick='mostrarExtencionContrato(this.value,${n})' 
+			data-toggle='modal' data-target='#modal_firmar_contrato'><i class='fas fa-feather-alt'></i></button>`;
+			estado = `<div>${estado_extencion}</div>`
+		} else {
+			btn = '<div class="text-success"><i class="fas fa-check-circle fa-2x"></i></div>';
+			estado = `<div class="text-success">${estado_extencion}</div>`
+		}
+
 		let fila = `
         <tr>
-            <td scope="row"> ${i + 1} </td>
+            <td scope="row"> ${n} </td>
             <td> ${moment(fechaInicio_extencion).format("YYYY/MM/DD hh:mm")} </td>
             <td> ${moment(fechaFin_extencion).format("YYYY/MM/DD hh:mm")} </td>
             <td> ${dias_extencion} </td>
-			<td> ${estado_extencion} </td>
+			<td> ${estado} </td>
             <td> ${patente_vehiculo} </td>
-            <td>
-				<button class='btn btn-outline-info'  value='${id_extencion}'  onclick='mostrarExtencionContrato(this.value,${i + 1})' 
-				data-toggle='modal' data-target='#modal_firmar_contrato'><i class='fas fa-feather-alt'></i></button>
-			</td>
+            <td> ${btn} </td>
         </tr>`;
 		$("#tbody_extenciones").append(fila)
 	})
