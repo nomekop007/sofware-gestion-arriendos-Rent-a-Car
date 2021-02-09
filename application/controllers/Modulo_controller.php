@@ -126,7 +126,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 4:
-                    if ($rol == 1 || $rol == 2) {
+                    if ($rol == 1) {
                         $this->load->view('content/view_module/views_gestion/view_usuarios/view_module_usuarios');
                         $this->load->view('content/view_module/views_gestion/view_usuarios/view_modal_editarUsuario');
                     } else {
@@ -134,7 +134,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 5:
-                    if ($rol == 1) {
+                    if ($rol == 1 || $rol == 2) {
                         $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_tabla_pagoCliente');
                         $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_modal_pagoCliente');
                         $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_modal_infoPago');
