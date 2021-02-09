@@ -1,4 +1,4 @@
-const mostrarExtencionContrato = async (id_extencion,n) => {
+const mostrarExtencionContrato = async (id_extencion, n) => {
     limpiarCamposModalFirma();
     const data = new FormData();
     $("#title_contrato").html("Nº " + n)

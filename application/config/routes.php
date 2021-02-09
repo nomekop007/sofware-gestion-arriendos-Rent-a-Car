@@ -87,6 +87,7 @@ $route['buscar_requisito'] = 'Requisito_controller/buscarRequisitoArriendo';
 
 /* rutas de controller Contrato */
 $route['generar_PDFcontrato'] = 'Contrato_controller/generarPDFcontrato';
+$route['generar_PDFextencionContrato'] = 'Contrato_controller/generarPDFextencionContrato';
 $route['registrar_contrato'] = 'Contrato_controller/registrarContrato';
 $route['subir_contrato'] = 'Contrato_controller/subirContrato';
 $route['enviar_correoContrato'] = 'Contrato_controller/enviarCorreoContrato';

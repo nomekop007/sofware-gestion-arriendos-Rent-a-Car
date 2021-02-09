@@ -34,6 +34,17 @@ class Contrato_controller extends CI_Controller
         echo post_function($dataArray, "contratos/generarPDFcontrato");
     }
 
+    public function generarPDFextencionContrato()
+    {
+        $dataArray = [
+            "id_extencion" => $this->input->post("id_extencion"),
+            "firmaClientePNG" => $this->input->post("inputFirmaClientePNG"),
+            "firmaUsuarioPNG" => $this->input->post("inputFirmaUsuarioPNG"),
+            "geolocalizacion" => $this->input->post("geolocalizacion"),
+        ];
+        echo post_function($dataArray, "contratos/generarPDFextencion");
+    }
+
     public function enviarCorreoContrato()
     {
         $arrayForm = [
