@@ -24,6 +24,11 @@ class Arriendo_controller extends CI_Controller
         echo get_function("arriendos/cargarArriendosActivos", $params);
     }
 
+    public function finalizarArriendosRecepcionados()
+    {
+        echo get_function("arriendos/finalizarArriendosRecepcionados");
+    }
+
     public function buscarArriendo()
     {
         $id_arriendo = $this->input->post("id_arriendo");
@@ -62,14 +67,10 @@ class Arriendo_controller extends CI_Controller
     {
         $idArriendo = $this->input->post("id_arriendo");
         $salida = $this->input->post("kilometraje_salida");
-
-        $ArrayData = [
-            "estado_arriendo" => $this->input->post("estado"),
-        ];
+        $ArrayData = ["estado_arriendo" => $this->input->post("estado")];
         if ($salida) {
             $ArrayData += ["kilometrosSalida_arriendo" => $salida];
         }
-
         echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
     }
 
@@ -91,22 +92,13 @@ class Arriendo_controller extends CI_Controller
 
     public function extenderArriendo()
     {
-        // se validac que el usuario sea un admin o supervisor
-        $rol = $this->session->userdata("rol");
-        if ($rol == 1 || $rol == 2) {
-            $idArriendo = $this->input->post("id_arriendo");
-            $ArrayData = [
-                "estado_arriendo" => "EXTENDIDO",
-                "fechaEntrega_arriendo" => $this->input->post("fechaEntrega"),
-                "fechaRecepcion_arriendo" => $this->input->post("inputFechaExtender_extenderPlazo"),
-                "diasActuales_arriendo" => $this->input->post("diasActuales"),
-                "diasAcumulados_arriendo" => $this->input->post("diasAcumulados"),
-
-            ];
-            echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
-        } else {
-            echo json_encode(array("success" => false, "msg" => "no tienes los permisos necesarios para extender contrato"));
-        }
+        $idArriendo = $this->input->post("id_arriendo");
+        $ArrayData = [
+            "fechaRecepcion_arriendo" => $this->input->post("inputFechaExtender_extenderPlazo"),
+            "diasActuales_arriendo" => $this->input->post("diasActuales"),
+            "diasAcumulados_arriendo" => $this->input->post("diasAcumulados"),
+        ];
+        echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
     }
 
 

@@ -65,6 +65,7 @@ const cargarArriendos = async () => {
 	$("#spinner_tablaTotalArriendos").show();
 	const response = await ajax_function(null, "cargar_arriendos");
 	if (response.success) {
+		tablaTotalArriendos.row().clear().draw(false);
 		$.each(response.data, (i, arriendo) => {
 			cargarArriendoEnTabla(arriendo);
 		});

@@ -367,6 +367,7 @@ $(document).ready(() => {
 		$("#spinner_tablaClientes").show();
 		const response = await ajax_function(null, "cargar_clientes");
 		if (response.success) {
+			tablaCliente.row().clear().draw(false);
 			$.each(response.data, (i, o) => {
 				try {
 					tablaCliente.row
@@ -393,6 +394,7 @@ $(document).ready(() => {
 		$("#spinner_tablaEmpresas").show();
 		const response = await ajax_function(null, "cargar_empresas");
 		if (response.success) {
+			tablaEmpresa.row().clear().draw(false);
 			$.each(response.data, (i, o) => {
 				try {
 					tablaEmpresa.row
@@ -417,6 +419,7 @@ $(document).ready(() => {
 		$("#spinner_tablaConductores").show();
 		const response = await ajax_function(null, "cargar_conductores");
 		if (response.success) {
+			tablaConductor.row().clear().draw(false);
 			$.each(response.data, (i, o) => {
 				try {
 					tablaConductor.row

@@ -52,13 +52,15 @@ class Modulo_controller extends CI_Controller
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_tabla_despacho');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_despachar_arriendo');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_foto_despacho');
-                        $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_firma_despacho');
+                        $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_firmaActa_despacho');
+                        $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_firmaExtencion_despacho');
+
+                        
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_tabla_recepcion');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_danio_recepcion');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_extender_arriendo');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_recepcion_arriendo');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_foto_recepcion');
-                        $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_pago_recepcion');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_footer_despacho');
                     } else {
                         redirect(base_url());

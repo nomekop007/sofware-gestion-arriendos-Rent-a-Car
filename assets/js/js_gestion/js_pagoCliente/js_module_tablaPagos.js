@@ -92,6 +92,7 @@ $(document).ready(() => {
     const cargarTodosLosPagos = async () => {
         $("#spinner_tabla_pagos").show()
         const response = await ajax_function(null, "cargar_pagosCliente");
+        tabla_totalPagos.row().clear().draw(false);
         $.each(response.data, (i, pago) => {
             cargarTablaTotalPagos(pago);
         })

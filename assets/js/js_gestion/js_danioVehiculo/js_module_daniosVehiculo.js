@@ -65,7 +65,7 @@ $(document).ready(() => {
 		$("#spinner_tabla_danios_pendientes").show();
 		const response = await ajax_function(null, "cargar_todos_danios");
 		if (response.success) {
-			console.log(response.data);
+			tabla_pendientes_danios.row().clear().draw(false);
 			$.each(response.data, (i, danio) => {
 				cargar_danio_en_tabla_pendiente(danio);
 			})
@@ -78,7 +78,7 @@ $(document).ready(() => {
 		$("#spinner_tabla_danios").show();
 		const response = await ajax_function(null, "cargar_todos_danios");
 		if (response.success) {
-
+			tabla_todos_danios.row().clear().draw(false);
 			$.each(response.data, (i, danio) => {
 				cargar_danio_en_tabla(danio);
 			})

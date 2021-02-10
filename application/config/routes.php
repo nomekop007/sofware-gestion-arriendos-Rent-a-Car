@@ -87,9 +87,14 @@ $route['buscar_requisito'] = 'Requisito_controller/buscarRequisitoArriendo';
 
 /* rutas de controller Contrato */
 $route['generar_PDFcontrato'] = 'Contrato_controller/generarPDFcontrato';
+$route['generar_PDFextencionContrato'] = 'Contrato_controller/generarPDFextencionContrato';
 $route['registrar_contrato'] = 'Contrato_controller/registrarContrato';
+$route['registrar_extencionContrato'] = 'Contrato_controller/registrarExtencionContrato';
 $route['subir_contrato'] = 'Contrato_controller/subirContrato';
+$route['subir_extencionContrato'] = 'Contrato_controller/subirExtencionContrato';
 $route['enviar_correoContrato'] = 'Contrato_controller/enviarCorreoContrato';
+$route['enviar_correoExtencion'] = 'Contrato_controller/enviarCorreoContratoExtencion';
+
 
 /* rutas de controller arriendo  */
 $route['registrar_arriendo'] = 'Arriendo_controller/registrarArriendo';
@@ -99,6 +104,7 @@ $route['cambiarEstado_arriendo'] = 'Arriendo_controller/cambiarEstadoArriendo';
 $route['extender_arriendo'] = 'Arriendo_controller/extenderArriendo';
 $route['cargar_arriendosActivos'] = 'Arriendo_controller/cargarArriendosActivos';
 $route['enviarCorreo_alertaArriendo'] = 'Arriendo_controller/enviarCorreoAtraso';
+$route['finalizar_arriendos'] = 'Arriendo_controller/finalizarArriendosRecepcionados';
 
 
 /* rutas de controller ActaEntrega */
@@ -157,6 +163,11 @@ $route['buscar_reserva'] = 'Reserva_controller/buscarReserva';
 $route['registrar_reserva'] = 'Reserva_controller/registrarReserva';
 $route['editar_reserva'] = 'Reserva_controller/editarReserva';
 $route['eliminar_reserva'] = 'Reserva_controller/eliminarReserva';
+
+
+/* rutas de controller extencion */
+$route['registrar_extencion'] = 'Extencion_controller/registrarExtencion';
+$route['cargar_extenciones'] = 'Extencion_controller/cargarExtenciones';
 
 
 /* rutas de controller abono */
