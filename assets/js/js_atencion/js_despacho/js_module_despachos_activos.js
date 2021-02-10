@@ -258,7 +258,10 @@ $(document).ready(() => {
 	config.paging = false;
 	const tablaArriendosActivos = $("#tablaArriendosActivos").DataTable(config);
 
-	$("#nav-activos-tab").click(() => refrescarTablaActivos());
+	$("#nav-activos-tab").click(async () => {
+		await estadoArriendosRecepcionados();
+		refrescarTablaActivos();
+	});
 
 
 	$('#inputFechaRecepcion_extenderPlazo').datetimepicker({
@@ -311,20 +314,50 @@ $(document).ready(() => {
 
 
 
-	(cargarArriendosActivos = async () => {
+	const cargarArriendosActivos = async () => {
 		$("#spinner_tablaArriendoActivos").show();
 		const response = await ajax_function(null, "cargar_arriendosActivos");
-		ajax_function(null, "finalizar_arriendos");
-		if (response) {
+		if (response.success) {
 			tablaArriendosActivos.row().clear().draw(false);
 			$.each(response.data, (i, arriendo) => {
 				cargarArriendoActivosEnTabla(arriendo);
 			});
 		}
 		$("#spinner_tablaArriendoActivos").hide();
-	})();
+	}
 
 
+	const estadoArriendosRecepcionados = async () => {
+		const response = await ajax_function(null, "finalizar_arriendos");
+		if (response.success) {
+			if (response.data.length > 0) {
+				$("#accordionArriendos").empty();
+				$.each(response.data, (i, info) => {
+					mostrarCollapsibles(info, i);
+				});
+				$('#modal_estadoArriendoRecepcionados').modal('show');
+			}
+		}
+	}
+
+	const mostrarCollapsibles = (info, i) => {
+		const { id_arriendo, falta } = info;
+		$("#accordionArriendos").append(`
+		<div class="card">
+            <div class="card-header" id="heading${i}">
+                <h2 class="mb-0">
+                    <button class=" text-center btn scroll btn-outline-danger btn-block" type="button" data-toggle="collapse" data-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
+                     Se requieren las siguientes acciones para finalizar el arriendo Nº ${id_arriendo}  
+                    </button>
+                </h2>
+            </div>
+            <div id="collapse${i}" class="collapse" aria-labelledby="heading${i}" data-parent="#accordionArriendos">
+                <div class="card-body text-center">
+					${falta.map(({ msg }) => (`<br><i class="far text-danger fa-check-square"></i> ${msg} <br>`))}
+				</div>
+            </div>
+        </div>`);
+	}
 
 
 	$("#btn_extenderArriendo").click(() => {

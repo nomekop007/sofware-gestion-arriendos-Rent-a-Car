@@ -26,7 +26,10 @@ class Arriendo_controller extends CI_Controller
 
     public function finalizarArriendosRecepcionados()
     {
-        echo get_function("arriendos/finalizarArriendosRecepcionados");
+        $params = [
+            "sucursal" => $this->session->userdata('sucursal'),
+        ];
+        echo get_function("arriendos/finalizarArriendosRecepcionados", $params);
     }
 
     public function buscarArriendo()

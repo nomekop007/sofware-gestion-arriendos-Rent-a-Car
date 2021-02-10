@@ -33,5 +33,5 @@ function recorrerFicheros($arrayInput)
 function version()
 {
 	// return time();
-	return 130;
+	return 132;
 }
