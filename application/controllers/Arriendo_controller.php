@@ -24,6 +24,11 @@ class Arriendo_controller extends CI_Controller
         echo get_function("arriendos/cargarArriendosActivos", $params);
     }
 
+    public function finalizarArriendosRecepcionados()
+    {
+        echo get_function("arriendos/finalizarArriendosRecepcionados");
+    }
+
     public function buscarArriendo()
     {
         $id_arriendo = $this->input->post("id_arriendo");
@@ -62,14 +67,10 @@ class Arriendo_controller extends CI_Controller
     {
         $idArriendo = $this->input->post("id_arriendo");
         $salida = $this->input->post("kilometraje_salida");
-
-        $ArrayData = [
-            "estado_arriendo" => $this->input->post("estado"),
-        ];
+        $ArrayData = ["estado_arriendo" => $this->input->post("estado")];
         if ($salida) {
             $ArrayData += ["kilometrosSalida_arriendo" => $salida];
         }
-
         echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
     }
 

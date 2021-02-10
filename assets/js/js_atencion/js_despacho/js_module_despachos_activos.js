@@ -19,6 +19,19 @@ const mostrarArriendoExtender = async (id_arriendo) => {
 		$("#body_extender_arriendo").show();
 		$("#inputTipoArriendo_extenderPlazo").val(arriendo.tipo_arriendo);
 		$("#inputDiasAcumulados_extenderPlazo").val(arriendo.diasAcumulados_arriendo);
+		if (arriendo.estado_arriendo === "RECEPCIONADO") {
+			$("#btn_extenderArriendo").hide();
+			$("#btn_extenderArriendo").attr("disabled", true);
+			$("#btn_modal_registrarExtencion").hide();
+			$("#btn_modal_registrarExtencion").attr("disabled", true);
+			$("#txt_modal_registrarExtencion").show()
+		} else {
+			$("#btn_extenderArriendo").show();
+			$("#btn_extenderArriendo").attr("disabled", false);
+			$("#btn_modal_registrarExtencion").show();
+			$("#btn_modal_registrarExtencion").attr("disabled", false);
+			$("#txt_modal_registrarExtencion").hide()
+		}
 		switch (arriendo.tipo_arriendo) {
 			case "PARTICULAR":
 				$("#inputDeudor_extenderPlazo").val(arriendo.rut_cliente);
@@ -301,7 +314,9 @@ $(document).ready(() => {
 	(cargarArriendosActivos = async () => {
 		$("#spinner_tablaArriendoActivos").show();
 		const response = await ajax_function(null, "cargar_arriendosActivos");
+		ajax_function(null, "finalizar_arriendos");
 		if (response) {
+			tablaArriendosActivos.row().clear().draw(false);
 			$.each(response.data, (i, arriendo) => {
 				cargarArriendoActivosEnTabla(arriendo);
 			});
@@ -641,8 +656,8 @@ $(document).ready(() => {
 				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='mostrarRecepcionArriendo(this.value)' data-toggle='modal'  data-target='#modal_ArriendoFinalizar'  class='btn btn btn-outline-dark'><i class="fas fa-external-link-square-alt"></i></button>`;
 			} else {
 				viewTime = "<div> RECEPCIONADO </div>";
-				btnExtender = "";
-				btnFinalizar = ` <button disabled value='${arriendo.id_arriendo}' onclick='mostrarPagosArriendo(this.value)' data-toggle='modal'  data-target='#modalPagoArriendo'  class='btn btn btn-outline-success'><i class="fas fa-pager"></i></button>`;
+				btnExtender = ` <button value='${arriendo.id_arriendo}' onclick='mostrarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> `
+				btnFinalizar = ` <button disabled value='${arriendo.id_arriendo}'   class='btn btn btn-outline-success'><i class="fas fa-check"></i></button>`;
 			}
 			tablaArriendosActivos.row
 				.add([

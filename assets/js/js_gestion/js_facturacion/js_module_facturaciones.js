@@ -218,6 +218,7 @@ $(document).ready(() => {
 		$("#spinner_tabla_pagos").show();
 		const response = await ajax_function(null, "cargar_pagosERpendientes");
 		if (response.success) {
+			tabla_pagosER.row().clear().draw(false);
 			$.each(response.data, (i, facturacion) => {
 				arrayClaveER.map((clave) => {
 					if (facturacion.deudor_pago === clave) {

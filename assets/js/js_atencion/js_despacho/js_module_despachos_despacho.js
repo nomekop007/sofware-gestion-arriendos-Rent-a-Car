@@ -101,6 +101,7 @@ $(document).ready(() => {
 		const data = new FormData();
 		data.append("filtro", "FIRMADO");
 		const response = await ajax_function(data, "cargar_arriendos");
+		tablaControldespacho.row().clear().draw(false);
 		if (response.success) {
 			$.each(response.data, (i, arriendo) => {
 				cargarArriendoEnTabla(arriendo);

@@ -115,6 +115,7 @@ $(document).ready(() => {
 		$("#spinner_tablaVehiculos").show();
 		const response = await ajax_function(null, "cargar_Vehiculos");
 		if (response.success) {
+			tablaVehiculos.row().clear().draw(false);
 			$.each(response.data, (i, vehiculo) => {
 				cargarVehiculoEnTabla(vehiculo);
 			});

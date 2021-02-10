@@ -104,6 +104,7 @@ $route['cambiarEstado_arriendo'] = 'Arriendo_controller/cambiarEstadoArriendo';
 $route['extender_arriendo'] = 'Arriendo_controller/extenderArriendo';
 $route['cargar_arriendosActivos'] = 'Arriendo_controller/cargarArriendosActivos';
 $route['enviarCorreo_alertaArriendo'] = 'Arriendo_controller/enviarCorreoAtraso';
+$route['finalizar_arriendos'] = 'Arriendo_controller/finalizarArriendosRecepcionados';
 
 
 /* rutas de controller ActaEntrega */

@@ -36,7 +36,8 @@
                         </table>
                     </div>
                     <br>
-                    <button data-toggle='modal' data-target='#modal_registrar_extencion' type="button" class="btn btn-outline-primary">registrar nueva extencion </button>
+                    <button id="btn_modal_registrarExtencion" data-toggle='modal' data-target='#modal_registrar_extencion' type="button" class="btn btn-outline-primary">registrar nueva extencion </button>
+                    <h6 id="txt_modal_registrarExtencion">si el arriendo esta recepcionado no es posible registrar una extencion.</h6>
                 </div>
             </div>
             <div class="modal-footer">
