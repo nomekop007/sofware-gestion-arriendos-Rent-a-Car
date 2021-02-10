@@ -55,7 +55,7 @@ class Modulo_controller extends CI_Controller
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_firmaActa_despacho');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_firmaExtencion_despacho');
 
-                        
+
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_tabla_recepcion');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_danio_recepcion');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_extender_arriendo');
@@ -104,7 +104,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 1:
-                    if ($rol == 1 || $rol == 2) {
+                    if ($rol == 1 || $rol == 2 || $rol == 3) {
                         $this->load->view('content/view_module/views_gestion/view_vehiculos/view_registrar_vehiculos');
                         $this->load->view('content/view_module/views_gestion/view_vehiculos/view_modal_editar_vehiculo');
                     } else {
@@ -112,7 +112,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 2:
-                    if ($rol == 1 || $rol == 2) {
+                    if ($rol == 1 || $rol == 2 || $rol == 3) {
                         $this->load->view('content/view_module/views_gestion/view_danioVehiculo/view_module_danioVehiculo');
                         $this->load->view('content/view_module/views_gestion/view_danioVehiculo/view_modal_subirComprobante');
                     } else {
@@ -120,7 +120,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 3:
-                    if ($rol == 1 || $rol == 2) {
+                    if ($rol == 1 || $rol == 2 || $rol == 3) {
                         $this->load->view('content/view_module/views_gestion/view_facturacion/view_module_facturacion');
                         $this->load->view('content/view_module/views_gestion/view_facturacion/view_modal_editarFactura');
                     } else {
@@ -136,7 +136,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 5:
-                    if ($rol == 1 || $rol == 2) {
+                    if ($rol == 1 || $rol == 2 || $rol == 3) {
                         $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_tabla_pagoCliente');
                         $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_modal_pagoCliente');
                         $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_modal_infoPago');

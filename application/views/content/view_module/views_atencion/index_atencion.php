@@ -11,17 +11,18 @@
                 <img style="width:30%;margin: 40px" src="<?php echo base_route() ?>assets/images/logo.png" />
             </div>
         </div>
-        <div hidden class="card  text-success">
+        <div class="card  text-success">
             <div class="m-4">
                 <h2>SISTEMA ACTUALIZADO!</h2>
                 <span>Cambios realizados:</span>
-                <li>Se agrego nuevo modulo "calendario de reservas".</li>
-                <li>Se modifico el modulo "gestion de clientes" y se agrego funcionalidad de registar cliente , registrar empresa y registrar conductor.</li>
-                <li>Se corrigio la baja calidad de imagen de las fotos en el modulo "gestion de despachos" .</li>
+                <li>Se modifico modulo "gestino de recepcion" y se modifico la funcionalidad de extencion de arriendos.</li>
+                <li><span class="text-danger">IMPORTANTE!!</span> Se agrego una condicion al generar el contrato de arriendo , desde ahora sera necesario subir el comprobante de pago correspondiente en el modulo "Facturacion pago cliente" antes de firmar el contrato (solo arriendos particulares y de empresa).</li>
+
+
             </div>
         </div>
         <br><br><br><br><br>
-        <div hidden id="card_alertas"></div>
+        <div id="card_alertas"></div>
     </div>
     </div>
     <br><br>
