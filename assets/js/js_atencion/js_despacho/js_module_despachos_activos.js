@@ -383,6 +383,11 @@ $(document).ready(() => {
 			Swal.fire("Error en el formulario", "coloque 0 en los campos vacios", "warning");
 			return;
 		}
+
+		if ($("#inputVehiculo_extenderPlazo").val() === "null") {
+			Swal.fire("Error en el formulario", "falto seleccionar el vehiculo", "warning");
+			return;
+		}
 		alertQuestion(async () => {
 			$("#spinner_btn_extenderArriendo").show();
 			$("#btn_extenderArriendo").attr("disabled", true)
