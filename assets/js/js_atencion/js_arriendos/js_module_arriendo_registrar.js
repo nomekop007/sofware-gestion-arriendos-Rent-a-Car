@@ -634,6 +634,8 @@ $(document).ready(() => {
 
 	const cambiarEstadoVehiculo = async (patente) => {
 		dataFormArriendo.append("inputPatenteVehiculo", patente);
+		dataFormArriendo.append("kilometraje_vehiculo", $("#inputEntrada").val());
+		dataFormArriendo.append("kilometros_mantencion", $("#inputMantencion").val());
 		dataFormArriendo.append("inputEstado", "RESERVADO");
 		await ajax_function(dataFormArriendo, "cambiarEstado_vehiculo");
 	};
