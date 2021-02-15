@@ -71,11 +71,11 @@
                         <div class=" col-lg-4">
                             <h5>Datos del arriendo</h5>
                             <div class="form-group">
-                                <label for="inputFechaRecepcion_extenderPlazo">Fecha de recepcion actual</label>
-                                <input disabled class="form-control" type="text" name="inputFechaRecepcion_extenderPlazo" id="inputFechaRecepcion_extenderPlazo" readonly required />
+                                <label for="inputFechaRecepcion_extenderPlazo">Fecha de inicio extencion</label>
+                                <input class="form-control" type="text" name="inputFechaRecepcion_extenderPlazo" id="inputFechaRecepcion_extenderPlazo" readonly required />
                             </div>
                             <div class="form-group">
-                                <label for="inputFechaExtender_extenderPlazo">Fecha a extender</label>
+                                <label for="inputFechaExtender_extenderPlazo">Fecha de finalizacion extencion</label>
                                 <input type="text" class="form-control" name="inputFechaExtender_extenderPlazo" id="inputFechaExtender_extenderPlazo" readonly required />
                             </div>
                             <div class="form-group">
