@@ -7,7 +7,6 @@ class Modulo_controller extends CI_Controller
 
     public function cargarModulosAtencion()
     {
-        $rol = $this->session->userdata("rol");
         if ($this->session->userdata("estado") === "true") {
             $this->load->view("templates/header");
             $this->load->view("content/navbars/navbar");
@@ -16,14 +15,10 @@ class Modulo_controller extends CI_Controller
             $opcion = $_GET["modulo"];
             switch ($opcion) {
                 case 0:
-                    if ($rol == 1 || $rol == 2 || $rol == 3) {
-                        $this->load->view('perfil');
-                    } else {
-                        redirect(base_url());
-                    }
+                    $this->load->view('perfil');
                     break;
                 case 1:
-                    if ($rol == 1 || $rol == 2 || $rol == 3) {
+                    if (validarPermiso(2)) {
                         $this->load->view('content/view_module/views_atencion/view_clientes/view_tablas_clientes');
                         $this->load->view('content/view_module/views_atencion/view_clientes/view_modal_ver_clientes');
                         $this->load->view('content/view_module/views_atencion/view_clientes/view_modal_registrarCliente');
@@ -34,7 +29,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 2:
-                    if ($rol == 1 || $rol == 2 || $rol == 3) {
+                    if (validarPermiso(3)) {
                         $this->load->view('content/view_module/views_atencion/view_arriendos/view_header_arriendo');
                         $this->load->view('content/view_module/views_atencion/view_arriendos/view_registrar_arriendo');
                         $this->load->view('content/view_module/views_atencion/view_arriendos/view_tabla_arriendos');
@@ -47,7 +42,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 3:
-                    if ($rol == 1 || $rol == 2 || $rol == 3) {
+                    if (validarPermiso(4)) {
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_header_despacho');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_tabla_despacho');
                         $this->load->view('content/view_module/views_atencion/view_despacho/view_modal_despachar_arriendo');
@@ -67,7 +62,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 4:
-                    if ($rol == 1 || $rol == 2 || $rol == 3) {
+                    if (validarPermiso(1)) {
                         $this->load->view('content/view_module/views_atencion/view_reservas/view_module_reservas');
                         $this->load->view('content/view_module/views_atencion/view_reservas/view_modal_agregar_reserva');
                         $this->load->view('content/view_module/views_atencion/view_reservas/view_modal_mostrar_reserva');
@@ -97,14 +92,10 @@ class Modulo_controller extends CI_Controller
             $opcion = $_GET["modulo"];
             switch ($opcion) {
                 case 0:
-                    if ($rol == 1 || $rol == 2 || $rol == 3) {
-                        $this->load->view('perfil');
-                    } else {
-                        redirect(base_url());
-                    }
+                    $this->load->view('perfil');
                     break;
                 case 1:
-                    if ($rol == 1 || $rol == 2 || $rol == 3) {
+                    if (validarPermiso(5)) {
                         $this->load->view('content/view_module/views_gestion/view_vehiculos/view_registrar_vehiculos');
                         $this->load->view('content/view_module/views_gestion/view_vehiculos/view_modal_editar_vehiculo');
                     } else {
@@ -112,7 +103,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 2:
-                    if ($rol == 1 || $rol == 2 || $rol == 3) {
+                    if (validarPermiso(6)) {
                         $this->load->view('content/view_module/views_gestion/view_danioVehiculo/view_module_danioVehiculo');
                         $this->load->view('content/view_module/views_gestion/view_danioVehiculo/view_modal_subirComprobante');
                     } else {
@@ -120,7 +111,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 3:
-                    if ($rol == 1 || $rol == 2 || $rol == 3) {
+                    if (validarPermiso(7)) {
                         $this->load->view('content/view_module/views_gestion/view_facturacion/view_module_facturacion');
                         $this->load->view('content/view_module/views_gestion/view_facturacion/view_modal_editarFactura');
                     } else {
@@ -128,7 +119,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 4:
-                    if ($rol == 1) {
+                    if (validarPermiso(9)) {
                         $this->load->view('content/view_module/views_gestion/view_usuarios/view_module_usuarios');
                         $this->load->view('content/view_module/views_gestion/view_usuarios/view_modal_editarUsuario');
                     } else {
@@ -136,7 +127,7 @@ class Modulo_controller extends CI_Controller
                     }
                     break;
                 case 5:
-                    if ($rol == 1 || $rol == 2 || $rol == 3) {
+                    if (validarPermiso(8)) {
                         $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_tabla_pagoCliente');
                         $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_modal_pagoCliente');
                         $this->load->view('content/view_module/views_gestion/view_pagoCliente/view_modal_infoPago');

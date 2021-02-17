@@ -98,9 +98,7 @@ $(document).ready(() => {
 
 	(cargarArriendos = async () => {
 		$("#spinner_tablaDespacho").show();
-		const data = new FormData();
-		data.append("filtro", "FIRMADO");
-		const response = await ajax_function(data, "cargar_arriendos");
+		const response = await ajax_function(null, "cargar_arriendosDespachos");
 		tablaControldespacho.row().clear().draw(false);
 		if (response.success) {
 			$.each(response.data, (i, arriendo) => {

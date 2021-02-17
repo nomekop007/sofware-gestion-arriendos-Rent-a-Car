@@ -8,7 +8,7 @@ $rol = $this->session->userdata("rol");
         <br>
         <ul class="nav flex-column">
             <br>
-            <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
+            <?php if (validarPermiso(1)) { ?>
                 <li class="nav-item" id="l_reserva">
                     <br>
                     <a id="m_reserva" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=4">
@@ -18,7 +18,7 @@ $rol = $this->session->userdata("rol");
                     <br>
                 </li>
             <?php } ?>
-            <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
+            <?php if (validarPermiso(2)) { ?>
                 <li class="nav-item" id="l_cliente">
                     <br>
                     <a id="m_cliente" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=1">
@@ -28,7 +28,7 @@ $rol = $this->session->userdata("rol");
                     <br>
                 </li>
             <?php } ?>
-            <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
+            <?php if (validarPermiso(3)) { ?>
                 <li class="nav-item" id="l_arriendo">
                     <br>
                     <a id="m_arriendo" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=2">
@@ -39,7 +39,7 @@ $rol = $this->session->userdata("rol");
                 </li>
             <?php } ?>
 
-            <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
+            <?php if (validarPermiso(4)) { ?>
                 <li class="nav-item" id="l_despacho">
                     <br>
                     <a id="m_despacho" class="nav-link" href="<?php echo base_url() ?>modulos_atencion?modulo=3">

@@ -27,10 +27,10 @@ function cargarSelect(ruta, idSelect) {
 	});
 }
 
-function cargarSelectSucursal(ruta, idSelect) {
+async function cargarSelectSucursal(ruta, idSelect) {
 	const url = base_url + ruta;
 	const select = document.getElementById(idSelect);
-	$.getJSON(url, (response) => {
+	await $.getJSON(url, (response) => {
 		if (response.success) {
 			$.each(response.data, (i, object) => {
 				const option = document.createElement("option");

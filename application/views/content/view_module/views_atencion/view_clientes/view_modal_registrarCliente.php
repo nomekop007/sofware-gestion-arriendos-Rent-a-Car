@@ -81,7 +81,9 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
+
                         <button type="submit" class="btn btn-success" id="btn_registrar_cliente">Registrar cliente</button>
+
                     </div>
                 </form>
             </div>

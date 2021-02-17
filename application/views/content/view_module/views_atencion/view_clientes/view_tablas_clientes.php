@@ -19,9 +19,12 @@
         <div class="tab-content" id="nav-tabContent">
             <br>
             <div class="tab-pane fade show active" id="nav-clientes" role="tabpanel" aria-labelledby="nav-clientes-tab">
-                <button class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_registrar_cliente">
-                    Registrar Cliente particular
-                </button>
+
+                <?php if (validarPermiso(12)) { ?>
+                    <button class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_registrar_cliente">
+                        Registrar Cliente particular
+                    </button>
+                <?php } ?>
                 <br><br>
                 <div class="scroll">
                     <table id="tablaClientes" class="table table-striped table-bordered" style="width:100%">
@@ -59,9 +62,11 @@
                 <br><br>
             </div>
             <div class="tab-pane fade" id="nav-empresas" role="tabpanel" aria-labelledby="nav-empresas-tab">
-                <button class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_registrar_empresa">
-                    Registrar cliente Empresa
-                </button>
+                <?php if (validarPermiso(13)) { ?>
+                    <button class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_registrar_empresa">
+                        Registrar cliente Empresa
+                    </button>
+                <?php } ?>
                 <br><br>
                 <div class="scroll">
                     <table id="tablaEmpresas" class="table table-striped table-bordered" style="width:100%">
@@ -99,9 +104,11 @@
                 <br><br>
             </div>
             <div class="tab-pane fade" id="nav-conductores" role="tabpanel" aria-labelledby="nav-conductores-tab">
-                <button class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_registrar_conductor">
-                    Registrar Conductor
-                </button>
+                <?php if (validarPermiso(14)) { ?>
+                    <button class="btn btn-outline-dark" data-toggle="modal" data-target="#modal_registrar_conductor">
+                        Registrar Conductor
+                    </button>
+                <?php } ?>
                 <br><br>
                 <div class="scroll">
                     <table id="tablaConductores" class="table table-striped table-bordered" style="width:100%">

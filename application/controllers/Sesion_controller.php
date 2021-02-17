@@ -26,7 +26,9 @@ class Sesion_controller extends CI_Controller
             "email" => $this->input->post("email_usuario"),
             "usertoken" => $this->input->post("userToken"),
         ];
-
+        $this->session->set_userdata($arrayUser);
+        $permisos = json_decode(find_function($this->input->post("id_rol"), "permisos/validarPermisos"));
+        $arrayUser += ["permisos" => $permisos];
         $this->session->set_userdata($arrayUser);
         echo json_encode(array("msg" => "OK"));
     }

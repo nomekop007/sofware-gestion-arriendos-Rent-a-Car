@@ -6,19 +6,38 @@ class Arriendo_controller extends CI_Controller
 {
     public function cargarArriendos()
     {
+        if (validarPermiso(10)) {
+            $params = [
+                "sucursal" => null,
+                "estado" => $this->input->post("filtro"),
+            ];
+            echo get_function("arriendos/cargarArriendos", $params);
+        } else {
+            $params = [
+                "sucursal" => $this->session->userdata('sucursal'),
+                "estado" => $this->input->post("filtro"),
+            ];
+            echo get_function("arriendos/cargarArriendos", $params);
+        }
+    }
+
+
+
+
+
+    public function cargarArriendosDespachos()
+    {
         $params = [
             "sucursal" => $this->session->userdata('sucursal'),
-            "rol" => $this->session->userdata('rol'),
-            "estado" => $this->input->post("filtro"),
+            "estado" => ["FIRMADO"],
         ];
-        echo get_function("arriendos/cargarArriendos", $params);
+        echo get_function("arriendos/cargarArriendosActivos", $params);
     }
 
     public function cargarArriendosActivos()
     {
         $params = [
             "sucursal" => $this->session->userdata('sucursal'),
-            "rol" => $this->session->userdata('rol'),
             "estado" => ["ACTIVO", "RECEPCIONADO"],
         ];
         echo get_function("arriendos/cargarArriendosActivos", $params);

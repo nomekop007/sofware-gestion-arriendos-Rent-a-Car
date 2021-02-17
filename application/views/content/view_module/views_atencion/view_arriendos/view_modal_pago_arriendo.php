@@ -1,7 +1,3 @@
-<?php
-$nombreUsuario = $this->session->userdata('nombre')
-?>
-
 <!-- Modal pago arriendo -->
 <div class="modal fade" id="modal_pago_arriendo" data-backdrop="static" style="overflow-y: scroll;" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -53,7 +49,7 @@ $nombreUsuario = $this->session->userdata('nombre')
                             <h5>Agregar mas detalles</h5>
                             <div class="form-group">
                                 <label for="inputDigitador">Digitado por</label>
-                                <input disabled type="text" class="form-control" id="inputDigitador" name="inputDigitador" value="<?php echo $nombreUsuario ?>" required>
+                                <input disabled type="text" class="form-control" id="inputDigitador" name="inputDigitador" value="<?php echo $this->session->userdata('nombre') ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputObservaciones">Observaciones</label>

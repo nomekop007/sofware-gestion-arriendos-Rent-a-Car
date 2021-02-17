@@ -8,7 +8,7 @@ $rol = $this->session->userdata("rol");
         <br>
         <ul class="nav flex-column">
             <br>
-            <?php if ($rol == 1 || $rol == 2) { ?>
+            <?php if (validarPermiso(5)) { ?>
                 <li class="nav-item " id="l_vehiculo">
                     <br>
                     <a id="m_vehiculo" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=1">
@@ -18,7 +18,7 @@ $rol = $this->session->userdata("rol");
                     <br>
                 </li>
             <?php } ?>
-            <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
+            <?php if (validarPermiso(6)) { ?>
                 <li class="nav-item " id="l_danios">
                     <br>
                     <a id="m_danios" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=2">
@@ -28,7 +28,7 @@ $rol = $this->session->userdata("rol");
                     <br>
                 </li>
             <?php } ?>
-            <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
+            <?php if (validarPermiso(7)) { ?>
                 <li class="nav-item " id="l_facturacion">
                     <br>
                     <a id="m_facturacion" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=3">
@@ -38,7 +38,7 @@ $rol = $this->session->userdata("rol");
                     <br>
                 </li>
             <?php } ?>
-            <?php if ($rol == 1 || $rol == 2 || $rol == 3) { ?>
+            <?php if (validarPermiso(8)) { ?>
                 <li class="nav-item" id="l_pagoCliente">
                     <br>
                     <a id="m_pagoCliente" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=5">
@@ -48,7 +48,7 @@ $rol = $this->session->userdata("rol");
                     <br>
                 </li>
             <?php } ?>
-            <?php if ($rol == 1) { ?>
+            <?php if (validarPermiso(9)) { ?>
                 <li class="nav-item" id="l_usuario">
                     <br>
                     <a id="m_usuario" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=4">

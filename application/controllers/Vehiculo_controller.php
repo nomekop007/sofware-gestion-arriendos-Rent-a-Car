@@ -7,11 +7,7 @@ class Vehiculo_controller extends CI_Controller
 
     public function cargarVehiculos()
     {
-        $params = [
-            "sucursal" => $this->session->userdata('sucursal'),
-            "rol" => $this->session->userdata('rol'),
-        ];
-        echo get_function("vehiculos/cargarVehiculos", $params);
+        echo get_function("vehiculos/cargarVehiculos");
     }
 
     public function buscarVehiculo()

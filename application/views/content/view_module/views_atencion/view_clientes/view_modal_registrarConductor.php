@@ -71,6 +71,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
                         <button type="submit" class="btn btn-success" id="btn_registrar_conductor">Registrar conductor</button>
+
                     </div>
                 </form>
             </div>

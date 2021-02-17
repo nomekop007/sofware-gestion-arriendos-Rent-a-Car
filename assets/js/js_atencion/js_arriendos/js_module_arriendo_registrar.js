@@ -100,6 +100,7 @@ $(document).ready(() => {
 
 	cargarSelectSucursal("cargar_Sucursales", "inputCiudadEntrega");
 	cargarSelectSucursal("cargar_Sucursales", "inputCiudadRecepcion");
+
 	cargarComunas("inputComunaCliente", "inputCiudadCliente");
 	cargarComunas("inputComunaEmpresa", "inputCiudadEmpresa");
 	cargarOlder("inputVigencia");
@@ -122,12 +123,24 @@ $(document).ready(() => {
 	})
 
 	//cargar vehiculos en select
+	const cargarSucursales = async () => {
+		console.log();
+		$("#selectSucursal").empty()
+		await cargarSelectSucursal("cargar_Sucursales", "selectSucursal");
+		$("#selectSucursal").val($("#id_sucursal").val())
+		cargarVehiculos();
+	}
+	cargarSucursales();
+
+
 
 	const cargarVehiculos = async () => {
+		$("#select_vehiculos").empty();
 		//select2 de los vehiculos
 		$("#select_vehiculos").select2(lenguajeSelect2);
 		const data = new FormData();
 		data.append("inputSucursal", $("#selectSucursal").val());
+		console.log($("#selectSucursal").val());
 		const response = await ajax_function(data, "cargar_VehiculosPorSucursal");
 		if (response.success) {
 			if (response.data) {
@@ -142,7 +155,7 @@ $(document).ready(() => {
 			}
 		}
 	}
-	cargarVehiculos();
+
 
 
 

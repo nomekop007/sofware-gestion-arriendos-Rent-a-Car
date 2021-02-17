@@ -1,23 +1,3 @@
-<?php
-switch ($this->session->userdata('sucursal')) {
-    case '1':
-        $sucursal = "TALCA";
-        break;
-    case '2':
-        $sucursal = "LINARES";
-        break;
-    case '3':
-        $sucursal = "CURICO";
-        break;
-    case '4':
-        $sucursal = "CONCEPCION";
-        break;
-    default:
-        $sucursal = "DESCONOCIDO";
-        break;
-}
-?>
-
 <div class="modal fade" id="modal_add_reserva" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -29,7 +9,7 @@ switch ($this->session->userdata('sucursal')) {
             </div>
             <div class="modal-body">
                 <form class="needs-validation" novalidate id="form_reserva">
-                    <input hidden type="text" id="selectSucursal" name="selectSucursal" value="<?php echo $sucursal ?>" disabled>
+                    <input hidden type="text" id="selectSucursal" name="selectSucursal" value="<?php echo $this->session->userdata('sucursal') ?>" disabled>
                     <div class="form-row card-body">
                         <div class="custom-control custom-radio custom-control-inline ">
                             <input onclick="tipoCliente(this.value);" type="radio" value="PARTICULAR" id="radioParticular" name="customRadio0" class="custom-control-input" checked>

@@ -1,7 +1,3 @@
-<?php
-$rol = $this->session->userdata("rol");
-?>
-
 <div class="modal fade" id="modal_ver" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
@@ -88,21 +84,21 @@ $rol = $this->session->userdata("rol");
                             <div id="card_documentos_cliente">
                             </div>
                             <br>
-                            <?php if ($rol == 1 || $rol == 2) { ?>
-                                <div class="card bg-light">
-                                    <h6>Editar foto Carnet</h6>
-                                    <div class="row text-center">
-                                        <div class="form-group col-xl-6 ">
-                                            <label for="inputCarnetFrontalCliente">(frontal)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCarnetFrontalCliente" name="inputCarnetFrontalCliente" required>
-                                        </div>
-                                        <div class="form-group col-xl-6 ">
-                                            <label for="inputCarnetTraseraCliente">(trasera)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCarnetTraseraCliente" name="inputCarnetTraseraCliente" required>
-                                        </div>
+                            <div class="card bg-light">
+                                <h6>Editar foto Carnet</h6>
+                                <div class="row text-center">
+                                    <div class="form-group col-xl-6 ">
+                                        <label for="inputCarnetFrontalCliente">(frontal)</label>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCarnetFrontalCliente" name="inputCarnetFrontalCliente" required>
+                                    </div>
+                                    <div class="form-group col-xl-6 ">
+                                        <label for="inputCarnetTraseraCliente">(trasera)</label>
+                                        <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCarnetTraseraCliente" name="inputCarnetTraseraCliente" required>
                                     </div>
                                 </div>
-                                <br>
+                            </div>
+                            <br>
+                            <?php if (validarPermiso(15)) { ?>
                                 <button type="submit" class="btn btn-dark" id="btn_editar_cliente">
                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_editar_cliente"></span>
                                     Editar cliente</button>
@@ -170,40 +166,40 @@ $rol = $this->session->userdata("rol");
                             <div id="card_documentos_empresa">
                             </div>
                             <br>
-                            <?php if ($rol == 1 || $rol == 2) { ?>
-                                <div class="card bg-light">
-                                    <h6>Editar foto Carnet</h6>
-                                    <div class="row text-center">
-                                        <div class="form-group col-xl-6 ">
-                                            <label for="inputCarnetFrontalEmpresa">(frontal)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCarnetFrontalEmpresa" name="inputCarnetFrontalEmpresa" required>
-                                        </div>
-                                        <div class="form-group col-xl-6 ">
-                                            <label for="inputCarnetTraseraEmpresa">(trasera)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCarnetTraseraEmpresa" name="inputCarnetTraseraEmpresa" required>
-                                        </div>
+                            <div class="card bg-light">
+                                <h6>Editar foto Carnet</h6>
+                                <div class="row text-center">
+                                    <div class="form-group col-xl-6 ">
+                                        <label for="inputCarnetFrontalEmpresa">(frontal)</label>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCarnetFrontalEmpresa" name="inputCarnetFrontalEmpresa" required>
+                                    </div>
+                                    <div class="form-group col-xl-6 ">
+                                        <label for="inputCarnetTraseraEmpresa">(trasera)</label>
+                                        <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf" type="file" class="form-control-file" id="inputCarnetTraseraEmpresa" name="inputCarnetTraseraEmpresa" required>
                                     </div>
                                 </div>
-                                <br><br>
+                            </div>
+                            <br><br>
 
-                                <div class="form-row">
-                                    <div class="form-group col-xl-6">
-                                        <h6 for="inputEstatuto">Editar documento estatuto</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputEstatuto" name="inputEstatuto" required>
-                                        <br>
-                                    </div>
-                                    <div class="form-group col-xl-6">
-                                        <h6 for="inputDocumentotRol">Editar documento rol </h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputDocumentotRol" name="inputDocumentotRol" required>
-                                        <br>
-                                    </div>
-                                    <div class="form-group col-xl-6">
-                                        <h6 for="inputDocumentoVigencia">Editar documento vigencia</h6>
-                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputDocumentoVigencia" name="inputDocumentoVigencia" required>
-                                        <br>
-                                    </div>
+                            <div class="form-row">
+                                <div class="form-group col-xl-6">
+                                    <h6 for="inputEstatuto">Editar documento estatuto</h6>
+                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputEstatuto" name="inputEstatuto" required>
+                                    <br>
                                 </div>
-                                <br>
+                                <div class="form-group col-xl-6">
+                                    <h6 for="inputDocumentotRol">Editar documento rol </h6>
+                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputDocumentotRol" name="inputDocumentotRol" required>
+                                    <br>
+                                </div>
+                                <div class="form-group col-xl-6">
+                                    <h6 for="inputDocumentoVigencia">Editar documento vigencia</h6>
+                                    <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputDocumentoVigencia" name="inputDocumentoVigencia" required>
+                                    <br>
+                                </div>
+                            </div>
+                            <br>
+                            <?php if (validarPermiso(16)) { ?>
                                 <button type="submit" class="btn btn-dark" id="btn_editar_empresa">
                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_editar_empresa"></span>
                                     Editar empresa</button>
@@ -285,21 +281,21 @@ $rol = $this->session->userdata("rol");
                             <div id="card_documentos_conductor">
                             </div>
                             <br>
-                            <?php if ($rol == 1 || $rol == 2) { ?>
-                                <div class="card bg-light">
-                                    <h6>Editar foto licencia de conducir</h6>
-                                    <div class="row text-center">
-                                        <div class="form-group col-xl-6 ">
-                                            <label for="inputlicenciaFrontalConductor">(frontal)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputlicenciaFrontalConductor" name="inputlicenciaFrontalConductor" required>
-                                        </div>
-                                        <div class="form-group col-xl-6 ">
-                                            <label for="inputlicenciaTraseraConductor">(trasera)</label>
-                                            <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf" type="file" class="form-control-file" id="inputlicenciaTraseraConductor" name="inputlicenciaTraseraConductor" required>
-                                        </div>
+                            <div class="card bg-light">
+                                <h6>Editar foto licencia de conducir</h6>
+                                <div class="row text-center">
+                                    <div class="form-group col-xl-6 ">
+                                        <label for="inputlicenciaFrontalConductor">(frontal)</label>
+                                        <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputlicenciaFrontalConductor" name="inputlicenciaFrontalConductor" required>
+                                    </div>
+                                    <div class="form-group col-xl-6 ">
+                                        <label for="inputlicenciaTraseraConductor">(trasera)</label>
+                                        <input accept="image/x-png,image/gif,image/jpeg ,image/jpg,application/pdf" type="file" class="form-control-file" id="inputlicenciaTraseraConductor" name="inputlicenciaTraseraConductor" required>
                                     </div>
                                 </div>
-                                <br>
+                            </div>
+                            <br>
+                            <?php if (validarPermiso(17)) { ?>
                                 <button type="submit" class="btn btn-dark" id="btn_editar_conductor">
                                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_editar_conductor"></span>
                                     Editar conductor</button>

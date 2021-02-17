@@ -1,35 +1,9 @@
-<?php
-switch ($this->session->userdata('sucursal')) {
-    case '1':
-        $sucursal = "TALCA";
-        break;
-    case '2':
-        $sucursal = "LINARES";
-        break;
-    case '3':
-        $sucursal = "CURICO";
-        break;
-    case '4':
-        $sucursal = "CONCEPCION";
-        break;
-    case '5':
-        $sucursal = "RANCAGUA";
-        break;
-    default:
-        $sucursal = "DESCONOCIDO";
-        break;
-}
-?>
-
-
 <!-- Tab donde se registran los arriendos -->
 <div class="tab-pane fade show active" id="nav-registrar" role="tabpanel" aria-labelledby="nav-registrar-tab">
     <br>
     <form class="needs-validation" novalidate id="form_registrar_arriendo">
         <!-- list de card de registrar arriendo -->
         <div class="row">
-
-
             <div class="col-lg-3">
                 <div class="list-group" id="list-tab" role="tablist">
                     <a class="list-group-item list-group-item-action list-group-item-dark active" id="list-arriendo-list" data-toggle="list" href="#list-arriendo" role="tab" aria-controls="arriendo"> Datos arriendo</a>
@@ -40,9 +14,11 @@ switch ($this->session->userdata('sucursal')) {
                     <a class="list-group-item list-group-item-action list-group-item-dark" id="list-vehiculo-list" data-toggle="list" href="#list-vehiculo" role="tab" aria-controls="vehiculo"> Seleccion de
                         vehiculo</a>
                     <br>
-                    <button type="submit" id="btn_crear_arriendo" class="btn btn-success ">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_registrar"></span>
-                        Registrar Arriendo</button>
+                    <?php if (validarPermiso(11)) { ?>
+                        <button type="submit" id="btn_crear_arriendo" class="btn btn-success ">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_registrar"></span>
+                            Registrar Arriendo</button>
+                    <?php } ?>
                 </div>
             </div>
 
@@ -87,10 +63,21 @@ switch ($this->session->userdata('sucursal')) {
                                         <option value="EMPRESA">ARRIENDO EMPRESA</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-xl-6">
-                                    <label for="selectSucursal">Agencia de Arriendo</label>
-                                    <input type="text" class="form-control " id="selectSucursal" name="selectSucursal" value="<?php echo $sucursal ?>" disabled>
-                                </div>
+                                <input hidden type="text" id="id_sucursal" value="<?php echo $this->session->userdata('sucursal') ?>" disabled>
+                                <?php if (!validarPermiso(10)) { ?>
+                                    <div class="form-group col-xl-6">
+                                        <label for="selectSucursal">Agencia de Arriendo</label>
+                                        <select name="selectSucursal" id="selectSucursal" class="form-control" disabled>
+                                        </select>
+                                    </div>
+                                <?php } ?>
+                                <?php if (validarPermiso(10)) { ?>
+                                    <div class="form-group col-xl-6">
+                                        <label for="selectSucursal">Seleccionar Agencia</label>
+                                        <select name="selectSucursal" id="selectSucursal" class="form-control" required>
+                                        </select>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>

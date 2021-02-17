@@ -120,7 +120,8 @@ const cargarArriendoEnTabla = (arriendo) => {
 				arriendo.patente_vehiculo,
 				arriendo.tipo_arriendo,
 				`<span class="${color}"> ${arriendo.estado_arriendo} </span>`,
-				`<button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
+				arriendo.sucursale.nombre_sucursal
+				, `<button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
                         data-toggle='modal' data-target='#modal_editar_arriendo' class='btn btn-outline-primary'><i class="fas fa-upload"></i></button>
                         <button id='b${arriendo.id_arriendo}' value='${arriendo.id_arriendo}' onclick='buscarArriendo(this.value,2)' 
                             data-toggle='modal' data-target='#modal_pago_arriendo' class='btn btn-outline-success'><i class="fas fa-money-bill-wave"></i></button> 

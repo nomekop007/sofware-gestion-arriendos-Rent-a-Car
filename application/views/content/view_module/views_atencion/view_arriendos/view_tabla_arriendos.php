@@ -11,6 +11,7 @@
                     <th>vehiculo</th>
                     <th>tipo arriendo</th>
                     <th>estado</th>
+                    <th>sucursal</th>
                     <th></th>
                 </tr>
             </thead>
@@ -24,6 +25,7 @@
                     <th>vehiculo</th>
                     <th>tipo arriendo</th>
                     <th>estado</th>
+                    <th>sucursal</th>
                     <th></th>
                 </tr>
             </tfoot>
