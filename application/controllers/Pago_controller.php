@@ -110,4 +110,13 @@ class Pago_controller extends CI_Controller
         ];
         echo put_function($id_pago, $dataArray, "pagos/actualizarUnPagoAPagado");
     }
+
+    public function actualizarMontoPago()
+    {
+        $id_pago = $this->input->post("id_pago");
+        $dataArray = [
+            'nuevo_monto' => $this->input->post("nuevo_monto")
+        ];
+        echo put_function($id_pago, $dataArray, "pagos/actualizarMontoPago");
+    }
 }

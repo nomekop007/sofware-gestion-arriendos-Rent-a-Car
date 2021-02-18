@@ -112,9 +112,11 @@
                         </div>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-dark" id="btn_registrar_vehiculo">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_registrar"></span>
-                        Registrar Vehiculo</button>
+                    <?php if (validarPermiso(19)) { ?>
+                        <button type="submit" class="btn btn-dark" id="btn_registrar_vehiculo">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_registrar"></span>
+                            Registrar Vehiculo</button>
+                    <?php } ?>
                 </form>
             </div>
 

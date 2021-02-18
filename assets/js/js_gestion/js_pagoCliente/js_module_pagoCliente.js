@@ -31,7 +31,7 @@ const modalSubirPago = async (id_pago) => {
         const pago = response.data;
         $("#id_pago").val(pago.id_pago);
         $("#titulo_modal").html(`Subir comprobante del arriendo Nº ${$("#id_arriendo").val()}`);
-        $("#deuda_pago").val("deuda: $ " + formatter.format(pago.total_pago));
+        $("#deuda_pago").val("monto: $ " + formatter.format(pago.total_pago));
         $("#dias_pago").val("dias: " + pago.pagosArriendo.dias_pagoArriendo);
         $("#fecha_registro").val("registro: " + formatearFechaHora(pago.createdAt));
     }
@@ -74,7 +74,17 @@ const tipoComprobante = (value) => {
     }
 };
 
+
+const recalcularPagoParcial = () => {
+    let totalParcila = 0;
+    for (let i = 0; i < $("#inputCantidad").val(); i++) {
+        totalParcila += Number($(`#abono${i}`).val());
+    }
+    $("#pagoTotal_parcial_pago").val("$ " + formatter.format(totalParcila));
+}
+
 const cantidadComprobantes = (value) => {
+    $("#pagoTotal_parcial_pago").val("0");
     $("#tbody_tabla_pagos").html('');
     for (let i = 0; i < value; i++) {
         let fila = `
@@ -94,7 +104,7 @@ const cantidadComprobantes = (value) => {
                 </select>
             </td>
              <td class="text-center">
-                <input maxLength="20" id="abono${i}" placeholder="$" type="number" class="form-control" required>
+                <input maxLength="20" oninput="recalcularPagoParcial()" value=0 id="abono${i}" placeholder="$" type="number" class="form-control" required>
             </td>
             <td class="text-center">
                 <input maxLength="20" id="numeroDoc${i}" placeholder="Nº Boleta/Factura" type="number" class="form-control" required>
@@ -123,6 +133,7 @@ const limpiar = () => {
     $("#deuda_pago").val('');
     $("#dias_pago").val('');
     $("#fecha_registro").val('');
+    $("#pagoTotal_parcial_pago").val("0");
 }
 
 
@@ -297,6 +308,7 @@ $(document).ready(() => {
 
     const guardarMuchosComprobantes = () => {
         let validacion = true;
+        let nuevoMonto = 0;
         for (let i = 0; i < $("#inputCantidad").val(); i++) {
             if ($(`#abono${i}`).val().length === 0 || $(`#numeroDoc${i}`).val().length === 0 || $(`#fileComprobante${i}`).val().length === 0) {
                 Swal.fire("faltan datos", "falta ingresar datos en la tabla", "warning");
@@ -309,6 +321,7 @@ $(document).ready(() => {
                 $("#spinner_btn_registrarMuchosPagos").show();
                 $("#btn_subirComprobates").attr("disabled", true)
                 for (let i = 0; i < $("#inputCantidad").val(); i++) {
+                    nuevoMonto += Number($(`#abono${i}`).val());
                     const data = new FormData();
                     data.append('id_pago', $("#id_pago").val());
                     data.append('pago_abono', $(`#abono${i}`).val());
@@ -322,11 +335,11 @@ $(document).ready(() => {
                         await ajax_function(data, "guardar_documentoFacturacion");
                     }
                 }
-                if ($('[name="customRadio3"]:checked').val() === "no") {
-                    const data = new FormData();
-                    data.append('id_pago', $("#id_pago").val());
-                    await ajax_function(data, "actualizar_pagoAPagado")
-                }
+                const data = new FormData();
+                data.append('id_pago', $("#id_pago").val());
+                data.append('nuevo_monto', nuevoMonto);
+                await ajax_function(data, "actualizar_montoPago");
+                await ajax_function(data, "actualizar_pagoAPagado");
                 $("#spinner_btn_registrarMuchosPagos").hide();
                 $("#btn_subirComprobates").attr("disabled", false)
                 limpiarBuscarPagos();
@@ -386,11 +399,9 @@ $(document).ready(() => {
                                 await ajax_function(data, "guardar_documentoFacturacion");
                             }
                         }
-                        if ($('[name="customRadio3"]:checked').val() === "no") {
-                            const data = new FormData();
-                            data.append('id_pago', id_pago);
-                            await ajax_function(data, "actualizar_pagoAPagado")
-                        }
+                        const data = new FormData();
+                        data.append('id_pago', id_pago);
+                        await ajax_function(data, "actualizar_pagoAPagado");
                     })
                     limpiarBuscarPagos();
                     Swal.fire("pago actualizado!", "se registraron los datos exitosamente!", "success");

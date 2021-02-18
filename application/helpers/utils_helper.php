@@ -33,18 +33,17 @@ function recorrerFicheros($arrayInput)
 function validarPermiso($id_permiso)
 {
 
-	$permisos = json_decode(find_function($_SESSION["rol"], "permisos/validarPermisos"));
+	/* $permisos = json_decode(find_function($_SESSION["rol"], "permisos/validarPermisos"));
 	foreach ($permisos as $value) {
 		if ($value === $id_permiso) {
 			return true;
 		}
-	}
-
-	/* 	foreach ($_SESSION["permisos"] as $value) {
+	} */
+	foreach ($_SESSION["permisos"] as $value) {
 		if ($value === $id_permiso) {
 			return true;
 		}
-	} */
+	}
 	return false;
 }
 
@@ -53,5 +52,5 @@ function validarPermiso($id_permiso)
 function version()
 {
 	// return time();
-	return 135;
+	return 136;
 }

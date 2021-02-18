@@ -13,7 +13,9 @@
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-link active" id="nav-registrarFactura-tab" data-toggle="tab" href="#nav-registrar" role="tab" aria-controls="nav-registrar" aria-selected="true">subir comprobante de pago</a>
-                <a class="nav-link" id="nav-pagostotal-tab" data-toggle="tab" href="#nav-pagos" role="tab" aria-controls="nav-pagos" aria-selected="false">lista de todos los pagos</a>
+                <?php if (validarPermiso(20)) { ?>
+                    <a class="nav-link" id="nav-pagostotal-tab" data-toggle="tab" href="#nav-pagos" role="tab" aria-controls="nav-pagos" aria-selected="false">lista de todos los pagos</a>
+                <?php } ?>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -42,9 +44,6 @@
                         <div class="form-group">
                             <input disabled type="text" class="form-control" id="nombreCliente">
                         </div>
-                    </div>
-                    <div class="col-md-5">
-                        <button disabled class="btn btn-success btn-sm" id="btn_pagoExtra" type="button">Añadir Pago Extra</button>
                     </div>
                 </div>
                 <br>
@@ -125,9 +124,9 @@
                                         <div class="form-row">
                                             <div class="form-group col-xl-12">
                                                 <h6>Aplicar descuento al pago total</h6>
-                                                <span style='font-size: 0.6rem;'>en caso de que el cliente devuelva el vehículo antes de tiempo ,o por
+                                                <p>en caso de que el cliente devuelva el vehículo antes de tiempo ,o por
                                                     cualquier inconveniente se
-                                                    puede aplicar un descuento al último pago realizado </span>
+                                                    puede aplicar un descuento al último pago realizado (el descuento no sera valido si este supera el monto del ultimo pago de la lista). </p>
                                             </div>
                                             <div class="form-group col-xl-6">
                                                 <label for="descuento_pago">descuento (bruto)($) </label>
@@ -149,9 +148,9 @@
                                         <div class="form-row">
                                             <div class="form-group col-xl-12">
                                                 <h6>Agregar pagos extras</h6>
-                                                <span style='font-size: 0.6rem;'>En caso de existir gastos extras , los cuales no figuraron en el
+                                                <p>En caso de existir gastos extras , los cuales no figuraron en el
                                                     contrato , se deben detallar en observaciones y colocar el pago extra el
-                                                    cual se le sumara al ultimo pago</span>
+                                                    cual se le sumara al ultimo pago</p>
                                             </div>
                                             <div class="form-group col-xl-12">
                                                 <label for="extra_pago">Pago adicional (bruto)($) </label>
@@ -167,7 +166,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>

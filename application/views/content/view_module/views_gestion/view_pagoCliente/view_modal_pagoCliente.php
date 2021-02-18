@@ -40,8 +40,10 @@
                     </div>
                     <div class="container card" id="card_un_comprobante">
                         <br>
+                        <h6>Arriendo particular o empresa: En caso de existir alguna diferencia con el monto del pago , se debe subir la boleta en el apartado pago parciales con el monto actualizado.</h6>
+                        <br>
                         <div class="container">
-                            <h6>Facturacion</h6>
+                            <h4>Facturacion</h4>
                             <div class="form-row card-body">
                                 <div class="custom-control custom-radio custom-control-inline ">
                                     <input type="radio" value="BOLETA" id="radioBoleta" name="customRadio1" class="custom-control-input" checked>
@@ -52,6 +54,7 @@
                                     <label class="custom-control-label" for="radioFactura">Factura</label>
                                 </div>
                             </div>
+
                         </div>
                         <div class="container">
                             <div class="form-row card-body">
@@ -64,7 +67,7 @@
                                     <input accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" id="inputFileFacturacion" name="inputFileFacturacion" required>
                                 </div>
                             </div>
-                            <h6>Metodo de pago</h6>
+                            <h4>Metodo de pago</h4>
                             <div class="form-row card-body">
                                 <div class="custom-control custom-radio custom-control-inline ">
                                     <input type="radio" value=1 id="radioEfectivo" name="customRadio2" class="custom-control-input" checked>
@@ -108,18 +111,11 @@
                                         <option value="10">10</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-xl-6"></div>
                                 <div class="form-group col-xl-3">
-                                    <label>Pago pendiente?</label>
-                                    <br>
-                                    <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value="no" id="no" name="customRadio3" class="custom-control-input" checked>
-                                        <label class="custom-control-label" for="no">no</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline ">
-                                        <input type="radio" value="si" id="si" name="customRadio3" class="custom-control-input">
-                                        <label class="custom-control-label" for="si">si</label>
-                                    </div>
+                                    <label>monto a cancelar</label>
+                                    <input disabled type="text" class="form-control" id="pagoTotal_parcial_pago">
+                                </div>
+                                <div class="form-group col-xl-6">
                                 </div>
                             </div>
                             <div class="scroll">

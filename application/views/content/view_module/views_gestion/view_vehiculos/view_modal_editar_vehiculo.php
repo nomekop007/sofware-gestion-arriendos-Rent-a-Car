@@ -129,9 +129,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" id="btn_editar_vehiculo" class="btn btn-primary">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_editarVehiculo"></span>
-                        Guardar cambios</button>
+                    <?php if (validarPermiso(18)) { ?>
+                        <button type="submit" id="btn_editar_vehiculo" class="btn btn-primary">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_editarVehiculo"></span>
+                            Guardar cambios</button>
+                    <?php } ?>
                 </div>
             </form>
         </div>
