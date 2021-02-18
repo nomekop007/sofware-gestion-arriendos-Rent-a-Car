@@ -24,6 +24,6 @@ jobs:
         script: |
           cd /var/www/imlchile.cl/rentacar_test/
           git checkout development
-          git pull
+          git pull grupo development
           composer install
           exit
