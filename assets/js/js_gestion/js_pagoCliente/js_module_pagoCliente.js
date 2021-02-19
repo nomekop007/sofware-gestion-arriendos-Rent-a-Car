@@ -22,6 +22,18 @@ const modalSubirPagoRemplazo = () => {
     $("#fecha_registro").val("cantidad de pagos: " + array_id_pagosRemplazo.length);
 }
 
+
+const modalSubirPagoExtra = async (id_pago) => {
+    limpiar();
+    const data = new FormData();
+    data.append("id_pago", id_pago);
+    const response = await ajax_function(data, "buscar_pago");
+    if (response.success) {
+        const pago = response.data;
+        $("#titulo_modal_pagoExtra").html(`arriendo Nº ${pago.pagosArriendo.id_arriendo}  monto: $ ${formatter.format(pago.total_pago)}`);
+    }
+}
+
 const modalSubirPago = async (id_pago) => {
     limpiar();
     const data = new FormData();
@@ -31,6 +43,7 @@ const modalSubirPago = async (id_pago) => {
         const pago = response.data;
         $("#id_pago").val(pago.id_pago);
         $("#titulo_modal").html(`Subir comprobante del arriendo Nº ${$("#id_arriendo").val()}`);
+        $("#deuda_real_pago").val(pago.total_pago);
         $("#deuda_pago").val("monto: $ " + formatter.format(pago.total_pago));
         $("#dias_pago").val("dias: " + pago.pagosArriendo.dias_pagoArriendo);
         $("#fecha_registro").val("registro: " + formatearFechaHora(pago.createdAt));
@@ -134,6 +147,7 @@ const limpiar = () => {
     $("#dias_pago").val('');
     $("#fecha_registro").val('');
     $("#pagoTotal_parcial_pago").val("0");
+    $("#deuda_real_pago").val("")
 }
 
 
@@ -176,6 +190,13 @@ $(document).ready(() => {
         }
     });
 
+
+
+    $("#btn_pagoExtraCliente").click(async () => {
+
+
+
+    });
 
 
 
@@ -308,15 +329,23 @@ $(document).ready(() => {
 
     const guardarMuchosComprobantes = () => {
         let validacion = true;
-        let nuevoMonto = 0;
+        let verificarMonto = 0;
         for (let i = 0; i < $("#inputCantidad").val(); i++) {
+            verificarMonto += Number($(`#abono${i}`).val());
             if ($(`#abono${i}`).val().length === 0 || $(`#numeroDoc${i}`).val().length === 0 || $(`#fileComprobante${i}`).val().length === 0) {
                 Swal.fire("faltan datos", "falta ingresar datos en la tabla", "warning");
                 validacion = false;
                 return;
             }
         }
+
+        if (verificarMonto !== Number($("#deuda_real_pago").val())) {
+            Swal.fire("monto incorrecto", "el monto acumulado no coincide con el monto a pagar", "warning");
+            return;
+        }
+
         if (validacion && $("#inputCantidad").val() != 'null') {
+            let nuevoMonto = 0;
             alertQuestion(async () => {
                 $("#spinner_btn_registrarMuchosPagos").show();
                 $("#btn_subirComprobates").attr("disabled", true)
@@ -339,7 +368,7 @@ $(document).ready(() => {
                 data.append('id_pago', $("#id_pago").val());
                 data.append('nuevo_monto', nuevoMonto);
                 await ajax_function(data, "actualizar_montoPago");
-                await ajax_function(data, "actualizar_pagoAPagado");
+                // await ajax_function(data, "actualizar_pagoAPagado");
                 $("#spinner_btn_registrarMuchosPagos").hide();
                 $("#btn_subirComprobates").attr("disabled", false)
                 limpiarBuscarPagos();
@@ -442,7 +471,10 @@ $(document).ready(() => {
                     pago.pagosArriendo.dias_pagoArriendo,
                     formatearFechaHora(pago.createdAt),
                     ` <button value='${pago.id_pago}' onclick='modalSubirPago(this.value)' data-toggle='modal' 
-                        data-target='#modal_pago' class='btn btn-outline-success'><i class="fas fa-money-bill-wave"></i></button>`
+                        data-target='#modal_pago' class='btn btn-outline-success'><i class="fas fa-money-bill-wave"></i></button>
+                    <button value='${pago.id_pago}' onclick='modalSubirPagoExtra(this.value)' data-toggle='modal' 
+                        data-target='#modal_pagoExtra' class='btn btn-outline-info'><i class="fas fa-plus"></i></button>
+                        `
                 ])
                 .draw(false);
         } catch (error) {

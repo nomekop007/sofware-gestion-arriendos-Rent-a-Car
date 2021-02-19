@@ -15,6 +15,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <input disabled type="text" class="form-control" id="deuda_pago">
+                                <input hidden type="text" class="form-control" id="deuda_real_pago">
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -40,7 +41,6 @@
                     </div>
                     <div class="container card" id="card_un_comprobante">
                         <br>
-                        <h6>Arriendo particular o empresa: En caso de existir alguna diferencia con el monto del pago , se debe subir la boleta en el apartado pago parciales con el monto actualizado.</h6>
                         <br>
                         <div class="container">
                             <h4>Facturacion</h4>
