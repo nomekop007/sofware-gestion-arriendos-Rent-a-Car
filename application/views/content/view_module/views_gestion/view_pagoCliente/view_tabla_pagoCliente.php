@@ -47,35 +47,41 @@
                     </div>
                 </div>
                 <br>
-                <h6>Cada pago que se muestra corresponde a cada contrato y extencion del arriendo. </h6>
-                <br>
-                <div class="scroll" id="tabla_cliente">
-                    <table id="tabla_pagosCliente" class="table table-striped table-bordered" style="width:100%">
-                        <thead class="btn-dark">
-                            <tr>
-                                <th scope="row">#</th>
-                                <th>cliente</th>
-                                <th>estado</th>
-                                <th>monto</th>
-                                <th>dias</th>
-                                <th>fecha registro</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                        <tfoot class="btn-dark">
-                            <tr>
-                                <th scope="row">#</th>
-                                <th>cliente</th>
-                                <th>estado</th>
-                                <th>monto</th>
-                                <th>dias</th>
-                                <th>fecha registro</th>
-                                <th></th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                <h6> Cada pago que se muestra corresponde a cada contrato y extencion del arriendo. </h6>
+                <br><br>
+                <div id="tabla_cliente">
+                    <button id="btn_pagosExtras" class="btn btn-outline-primary" data-toggle='modal' data-target='#modal_pagoExtra'>
+                        pagos extras y descuentos
+                    </button>
+                    <br><br><br>
+                    <div class="scroll">
+                        <table id="tabla_pagosCliente" class="table table-striped table-bordered" style="width:100%">
+                            <thead class="btn-dark">
+                                <tr>
+                                    <th scope="row">#</th>
+                                    <th>cliente</th>
+                                    <th>estado</th>
+                                    <th>monto</th>
+                                    <th>dias</th>
+                                    <th>fecha registro</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot class="btn-dark">
+                                <tr>
+                                    <th scope="row">#</th>
+                                    <th>cliente</th>
+                                    <th>estado</th>
+                                    <th>monto</th>
+                                    <th>dias</th>
+                                    <th>fecha registro</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
                 <div id="tabla_clienteRemplazo">
                     <div class="row">

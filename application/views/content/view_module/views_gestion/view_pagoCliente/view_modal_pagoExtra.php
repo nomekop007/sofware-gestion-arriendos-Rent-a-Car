@@ -2,8 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><span id="titulo_modal_pagoExtra"></span>
-                </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Registrar pago extra </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -31,11 +30,12 @@
                             </div>
                         </div>
                         <div class="col-md-1">
-                            <button id="btn_pagoExtraCliente" type="submit" class="btn btn-primary">
+                            <button id="btn_createPagoExtra" type="submit" class="btn btn-outline-success">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
                     </div>
+                    <p>El monto sera modificado en el ultimo pago</p>
                     <br>
                     <div class="scroll">
                         <table class="table">

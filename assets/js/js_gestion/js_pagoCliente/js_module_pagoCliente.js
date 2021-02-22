@@ -23,16 +23,7 @@ const modalSubirPagoRemplazo = () => {
 }
 
 
-const modalSubirPagoExtra = async (id_pago) => {
-    limpiar();
-    const data = new FormData();
-    data.append("id_pago", id_pago);
-    const response = await ajax_function(data, "buscar_pago");
-    if (response.success) {
-        const pago = response.data;
-        $("#titulo_modal_pagoExtra").html(`arriendo Nº ${pago.pagosArriendo.id_arriendo}  monto: $ ${formatter.format(pago.total_pago)}`);
-    }
-}
+
 
 const modalSubirPago = async (id_pago) => {
     limpiar();
@@ -191,9 +182,14 @@ $(document).ready(() => {
     });
 
 
+    $("#btn_pagosExtras").click(() => {
 
-    $("#btn_pagoExtraCliente").click(async () => {
 
+    });
+
+
+    $("#btn_createPagoExtra").click(() => {
+        const form = $("#formPagoExtra")[0];
 
 
     });
@@ -471,10 +467,7 @@ $(document).ready(() => {
                     pago.pagosArriendo.dias_pagoArriendo,
                     formatearFechaHora(pago.createdAt),
                     ` <button value='${pago.id_pago}' onclick='modalSubirPago(this.value)' data-toggle='modal' 
-                        data-target='#modal_pago' class='btn btn-outline-success'><i class="fas fa-money-bill-wave"></i></button>
-                    <button value='${pago.id_pago}' onclick='modalSubirPagoExtra(this.value)' data-toggle='modal' 
-                        data-target='#modal_pagoExtra' class='btn btn-outline-info'><i class="fas fa-plus"></i></button>
-                        `
+                        data-target='#modal_pago' class='btn btn-outline-success'><i class="fas fa-money-bill-wave"></i></button> `
                 ])
                 .draw(false);
         } catch (error) {
