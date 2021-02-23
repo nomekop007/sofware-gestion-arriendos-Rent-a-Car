@@ -286,6 +286,7 @@ const buscarDocumento = async (documento, tipo) => {
 	if (response.success) {
 
 		if (navigator.userAgent.search("Safari") == '104') {
+			window.open(response.data.link);
 			let extencion = "image/png";
 			//pregunta si el archivo tiene extencion
 			response.data.nombre.includes(".pdf") ? extencion = "application/pdf" : extencion = "image/png";
@@ -298,7 +299,6 @@ const buscarDocumento = async (documento, tipo) => {
 			let file = new Blob([byteArray], { type: `${extencion};base64` });
 			let fileURL = URL.createObjectURL(file);
 			window.open(fileURL);
-			window.open(response.data.link);
 		} else {
 			window.open(response.data.link);
 		}
