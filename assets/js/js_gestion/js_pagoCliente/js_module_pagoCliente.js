@@ -363,8 +363,8 @@ $(document).ready(() => {
                 const data = new FormData();
                 data.append('id_pago', $("#id_pago").val());
                 data.append('nuevo_monto', nuevoMonto);
-                await ajax_function(data, "actualizar_montoPago");
-                // await ajax_function(data, "actualizar_pagoAPagado");
+                //await ajax_function(data, "actualizar_montoPago");
+                await ajax_function(data, "actualizar_pagoAPagado");
                 $("#spinner_btn_registrarMuchosPagos").hide();
                 $("#btn_subirComprobates").attr("disabled", false)
                 limpiarBuscarPagos();
