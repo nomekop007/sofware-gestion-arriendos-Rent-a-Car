@@ -11,6 +11,7 @@ class Modulo_controller extends CI_Controller
             $this->load->view("templates/header");
             $this->load->view("content/navbars/navbar");
             $this->load->view("content/navbars/alert");
+            $this->load->view("content/navbars/modalDocumento");
             $this->load->view("content/sidebars/sidebar_atencion");
             $opcion = $_GET["modulo"];
             switch ($opcion) {
@@ -83,11 +84,11 @@ class Modulo_controller extends CI_Controller
 
     public function cargarModulosGestion()
     {
-        $rol = $this->session->userdata("rol");
         if ($this->session->userdata("estado") === "true") {
             $this->load->view("templates/header");
             $this->load->view("content/navbars/navbar");
             $this->load->view("content/navbars/alert");
+            $this->load->view("content/navbars/modalDocumento");
             $this->load->view("content/sidebars/sidebar_gestion");
             $opcion = $_GET["modulo"];
             switch ($opcion) {

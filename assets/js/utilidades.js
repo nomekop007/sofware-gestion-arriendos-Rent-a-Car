@@ -272,7 +272,6 @@ const dataURItoBlob = (dataURI) => {
 
 //metodo que busca y devuelve un documento en una pagina nueva
 const buscarDocumento = async (documento, tipo) => {
-	console.log(documento)
 	//  case "contrato":
 	//  case "acta":
 	//  case "requisito":
@@ -296,6 +295,10 @@ const buscarDocumento = async (documento, tipo) => {
 		let byteArray = new Uint8Array(byteNumbers);
 		let file = new Blob([byteArray], { type: `${extencion};base64` });
 		let fileURL = URL.createObjectURL(file);
+
+		//$("#modal_documentos_adjuntos").modal('show');
+		console.log(fileURL);
+		//		window.location.href = fileURL
 		window.open(fileURL);
 	}
 }

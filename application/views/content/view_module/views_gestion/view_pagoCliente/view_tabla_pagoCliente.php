@@ -50,7 +50,7 @@
                 <h6> Cada pago que se muestra corresponde a cada contrato y extencion del arriendo. </h6>
                 <br><br>
                 <div id="tabla_cliente">
-                    <button id="btn_pagosExtras" class="btn btn-outline-primary" data-toggle='modal' data-target='#modal_pagoExtra'>
+                    <button disabled id="btn_pagosExtras" class="btn btn-outline-primary" data-toggle='modal' data-target='#modal_pagoExtra'>
                         pagos extras y descuentos
                     </button>
                     <br><br><br>
