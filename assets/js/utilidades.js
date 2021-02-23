@@ -287,7 +287,7 @@ const buscarDocumento = async (documento, tipo) => {
 	if (response.success) {
 
 
-		if (mobile.any()) {
+		if (mobile.any() !== null) {
 			window.open(response.data.link);
 		} else {
 			let extencion = "image/png";
