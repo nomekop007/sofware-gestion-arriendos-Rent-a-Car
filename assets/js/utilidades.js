@@ -285,10 +285,9 @@ const buscarDocumento = async (documento, tipo) => {
 	const response = await ajax_function(data, "buscar_documento");
 	if (response.success) {
 
-		alert(mobile.iOS())
-		if (mobile.iOS() !== null) {
-			window.open(response.data.link);
-		} else {
+		alert(navigator.userAgent.search("Safari"))
+
+		if (navigator.userAgent.search("Safari") == '104') {
 			let extencion = "image/png";
 			//pregunta si el archivo tiene extencion
 			response.data.nombre.includes(".pdf") ? extencion = "application/pdf" : extencion = "image/png";
@@ -301,6 +300,8 @@ const buscarDocumento = async (documento, tipo) => {
 			let file = new Blob([byteArray], { type: `${extencion};base64` });
 			let fileURL = URL.createObjectURL(file);
 			window.open(fileURL);
+		} else {
+			window.open(response.data.link);
 		}
 	}
 }
@@ -325,6 +326,7 @@ const mobile = {
 		return (mobile.Android() || mobile.BlackBerry() || mobile.iOS() || mobile.Opera() || mobile.Windows());
 	}
 };
+
 
 
 
