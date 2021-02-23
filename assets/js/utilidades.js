@@ -285,9 +285,10 @@ const buscarDocumento = async (documento, tipo) => {
 	const response = await ajax_function(data, "buscar_documento");
 	if (response.success) {
 
-		alert(navigator.userAgent.search("Safari"))
+		alert(navigator.userAgent.match(/iPad/i));
 
-		if (navigator.userAgent.search("Safari") == '104') {
+
+		if (navigator.userAgent.search("Safari") == '104' && navigator.userAgent.match(/iPad/i) == null) {
 			let extencion = "image/png";
 			//pregunta si el archivo tiene extencion
 			response.data.nombre.includes(".pdf") ? extencion = "application/pdf" : extencion = "image/png";
