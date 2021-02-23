@@ -286,9 +286,11 @@ const buscarDocumento = async (documento, tipo) => {
 	console.log(response);
 	if (response.success) {
 
-		window.open(response.data.link);
 
-		/* 	let extencion = "image/png";
+		if (mobile.any()) {
+			window.open(response.data.link);
+		} else {
+			let extencion = "image/png";
 			//pregunta si el archivo tiene extencion
 			response.data.nombre.includes(".pdf") ? extencion = "application/pdf" : extencion = "image/png";
 			let byteCharacters = atob(response.data.base64);
@@ -299,14 +301,31 @@ const buscarDocumento = async (documento, tipo) => {
 			let byteArray = new Uint8Array(byteNumbers);
 			let file = new Blob([byteArray], { type: `${extencion};base64` });
 			let fileURL = URL.createObjectURL(file);
-			console.log(fileURL);
-			window.open(fileURL); */
+			window.open(fileURL);
+		}
 	}
 }
 
-
-
-
+const mobile = {
+	Android: function () {
+		return navigator.userAgent.match(/Android/i);
+	},
+	BlackBerry: function () {
+		return navigator.userAgent.match(/BlackBerry/i);
+	},
+	iOS: function () {
+		return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+	},
+	Opera: function () {
+		return navigator.userAgent.match(/Opera Mini/i);
+	},
+	Windows: function () {
+		return navigator.userAgent.match(/IEMobile/i);
+	},
+	any: function () {
+		return (mobile.Android() || mobile.BlackBerry() || mobile.iOS() || mobile.Opera() || mobile.Windows());
+	}
+};
 
 
 
