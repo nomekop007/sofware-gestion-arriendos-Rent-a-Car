@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Registrar pago extra </h5>
+                <h5 class="modal-title" id="exampleModalLabel">Registrar pago extra</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -13,19 +13,18 @@
                     <div class="form-row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="monto $">
+                                <input type="number" name="monto_pagoExtra" id="monto_pagoExtra" class="form-control" placeholder="monto bruto $">
                             </div>
                         </div>
                         <div class="col-md-5">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="descripcion">
+                                <input type="text" name="descripcion_pagoExtra" id="descripcion_pagoExtra" class="form-control" placeholder="descripcion">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <select class="form-control">
+                                <select class="form-control" name="tipo_pagoExtra" id="tipo_pagoExtra">
                                     <option value="PAGO EXTRA" selected> PAGO EXTRA </option>
-                                    <option value="DESCUENTO"> DESCUENTO </option>
                                 </select>
                             </div>
                         </div>
@@ -35,7 +34,7 @@
                             </button>
                         </div>
                     </div>
-                    <p>El monto sera modificado en el ultimo pago</p>
+
                     <br>
                     <div class="scroll">
                         <table class="table">
@@ -48,12 +47,6 @@
                                 </tr>
                             </thead>
                             <tbody id="tbody_tabla_pagosExtra">
-                                <tr>
-                                    <th scope="col" class="text-center"> 1 </th>
-                                    <td scope="col" class="text-center"> 20000 </td>
-                                    <td scope="col" class="text-center"> combustible </td>
-                                    <td scope="col" class="text-center"> pago extra </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

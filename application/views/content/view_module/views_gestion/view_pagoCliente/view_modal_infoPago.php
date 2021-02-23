@@ -29,7 +29,7 @@
                             <input id="info_estado_arriendo" disabled type="text" class="form-control">
                         </div>
                         <div class="form-group col-md-12">
-                            <textarea id="info_descripcion_pago" disabled class="form-control" rows=2"></textarea>
+                            <textarea id="info_descripcion_pago" disabled class="form-control" rows=2></textarea>
                         </div>
                         <div class="form-group col-md-6">
                             <input id="info_valor_total_arriendo" disabled type="text" class="form-control">
@@ -40,7 +40,9 @@
                         <div class="form-group col-md-6">
                             <input id="info_cantidad_contratos" disabled type="text" class="form-control">
                         </div>
-
+                        <div class="form-group col-md-12">
+                            <p>El valor total del arriendo incluye tambien los los pagos extras y pagos por daño del vehiculo si posee.</p>
+                        </div>
                     </div>
                     <br>
 

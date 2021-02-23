@@ -27,6 +27,17 @@ class Pago_controller extends CI_Controller
         echo get_function("pagos/cargarPagosClientes");
     }
 
+    public function registrarPagoExtra()
+    {
+        $dataArray = [
+            "monto" => $this->input->post("monto_pagoExtra"),
+            "descripcion" => $this->input->post("descripcion_pagoExtra"),
+            "tipo" => $this->input->post("tipo_pagoExtra"),
+            "idArriendo" => $this->input->post("id_arriendo"),
+        ];
+        echo post_function($dataArray, "pagos/registrarPagoExtra");
+    }
+
     public function registrarPago()
     {
         $dataArray = [
@@ -118,5 +129,11 @@ class Pago_controller extends CI_Controller
             'nuevo_monto' => $this->input->post("nuevo_monto")
         ];
         echo put_function($id_pago, $dataArray, "pagos/actualizarMontoPago");
+    }
+
+    public function cargarPagosExtrasPorArriendo()
+    {
+        $id_arriendo = $this->input->post("id_arriendo");
+        echo find_function($id_arriendo, "pagos/cargarPagosExtrasPorArriendo");
     }
 }

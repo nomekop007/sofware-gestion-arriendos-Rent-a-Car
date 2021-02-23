@@ -182,18 +182,51 @@ $(document).ready(() => {
     });
 
 
-    $("#btn_pagosExtras").click(() => {
-
-
+    $("#btn_pagosExtras").click(async () => {
+        cargarPagosExtras();
     });
+
+
+    const cargarPagosExtras = async () => {
+        $("#tbody_tabla_pagosExtra").empty();
+        const data = new FormData();
+        data.append("id_arriendo", $("#id_arriendo").val());
+        const response = await ajax_function(data, "cargar_pagosExtrasPorArriendo");
+        if (response.success) {
+            $.each(response.data, (i, pagoExtra) => {
+                let html = `
+                <tr>
+                    <th class="text-center" scope="row"> ${i + 1} </th>
+                     <td class="text-center"> $ ${formatter.format(pagoExtra.monto_pagoExtra)} </td>
+                    <td class="text-center"> ${pagoExtra.detalle_pagoExtra} </td>
+                    <td class="text-center"> PAGO EXTRA </td>
+                </tr>`;
+                $("#tbody_tabla_pagosExtra").append(html);
+            })
+        }
+    }
+
 
 
     $("#btn_createPagoExtra").click(() => {
-        const form = $("#formPagoExtra")[0];
 
-
+        if ($("#monto_pagoExtra").val().length === 0 || $("#descripcion_pagoExtra").val().length === 0) {
+            Swal.fire("complete los campos", "falta ingresar datos del pago extra", "warning");
+            return;
+        }
+        alertQuestion(async () => {
+            const form = $("#formPagoExtra")[0];
+            const data = new FormData(form)
+            data.append("id_arriendo", $("#id_arriendo").val());
+            const response = await ajax_function(data, "registrar_pagoExtra");
+            if (response.success) {
+                Swal.fire("pago extra agregado!", "se registraron los datos exitosamente!", "success");
+                $("#formPagoExtra")[0].reset();
+                cargarPagosExtras();
+                console.log(response);
+            }
+        })
     });
-
 
 
     const mostrarTablaCliente = (pagos) => {
