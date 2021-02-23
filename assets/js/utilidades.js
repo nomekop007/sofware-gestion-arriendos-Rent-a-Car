@@ -283,11 +283,10 @@ const buscarDocumento = async (documento, tipo) => {
 	data.append("nombreDocumento", documento);
 	data.append("tipo", tipo);
 	const response = await ajax_function(data, "buscar_documento");
-	console.log(response);
 	if (response.success) {
 
-
-		if (mobile.any() !== null) {
+		alert(mobile.iOS())
+		if (mobile.iOS() !== null) {
 			window.open(response.data.link);
 		} else {
 			let extencion = "image/png";
