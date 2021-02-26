@@ -84,12 +84,13 @@
                                         <div class="form-group col-lg-4">
                                             <label for="inputEditarEstado">Editar estado</label>
                                             <select id="inputEditarEstado" name="inputEditarEstado" class="form-control">
-                                                <option value="DISPONIBLE" selected>Disponible</option>
-                                                <option value="INACTIVO">Inactivo</option>
-                                                <option value="ARRENDADO">Arrendado</option>
-                                                <option value="RESERVADO">reservado</option>
-                                                <option value="SINIESTRADO">Siniestrado</option>
-                                                <option value="MANTENCION">En mantencion</option>
+                                                <option value="DISPONIBLE" selected>DISPONIBLE</option>
+                                                <option value="EN REPARACION">EN REPARACION</option>
+                                                <option value="ARRENDADO">ARRENDADO</option>
+                                                <option value="SINIESTRADO">SINIESTRADO</option>
+                                                <option value="VENDIDO">VENDIDO</option>
+                                                <option value="EN LICITACION">EN LICITACION</option>
+                                                <option value="EN MANTENCION">EN MANTENCION</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">

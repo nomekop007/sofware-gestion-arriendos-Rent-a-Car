@@ -1,9 +1,8 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-    <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=2">Gestion</a>
+                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=2"><span> Modulo gestion </span></a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
             </ol>
@@ -19,13 +18,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="inputNombreUsuario">Nombre Completo</label>
-                            <input onblur="mayus(this);" maxLength="80" type="text" class="form-control"
-                                id="inputNombreUsuario" name="inputNombreUsuario" required>
+                            <input onblur="mayus(this);" maxLength="80" type="text" class="form-control" id="inputNombreUsuario" name="inputNombreUsuario" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputCorreoUsuario">correo</label>
-                            <input onblur="mayus(this);" maxLength="80" type="email" class="form-control"
-                                id="inputCorreoUsuario" name="inputCorreoUsuario" required>
+                            <input onblur="mayus(this);" maxLength="80" type="email" class="form-control" id="inputCorreoUsuario" name="inputCorreoUsuario" required>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputRolUsuario">Rol</label>
@@ -41,12 +38,9 @@
                         <div class=" form-group col-md-4">
                             <label for="inputClaveUsuario">Constraseña</label>
                             <div class="input-group">
-                                <input maxLength="50" minlength="9" type="password" class="form-control"
-                                    id="inputClaveUsuario" name="inputClaveUsuario" required>
+                                <input maxLength="50" minlength="9" type="password" class="form-control" id="inputClaveUsuario" name="inputClaveUsuario" required>
                                 <div class="input-group-append">
-                                    <button class="btn btn-dark show_password" type="button"
-                                        onclick="mostrarPassword('inputClaveUsuario')"> <span
-                                            class="fa fa-eye-slash icon"></span>
+                                    <button class="btn btn-dark show_password" type="button" onclick="mostrarPassword('inputClaveUsuario')"> <span class="fa fa-eye-slash icon"></span>
                                     </button>
                                 </div>
                             </div>
@@ -54,8 +48,7 @@
                     </div>
                     <br>
                     <button type="submit" class="btn btn-dark" id="btn_registrar_usuario">
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
-                            id="spinner_btn_registrar"></span>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_registrar"></span>
                         Registrar Usuario</button>
                 </form>
             </div>
@@ -116,6 +109,5 @@
 
 
 <!-- importando archivo js usuarios -->
-<script
-    src="<?php echo base_route() ?>assets/js/js_gestion/js_usuarios/js_module_usuarios.js?v=<?php echo version(); ?>">
+<script src="<?php echo base_route() ?>assets/js/js_gestion/js_usuarios/js_module_usuarios.js?v=<?php echo version(); ?>">
 </script>

@@ -649,7 +649,7 @@ $(document).ready(() => {
 		dataFormArriendo.append("inputPatenteVehiculo", patente);
 		dataFormArriendo.append("kilometraje_vehiculo", $("#inputEntrada").val());
 		dataFormArriendo.append("kilometros_mantencion", $("#inputMantencion").val());
-		dataFormArriendo.append("inputEstado", "RESERVADO");
+		dataFormArriendo.append("inputEstado", "DISPONIBLE");
 		await ajax_function(dataFormArriendo, "cambiarEstado_vehiculo");
 	};
 

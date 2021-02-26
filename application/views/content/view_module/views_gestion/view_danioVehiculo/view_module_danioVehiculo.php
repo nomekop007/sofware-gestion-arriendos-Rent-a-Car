@@ -1,9 +1,8 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-    <div
-        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=2">Gestion</a>
+                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=2"> <span> Modulo gestion </span></a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Daños vehiculo</li>
             </ol>
@@ -13,12 +12,10 @@
     <div>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="pendientes-tab" data-toggle="tab" href="#pendientes" role="tab"
-                    aria-controls="pendientes" aria-selected="true">Pendientes de cotizar</a>
+                <a class="nav-link active" id="pendientes-tab" data-toggle="tab" href="#pendientes" role="tab" aria-controls="pendientes" aria-selected="true">Pendientes de cotizar</a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link" id="todos-tab" data-toggle="tab" href="#todos" role="tab" aria-controls="todos"
-                    aria-selected="false">Todos los daños registrados</a>
+                <a class="nav-link" id="todos-tab" data-toggle="tab" href="#todos" role="tab" aria-controls="todos" aria-selected="false">Todos los daños registrados</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -106,8 +103,7 @@
 
 
 <!-- Modal descripcion -->
-<div class="modal fade" id="modal_mostrar_descripcion" tabindex="-1" aria-labelledby="modal_mostrar_descripcionLabel"
-    aria-hidden="true">
+<div class="modal fade" id="modal_mostrar_descripcion" tabindex="-1" aria-labelledby="modal_mostrar_descripcionLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -129,6 +125,5 @@
 
 
 <!-- importando archivo js usuarios -->
-<script
-    src="<?php echo base_route() ?>assets/js/js_gestion/js_danioVehiculo/js_module_daniosVehiculo.js?v=<?php echo version(); ?>">
+<script src="<?php echo base_route() ?>assets/js/js_gestion/js_danioVehiculo/js_module_daniosVehiculo.js?v=<?php echo version(); ?>">
 </script>

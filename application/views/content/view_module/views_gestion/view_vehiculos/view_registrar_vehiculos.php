@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=2">Gestion</a></li>
+                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=2"><span> Modulo gestion </span></a></li>
                 <li class="breadcrumb-item active" aria-current="page">Vehiculos</li>
             </ol>
         </nav>
@@ -81,11 +81,13 @@
                         <div class="form-group col-lg-3">
                             <label for="inputEstado">Estado</label>
                             <select id="inputEstado" name="inputEstado" class="form-control">
-                                <option value="DISPONIBLE" selected>Disponible</option>
-                                <option value="INACTIVO">Inactivo</option>
-                                <option value="ARRENDADO">Arrendado</option>
-                                <option value="SINIESTRADO">Siniestrado</option>
-                                <option value="MANTENCION">En mantencion</option>
+                                <option value="DISPONIBLE" selected>DISPONIBLE</option>
+                                <option value="EN REPARACION">EN REPARACION</option>
+                                <option value="ARRENDADO">ARRENDADO</option>
+                                <option value="SINIESTRADO">SINIESTRADO</option>
+                                <option value="VENDIDO">VENDIDO</option>
+                                <option value="EN LICITACION">EN LICITACION</option>
+                                <option value="EN MANTENCION">EN MANTENCION</option>
                             </select>
                         </div>
                         <div class="form-group col-lg-3">
