@@ -142,6 +142,7 @@ $(document).ready(() => {
                     "$ " + formatter.format(pago.total_pago),
                     pago.pagosArriendo.dias_pagoArriendo,
                     formatearFechaHora(pago.createdAt),
+                    pago.pagosArriendo.arriendo.sucursale.nombre_sucursal,
                     btnInfo
                 ])
                 .draw(false);

@@ -30,6 +30,7 @@
                                 <th>Cliente involucrado </th>
                                 <th>Registrado por</th>
                                 <th>Fecha registro</th>
+                                <th>Sucursal</th>
                                 <th>Evidencia</th>
                                 <th></th>
                             </tr>
@@ -43,6 +44,7 @@
                                 <th>Cliente involucrado </th>
                                 <th>Registrado por</th>
                                 <th>Fecha registro</th>
+                                <th>Sucursal</th>
                                 <th>Evidencia</th>
                                 <th></th>
                             </tr>
@@ -68,12 +70,13 @@
                                 <th>Registrado por</th>
                                 <th>Fecha registro</th>
                                 <th>estado</th>
+                                <th>Sucursal</th>
                                 <th>Evidencia</th>
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
-                        <tfoot class="btn-dark">
+                        <tfoot class="btn-dark" style='font-size: 0.7rem;'>
                             <tr>
                                 <th>Nº arriendo</th>
                                 <th>Vehiculo</th>
@@ -81,6 +84,7 @@
                                 <th>Registrado por</th>
                                 <th>Fecha registro</th>
                                 <th>estado</th>
+                                <th>Sucursal</th>
                                 <th>Evidencia</th>
                             </tr>
                         </tfoot>

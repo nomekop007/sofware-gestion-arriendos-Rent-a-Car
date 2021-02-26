@@ -341,13 +341,13 @@ $(document).ready(() => {
 	}
 
 	const mostrarCollapsibles = (info, i) => {
-		const { id_arriendo, falta } = info;
+		const { id_arriendo, sucursal, falta } = info;
 		$("#accordionArriendos").append(`
 		<div class="card">
             <div class="card-header" id="heading${i}">
                 <h2 class="mb-0">
                     <button class=" text-center btn scroll btn-outline-danger btn-block" type="button" data-toggle="collapse" data-target="#collapse${i}" aria-expanded="true" aria-controls="collapse${i}">
-                     Se requieren las siguientes acciones para finalizar el arriendo Nº ${id_arriendo}  
+                     Se requieren las siguientes acciones para finalizar el arriendo Nº ${id_arriendo} - ${sucursal}
                     </button>
                 </h2>
             </div>
@@ -705,8 +705,9 @@ $(document).ready(() => {
 					arriendo.tipo_arriendo,
 					formatearFechaHora(arriendo.fechaRecepcion_arriendo),
 					`${viewTime}`,
+					arriendo.sucursale.nombre_sucursal,
 					` ${btnExtender}
-					  ${btnFinalizar}
+					${btnFinalizar}
                     `,
 				])
 				.draw(false);

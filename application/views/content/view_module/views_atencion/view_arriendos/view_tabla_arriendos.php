@@ -15,7 +15,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody style='font-size: 0.8rem;'>
+            <tbody style='font-size: 0.7rem;'>
             </tbody>
             <tfoot class="btn-dark">
                 <tr>

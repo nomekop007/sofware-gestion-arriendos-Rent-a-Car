@@ -33,7 +33,7 @@ $rol = $this->session->userdata("rol");
                     <br>
                     <a id="m_facturacion" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=3">
                         <i class="fas fa-money-bill-wave"></i>
-                        Facturacion E. Remplazo
+                        PreFacturacion E. Remplazo
                     </a>
                     <br>
                 </li>

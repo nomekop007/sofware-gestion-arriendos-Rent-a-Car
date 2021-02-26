@@ -10,11 +10,12 @@
                     <th>Fecha Entrega</th>
                     <th>Fecha Recepecion</th>
                     <th>tipo arriendo</th>
-                    <th>usuario</th>
+                    <th>Usuario</th>
+                    <th>Sucursal</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody style='font-size: 0.8rem;'>
+            <tbody style='font-size: 0.7rem;'>
 
             </tbody>
             <tfoot class="btn-dark">
@@ -25,7 +26,8 @@
                     <th>Fecha Entrega</th>
                     <th>Fecha Recepecion</th>
                     <th>tipo arriendo</th>
-                    <th>usuario</th>
+                    <th>Usuario</th>
+                    <th>Sucursal</th>
                     <th></th>
                 </tr>
             </tfoot>

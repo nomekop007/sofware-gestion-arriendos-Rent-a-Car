@@ -21,34 +21,53 @@ class Arriendo_controller extends CI_Controller
         }
     }
 
-
-
-
-
     public function cargarArriendosDespachos()
     {
-        $params = [
-            "sucursal" => $this->session->userdata('sucursal'),
-            "estado" => ["FIRMADO"],
-        ];
-        echo get_function("arriendos/cargarArriendosActivos", $params);
+        if (validarPermiso(10)) {
+            $params = [
+                "sucursal" => null,
+                "estado" => ["FIRMADO"],
+            ];
+            echo get_function("arriendos/cargarArriendos", $params);
+        } else {
+            $params = [
+                "sucursal" => $this->session->userdata('sucursal'),
+                "estado" => ["FIRMADO"],
+            ];
+            echo get_function("arriendos/cargarArriendosActivos", $params);
+        }
     }
 
     public function cargarArriendosActivos()
     {
-        $params = [
-            "sucursal" => $this->session->userdata('sucursal'),
-            "estado" => ["ACTIVO", "RECEPCIONADO"],
-        ];
-        echo get_function("arriendos/cargarArriendosActivos", $params);
+        if (validarPermiso(10)) {
+            $params = [
+                "sucursal" => null,
+                "estado" => ["ACTIVO", "RECEPCIONADO"],
+            ];
+            echo get_function("arriendos/cargarArriendos", $params);
+        } else {
+            $params = [
+                "sucursal" => $this->session->userdata('sucursal'),
+                "estado" => ["ACTIVO", "RECEPCIONADO"],
+            ];
+            echo get_function("arriendos/cargarArriendosActivos", $params);
+        }
     }
 
     public function finalizarArriendosRecepcionados()
     {
-        $params = [
-            "sucursal" => $this->session->userdata('sucursal'),
-        ];
-        echo get_function("arriendos/finalizarArriendosRecepcionados", $params);
+        if (validarPermiso(10)) {
+            $params = [
+                "sucursal" => 0,
+            ];
+            echo get_function("arriendos/finalizarArriendosRecepcionados", $params);
+        } else {
+            $params = [
+                "sucursal" => $this->session->userdata('sucursal'),
+            ];
+            echo get_function("arriendos/finalizarArriendosRecepcionados", $params);
+        }
     }
 
     public function buscarArriendo()
@@ -74,7 +93,7 @@ class Arriendo_controller extends CI_Controller
             //foraneas
             "id_usuario" => $this->session->userdata('id'),
             "patente_vehiculo" => $this->input->post("select_vehiculos"),
-            "id_sucursal" => $this->session->userdata('sucursal'),
+            "id_sucursal" => $this->input->post('selectSucursal'),
             "id_remplazo" => $this->input->post("inputIdRemplazo"),
             "rut_cliente" => $this->input->post("inputRutCliente"),
             "rut_empresa" => $this->input->post("inputRutEmpresa"),

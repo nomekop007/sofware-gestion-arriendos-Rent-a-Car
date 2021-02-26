@@ -6,7 +6,17 @@ class DanioVehiculo_controller extends CI_Controller
 {
     public function cargarDanios()
     {
-        echo get_function("danioVehiculos/cargarDaniosVehiculos");
+        if (validarPermiso(10)) {
+            $params = [
+                "sucursal" => 0
+            ];
+            echo get_function("danioVehiculos/cargarDaniosVehiculos", $params);
+        } else {
+            $params = [
+                "sucursal" => $this->session->userdata('sucursal'),
+            ];
+            echo get_function("danioVehiculos/cargarDaniosVehiculos", $params);
+        }
     }
 
     public function registrarDanioVehiculo()
@@ -34,5 +44,4 @@ class DanioVehiculo_controller extends CI_Controller
         ];
         echo put_function($idDanioVehiculo, $ArrayData, "danioVehiculos/actualizarDanioVehiculo");
     }
-
 }

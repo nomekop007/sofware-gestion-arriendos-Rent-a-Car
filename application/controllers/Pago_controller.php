@@ -7,7 +7,17 @@ class Pago_controller extends CI_Controller
 
     public function cargarPagosERpendientes()
     {
-        echo get_function("pagos/cargarPagosERpendientes");
+        if (validarPermiso(10)) {
+            $params = [
+                "sucursal" => 0,
+            ];
+            echo get_function("pagos/cargarPagosERpendientes", $params);
+        } else {
+            $params = [
+                "sucursal" => $this->session->userdata('sucursal'),
+            ];
+            echo get_function("pagos/cargarPagosERpendientes", $params);
+        }
     }
 
     public function buscarPagoERpendientes()
@@ -24,7 +34,17 @@ class Pago_controller extends CI_Controller
 
     public function cargarPagosClientes()
     {
-        echo get_function("pagos/cargarPagosClientes");
+        if (validarPermiso(10)) {
+            $params = [
+                "sucursal" => 0,
+            ];
+            echo get_function("pagos/cargarPagosClientes", $params);
+        } else {
+            $params = [
+                "sucursal" => $this->session->userdata('sucursal'),
+            ];
+            echo get_function("pagos/cargarPagosClientes", $params);
+        }
     }
 
     public function registrarPagoExtra()

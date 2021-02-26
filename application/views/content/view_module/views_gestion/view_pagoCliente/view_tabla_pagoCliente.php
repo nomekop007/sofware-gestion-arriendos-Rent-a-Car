@@ -4,7 +4,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=2"><span> Modulo gestion </span></a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Gestion de Facturacion pagos clientes</li>
+                <li class="breadcrumb-item active" aria-current="page">Facturacion pagos clientes</li>
             </ol>
         </nav>
         <h1 class="h3">Gestion de Facturacion de clientes</h1>
@@ -12,9 +12,9 @@
     <div>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-link active" id="nav-registrarFactura-tab" data-toggle="tab" href="#nav-registrar" role="tab" aria-controls="nav-registrar" aria-selected="true">subir comprobante de pago</a>
+                <a class="nav-link active" id="nav-registrarFactura-tab" data-toggle="tab" href="#nav-registrar" role="tab" aria-controls="nav-registrar" aria-selected="true">Subir comprobante de pago</a>
                 <?php if (validarPermiso(20)) { ?>
-                    <a class="nav-link" id="nav-pagostotal-tab" data-toggle="tab" href="#nav-pagos" role="tab" aria-controls="nav-pagos" aria-selected="false">lista de todos los pagos</a>
+                    <a class="nav-link" id="nav-pagostotal-tab" data-toggle="tab" href="#nav-pagos" role="tab" aria-controls="nav-pagos" aria-selected="false">Lista de todos los pagos</a>
                 <?php } ?>
             </div>
         </nav>
@@ -189,6 +189,7 @@
                                 <th>monto</th>
                                 <th>dias</th>
                                 <th>fecha registro</th>
+                                <th>Sucursal</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -203,6 +204,7 @@
                                 <th>monto</th>
                                 <th>dias</th>
                                 <th>fecha registro</th>
+                                <th>Sucursal</th>
                                 <th></th>
                             </tr>
                         </tfoot>

@@ -244,6 +244,7 @@ $(document).ready(() => {
 					"$ " + formatter.format(pagosPendientes.iva_pago),
 					"$ " + formatter.format(pagosPendientes.total_pago),
 					formatearFechaHora(pagosPendientes.createdAt),
+					pagosPendientes.pagosArriendo.arriendo.sucursale.nombre_sucursal,
 					` <button value='${pagosPendientes.id_pago}' onclick='buscarPago(this.value)' data-toggle='modal' data-target='#modal_pagoArriendo' class='btn btn-outline-info'><i class='far fa-edit'></i></button>`,
 				])
 				.draw(false);
@@ -254,15 +255,22 @@ $(document).ready(() => {
 
 	const cargarPagosEnTabla = (pagosPendientes) => {
 		try {
+			if (pagosPendientes.estado_pago == 'PAGADO') {
+				estado = `<p class='text-success'> ${pagosPendientes.estado_pago} </p>`
+			} else {
+				estado = `<p class='text-danger'>  ${pagosPendientes.estado_pago} </p>`
+			}
 			tabla_pagosER.row
 				.add([
 					pagosPendientes.pagosArriendo.id_arriendo,
 					pagosPendientes.deudor_pago,
-					pagosPendientes.estado_pago,
+					estado,
 					"$ " + formatter.format(pagosPendientes.neto_pago),
 					"$ " + formatter.format(pagosPendientes.iva_pago),
 					"$ " + formatter.format(pagosPendientes.total_pago),
-					formatearFechaHora(pagosPendientes.createdAt)
+					formatearFechaHora(pagosPendientes.createdAt),
+					pagosPendientes.pagosArriendo.arriendo.sucursale.nombre_sucursal,
+
 				])
 				.draw(false);
 		} catch (error) {

@@ -160,6 +160,7 @@ $(document).ready(() => {
 						cliente,
 						danio.userAt,
 						formatearFechaHora(danio.createdAt),
+						danio.arriendo.sucursale.nombre_sucursal,
 						`<button  value='${danio.descripcion_danioVehiculo}'  	onclick='mostrarDescripcion(this.value)' data-toggle='modal' data-target='#modal_mostrar_descripcion' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>
 					 	<button  value='${danio.documento_danioVehiculo}'  	onclick='buscarDocumento(this.value,"fotosDañoVehiculo")' class='btn btn-outline-primary'><i class="fas fa-camera-retro"></i></button>`,
 						`<button  value='${danio.id_danioVehiculo}'  				onclick='buscarDanio(this.value)' data-toggle='modal' data-target='#modal_subir_comprobante' class='btn btn-outline-success'><i class="fas fa-upload"></i></button>`
@@ -198,6 +199,7 @@ $(document).ready(() => {
 					danio.userAt,
 					formatearFechaHora(danio.createdAt),
 					danio.estado_danioVehiculo,
+					danio.arriendo.sucursale.nombre_sucursal,
 					`<button  value='${danio.descripcion_danioVehiculo}'  onclick='mostrarDescripcion(this.value)' data-toggle='modal' data-target='#modal_mostrar_descripcion' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>
 					<button  value='${danio.documento_danioVehiculo}'  onclick='buscarDocumento(this.value,"fotosDañoVehiculo")' class='btn btn-outline-primary'><i class="fas fa-camera-retro"></i></button>
 						${comprobante}

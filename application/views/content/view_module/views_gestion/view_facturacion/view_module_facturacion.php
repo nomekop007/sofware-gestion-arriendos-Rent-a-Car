@@ -4,16 +4,16 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=2"><span> Modulo gestion </span></a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Facturacion</li>
+                <li class="breadcrumb-item active" aria-current="page">Pre Facturacion E. Remplazo</li>
             </ol>
         </nav>
-        <h1 class="h3">Gestion de Facturaciones E. Remplazo</h1>
+        <h1 class="h3">Gestion de Pre Facturaciones E. Remplazo</h1>
     </div>
     <div>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <a class="nav-link active" id="nav-registrar-tab" data-toggle="tab" href="#nav-registrar" role="tab" aria-controls="nav-registrar" aria-selected="true">Registrar Facturacion E. Remplazo</a>
-                <a class="nav-link" id="nav-pagos-tab" data-toggle="tab" href="#nav-pagos" role="tab" aria-controls="nav-pagos" aria-selected="false">Pagos pendientes E. Remplazo </a>
+                <a class="nav-link" id="nav-pagos-tab" data-toggle="tab" href="#nav-pagos" role="tab" aria-controls="nav-pagos" aria-selected="false">Lista de pagos Empresas. Reemplazo </a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -104,6 +104,7 @@
                                             <th>iva</th>
                                             <th>total</th>
                                             <th>fecha registro</th>
+                                            <th>Sucursal</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -119,6 +120,7 @@
                                             <th>iva</th>
                                             <th>total</th>
                                             <th>fecha registro</th>
+                                            <th>Sucursal</th>
                                             <th></th>
                                         </tr>
                                     </tfoot>
@@ -148,6 +150,7 @@
                                 <th>iva</th>
                                 <th>total</th>
                                 <th>fecha registro</th>
+                                <th>Sucursal</th>
                             </tr>
                         </thead>
                         <tbody id="vehiculos">
@@ -162,6 +165,7 @@
                                 <th>iva</th>
                                 <th>total</th>
                                 <th>fecha registro</th>
+                                <th>Sucursal</th>
                             </tr>
                         </tfoot>
                     </table>

@@ -11,14 +11,13 @@
                 <img style="width:30%;margin: 40px" src="<?php echo base_route() ?>assets/images/logo.png" />
             </div>
         </div>
-        <div hidden class="card  text-success">
+        <div class="card  text-success">
             <div class="m-4">
-                <h2>SISTEMA ACTUALIZADO!</h2>
+                <h1>SISTEMA ACTUALIZADO! 26-02-2021</h1>
                 <span>Cambios realizados:</span>
-                <li>Se modifico modulo "gestino de recepcion" y se modifico la funcionalidad de extencion de arriendos.</li>
-                <li><span class="text-danger">IMPORTANTE!!</span> Se agrego una condicion al generar el contrato de arriendo , desde ahora sera necesario subir el comprobante de pago correspondiente en el modulo "Facturacion pago cliente" antes de firmar el contrato (solo arriendos particulares y de empresa).</li>
-
-
+                <li>MODULO GESTION VEHICULOS : Se modifico el listado de estados de los vehiculos, se agrego "en reparacion" , "vendido", "en licitacion" se borraron los estado "reservado" y "inactivo".</li>
+                <li>MODULO FACTURACION PAGO CLIENTES : el estado del pago se cambiara de "vigente" a "pendiente" cuando el vehiculo del arriendo se recepcione.</li>
+                <li>TODOS LOS MODULOS : se hizo una modificacion a nivel de sistema para restringir la informacion de los arriendos, pagos ,etc para que se separe por sucursal. tambien se creo un usuario super admin el cual podra ver todos los arriendos,pagos,etc de todas las sucursales esta funcion esta en beta.</li>
             </div>
         </div>
         <br><br><br><br><br>
@@ -71,7 +70,7 @@
         if (arriendo.diasActuales_arriendo < 2 && time <= 3600000 * 5) {
             let fila = `
 		<div id="alert${arriendo.id_arriendo}" class="alert  alert-dismissible fade show" role="alert">
-		Arriendo: Nº${arriendo.id_arriendo}  Vehiculo: ${arriendo.patente_vehiculo}  Cliente: ${cliente} <div id=time${arriendo.id_arriendo}> </div>
+		Arriendo: Nº${arriendo.id_arriendo}  Vehiculo: ${arriendo.patente_vehiculo}  Cliente: ${cliente} Sucursal: ${arriendo.sucursale.nombre_sucursal} <div id=time${arriendo.id_arriendo}> </div>
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		 <span aria-hidden="true">&times;</span>
 		</button>
@@ -87,7 +86,7 @@
         if (arriendo.diasActuales_arriendo >= 2 && time <= 3600000 * 12) {
             let fila = `
 		<div id="alert${arriendo.id_arriendo}" class="alert  alert-dismissible fade show" role="alert">
-		Arriendo: Nº${arriendo.id_arriendo}  Vehiculo: ${arriendo.patente_vehiculo}  Cliente: ${cliente} <div id=time${arriendo.id_arriendo}> </div>
+		Arriendo: Nº${arriendo.id_arriendo}  Vehiculo: ${arriendo.patente_vehiculo}  Cliente: ${cliente}  Sucursal: ${arriendo.sucursale.nombre_sucursal}  <div id=time${arriendo.id_arriendo}> </div>
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		 <span aria-hidden="true">&times;</span>
 		</button>

@@ -7,13 +7,14 @@
                     <th>Nº</th>
                     <th>Cliente</th>
                     <th>Vehiculo</th>
-                    <th>tipo arriendo</th>
+                    <th>Tipo arriendo</th>
                     <th>Fecha Recepcion</th>
-                    <th>tiempo restante</th>
+                    <th>Tiempo restante</th>
+                    <th>Sucursal</th>
                     <th> </th>
                 </tr>
             </thead>
-            <tbody style='font-size: 0.8rem;'>
+            <tbody style='font-size: 0.7rem;'>
 
             </tbody>
             <tfoot class="btn-dark">
@@ -21,9 +22,10 @@
                     <th>Nº</th>
                     <th>Cliente</th>
                     <th>Vehiculo</th>
-                    <th>tipo arriendo</th>
+                    <th>Tipo arriendo</th>
                     <th>Fecha Recepcion</th>
-                    <th>tiempo restante</th>
+                    <th>Tiempo restante</th>
+                    <th>Sucursal</th>
                     <th> </th>
                 </tr>
             </tfoot>
