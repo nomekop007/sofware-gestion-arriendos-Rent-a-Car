@@ -29,7 +29,7 @@ $route['editar_vehiculo'] = 'Vehiculo_controller/editarVehiculo';
 $route['guardar_fotoVehiculo'] = 'Vehiculo_controller/guardarFotoVehiculo';
 $route['cambiarEstado_vehiculo'] = 'Vehiculo_controller/cambiarEstadoVehiculo';
 $route['cargar_VehiculosArrendados'] = 'Vehiculo_controller/vehiculosArrendados';
-
+$route['cargar_vehiculosDisponibleSucursal'] = 'Vehiculo_controller/cargarVehiculosDisponiblesPorSucursal';
 
 
 /* rutas de controller usuario */

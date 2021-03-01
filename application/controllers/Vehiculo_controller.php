@@ -16,6 +16,12 @@ class Vehiculo_controller extends CI_Controller
         echo find_function($patente, 'vehiculos/buscarVehiculo');
     }
 
+    public function cargarVehiculosDisponiblesPorSucursal()
+    {
+        $id_sucursal = $this->input->post('id_sucursal');
+        echo find_function($id_sucursal, 'vehiculos/cargarVehiculosDisponiblesPorSucursal');
+    }
+
     public function registrarVehiculo()
     {
         $arrayVehiculo = [
@@ -77,6 +83,11 @@ class Vehiculo_controller extends CI_Controller
             "kilometraje_vehiculo" => $this->input->post("kilometraje_vehiculo"),
             "kilometrosMantencion_vehiculo" => $this->input->post("kilometros_mantencion"),
         ];
+        if ($this->input->post("selectSucursal")) {
+            $ArrayData += ["id_sucursal" => $this->input->post('selectSucursal')];
+        } else {
+            $ArrayData += ["id_sucursal" => $this->session->userdata('sucursal')];
+        }
         echo put_function($patente, $ArrayData, "vehiculos/cambiarEstadoVehiculo");
     }
 

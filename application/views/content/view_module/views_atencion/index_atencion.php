@@ -1,16 +1,33 @@
 <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Modulos de Atencion</h1>
+        <h2>Modulos de Atencion</h2>
     </div>
     <div>
-        <h5>Bienvenido <?php echo $this->session->userdata('nombre'); ?> </h5>
+        <h3>Bienvenido <?php echo $this->session->userdata('nombre'); ?> </h3>
+        <br>
         <div class="row">
-            <div class="col-md-12">
-                <br>
-                <img style="width:10%" src="<?php echo base_route() ?>assets/images/logo3.png" />
-                <img style="width:30%;margin: 40px" src="<?php echo base_route() ?>assets/images/logo.png" />
+            <div class="col-md-6">
+                <img style="width:100%;" src="<?php echo base_route() ?>assets/images/logo.png" />
+            </div>
+            <div class="col-md-6">
+                <h3>Vehiculos disponibles</h3>
+                <div class="scroll">
+                    <table id="tablaTotalArriendos" class="table table-striped table-bordered " style="width:100%">
+                        <thead class="btn-dark">
+                            <tr id="thead_sucursal">
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="tbody1_sucursal">
+                            </tr>
+                            <tr id="tbody2_sucursal">
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+        <br>
         <div class="card  text-success">
             <div class="m-4">
                 <h1>SISTEMA ACTUALIZADO! 26-02-2021</h1>
@@ -34,6 +51,34 @@
 
 
 <script>
+    // a futuro hacer separar un contador por sucursal
+
+    (cargarSucursales = async () => {
+        let thead = '';
+        let tbody1 = '';
+        let tbody2 = '';
+        const response = await ajax_function(null, "cargar_Sucursales");
+        response.data.forEach(async (sucursal) => {
+            const data = new FormData();
+            data.append("id_sucursal", sucursal.id_sucursal);
+            const response = await ajax_function(data, "cargar_vehiculosDisponibleSucursal")
+            let option = '<option value=null">-vehiculos-</option>';
+            response.data.forEach(({
+                patente_vehiculo
+            }) => {
+                option += `<option value="${patente_vehiculo}">${patente_vehiculo}</option>`;
+            })
+            thead += `<th>${sucursal.nombre_sucursal}</th>`;
+            tbody1 += `<th class="text-center" >${response.data.length}</th>`;
+            tbody2 += `<th class="text-center" ><select class="form-control">${option}</select></th>`;
+            $("#thead_sucursal").html(thead);
+            $("#tbody1_sucursal").html(tbody1);
+            $("#tbody2_sucursal").html(tbody2);
+        })
+    })();
+
+
+
     (cargarArriendosActivos = async () => {
         const data = new FormData();
         data.append("filtro", "ACTIVO");

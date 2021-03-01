@@ -260,11 +260,9 @@ $(document).ready(() => {
 						vehiculo.año_vehiculo,
 						vehiculo.tipo_vehiculo,
 						vehiculo.transmision_vehiculo,
-						vehiculo.kilometraje_vehiculo ? vehiculo.kilometraje_vehiculo : "",
+						vehiculo.kilometraje_vehiculo ? vehiculo.kilometraje_vehiculo : "0",
 						vehiculo.kilometrosMantencion_vehiculo,
-						vehiculo.sucursale ? vehiculo.sucursale.nombre_sucursal : "",
-						` <button value='${vehiculo.patente_vehiculo}' onclick='buscarVehiculo(this.value)'
-                       data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-info'><i class='far fa-edit'></i></button> `,
+						vehiculo.sucursale ? vehiculo.sucursale.nombre_sucursal : " - ",
 					])
 					.draw(false);
 			}
@@ -275,8 +273,8 @@ $(document).ready(() => {
 					vehiculo.año_vehiculo,
 					vehiculo.tipo_vehiculo,
 					vehiculo.transmision_vehiculo,
-					vehiculo.sucursale ? vehiculo.sucursale.nombre_sucursal : "",
 					vehiculo.estado_vehiculo,
+					vehiculo.sucursale ? vehiculo.sucursale.nombre_sucursal : " - ",
 					` <button value='${vehiculo.patente_vehiculo}' onclick='buscarVehiculo(this.value)'
                        data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-info'><i class='far fa-edit'></i></button> `,
 				])

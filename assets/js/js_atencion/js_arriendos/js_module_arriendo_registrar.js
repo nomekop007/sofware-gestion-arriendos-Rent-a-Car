@@ -124,7 +124,6 @@ $(document).ready(() => {
 
 	//cargar vehiculos en select
 	const cargarSucursales = async () => {
-		console.log();
 		$("#selectSucursal").empty()
 		await cargarSelectSucursal("cargar_Sucursales", "selectSucursal");
 		$("#selectSucursal").val($("#id_sucursal").val())
@@ -140,11 +139,11 @@ $(document).ready(() => {
 		$("#select_vehiculos").select2(lenguajeSelect2);
 		const data = new FormData();
 		data.append("inputSucursal", $("#selectSucursal").val());
-		console.log($("#selectSucursal").val());
 		const response = await ajax_function(data, "cargar_VehiculosPorSucursal");
 		if (response.success) {
 			if (response.data) {
 				const select = document.getElementById("select_vehiculos");
+				//cambiar luego por  response.data.vehiculos
 				$.each(response.data.regione.vehiculos, (i, o) => {
 					const option = document.createElement("option");
 					option.innerHTML = `${o.patente_vehiculo} ${o.marca_vehiculo} ${o.modelo_vehiculo} ${o.año_vehiculo}`;

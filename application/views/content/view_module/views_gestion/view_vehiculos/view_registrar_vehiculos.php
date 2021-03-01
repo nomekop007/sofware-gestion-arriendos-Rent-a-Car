@@ -127,50 +127,13 @@
                 <br>
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-link active" id="nav-vehiculosDisponibles-tab" data-toggle="tab" href="#nav-vehiculosDisponibles" role="tab" aria-controls="nav-vehiculosDisponibles" aria-selected="true">Vehiculos disponibles</a>
-                        <a class="nav-link" id="nav-vehiculosArrendados-tab" data-toggle="tab" href="#nav-vehiculosArrendados" role="tab" aria-controls="nav-vehiculosArrendados" aria-selected="false">Vehiculos arrendados</a>
+                        <a class="nav-link active" id="nav-vehiculosArrendados-tab" data-toggle="tab" href="#nav-vehiculosArrendados" role="tab" aria-controls="nav-vehiculosArrendados" aria-selected="true">Vehiculos arrendados</a>
+                        <a class="nav-link " id="nav-vehiculosDisponibles-tab" data-toggle="tab" href="#nav-vehiculosDisponibles" role="tab" aria-controls="nav-vehiculosDisponibles" aria-selected="false">Vehiculos disponibles</a>
                         <a class="nav-link" id="nav-todosLosVehiculos-tab" data-toggle="tab" href="#nav-todosLosVehiculos" role="tab" aria-controls="nav-todosLosVehiculos" aria-selected="false">Todos los vehiculos</a>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-vehiculosDisponibles" role="tabpanel" aria-labelledby="nav-vehiculosDisponibles-tab">
-                        <br>
-                        <div class="scroll">
-                            <table id="tablaVehiculosDisponibles" class="table table-striped table-bordered" style="width:100%">
-                                <thead class="btn-dark">
-                                    <tr>
-                                        <th>Patente</th>
-                                        <th>Marca modelo</th>
-                                        <th>año</th>
-                                        <th>Tipo</th>
-                                        <th>transmision</th>
-                                        <th>km actual</th>
-                                        <th>km prox mantencion</th>
-                                        <th>Sucursal actual</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody id="vehiculos">
-
-                                </tbody>
-                                <tfoot class="btn-dark">
-                                    <tr>
-                                        <th>Patente</th>
-                                        <th>Marca modelo</th>
-                                        <th>año</th>
-                                        <th>Tipo</th>
-                                        <th>transmision</th>
-                                        <th>km actual</th>
-                                        <th>km prox mantencion</th>
-                                        <th>Sucursal actual</th>
-                                        <th></th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="nav-vehiculosArrendados" role="tabpanel" aria-labelledby="nav-vehiculosArrendados-tab">
+                    <div class="tab-pane fade show active" id="nav-vehiculosArrendados" role="tabpanel" aria-labelledby="nav-vehiculosArrendados-tab">
                         <br>
                         <div class="scroll">
                             <table id="tablaVehiculosArrendados" class="table table-striped table-bordered" style="width:100%">
@@ -205,6 +168,41 @@
                         </div>
 
                     </div>
+                    <div class="tab-pane fade " id="nav-vehiculosDisponibles" role="tabpanel" aria-labelledby="nav-vehiculosDisponibles-tab">
+                        <br>
+                        <div class="scroll">
+                            <table id="tablaVehiculosDisponibles" class="table table-striped table-bordered" style="width:100%">
+                                <thead class="btn-dark">
+                                    <tr>
+                                        <th>Patente</th>
+                                        <th>Marca modelo</th>
+                                        <th>año</th>
+                                        <th>Tipo</th>
+                                        <th>transmision</th>
+                                        <th>km actual</th>
+                                        <th>km prox mantencion</th>
+                                        <th>Sucursal actual</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="vehiculos">
+
+                                </tbody>
+                                <tfoot class="btn-dark">
+                                    <tr>
+                                        <th>Patente</th>
+                                        <th>Marca modelo</th>
+                                        <th>año</th>
+                                        <th>Tipo</th>
+                                        <th>transmision</th>
+                                        <th>km actual</th>
+                                        <th>km prox mantencion</th>
+                                        <th>Sucursal actual</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
                     <div class="tab-pane fade" id="nav-todosLosVehiculos" role="tabpanel" aria-labelledby="nav-todosLosVehiculos-tab">
                         <br>
                         <div class="scroll">
@@ -216,8 +214,8 @@
                                         <th>año</th>
                                         <th>Tipo</th>
                                         <th>transmision</th>
-                                        <th>Sucursal</th>
                                         <th>Estado</th>
+                                        <th>Sucursal</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -231,8 +229,8 @@
                                         <th>año</th>
                                         <th>Tipo</th>
                                         <th>transmision</th>
-                                        <th>Sucursal</th>
                                         <th>Estado</th>
+                                        <th>Sucursal</th>
                                         <th></th>
                                     </tr>
                                 </tfoot>

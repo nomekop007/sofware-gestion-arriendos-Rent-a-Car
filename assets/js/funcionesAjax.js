@@ -4,10 +4,10 @@ const base_route = $("#route").val();
 
 
 //cargar selects
-function cargarSelect(ruta, idSelect) {
+async function cargarSelect(ruta, idSelect) {
 	const url = base_url + ruta;
 	const select = document.getElementById(idSelect);
-	$.getJSON(url, (response) => {
+	await $.getJSON(url, (response) => {
 		if (response.success) {
 			$.each(response.data, (i, object) => {
 				const option = document.createElement("option");
