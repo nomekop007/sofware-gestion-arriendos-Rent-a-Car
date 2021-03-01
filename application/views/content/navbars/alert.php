@@ -110,7 +110,7 @@
                 clearInterval(time);
                 toastr.error('este arriendo a EXPIRADO', 'Arriendo Nº ' + arriendo.id_arriendo + ' - ' + arriendo.sucursale.nombre_sucursal)
             } else {
-                toastr.warning("queda menos de " + moment.utc(diff).format(" HH:mm:ss") + " horas para expirar",
+                toastr.warning("queda menos de " + moment.utc(diff).format(" HH:mm:ss") + " horas para expirar " + ' - ' + arriendo.sucursale.nombre_sucursal,
                     'Arriendo Nº ' + arriendo.id_arriendo)
             }
         }

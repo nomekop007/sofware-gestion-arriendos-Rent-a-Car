@@ -71,7 +71,8 @@
             let fila = `
 		<div id="alert${arriendo.id_arriendo}" class="alert  alert-dismissible fade show" role="alert">
 		Arriendo: Nº${arriendo.id_arriendo}  Vehiculo: ${arriendo.patente_vehiculo}  Cliente: ${cliente} Sucursal: ${arriendo.sucursale.nombre_sucursal} <div id=time${arriendo.id_arriendo}> </div>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		 <span aria-hidden="true">&times;</span>
 		</button>
 		</div> `;
