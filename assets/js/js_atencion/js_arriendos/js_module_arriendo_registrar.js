@@ -630,6 +630,7 @@ $(document).ready(() => {
 		dataFormArriendo.append("inputRutConductor", rut_conductor);
 		dataFormArriendo.append("inputRutConductor2", rut_conductor2);
 		dataFormArriendo.append("inputRutConductor3", rut_conductor3);
+		dataFormArriendo.append("selectSucursal", $("#selectSucursal").val());
 		const response = await ajax_function(dataFormArriendo, "registrar_arriendo");
 		if (response.success) {
 			await guardarDatosContacto(response.data.id_arriendo);
