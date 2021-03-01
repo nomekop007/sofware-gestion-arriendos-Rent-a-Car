@@ -32,7 +32,7 @@ const buscarVehiculo = async (patente) => {
 		$("#inputEditarColor").val(vehiculo.color_vehiculo);
 		$("#inputEditarNumeroMotor").val(vehiculo.numeroMotor_vehiculo);
 		$("#inputEditarkilomentrosMantencion").val(vehiculo.Tmantencion_vehiculo);
-		$("#inputEditarRegion").val(vehiculo.id_region);
+		$("#inputEditarSucursal").val(vehiculo.id_sucursal);
 		$("#inputEditarCompra").val(vehiculo.compra_vehiculo);
 		$("#inputEditarPropietario").val(vehiculo.rut_propietario);
 		$("#inputEditarFechaCompra").val(
@@ -95,12 +95,15 @@ const limpiarCampos = () => {
 
 $(document).ready(() => {
 	const tablaVehiculos = $("#tablaVehiculos").DataTable(lenguaje);
+	const tablaVehiculosDisponibles = $("#tablaVehiculosDisponibles").DataTable(lenguaje);
+	const tablaVehiculosArrendados = $("#tablaVehiculosArrendados").DataTable(lenguaje);
+
 
 	$("#nav-vehiculos-tab").click(() => refrescarTabla());
 
 	//cargar sucursales  (ruta,select)
-	cargarSelect("cargar_regiones", "inputRegion");
-	cargarSelect("cargar_regiones", "inputEditarRegion");
+	cargarSelectSucursal("cargar_Sucursales", "inputSucursal");
+	cargarSelectSucursal("cargar_Sucursales", "inputEditarSucursal");
 	cargarSelect("cargar_propietarios", "inputPropietario");
 	cargarSelect("cargar_propietarios", "inputEditarPropietario");
 
@@ -115,7 +118,6 @@ $(document).ready(() => {
 		$("#spinner_tablaVehiculos").show();
 		const response = await ajax_function(null, "cargar_Vehiculos");
 		if (response.success) {
-			tablaVehiculos.row().clear().draw(false);
 			$.each(response.data, (i, vehiculo) => {
 				cargarVehiculoEnTabla(vehiculo);
 			});
@@ -123,14 +125,29 @@ $(document).ready(() => {
 		$("#spinner_tablaVehiculos").hide();
 	};
 
+	const cargarVehiculosArrendados = async () => {
+		$("#spinner_tablaVehiculos").show();
+		const response = await ajax_function(null, "cargar_VehiculosArrendados");
+		if (response.success) {
+			$.each(response.data, (i, vehiculo) => {
+				cargarVehiculoArriendoEnTabla(vehiculo);
+			});
+		}
+		$("#spinner_tablaVehiculos").hide();
+	}
+
 
 
 
 	const refrescarTabla = () => {
 		//limpia la tabla
 		tablaVehiculos.row().clear().draw(false);
+		tablaVehiculosArrendados.row().clear().draw(false);
+		tablaVehiculosDisponibles.row().clear().draw(false);
+
 		//carga nuevamente
 		cargarVehiculos();
+		cargarVehiculosArrendados();
 	};
 
 
@@ -235,6 +252,22 @@ $(document).ready(() => {
 
 	const cargarVehiculoEnTabla = (vehiculo) => {
 		try {
+			if (vehiculo.estado_vehiculo == "DISPONIBLE") {
+				tablaVehiculosDisponibles.row
+					.add([
+						vehiculo.patente_vehiculo,
+						vehiculo.marca_vehiculo + " " + vehiculo.modelo_vehiculo,
+						vehiculo.año_vehiculo,
+						vehiculo.tipo_vehiculo,
+						vehiculo.transmision_vehiculo,
+						vehiculo.kilometraje_vehiculo ? vehiculo.kilometraje_vehiculo : "",
+						vehiculo.kilometrosMantencion_vehiculo,
+						vehiculo.sucursale ? vehiculo.sucursale.nombre_sucursal : "",
+						` <button value='${vehiculo.patente_vehiculo}' onclick='buscarVehiculo(this.value)'
+                       data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-info'><i class='far fa-edit'></i></button> `,
+					])
+					.draw(false);
+			}
 			tablaVehiculos.row
 				.add([
 					vehiculo.patente_vehiculo,
@@ -242,7 +275,7 @@ $(document).ready(() => {
 					vehiculo.año_vehiculo,
 					vehiculo.tipo_vehiculo,
 					vehiculo.transmision_vehiculo,
-					vehiculo.regione ? vehiculo.regione.nombre_region : "",
+					vehiculo.sucursale ? vehiculo.sucursale.nombre_sucursal : "",
 					vehiculo.estado_vehiculo,
 					` <button value='${vehiculo.patente_vehiculo}' onclick='buscarVehiculo(this.value)'
                        data-toggle='modal' data-target='#modal_editar' class='btn btn-outline-info'><i class='far fa-edit'></i></button> `,
@@ -250,4 +283,39 @@ $(document).ready(() => {
 				.draw(false);
 		} catch (error) { }
 	};
+
+
+	const cargarVehiculoArriendoEnTabla = (vehiculo) => {
+		try {
+			if (vehiculo.arriendos.length > 0) {
+				let arriendo = vehiculo.arriendos[vehiculo.arriendos.length - 1];
+				let cliente = "";
+				switch (arriendo.tipo_arriendo) {
+					case "PARTICULAR":
+						cliente = `${arriendo.cliente.nombre_cliente}`;
+						break;
+					case "REEMPLAZO":
+						cliente = `${arriendo.remplazo.cliente.nombre_cliente}`;
+						break;
+					case "EMPRESA":
+						cliente = `${arriendo.empresa.nombre_empresa}`;
+						break;
+				}
+				tablaVehiculosArrendados.row
+					.add([
+						vehiculo.patente_vehiculo,
+						vehiculo.marca_vehiculo + " " + vehiculo.modelo_vehiculo + " " + vehiculo["año_vehiculo"],
+						cliente,
+						arriendo.ciudadEntrega_arriendo,
+						arriendo.ciudadRecepcion_arriendo,
+						formatearFechaHora(arriendo.fechaEntrega_arriendo),
+						formatearFechaHora(arriendo.fechaRecepcion_arriendo),
+						arriendo.userAt,
+					])
+					.draw(false);
+			}
+		} catch (error) { }
+	}
+
+
 });

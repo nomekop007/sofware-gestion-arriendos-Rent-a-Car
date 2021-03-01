@@ -28,6 +28,9 @@ $route['buscar_vehiculo'] = 'Vehiculo_controller/buscarVehiculo';
 $route['editar_vehiculo'] = 'Vehiculo_controller/editarVehiculo';
 $route['guardar_fotoVehiculo'] = 'Vehiculo_controller/guardarFotoVehiculo';
 $route['cambiarEstado_vehiculo'] = 'Vehiculo_controller/cambiarEstadoVehiculo';
+$route['cargar_VehiculosArrendados'] = 'Vehiculo_controller/vehiculosArrendados';
+
+
 
 /* rutas de controller usuario */
 $route['iniciar_sesion'] = 'Usuario_controller/iniciarSesion';

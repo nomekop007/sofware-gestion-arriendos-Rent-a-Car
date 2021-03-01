@@ -94,8 +94,8 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
-                                            <label for="inputEditarRegion">Region</label>
-                                            <select id="inputEditarRegion" name="inputEditarRegion" class="form-control">
+                                            <label for="inputEditarSucursal">Sucursal Actual</label>
+                                            <select id="inputEditarSucursal" name="inputEditarSucursal" class="form-control">
                                             </select>
                                         </div>
 

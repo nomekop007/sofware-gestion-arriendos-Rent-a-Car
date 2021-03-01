@@ -28,7 +28,8 @@ class Vehiculo_controller extends CI_Controller
             "compra_vehiculo" => $this->input->post("inputCompra"),
             "fechaCompra_vehiculo" => $this->input->post("inputFechaCompra"),
             "año_vehiculo" => $this->input->post("inputedad"),
-            "id_region" => $this->input->post("inputRegion"),
+            "id_region" => 1,
+            "id_sucursal" => $this->input->post("inputSucursal"),
             "chasis_vehiculo" => $this->input->post("inputChasis"),
             "numeroMotor_vehiculo" => $this->input->post("inputNumeroMotor"),
             "numero_gps_vehiculo" => $this->input->post("inputNumeroGps"),
@@ -55,7 +56,8 @@ class Vehiculo_controller extends CI_Controller
             "compra_vehiculo" => $this->input->post("inputEditarCompra"),
             "fechaCompra_vehiculo" => $this->input->post("inputEditarFechaCompra"),
             "año_vehiculo" => $this->input->post("inputEditarEdad"),
-            "id_region" => $this->input->post("inputEditarRegion"),
+            "id_region" => 1,
+            "id_sucursal" => $this->input->post("inputEditarSucursal"),
             "chasis_vehiculo" => $this->input->post("inputEditarChasis"),
             "numeroMotor_vehiculo" => $this->input->post("inputEditarNumeroMotor"),
             "marca_vehiculo" => $this->input->post("inputEditarMarca"),
@@ -84,5 +86,10 @@ class Vehiculo_controller extends CI_Controller
         $arrayInput = ["inputFoto"];
         $arrayData = recorrerFicheros($arrayInput);
         echo file_function($patente, $arrayData, "vehiculos/cargarImagen");
+    }
+
+    public function vehiculosArrendados()
+    {
+        echo get_function("vehiculos/cargarVehiculosArrendados");
     }
 }
