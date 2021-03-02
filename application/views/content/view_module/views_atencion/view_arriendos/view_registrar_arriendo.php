@@ -73,7 +73,7 @@
                                 <?php } ?>
                                 <?php if (validarPermiso(10)) { ?>
                                     <div class="form-group col-xl-6">
-                                        <label for="selectSucursal">Seleccionar Agencia</label>
+                                        <label for="selectSucursal">Seleccionar Agencia responsable</label>
                                         <select name="selectSucursal" id="selectSucursal" class="form-control" required>
                                         </select>
                                     </div>

@@ -97,23 +97,21 @@ $(document).ready(() => {
     (cargarVehiculos = async () => {
         const data = new FormData();
         data.append("inputSucursal", $("#selectSucursal").val());
-        const response = await ajax_function(data, "cargar_VehiculosPorSucursal");
+        const response = await ajax_function(data, "cargar_VehiculosDisponibles");
         if (response.success) {
-            if (response.data) {
-                const select = document.getElementById("vehiculo");
-                const select_muestra = document.getElementById("vehiculo_mostrar");
-                $.each(response.data.regione.vehiculos, (i, o) => {
-                    let option = document.createElement("option");
-                    let option_muestra = document.createElement("option");
-                    option.innerHTML = `${o.patente_vehiculo} ${o.marca_vehiculo} ${o.modelo_vehiculo} ${o.año_vehiculo}`;
-                    option_muestra.innerHTML = `${o.patente_vehiculo} ${o.marca_vehiculo} ${o.modelo_vehiculo} ${o.año_vehiculo}`;
-                    option.value = o.patente_vehiculo;
-                    option_muestra.value = o.patente_vehiculo;
-                    select.appendChild(option);
-                    select_muestra.appendChild(option_muestra);
-                });
-                $("#vehiculo").attr("disabled", false);
-            }
+            const select = document.getElementById("vehiculo");
+            const select_muestra = document.getElementById("vehiculo_mostrar");
+            $.each(response.data, (i, o) => {
+                let option = document.createElement("option");
+                let option_muestra = document.createElement("option");
+                option.innerHTML = `${o.patente_vehiculo} ${o.marca_vehiculo} ${o.modelo_vehiculo} ${o.año_vehiculo}`;
+                option_muestra.innerHTML = `${o.patente_vehiculo} ${o.marca_vehiculo} ${o.modelo_vehiculo} ${o.año_vehiculo}`;
+                option.value = o.patente_vehiculo;
+                option_muestra.value = o.patente_vehiculo;
+                select.appendChild(option);
+                select_muestra.appendChild(option_muestra);
+            });
+            $("#vehiculo").attr("disabled", false);
         }
     })();
 

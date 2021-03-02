@@ -6,6 +6,8 @@ $("#tabla_cliente").hide();
 $("#btn_pagoExtra").hide();
 
 const array_id_pagosRemplazo = [];
+const array_id_pagoExtras = [];
+
 let totalPago_remplazo = 0;
 let totalDias_remplazo = 0;
 
@@ -60,6 +62,14 @@ const recalculaDiasRestantes = (dias_restantes) => {
     $("#dias_totales").html(`dias totales: ${dias}`);
 }
 
+const eliminarPagoExtra = async (id_pagoExtra) => {
+    const data = new FormData();
+    data.append("id_pagoExtra", id_pagoExtra);
+    const response = await ajax_function(data, "eliminarPagoExtra");
+    if (response.success) {
+        cargarPagosExtras();
+    }
+}
 
 const tipoComprobante = (value) => {
     switch (value) {
@@ -107,18 +117,71 @@ const cantidadComprobantes = (value) => {
                     <option value="4">TRANSFERENCIA</option>
                 </select>
             </td>
-             <td class="text-center">
+            <td class="text-center">
                 <input maxLength="20" oninput="recalcularPagoParcial()" value=0 id="abono${i}" placeholder="$" type="number" class="form-control" required>
             </td>
             <td class="text-center">
                 <input maxLength="20" id="numeroDoc${i}" placeholder="Nº Boleta/Factura" type="number" class="form-control" required>
             </td>
             <td class="text-center">
-               <input id="fileComprobante${i}" accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" required>
+            <input id="fileComprobante${i}" accept="image/x-png,image/gif,image/jpeg,image/jpg,application/pdf" type="file" class="form-control-file" required>
             </td>
         </tr>
         `;
         $("#tbody_tabla_pagos").append(fila)
+    }
+}
+
+const cargarPagosExtras = async () => {
+    $("#tbody_tabla_pagosExtra").empty();
+    const data = new FormData();
+    array_id_pagoExtras.length = 0;
+    data.append("id_arriendo", $("#id_arriendo").val());
+    const response = await ajax_function(data, "cargar_pagosExtrasPorArriendo");
+    if (response.success) {
+        let montoTotal = 0;
+        $.each(response.data, (i, pagoExtra) => {
+            array_id_pagoExtras.push(pagoExtra.id_pagoExtra);
+            let btn = '';
+            if (!pagoExtra.id_facturacion) {
+                btn = ` <button class="btn btn-danger" onclick='eliminarPagoExtra(this.value)' value='${pagoExtra.id_pagoExtra}' ><i class="fas fa-minus-circle"></i></button> `;
+            } else {
+                btn = `<div class="text-success"><i class="fas fa-check-circle fa-2x"></i></div>`;
+            }
+            montoTotal += Number(pagoExtra.monto_pagoExtra);
+            let html = `
+            <tr>
+                <th class="text-center" scope="row"> ${i + 1} </th>
+                <td class="text-center"> $ ${formatter.format(pagoExtra.monto_pagoExtra)} </td>
+                <td class="text-center"> ${pagoExtra.detalle_pagoExtra} </td>
+                <td class="text-center"> PAGO EXTRA </td>
+                <td class="text-center"> ${btn}</td>
+            </tr>`;
+            $("#tbody_tabla_pagosExtra").append(html);
+        });
+
+        if (response.data.length > 0) {
+            console.log(response.data)
+            if (response.data[0].id_facturacion) {
+                let documento = response.data[0].facturacione.documento_facturacion;
+                console.log(documento);
+                $("#view_btnFacturaPagoExtra").html(`<button class="btn btn-dark btn-sm form-control" type="button" onClick="buscarDocumento('${documento}','facturacion')"> <i class="fas fa-upload"></i> </button>`)
+            } else {
+                $("#view_btnFacturaPagoExtra").empty()
+                $("#formPagoExtra").show();
+                $("#formFacturacion_pagosExtra").show();
+                $("#btn_facturacion_pagoExtra").show();
+            }
+        } else {
+            $("#view_btnFacturaPagoExtra").empty()
+            $("#formPagoExtra").show();
+            $("#formFacturacion_pagosExtra").show();
+            $("#btn_facturacion_pagoExtra").show();
+        }
+
+        $("#modalViewPagoExtra").show();
+        $("#spinnerModalPagoExtra").hide();
+        $("#montoTotal_pagoExtra").val(' Total bruto $ ' + formatter.format(montoTotal));
     }
 }
 
@@ -155,6 +218,9 @@ $(document).ready(() => {
     })();
 
 
+
+
+
     $("#btn_buscar_pagos").click(async () => {
         limpiarBuscarPagos();
         const id_arriendo = $("#txt_id_arriendo").val();
@@ -183,48 +249,68 @@ $(document).ready(() => {
 
 
     $("#btn_pagosExtras").click(async () => {
+        $("#modalViewPagoExtra").hide();
+        $("#spinnerModalPagoExtra").show();
+        $("#formPagoExtra")[0].reset();
+        $("#formFacturacion_pagosExtra")[0].reset();
+        $("#formPagoExtra").hide();
+        $("#formFacturacion_pagosExtra").hide();
+        $("#btn_facturacion_pagoExtra").hide();
+        $("#spinner_btn_facturacionPagoExtra").hide();
         cargarPagosExtras();
     });
 
 
-    const cargarPagosExtras = async () => {
-        $("#tbody_tabla_pagosExtra").empty();
-        const data = new FormData();
-        data.append("id_arriendo", $("#id_arriendo").val());
-        const response = await ajax_function(data, "cargar_pagosExtrasPorArriendo");
-        if (response.success) {
-            $.each(response.data, (i, pagoExtra) => {
-                let html = `
-                <tr>
-                    <th class="text-center" scope="row"> ${i + 1} </th>
-                     <td class="text-center"> $ ${formatter.format(pagoExtra.monto_pagoExtra)} </td>
-                    <td class="text-center"> ${pagoExtra.detalle_pagoExtra} </td>
-                    <td class="text-center"> PAGO EXTRA </td>
-                </tr>`;
-                $("#tbody_tabla_pagosExtra").append(html);
-            })
-        }
-    }
 
 
 
-    $("#btn_createPagoExtra").click(() => {
-
+    $("#btn_createPagoExtra").click(async () => {
         if ($("#monto_pagoExtra").val().length === 0 || $("#descripcion_pagoExtra").val().length === 0) {
             Swal.fire("complete los campos", "falta ingresar datos del pago extra", "warning");
             return;
         }
+        const form = $("#formPagoExtra")[0];
+        const data = new FormData(form)
+        data.append("id_arriendo", $("#id_arriendo").val());
+        const response = await ajax_function(data, "registrar_pagoExtra");
+        if (response.success) {
+            $("#formPagoExtra")[0].reset();
+            cargarPagosExtras();
+        }
+    });
+
+
+    $("#btn_facturacion_pagoExtra").click(() => {
+        if ($("#inputNumFacturacion_pagoExtra").val().length == 0 ||
+            $("#inputFileFacturacion_pagoExtra").val().length == 0) {
+            Swal.fire("faltan datos en el formulario", "debe ingresar el Nº facturacion con su respectivo comprobante", "warning");
+            return;
+        }
+        if (array_id_pagoExtras.length === 0) {
+            Swal.fire("faltan ingresar pago extra", "debe ingresar por lo menos un pago extra ", "warning");
+            return;
+        }
         alertQuestion(async () => {
-            const form = $("#formPagoExtra")[0];
-            const data = new FormData(form)
-            data.append("id_arriendo", $("#id_arriendo").val());
-            const response = await ajax_function(data, "registrar_pagoExtra");
-            if (response.success) {
-                Swal.fire("pago extra agregado!", "se registraron los datos exitosamente!", "success");
-                $("#formPagoExtra")[0].reset();
-                cargarPagosExtras();
-                console.log(response);
+            const data = new FormData();
+            $("#btn_facturacion_pagoExtra").attr("disabled", true);
+            $("#spinner_btn_facturacionPagoExtra").show();
+            data.append("arrayPagosExtra", JSON.stringify(array_id_pagoExtras));
+            data.append("customRadio1", $('[name="customRadio_pagoExtra1"]:checked').val());
+            data.append("customRadio2", $('[name="customRadio_pagoExtra2"]:checked').val());
+            data.append("inputNumFacturacion", $("#inputNumFacturacion_pagoExtra").val());
+            data.append("inputDocumento", $("#inputFileFacturacion_pagoExtra")[0].files[0]);
+            const responseFactura = await ajax_function(data, "registrar_facturacion");
+            if (responseFactura.success) {
+                data.append("id_facturacion", responseFactura.data.id_facturacion);
+                await ajax_function(data, "guardar_documentoFacturacion");
+                const response = await ajax_function(data, "actualizarPagoExtra");
+                if (response.success) {
+                    Swal.fire("comprobante de pago extra subido!", "se registraron los datos exitosamente!", "success");
+                    $("#modal_pagoExtra").modal("toggle");
+                }
             }
+            $("#btn_facturacion_pagoExtra").attr("disabled", false);
+            $("#spinner_btn_facturacionPagoExtra").hide();
         })
     });
 

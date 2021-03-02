@@ -127,7 +127,7 @@
                 <br>
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-link active" id="nav-vehiculosArrendados-tab" data-toggle="tab" href="#nav-vehiculosArrendados" role="tab" aria-controls="nav-vehiculosArrendados" aria-selected="true">Vehiculos arrendados</a>
+                        <a class="nav-link active" id="nav-vehiculosArrendados-tab" data-toggle="tab" href="#nav-vehiculosArrendados" role="tab" aria-controls="nav-vehiculosArrendados" aria-selected="true">Vehiculos en arriendo </a>
                         <a class="nav-link " id="nav-vehiculosDisponibles-tab" data-toggle="tab" href="#nav-vehiculosDisponibles" role="tab" aria-controls="nav-vehiculosDisponibles" aria-selected="false">Vehiculos disponibles</a>
                         <a class="nav-link" id="nav-todosLosVehiculos-tab" data-toggle="tab" href="#nav-todosLosVehiculos" role="tab" aria-controls="nav-todosLosVehiculos" aria-selected="false">Todos los vehiculos</a>
                     </div>

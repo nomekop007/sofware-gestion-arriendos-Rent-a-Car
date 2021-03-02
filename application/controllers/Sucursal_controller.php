@@ -10,10 +10,4 @@ class Sucursal_controller extends CI_Controller
     {
         echo  get_function('sucursales/cargarSucursales');
     }
-
-    public function cargarVehiculosPorSucursal()
-    {
-        $id_sucursal = $this->input->post("inputSucursal");
-        echo find_function($id_sucursal, "sucursales/cargarVehiculos");
-    }
 }

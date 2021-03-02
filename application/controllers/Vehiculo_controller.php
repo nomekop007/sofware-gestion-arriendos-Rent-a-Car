@@ -4,7 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Vehiculo_controller extends CI_Controller
 {
-
     public function cargarVehiculos()
     {
         echo get_function("vehiculos/cargarVehiculos");
@@ -20,6 +19,11 @@ class Vehiculo_controller extends CI_Controller
     {
         $id_sucursal = $this->input->post('id_sucursal');
         echo find_function($id_sucursal, 'vehiculos/cargarVehiculosDisponiblesPorSucursal');
+    }
+
+    public function cargarVehiculosDisponibles()
+    {
+        echo get_function('vehiculos/cargarVehiculosDisponibles');
     }
 
     public function registrarVehiculo()

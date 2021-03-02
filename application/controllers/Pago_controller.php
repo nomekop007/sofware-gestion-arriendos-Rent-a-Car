@@ -156,4 +156,20 @@ class Pago_controller extends CI_Controller
         $id_arriendo = $this->input->post("id_arriendo");
         echo find_function($id_arriendo, "pagos/cargarPagosExtrasPorArriendo");
     }
+
+
+    public function eliminarPagoExtra()
+    {
+        $id_pagoExtra = $this->input->post("id_pagoExtra");
+        echo delete_function($id_pagoExtra, "pagos/eliminarPagoExtra");
+    }
+
+    public function actualizarPagoExtra()
+    {
+        $dataArray = [
+            "id_facturacion" => $this->input->post("id_facturacion"),
+            "arrayPagosExtra" => json_decode($this->input->post("arrayPagosExtra")),
+        ];
+        echo post_function($dataArray, "pagos/actualizarPagosExtras");
+    }
 }

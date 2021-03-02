@@ -191,7 +191,7 @@
                                     <input type="text" readonly class="form-control" name="fecha_fin" id="fecha_fin" required />
                                 </div>
                                 <div class="form-group col-xl-2">
-                                    <label for="inputNumeroDias">Numeros de Dias</label>
+                                    <label for="inputNumeroDias">Dias</label>
                                     <input min="1" oninput="calcularDias()" type="number" class="form-control" name="inputNumeroDias" id="inputNumeroDias" required>
                                 </div>
                                 <div class="form-group col-xl-10">

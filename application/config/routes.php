@@ -19,7 +19,6 @@ $route['cargar_regiones'] = 'Region_controller/cargarRegiones';
 
 /* rutas de controller sucursal */
 $route['cargar_Sucursales'] = 'Sucursal_controller/cargarSucursales';
-$route['cargar_VehiculosPorSucursal'] = 'Sucursal_controller/cargarVehiculosPorSucursal';
 
 /* rutas de controller vehiculo */
 $route['cargar_Vehiculos'] = 'Vehiculo_controller/cargarVehiculos';
@@ -30,6 +29,7 @@ $route['guardar_fotoVehiculo'] = 'Vehiculo_controller/guardarFotoVehiculo';
 $route['cambiarEstado_vehiculo'] = 'Vehiculo_controller/cambiarEstadoVehiculo';
 $route['cargar_VehiculosArrendados'] = 'Vehiculo_controller/vehiculosArrendados';
 $route['cargar_vehiculosDisponibleSucursal'] = 'Vehiculo_controller/cargarVehiculosDisponiblesPorSucursal';
+$route['cargar_VehiculosDisponibles'] = 'Vehiculo_controller/cargarVehiculosDisponibles';
 
 
 /* rutas de controller usuario */
@@ -145,8 +145,8 @@ $route['actualizar_montoPago'] = 'Pago_controller/actualizarMontoPago';
 $route['actualizar_pagoAPagado'] = 'Pago_controller/actualizarUnPagoAPagado';
 $route['registrar_pagoExtra'] = 'Pago_controller/registrarPagoExtra';
 $route['cargar_pagosExtrasPorArriendo'] = 'Pago_controller/cargarPagosExtrasPorArriendo';
-
-
+$route['eliminarPagoExtra'] = 'Pago_controller/eliminarPagoExtra';
+$route['actualizarPagoExtra'] = 'Pago_controller/actualizarPagoExtra';
 
 
 /* rutas de controller empresaRemplazo */
