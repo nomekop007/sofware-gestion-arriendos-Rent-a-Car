@@ -30,11 +30,10 @@
         <br>
         <div class="card  text-success">
             <div class="m-4">
-                <h1>SISTEMA ACTUALIZADO! 26-02-2021</h1>
+                <h1>SISTEMA ACTUALIZADO! 03-03-2021</h1>
                 <span>Cambios realizados:</span>
-                <li>MODULO GESTION VEHICULOS : Se modifico el listado de estados de los vehiculos, se agrego "en reparacion" , "vendido", "en licitacion" se borraron los estado "reservado" y "inactivo".</li>
-                <li>MODULO FACTURACION PAGO CLIENTES : el estado del pago se cambiara de "vigente" a "pendiente" cuando el vehiculo del arriendo se recepcione.</li>
-                <li>TODOS LOS MODULOS : se hizo una modificacion a nivel de sistema para restringir la informacion de los arriendos, pagos ,etc para que se separe por sucursal. tambien se creo un usuario super admin el cual podra ver todos los arriendos,pagos,etc de todas las sucursales esta funcion esta en beta.</li>
+                <li>MODULO ATENCION: Se agrego una tabla con el listado y cantidad de vehiculos de cada sucursal (beta).</li>
+                <li>MODULO GESTION VEHICULO : se asociaron los vehiculos a las sucursales , en primera instancia se debe indicar a que sucursal pertenece a cada vehiculo.</li>
             </div>
         </div>
         <br><br><br><br><br>
