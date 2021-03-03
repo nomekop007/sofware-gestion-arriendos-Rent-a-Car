@@ -16,6 +16,8 @@
             </div>
             <div class="modal-body" id="modalViewPagoExtra">
                 <br>
+                <p>Los pagos extras son utilidades que paga el cliente despues de la recepcion del vehiculo y que corresponde a pagos que no estan estipulados en el contrato de arriendo.</p>
+                <br>
                 <form class="needs-validation" id="formPagoExtra" novalidate>
                     <div class="form-row">
                         <div class="col-md-3">

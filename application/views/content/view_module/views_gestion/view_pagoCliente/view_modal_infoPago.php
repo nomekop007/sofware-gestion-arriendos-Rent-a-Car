@@ -19,6 +19,7 @@
                 <div class="modal-body">
 
                     <div class="row">
+
                         <div class="form-group col-md-4">
                             <input id="info_rut_cliente" disabled type="text" class="form-control">
                         </div>
@@ -31,6 +32,9 @@
                         <div class="form-group col-md-12">
                             <textarea id="info_descripcion_pago" disabled class="form-control" rows=2></textarea>
                         </div>
+                        <div class="form-group col-md-12">
+                            <p>El valor total del arriendo incluye tambien los los pagos extras y pagos por daño del vehiculo si posee.</p>
+                        </div>
                         <div class="form-group col-md-6">
                             <input id="info_valor_total_arriendo" disabled type="text" class="form-control">
                         </div>
@@ -40,12 +44,9 @@
                         <div class="form-group col-md-6">
                             <input id="info_cantidad_contratos" disabled type="text" class="form-control">
                         </div>
-                        <div class="form-group col-md-12">
-                            <p>El valor total del arriendo incluye tambien los los pagos extras y pagos por daño del vehiculo si posee.</p>
-                        </div>
                     </div>
                     <br>
-
+                    <h6>Tabla de abonos de este pago</h6>
                     <div class="scroll">
                         <table class="table">
                             <thead class="thead-dark">

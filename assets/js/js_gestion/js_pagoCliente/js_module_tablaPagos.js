@@ -12,7 +12,7 @@ const buscarInfoPago = async (id_pago) => {
     if (response.success) {
         const pago = response.data;
         data.append('id_arriendo', pago.pagosArriendo.id_arriendo);
-        const responsePago = await ajax_function(data, "consultar_pagoArriendos");
+        const responsePago = await ajax_function(data, "consultar_totalPagoArriendos");
         if (responsePago.success) {
             $("#info_valor_total_arriendo").val(`Valor total arriendo: ${"$ " + formatter.format(responsePago.data.totalPago)}`);
             $("#titulo_modal_infoPago").html(`Arriendo N° ${pago.pagosArriendo.id_arriendo} -  monto: ${"$ " + formatter.format(pago.total_pago)} `)
@@ -22,8 +22,6 @@ const buscarInfoPago = async (id_pago) => {
             $("#info_descripcion_pago").val(pago.pagosArriendo.observaciones_pagoArriendo);
             $("#info_patente_vehiculo").val('Patente vehiculo: ' + pago.pagosArriendo.arriendo.patente_vehiculo);
             $("#info_cantidad_contratos").val('cantidad de contratos: ' + responsePago.data.arrayPago.length);
-
-
             if (pago.facturacione) {
                 arrayComprobantes.push({
                     numDoc: pago.facturacione.numero_facturacion,

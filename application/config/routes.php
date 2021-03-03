@@ -129,6 +129,8 @@ $route['registrar_revision'] = 'Despacho_controller/registrarRevision';
 /* rutas de controller pagoArriendo */
 $route['registrar_pagoArriendo'] = 'PagoArriendo_controller/registrarPagoArriendo';
 $route['consultar_pagoArriendos'] = 'PagoArriendo_controller/consultarPagosArriendo';
+$route['consultar_totalPagoArriendos'] = 'PagoArriendo_controller/consultarTotalPagosArriendo';
+
 
 /* rutas de controller pagos */
 $route['cargar_pagosERpendientes'] = 'Pago_controller/cargarPagosERpendientes';
