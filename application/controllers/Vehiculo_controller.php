@@ -46,7 +46,7 @@ class Vehiculo_controller extends CI_Controller
             "numero_tab_vehiculo" => $this->input->post("inputNumeroTab"),
             "marca_vehiculo" => $this->input->post("inputMarca"),
             "estado_vehiculo" => $this->input->post("inputEstado"),
-            "Tmantencion_vehiculo" => 10000,
+            "Tmantencion_vehiculo" => 0,
             "kilometraje_vehiculo" => 0,
             "kilometrosMantencion_vehiculo" => 0,
         ];

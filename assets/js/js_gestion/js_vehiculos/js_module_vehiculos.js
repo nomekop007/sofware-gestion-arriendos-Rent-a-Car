@@ -261,7 +261,6 @@ $(document).ready(() => {
 						vehiculo.tipo_vehiculo,
 						vehiculo.transmision_vehiculo,
 						vehiculo.kilometraje_vehiculo ? vehiculo.kilometraje_vehiculo : "0",
-						vehiculo.kilometrosMantencion_vehiculo,
 						vehiculo.sucursale ? vehiculo.sucursale.nombre_sucursal : " - ",
 					])
 					.draw(false);

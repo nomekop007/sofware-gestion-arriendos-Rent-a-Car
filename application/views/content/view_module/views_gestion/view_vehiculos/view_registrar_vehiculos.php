@@ -180,7 +180,6 @@
                                         <th>Tipo</th>
                                         <th>transmision</th>
                                         <th>km actual</th>
-                                        <th>km prox mantencion</th>
                                         <th>Sucursal actual</th>
                                     </tr>
                                 </thead>
@@ -195,7 +194,6 @@
                                         <th>Tipo</th>
                                         <th>transmision</th>
                                         <th>km actual</th>
-                                        <th>km prox mantencion</th>
                                         <th>Sucursal actual</th>
                                     </tr>
                                 </tfoot>
