@@ -14,7 +14,6 @@ class Despacho_controller extends CI_Controller
             "nombreRecibidor_despacho" => $this->input->post("inputRecibidorDespacho"),
             "nombreDespachador_despacho" => $this->input->post("inputEntregadorDespacho"),
         ];
-
         echo post_function($ArrayData, "despachos/registrarDespacho");
     }
 
@@ -24,7 +23,19 @@ class Despacho_controller extends CI_Controller
         $ArrayData = [
             "arrayImages" => json_decode($this->input->post("arrayImages")),
         ];
-
         echo put_function($id_despacho, $ArrayData, "despachos/registrarRevision");
+    }
+
+    public function registrarRecepcionUsuario()
+    {
+        $ArrayData = [
+            "id_arriendo" => $this->input->post("id_arriendo")
+        ];
+        echo post_function($ArrayData, "despachos/registrarRecepcionUsuario");
+    }
+
+    public function revisarRecepcionUsuario()
+    {
+        echo get_function("despachos/revisarRecepcionUsuario");
     }
 }

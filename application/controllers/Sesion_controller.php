@@ -36,13 +36,12 @@ class Sesion_controller extends CI_Controller
     //carga los paneles correspondientes
     public function cargarPanel()
     {
-
         if ($this->session->userdata("estado") === "true") {
             $this->load->view("templates/header");
             $this->load->view("content/navbars/navbar");
-            $this->load->view("content/navbars/alert");
+            $this->load->view("content/navbars/modalAlert");
+            $this->load->view("content/navbars/modalPendiente");
             $opcion = $_GET["panel"];
-
             switch ($opcion) {
                 case 1:
                     $this->load->view("content/sidebars/sidebar_atencion");
@@ -56,7 +55,6 @@ class Sesion_controller extends CI_Controller
                     $this->load->view("content/sidebars/sidebar_administracion");
                     $this->load->view("content/view_module/views_administracion/index_administracion");
                     break;
-
                 default:
                     redirect(base_url());
                     break;

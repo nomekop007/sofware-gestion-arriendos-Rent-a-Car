@@ -125,12 +125,13 @@ $route['registrar_contacto'] = 'Contacto_controller/registrarContacto';
 /* rutas de controller Despacho */
 $route['registrar_despacho'] = 'Despacho_controller/registrarDespacho';
 $route['registrar_revision'] = 'Despacho_controller/registrarRevision';
+$route['registrar_recepcionUsuario'] = 'Despacho_controller/registrarRecepcionUsuario';
+$route['revisar_recepcionUsuario'] = 'Despacho_controller/revisarRecepcionUsuario';
 
 /* rutas de controller pagoArriendo */
 $route['registrar_pagoArriendo'] = 'PagoArriendo_controller/registrarPagoArriendo';
 $route['consultar_pagoArriendos'] = 'PagoArriendo_controller/consultarPagosArriendo';
 $route['consultar_totalPagoArriendos'] = 'PagoArriendo_controller/consultarTotalPagosArriendo';
-
 
 /* rutas de controller pagos */
 $route['cargar_pagosERpendientes'] = 'Pago_controller/cargarPagosERpendientes';
