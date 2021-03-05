@@ -383,7 +383,6 @@ $(document).ready(() => {
 			Swal.fire("Error en el formulario", "coloque 0 en los campos vacios", "warning");
 			return;
 		}
-
 		if ($("#inputVehiculo_extenderPlazo").val() === "null") {
 			Swal.fire("Error en el formulario", "falto seleccionar el vehiculo", "warning");
 			return;
@@ -448,6 +447,7 @@ $(document).ready(() => {
 					await cambiarEstadoArriendo(data);
 					await ajax_function(data, "registrar_recepcionUsuario");
 					refrescarTablaActivos();
+					cargarArriendosPendientesCliente();
 					$("#modal_ArriendoFinalizar").modal("toggle");
 					Swal.fire("Arriendo finalizado!", "Arriendo finalizado con exito!", "success");
 				}
@@ -459,14 +459,13 @@ $(document).ready(() => {
 
 
 
-
-
 	$("#limpiarArrayFotosRecepcion").click(() => {
 		alertQuestion(() => {
 			arrayImagesRecepcion.length = 0;
 			$("#carrucel_recepcion").empty();
 		})
 	});
+
 
 
 	$("#seleccionarFotoRecepcion").click(async () => {
@@ -619,6 +618,7 @@ $(document).ready(() => {
 		}, 1000);
 	};
 
+
 	const capturarAccesorios = async () => {
 		//cacturando los accesorios
 		const matrizAccesorios = [];
@@ -627,7 +627,6 @@ $(document).ready(() => {
 		const list = $('[name="accesorios[]"]');
 		for (let i = 0; i < list.length; i++) {
 			let element = list[i];
-
 			if (element.value > 0 && element.length != 0) {
 				arrayIdAccesorios.push(element.id);
 				arrayValorAccesorios.push(element.value);
@@ -635,7 +634,6 @@ $(document).ready(() => {
 		}
 		matrizAccesorios.push(arrayIdAccesorios);
 		matrizAccesorios.push(arrayValorAccesorios);
-
 		return matrizAccesorios;
 	};
 

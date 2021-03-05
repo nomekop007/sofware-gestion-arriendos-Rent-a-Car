@@ -22,9 +22,9 @@
 
 
 <!-- importaciones del select2 -->
-<script src="<?php echo base_route() ?>assets/js/select2.min.js"></script>
+<script src="<?php echo base_route() ?>assets/js/utils/select2.min.js"></script>
 
-<script src="<?php echo base_route() ?>assets/js/comunaCiudad.js?v=<?php echo version(); ?>"></script>
+<script src="<?php echo base_route() ?>assets/js/utils/comunaCiudad.js?v=<?php echo version(); ?>"></script>
 
 <script src="<?php echo base_route() ?>assets/js/js_atencion/js_reservas/js_module_reservas.js?v=<?php echo version(); ?>">
 </script>

@@ -20,8 +20,8 @@
 </script>
 <script src="<?php echo base_route() ?>assets/js/js_atencion/js_despacho/js_module_despachos_firmaExtenciones.js?v=<?php echo version(); ?>">
 </script>
-<script src="<?php echo base_route() ?>assets/js/canvasCombustible.js?v=<?php echo version(); ?>"></script>
-<script src="<?php echo base_route() ?>assets/js/canvasFirmaDigital.js?v=<?php echo version(); ?>"></script>
-<script src="<?php echo base_route() ?>assets/js/canvasImgVehiculos.js?v=<?php echo version(); ?>"></script>
-<script src="<?php echo base_route() ?>assets/js/canvasVisorPDF.js?v=<?php echo version(); ?>"></script>
-<script src="<?php echo base_route() ?>assets/js/canvasDosFirmasDigitales.js?v=<?php echo version(); ?>"></script>
+<script src="<?php echo base_route() ?>assets/js/utils/canvasCombustible.js?v=<?php echo version(); ?>"></script>
+<script src="<?php echo base_route() ?>assets/js/utils/canvasFirmaDigital.js?v=<?php echo version(); ?>"></script>
+<script src="<?php echo base_route() ?>assets/js/utils/canvasImgVehiculos.js?v=<?php echo version(); ?>"></script>
+<script src="<?php echo base_route() ?>assets/js/utils/canvasVisorPDF.js?v=<?php echo version(); ?>"></script>
+<script src="<?php echo base_route() ?>assets/js/utils/canvasDosFirmasDigitales.js?v=<?php echo version(); ?>"></script>

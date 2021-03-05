@@ -1,8 +1,3 @@
-<?php
-$rol = $this->session->userdata("rol");
-?>
-
-
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
     <div class="sidebar-sticky pt-3">
         <br>
