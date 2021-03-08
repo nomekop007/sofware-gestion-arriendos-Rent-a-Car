@@ -24,31 +24,52 @@ const mostrarCollapsiblesPendiente = (info) => {
 $(document).ready(() => {
 
 
-    (cargarArriendosPendientesCliente = async () => {
+    (cargarArriendosPendientesDelUsuario = async () => {
         $("#btn_redirect_pendientePago").hide();
         $("#btn_redirect_pendienteFirma").hide();
-        const response = await ajax_function(null, "revisar_recepcionUsuario");
+        const response = await ajax_function(null, "revisar_bloqueoUsuario");
+        console.log(response.data)
         if (response.data) {
-            mostrarCollapsiblesPendiente(response.data);
-            try {
-                totalPago_remplazo;
-            } catch (error) {
-                $("#modalArriendoPendiente").modal("show");
-            }
-            if (!response.data.pagos) {
-                $("#btn_redirect_pendientePago").show();
-                $("#txt_id_arriendo").val(response.data.id_arriendo);
-                $("#btn_buscar_pagos").click();
-            }
-            if (!response.data.firmas) {
-                $("#btn_redirect_pendienteFirma").show();
-                try {
-                    mostrarArriendoExtender(response.data.id_arriendo);
-                } catch (error) { }
-                $("#modal_ArriendoExtender").modal("show");
+            switch (response.data.tipo) {
+                case 'RECEPCION':
+                    cargarRecepcionPendienteUsuario(response.data);
+                    break;
+                case 'PROCESO':
+                    cargarArriendoPendienteUsuario(response.data);
+                    break;
+                default:
+                    break;
             }
         }
     })();
 
+
+    const cargarRecepcionPendienteUsuario = (data) => {
+        mostrarCollapsiblesPendiente(data);
+        try {
+            totalPago_remplazo;
+        } catch (error) {
+            $("#modalArriendoPendiente").modal("show");
+        }
+        if (!data.pagos) {
+            $("#btn_redirect_pendientePago").show();
+            $("#txt_id_arriendo").val(data.id_arriendo);
+            $("#btn_buscar_pagos").click();
+        }
+        if (!data.firmas) {
+            $("#btn_redirect_pendienteFirma").show();
+            try {
+                mostrarArriendoExtender(data.id_arriendo);
+            } catch (error) { }
+            $("#modal_ArriendoExtender").modal("show");
+        }
+    }
+
+    const cargarArriendoPendienteUsuario = (data) => {
+
+        $("#nav-registrar").hide();
+        $("#nav-registrar-tab").hide();
+        $("#nav-arriendos-tab").click();
+    }
 
 });

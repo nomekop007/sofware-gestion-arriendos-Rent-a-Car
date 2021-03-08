@@ -26,16 +26,17 @@ class Despacho_controller extends CI_Controller
         echo put_function($id_despacho, $ArrayData, "despachos/registrarRevision");
     }
 
-    public function registrarRecepcionUsuario()
+    public function registrarBloqueoUsuario()
     {
         $ArrayData = [
-            "id_arriendo" => $this->input->post("id_arriendo")
+            "id_arriendo" => $this->input->post("id_arriendo"),
+            "tipo" => $this->input->post("tipo")
         ];
-        echo post_function($ArrayData, "despachos/registrarRecepcionUsuario");
+        echo post_function($ArrayData, "despachos/registrarBloqueoUsuario");
     }
 
-    public function revisarRecepcionUsuario()
+    public function revisarBloqueoUsuario()
     {
-        echo get_function("despachos/revisarRecepcionUsuario");
+        echo get_function("despachos/revisarBloqueoUsuario");
     }
 }

@@ -46,8 +46,8 @@
 </body>
 
 <!-- importaciones -->
-<script src="<?php echo base_route(); ?>assets/js/jquery-3.3.1.min.js"></script>
-<script src="<?php echo base_route(); ?>assets/js/sweetalert2.all.min.js"></script>
+<script src="<?php echo base_route(); ?>assets/js/utils/jquery-3.3.1.min.js"></script>
+<script src="<?php echo base_route(); ?>assets/js/utils/sweetalert2.all.min.js"></script>
 
 
 <script>

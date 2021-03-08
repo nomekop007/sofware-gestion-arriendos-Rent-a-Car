@@ -525,12 +525,8 @@ $(document).ready(() => {
 
 
 
-
-
-
 	const registrarTodoElArriendo = async (inputTipoArriendo, cantidadConductor) => {
 		const conductores = {};
-		console.log(conductores);
 		const conductor = await guardarDatosConductor();
 		conductores.rut_conductor = conductor.data.rut_conductor;
 		if (cantidadConductor == "2") {
@@ -634,6 +630,7 @@ $(document).ready(() => {
 		dataFormArriendo.append("selectSucursal", $("#selectSucursal").val());
 		const response = await ajax_function(dataFormArriendo, "registrar_arriendo");
 		if (response.success) {
+			await guardarBloqueoUsuario(response.data.id_arriendo);
 			await guardarDatosContacto(response.data.id_arriendo);
 			await cambiarEstadoVehiculo(response.data.patente_vehiculo);
 			Swal.fire("Arriendo Registrado", response.msg, "success");
@@ -641,6 +638,12 @@ $(document).ready(() => {
 		}
 	};
 
+	const guardarBloqueoUsuario = async (id_arriendo) => {
+		const data = new FormData();
+		data.append("id_arriendo", id_arriendo);
+		data.append("tipo", "PROCESO");
+		await ajax_function(data, "registrar_bloqueoUsuario");
+	}
 
 	const guardarDatosContacto = async (idArriendo) => {
 		dataFormArriendo.append("inputIdArriendo", idArriendo);

@@ -125,8 +125,8 @@ $route['registrar_contacto'] = 'Contacto_controller/registrarContacto';
 /* rutas de controller Despacho */
 $route['registrar_despacho'] = 'Despacho_controller/registrarDespacho';
 $route['registrar_revision'] = 'Despacho_controller/registrarRevision';
-$route['registrar_recepcionUsuario'] = 'Despacho_controller/registrarRecepcionUsuario';
-$route['revisar_recepcionUsuario'] = 'Despacho_controller/revisarRecepcionUsuario';
+$route['registrar_bloqueoUsuario'] = 'Despacho_controller/registrarBloqueoUsuario';
+$route['revisar_bloqueoUsuario'] = 'Despacho_controller/revisarBloqueoUsuario';
 
 /* rutas de controller pagoArriendo */
 $route['registrar_pagoArriendo'] = 'PagoArriendo_controller/registrarPagoArriendo';

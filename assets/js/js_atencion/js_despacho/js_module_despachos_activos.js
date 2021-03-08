@@ -445,9 +445,10 @@ $(document).ready(() => {
 					data.append("estado", "RECEPCIONADO");
 					data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
 					await cambiarEstadoArriendo(data);
-					await ajax_function(data, "registrar_recepcionUsuario");
+					data.append("tipo", "RECEPCION");
+					await ajax_function(data, "registrar_bloqueoUsuario");
 					refrescarTablaActivos();
-					cargarArriendosPendientesCliente();
+					cargarArriendosPendientesDelUsuario();
 					$("#modal_ArriendoFinalizar").modal("toggle");
 					Swal.fire("Arriendo finalizado!", "Arriendo finalizado con exito!", "success");
 				}
