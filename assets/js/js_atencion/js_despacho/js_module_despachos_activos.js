@@ -94,7 +94,6 @@ const mostrarRecepcionArriendo = async (id_arriendo) => {
 	if (responseArriendo.success) {
 		const arriendo = responseArriendo.data;
 		if (arriendo.fotosDespachos.length > 0) {
-			console.log(responseActa)
 			fotoDespachoCarrucelRecepcion(arriendo.fotosDespachos, responseActa.data.url);
 			$("#ventana_fotosDespacho").show();
 		} else {
@@ -132,7 +131,6 @@ const fotoDespachoCarrucelRecepcion = (array, url) => {
 	let items = "";
 	array.map(({ url_fotoDespacho }) => {
 		const link = `${url}/${url_fotoDespacho}`;
-		console.log(link);
 		items += `<div class="item"><img src="${link}" /></div>`;
 	});
 	const html = `<div class="owl-carousel owl-theme">${items}</div></div>`;

@@ -6,7 +6,9 @@
             </div>
             <div class="modal-body">
                 <div class="container" id="containerModalPendiente">
-
+                </div>
+                <br>
+                <div class="container text-center" id="card_documentos_pendientes">
                 </div>
                 <br>
                 <a id="btn_redirect_pendientePago" class="btn btn-outline-success" href="<?php echo base_url(); ?>modulos_gestion?modulo=5">
