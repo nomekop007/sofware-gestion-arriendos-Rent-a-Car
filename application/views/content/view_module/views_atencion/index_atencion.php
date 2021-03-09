@@ -30,10 +30,9 @@
         <br>
         <div class="card  text-success">
             <div class="m-4">
-                <h1>SISTEMA ACTUALIZADO! 03-03-2021</h1>
+                <h1>SISTEMA ACTUALIZADO! 09-03-2021</h1>
                 <span>Cambios realizados:</span>
-                <li>MODULO ATENCION: Se agrego una tabla con el listado y cantidad de vehiculos de cada sucursal (beta).</li>
-                <li>MODULO GESTION VEHICULO : se asociaron los vehiculos a las sucursales , en primera instancia se debe indicar a que sucursal pertenece a cada vehiculo.</li>
+                <li>se agregaron 2 bloqueos , uno en el momento cuando de recepciona un vehiculo y otra cuando se registra un arriendo.</li>
             </div>
         </div>
         <br><br><br><br><br>
