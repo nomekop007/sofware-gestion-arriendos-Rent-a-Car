@@ -66,7 +66,7 @@ $(document).ready(() => {
     }
 
     const cargarArriendoPendienteUsuario = (data) => {
-
+        Swal.fire("Registrar arriendo bloqueado!", `terminar procesos del arriendo Nº ${data.id_arriendo} para desbloquearlo.`, "info");
         $("#nav-registrar").hide();
         $("#nav-registrar-tab").hide();
         $("#nav-arriendos-tab").click();
