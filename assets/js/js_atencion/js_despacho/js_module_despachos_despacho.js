@@ -115,7 +115,7 @@ $(document).ready(() => {
 		if (inputImg != 0) {
 			const canvas = document.getElementById("canvas-fotoVehiculo");
 			const base64 = canvas.toDataURL("image/png");
-			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 1);
+			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 2);
 			if (arrayImages.length > 9) {
 				Swal.fire({ icon: "warning", title: "el maximo son 10 imagenes", });
 				return;
