@@ -108,6 +108,7 @@ $(document).ready(() => {
 		$("#spinner_tablaDespacho").hide();
 	})();
 
+
 	$("#seleccionarFoto").click(async () => {
 		$("#spinner_btn_seleccionar").show();
 		$("#seleccionarFoto").attr("disabled", true);

@@ -149,28 +149,52 @@ $(document).ready(() => {
     }
 
 
+
     const editarConDrop = async (e) => {
         const reserva = e.event.extendedProps.info;
         const data = new FormData();
         data.append("id_reserva", reserva.id_reserva);
         data.append("fecha_inicio_mostrar", e.event.start);
         await ajax_function(data, "editar_reserva");
-        cargarReservas()
+        // cargarReservas()
         // calendar_global.refetchEvents();
     }
+
+
 
 
     const mostrarReserva = (e) => {
         $("#form_mostrar_reserva")[0].reset();
         const reserva = e.event.extendedProps.info;
         console.log(reserva);
-        let cliente = null;
-        if (reserva.reservasCliente) cliente = reserva.reservasCliente.cliente.nombre_cliente;
-        if (reserva.reservasEmpresa) cliente = reserva.reservasEmpresa.empresa.nombre_empresa;
+        let nombre = '';
+        let telefono = '';
+        let correo = '';
+        switch (true) {
+            case (reserva.reservasCliente != null):
+                nombre = reserva.reservasCliente.cliente.nombre_cliente;
+                telefono = reserva.reservasCliente.cliente.telefono_cliente;
+                correo = reserva.reservasCliente.cliente.correo_cliente;
+                break;
+            case (reserva.reservasEmpresa != null):
+                nombre = reserva.reservasEmpresa.empresa.nombre_empresa;
+                telefono = reserva.reservasEmpresa.empresa.telefono_empresa;
+                correo = reserva.reservasEmpresa.empresa.correo_empresa;
+                break;
+            case (reserva.reservasClientesWeb != null):
+                nombre = reserva.reservasClientesWeb.nombre_reservaClienteWeb;
+                telefono = reserva.reservasClientesWeb.telefono_reservaClienteWeb;
+                correo = reserva.reservasClientesWeb.correo_reservaClienteWeb;
+                break;
+        }
+        $("#nombre_mostrar").val(nombre);
+        $("#telefono_mostrar").val(telefono);
+        $("#correo_mostrar").val(correo);
+
         $("#id_reserva").val(reserva.id_reserva);
         $('#tituloReserva').html(e.event.title);
         $("#vehiculo_mostrar").val(reserva.patente_vehiculo);
-        $("#cliente_mostrar").val(cliente);
+
         $("#color_reserva_mostrar").val(reserva.color_reserva);
         $("#fecha_inicio_mostrar").val(moment(reserva.inicio_reserva).format('YYYY/MM/DD hh:mm'));
         $("#fecha_fin_mostrar").val(moment(reserva.fin_reserva).format('YYYY/MM/DD hh:mm'));
@@ -178,6 +202,8 @@ $(document).ready(() => {
         calcularDiasMostrar();
         $("#modal_mostrar_reserva").modal();
     }
+
+
 
 
     $("#btn_buscarCliente").click(async () => {

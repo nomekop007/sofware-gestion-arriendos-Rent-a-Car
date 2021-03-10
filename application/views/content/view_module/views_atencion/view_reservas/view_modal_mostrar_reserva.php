@@ -16,8 +16,16 @@
                         </select>
                     </div>
                     <div class="form-group col-xl-12">
-                        <label for="cliente_mostrar">Cliente</label>
-                        <input type="text" readonly class="form-control " name="cliente_mostrar" id="cliente_mostrar" required />
+                        <label for="nombre_mostrar">Nombre cliente</label>
+                        <input type="text" readonly class="form-control " name="nombre_mostrar" id="nombre_mostrar" required />
+                    </div>
+                    <div class="form-group col-xl-12">
+                        <label for="telefono_mostrar">Telefono cliente</label>
+                        <input type="text" readonly class="form-control " name="telefono_mostrar" id="telefono_mostrar" required />
+                    </div>
+                    <div class="form-group col-xl-12">
+                        <label for="correo_mostrar">Correo cliente</label>
+                        <input type="text" readonly class="form-control " name="correo_mostrar" id="correo_mostrar" required />
                     </div>
                     <div class="form-group col-xl-5">
                         <label for="fecha_inicio_mostrar">Fecha inicio</label>
