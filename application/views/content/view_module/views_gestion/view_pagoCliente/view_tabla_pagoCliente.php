@@ -106,6 +106,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <h5 id="total_a_pagar"></h5>
+                                    <input hidden type="number" id="monto_total_pago_arriendo">
                                     <h6 id="dias_totales"></h6>
                                 </div>
                                 <div class="col-md-8">

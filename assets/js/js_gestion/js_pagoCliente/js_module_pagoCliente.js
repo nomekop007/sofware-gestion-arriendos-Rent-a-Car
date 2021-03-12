@@ -22,6 +22,7 @@ const modalSubirPagoRemplazo = () => {
     $("#deuda_pago").val($("#total_a_pagar").html());
     $("#dias_pago").val($("#dias_totales").html());
     $("#fecha_registro").val("cantidad de pagos: " + array_id_pagosRemplazo.length);
+    $("#deuda_real_pago").val($("#monto_total_pago_arriendo").val());
 }
 
 
@@ -47,6 +48,7 @@ const recalcularPagoDescuento = (desc) => {
     let descuento = Number(desc);
     let precioAntiguo = Number(totalPago_remplazo);
     let precioNuevo = precioAntiguo - descuento;
+    $("#monto_total_pago_arriendo").val(precioNuevo)
     $("#total_a_pagar").html(`Total pago: ${formatter.format(precioNuevo)} `);
 }
 
@@ -54,6 +56,7 @@ const recalcularPagoExtra = (desc) => {
     let cobro = Number(desc);
     let precioAntiguo = Number(totalPago_remplazo);
     let precioNuevo = precioAntiguo + cobro;
+    $("#monto_total_pago_arriendo").val(precioNuevo)
     $("#total_a_pagar").html(`Total pago: ${formatter.format(precioNuevo)} `);
 }
 
@@ -335,6 +338,7 @@ $(document).ready(() => {
                 cargarPagosRemplazoEnTabla(object, i + 1);
             })
             totalPago_remplazo = totalPago;
+            $("#monto_total_pago_arriendo").val(totalPago_remplazo);
             totalDias_remplazo = arriendo.diasAcumulados_arriendo;
             $("#total_a_pagar").html(`Total pago: ${formatter.format(totalPago_remplazo)} `);
             $("#dias_totales").html(`dias totales: ${arriendo.diasAcumulados_arriendo}`);
@@ -441,8 +445,7 @@ $(document).ready(() => {
     }
 
 
-
-    const guardarMuchosComprobantes = () => {
+    const verificarAbonosParciales = () => {
         let validacion = true;
         let verificarMonto = 0;
         for (let i = 0; i < $("#inputCantidad").val(); i++) {
@@ -450,16 +453,20 @@ $(document).ready(() => {
             if ($(`#abono${i}`).val().length === 0 || $(`#numeroDoc${i}`).val().length === 0 || $(`#fileComprobante${i}`).val().length === 0) {
                 Swal.fire("faltan datos", "falta ingresar datos en la tabla", "warning");
                 validacion = false;
-                return;
             }
         }
-
         if (verificarMonto !== Number($("#deuda_real_pago").val())) {
             Swal.fire("monto incorrecto", "el monto acumulado no coincide con el monto a pagar", "warning");
-            return;
+            validacion = false;
         }
+        return validacion;
+    }
 
-        if (validacion && $("#inputCantidad").val() != 'null') {
+
+
+    const guardarMuchosComprobantes = () => {
+
+        if (verificarAbonosParciales() && $("#inputCantidad").val() != 'null') {
             let nuevoMonto = 0;
             alertQuestion(async () => {
                 $("#spinner_btn_registrarMuchosPagos").show();
@@ -482,7 +489,6 @@ $(document).ready(() => {
                 const data = new FormData();
                 data.append('id_pago', $("#id_pago").val());
                 data.append('nuevo_monto', nuevoMonto);
-                //await ajax_function(data, "actualizar_montoPago");
                 await ajax_function(data, "actualizar_pagoAPagado");
                 $("#spinner_btn_registrarMuchosPagos").hide();
                 $("#btn_subirComprobates").attr("disabled", false)
@@ -494,15 +500,10 @@ $(document).ready(() => {
     }
 
 
+
+
     const guardarMuchosComprobantesRemplazo = () => {
-        let validacion = true;
-        for (let i = 0; i < $("#inputCantidad").val(); i++) {
-            if ($(`#abono${i}`).val().length === 0 || $(`#numeroDoc${i}`).val().length === 0 || $(`#fileComprobante${i}`).val().length === 0) {
-                Swal.fire("faltan datos", "falta ingresar datos en la tabla", "warning");
-                validacion = false;
-                return;
-            }
-        }
+
         if ($("#descuento_pago").val() < 0 ||
             $("#extra_pago").val() < 0 ||
             $("#descuento_pago").val().length == 0 ||
@@ -515,7 +516,8 @@ $(document).ready(() => {
             Swal.fire("valores invalidos", "no se puede aplicar un cobro extra y un descuento a la vez! , corriga", "warning");
             return;
         }
-        if (validacion && $("#inputCantidad").val() != 'null') {
+
+        if (verificarAbonosParciales() && $("#inputCantidad").val() != 'null') {
             alertQuestion(async () => {
                 $("#spinner_btn_registrarMuchosPagos").show();
                 $("#btn_subirComprobates").attr("disabled", true)
