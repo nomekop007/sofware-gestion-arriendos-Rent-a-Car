@@ -155,6 +155,3 @@
 <!-- importando archivo js vehiculos -->
 <script src="<?php echo base_route() ?>assets/js/js_atencion/js_clientes/js_module_clientes.js?v=<?php echo version(); ?>">
 </script>
-
-
-<script src="<?php echo base_route() ?>assets/js/utils/comunaCiudad.js?v=<?php echo version(); ?>"></script>

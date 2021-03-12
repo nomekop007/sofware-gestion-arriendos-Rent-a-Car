@@ -28,6 +28,7 @@ window.addEventListener(
 
 
 $(document).ready(() => {
+
     var base_url = $("#url").val();
 
     $(".btn_login").click(() => {
