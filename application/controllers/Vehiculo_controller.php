@@ -21,6 +21,12 @@ class Vehiculo_controller extends CI_Controller
         echo find_function($id_sucursal, 'vehiculos/cargarVehiculosDisponiblesPorSucursal');
     }
 
+    public function cargarVehiculosArrendadosPorSucursal()
+    {
+        $id_sucursal = $this->input->post('id_sucursal');
+        echo find_function($id_sucursal, 'vehiculos/cargarVehiculosArrendadosPorSucursal');
+    }
+
     public function cargarVehiculosDisponibles()
     {
         echo get_function('vehiculos/cargarVehiculosDisponibles');

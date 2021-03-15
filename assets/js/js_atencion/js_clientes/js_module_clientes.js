@@ -162,6 +162,7 @@ $(document).ready(() => {
 	const tablaEmpresa = $("#tablaEmpresas").DataTable(lenguaje);
 	const tablaConductor = $("#tablaConductores").DataTable(lenguaje);
 
+
 	cargarComunas("inputComunaCliente", "inputCiudadCliente");
 	cargarComunas("inputComunaClienteRegistrar", "inputCiudadClienteRegistrar");
 
@@ -170,7 +171,6 @@ $(document).ready(() => {
 
 	cargarOlder("inputVigenciaEmpresa");
 	cargarOlder("inputVigenciaEmpresaRegistrar");
-
 
 
 	$("#nav-clientes-tab").click(() => refrescarTablaCliente());

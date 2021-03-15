@@ -6,11 +6,19 @@
         <h3>Bienvenido <?php echo $this->session->userdata('nombre'); ?> </h3>
         <br>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
+                <br><br><br><br>
                 <img style="width:100%;" src="<?php echo base_route() ?>assets/images/logo.png" />
             </div>
-            <div class="col-md-6">
-                <h3>Vehiculos disponibles</h3>
+            <div class="col-md-7">
+                <h5>Tabla vehiculos</h5>
+                <?php if (validarPermiso(10)) { ?>
+                    <input hidden type="text" id="id_sucursal" value="0" disabled>
+                <?php } ?>
+
+                <?php if (!validarPermiso(10)) { ?>
+                    <input hidden type="text" id="id_sucursal" value="<?php echo $this->session->userdata('sucursal') ?>" disabled>
+                <?php } ?>
                 <div class="scroll">
                     <table id="tablaTotalArriendos" class="table table-striped table-bordered " style="width:100%">
                         <thead class="btn-dark">
@@ -18,9 +26,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr id="tbody1_sucursal">
+                            <tr style='font-size: 0.6rem;' id="tbody1_sucursal">
                             </tr>
-                            <tr id="tbody2_sucursal">
+                            <tr style='font-size: 0.6rem;' id="tbody2_sucursal">
+                            </tr>
+                            <tr style='font-size: 0.6rem;' id="tbody3_sucursal">
+                            </tr>
+                            <tr style='font-size: 0.6rem;' id="tbody4_sucursal">
                             </tr>
                         </tbody>
                     </table>
@@ -55,24 +67,75 @@
         let thead = '';
         let tbody1 = '';
         let tbody2 = '';
-        const response = await ajax_function(null, "cargar_Sucursales");
-        response.data.forEach(async (sucursal) => {
+        let tbody3 = '';
+        let tbody4 = '';
+
+        if ($("#id_sucursal").val() === '0') {
+            const response = await ajax_function(null, "cargar_Sucursales");
+            response.data.forEach(async (sucursal) => {
+                const data = new FormData();
+                data.append("id_sucursal", sucursal.id_sucursal);
+                const responseDisponible = await ajax_function(data, "cargar_vehiculosDisponibleSucursal");
+                const responseArrendado = await ajax_function(data, "cargar_vehiculosArrendadoSucursal");
+                let optionDisponibles = '<option value=null">-Disponibles-</option>';
+                responseDisponible.data.forEach(({
+                    patente_vehiculo
+                }) => {
+                    optionDisponibles += `<option value="${patente_vehiculo}">${patente_vehiculo}</option>`;
+                })
+                let optionArrendados = '<option value=null">-Arrendados-</option>';
+                responseArrendado.data.forEach(({
+                    patente_vehiculo
+                }) => {
+                    optionArrendados += `<option value="${patente_vehiculo}">${patente_vehiculo}</option>`;
+                })
+                thead += `<th class="text-center">${sucursal.nombre_sucursal}</th>`;
+                tbody1 += `<th class="text-center" >DISPONIBLES :  ${responseDisponible.data.length}</th>`;
+                tbody2 += `<th class="text-center" ><select class="form-control">${optionDisponibles}</select></th>`;
+                tbody3 += `<th class="text-center" >ARRENDADOS :  ${responseArrendado.data.length}</th>`;
+                tbody4 += `<th class="text-center" ><select class="form-control">${optionArrendados}</select></th>`;
+                $("#thead_sucursal").html(thead);
+                $("#tbody1_sucursal").html(tbody1);
+                $("#tbody2_sucursal").html(tbody2);
+                $("#tbody3_sucursal").html(tbody3);
+                $("#tbody4_sucursal").html(tbody4);
+            });
+
+        } else {
+
+
             const data = new FormData();
-            data.append("id_sucursal", sucursal.id_sucursal);
-            const response = await ajax_function(data, "cargar_vehiculosDisponibleSucursal")
-            let option = '<option value=null">-vehiculos-</option>';
-            response.data.forEach(({
+            data.append("id_sucursal", $("#id_sucursal").val());
+            const responseSucursal = await ajax_function(data, "buscar_sucursal");
+            console.log(responseSucursal);
+            const responseDisponible = await ajax_function(data, "cargar_vehiculosDisponibleSucursal");
+            const responseArrendado = await ajax_function(data, "cargar_vehiculosArrendadoSucursal");
+            console.log(responseArrendado)
+            let optionDisponibles = '<option value=null">-Disponibles-</option>';
+            responseDisponible.data.forEach(({
                 patente_vehiculo
             }) => {
-                option += `<option value="${patente_vehiculo}">${patente_vehiculo}</option>`;
+                optionDisponibles += `<option value="${patente_vehiculo}">${patente_vehiculo}</option>`;
             })
-            thead += `<th>${sucursal.nombre_sucursal}</th>`;
-            tbody1 += `<th class="text-center" >${response.data.length}</th>`;
-            tbody2 += `<th class="text-center" ><select class="form-control">${option}</select></th>`;
+            let optionArrendados = '<option value=null">-Arrendados-</option>';
+            responseArrendado.data.forEach(({
+                patente_vehiculo
+            }) => {
+                optionArrendados += `<option value="${patente_vehiculo}">${patente_vehiculo}</option>`;
+            })
+            thead += `<th class="text-center">${responseSucursal.data.nombre_sucursal}</th>`;
+            tbody1 += `<th class="text-center" >DISPONIBLES :  ${responseDisponible.data.length}</th>`;
+            tbody2 += `<th class="text-center" ><select class="form-control">${optionDisponibles}</select></th>`;
+            tbody3 += `<th class="text-center" >ARRENDADOS :  ${responseArrendado.data.length}</th>`;
+            tbody4 += `<th class="text-center" ><select class="form-control">${optionArrendados}</select></th>`;
             $("#thead_sucursal").html(thead);
             $("#tbody1_sucursal").html(tbody1);
             $("#tbody2_sucursal").html(tbody2);
-        })
+            $("#tbody3_sucursal").html(tbody3);
+            $("#tbody4_sucursal").html(tbody4);
+
+        }
+
     })();
 
 

@@ -334,8 +334,24 @@ let lenguaje = {
 			sortAscending: ": Activar orden de columna ascendente",
 			sortDescending: ": Activar orden de columna desendente",
 		},
+		select: {
+			rows: "%d filas selecionadas"
+		}
 	},
-	"order": [[0, "desc"]]
+	"order": [[0, "desc"]],
+	dom: 'Bfrtip',
+	select: true,
+	buttons: [{
+		extend: 'excelHtml5',
+		autoFilter: true,
+		sheetName: 'Exported data'
+	},
+	{
+		extend: 'pdfHtml5',
+		download: 'open'
+	}
+
+	]
 };
 
 

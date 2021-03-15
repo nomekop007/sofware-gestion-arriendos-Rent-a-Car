@@ -29,7 +29,6 @@
 <script src="<?php echo base_route() ?>assets/js/libraries/fontawesome.js"></script>
 
 
-
 </body>
 
 </html>

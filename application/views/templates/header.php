@@ -22,7 +22,6 @@
     <input id="route" value="<?php echo base_route(); ?>" hidden />
 
 
-
     <!-- select2 core CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/select2.min.css" />
 
@@ -31,10 +30,11 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/select.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/buttons.dataTables.min.css">
 
     <!-- sweetalert2 core CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/sweetalert2.min.css">
-
     <!-- animate core CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/animate.min.css" />
 
@@ -70,12 +70,22 @@
 
     <!-- importaciones de datatable -->
     <script src="<?php echo base_route() ?>assets/js/libraries/datatables.min.js"></script>
+    <script src="<?php echo base_route() ?>assets/js/libraries/jszip.min.js"></script>
+    <script src="<?php echo base_route() ?>assets/js/libraries/dataTables.select.min.js"></script>
+    <script src="<?php echo base_route() ?>assets/js/libraries/pdfmake.min.js"></script>
+    <script src="<?php echo base_route() ?>assets/js/libraries/vfs_fonts.js"></script>
 
 
     <!-- importacion utils -->
     <script src="<?php echo base_route() ?>assets/js/utils/funcionesAjax.js?v=<?php echo version(); ?>"></script>
     <script src="<?php echo base_route() ?>assets/js/utils/FuncionesHelpers.js?v=<?php echo version(); ?>"></script>
     <script src="<?php echo base_route() ?>assets/js/utils/comunaCiudad.js?v=<?php echo version(); ?>"></script>
+
+
+
+
+
+
 
 
 </head>

@@ -19,6 +19,7 @@ $route['cargar_regiones'] = 'Region_controller/cargarRegiones';
 
 /* rutas de controller sucursal */
 $route['cargar_Sucursales'] = 'Sucursal_controller/cargarSucursales';
+$route['buscar_sucursal'] = 'Sucursal_controller/buscarSucursal';
 
 /* rutas de controller vehiculo */
 $route['cargar_Vehiculos'] = 'Vehiculo_controller/cargarVehiculos';
@@ -28,8 +29,10 @@ $route['editar_vehiculo'] = 'Vehiculo_controller/editarVehiculo';
 $route['guardar_fotoVehiculo'] = 'Vehiculo_controller/guardarFotoVehiculo';
 $route['cambiarEstado_vehiculo'] = 'Vehiculo_controller/cambiarEstadoVehiculo';
 $route['cargar_VehiculosArrendados'] = 'Vehiculo_controller/vehiculosArrendados';
-$route['cargar_vehiculosDisponibleSucursal'] = 'Vehiculo_controller/cargarVehiculosDisponiblesPorSucursal';
 $route['cargar_VehiculosDisponibles'] = 'Vehiculo_controller/cargarVehiculosDisponibles';
+$route['cargar_vehiculosDisponibleSucursal'] = 'Vehiculo_controller/cargarVehiculosDisponiblesPorSucursal';
+$route['cargar_vehiculosArrendadoSucursal'] = 'Vehiculo_controller/cargarVehiculosArrendadosPorSucursal';
+
 
 
 /* rutas de controller usuario */
