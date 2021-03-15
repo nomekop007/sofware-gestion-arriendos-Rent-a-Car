@@ -335,7 +335,7 @@ let lenguaje = {
 			sortDescending: ": Activar orden de columna desendente",
 		},
 		select: {
-			rows: "%d filas selecionadas"
+			rows: "%d filas seleccionadas"
 		}
 	},
 	"order": [[0, "desc"]],
@@ -349,9 +349,7 @@ let lenguaje = {
 	{
 		extend: 'pdfHtml5',
 		download: 'open'
-	}
-
-	]
+	}],
 };
 
 

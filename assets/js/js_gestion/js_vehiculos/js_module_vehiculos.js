@@ -128,6 +128,7 @@ $(document).ready(() => {
 	const cargarVehiculosArrendados = async () => {
 		$("#spinner_tablaVehiculos").show();
 		const response = await ajax_function(null, "cargar_VehiculosArrendados");
+		console.log(response);
 		if (response.success) {
 			$.each(response.data, (i, vehiculo) => {
 				cargarVehiculoArriendoEnTabla(vehiculo);
