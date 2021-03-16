@@ -252,9 +252,6 @@
                     <button id="btn_anular_arriendo" type="button" class="btn btn-sm btn-danger col-xl-3">
                         Anular arriendo
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_anular_arriendo"></span></button>
-                    <button hidden id="btn_finalizar_arriendo" type="button" class="btn  btn-success col-xl-3">
-                        Finalizar arriendo
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_finalizar_arriendo"></span></button>
                     <button type="submit" id="btn_guardar_garantiaRequisitos" class="btn  btn-primary col-xl-3">Guardar
                         cambios
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_guardar_garantiaRequisitos"></span></button>

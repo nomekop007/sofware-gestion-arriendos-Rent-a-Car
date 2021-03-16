@@ -152,4 +152,14 @@ class Arriendo_controller extends CI_Controller
         ];
         echo get_function("arriendos/enviarCorreoAtraso", $params);
     }
+
+
+    public function anularArriendo()
+    {
+        $ArrayData = [
+            "id_arriendo" => $this->input->post("id_arriendo"),
+            "motivo" => $this->input->post("motivo"),
+        ];
+        echo post_function($ArrayData, "arriendos/anularArriendo");
+    }
 }

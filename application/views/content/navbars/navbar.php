@@ -1,15 +1,10 @@
 <?php
 
-
-
-
 if (true) {
     $server = "MODULO DE PRUEBAS";
 } else {
     $server = "";
 }
-
-
 
 ?>
 

@@ -234,7 +234,6 @@ const limpiarCamposModalver = () => {
 	$("#spinner_btn_registrar_garantia").hide();
 	$("#spinner_btn_guardar_garantiaRequisitos").hide();
 	$("#spinner_btn_anular_arriendo").hide();
-	$("#spinner_btn_finalizar_arriendo").hide();
 
 	$("#formSubirDocumentos")[0].reset();
 	$("#formGarantia")[0].reset();
@@ -245,8 +244,7 @@ const limpiarCamposModalver = () => {
 	$("#card_documentos").empty();
 	$("#btn_anular_arriendo").attr("disabled", true);
 	$("#btn_anular_arriendo").hide();
-	$("#btn_finalizar_arriendo").attr("disabled", true);
-	$("#btn_finalizar_arriendo").hide();
+
 	$("#nombre_documento").val("");
 	$("#formSpinnerEditar").show();
 	$("#spanTipoArriendo").html("");
@@ -450,31 +448,46 @@ $(document).ready(() => {
 
 
 	$("#btn_anular_arriendo").click(() => {
-		alertQuestion(async () => {
-			$("#spinner_btn_anular_arriendo").show();
-			$("#btn_anular_arriendo").attr("disabled", true);
-			await cambiarEstadoArriendo("ANULADO", $("#inputIdArriendoEditar").val());
-			Swal.fire("Arriendo anulado", "arriendo anulado con exito!", "success");
-			refrescarTabla();
-			$("#btn_anular_arriendo").attr("disabled", false);
-			$("#spinner_btn_anular_arriendo").hide();
-			$("#modal_editar_arriendo").modal("toggle");
-		})
+
+		$("#modal_editar_arriendo").modal("toggle");
+
+		Swal.fire({
+			title: `Anular arriendo Nº ${$("#inputIdArriendoEditar").val()}`,
+			icon: "warning",
+			input: 'textarea',
+			showCancelButton: true,
+			confirmButtonText: "ANULAR",
+			cancelButtonText: "Cancelar",
+			inputValidator: texto => {
+				// Si el valor es válido, debes regresar undefined. Si no, una cadena
+				if (!texto) {
+					return "Por favor escribe el motivo!";
+				} else {
+					return undefined;
+				}
+			}
+		}).then(async resultado => {
+			if (resultado.value) {
+				let texto = resultado.value;
+				$("#spinner_btn_anular_arriendo").show();
+				$("#btn_anular_arriendo").attr("disabled", true);
+				const data = new FormData();
+				data.append('id_arriendo', $("#inputIdArriendoEditar").val());
+				data.append('motivo', texto);
+				const response = await ajax_function(data, "anular_arriendo");
+				if (response.success) {
+					Swal.fire("Arriendo anulado", "arriendo anulado con exito!", "success");
+					refrescarTabla();
+					$("#btn_anular_arriendo").attr("disabled", false);
+					$("#spinner_btn_anular_arriendo").hide();
+				}
+			}
+		});
+
 	})
 
 
-	$("#btn_finalizar_arriendo").click(() => {
-		alertQuestion(async () => {
-			$("#spinner_btn_finalizar_arriendo").show();
-			$("#btn_finalizar_arriendo").attr("disabled", true);
-			await cambiarEstadoArriendo("FINALIZADO", $("#inputIdArriendoEditar").val());
-			Swal.fire("Arriendo finalizado!", "arriendo finalizado con exito!", "success");
-			refrescarTabla();
-			$("#btn_finalizar_arriendo").attr("disabled", false);
-			$("#spinner_btn_finalizar_arriendo").hide();
-			$("#modal_editar_arriendo").modal("toggle");
-		})
-	});
+
 
 
 	const guardarDatosGarantia = async (idArriendo) => {

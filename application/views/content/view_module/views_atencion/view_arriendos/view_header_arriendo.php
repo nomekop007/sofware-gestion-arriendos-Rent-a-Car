@@ -3,8 +3,8 @@
         align-items-center pt-3 pb-2 mb-3 border-bottom">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=1"> <span> Modulo atencion </span></a></li>
-                <li class="breadcrumb-item active" aria-current="page">Registro y gestion de arriendo</li>
+                <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>cargar_panel?panel=1"> <span style='font-size: 1.2rem;'> Modulo atencion </span></a></li>
+                <li class="breadcrumb-item active" aria-current="page" style='font-size: 1.2rem;'>Registro y gestion de arriendo</li>
             </ol>
         </nav>
         <h1 class="h3">Registro y gestion de arriendo</h1>

@@ -5,6 +5,7 @@
 
 </div>
 </div>
+<textarea hidden id="textAreaAnulacion" name="textAreaAnulacion"></textarea>
 
 
 

@@ -110,7 +110,7 @@ $route['cambiarEstado_arriendo'] = 'Arriendo_controller/cambiarEstadoArriendo';
 $route['extender_arriendo'] = 'Arriendo_controller/extenderArriendo';
 $route['cargar_arriendosActivos'] = 'Arriendo_controller/cargarArriendosActivos';
 $route['cargar_arriendosDespachos'] = 'Arriendo_controller/cargarArriendosDespachos';
-
+$route['anular_arriendo'] = 'Arriendo_controller/anularArriendo';
 $route['enviarCorreo_alertaArriendo'] = 'Arriendo_controller/enviarCorreoAtraso';
 $route['finalizar_arriendos'] = 'Arriendo_controller/finalizarArriendosRecepcionados';
 
