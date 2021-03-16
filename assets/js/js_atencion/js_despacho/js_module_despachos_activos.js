@@ -115,7 +115,14 @@ const mostrarRecepcionArriendo = async (id_arriendo) => {
 			"dibujar_canvas_recepcion",
 			"inputImagen_vehiculo_recepcion"
 		]);
-		$("#numero_arriendo_recepcion").html("Nº " + arriendo.id_arriendo);
+
+		console.log(arriendo);
+		$("#inputMarcaVehiculoRecepcion").val(arriendo.vehiculo.marca_vehiculo);
+		$("#inputModeloVehiculoRecepcion").val(arriendo.vehiculo.modelo_vehiculo);
+		$("#inputEdadVehiculoRecepcion").val(arriendo.vehiculo.año_vehiculo);
+		$("#inputColorVehiculoRecepcion").val(arriendo.vehiculo.color_vehiculo);
+		$("#inputPatenteVehiculoRecepcion").val(arriendo.vehiculo.patente_vehiculo);
+		$("#numero_arriendo_recepcion").html(arriendo.id_arriendo);
 		$("#id_vehiculo_recepcion").val(arriendo.patente_vehiculo);
 		$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
 		$("#body_recepcion_arriendo").show();
@@ -209,13 +216,16 @@ const calcularValores = () => {
 
 
 const limpiarFormularios = () => {
+
+	mostrarCanvasCombustible("canvas-combustible-recepcion", "output-recepcion");
+
 	$("#formSpinner_extender_arriendo").show();
 	$("#formSpinner_finalizar_arriendo").show();
 	$("#body_recepcion_arriendo").hide();
 	$("#body_extender_arriendo").hide();
 	$("#titulo_numero_arriendo").html("")
 	$("#numeroArriendo").html("")
-	$("#spinner_btn_finalizar_contrato").hide();
+	$("#spinner_btn_generar_actaRecepcion").hide();
 	$("#spinner_btn_extenderArriendo").hide();
 	$("#spinner_btn_registrar_danio").hide();
 	arrayImagesRecepcion.length = 0;
@@ -229,6 +239,7 @@ const limpiarFormularios = () => {
 	$("#ventana_fotosDespacho").hide();
 	$("#ventana_actaEntrega").hide();
 	$("#tbody_extenciones").empty();
+	$("#spinner_btn_seleccionar_recepcion").hide();
 }
 
 
@@ -420,9 +431,7 @@ $(document).ready(() => {
 
 
 
-
-
-	$("#btn_finalizar_arriendo").click(() => {
+	$("#btn_generar_actaRecepcion").click(async () => {
 		if (arrayImagesRecepcion.length === 0) {
 			Swal.fire({ icon: "warning", title: "falta tomar fotos al vehiculo!", });
 			return;
@@ -431,64 +440,134 @@ $(document).ready(() => {
 			Swal.fire({ icon: "warning", title: "falta colocar el kilometraje del vehiculo", });
 			return;
 		}
-		alertQuestion(async () => {
-			$("#spinner_btn_finalizar_contrato").show();
-			$("#btn_finalizar_arriendo").attr("disabled", true);
+
+		arrayImagesRecepcion.forEach(async (url, i) => {
+			let blob = dataURItoBlob(url);
+			let file = imagen = new File([blob], 'imagen.png', { type: 'image/png' });
 			const data = new FormData();
-			const response_revision = await guardarRevisionRecepcion(data);
-			if (response_revision.success) {
-				const response_vehiculo = await cambiarEstadoVehiculo(data);
-				if (response_vehiculo.success) {
-					data.append("id_arriendo", $("#id_arriendo_recepcion").val());
-					data.append("estado", "RECEPCIONADO");
-					data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
-					await cambiarEstadoArriendo(data);
-					data.append("tipo", "RECEPCION");
-					await ajax_function(data, "registrar_bloqueoUsuario");
-					refrescarTablaActivos();
-					cargarArriendosPendientesDelUsuario();
-					$("#modal_ArriendoFinalizar").modal("toggle");
-					Swal.fire("Arriendo finalizado!", "Arriendo finalizado con exito!", "success");
-				}
-			}
-			$("#btn_finalizar_arriendo").attr("disabled", false);
-			$("#spinner_btn_finalizar_contrato").hide();
-		})
+			data.append(`file`, file);
+			//await ajax_function(data, "guardar_fotoRecepcion");
+		});
+
+
+		const data = new FormData();
+		await generarActaRecepcion(data);
+
 	});
 
+
+
+	const generarActaRecepcion = async (data) => {
+		$("#spinner_btn_generar_actaRecepcion").show();
+		$("#btn_generar_actaRecepcion").attr("disabled", true);
+		const canvas = document.getElementById("canvas-combustible-recepcion");
+		const url = canvas.toDataURL("image/png");
+		const matrizRecepcion = await capturarControlRecepcionArray();
+		data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
+		data.append("imageCombustible", url);
+
+		console.log(matrizRecepcion);
+		//const response = await ajax_function(data, "generar_PDFactaEntrega");
+
+		$("#spinner_btn_generar_actaRecepcion").hide();
+		$("#btn_generar_actaRecepcion").attr("disabled", false);
+	};
+
+
+	const capturarControlRecepcionArray = async () => {
+		//cacturando los accesorios
+		const matrizRecepcion = [];
+		matrizRecepcion.push(
+			$('[name="listA2[]"]:checked')
+				.map(function () {
+					return this.value;
+				})
+				.get()
+		);
+		matrizRecepcion.push(
+			$('[name="listB2[]"]:checked')
+				.map(function () {
+					return this.value;
+				})
+				.get()
+		);
+		matrizRecepcion.push(
+			$('[name="listC2[]"]:checked')
+				.map(function () {
+					return this.value;
+				})
+				.get()
+		);
+		return matrizRecepcion;
+	};
+
+	/* 	$("#btn_recepcionar_arriendo").click(() => {
+			if (arrayImagesRecepcion.length === 0) {
+				Swal.fire({ icon: "warning", title: "falta tomar fotos al vehiculo!", });
+				return;
+			}
+			if ($("#input_kilometraje_salida").val() == 0) {
+				Swal.fire({ icon: "warning", title: "falta colocar el kilometraje del vehiculo", });
+				return;
+			}
+			alertQuestion(async () => {
+				$("#spinner_btn_generar_actaRecepcion").show();
+				$("#btn_recepcionar_arriendo").attr("disabled", true);
+				const data = new FormData();
+				const response_revision = await guardarRevisionRecepcion(data);
+				if (response_revision.success) {
+					const response_vehiculo = await cambiarEstadoVehiculo(data);
+					if (response_vehiculo.success) {
+						data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+						data.append("estado", "RECEPCIONADO");
+						data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
+						await cambiarEstadoArriendo(data);
+						data.append("tipo", "RECEPCION");
+						await ajax_function(data, "registrar_bloqueoUsuario");
+						refrescarTablaActivos();
+						cargarArriendosPendientesDelUsuario();
+						$("#modal_ArriendoFinalizar").modal("toggle");
+						Swal.fire("Arriendo finalizado!", "Arriendo finalizado con exito!", "success");
+					}
+				}
+				$("#btn_recepcionar_arriendo").attr("disabled", false);
+				$("#spinner_btn_generar_actaRecepcion").hide();
+			})
+		});
+	 */
 
 
 	$("#limpiarArrayFotosRecepcion").click(() => {
 		alertQuestion(() => {
 			arrayImagesRecepcion.length = 0;
 			$("#carrucel_recepcion").empty();
+			$("#carrucel_recepcion2").empty();
 		})
 	});
 
 
 
 	$("#seleccionarFotoRecepcion").click(async () => {
-		const inputImg = $("#inputImagen_vehiculo_recepcion").val();
-		if (inputImg != 0) {
-			const canvas = document.getElementById("canvas_fotoVehiculo_recepcion");
-			const base64 = canvas.toDataURL("image/png");
-			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
-			if (arrayImagesRecepcion.length < 9) {
-				arrayImagesRecepcion.push(url);
-				agregarFotoACarrucelRecepcion(arrayImagesRecepcion);
-				limpiarTodoCanvasVehiculo();
-			} else {
-				Swal.fire({
-					icon: "error",
-					title: "el maximo son 9 imagenes",
-				});
-			}
-		} else {
-			Swal.fire({
-				icon: "error",
-				title: "debe ingresar foto",
-			});
+		$("#seleccionarFotoRecepcion").attr("disabled", true);
+		$("#spinner_btn_seleccionar_recepcion").show();
+		if (arrayImagesRecepcion.length > 9 || $("#inputImagen_vehiculo_recepcion").val().length === 0) {
+			Swal.fire({ icon: "error", title: "minimo 1 y maximo 9 imagenes" });
+			$("#spinner_btn_seleccionar_recepcion").hide();
+			$("#seleccionarFotoRecepcion").attr("disabled", false);
+			return;
 		}
+
+		const canvas = document.getElementById("canvas_fotoVehiculo_recepcion");
+		const base64 = canvas.toDataURL("image/png");
+		const url = await resizeBase64Img(base64, canvas.width, canvas.height, 2);
+
+		arrayImagesRecepcion.push(url);
+		agregarFotoACarrucelRecepcion(arrayImagesRecepcion);
+		limpiarTodoCanvasVehiculo();
+
+		$("#spinner_btn_seleccionar_recepcion").hide();
+		$("#seleccionarFotoRecepcion").attr("disabled", false);
+
 	});
 
 
@@ -532,6 +611,8 @@ $(document).ready(() => {
 		}
 		const html = `<div class="owl-carousel owl-theme" id="carruselVehiculos">${items}</div></div>`;
 		$("#carrucel_recepcion").html(html);
+		$("#carrucel_recepcion2").html(html);
+
 		$(".owl-carousel").owlCarousel({
 			items: 1,
 		});

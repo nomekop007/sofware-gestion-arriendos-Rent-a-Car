@@ -9,6 +9,9 @@ const buscarArriendo = async (id_arriendo) => {
 	if (response.success) {
 		const arriendo = response.data;
 		$("#inputIdArriendo").val(arriendo.id_arriendo);
+		$("#numero_arriendo_despacho").html(arriendo.id_arriendo);
+
+
 		$("#inputMarcaVehiculoDespacho").val(arriendo.vehiculo.marca_vehiculo);
 		$("#inputModeloVehiculoDespacho").val(arriendo.vehiculo.modelo_vehiculo);
 		$("#inputEdadVehiculoDespacho").val(arriendo.vehiculo.año_vehiculo);
@@ -112,24 +115,25 @@ $(document).ready(() => {
 	$("#seleccionarFoto").click(async () => {
 		$("#spinner_btn_seleccionar").show();
 		$("#seleccionarFoto").attr("disabled", true);
-		const inputImg = $("#inputImagenVehiculo").val();
-		if (inputImg != 0) {
-			const canvas = document.getElementById("canvas-fotoVehiculo");
-			const base64 = canvas.toDataURL("image/png");
-			const url = await resizeBase64Img(base64, canvas.width, canvas.height, 2);
-			if (arrayImages.length > 9) {
-				Swal.fire({ icon: "warning", title: "el maximo son 10 imagenes", });
-				return;
-			}
-			arrayImages.push(url);
-			agregarFotoACarrucel(arrayImages);
-			limpiarTodoCanvasVehiculo();
-		} else {
-			Swal.fire({ icon: "warning", title: "debe ingresar foto", });
+
+		console.log($("#inputImagenVehiculo").val().length);
+		if (arrayImages.length > 9 || $("#inputImagenVehiculo").val().length === 0) {
+			Swal.fire({ icon: "error", title: "minimo 1 y maximo 9 imagenes" });
+			$("#spinner_btn_seleccionar").hide();
+			$("#seleccionarFoto").attr("disabled", false);
+			return;
 		}
-		console.log(arrayImages);
-		$("#seleccionarFoto").attr("disabled", false);
+
+		const canvas = document.getElementById("canvas-fotoVehiculo");
+		const base64 = canvas.toDataURL("image/png");
+		const url = await resizeBase64Img(base64, canvas.width, canvas.height, 2);
+
+		arrayImages.push(url);
+		agregarFotoACarrucel(arrayImages);
+		limpiarTodoCanvasVehiculo();
+
 		$("#spinner_btn_seleccionar").hide();
+		$("#seleccionarFoto").attr("disabled", false);
 
 	});
 
@@ -250,7 +254,7 @@ $(document).ready(() => {
 	const generarActaEntrega = async (data) => {
 		const canvas = document.getElementById("canvas-combustible");
 		const url = canvas.toDataURL("image/png");
-		const matrizRecepcion = await capturarControlRecepcionArray();
+		const matrizRecepcion = await capturarControlDespachoArray();
 		data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
 		data.append("imageCombustible", url);
 		$("#recibido").text($("#inputRecibidorDespacho").val());
@@ -294,7 +298,7 @@ $(document).ready(() => {
 	};
 
 
-	const capturarControlRecepcionArray = async () => {
+	const capturarControlDespachoArray = async () => {
 		//cacturando los accesorios
 		const matrizRecepcion = [];
 		matrizRecepcion.push(

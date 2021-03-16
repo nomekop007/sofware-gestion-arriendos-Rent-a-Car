@@ -17,7 +17,8 @@
                         <br>
                         <div class="form-group col-12">
                             <button type="button" id="seleccionarFotoRecepcion" class="btn btn-success btn-sm form-control ">
-                                <i class="fas fa-plus-circle"></i>Agregar foto </button>
+                                <i class="fas fa-plus-circle"></i>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_seleccionar_recepcion"></span> Agregar foto </button>
                         </div>
                         <br>
                         <div class="form-group row m-3">
@@ -31,7 +32,7 @@
                         <br>
                         <div class="form-group col-lg-12">
                             <br>
-                            <div class="container" id="carrucel">
+                            <div class="container" id="carrucel_recepcion2">
                             </div>
                             <br>
                         </div>

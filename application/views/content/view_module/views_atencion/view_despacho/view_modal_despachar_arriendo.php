@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">despachar arriendo</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Control de Despacho Arriendo Nº <span id="numero_arriendo_despacho">Nº</span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -20,7 +20,7 @@
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="form-group col-lg-3">
-                            <label for="inputMarcaVehiculoDespacho">Vehiculo</label>
+                            <label for="inputMarcaVehiculoDespacho">Marca</label>
                             <input disabled onblur="mayus(this);" type="text" class="form-control" id="inputMarcaVehiculoDespacho" name="inputMarcaVehiculoDespacho">
                         </div>
                         <div class="form-group col-lg-3">
@@ -40,7 +40,7 @@
                             <input disabled onblur="mayus(this);" type="text" class="form-control" id="inputPatenteVehiculoDespacho" name="inputPatenteVehiculoDespacho">
                         </div>
                         <div class="form-group col-lg-3">
-                            <label for="inputKilomentrajeVehiculoDespacho">Kilomentraje</label>
+                            <label for="inputKilomentrajeVehiculoDespacho">Kilomentraje actual</label>
                             <input oninput="this.value = soloNumeros(this)" maxLength="11" type="number" value="0" class="form-control" id="inputKilomentrajeVehiculoDespacho" name="inputKilomentrajeVehiculoDespacho" required>
                         </div>
                         <div class="form-group col-lg-3">
@@ -57,7 +57,6 @@
                         </div>
                     </div>
                     <br><br>
-                    <h5>Control de recepción</h5>
                     <div class="card">
                         <div class="card-body form-row">
                             <div class="col-lg-4">
@@ -70,114 +69,114 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Documentacion</div>
+                                    <label class="col-md-7" for="check1">Documentacion</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a1">
+                                            <input class="form-check-input" id="check1" type="checkbox" name="listA[]" value="a1">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Inscripción</div>
+                                    <label class="col-md-7" for="check2">Inscripción</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a2">
+                                            <input class="form-check-input" id="check2" type="checkbox" name="listA[]" value="a2">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Permiso Circulacion</div>
+                                    <label class="col-md-7" for="check3">Permiso Circulacion</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a3">
+                                            <input class="form-check-input" id="check3" type="checkbox" name="listA[]" value="a3">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Rev. Técnica</div>
+                                    <label class="col-md-7" for="check4">Rev. Técnica</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a4">
+                                            <input class="form-check-input" id="check4" type="checkbox" name="listA[]" value="a4">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Seguro Obligatorio</div>
+                                    <label class="col-md-7" for="check5">Seguro Obligatorio</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a5">
+                                            <input class="form-check-input" id="check5" type="checkbox" name="listA[]" value="a5">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Otros</div>
+                                    <label class="col-md-7" for="check6">Otros</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a6">
+                                            <input class="form-check-input" id="check6" type="checkbox" name="listA[]" value="a6">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">INTERIOR</div>
+                                    <label class="col-md-7" for="check7">INTERIOR</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a7">
+                                            <input class="form-check-input" id="check7" type="checkbox" name="listA[]" value="a7">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Manual</div>
+                                    <label class="col-md-7" for="check8">Manual</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a8">
+                                            <input class="form-check-input" id="check8" type="checkbox" name="listA[]" value="a8">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Garantía</div>
+                                    <label class="col-md-7" for="check9">Garantía</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a9">
+                                            <input class="form-check-input" id="check9" type="checkbox" name="listA[]" value="a9">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Cinturones</div>
+                                    <label class="col-md-7" for="check10">Cinturones</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a10">
+                                            <input class="form-check-input" id="check10" type="checkbox" name="listA[]" value="a10">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Espejos Interior</div>
+                                    <label class="col-md-7" for="check11">Espejos Interior</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a11">
+                                            <input class="form-check-input" id="check11" type="checkbox" name="listA[]" value="a11">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Espejos Exterior</div>
+                                    <label class="col-md-7" for="check12">Espejos Exterior</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a12">
+                                            <input class="form-check-input" id="check12" type="checkbox" name="listA[]" value="a12">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Parasoles</div>
+                                    <label class="col-md-7" for="check13">Parasoles</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a13">
+                                            <input class="form-check-input" id="check13" type="checkbox" name="listA[]" value="a13">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Ceniceros</div>
+                                    <label class="col-md-7" for="check14">Ceniceros</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listA[]" value="a14">
+                                            <input class="form-check-input" id="check14" type="checkbox" name="listA[]" value="a14">
                                         </div>
                                     </div>
                                 </div>
@@ -192,114 +191,114 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Encendedor</div>
+                                    <label class="col-md-7" for="check15">Encendedor</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b1">
+                                            <input class="form-check-input" id="check15" type="checkbox" name="listB[]" value="b1">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Doble juego llaves</div>
+                                    <label class="col-md-7" for="check16">Doble juego llaves</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b2">
+                                            <input class="form-check-input" id="check16" type="checkbox" name="listB[]" value="b2">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Pisos de goma</div>
+                                    <label class="col-md-7" for="check17">Pisos de goma</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b3">
+                                            <input class="form-check-input" id="check17" type="checkbox" name="listB[]" value="b3">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Tapiz O.K.</div>
+                                    <label class="col-md-7" for="check18">Tapiz O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b4">
+                                            <input class="form-check-input" id="check18" type="checkbox" name="listB[]" value="b4">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Radio O.K.</div>
+                                    <label class="col-md-7" for="check19">Radio O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b5">
+                                            <input class="form-check-input" id="check19" type="checkbox" name="listB[]" value="b5">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Tocacintas O.K.</div>
+                                    <label class="col-md-7" for="check20">Tocacintas O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b6">
+                                            <input class="form-check-input" id="check20" type="checkbox" name="listB[]" value="b6">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Bocina O.K.</div>
+                                    <label class="col-md-7" for="check21">Bocina O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b7">
+                                            <input class="form-check-input" id="check21" type="checkbox" name="listB[]" value="b7">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Luces O.K.</div>
+                                    <label class="col-md-7" for="check22">Luces O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b8">
+                                            <input class="form-check-input" id="check22" type="checkbox" name="listB[]" value="b8">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Señalizadores O.K.</div>
+                                    <label class="col-md-7" for="check23">Señalizadores O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b9">
+                                            <input class="form-check-input" id="check23" type="checkbox" name="listB[]" value="b9">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Luz Emergencia O.K</div>
+                                    <label class="col-md-7" for="check24">Luz Emergencia O.K</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b10">
+                                            <input class="form-check-input" id="check24" type="checkbox" name="listB[]" value="b10">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Calefacción O.K</div>
+                                    <label class="col-md-7" for="check25">Calefacción O.K</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b11">
+                                            <input class="form-check-input" id="check25" type="checkbox" name="listB[]" value="b11">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Defroster O.K.</div>
+                                    <label class="col-md-7" for="check26">Defroster O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b12">
+                                            <input class="form-check-input" id="check26" type="checkbox" name="listB[]" value="b12">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Freno de Mano O.K.</div>
+                                    <label class="col-md-7" for="check27">Freno de Mano O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b13">
+                                            <input class="form-check-input" id="check27" type="checkbox" name="listB[]" value="b13">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Chaleco reflectante</div>
+                                    <label class="col-md-7" for="check28">Chaleco reflectante</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listB[]" value="b14">
+                                            <input class="form-check-input" id="check28" type="checkbox" name="listB[]" value="b14">
                                         </div>
                                     </div>
                                 </div>
@@ -314,114 +313,114 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Tapas de rueda ( )</div>
+                                    <label class="col-md-7" for="check29">Tapas de rueda ( )</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c1">
+                                            <input class="form-check-input" id="check29" type="checkbox" name="listC[]" value="c1">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Plumillas ( )</div>
+                                    <label class="col-md-7" for="check30">Plumillas ( )</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c2">
+                                            <input class="form-check-input" id="check30" type="checkbox" name="listC[]" value="c2">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Antena O.K.</div>
+                                    <label class="col-md-7" for="check31">Antena O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c3">
+                                            <input class="form-check-input" id="check31" type="checkbox" name="listC[]" value="c3">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Micas O.K.</div>
+                                    <label class="col-md-7" for="check32">Micas O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c4">
+                                            <input class="form-check-input" id="check32" type="checkbox" name="listC[]" value="c4">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Pintura O.K.</div>
+                                    <label class="col-md-7" for="check33">Pintura O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c5">
+                                            <input class="form-check-input" id="check33" type="checkbox" name="listC[]" value="c5">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Nivel Aceite O.K.</div>
+                                    <label class="col-md-7" for="check34">Nivel Aceite O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c6">
+                                            <input class="form-check-input" id="check34" type="checkbox" name="listC[]" value="c6">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Tapa Bencina</div>
+                                    <label class="col-md-7" for="check35">Tapa Bencina</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c7">
+                                            <input class="form-check-input" id="check35" type="checkbox" name="listC[]" value="c7">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">R.Repuesto</div>
+                                    <label class="col-md-7" for="check36">R.Repuesto</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c8">
+                                            <input class="form-check-input" id="check36" type="checkbox" name="listC[]" value="c8">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Gata/Barrote</div>
+                                    <label class="col-md-7" for="check37">Gata/Barrote</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c9">
+                                            <input class="form-check-input" id="check37" type="checkbox" name="listC[]" value="c9">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Herramientas</div>
+                                    <label class="col-md-7" for="check38">Herramientas</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c10">
+                                            <input class="form-check-input" id="check38" type="checkbox" name="listC[]" value="c10">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Parachoques O.K.</div>
+                                    <label class="col-md-7" for="check39">Parachoques O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c11">
+                                            <input class="form-check-input" id="check39" type="checkbox" name="listC[]" value="c11">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Bateria O.K.</div>
+                                    <label class="col-md-7" for="check40">Bateria O.K.</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c12">
+                                            <input class="form-check-input" id="check40" type="checkbox" name="listC[]" value="c12">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Adhesivo Interior</div>
+                                    <label class="col-md-7" for="check41">Adhesivo Interior</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c13">
+                                            <input class="form-check-input" id="check41" type="checkbox" name="listC[]" value="c13">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-md-7">Placa</div>
+                                    <label class="col-md-7" for="check42">Placa</label>
                                     <div class="col-md-5">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="listC[]" value="c14">
+                                            <input class="form-check-input" id="check42" type="checkbox" name="listC[]" value="c14">
                                         </div>
                                     </div>
                                 </div>
