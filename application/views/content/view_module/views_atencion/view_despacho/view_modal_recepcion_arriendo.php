@@ -33,6 +33,12 @@
                                     <span>Pagina: <span id="page_num_recepcion"></span> / <span id="page_count_recepcion"></span></span>
                                     <canvas id="pdf_canvas_recepcion" class="img-fluid rounded pdf-canvas"></canvas>
                         </div>
+                        <div class="container">
+                            <a class="row justify-content-md-center btn-success" id="descargar_actaEntregaEnRecepcion">
+                                <i class="fas fa-download"></i>
+                                Descargar Acta de entrega</a>
+                            <br>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <br>
@@ -59,7 +65,15 @@
                                 <label for="inputPatenteVehiculoRecepcion">Patente</label>
                                 <input disabled onblur="mayus(this);" type="text" class="form-control" id="inputPatenteVehiculoRecepcion" name="inputPatenteVehiculoDespacho">
                             </div>
-                            <div class="form-group col-md-6 ">
+                            <div class="form-group col-md-6">
+                                <label for="inputClienteRecepcion">Cliente</label>
+                                <input type="text" class="form-control" id="inputClienteRecepcion" onblur="mayus(this);" name="inputClienteRecepcion">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputUsuarioRecepcion">Usuario por</label>
+                                <input type="text" value="<?php echo $this->session->userdata('nombre') ?>" class="form-control" onblur="mayus(this);" id="inputUsuarioRecepcion" name="inputUsuarioRecepcion">
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label for="inputMarcaVehiculoRecepcion">Marca</label>
                                 <input disabled onblur="mayus(this);" type="text" class="form-control" id="inputMarcaVehiculoRecepcion" name="inputMarcaVehiculoRecepcion">
                             </div>

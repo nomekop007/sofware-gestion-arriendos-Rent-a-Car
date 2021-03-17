@@ -3,7 +3,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Rol_controller extends CI_Controller
+class Permiso_controller extends CI_Controller
 {
 
     public function cargarRoles()

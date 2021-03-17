@@ -4,10 +4,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Vehiculo_controller extends CI_Controller
 {
+
+
     public function cargarVehiculos()
     {
         echo get_function("vehiculos/cargarVehiculos");
     }
+
+
 
     public function buscarVehiculo()
     {
@@ -15,11 +19,15 @@ class Vehiculo_controller extends CI_Controller
         echo find_function($patente, 'vehiculos/buscarVehiculo');
     }
 
+
+
     public function cargarVehiculosDisponiblesPorSucursal()
     {
         $id_sucursal = $this->input->post('id_sucursal');
         echo find_function($id_sucursal, 'vehiculos/cargarVehiculosDisponiblesPorSucursal');
     }
+
+
 
     public function cargarVehiculosArrendadosPorSucursal()
     {
@@ -27,10 +35,14 @@ class Vehiculo_controller extends CI_Controller
         echo find_function($id_sucursal, 'vehiculos/cargarVehiculosArrendadosPorSucursal');
     }
 
+
+
     public function cargarVehiculosDisponibles()
     {
         echo get_function('vehiculos/cargarVehiculosDisponibles');
     }
+
+
 
     public function registrarVehiculo()
     {
@@ -59,6 +71,8 @@ class Vehiculo_controller extends CI_Controller
         echo post_function($arrayVehiculo, "vehiculos/registrarVehiculo");
     }
 
+
+
     public function editarVehiculo()
     {
         $id = $this->input->post("inputEditarId");
@@ -85,6 +99,8 @@ class Vehiculo_controller extends CI_Controller
         echo put_function($id, $arrayVehiculo, "vehiculos/editarVehiculo");
     }
 
+
+
     public function cambiarEstadoVehiculo()
     {
         $patente = $this->input->post("inputPatenteVehiculo");
@@ -101,6 +117,8 @@ class Vehiculo_controller extends CI_Controller
         echo put_function($patente, $ArrayData, "vehiculos/cambiarEstadoVehiculo");
     }
 
+
+
     public function guardarFotoVehiculo()
     {
         $patente = $this->input->post("inputPatente");
@@ -109,8 +127,69 @@ class Vehiculo_controller extends CI_Controller
         echo file_function($patente, $arrayData, "vehiculos/cargarImagen");
     }
 
+
+
     public function vehiculosArrendados()
     {
         echo get_function("vehiculos/cargarVehiculosArrendados");
+    }
+
+
+
+    public function buscarTarifasVehiculo()
+    {
+        $params = [
+            "patente" => $this->input->post("patente_vehiculo"),
+            "dias" => $this->input->post("dias_arriendo"),
+        ];
+        echo get_function("tarifasVehiculos/buscarTarifaVehiculoPorDias", $params);
+    }
+
+
+
+    public function cargarDanios()
+    {
+        if (validarPermiso(10)) {
+            $params = [
+                "sucursal" => 0
+            ];
+            echo get_function("danioVehiculos/cargarDaniosVehiculos", $params);
+        } else {
+            $params = [
+                "sucursal" => $this->session->userdata('sucursal'),
+            ];
+            echo get_function("danioVehiculos/cargarDaniosVehiculos", $params);
+        }
+    }
+
+
+
+    public function registrarDanioVehiculo()
+    {
+        $dataArray = [
+            "id_arriendo" => $this->input->post("id_arriendo"),
+            "descripcion_danio" => $this->input->post("descripcion_danio"),
+            "arrayImages" => json_decode($this->input->post("arrayImagenes")),
+        ];
+        echo post_function($dataArray, "danioVehiculos/registrarDanioVehiculos");
+    }
+
+
+
+    public function revisarDanioVehiculo()
+    {
+        $id_arriendo = $this->input->post("id_arriendo");
+        echo find_function($id_arriendo, "danioVehiculos/revisarDanioVehiculo");
+    }
+
+
+
+    public function cambiarEstadoDanio()
+    {
+        $idDanioVehiculo = $this->input->post("id_danioVehiculo");
+        $ArrayData = [
+            "estado_danioVehiculo" => "PAGADO",
+        ];
+        echo put_function($idDanioVehiculo, $ArrayData, "danioVehiculos/actualizarDanioVehiculo");
     }
 }

@@ -11,9 +11,18 @@ class Sucursal_controller extends CI_Controller
         echo  get_function('sucursales/cargarSucursales');
     }
 
+
+
     public function buscarSucursal()
     {
         $id_arriendo = $this->input->post("id_sucursal");
         echo find_function($id_arriendo, "sucursales/buscarSucursal");
+    }
+
+
+
+    public function cargarRegiones()
+    {
+        echo get_function("regiones/cargarRegiones");
     }
 }

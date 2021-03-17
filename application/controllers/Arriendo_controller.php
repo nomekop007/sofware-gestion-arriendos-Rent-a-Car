@@ -21,6 +21,8 @@ class Arriendo_controller extends CI_Controller
         }
     }
 
+
+
     public function cargarArriendosDespachos()
     {
         if (validarPermiso(10)) {
@@ -37,6 +39,8 @@ class Arriendo_controller extends CI_Controller
             echo get_function("arriendos/cargarArriendosActivos", $params);
         }
     }
+
+
 
     public function cargarArriendosActivos()
     {
@@ -55,6 +59,8 @@ class Arriendo_controller extends CI_Controller
         }
     }
 
+
+
     public function finalizarArriendosRecepcionados()
     {
         if (validarPermiso(10)) {
@@ -70,11 +76,15 @@ class Arriendo_controller extends CI_Controller
         }
     }
 
+
+
     public function buscarArriendo()
     {
         $id_arriendo = $this->input->post("id_arriendo");
         echo find_function($id_arriendo, "arriendos/buscarArriendo");
     }
+
+
 
     public function registrarArriendo()
     {
@@ -89,7 +99,6 @@ class Arriendo_controller extends CI_Controller
             "diasAcumulados_arriendo" => $this->input->post("inputNumeroDias"),
             "kilometrosEntrada_arriendo" => $this->input->post("inputEntrada"),
             "kilometrosSalida_arriendo" => null,
-
             //foraneas
             "id_usuario" => $this->session->userdata('id'),
             "patente_vehiculo" => $this->input->post("select_vehiculos"),
@@ -104,6 +113,8 @@ class Arriendo_controller extends CI_Controller
         echo post_function($arrayForm, "arriendos/registrarArriendo");
     }
 
+
+
     public function cambiarEstadoArriendo()
     {
         $idArriendo = $this->input->post("id_arriendo");
@@ -114,6 +125,8 @@ class Arriendo_controller extends CI_Controller
         }
         echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
     }
+
+
 
     public function editarArriendo()
     {
@@ -131,6 +144,8 @@ class Arriendo_controller extends CI_Controller
         echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
     }
 
+
+
     public function extenderArriendo()
     {
         $idArriendo = $this->input->post("id_arriendo");
@@ -141,6 +156,7 @@ class Arriendo_controller extends CI_Controller
         ];
         echo put_function($idArriendo, $ArrayData, "arriendos/cambiarEstadoArriendo");
     }
+
 
 
     public function enviarCorreoAtraso()
@@ -154,6 +170,7 @@ class Arriendo_controller extends CI_Controller
     }
 
 
+
     public function anularArriendo()
     {
         $ArrayData = [
@@ -161,5 +178,186 @@ class Arriendo_controller extends CI_Controller
             "motivo" => $this->input->post("motivo"),
         ];
         echo post_function($ArrayData, "arriendos/anularArriendo");
+    }
+
+
+
+    public function registrarContacto()
+    {
+        $arrayData = [
+            "nombre_contacto" => $this->input->post("inputNombreContacto"),
+            "domicilio_contacto" => $this->input->post("inputDomicilioContacto"),
+            "numeroCasa_contacto" => $this->input->post("inputNumeroCasaContacto"),
+            "ciudad_contacto" => $this->input->post("inputCiudadContacto"),
+            "telefono_contacto" => $this->input->post("inputTelefonoContacto"),
+            "id_arriendo" => $this->input->post("inputIdArriendo"),
+        ];
+        echo post_function($arrayData, "contactos/registrarContacto");
+    }
+
+
+
+    public function registrarContrato()
+    {
+        $dataArray = [
+            "id_arriendo" => $this->input->post("id_arriendo"),
+            "base64" => $this->input->post("base64"),
+        ];
+        echo post_function($dataArray, "contratos/registrarContrato");
+    }
+
+
+
+    public function registrarExtencionContrato()
+    {
+        $dataArray = [
+            "id_extencion" => $this->input->post("id_extencion"),
+            "base64" => $this->input->post("base64"),
+        ];
+        echo post_function($dataArray, "contratos/registrarExtencionContrato");
+    }
+
+
+
+    public function subirContrato()
+    {
+        $id_arriendo = $this->input->post("id_arriendo");
+        $arrayInput = ["inputContrato"];
+        $arrayData = recorrerFicheros($arrayInput);
+        echo file_function($id_arriendo, $arrayData, "contratos/subirContrato");
+    }
+
+
+
+    public function subirExtencionContrato()
+    {
+        $id_extencion = $this->input->post("id_extencion");
+        $arrayInput = ["inputContrato"];
+        $arrayData = recorrerFicheros($arrayInput);
+        echo file_function($id_extencion, $arrayData, "contratos/subirExtencionContrato");
+    }
+
+
+
+    public function generarPDFcontrato()
+    {
+        $dataArray = [
+            "id_arriendo" => $this->input->post("id_arriendo"),
+            "firmaClientePNG" => $this->input->post("inputFirmaClientePNG"),
+            "firmaUsuarioPNG" => $this->input->post("inputFirmaUsuarioPNG"),
+            "geolocalizacion" => $this->input->post("geolocalizacion"),
+            "extension" => $this->input->post("extension"),
+        ];
+        echo post_function($dataArray, "contratos/generarPDFcontrato");
+    }
+
+
+
+    public function generarPDFextencionContrato()
+    {
+        $dataArray = [
+            "id_extencion" => $this->input->post("id_extencion"),
+            "n_extencion" => $this->input->post("n_extencion"),
+            "firmaClientePNG" => $this->input->post("inputFirmaClientePNG"),
+            "firmaUsuarioPNG" => $this->input->post("inputFirmaUsuarioPNG"),
+            "geolocalizacion" => $this->input->post("geolocalizacion"),
+        ];
+        echo post_function($dataArray, "contratos/generarPDFextencion");
+    }
+
+
+
+    public function enviarCorreoContrato()
+    {
+        $arrayForm = [
+            "id_arriendo" => $this->input->post("id_arriendo"),
+        ];
+        echo post_function($arrayForm, "contratos/enviarCorreoContrato");
+    }
+
+
+
+    public function enviarCorreoContratoExtencion()
+    {
+        $arrayForm = [
+            "id_extencion" => $this->input->post("id_extencion"),
+        ];
+        echo post_function($arrayForm, "contratos/enviarCorreoContratoExtencion");
+    }
+
+
+
+    public function registrarExtencion()
+    {
+        $arrayData = [
+            "patente_vehiculo" => $this->input->post("patente_vehiculo"),
+            "id_arriendo" => $this->input->post("id_arriendo"),
+            "id_pagoArriendo" => $this->input->post("id_pagoArriendo"),
+            "dias_extencion" => $this->input->post("diasActuales"),
+            "fechaInicio_extencion" => $this->input->post("fechaInicio"),
+            "fechaFin_extencion" => $this->input->post("fechaFin"),
+            "estado_extencion" => "SIN FIRMA"
+        ];
+        echo post_function($arrayData, "extenciones/registrarExtencion");
+    }
+
+
+
+    public function cargarExtenciones()
+    {
+        $id_arriendo = $this->input->post("id_arriendo");
+        echo find_function($id_arriendo, "extenciones/buscarExtencionesPorArriendo");
+    }
+
+
+
+    public function registrarGarantia()
+    {
+        $dataArray = [
+            "id_arriendo" => $this->input->post("inputIdArriendo"),
+            "folioTarjeta_garantia" => $this->input->post("inputFolioTarjeta"),
+            "bancoCheque_garantia" => $this->input->post("inputBancoCheque"),
+            "numeroTarjeta_garantia" => $this->input->post("inputNumeroTarjeta"),
+            "fechaTarjeta_garantia" => $this->input->post("inputFechaTarjeta"),
+            "codigoTarjeta_garantia" => $this->input->post("inputCodigoTarjeta"),
+            "numeroCheque_garantia" => $this->input->post("inputNumeroCheque"),
+            "codigoCheque_garantia" => $this->input->post("inputCodigoCheque"),
+            "monto_garantia" => $this->input->post("inputAbono"),
+            "id_modoPago" => $this->input->post("customRadio0"),
+        ];
+        echo post_function($dataArray, "garantias/registrarGarantia");
+    }
+
+
+
+    public function guardarDocumentosRequistosArriendo()
+    {
+        $id_arriendo = $this->input->post("idArriendo");
+        $arrayInput = [
+            "inputlicenciaFrontal",
+            "inputlicenciaTrasera",
+            "inputCarnetFrontal",
+            "inputCarnetTrasera",
+            "inputCheque",
+            "inputComprobante",
+            "inputTarjeta",
+            "inputCartaRemplazo",
+            "inputBoletaEfectivo",
+            "inputEstatuto",
+            "inputRol",
+            "inputVigencia",
+            "inputCarpetaTributaria",
+            "inputCartaAutorizacion"
+        ];
+        $arrayData = recorrerFicheros($arrayInput);
+        echo file_function($id_arriendo, $arrayData, "requisitos/registrarRequisitoArriendo");
+    }
+
+
+
+    public function buscarRequisitoArriendo()
+    {
+        $id_arriendo = $this->input->post("id_arriendo");
+        echo find_function($id_arriendo, "requisitos/buscarRequisitoArriendo");
     }
 }

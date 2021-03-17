@@ -5,6 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Pago_controller extends CI_Controller
 {
 
+
     public function cargarPagosERpendientes()
     {
         if (validarPermiso(10)) {
@@ -20,17 +21,23 @@ class Pago_controller extends CI_Controller
         }
     }
 
+
+
     public function buscarPagoERpendientes()
     {
         $clave_empresaRemplazo = $this->input->post("clave_empresaRemplazo");
         echo find_function($clave_empresaRemplazo, "pagos/buscarPagoERpendientes");
     }
 
+
+
     public function buscarPagoClientes()
     {
         $id_arriendo = $this->input->post("id_arriendo");
         echo find_function($id_arriendo, "pagos/buscarPagosClientePendiente");
     }
+
+
 
     public function cargarPagosClientes()
     {
@@ -47,6 +54,8 @@ class Pago_controller extends CI_Controller
         }
     }
 
+
+
     public function registrarPagoExtra()
     {
         $dataArray = [
@@ -57,6 +66,8 @@ class Pago_controller extends CI_Controller
         ];
         echo post_function($dataArray, "pagos/registrarPagoExtra");
     }
+
+
 
     public function registrarPago()
     {
@@ -72,6 +83,8 @@ class Pago_controller extends CI_Controller
         echo post_function($dataArray, "pagos/registrarPago");
     }
 
+
+
     public function actualizarPagos()
     {
         $dataArray = [
@@ -81,7 +94,6 @@ class Pago_controller extends CI_Controller
         ];
         echo post_function($dataArray, "pagos/actualizarPagos");
     }
-
 
 
 
@@ -105,6 +117,7 @@ class Pago_controller extends CI_Controller
     }
 
 
+
     public function aplicarDescuentoPago()
     {
         $dataArray = [
@@ -117,6 +130,8 @@ class Pago_controller extends CI_Controller
         echo post_function($dataArray, "pagos/aplicarDescuentoPago");
     }
 
+
+
     public function calcularTotalPagos()
     {
         $dataArray = [
@@ -125,11 +140,14 @@ class Pago_controller extends CI_Controller
         echo post_function($dataArray, "pagos/calcularTotalPagos");
     }
 
+
+
     public function buscarPago()
     {
         $id_pago = $this->input->post("id_pago");
         echo find_function($id_pago, "pagos/buscarPago");
     }
+
 
 
     public function actualizarUnPagoAPagado()
@@ -142,6 +160,8 @@ class Pago_controller extends CI_Controller
         echo put_function($id_pago, $dataArray, "pagos/actualizarUnPagoAPagado");
     }
 
+
+
     public function actualizarMontoPago()
     {
         $id_pago = $this->input->post("id_pago");
@@ -151,11 +171,14 @@ class Pago_controller extends CI_Controller
         echo put_function($id_pago, $dataArray, "pagos/actualizarMontoPago");
     }
 
+
+
     public function cargarPagosExtrasPorArriendo()
     {
         $id_arriendo = $this->input->post("id_arriendo");
         echo find_function($id_arriendo, "pagos/cargarPagosExtrasPorArriendo");
     }
+
 
 
     public function eliminarPagoExtra()
@@ -164,6 +187,8 @@ class Pago_controller extends CI_Controller
         echo delete_function($id_pagoExtra, "pagos/eliminarPagoExtra");
     }
 
+
+
     public function actualizarPagoExtra()
     {
         $dataArray = [
@@ -171,5 +196,111 @@ class Pago_controller extends CI_Controller
             "arrayPagosExtra" => json_decode($this->input->post("arrayPagosExtra")),
         ];
         echo post_function($dataArray, "pagos/actualizarPagosExtras");
+    }
+
+
+
+    public function registrarAbono()
+    {
+        $arrayData = [
+            "id_pago" => $this->input->post("id_pago"),
+            "pago_abono" =>  $this->input->post("pago_abono"),
+            "facturacione" => [
+                "userAt" =>  $this->session->userdata('nombre'),
+                "tipo_facturacion" => $this->input->post("tipo_facturacion"),
+                "id_modoPago" => $this->input->post("id_modoPago"),
+                "numero_facturacion" => $this->input->post("numero_facturacion"),
+            ]
+        ];
+        echo post_function($arrayData, "abonos/registrarAbono");
+    }
+
+
+
+    public function cargarFacturaciones()
+    {
+        echo get_function("facturaciones/cargarFacturaciones");
+    }
+
+
+
+    public function registrarFacturacion()
+    {
+        $dataArray = [
+            "tipo_facturacion" => $this->input->post("customRadio1"),
+            "numero_facturacion" => $this->input->post("inputNumFacturacion"),
+            "id_modoPago" => $this->input->post("customRadio2"),
+        ];
+        echo post_function($dataArray, "facturaciones/registrarFacturacion");
+    }
+
+
+
+    public function guardarDocumentoFacturacion()
+    {
+        $id_facturacion = $this->input->post("id_facturacion");
+        $arrayInput = ["inputDocumento"];
+        $arrayData = recorrerFicheros($arrayInput);
+        echo file_function($id_facturacion, $arrayData, "facturaciones/guardarDocumentoFacturacion");
+    }
+
+
+
+    public function registrarPagosAccesorios()
+    {
+        $dataArray = [
+            "id_pagoArriendo" => $this->input->post("id_pagoArriendo"),
+            "matrizAccesorios" => json_decode($this->input->post("matrizAccesorios")),
+        ];
+        echo post_function($dataArray, "pagosAccesorios/registrarPagosAccesorios");
+    }
+
+
+
+    public function registrarPagoArriendo()
+    {
+        $dataArray = [
+            "id_arriendo" => $this->input->post("inputIdArriendo"),
+            "subtotal_pagoArriendo" => $this->input->post("inputSubTotalArriendo"),
+            "remplazo_pagoArriendo" => $this->input->post("inputPagoEmpresa"),
+            "valorCopago_pagoArriendo" => $this->input->post("inputValorCopago"),
+            "neto_pagoArriendo" => $this->input->post("inputNeto"),
+            "iva_pagoArriendo" => $this->input->post("inputIVA"),
+            "descuento_pagoArriendo" => $this->input->post("inputDescuento"),
+            "total_pagoArriendo" => $this->input->post("inputTotal"),
+            "observaciones_pagoArriendo" => $this->input->post("inputObservaciones"),
+            "digitador_pagoArriendo" => $this->input->post("digitador"),
+        ];
+        echo post_function($dataArray, "pagosArriendos/registrarPagoArriendo");
+    }
+
+
+
+    public function consultarTotalPagosArriendo()
+    {
+        $id_arriendo = $this->input->post("id_arriendo");
+        echo find_function($id_arriendo, "pagosArriendos/consultarTotalPagosArriendo");
+    }
+
+
+
+    public function consultarPagosArriendo()
+    {
+        $id_arriendo = $this->input->post("id_arriendo");
+        echo find_function($id_arriendo, "pagosArriendos/consultarPagosArriendo");
+    }
+
+
+
+    public function registrarPagoDanio()
+    {
+        $dataArray = [
+            "precioTotal_pagoDanio" => $this->input->post("input_precio_pagoDanio"),
+            "pagador_pagoDanio" => $this->input->post("input_pagador_pagoDanio"),
+            "mecanico_pagoDanio" => $this->input->post("input_mecanico_pagoDanio"),
+            "id_danioVehiculo" => $this->input->post("id_danioVehiculo"),
+            "id_facturacion" => $this->input->post("id_facturacion"),
+        ];
+        echo post_function($dataArray, "pagosDanios/registrarPagoDanio");
     }
 }

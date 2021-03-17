@@ -9,11 +9,15 @@ class Sesion_controller extends CI_Controller
         $this->load->view('login');
     }
 
+
+
     public function cerrarSesion()
     {
         $this->session->sess_destroy();
         redirect(base_url());
     }
+
+
 
     public function crearSesion()
     {
@@ -33,7 +37,8 @@ class Sesion_controller extends CI_Controller
         echo json_encode(array("msg" => "OK"));
     }
 
-    //carga los paneles correspondientes
+
+
     public function cargarPanel()
     {
         if ($this->session->userdata("estado") === "true") {

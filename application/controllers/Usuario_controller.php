@@ -6,6 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Usuario_controller extends CI_Controller
 {
 
+
 	public function iniciarSesion()
 	{
 		$arrayUser = [
@@ -21,10 +22,14 @@ class Usuario_controller extends CI_Controller
 		echo  $response->getBody();
 	}
 
+
+
 	public function cargarUsuarios()
 	{
 		echo get_function("usuarios/cargarUsuarios");
 	}
+
+
 
 	public function registrarUsuario()
 	{
@@ -39,11 +44,15 @@ class Usuario_controller extends CI_Controller
 		echo post_function($ArrayData, "usuarios/registrar");
 	}
 
+
+
 	public function buscarUsuario()
 	{
 		$id_usuario = $this->input->post("id_usuario");
 		echo find_function($id_usuario, "usuarios/buscarUsuario");
 	}
+
+
 
 	public function editarUsuario()
 	{
@@ -57,6 +66,8 @@ class Usuario_controller extends CI_Controller
 		];
 		echo put_function($id_usuario, $ArrayData, "usuarios/editarUsuario");
 	}
+
+
 
 	public function cambiarEstadoUsuario()
 	{

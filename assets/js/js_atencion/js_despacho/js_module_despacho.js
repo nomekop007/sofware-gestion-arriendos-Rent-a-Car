@@ -257,14 +257,15 @@ $(document).ready(() => {
 		const matrizRecepcion = await capturarControlDespachoArray();
 		data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
 		data.append("imageCombustible", url);
-		$("#recibido").text($("#inputRecibidorDespacho").val());
-		$("#entregado").text($("#inputEntregadorDespacho").val());
+
 		const response = await ajax_function(data, "generar_PDFactaEntrega");
 		if (response.success) {
 			$("#modal_signature").modal({ show: true });
 			$("#body-documento").show();
 			$("#body-firma").show();
 			$("#body-sinContrato").hide();
+			$("#recibido").text($("#inputRecibidorDespacho").val());
+			$("#entregado").text($("#inputEntregadorDespacho").val());
 			mostrarVisorPDF(response.data.base64, [
 				"pdf_canvas_despacho", "page_count_despacho",
 				"page_num_despacho", "prev_despacho",
