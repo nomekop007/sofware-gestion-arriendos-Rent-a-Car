@@ -481,14 +481,16 @@ $(document).ready(() => {
 			return;
 		}
 
+		//borrar fotos existentes
+
 		arrayImagesRecepcion.forEach(async (url, i) => {
 			let blob = dataURItoBlob(url);
 			let file = imagen = new File([blob], 'imagen.png', { type: 'image/png' });
 			const data = new FormData();
-			data.append(`file`, file);
-			//await ajax_function(data, "guardar_fotoRecepcion");
+			data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+			data.append(`inputFotoVehiculo`, file);
+			await ajax_function(data, "guardar_fotoRecepcion");
 		});
-
 
 		const data = new FormData();
 		await generarActaRecepcion(data);
@@ -655,6 +657,25 @@ $(document).ready(() => {
 	 */
 
 
+	const guardarRevisionRecepcion = async (data) => {
+		data.append("id_despacho", $("#id_arriendo_recepcion").val());
+		data.append("arrayImages", JSON.stringify(arrayImagesRecepcion));
+		return await ajax_function(data, "registrar_revision");
+	}
+
+
+	const cambiarEstadoArriendo = async (data) => {
+		return await ajax_function(data, "cambiarEstado_arriendo");
+	};
+
+
+	const cambiarEstadoVehiculo = async (data) => {
+		data.append("inputPatenteVehiculo", $("#id_vehiculo_recepcion").val());
+		data.append("inputEstado", "DISPONIBLE");
+		data.append("kilometraje_vehiculo", $("#input_kilometraje_salida").val());
+		return await ajax_function(data, "cambiarEstado_vehiculo");
+	};
+
 
 
 	$("#limpiarArrayFotosRecepcion").click(() => {
@@ -739,24 +760,6 @@ $(document).ready(() => {
 	};
 
 
-	const guardarRevisionRecepcion = async (data) => {
-		data.append("id_despacho", $("#id_arriendo_recepcion").val());
-		data.append("arrayImages", JSON.stringify(arrayImagesRecepcion));
-		return await ajax_function(data, "registrar_revision");
-	}
-
-
-	const cambiarEstadoArriendo = async (data) => {
-		return await ajax_function(data, "cambiarEstado_arriendo");
-	};
-
-
-	const cambiarEstadoVehiculo = async (data) => {
-		data.append("inputPatenteVehiculo", $("#id_vehiculo_recepcion").val());
-		data.append("inputEstado", "DISPONIBLE");
-		data.append("kilometraje_vehiculo", $("#input_kilometraje_salida").val());
-		return await ajax_function(data, "cambiarEstado_vehiculo");
-	};
 
 	const actualizarArriendo = async (data) => {
 		data.append("id_arriendo", $("#id_arriendo_extencion").val());
@@ -845,13 +848,15 @@ $(document).ready(() => {
 		if (diff <= 0) {
 			clearInterval(time);
 			// If the count down is finished, write some text
-			$(`#time${id_arriendo}`).html("<div> EXPIRADO </div>");
+			$(`#time${id_arriendo}`).html("EXPIRADO");
 			$(`#time${id_arriendo}`).addClass("text-danger");
 		} else {
 			if (diasRestantes > 0) {
 				$(`#time${id_arriendo}`).text(`
                     ${diasRestantes}  ${diasRestantes == 1 ? " dia" : " dias"
 					}  y ${moment.utc(diff).format(" HH:mm:ss")} horas `);
+
+				$(`#time${id_arriendo}`).removeClass("text-danger");
 			} else {
 				$(`#time${id_arriendo}`).text(
 					moment.utc(diff).format(" HH:mm:ss") + " horas"
@@ -888,7 +893,7 @@ $(document).ready(() => {
 			let btnExtender = "";
 			let viewTime = "";
 			if (arriendo.estado_arriendo == "ACTIVO") {
-				viewTime = `<div id=time${arriendo.id_arriendo}> EXPIRADO </div>`;
+				viewTime = `<div class="text-danger" id=time${arriendo.id_arriendo}> EXPIRADO </div>`;
 				btnExtender = ` <button value='${arriendo.id_arriendo}' onclick='mostrarArriendoExtender(this.value)'  data-toggle='modal'  data-target='#modal_ArriendoExtender' class='btn btn btn-outline-info'><i class="fab fa-algolia"></i></button> `
 				btnFinalizar = ` <button value='${arriendo.id_arriendo}' onclick='mostrarRecepcionArriendo(this.value)' data-toggle='modal'  data-target='#modal_ArriendoFinalizar'  class='btn btn btn-outline-dark'><i class="fas fa-external-link-square-alt"></i></button>`;
 			} else {

@@ -66,12 +66,12 @@
                                 <input disabled onblur="mayus(this);" type="text" class="form-control" id="inputPatenteVehiculoRecepcion" name="inputPatenteVehiculoDespacho">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="inputClienteRecepcion">Cliente</label>
-                                <input type="text" class="form-control" id="inputClienteRecepcion" onblur="mayus(this);" name="inputClienteRecepcion">
-                            </div>
-                            <div class="form-group col-md-6">
                                 <label for="inputUsuarioRecepcion">Usuario por</label>
                                 <input type="text" value="<?php echo $this->session->userdata('nombre') ?>" class="form-control" onblur="mayus(this);" id="inputUsuarioRecepcion" name="inputUsuarioRecepcion">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputClienteRecepcion">Cliente</label>
+                                <input type="text" class="form-control" id="inputClienteRecepcion" onblur="mayus(this);" name="inputClienteRecepcion">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="inputMarcaVehiculoRecepcion">Marca</label>

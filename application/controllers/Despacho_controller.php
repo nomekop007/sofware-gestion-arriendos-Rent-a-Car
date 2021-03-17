@@ -118,6 +118,13 @@ class Despacho_controller extends CI_Controller
         echo  file_function($id_arriendo, $arrayData, "actasEntregas/guardarFotosVehiculos");
     }
 
+    public function guardarFotoRecepcion()
+    {
+        $id_arriendo = $this->input->post("id_arriendo");
+        $arrayFile = ['inputFotoVehiculo'];
+        $arrayData = recorrerFicheros($arrayFile);
+        echo  file_function($id_arriendo, $arrayData, "actasEntregas/guardarFotoRecepcion");
+    }
 
 
     public function enviarCorreoActaEntrega()

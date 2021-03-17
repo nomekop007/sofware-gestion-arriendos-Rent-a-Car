@@ -83,7 +83,7 @@ $route['generar_PDFactaRecepcion'] = 'Despacho_controller/generarPDFactaRecepcio
 $route['enviar_correoActaEntrega'] = 'Despacho_controller/enviarCorreoActaEntrega';
 $route['buscar_actaEntrega'] = 'Despacho_controller/buscarActaEntrega';
 $route['guardar_fotosVehiculo'] = 'Despacho_controller/guardarFotosVehiculo';
-
+$route['guardar_fotoRecepcion'] = 'Despacho_controller/guardarFotoRecepcion';
 
 /* rutas de controller empresaRemplazo */
 $route['cargar_empresasRemplazo'] = 'EmpresaRemplazo_controller/cargarEmpresasRemplazo';
