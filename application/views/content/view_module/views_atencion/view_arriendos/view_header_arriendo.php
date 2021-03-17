@@ -11,7 +11,7 @@
     </div>
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-link  active" id="nav-registrar-tab" data-toggle="tab" href="#nav-registrar" role="tab" aria-controls="nav-registrar" aria-selected="true">Registrar Arriendo</a>
+            <a class="nav-link  active bloquearRegistrarArriendo" id="nav-registrar-tab" data-toggle="tab" href="#nav-registrar" role="tab" aria-controls="nav-registrar" aria-selected="true">Registrar Arriendo</a>
             <a class="nav-link" id="nav-arriendos-tab" data-toggle="tab" href="#nav-arriendos" role="tab" aria-controls="nav-arriendos" aria-selected="false">Ver Todos los Arriendos</a>
         </div>
     </nav>
