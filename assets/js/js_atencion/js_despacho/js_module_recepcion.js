@@ -1,6 +1,6 @@
 const arrayImagesRecepcion = [];
 const formatter = new Intl.NumberFormat("CL");
-
+let timeInterval;
 
 
 const mostrarArriendoExtender = async (id_arriendo) => {
@@ -467,7 +467,9 @@ $(document).ready(() => {
 		data.append("imageCombustible", url);
 
 		console.log(matrizRecepcion);
-		//const response = await ajax_function(data, "generar_PDFactaEntrega");
+		const response = await ajax_function(data, "generar_PDFactaRecepcion");
+
+		console.log(response);
 
 		$("#spinner_btn_generar_actaRecepcion").hide();
 		$("#btn_generar_actaRecepcion").attr("disabled", false);
@@ -689,12 +691,12 @@ $(document).ready(() => {
 
 
 	const temporizador = (fechaRecepcion_arriendo, id_arriendo) => {
+		clearInterval(timeInterval);
 		$(`#time${id_arriendo}`).text("");
-		const countDownDate = moment(fechaRecepcion_arriendo);
 		const fechaFinal = moment(fechaRecepcion_arriendo);
-		let time = countDownDate.diff(moment());
-		time = setInterval(function () {
-			alertaTemporizador(countDownDate, fechaFinal, time, id_arriendo);
+		timeInterval = fechaFinal.diff(moment());
+		timeInterval = setInterval(function () {
+			alertaTemporizador(fechaFinal, timeInterval, id_arriendo);
 		}, 1000);
 	};
 
@@ -718,9 +720,9 @@ $(document).ready(() => {
 	};
 
 
-	const alertaTemporizador = (countDownDate, fechaFinal, time, id_arriendo) => {
-		let diff = countDownDate.diff(moment());
+	const alertaTemporizador = (fechaFinal, time, id_arriendo) => {
 		const fechaActual = moment();
+		let diff = fechaFinal.diff(moment());
 		const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
 		if (diff <= 0) {
 			clearInterval(time);

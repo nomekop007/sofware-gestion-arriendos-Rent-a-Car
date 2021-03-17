@@ -14,11 +14,11 @@
 
 
 <!-- importando archivo js despacho -->
-<script src="<?php echo base_route() ?>assets/js/js_atencion/js_despacho/js_module_despachos_despacho.js?v=<?php echo version(); ?>">
+<script src="<?php echo base_route() ?>assets/js/js_atencion/js_despacho/js_module_despacho.js?v=<?php echo version(); ?>">
 </script>
-<script src="<?php echo base_route() ?>assets/js/js_atencion/js_despacho/js_module_despachos_activos.js?v=<?php echo version(); ?>">
+<script src="<?php echo base_route() ?>assets/js/js_atencion/js_despacho/js_module_recepcion.js?v=<?php echo version(); ?>">
 </script>
-<script src="<?php echo base_route() ?>assets/js/js_atencion/js_despacho/js_module_despachos_firmaExtenciones.js?v=<?php echo version(); ?>">
+<script src="<?php echo base_route() ?>assets/js/js_atencion/js_despacho/js_module_recepcion_firmaExtenciones.js?v=<?php echo version(); ?>">
 </script>
 <script src="<?php echo base_route() ?>assets/js/utils/canvasCombustible.js?v=<?php echo version(); ?>"></script>
 <script src="<?php echo base_route() ?>assets/js/utils/canvasFirmaDigital.js?v=<?php echo version(); ?>"></script>

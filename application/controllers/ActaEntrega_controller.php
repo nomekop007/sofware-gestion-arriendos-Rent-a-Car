@@ -43,6 +43,13 @@ class ActaEntrega_controller extends CI_Controller
         echo post_function($ArrayData, "actasEntregas/generarPDFactaEntrega");
     }
 
+
+    public function generarPDFactaRecepcion()
+    {
+
+        //logica
+    }
+
     public function guardarFotosVehiculo()
     {
         $id_arriendo = $this->input->post("inputIdArriendo");

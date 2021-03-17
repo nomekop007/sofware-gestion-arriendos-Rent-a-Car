@@ -118,6 +118,7 @@ $route['finalizar_arriendos'] = 'Arriendo_controller/finalizarArriendosRecepcion
 /* rutas de controller ActaEntrega */
 $route['registrar_actaEntrega'] = 'ActaEntrega_controller/registrarActaEntrega';
 $route['generar_PDFactaEntrega'] = 'ActaEntrega_controller/generarPDFactaEntrega';
+$route['generar_PDFactaRecepcion'] = 'ActaEntrega_controller/generarPDFactaRecepcion';
 $route['enviar_correoActaEntrega'] = 'ActaEntrega_controller/enviarCorreoActaEntrega';
 $route['buscar_actaEntrega'] = 'ActaEntrega_controller/buscarActaEntrega';
 $route['guardar_fotosVehiculo'] = 'ActaEntrega_controller/guardarFotosVehiculo';
