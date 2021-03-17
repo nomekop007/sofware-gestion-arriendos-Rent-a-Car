@@ -3,7 +3,7 @@
     <div class="modal-dialog  modal-dialog-centered  modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal_ArriendoFinalizarLabel">Control de Recepcion Arriendo Nº <span id="numero_arriendo_recepcion">Nº</span> </h5>
+                <h5 class="modal-title" id="modal_ArriendoFinalizarLabel">Control de Recepcion Arriendo <span id="numero_arriendo_recepcion">Nº</span> </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

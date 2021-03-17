@@ -147,12 +147,12 @@ const mostrarRecepcionArriendo = async (id_arriendo) => {
 		}
 
 		$("#inputClienteRecepcion").val(cliente);
+		$("#numero_arriendo_recepcion").html(" Nº " + arriendo.id_arriendo + " vehiculo : " + arriendo.patente_vehiculo);
 		$("#inputMarcaVehiculoRecepcion").val(arriendo.vehiculo.marca_vehiculo);
 		$("#inputModeloVehiculoRecepcion").val(arriendo.vehiculo.modelo_vehiculo);
 		$("#inputEdadVehiculoRecepcion").val(arriendo.vehiculo.año_vehiculo);
 		$("#inputColorVehiculoRecepcion").val(arriendo.vehiculo.color_vehiculo);
 		$("#inputPatenteVehiculoRecepcion").val(arriendo.vehiculo.patente_vehiculo);
-		$("#numero_arriendo_recepcion").html(arriendo.id_arriendo);
 		$("#id_vehiculo_recepcion").val(arriendo.patente_vehiculo);
 		$("#id_arriendo_recepcion").val(arriendo.id_arriendo);
 		$("#body_recepcion_arriendo").show();

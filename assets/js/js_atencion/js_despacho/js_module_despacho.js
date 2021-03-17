@@ -9,9 +9,7 @@ const buscarArriendo = async (id_arriendo) => {
 	if (response.success) {
 		const arriendo = response.data;
 		$("#inputIdArriendo").val(arriendo.id_arriendo);
-		$("#numero_arriendo_despacho").html(arriendo.id_arriendo);
-
-
+		$("#numero_arriendo_despacho").html("Nº " + arriendo.id_arriendo + " vehiculo : " + arriendo.patente_vehiculo);
 		$("#inputMarcaVehiculoDespacho").val(arriendo.vehiculo.marca_vehiculo);
 		$("#inputModeloVehiculoDespacho").val(arriendo.vehiculo.modelo_vehiculo);
 		$("#inputEdadVehiculoDespacho").val(arriendo.vehiculo.año_vehiculo);
