@@ -94,6 +94,7 @@ class Despacho_controller extends CI_Controller
             "firma1PNG" => $this->input->post("inputFirma1PNG"),
             "firma2PNG" => $this->input->post("inputFirma2PNG"),
             "id_arriendo" => $this->input->post("id_arriendo"),
+            "descripcion_danio" => $this->input->post("descripcion_danio"),
             "kilomentraje_salida" => $this->input->post("kilomentraje_salida"),
             "recibidorRecepcion" => $this->input->post("inputUsuarioRecepcion"),
             "entregadorRecepcion" => $this->input->post("inputClienteRecepcion"),
@@ -159,6 +160,8 @@ class Despacho_controller extends CI_Controller
     {
         $dataArray = [
             "id_arriendo" => $this->input->post("id_arriendo"),
+            "descripcion_danio" => $this->input->post("descripcion_danio"),
+            "tieneDanio" => $this->input->post("tieneDanio"),
             "base64" => $this->input->post("base64"),
         ];
         echo post_function($dataArray, "despachos/confirmarRecepcionArriendo");

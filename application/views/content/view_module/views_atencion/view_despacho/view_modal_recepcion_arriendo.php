@@ -55,6 +55,7 @@
                 </div>
                 <br><br>
                 <div class="row">
+
                     <div class="col-md-8">
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -88,6 +89,19 @@
                             <div class="form-group col-md-6">
                                 <label for="inputColorVehiculoRecepcion">Color</label>
                                 <input disabled onblur="mayus(this);" type="text" class="form-control" id="inputColorVehiculoRecepcion" name="inputColorVehiculoRecepcion">
+                            </div>
+                            <div class="form-group col-md-10">
+                                <label for="input_descripcion_danio">Detalles</label>
+                                <textarea onblur="mayus(this);" class="form-control" id="input_descripcion_danio" name="input_descripcion_danio" rows="3" maxLength="500"></textarea>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <br> <br>
+                                <div class="form-check" style='font-size: 1.0rem;'>
+                                    <input class="form-check-input" type="checkbox" name="checkboxDanio" id="checkboxDanio">
+                                    <label class="form-check-label" for="checkboxDanio">
+                                        <span class="badge badge-warning"> Tiene daño? </span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -475,7 +489,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">cerrar</button>
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalRegistrarDaño">Registrar daño</button>
                 <button type="button" class="btn btn-primary" id="btn_generar_actaRecepcion">Generar Acta Recepcion
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_btn_generar_actaRecepcion"></span>
                 </button>

@@ -539,6 +539,7 @@ $(document).ready(() => {
 		const matrizRecepcion = await capturarControlRecepcionArray();
 		data.append("matrizRecepcion", JSON.stringify(matrizRecepcion));
 		data.append("imageCombustible", url);
+		data.append("descripcion_danio", $("#input_descripcion_danio").val());
 		data.append("id_arriendo", $("#id_arriendo_recepcion").val());
 		data.append("kilomentraje_salida", $("#input_kilometraje_salida").val());
 		data.append("inputClienteRecepcion", $("#inputClienteRecepcion").val());
@@ -643,53 +644,27 @@ $(document).ready(() => {
 
 	$("#btn_confirmar_actaRecepcion").click(() => {
 		alertQuestion(async () => {
+			$("#spinner_btn_confirmarActaRecepcion").show();
+			$("#btn_confirmar_actaRecepcion").attr("disabled", true);
 			const data = new FormData();
+			data.append("tieneDanio", $('#checkboxDanio').prop('checked'));
 			data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+			data.append("descripcion_danio", $("#input_descripcion_danio").val());
 			data.append("tipo", "RECEPCION");
 			data.append("base64", base64_documentoRecepcion);
 			const response = await ajax_function(data, "confirmar_recepcionArriendo");
 			if (response.success) {
 				await ajax_function(data, "registrar_bloqueoUsuario");
-				Swal.fire("Arriendo Recepcionado", "se actualizo el estado del arriendo y del vehiculo!", "success");
+				$("#modal_ArriendoFinalizar").modal("toggle");
+				$("#modal_signature_actaRecepcion").modal("toggle");
+				Swal.fire("Arriendo Recepcionado!", "Arriendo Recepcionado con exito!", "success");
+				refrescarTablaActivos();
+				cargarArriendosPendientesDelUsuario();
 			}
+			$("#btn_confirmar_actaRecepcion").attr("disabled", false);
+			$("#spinner_btn_confirmarActaRecepcion").hide();
 		});
 	});
-
-
-	/* 	$("#btn_recepcionar_arriendo").click(() => {
-			if (arrayImagesRecepcion.length === 0) {
-				Swal.fire({ icon: "warning", title: "falta tomar fotos al vehiculo!", });
-				return;
-			}
-			if ($("#input_kilometraje_salida").val() == 0) {
-				Swal.fire({ icon: "warning", title: "falta colocar el kilometraje del vehiculo", });
-				return;
-			}
-			alertQuestion(async () => {
-				$("#spinner_btn_generar_actaRecepcion").show();
-				$("#btn_recepcionar_arriendo").attr("disabled", true);
-				const data = new FormData();
-				const response_revision = await guardarRevisionRecepcion(data);
-				if (response_revision.success) {
-					const response_vehiculo = await cambiarEstadoVehiculo(data);
-					if (response_vehiculo.success) {
-						data.append("id_arriendo", $("#id_arriendo_recepcion").val());
-						data.append("estado", "RECEPCIONADO");
-						data.append("kilometraje_salida", $("#input_kilometraje_salida").val());
-						await cambiarEstadoArriendo(data);
-						data.append("tipo", "RECEPCION");
-						await ajax_function(data, "registrar_bloqueoUsuario");
-						refrescarTablaActivos();
-						cargarArriendosPendientesDelUsuario();
-						$("#modal_ArriendoFinalizar").modal("toggle");
-						Swal.fire("Arriendo finalizado!", "Arriendo finalizado con exito!", "success");
-					}
-				}
-				$("#btn_recepcionar_arriendo").attr("disabled", false);
-				$("#spinner_btn_generar_actaRecepcion").hide();
-			})
-		});
-	 */
 
 
 
@@ -735,36 +710,6 @@ $(document).ready(() => {
 		$("#seleccionarFotoRecepcion").attr("disabled", false);
 
 	});
-
-
-
-
-
-
-
-	$("#registrar_danio_vehiculo").click(() => {
-		const id_arriendo = $("#id_arriendo_recepcion").val();
-		const inputDescripcion = $("#input_descripcion_danio").val();
-		if (arrayImagesRecepcion.length === 0) {
-			Swal.fire({ icon: "warning", title: "falta tomar fotos al vehiculo!", });
-			return;
-		}
-		alertQuestion(async () => {
-			$("#spinner_btn_registrar_danio").show();
-			const data = new FormData();
-			data.append("descripcion_danio", inputDescripcion);
-			data.append("arrayImagenes", JSON.stringify(arrayImagesRecepcion));
-			data.append("id_arriendo", id_arriendo);
-			const responseDanio = await ajax_function(data, "registrar_danio_vehiculo");
-			if (responseDanio.success) {
-				Swal.fire("se registro exitoso!", "se registro el daño con exito", "success")
-				$("#modalRegistrarDaño").modal("toggle");
-			}
-			$("#spinner_btn_registrar_danio").hide();
-		})
-	});
-
-
 
 
 
