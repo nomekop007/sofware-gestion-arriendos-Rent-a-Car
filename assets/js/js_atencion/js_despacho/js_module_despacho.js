@@ -1,5 +1,5 @@
 const arrayImages = [];
-let base64_documento = null;
+let base64_documentoDespacho = null;
 
 const buscarArriendo = async (id_arriendo) => {
 	limpiarCampos();
@@ -68,7 +68,7 @@ const limpiarCampos = () => {
 	$("#btn_confirmar_actaEntrega").attr("disabled", true);
 	$("#spinner_btn_seleccionar").hide();
 	arrayImages.length = 0;
-	base64_documento = null;
+	base64_documentoDespacho = null;
 	$("#carrucel").empty();
 
 };
@@ -271,7 +271,7 @@ $(document).ready(() => {
 			const a = document.getElementById("descargar_actaEntrega");
 			a.href = `data:application/pdf;base64,${response.data.base64}`;
 			a.download = `actaEntrega.pdf`;
-			base64_documento = response.data.base64;
+			base64_documentoDespacho = response.data.base64;
 			if (response.data.firma1 && response.data.firma2) {
 				$("#btn_confirmar_actaEntrega").attr("disabled", false);
 			}
@@ -332,7 +332,7 @@ $(document).ready(() => {
 	};
 
 	const guardarActaEntrega = async (data, id_despacho) => {
-		data.append("base64", base64_documento);
+		data.append("base64", base64_documentoDespacho);
 		data.append("inputIdDespacho", id_despacho);
 		return await ajax_function(data, "registrar_actaEntrega");
 	};

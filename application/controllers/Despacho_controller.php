@@ -106,6 +106,16 @@ class Despacho_controller extends CI_Controller
 
 
 
+    public function enviarCorreoActaEntrega()
+    {
+        $arrayForm = [
+            "id_arriendo" => $this->input->post("inputIdArriendo")
+        ];
+        echo post_function($arrayForm, "actasEntregas/enviarCorreoActaEntrega");
+    }
+
+
+
     public function guardarFotosVehiculo()
     {
         $id_arriendo = $this->input->post("inputIdArriendo");
@@ -118,6 +128,8 @@ class Despacho_controller extends CI_Controller
         echo  file_function($id_arriendo, $arrayData, "actasEntregas/guardarFotosVehiculos");
     }
 
+
+
     public function guardarFotoRecepcion()
     {
         $id_arriendo = $this->input->post("id_arriendo");
@@ -127,11 +139,28 @@ class Despacho_controller extends CI_Controller
     }
 
 
-    public function enviarCorreoActaEntrega()
+
+    public function eliminarFotosRecepcion()
     {
-        $arrayForm = [
-            "id_arriendo" => $this->input->post("inputIdArriendo")
+        $id_arriendo = $this->input->post("id_arriendo");
+        echo delete_function($id_arriendo, "despachos/eliminarFotosRecepcion");
+    }
+
+
+
+    public function eliminarFotosDespacho()
+    {
+        $id_arriendo = $this->input->post("id_arriendo");
+        echo delete_function($id_arriendo, "despachos/eliminarFotosDespacho");
+    }
+
+
+    public function confirmarRecepcionArriendo()
+    {
+        $dataArray = [
+            "id_arriendo" => $this->input->post("id_arriendo"),
+            "base64" => $this->input->post("base64"),
         ];
-        echo post_function($arrayForm, "actasEntregas/enviarCorreoActaEntrega");
+        echo post_function($dataArray, "despachos/confirmarRecepcionArriendo");
     }
 }

@@ -1,7 +1,9 @@
 const arrayImagesRecepcion = [];
 const formatter = new Intl.NumberFormat("CL");
 let timeInterval;
-
+let cargarfotoRecepcion = false;
+let itemsHtmlRecepcion = '';
+let base64_documentoRecepcion = null;
 
 const mostrarArriendoExtender = async (id_arriendo) => {
 	limpiarFormularios();
@@ -93,13 +95,19 @@ const mostrarRecepcionArriendo = async (id_arriendo) => {
 	const responseActa = await ajax_function(data, "buscar_actaEntrega");
 	if (responseArriendo.success) {
 		const arriendo = responseArriendo.data;
+
+		const a = document.getElementById("descargar_actaEntregaEnRecepcion");
+		a.href = `data:application/pdf;base64,${responseActa.data.base64}`;
+		a.download = `actaEntrega.pdf`;
+
+
+		if (arriendo.fotosRecepciones.length > 0) {
+			fotoRecepcionCarrucelRecepcion(arriendo.fotosRecepciones, responseActa.data.url);
+		}
+
+
 		if (arriendo.fotosDespachos.length > 0) {
 			fotoDespachoCarrucelRecepcion(arriendo.fotosDespachos, responseActa.data.url);
-
-			const a = document.getElementById("descargar_actaEntregaEnRecepcion");
-			a.href = `data:application/pdf;base64,${responseActa.data.base64}`;
-			a.download = `actaEntrega.pdf`;
-
 			$("#ventana_fotosDespacho").show();
 		} else {
 			if (responseActa.success) {
@@ -177,6 +185,23 @@ const fotoDespachoCarrucelRecepcion = (array, url) => {
 	});
 };
 
+const fotoRecepcionCarrucelRecepcion = (array, url) => {
+
+
+	let items = "";
+	array.map(({ url_fotoRecepcion }) => {
+		const link = `${url}/${url_fotoRecepcion}`;
+		items += `<div class="item"><img src="${link}" /></div>`;
+	});
+	itemsHtmlRecepcion = items;
+	const html = `<div class="owl-carousel owl-theme" id="carruselVehiculos">${items}</div></div>`;
+	$("#carrucel_recepcion").html(html);
+	$("#carrucel_recepcion2").html(html);
+	$(".owl-carousel").owlCarousel({
+		items: 1,
+	});
+	cargarfotoRecepcion = true;
+}
 
 
 const calcularDiasExtencion = () => {
@@ -249,11 +274,15 @@ const limpiarFormularios = () => {
 
 
 	arrayImagesRecepcion.length = 0;
-
+	cargarfotoRecepcion = false;
+	itemsHtmlRecepcion = '';
+	base64_documentoRecepcion = null;
 	$("#modal_signature_actaRecepcion").hide();
 	$("#body-firma-actaRecepcion").hide();
 	$("#recibido_actaRecepcion").text('');
 	$("#entregado_actaRecepcion").text('');
+
+
 
 	$("#btn_firmar_actaRecepcion").attr("disabled", false);
 	$("#spinner_btn_firmarActaRecepcion").hide();
@@ -270,6 +299,7 @@ const limpiarFormularios = () => {
 	$("#spinner_btn_extenderArriendo").hide();
 	$("#spinner_btn_registrar_danio").hide();
 	$("#carrucel_recepcion").empty();
+	$("#carrucel_recepcion2").empty();
 	$("#id_vehiculo_recepcion").val("");
 	$("#id_arriendo_recepcion").val("");
 	$("#input_descripcion_danio").val("");
@@ -472,7 +502,7 @@ $(document).ready(() => {
 
 
 	$("#btn_generar_actaRecepcion").click(async () => {
-		if (arrayImagesRecepcion.length === 0) {
+		if (arrayImagesRecepcion.length === 0 && cargarfotoRecepcion === false) {
 			Swal.fire({ icon: "warning", title: "falta tomar fotos al vehiculo!", });
 			return;
 		}
@@ -481,16 +511,17 @@ $(document).ready(() => {
 			return;
 		}
 
-		//borrar fotos existentes
-
-		arrayImagesRecepcion.forEach(async (url, i) => {
-			let blob = dataURItoBlob(url);
-			let file = imagen = new File([blob], 'imagen.png', { type: 'image/png' });
-			const data = new FormData();
-			data.append("id_arriendo", $("#id_arriendo_recepcion").val());
-			data.append(`inputFotoVehiculo`, file);
-			await ajax_function(data, "guardar_fotoRecepcion");
-		});
+		if (cargarfotoRecepcion === false) {
+			cargarfotoRecepcion = true;
+			arrayImagesRecepcion.forEach(async (url, i) => {
+				let blob = dataURItoBlob(url);
+				let file = imagen = new File([blob], 'imagen.png', { type: 'image/png' });
+				const data = new FormData();
+				data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+				data.append(`inputFotoVehiculo`, file);
+				await ajax_function(data, "guardar_fotoRecepcion");
+			});
+		}
 
 		const data = new FormData();
 		await generarActaRecepcion(data);
@@ -512,10 +543,7 @@ $(document).ready(() => {
 		data.append("kilomentraje_salida", $("#input_kilometraje_salida").val());
 		data.append("inputClienteRecepcion", $("#inputClienteRecepcion").val());
 		data.append("inputUsuarioRecepcion", $("#inputUsuarioRecepcion").val());
-
-
 		const response = await ajax_function(data, "generar_PDFactaRecepcion");
-
 		if (response.success) {
 			$("#modal_signature_actaRecepcion").modal({ show: true });
 			$("#body-firma-actaRecepcion").show();
@@ -530,7 +558,7 @@ $(document).ready(() => {
 			const a = document.getElementById("descargar_actaRecepcion");
 			a.href = `data:application/pdf;base64,${response.data.base64}`;
 			a.download = `actaRecepcion.pdf`;
-			base64_documento = response.data.base64;
+			base64_documentoRecepcion = response.data.base64;
 			if (response.data.firma1 && response.data.firma2) {
 				$("#btn_confirmar_actaRecepcion").attr("disabled", false);
 			}
@@ -611,15 +639,22 @@ $(document).ready(() => {
 	};
 
 
+
+
 	$("#btn_confirmar_actaRecepcion").click(() => {
-
 		alertQuestion(async () => {
-
-
+			const data = new FormData();
+			data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+			data.append("tipo", "RECEPCION");
+			data.append("base64", base64_documentoRecepcion);
+			const response = await ajax_function(data, "confirmar_recepcionArriendo");
+			if (response.success) {
+				await ajax_function(data, "registrar_bloqueoUsuario");
+				Swal.fire("Arriendo Recepcionado", "se actualizo el estado del arriendo y del vehiculo!", "success");
+			}
 		});
-
-
 	});
+
 
 	/* 	$("#btn_recepcionar_arriendo").click(() => {
 			if (arrayImagesRecepcion.length === 0) {
@@ -657,30 +692,20 @@ $(document).ready(() => {
 	 */
 
 
-	const guardarRevisionRecepcion = async (data) => {
-		data.append("id_despacho", $("#id_arriendo_recepcion").val());
-		data.append("arrayImages", JSON.stringify(arrayImagesRecepcion));
-		return await ajax_function(data, "registrar_revision");
-	}
-
-
-	const cambiarEstadoArriendo = async (data) => {
-		return await ajax_function(data, "cambiarEstado_arriendo");
-	};
-
-
-	const cambiarEstadoVehiculo = async (data) => {
-		data.append("inputPatenteVehiculo", $("#id_vehiculo_recepcion").val());
-		data.append("inputEstado", "DISPONIBLE");
-		data.append("kilometraje_vehiculo", $("#input_kilometraje_salida").val());
-		return await ajax_function(data, "cambiarEstado_vehiculo");
-	};
-
-
 
 	$("#limpiarArrayFotosRecepcion").click(() => {
-		alertQuestion(() => {
+		alertQuestion(async () => {
+
+			const data = new FormData();
+			data.append("id_arriendo", $("#id_arriendo_recepcion").val());
+			// eliminar lista de la base de datos
+			const response = await ajax_function(data, "eliminar_FotosRecepcion");
+			if (response.success) {
+				Swal.fire("fotos eliminadas!", "se eliminaron las fotos de la base de datos", "success")
+			}
+			cargarfotoRecepcion = false;
 			arrayImagesRecepcion.length = 0;
+			itemsHtmlRecepcion = '';
 			$("#carrucel_recepcion").empty();
 			$("#carrucel_recepcion2").empty();
 		})
@@ -744,7 +769,8 @@ $(document).ready(() => {
 
 
 	const agregarFotoACarrucelRecepcion = (array) => {
-		let items = "";
+		let items = itemsHtmlRecepcion;
+		cargarfotoRecepcion = false;
 		for (let i = 0; i < array.length; i++) {
 			let base64str = array[i].split('base64,')[1];
 			let decoded = atob(base64str);
