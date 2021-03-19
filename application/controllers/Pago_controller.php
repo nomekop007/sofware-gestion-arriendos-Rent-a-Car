@@ -212,14 +212,14 @@ class Pago_controller extends CI_Controller
                 "numero_facturacion" => $this->input->post("numero_facturacion"),
             ]
         ];
-        echo post_function($arrayData, "abonos/registrarAbono");
+        echo post_function($arrayData, "pagos/registrarAbono");
     }
 
 
 
     public function cargarFacturaciones()
     {
-        echo get_function("facturaciones/cargarFacturaciones");
+        echo get_function("pagos/cargarFacturaciones");
     }
 
 
@@ -231,7 +231,7 @@ class Pago_controller extends CI_Controller
             "numero_facturacion" => $this->input->post("inputNumFacturacion"),
             "id_modoPago" => $this->input->post("customRadio2"),
         ];
-        echo post_function($dataArray, "facturaciones/registrarFacturacion");
+        echo post_function($dataArray, "pagos/registrarFacturacion");
     }
 
 
@@ -241,7 +241,7 @@ class Pago_controller extends CI_Controller
         $id_facturacion = $this->input->post("id_facturacion");
         $arrayInput = ["inputDocumento"];
         $arrayData = recorrerFicheros($arrayInput);
-        echo file_function($id_facturacion, $arrayData, "facturaciones/guardarDocumentoFacturacion");
+        echo file_function($id_facturacion, $arrayData, "pagos/guardarDocumentoFacturacion");
     }
 
 
@@ -252,7 +252,7 @@ class Pago_controller extends CI_Controller
             "id_pagoArriendo" => $this->input->post("id_pagoArriendo"),
             "matrizAccesorios" => json_decode($this->input->post("matrizAccesorios")),
         ];
-        echo post_function($dataArray, "pagosAccesorios/registrarPagosAccesorios");
+        echo post_function($dataArray, "pagos/registrarPagosAccesorios");
     }
 
 
@@ -271,7 +271,7 @@ class Pago_controller extends CI_Controller
             "observaciones_pagoArriendo" => $this->input->post("inputObservaciones"),
             "digitador_pagoArriendo" => $this->input->post("digitador"),
         ];
-        echo post_function($dataArray, "pagosArriendos/registrarPagoArriendo");
+        echo post_function($dataArray, "pagos/registrarPagoArriendo");
     }
 
 
@@ -279,7 +279,7 @@ class Pago_controller extends CI_Controller
     public function consultarTotalPagosArriendo()
     {
         $id_arriendo = $this->input->post("id_arriendo");
-        echo find_function($id_arriendo, "pagosArriendos/consultarTotalPagosArriendo");
+        echo find_function($id_arriendo, "pagos/consultarTotalPagosArriendo");
     }
 
 
@@ -287,7 +287,7 @@ class Pago_controller extends CI_Controller
     public function consultarPagosArriendo()
     {
         $id_arriendo = $this->input->post("id_arriendo");
-        echo find_function($id_arriendo, "pagosArriendos/consultarPagosArriendo");
+        echo find_function($id_arriendo, "pagos/consultarPagosArriendo");
     }
 
 
@@ -301,6 +301,6 @@ class Pago_controller extends CI_Controller
             "id_danioVehiculo" => $this->input->post("id_danioVehiculo"),
             "id_facturacion" => $this->input->post("id_facturacion"),
         ];
-        echo post_function($dataArray, "pagosDanios/registrarPagoDanio");
+        echo post_function($dataArray, "pagos/registrarPagoDanio");
     }
 }

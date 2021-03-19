@@ -20,6 +20,6 @@ class EmpresaRemplazo_controller extends CI_Controller
             "codigo_empresaRemplazo" => $this->input->post("inputCodigoEmpresaRemplazo"),
             "rut_cliente" => $this->input->post("inputRutCliente"),
         ];
-        echo post_function($ArrayData, "remplazos/registrarRemplazo");
+        echo post_function($ArrayData, "empresasRemplazo/registrarRemplazo");
     }
 }

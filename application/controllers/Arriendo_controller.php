@@ -192,7 +192,7 @@ class Arriendo_controller extends CI_Controller
             "telefono_contacto" => $this->input->post("inputTelefonoContacto"),
             "id_arriendo" => $this->input->post("inputIdArriendo"),
         ];
-        echo post_function($arrayData, "contactos/registrarContacto");
+        echo post_function($arrayData, "arriendos/registrarContacto");
     }
 
 
@@ -203,7 +203,7 @@ class Arriendo_controller extends CI_Controller
             "id_arriendo" => $this->input->post("id_arriendo"),
             "base64" => $this->input->post("base64"),
         ];
-        echo post_function($dataArray, "contratos/registrarContrato");
+        echo post_function($dataArray, "arriendos/registrarContrato");
     }
 
 
@@ -214,7 +214,7 @@ class Arriendo_controller extends CI_Controller
             "id_extencion" => $this->input->post("id_extencion"),
             "base64" => $this->input->post("base64"),
         ];
-        echo post_function($dataArray, "contratos/registrarExtencionContrato");
+        echo post_function($dataArray, "arriendos/registrarExtencionContrato");
     }
 
 
@@ -224,7 +224,7 @@ class Arriendo_controller extends CI_Controller
         $id_arriendo = $this->input->post("id_arriendo");
         $arrayInput = ["inputContrato"];
         $arrayData = recorrerFicheros($arrayInput);
-        echo file_function($id_arriendo, $arrayData, "contratos/subirContrato");
+        echo file_function($id_arriendo, $arrayData, "arriendos/subirContrato");
     }
 
 
@@ -234,7 +234,7 @@ class Arriendo_controller extends CI_Controller
         $id_extencion = $this->input->post("id_extencion");
         $arrayInput = ["inputContrato"];
         $arrayData = recorrerFicheros($arrayInput);
-        echo file_function($id_extencion, $arrayData, "contratos/subirExtencionContrato");
+        echo file_function($id_extencion, $arrayData, "arriendos/subirExtencionContrato");
     }
 
 
@@ -248,7 +248,7 @@ class Arriendo_controller extends CI_Controller
             "geolocalizacion" => $this->input->post("geolocalizacion"),
             "extension" => $this->input->post("extension"),
         ];
-        echo post_function($dataArray, "contratos/generarPDFcontrato");
+        echo post_function($dataArray, "arriendos/generarPDFcontrato");
     }
 
 
@@ -262,7 +262,7 @@ class Arriendo_controller extends CI_Controller
             "firmaUsuarioPNG" => $this->input->post("inputFirmaUsuarioPNG"),
             "geolocalizacion" => $this->input->post("geolocalizacion"),
         ];
-        echo post_function($dataArray, "contratos/generarPDFextencion");
+        echo post_function($dataArray, "arriendos/generarPDFextencion");
     }
 
 
@@ -272,7 +272,7 @@ class Arriendo_controller extends CI_Controller
         $arrayForm = [
             "id_arriendo" => $this->input->post("id_arriendo"),
         ];
-        echo post_function($arrayForm, "contratos/enviarCorreoContrato");
+        echo post_function($arrayForm, "arriendos/enviarCorreoContrato");
     }
 
 
@@ -282,7 +282,7 @@ class Arriendo_controller extends CI_Controller
         $arrayForm = [
             "id_extencion" => $this->input->post("id_extencion"),
         ];
-        echo post_function($arrayForm, "contratos/enviarCorreoContratoExtencion");
+        echo post_function($arrayForm, "arriendos/enviarCorreoContratoExtencion");
     }
 
 
@@ -298,7 +298,7 @@ class Arriendo_controller extends CI_Controller
             "fechaFin_extencion" => $this->input->post("fechaFin"),
             "estado_extencion" => "SIN FIRMA"
         ];
-        echo post_function($arrayData, "extenciones/registrarExtencion");
+        echo post_function($arrayData, "arriendos/registrarExtencion");
     }
 
 
@@ -306,7 +306,7 @@ class Arriendo_controller extends CI_Controller
     public function cargarExtenciones()
     {
         $id_arriendo = $this->input->post("id_arriendo");
-        echo find_function($id_arriendo, "extenciones/buscarExtencionesPorArriendo");
+        echo find_function($id_arriendo, "arriendos/buscarExtencionesPorArriendo");
     }
 
 
@@ -325,7 +325,7 @@ class Arriendo_controller extends CI_Controller
             "monto_garantia" => $this->input->post("inputAbono"),
             "id_modoPago" => $this->input->post("customRadio0"),
         ];
-        echo post_function($dataArray, "garantias/registrarGarantia");
+        echo post_function($dataArray, "arriendos/registrarGarantia");
     }
 
 
@@ -350,7 +350,7 @@ class Arriendo_controller extends CI_Controller
             "inputCartaAutorizacion"
         ];
         $arrayData = recorrerFicheros($arrayInput);
-        echo file_function($id_arriendo, $arrayData, "requisitos/registrarRequisitoArriendo");
+        echo file_function($id_arriendo, $arrayData, "arriendos/registrarRequisitoArriendo");
     }
 
 
@@ -358,6 +358,6 @@ class Arriendo_controller extends CI_Controller
     public function buscarRequisitoArriendo()
     {
         $id_arriendo = $this->input->post("id_arriendo");
-        echo find_function($id_arriendo, "requisitos/buscarRequisitoArriendo");
+        echo find_function($id_arriendo, "arriendos/buscarRequisitoArriendo");
     }
 }

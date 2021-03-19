@@ -142,7 +142,7 @@ class Vehiculo_controller extends CI_Controller
             "patente" => $this->input->post("patente_vehiculo"),
             "dias" => $this->input->post("dias_arriendo"),
         ];
-        echo get_function("tarifasVehiculos/buscarTarifaVehiculoPorDias", $params);
+        echo get_function("vehiculos/buscarTarifaVehiculoPorDias", $params);
     }
 
 
@@ -153,12 +153,12 @@ class Vehiculo_controller extends CI_Controller
             $params = [
                 "sucursal" => 0
             ];
-            echo get_function("danioVehiculos/cargarDaniosVehiculos", $params);
+            echo get_function("vehiculos/cargarDaniosVehiculos", $params);
         } else {
             $params = [
                 "sucursal" => $this->session->userdata('sucursal'),
             ];
-            echo get_function("danioVehiculos/cargarDaniosVehiculos", $params);
+            echo get_function("vehiculos/cargarDaniosVehiculos", $params);
         }
     }
 
@@ -171,7 +171,7 @@ class Vehiculo_controller extends CI_Controller
             "descripcion_danio" => $this->input->post("descripcion_danio"),
             "arrayImages" => json_decode($this->input->post("arrayImagenes")),
         ];
-        echo post_function($dataArray, "danioVehiculos/registrarDanioVehiculos");
+        echo post_function($dataArray, "vehiculos/registrarDanioVehiculos");
     }
 
 
@@ -179,7 +179,7 @@ class Vehiculo_controller extends CI_Controller
     public function revisarDanioVehiculo()
     {
         $id_arriendo = $this->input->post("id_arriendo");
-        echo find_function($id_arriendo, "danioVehiculos/revisarDanioVehiculo");
+        echo find_function($id_arriendo, "vehiculos/revisarDanioVehiculo");
     }
 
 
@@ -190,6 +190,6 @@ class Vehiculo_controller extends CI_Controller
         $ArrayData = [
             "estado_danioVehiculo" => "PAGADO",
         ];
-        echo put_function($idDanioVehiculo, $ArrayData, "danioVehiculos/actualizarDanioVehiculo");
+        echo put_function($idDanioVehiculo, $ArrayData, "vehiculos/actualizarDanioVehiculo");
     }
 }

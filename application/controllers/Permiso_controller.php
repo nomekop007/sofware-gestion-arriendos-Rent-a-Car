@@ -8,6 +8,6 @@ class Permiso_controller extends CI_Controller
 
     public function cargarRoles()
     {
-        echo get_function("roles/cargarRoles");
+        echo get_function("permisos/cargarRoles");
     }
 }

@@ -23,6 +23,6 @@ class Sucursal_controller extends CI_Controller
 
     public function cargarRegiones()
     {
-        echo get_function("regiones/cargarRegiones");
+        echo get_function("sucursales/cargarRegiones");
     }
 }

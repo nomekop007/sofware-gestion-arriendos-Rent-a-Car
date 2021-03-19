@@ -71,7 +71,7 @@ class Cliente_controller extends CI_Controller
 
     public function cargarConductores()
     {
-        echo get_function("conductores/cargarConductores");
+        echo get_function("clientes/cargarConductores");
     }
 
 
@@ -79,7 +79,7 @@ class Cliente_controller extends CI_Controller
     public function buscarConductor()
     {
         $rut_conductor = $this->input->post("rut_conductor");
-        echo find_function($rut_conductor, "conductores/buscarConductor");
+        echo find_function($rut_conductor, "clientes/buscarConductor");
     }
 
 
@@ -97,7 +97,7 @@ class Cliente_controller extends CI_Controller
             "direccion_conductor" => $this->input->post("inputDireccionConductor"),
             "nacionalidad_conductor" => $this->input->post("inputNacionalidadConductor"),
         ];
-        echo post_function($arrayData, "conductores/registrarConductor");
+        echo post_function($arrayData, "clientes/registrarConductor");
     }
 
 
@@ -115,7 +115,7 @@ class Cliente_controller extends CI_Controller
             "vcto_conductor" => $this->input->post("inputVCTOConductor"),
             "municipalidad_conductor" => $this->input->post("inputMunicipalidadConductor"),
         ];
-        echo put_function($rut_conductor, $arrayData, "conductores/editarConductor");
+        echo put_function($rut_conductor, $arrayData, "clientes/editarConductor");
     }
 
 
@@ -125,14 +125,14 @@ class Cliente_controller extends CI_Controller
         $rut_conductor = $this->input->post('inputRutConductor');
         $arrayInput = ["inputlicenciaFrontalConductor", "inputlicenciaTraseraConductor"];
         $arrayData = recorrerFicheros($arrayInput);
-        echo file_function($rut_conductor, $arrayData, "conductores/editarArchivos");
+        echo file_function($rut_conductor, $arrayData, "clientes/editarArchivos");
     }
 
 
 
     public function cargarEmpresas()
     {
-        echo get_function("empresas/cargarEmpresas");
+        echo get_function("clientes/cargarEmpresas");
     }
 
 
@@ -140,7 +140,7 @@ class Cliente_controller extends CI_Controller
     public function buscarEmpresa()
     {
         $rut_empresa = $this->input->post("rut_empresa");
-        echo find_function($rut_empresa, "empresas/buscarEmpresa");
+        echo find_function($rut_empresa, "clientes/buscarEmpresa");
     }
 
 
@@ -158,7 +158,7 @@ class Cliente_controller extends CI_Controller
             "rol_empresa" => $this->input->post("inputRol"),
             "comuna_empresa" => $this->input->post("inputComunaEmpresa"),
         ];
-        echo post_function($arrayData, "empresas/registrarEmpresa");
+        echo post_function($arrayData, "clientes/registrarEmpresa");
     }
 
 
@@ -176,7 +176,7 @@ class Cliente_controller extends CI_Controller
             "ciudad_empresa" => $this->input->post("inputCiudadEmpresa"),
             "telefono_empresa" => $this->input->post("inputTelefonoEmpresa"),
         ];
-        echo put_function($rut_empresa, $arrayData, "empresas/editarEmpresa");
+        echo put_function($rut_empresa, $arrayData, "clientes/editarEmpresa");
     }
 
 
@@ -186,6 +186,6 @@ class Cliente_controller extends CI_Controller
         $rut_empresa = $this->input->post("inputRutEmpresa");
         $arrayInput = ["inputCarnetFrontalEmpresa", "inputCarnetTraseraEmpresa", "inputEstatuto", "inputDocumentotRol", "inputDocumentoVigencia"];
         $arrayData = recorrerFicheros($arrayInput);
-        echo file_function($rut_empresa, $arrayData, "empresas/editarArchivos");
+        echo file_function($rut_empresa, $arrayData, "clientes/editarArchivos");
     }
 }

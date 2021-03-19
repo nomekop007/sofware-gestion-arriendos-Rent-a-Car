@@ -54,7 +54,7 @@ class Despacho_controller extends CI_Controller
             "id_despacho" => $this->input->post("inputIdDespacho"),
             "base64" => $this->input->post("base64"),
         ];
-        echo post_function($dataArray, "actasEntregas/registrarActaEntrega");
+        echo post_function($dataArray, "despachos/registrarActaEntrega");
     }
 
 
@@ -62,7 +62,7 @@ class Despacho_controller extends CI_Controller
     public function buscarActaEntrega()
     {
         $id_despacho = $this->input->post("id_despacho");
-        echo find_function($id_despacho, "actasEntregas/buscarActaEntrega");
+        echo find_function($id_despacho, "despachos/buscarActaEntrega");
     }
 
 
@@ -83,7 +83,7 @@ class Despacho_controller extends CI_Controller
             "entregadorDespacho" => $this->input->post("inputEntregadorDespacho"),
             "geolocalizacion" => $this->input->post("geolocalizacion"),
         ];
-        echo post_function($ArrayData, "actasEntregas/generarPDFactaEntrega");
+        echo post_function($ArrayData, "despachos/generarPDFactaEntrega");
     }
 
 
@@ -112,7 +112,7 @@ class Despacho_controller extends CI_Controller
         $arrayForm = [
             "id_arriendo" => $this->input->post("inputIdArriendo")
         ];
-        echo post_function($arrayForm, "actasEntregas/enviarCorreoActaEntrega");
+        echo post_function($arrayForm, "despachos/enviarCorreoActaEntrega");
     }
 
 
@@ -126,7 +126,7 @@ class Despacho_controller extends CI_Controller
             "file6", "file7", "file8", "file9", "file10"
         ];
         $arrayData = recorrerFicheros($arrayFile);
-        echo  file_function($id_arriendo, $arrayData, "actasEntregas/guardarFotosVehiculos");
+        echo  file_function($id_arriendo, $arrayData, "despachos/guardarFotosVehiculos");
     }
 
 
@@ -136,7 +136,7 @@ class Despacho_controller extends CI_Controller
         $id_arriendo = $this->input->post("id_arriendo");
         $arrayFile = ['inputFotoVehiculo'];
         $arrayData = recorrerFicheros($arrayFile);
-        echo  file_function($id_arriendo, $arrayData, "actasEntregas/guardarFotoRecepcion");
+        echo  file_function($id_arriendo, $arrayData, "despachos/guardarFotoRecepcion");
     }
 
 
