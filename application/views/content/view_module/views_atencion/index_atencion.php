@@ -42,9 +42,12 @@
         <br>
         <div class="card  text-success">
             <div class="m-4">
-                <h1>SISTEMA ACTUALIZADO! 09-03-2021</h1>
+                <h1>SISTEMA ACTUALIZADO! 19-03-2021</h1>
                 <span>Cambios realizados:</span>
-                <li>se agregaron 2 bloqueos , uno en el momento cuando de recepciona un vehiculo y otra cuando se registra un arriendo.</li>
+                <li>En gestion de arriendos se modifico la funcionalidad de anulacion de arriendo , se desde ahora , al anular un arriendo se debe indicar el motivo.</li>
+                <li>En el home se agrego la cantidad y el listado de vehiculos arrendados de cada sucursal.</li>
+                <li>Se agrego nuevos botones en cada tabla del sistema, las cuales permiten expertar las tablas a formato Excel y PDF. </li>
+                <li>Se modifico el formulario de recepcion de arriendos , desde ahora sera necesario firmar el documento de recepcion y indicar si el vehiculo tiene daño o no. </li>
             </div>
         </div>
         <br><br><br><br><br>
