@@ -700,7 +700,7 @@ $(document).ready(() => {
 
 		const canvas = document.getElementById("canvas_fotoVehiculo_recepcion");
 		const base64 = canvas.toDataURL("image/png");
-		const url = await resizeBase64Img(base64, canvas.width, canvas.height, 2);
+		const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
 
 		arrayImagesRecepcion.push(url);
 		agregarFotoACarrucelRecepcion(arrayImagesRecepcion);
