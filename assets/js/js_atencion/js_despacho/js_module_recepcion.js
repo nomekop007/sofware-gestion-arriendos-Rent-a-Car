@@ -650,6 +650,7 @@ $(document).ready(() => {
 			data.append("tieneDanio", $('#checkboxDanio').prop('checked'));
 			data.append("id_arriendo", $("#id_arriendo_recepcion").val());
 			data.append("descripcion_danio", $("#input_descripcion_danio").val());
+			data.append("kilomentraje_salida", $("#input_kilometraje_salida").val());
 			data.append("tipo", "RECEPCION");
 			data.append("base64", base64_documentoRecepcion);
 			const response = await ajax_function(data, "confirmar_recepcionArriendo");
@@ -700,7 +701,7 @@ $(document).ready(() => {
 
 		const canvas = document.getElementById("canvas_fotoVehiculo_recepcion");
 		const base64 = canvas.toDataURL("image/png");
-		const url = await resizeBase64Img(base64, canvas.width, canvas.height, 3);
+		const url = await resizeBase64Img(base64, canvas.width, canvas.height, 2);
 
 		arrayImagesRecepcion.push(url);
 		agregarFotoACarrucelRecepcion(arrayImagesRecepcion);

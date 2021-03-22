@@ -161,6 +161,7 @@ class Despacho_controller extends CI_Controller
         $dataArray = [
             "id_arriendo" => $this->input->post("id_arriendo"),
             "descripcion_danio" => $this->input->post("descripcion_danio"),
+            "kilomentraje_salida" => $this->input->post("kilomentraje_salida"),
             "tieneDanio" => $this->input->post("tieneDanio"),
             "base64" => $this->input->post("base64"),
         ];
