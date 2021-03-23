@@ -1,6 +1,6 @@
 const arrayImagesRecepcion = [];
 const formatter = new Intl.NumberFormat("CL");
-let timeInterval;
+//let timeInterval;
 let cargarfotoRecepcion = false;
 let itemsHtmlRecepcion = '';
 let base64_documentoRecepcion = null;
@@ -784,12 +784,14 @@ $(document).ready(() => {
 
 
 	const temporizador = (fechaRecepcion_arriendo, id_arriendo) => {
-		clearInterval(timeInterval);
+		//clearInterval(timeInterval);
 		$(`#time${id_arriendo}`).text("");
+		const countDownDate = moment(fechaRecepcion_arriendo);
 		const fechaFinal = moment(fechaRecepcion_arriendo);
-		timeInterval = fechaFinal.diff(moment());
-		timeInterval = setInterval(function () {
-			alertaTemporizador(fechaFinal, timeInterval, id_arriendo);
+		//timeInterval = fechaFinal.diff(moment());
+		let time = countDownDate.diff(moment());
+		time = setInterval(function () {
+			alertaTemporizador(countDownDate, fechaFinal, time, id_arriendo);
 		}, 1000);
 	};
 
@@ -813,10 +815,10 @@ $(document).ready(() => {
 	};
 
 
-	const alertaTemporizador = (fechaFinal, time, id_arriendo) => {
-		const fechaActual = moment();
-		let diff = fechaFinal.diff(moment());
+	const alertaTemporizador = (countDownDate, fechaFinal, time, id_arriendo) => {
+		let diff = countDownDate.diff(moment());
 		const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
+		const fechaActual = moment();
 		if (diff <= 0) {
 			clearInterval(time);
 			// If the count down is finished, write some text
