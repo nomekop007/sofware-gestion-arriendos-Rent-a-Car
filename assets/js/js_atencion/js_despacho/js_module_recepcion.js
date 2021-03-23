@@ -816,9 +816,9 @@ $(document).ready(() => {
 
 
 	const alertaTemporizador = (countDownDate, fechaFinal, time, id_arriendo) => {
+		const fechaActual = moment();
 		let diff = countDownDate.diff(moment());
 		const diasRestantes = fechaFinal.diff(fechaActual, "days"); // 1
-		const fechaActual = moment();
 		if (diff <= 0) {
 			clearInterval(time);
 			// If the count down is finished, write some text
