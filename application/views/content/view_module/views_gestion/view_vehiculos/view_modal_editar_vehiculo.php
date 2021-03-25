@@ -92,6 +92,8 @@
                                                 <option value="EN LICITACION">EN LICITACION</option>
                                                 <option value="EN MANTENCION">EN MANTENCION</option>
                                                 <option value="ELIMINADO">ELIMINADO</option>
+                                                <option value="FAMILIA">FAMILIA</option>
+
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6">
