@@ -39,6 +39,7 @@ const mostrarArriendoModalVer = (arriendo) => {
 	$("#inputEditarDiasArriendo").val(arriendo.diasAcumulados_arriendo);
 	$("#inputEditarUsuarioArriendo").val(arriendo.usuario.nombre_usuario);
 	$("#inputEditarSucursal").val(arriendo.sucursale.nombre_sucursal);
+	$("#inputEditarVendedorArriendo").val(' SUC.' + arriendo.sucursale.nombre_sucursal);
 	$("#inputEditarRegistroArriendo").val(formatearFechaHora(arriendo.createdAt));
 	if (arriendo.estado_arriendo == "PENDIENTE" || arriendo.estado_arriendo == "CONFIRMADO" || arriendo.estado_arriendo == "FIRMADO") {
 		$("#btn_anular_arriendo").show();

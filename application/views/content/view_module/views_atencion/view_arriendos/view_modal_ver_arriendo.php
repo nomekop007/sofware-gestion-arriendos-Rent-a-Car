@@ -59,11 +59,11 @@
                             <input disabled type="text" class="form-control" id="inputEditarKsalidaArriendo">
                         </div>
                         <div class="form-group col-lg-3">
-                            <label for="inputEditarFechaInicioArriendo">Fecha Inicio</label>
+                            <label for="inputEditarFechaInicioArriendo">Fecha despacho</label>
                             <input disabled type="text" class="form-control" name="inputEditarFechaInicioArriendo" id="inputEditarFechaInicioArriendo">
                         </div>
                         <div class="form-group col-lg-3">
-                            <label for="inputEditarFechaFinArriendo">Fecha Fin</label>
+                            <label for="inputEditarFechaFinArriendo">Fecha recepcion</label>
                             <input disabled type="text" class="form-control" name="inputEditarFechaFinArriendo" id="inputEditarFechaFinArriendo">
                         </div>
                         <div class="form-group col-lg-2">
@@ -75,16 +75,20 @@
                             <label for="inputEditarSucursal">Sucursal</label>
                             <input disabled type="text" class="form-control" id="inputEditarSucursal">
                         </div>
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-3">
                             <label for="inputEditarGarantiaArriendo">Garantia</label>
                             <input disabled type="text" class="form-control" id="inputEditarGarantiaArriendo">
                         </div>
-                        <div class="form-group col-lg-4">
-                            <label for="inputEditarUsuarioArriendo">Vendedor</label>
+                        <div class="form-group col-lg-3">
+                            <label for="inputEditarVendedorArriendo">Vendedor</label>
+                            <input disabled type="text" class="form-control" id="inputEditarVendedorArriendo">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="inputEditarUsuarioArriendo">Usuario</label>
                             <input disabled type="text" class="form-control" id="inputEditarUsuarioArriendo">
                         </div>
 
-                        <div class="form-group col-lg-4">
+                        <div class="form-group col-lg-3">
                             <label for="inputEditarRegistroArriendo">fecha registro</label>
                             <input disabled type="text" class="form-control" id="inputEditarRegistroArriendo">
                         </div>

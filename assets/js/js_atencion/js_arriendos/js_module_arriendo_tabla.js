@@ -82,6 +82,7 @@ const refrescarTabla = () => {
 
 const cargarArriendoEnTabla = (arriendo) => {
 	try {
+		console.log(arriendo);
 		let cliente = "";
 		switch (arriendo.tipo_arriendo) {
 			case "PARTICULAR":
@@ -112,13 +113,24 @@ const cargarArriendoEnTabla = (arriendo) => {
 		if (arriendo.estado_arriendo == "ANULADO") {
 			return;
 		}
+
+
+
+		let tipo = '';
+		if (arriendo.tipo_arriendo === "REEMPLAZO") {
+			tipo = arriendo.tipo_arriendo + ` (${arriendo.remplazo.codigo_empresaRemplazo})`;
+		} else {
+			tipo = arriendo.tipo_arriendo;
+		}
+
+
 		tablaTotalArriendos.row
 			.add([
 				arriendo.id_arriendo,
 				formatearFechaHora(arriendo.createdAt),
 				cliente,
 				arriendo.patente_vehiculo,
-				arriendo.tipo_arriendo,
+				tipo,
 				`<span class="${color}"> ${arriendo.estado_arriendo} </span>`,
 				arriendo.sucursale.nombre_sucursal
 				, `<button id='a${arriendo.id_arriendo}'  value='${arriendo.id_arriendo}'  onclick='buscarArriendo(this.value,1)' 
