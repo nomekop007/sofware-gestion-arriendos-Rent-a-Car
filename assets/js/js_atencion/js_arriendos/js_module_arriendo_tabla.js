@@ -82,7 +82,6 @@ const refrescarTabla = () => {
 
 const cargarArriendoEnTabla = (arriendo) => {
 	try {
-		console.log(arriendo);
 		let cliente = "";
 		switch (arriendo.tipo_arriendo) {
 			case "PARTICULAR":
