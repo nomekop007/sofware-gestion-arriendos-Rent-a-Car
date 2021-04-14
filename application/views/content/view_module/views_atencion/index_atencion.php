@@ -226,3 +226,32 @@
         }
     }
 </script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!--Script para importar moment al sistema-->
+<script src="<?php echo base_route() ?>/node_modules/moment/moment.js?v=<?php echo version(); ?>"></script>
+
+<!-- Script encargado de recordar cambio de contraseña dentro de un mes-->
+<script>
+    const diaActual = moment().format('YYYY-MM-DD');   
+
+    //id del usuario logeado
+    const id_usuario = <?php echo $this->session->userdata('id') ?>;
+
+    (buscar_usuario = async () => {
+        const data = new FormData();
+        data.append("id_usuario", id_usuario);
+        const response = await ajax_function(data, "buscar_usuario");
+        if (response.success) {
+            const usuario = response.data;
+            const fechaUsuario = moment(usuario.updatedAt).format('YYYY-MM-DD');                      
+            const resultado = moment(diaActual).diff(fechaUsuario, 'months');
+            /* console.log(fechaUsuario);
+            console.log(diaActual);  
+            console.log("diferencia fechas " + resultado) */
+            if (resultado >= 1) {
+                Swal.fire('Considera cambiar tu contraseña para estar seguro');
+            }
+        }
+    })();
+</script>

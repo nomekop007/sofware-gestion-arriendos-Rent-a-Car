@@ -28,14 +28,14 @@ window.addEventListener(
 
 
 $(document).ready(() => {
-
+    
     var base_url = $("#url").val();
 
     $(".btn_login").click(() => {
         var correo = $("#inputEmail").val();
         var clave = $("#inputclave").val();
-
-        if (correo.length != 0 || clave.length != 0) {
+        console.log("aqui estoy");
+        if (correo.length != 0 || clave.length != 0) {            
             $("#btn_login").attr("disabled", true);
             $("#spinner_btn_login").show();
             $.ajax({
@@ -48,7 +48,7 @@ $(document).ready(() => {
                 },
                 success: (response) => {
                     if (response.success) {
-                        crearSesion(response.usuario);
+                        crearSesion(response.usuario);                                
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -65,6 +65,9 @@ $(document).ready(() => {
                 },
             });
         }
+        
+
+        
     });
 
     function crearSesion(usuario) {
