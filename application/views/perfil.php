@@ -77,23 +77,13 @@ if ($this->session->userdata('estado')) {
                         <div class="card-body">
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                <input type="text" id="inputUsuario" name="inputUsuario" value="<?php echo $this->session->userdata('id') ?>" hidden/>
+                                    <input type="text" id="inputUsuario" name="inputUsuario" value="<?php echo $this->session->userdata('id') ?>" hidden />
                                     <label for="inputEditNombreUsuario">Nombre Completo</label>
                                     <input onblur="mayus(this);" maxlength="80" type="text" class="form-control" id="inputEditNombreUsuario" name="inputEditNombreUsuario" value="<?php echo  $this->session->userdata('nombre'); ?>">
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputEditCorreoUsuario">correo</label>
                                     <input onblur="mayus(this);" maxlength="80" type="email" class="form-control" id="inputEditCorreoUsuario" name="inputEditCorreoUsuario" value="<?php echo $this->session->userdata('email'); ?>">
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="inputEditRolUsuario">Rol</label>
-                                    <select id="inputEditRolUsuario" name="inputEditRolUsuario" class="form-control" readonly></select>
-                                    <input hidden type="text" class="form-control " id="id_rol1" value="<?php echo $this->session->userdata('rol') ?>" >
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="inputEditSucursalUsuario">Sucursal</label>
-                                    <select id="inputEditSucursalUsuario" name="inputEditSucursalUsuario" class="form-control" readonly ></select>
-                                    <input hidden type="text" class="form-control " id="id_sucursal1" value="<?php echo $this->session->userdata('sucursal') ?>">
                                 </div>
                                 <div class=" form-group col-md-12">
                                     <label for="inputEditClaveUsuario">Constraseña nueva</label>
@@ -105,27 +95,6 @@ if ($this->session->userdata('estado')) {
                                         </div>
                                     </div>
                                 </div>
-                                <!-- 
-                                                <div class=" form-group col-md-12">
-                                                    <label for="inputNuevaClave">Constraseña nueva</label>
-                                                    <div class="input-group">
-                                                        <input maxlength="50" minlength="8" type="password" class="form-control" id="inputNuevaClave" name="inputNuevaClave">
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-dark show_password" type="button" onclick="mostrarPasswordNuevaClave('inputNuevaClave')"> <span class="fa fa-eye-slash icon2" aria-hidden="true"></span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class=" form-group col-md-12">
-                                                    <label for="inputRepetirClave">Repetir constraseña</label>
-                                                    <div class="input-group">
-                                                        <input maxlength="50" minlength="8" type="password" class="form-control" id="inputRepetirClave" name="inputRepetirClave">
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-dark show_password" type="button" onclick="mostrarPasswordRepetirClave('inputRepetirClave')"> <span class="fa fa-eye-slash icon3" aria-hidden="true"></span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
                             </div>
 
                         </div>
@@ -159,8 +128,7 @@ if ($this->session->userdata('estado')) {
         await cargarSelectSucursal("cargar_Sucursales", "inputEditSucursalUsuario");
         await cargarSelect("cargar_roles", "inputEditRolUsuario");
         $("#inputEditRolUsuario").val($("#id_rol1").val())
-        $("#inputEditSucursalUsuario").val($("#id_sucursal1").val())        
+        $("#inputEditSucursalUsuario").val($("#id_sucursal1").val())
     })();
-    
 </script>
 <script src="<?php echo base_route(); ?>assets/js/utils/perfil.js?v=<?php echo version(); ?>"></script>

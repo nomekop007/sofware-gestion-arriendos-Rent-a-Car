@@ -61,9 +61,11 @@ class Usuario_controller extends CI_Controller
 			"nombre_usuario" => $this->input->post("inputEditNombreUsuario"),
 			"email_usuario" => $this->input->post("inputEditCorreoUsuario"),
 			"clave_usuario" => $this->input->post("inputEditClaveUsuario"),
-			"id_rol" => $this->input->post("inputEditRolUsuario"),
-			"id_sucursal" => $this->input->post("inputEditSucursalUsuario"),
 		];
+		//se pregunta sin estan esos atributos , si estan se agregan al array
+		if ($this->input->post("inputEditRolUsuario")) $ArrayData +=  ["id_rol" =>  $this->input->post("inputEditRolUsuario")];
+		if ($this->input->post("inputEditSucursalUsuario")) $ArrayData +=  ["id_sucursal" =>  $this->input->post("inputEditSucursalUsuario")];
+
 		echo put_function($id_usuario, $ArrayData, "usuarios/editarUsuario");
 	}
 
