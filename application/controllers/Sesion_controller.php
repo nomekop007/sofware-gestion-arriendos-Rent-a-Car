@@ -27,7 +27,7 @@ class Sesion_controller extends CI_Controller
             "sucursal" => $this->input->post("id_sucursal"),
             "id" => $this->input->post("id_usuario"),
             "nombre" => $this->input->post("nombre_usuario"),
-            "email" => $this->input->post("email_usuario"),
+            "email" => $this->input->post("email_usuario"),            
             "usertoken" => $this->input->post("userToken"),
         ];
         $this->session->set_userdata($arrayUser);
