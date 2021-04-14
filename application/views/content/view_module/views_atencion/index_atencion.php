@@ -42,12 +42,9 @@
         <br>
         <div class="card  text-success">
             <div class="m-4">
-                <h1>SISTEMA ACTUALIZADO! 19-03-2021</h1>
+                <h1>SISTEMA ACTUALIZADO! 14-04-2021</h1>
                 <span>Cambios realizados:</span>
-                <li>En gestion de arriendos se modifico la funcionalidad de anulacion de arriendo , se desde ahora , al anular un arriendo se debe indicar el motivo.</li>
-                <li>En el home se agrego la cantidad y el listado de vehiculos arrendados de cada sucursal.</li>
-                <li>Se agrego nuevos botones en cada tabla del sistema, las cuales permiten expertar las tablas a formato Excel y PDF. </li>
-                <li>Se modifico el formulario de recepcion de arriendos , desde ahora sera necesario firmar el documento de recepcion y indicar si el vehiculo tiene daño o no. </li>
+                <li>En el modulo de perfil de usuario se agrego la funcionalidad de poder modificar los datos del usuario.</li>
             </div>
         </div>
         <br><br><br><br><br>
@@ -233,7 +230,7 @@
 
 <!-- Script encargado de recordar cambio de contraseña dentro de un mes-->
 <script>
-    const diaActual = moment().format('YYYY-MM-DD');   
+    const diaActual = moment().format('YYYY-MM-DD');
 
     //id del usuario logeado
     const id_usuario = <?php echo $this->session->userdata('id') ?>;
@@ -244,7 +241,7 @@
         const response = await ajax_function(data, "buscar_usuario");
         if (response.success) {
             const usuario = response.data;
-            const fechaUsuario = moment(usuario.updatedAt).format('YYYY-MM-DD');                      
+            const fechaUsuario = moment(usuario.updatedAt).format('YYYY-MM-DD');
             const resultado = moment(diaActual).diff(fechaUsuario, 'months');
             /* console.log(fechaUsuario);
             console.log(diaActual);  
