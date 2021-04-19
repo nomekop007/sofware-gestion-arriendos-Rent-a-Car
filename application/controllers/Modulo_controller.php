@@ -10,8 +10,10 @@ class Modulo_controller extends CI_Controller
             $this->load->view("templates/header");
             $this->load->view("content/navbars/navbar");
             $this->load->view("content/navbars/modalPendiente");
+            $this->load->view("content/navbars/modalAyuda");
             $this->load->view("content/navbars/modalDocumento");
             $this->load->view("content/sidebars/sidebar_atencion");
+
             $opcion = $_GET["modulo"];
             switch ($opcion) {
                 case 0:
@@ -81,7 +83,6 @@ class Modulo_controller extends CI_Controller
     }
 
 
-
     public function cargarModulosGestion()
     {
         if ($this->session->userdata("estado") === "true") {
@@ -89,6 +90,7 @@ class Modulo_controller extends CI_Controller
             $this->load->view("content/navbars/navbar");
             $this->load->view("content/navbars/modalPendiente");
             $this->load->view("content/navbars/modalDocumento");
+            $this->load->view("content/navbars/modalAyuda");
             $this->load->view("content/sidebars/sidebar_gestion");
             $opcion = $_GET["modulo"];
             switch ($opcion) {
@@ -107,6 +109,7 @@ class Modulo_controller extends CI_Controller
                     if (validarPermiso(6)) {
                         $this->load->view('content/view_module/views_gestion/view_danioVehiculo/view_module_danioVehiculo');
                         $this->load->view('content/view_module/views_gestion/view_danioVehiculo/view_modal_subirComprobante');
+                        $this->load->view('content/view_module/views_gestion/view_danioVehiculo/view_modal_agregarDanio');
                     } else {
                         redirect(base_url());
                     }
@@ -136,6 +139,9 @@ class Modulo_controller extends CI_Controller
                     } else {
                         redirect(base_url());
                     }
+                    break;
+                case 6:
+                    $this->load->view('content/view_module/views_gestion/view_traslado/view_module_traslado');
                     break;
                 default:
                     redirect(base_url());

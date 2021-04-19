@@ -22,6 +22,11 @@
     <input id="route" value="<?php echo base_route(); ?>" hidden />
 
 
+
+
+
+
+
     <!-- select2 core CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/select2.min.css" />
 
@@ -56,12 +61,10 @@
 
     <!-- import visor pdf -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/pdf_viewer.min.css">
+      
+    <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/myEstilo.css?v=<<?php echo version(); ?>">
 
-    <!-- Mi estilos css -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_route() ?>assets/css/myEstilo.css?v=<?php echo version(); ?>">
-
-
-
+    
     <!-- importaciones del jquery -->
     <script src="<?php echo base_route() ?>assets/js/libraries/jquery-3.3.1.min.js"></script>
 

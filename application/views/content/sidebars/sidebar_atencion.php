@@ -45,7 +45,28 @@
                 </li>
             <?php } ?>
 
+        
+
 
         </ul>
+
+        <div class="row align-items-center" >
+            <div class="col-4 align-self-start">     
+            </div>
+            <div class="col-4 align-self-center">
+            </div>
+            <div class="col-4 float-right fixed-bottom ">   
+                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong">
+                <i class="far fa-question-circle fa-2x "></i>
+                </button>
+            </div>
+        </div>
+
+
+
+        
     </div>
+
+
+    
 </nav>

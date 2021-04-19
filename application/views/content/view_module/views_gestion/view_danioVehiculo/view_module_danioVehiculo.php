@@ -17,7 +17,15 @@
             <li class="nav-item" role="presentation">
                 <a class="nav-link" id="todos-tab" data-toggle="tab" href="#todos" role="tab" aria-controls="todos" aria-selected="false">Todos los daños registrados</a>
             </li>
+
+             <div class="card-body d-flex">
+                <button id="NuevodanioVehicular" class="btn btn-secondary btn-xl ml-auto" data-toggle="modal" data-target="#exampleModalCenter" >Agregar nuevo daño vehicular</button>
+            </div>
+
+
+
         </ul>
+
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="pendientes" role="tabpanel" aria-labelledby="pendientes-tab">
                 <br><br>
@@ -124,10 +132,7 @@
 </div>
 
 
-
-
-
-
 <!-- importando archivo js usuarios -->
 <script src="<?php echo base_route() ?>assets/js/js_gestion/js_danioVehiculo/js_module_daniosVehiculo.js?v=<?php echo version(); ?>">
+
 </script>

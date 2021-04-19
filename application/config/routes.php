@@ -19,15 +19,12 @@ $route['modulos_atencion'] = 'Modulo_controller/cargarModulosAtencion';
 $route['buscar_documento'] = 'Utils_controller/buscarDocumento';
 
 
-
-
-
-
 /* rutas controller Accesorio  */
 $route['cargar_accesorios'] = 'Accesorio_controller/cargarAccesorios';
 
 
 /* rutas de controller arriendo  */
+
 $route['registrar_arriendo'] = 'Arriendo_controller/registrarArriendo';
 $route['cargar_arriendos'] = 'Arriendo_controller/cargarArriendos';
 $route['buscar_arriendo'] = 'Arriendo_controller/buscarArriendo';
@@ -53,6 +50,9 @@ $route['subir_extencionContrato'] = 'Arriendo_controller/subirExtencionContrato'
 $route['enviar_correoContrato'] = 'Arriendo_controller/enviarCorreoContrato';
 $route['enviar_correoExtencion'] = 'Arriendo_controller/enviarCorreoContratoExtencion';
 
+// Rutas de controllador de arriendo creados por: Esteban Mallea
+
+$route['cargar_arriendos_Unico'] = 'Arriendo_controller/cargarArriendos_Unico';
 
 /* rutas de controller cliente */
 $route['registrar_cliente'] = 'Cliente_controller/crearCliente';
@@ -169,6 +169,23 @@ $route['cargar_todos_danios'] = 'Vehiculo_controller/cargarDanios';
 $route['cambiar_estadoDanioVehiculo'] = 'Vehiculo_controller/cambiarEstadoDanio';
 $route['buscarTarifasVehiculo'] = 'Vehiculo_controller/buscarTarifasVehiculo';
 
+//ruta creada por Esteban Mallea para el control de Daños Vehiculares
+//alias primero va al js ------
+$route['registrar_danio_vehiculo_new'] = 'Vehiculo_controller/registrarDanioVehiculo_new';
+$route['eliminar_danio_vehiculo_new'] = 'Vehiculo_controller/eliminarDanioVehiculo_new';
+
+
+
+// Rutas de Traslado Creadas por Esteban Mallea
+$route['generar_actaOrigen'] = 'Sucursal_controller/generar_ActaTraslado';  //funcion create de traslados
+$route['eliminarTraslado'] = 'Sucursal_controller/eliminarTraslado';
+$route['actualizarTrasladoEstado'] = 'Sucursal_controller/actualizarTrasladoEstado';
+$route['obtenerTodosTraslados'] = 'Sucursal_controller/obtenerTodosTraslados';
+$route['obtenerTraslado'] = 'Sucursal_controller/obtenerTraslado';
+$route['ActualizarFotosTraslado'] = 'Sucursal_controller/guardarFotosTrasladoOrigen';
+$route['ActualizarFotosTrasladoDestino'] = 'Sucursal_controller/guardarFotosTrasladoDestino';
+
+// ----------------------------------------------------------
 
 
 

@@ -45,6 +45,7 @@ class Sesion_controller extends CI_Controller
             $this->load->view("templates/header");
             $this->load->view("content/navbars/navbar");
             $this->load->view("content/navbars/modalAlert");
+            $this->load->view("content/navbars/modalAyuda");
             $this->load->view("content/navbars/modalPendiente");
             $opcion = $_GET["panel"];
             switch ($opcion) {

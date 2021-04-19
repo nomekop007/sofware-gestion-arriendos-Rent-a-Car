@@ -2,12 +2,21 @@
     <div class="sidebar-sticky pt-3">
         <br>
         <ul class="nav flex-column">
-            <br>
+
+            <li class="nav-item" id="l_traslado">
+                <br>
+                <a id="m_traslado" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=6">
+                    <i class="fas fa-car-side"></i>
+                        Trasladar Vehiculos
+                 </a>
+                <br>
+            </li>
+
             <?php if (validarPermiso(5)) { ?>
                 <li class="nav-item " id="l_vehiculo">
                     <br>
                     <a id="m_vehiculo" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=1">
-                        <i class="fas fa-car "></i>
+                        <i class="fas fa-car"></i>
                         Gestion Vehiculos
                     </a>
                     <br>
@@ -18,7 +27,7 @@
                     <br>
                     <a id="m_danios" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=2">
                         <i class="fas fa-car-crash"></i>
-                        Gestion de daños vehiculo
+                        Gestion de daños Vehiculo
                     </a>
                     <br>
                 </li>
@@ -38,7 +47,7 @@
                     <br>
                     <a id="m_pagoCliente" class="nav-link" href="<?php echo base_url() ?>modulos_gestion?modulo=5">
                         <i class="fas fa-money-bill-wave"></i>
-                        Facturacion pago clientes
+                        Facturacion Pago Clientes
                     </a>
                     <br>
                 </li>
@@ -54,6 +63,22 @@
                 </li>
             <?php } ?>
 
+  
+
+
         </ul>
+
+        <div class="row align-items-center" >
+            <div class="col-4 align-self-start">     
+            </div>
+            <div class="col-4 align-self-center">
+            </div>
+            <div class="col-4 float-right fixed-bottom ">   
+                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong">
+                <i class="far fa-question-circle fa-2x "></i>
+                </button>
+            </div>
+        </div>
+        
     </div>
 </nav>

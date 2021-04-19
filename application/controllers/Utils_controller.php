@@ -21,3 +21,8 @@ class Utils_controller extends CI_Controller
         echo post_function($dataArray, "utils/buscarDocumento");
     }
 }
+
+
+// fotoTrasladoDestino
+
+// fotoTrasladoOrigen

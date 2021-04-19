@@ -6,6 +6,31 @@ class Vehiculo_controller extends CI_Controller
 {
 
 
+    //   Esteban Mallea
+    public function registrarDanioVehiculo_new()
+    {
+        $dataArray = [
+            "id_danio" => $this->input->post("id_danio"),
+            "descripcion_danio" => $this->input->post("descripcion_danio"),
+        ];
+
+        echo post_function($dataArray, "vehiculos/registar_danio_vehiculo_new");
+    }
+
+
+    public function eliminarDanioVehiculo_new()
+    {
+
+        $dataArray = [
+            "id_arriendo" => $this->input->post("id_danio"),
+            "descripcion_danio" => $this->input->post("estado"),
+        ];
+        echo post_function($dataArray,'vehiculos/eliminar_danio_vehiculo');
+    }
+
+    //-------------------------------------------------------
+
+    
     public function cargarVehiculos()
     {
         echo get_function("vehiculos/cargarVehiculos");
@@ -161,6 +186,8 @@ class Vehiculo_controller extends CI_Controller
             echo get_function("vehiculos/cargarDaniosVehiculos", $params);
         }
     }
+
+
 
 
 

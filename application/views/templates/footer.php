@@ -25,6 +25,7 @@
 <!-- import moments -->
 <script src="<?php echo base_route() ?>assets/js/libraries/moment.min.js"></script>
 
+
 <!-- importacion de icons -->
 <script src="<?php echo base_route() ?>assets/js/libraries/fontawesome.js"></script>
 

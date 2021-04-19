@@ -22,7 +22,6 @@
                         <button id="prev_despacho" class=" btn-info">
                             < </button> <button id="next_despacho" class=" btn-info "> >
                                 </button>
-
                                 &nbsp; &nbsp;
                                 <span>Pagina: <span id="page_num_despacho"></span> / <span id="page_count_despacho"></span></span>
                                 <canvas id="pdf_canvas_despacho" class="img-fluid rounded pdf-canvas"></canvas>
@@ -39,7 +38,8 @@
                                 </div>
                                 <div class="col-md-12 d-flex justify-content-center">
                                     <button type="button" id="limpiar-firma1" class="btn btn-secondary btn-sm ">
-                                        limpiar</button>
+                                        limpiar
+                                    </button>
                                 </div>
                             </div>
                         </div>

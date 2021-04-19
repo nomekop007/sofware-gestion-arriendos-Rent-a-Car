@@ -28,8 +28,6 @@ function recorrerFicheros($arrayInput)
 	return $arrayData;
 }
 
-
-
 function validarPermiso($id_permiso)
 {
 	/* 	$permisos = json_decode(find_function($_SESSION["rol"], "permisos/validarPermisos"));

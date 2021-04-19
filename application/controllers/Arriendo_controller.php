@@ -21,6 +21,25 @@ class Arriendo_controller extends CI_Controller
         }
     }
 
+    public function cargarArriendos_Unico()
+    {
+        if (validarPermiso(10)) {
+            $params = [
+                "sucursal" => null,
+                "estado" => $this->input->post("filtro"),
+            ];
+            echo get_function("arriendos/cargarArriendos", $params);
+        } else {
+            $params = [
+                "sucursal" => $this->session->userdata('sucursal'),
+                "estado" => $this->input->post("filtro"),
+            ];
+            echo get_function("arriendos/cargarArriendos_Unico", $params);
+        }
+    }
+
+    
+
 
 
     public function cargarArriendosDespachos()
