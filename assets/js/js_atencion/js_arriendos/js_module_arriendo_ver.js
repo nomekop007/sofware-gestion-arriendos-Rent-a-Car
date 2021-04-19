@@ -437,7 +437,7 @@ $(document).ready(() => {
 			if (inputTipoGarantia !== "SIN") await guardarDatosGarantia(id_arriendo);
 			const response = await guardarDocumentosRequistos(id_arriendo);
 			if (response.success) {
-				refrescarTabla();
+				refrescarTabla2();
 				Swal.fire("registros guardados con exito!", "registros guardados", "success");
 				$("#modal_editar_arriendo").modal("toggle");
 			}
@@ -478,7 +478,7 @@ $(document).ready(() => {
 				const response = await ajax_function(data, "anular_arriendo");
 				if (response.success) {
 					Swal.fire("Arriendo anulado", "arriendo anulado con exito!", "success");
-					refrescarTabla();
+					refrescarTabla2();
 					$("#btn_anular_arriendo").attr("disabled", false);
 					$("#spinner_btn_anular_arriendo").hide();
 				}

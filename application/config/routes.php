@@ -49,10 +49,7 @@ $route['subir_contrato'] = 'Arriendo_controller/subirContrato';
 $route['subir_extencionContrato'] = 'Arriendo_controller/subirExtencionContrato';
 $route['enviar_correoContrato'] = 'Arriendo_controller/enviarCorreoContrato';
 $route['enviar_correoExtencion'] = 'Arriendo_controller/enviarCorreoContratoExtencion';
-
-// Rutas de controllador de arriendo creados por: Esteban Mallea
-
-$route['cargar_arriendos_Unico'] = 'Arriendo_controller/cargarArriendos_Unico';
+$route['cargar_arriendos_proceso'] = 'Arriendo_controller/cargarArriendosEnProceso';
 
 /* rutas de controller cliente */
 $route['registrar_cliente'] = 'Cliente_controller/crearCliente';

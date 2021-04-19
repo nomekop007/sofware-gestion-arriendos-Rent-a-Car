@@ -30,18 +30,18 @@ const Sucursales_ = async () => {
     }
 }
 
-const GuardarImagenes = async (imagenesTrasladoOrigenSEND,id) => {
+const GuardarImagenes = async (imagenesTrasladoOrigenSEND, id) => {
 
     const data = new FormData();
 
-    data.append("id_traslado",id);
+    data.append("id_traslado", id);
     for (let i = 0; i < imagenesTrasladoOrigenSEND.length; i++) {
-        data.append(`file${i}`,imagenesTrasladoOrigenSEND[i]);
+        data.append(`file${i}`, imagenesTrasladoOrigenSEND[i]);
     }
     const ActualizarFotosTraslado = await ajax_function(data, "ActualizarFotosTraslado");
-    
 
-    imagenesTrasladoOrigenSEND=[];
+
+    imagenesTrasladoOrigenSEND = [];
 
 }
 
@@ -82,7 +82,7 @@ const ActualizarTrasladoOrigen = async () => {
                                 .patente_vehiculo}',
                         '${response[i]
                                 .tipo_vehiculo}','${response[i]
-                                .marca_vehiculo}',
+                                    .marca_vehiculo}',
                         '${response[i]
                                 .modelo_vehiculo}','${SelectOrigen}')"
                         data-toggle="modal" data-target="#exampleModal" 
@@ -97,13 +97,13 @@ const ActualizarTrasladoOrigen = async () => {
             $("#DivTablaVehiculosDispSucursal").show();
 
         })
-        .catch(function (error) {});
+        .catch(function (error) { });
 }
 
 const RegistrarTraslado = async (patente, tipo, marca, modelo, origen) => {
 
     imagenesTrasladoOrigen = [];
-    imagenesTrasladoOrigenSEND=[];
+    imagenesTrasladoOrigenSEND = [];
     $("#SpanTrasladoOrigen").text(
         `Cantidad de fotografias: ${imagenesTrasladoOrigen.length} (Max 5)`
     );
@@ -140,17 +140,18 @@ const RegistrarTraslado = async (patente, tipo, marca, modelo, origen) => {
     }
     // Inicializacion de campos
 
-    $("#Traslado_patente").prop({'value': patente});
-    $("#Traslado_tipo").prop({'value': tipo});
-    $("#Traslado_marca").prop({'value': marca});
-    $("#Traslado_modelo").prop({'value': modelo});
-    $("#Origenview").prop({'value': nombreOrigen});
+    $("#Traslado_patente").prop({ 'value': patente });
+    $("#Traslado_tipo").prop({ 'value': tipo });
+    $("#Traslado_marca").prop({ 'value': marca });
+    $("#Traslado_modelo").prop({ 'value': modelo });
+    $("#Origenview").prop({ 'value': nombreOrigen });
 
     let NombreOrigen = $("#Origenview").val();
 
     dataTrasladoOrigen.append("patente_vehiculo", patente);
     dataTrasladoOrigen.append("id_sucursal", parseInt(origen));
     dataTrasladoOrigen.append("nombreSucursalOrigen", NombreOrigen);
+
 
 }
 
@@ -177,14 +178,14 @@ $(document).ready(function () {
                 }
 
             })
-            .catch(function (error) {});
+            .catch(function (error) { });
     })();
 
     $("#Limpiar_carruselTO").click(async () => {
 
         $("#bodyTrasladoCarrusel").empty();
         imagenesTrasladoOrigen = [];
-        imagenesTrasladoOrigenSEND=[];
+        imagenesTrasladoOrigenSEND = [];
         $("#SpanTrasladoOrigen").text(
             `Cantidad de fotografias: ${imagenesTrasladoOrigen.length} (Max 5)`
         );
@@ -192,7 +193,7 @@ $(document).ready(function () {
 
     $("#Registar_TO").click(async () => {
 
-        let nombre_,destino_id_,observacion_,rut_ = ""; //datos de conductor
+        let nombre_, destino_id_, observacion_, rut_ = ""; //datos de conductor
         nombre_ = $("#NombreConductor_Traslado");
         rut_ = $("#RutConductor_Traslado");
         observacion_ = $("#ObservacionTraslado");
@@ -238,9 +239,9 @@ $(document).ready(function () {
         const response = await ajax_function(dataTrasladoOrigen, "generar_actaOrigen");
         if (response.success) {
 
-            var id= response.data.id_traslado;
+            var id = response.data.id_traslado;
             console.log(id);
-            GuardarImagenes(imagenesTrasladoOrigenSEND,id);
+            GuardarImagenes(imagenesTrasladoOrigenSEND, id);
             ActualizarTrasladoOrigen();
 
             Swal.fire(
@@ -248,6 +249,7 @@ $(document).ready(function () {
                 "el registro se guardado exitosamente",
                 "success"
             )
+            $("#exampleModal").modal("toggle");
         } else {
             Swal.fire(
                 "Error creando el traslado",

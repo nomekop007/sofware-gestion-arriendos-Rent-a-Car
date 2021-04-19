@@ -42,9 +42,12 @@
         <br>
         <div class="card  text-success">
             <div class="m-4">
-                <h1>SISTEMA ACTUALIZADO! 14-04-2021</h1>
+                <h1>SISTEMA ACTUALIZADO! 19-04-2021</h1>
                 <span>Cambios realizados:</span>
-                <li>En el modulo de perfil de usuario se agrego la funcionalidad de poder modificar los datos del usuario.</li>
+                <li>Nuevo mantenedor de Traslado de vehiculos , en la sesion de modulo de gestion</li>
+                <li>se agrego boton para agregar daño del vehiculo en modulo de gestion de daño de vehiculos</li>
+                <li>se agrego boton para anular el daño de algun vehiculo en el modulo de gestion de daño de vehiculos</li>
+                <li>se agrego nueva tabla de arriendos en proceso en el modulo de gestion de arriendos</li>
             </div>
         </div>
         <br><br><br><br><br>

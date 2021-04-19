@@ -3,24 +3,24 @@ const $seleccionArchivosRecepcion = document.querySelector(
     "#seleccionArchivosRecepcion"
 );
 let imagenesTrasladoDestino = [];
-let imagenesTrasladoDestinoSEND =[];
+let imagenesTrasladoDestinoSEND = [];
 let cantidad_fotos_carruselRecepcion = "";
-let useID=""; //guarda id de traslado
+let useID = ""; //guarda id de traslado
 
 
 
-const GuardarImagenesDestino = async (imagenesTrasladoDestinoSEND,id) => {
+const GuardarImagenesDestino = async (imagenesTrasladoDestinoSEND, id) => {
 
     const data = new FormData();
- 
+
     console.log(imagenesTrasladoDestinoSEND);
 
-    data.append("id_traslado",id);
+    data.append("id_traslado", id);
     for (let i = 0; i < imagenesTrasladoDestinoSEND.length; i++) {
-        data.append(`file${i}`,imagenesTrasladoDestinoSEND[i]);
+        data.append(`file${i}`, imagenesTrasladoDestinoSEND[i]);
     }
     const ActualizarFotosTraslado = await ajax_function(data, "ActualizarFotosTrasladoDestino");
-    imagenesTrasladoDestinoSEND=[];
+    imagenesTrasladoDestinoSEND = [];
 }
 
 
@@ -40,9 +40,9 @@ const LimpiarFormulario = () => {
 
 $("#Limpiar_carruselTD").click(async () => {
     $("#bodyTrasladoCarruselDestino").empty();
-    
+
     imagenesTrasladoDestino = [];
-    imagenesTrasladoDestinoSEND=[];
+    imagenesTrasladoDestinoSEND = [];
 
 
     $("#SpanTrasladoDestino").text(`Cantidad de fotografias: ${imagenesTrasladoDestino.length} (Max 5)`);
@@ -51,13 +51,13 @@ $("#Limpiar_carruselTD").click(async () => {
 const RegistrarTrasladoDestino = async (id_traslado) => {
 
     let imagenesTrasladoDestino = [];
-    imagenesTrasladoDestinoSEND=[];
+    imagenesTrasladoDestinoSEND = [];
     $("#SpanTrasladoDestino").text(`Cantidad de fotografias: ${imagenesTrasladoDestino.length} (Max 5)`);
 
 
     LimpiarFormulario();
     var id_ = parseInt(id_traslado);
-    useID=id_traslado;
+    useID = id_traslado;
     const data = new FormData();
 
 
@@ -69,21 +69,21 @@ const RegistrarTrasladoDestino = async (id_traslado) => {
 
         const traslado = Responsetraslados.data;
         const dataVehiculo = new FormData();
-        
+
 
         dataVehiculo.append("patente", traslado.patente_vehiculo);
 
         let Vehiculo_ = await ajax_function(dataVehiculo, "buscar_vehiculo");
         let vehiculo = Vehiculo_.data;
 
-        $("#PatenteViewDestino").prop({'value': vehiculo.patente_vehiculo});
-        $("#TipoViewDestino").prop({'value': vehiculo.tipo_vehiculo});
-        $("#MarcaViewDestino").prop({'value': vehiculo.marca_vehiculo});
-        $("#ModeloViewDestino").prop({'value': vehiculo.modelo_vehiculo});
-        $("#NombreconductorViewDestino").prop({'value': traslado.conductor});
-        $("#RutconductorViewDestino").prop({'value': traslado.rutConductor});
-        $("#OrigenviewDestino").prop({'value': traslado.nombreSucursalOrigen});
-        $("#DestinoViewTraslado").prop({'value': traslado.nombreSucursalDestino});
+        $("#PatenteViewDestino").prop({ 'value': vehiculo.patente_vehiculo });
+        $("#TipoViewDestino").prop({ 'value': vehiculo.tipo_vehiculo });
+        $("#MarcaViewDestino").prop({ 'value': vehiculo.marca_vehiculo });
+        $("#ModeloViewDestino").prop({ 'value': vehiculo.modelo_vehiculo });
+        $("#NombreconductorViewDestino").prop({ 'value': traslado.conductor });
+        $("#RutconductorViewDestino").prop({ 'value': traslado.rutConductor });
+        $("#OrigenviewDestino").prop({ 'value': traslado.nombreSucursalOrigen });
+        $("#DestinoViewTraslado").prop({ 'value': traslado.nombreSucursalDestino });
     }
 };
 
@@ -101,41 +101,41 @@ const LimpiarTablaDestino = async (TablaTrasladoRecepcion) => {
 
 const IniciarTrasladoDestino = async () => {
 
-        const TablaTrasladoRecepcion = $('#TablaRecepcionTraslado').DataTable(config);
-        LimpiarTablaDestino(TablaTrasladoRecepcion);
-        let Responsetraslados = await ajax_function(null, "obtenerTodosTraslados");
-        let fechaOrigenFormat="";
-        if (Responsetraslados.success) {
+    const TablaTrasladoRecepcion = $('#TablaRecepcionTraslado').DataTable(config);
+    LimpiarTablaDestino(TablaTrasladoRecepcion);
+    let Responsetraslados = await ajax_function(null, "obtenerTodosTraslados");
+    let fechaOrigenFormat = "";
+    if (Responsetraslados.success) {
 
-            const traslados = Responsetraslados.data;
+        const traslados = Responsetraslados.data;
 
-            for (let i = 0; i < traslados.length; i++) {
+        for (let i = 0; i < traslados.length; i++) {
 
-                fechaOrigenFormat=moment(traslados[i].fechaTrasladoOrigen).format('DD/MM/YYYY HH:mm');
+            fechaOrigenFormat = moment(traslados[i].fechaTrasladoOrigen).format('DD/MM/YYYY HH:mm');
 
-                if (traslados[i].estado == "EN TRASLADO") {
+            if (traslados[i].estado == "EN TRASLADO") {
 
-                    TablaTrasladoRecepcion
-                        .row
-                        .add([
-                            traslados[i].patente_vehiculo,
-                            traslados[i].nombreSucursalOrigen,
-                            traslados[i].nombreSucursalDestino,
-                            fechaOrigenFormat,
-                            traslados[i].conductor,
-                            traslados[i].rutConductor,
-                            `<center><button type="button" onClick="RegistrarTrasladoDestino('${traslados[i].id_traslado}')"
+                TablaTrasladoRecepcion
+                    .row
+                    .add([
+                        traslados[i].patente_vehiculo,
+                        traslados[i].nombreSucursalOrigen,
+                        traslados[i].nombreSucursalDestino,
+                        fechaOrigenFormat,
+                        traslados[i].conductor,
+                        traslados[i].rutConductor,
+                        `<center><button type="button" onClick="RegistrarTrasladoDestino('${traslados[i].id_traslado}')"
                         data-toggle="modal" data-target="#ModalTrasladoRecepcion" 
                         class="btn btn-success"><i class="fas fa-exchange-alt"></i></button></center>`
-                        ])
-                        .draw(true);
+                    ])
+                    .draw(true);
 
-                }
-                fechaOrigenFormat="";
             }
-
-            $("#TablaRecepcionTraslado").show();
+            fechaOrigenFormat = "";
         }
+
+        $("#TablaRecepcionTraslado").show();
+    }
 
 
 };
@@ -160,50 +160,51 @@ $(document).ready(function () {
 
 
         let kilometraje_ = $("#KilometrajeViewTraslado");
-        let kilometraje=$(kilometraje_).val();
+        let kilometraje = $(kilometraje_).val();
 
         let FormTraslado = new FormData();
-        let estado="FINALIZADO";
+        let estado = "FINALIZADO";
 
- 
+
         if (kilometraje.length == 0 || imagenesTrasladoDestino.length == 0) {
-			Swal.fire(
-				"Ops... faltan algunos datos (Kilometraje, Imagenes)",
-				"faltan datos en el formulario, por favor complete",
-				"warning"
-			);
-			return;
-		}
+            Swal.fire(
+                "Ops... faltan algunos datos (Kilometraje, Imagenes)",
+                "faltan datos en el formulario, por favor complete",
+                "warning"
+            );
+            return;
+        }
 
-        
-        FormTraslado.append("id_traslado",useID);
-        FormTraslado.append("estado",estado);
-        FormTraslado.append("kilometraje_vehiculo",kilometraje);
-        FormTraslado.append("arrayimagenDestino",imagenesTrasladoDestino);
 
-       
+        FormTraslado.append("id_traslado", useID);
+        FormTraslado.append("estado", estado);
+        FormTraslado.append("kilometraje_vehiculo", kilometraje);
+        FormTraslado.append("arrayimagenDestino", imagenesTrasladoDestino);
+
+
         let ActualizarTraslado = await ajax_function(FormTraslado, "actualizarTrasladoEstado");
 
         if (ActualizarTraslado.success) {
-            GuardarImagenesDestino(imagenesTrasladoDestinoSEND,useID);
+            GuardarImagenesDestino(imagenesTrasladoDestinoSEND, useID);
             IniciarTrasladoDestino();
             Swal.fire(
-				"Se ha actualizado el traslado ",
-				"El traslado se recepciono correctamente",
-				"success"
-			);
-        }else{
+                "Se ha actualizado el traslado ",
+                "El traslado se recepciono correctamente",
+                "success"
+            );
+            $("#ModalTrasladoRecepcion").modal("toggle");
+        } else {
 
             Swal.fire(
-				"No se ha actualizado el traslado ",
-				"El traslado no se recepciono correctamente",
-				"warning"
-			);
+                "No se ha actualizado el traslado ",
+                "El traslado no se recepciono correctamente",
+                "warning"
+            );
 
         }
-       // const UpdateTrasladoRecepcion= await ajax_function(FormTraslado,"actualizarTrasladoEstado");
-        useID="";
-        imagenesTrasladoDestino=[];
+        // const UpdateTrasladoRecepcion= await ajax_function(FormTraslado,"actualizarTrasladoEstado");
+        useID = "";
+        imagenesTrasladoDestino = [];
     });
 
     $("#CargarImagenViewRecepcion").click(async () => {
@@ -212,10 +213,10 @@ $(document).ready(function () {
         if (imagenesTrasladoDestino.length === 5) {
 
             Swal.fire(
-				"Alcanzo el limite maximo de imagenes",
-				"Continue con el proceso",
-				"warning"
-			)
+                "Alcanzo el limite maximo de imagenes",
+                "Continue con el proceso",
+                "warning"
+            )
 
             return;
 

@@ -120,7 +120,7 @@ $(document).ready(() => {
 			await guardarContrato(data);
 			await enviarCorreoContrato(data);
 			await cambiarEstadoArriendo($("#estado_arriendo").val(), $("#id_arriendoContrato").val());
-			refrescarTabla();
+			refrescarTabla2();
 			Swal.fire("Contrato Firmado!", "contrato firmado y registrado con exito!", "success");
 			$("#btn_firmar_contrato").attr("disabled", false);
 			$("#btn_confirmar_contrato").attr("disabled", false);
@@ -146,7 +146,7 @@ $(document).ready(() => {
 			await enviarCorreoContrato(data);
 			await cambiarEstadoArriendo($("#estado_arriendo").val(), $("#id_arriendoContrato").val());
 			Swal.fire("Contrato subido!", "contrato  registrado con exito!", "success");
-			refrescarTabla();
+			refrescarTabla2();
 			$("#btn_subir_contrato").attr("disabled", false);
 			$("#spinner_btn_subirContrato").hide();
 			$("#modal_firmar_contrato").modal("toggle");

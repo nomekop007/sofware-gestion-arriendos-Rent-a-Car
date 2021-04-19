@@ -18,8 +18,8 @@
                 <a class="nav-link" id="todos-tab" data-toggle="tab" href="#todos" role="tab" aria-controls="todos" aria-selected="false">Todos los daños registrados</a>
             </li>
 
-             <div class="card-body d-flex">
-                <button id="NuevodanioVehicular" class="btn btn-secondary btn-xl ml-auto" data-toggle="modal" data-target="#exampleModalCenter" >Agregar nuevo daño vehicular</button>
+            <div class="card-body d-flex">
+                <button id="NuevodanioVehicular" class="btn btn-secondary btn-xl ml-auto" data-toggle="modal" data-target="#exampleModalCenter">Agregar nuevo daño vehicular</button>
             </div>
 
 

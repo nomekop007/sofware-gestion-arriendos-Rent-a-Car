@@ -1,6 +1,7 @@
 // ruta definitiva al helper_url
 const base_url = $("#url").val();
 const base_route = $("#route").val();
+const base_path = $("#path").val();
 
 
 //cargar selects

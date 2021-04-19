@@ -12,7 +12,8 @@
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-link  active bloquearRegistrarArriendo" id="nav-registrar-tab" data-toggle="tab" href="#nav-registrar" role="tab" aria-controls="nav-registrar" aria-selected="true">Registrar Arriendo</a>
-            <a class="nav-link" id="nav-arriendos-tab" data-toggle="tab" href="#nav-arriendos" role="tab" aria-controls="nav-arriendos" aria-selected="false">Ver Todos los Arriendos</a>
+            <a class="nav-link" id="nav-arriendos-tab" data-toggle="tab" href="#nav-arriendos" role="tab" aria-controls="nav-arriendos" aria-selected="false">Arriendos en proceso</a>
+            <a class="nav-link" id="nav-totalArriendos-tab" data-toggle="tab" href="#nav-total-arriendos" role="tab" aria-controls="nav-arriendos" aria-selected="false"> Todos los Arriendos</a>
         </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">

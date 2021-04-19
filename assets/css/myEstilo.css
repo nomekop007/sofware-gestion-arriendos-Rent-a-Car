@@ -136,9 +136,9 @@ a:hover {
 	filter: alpha(opacity=0);
 }
 
-body {
+/* body {
 	background: #eee;
-}
+} */
 
 .item .item-content {
 	padding: 30px 35px;

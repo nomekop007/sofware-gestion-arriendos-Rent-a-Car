@@ -13,7 +13,7 @@ const LimpiarTablaAllTraslados = (TablaAllTraslados) => {
 const EliminarTraslado = async (id_traslado) => {
 
     const data = new FormData();
-    data.append("id_traslado",id_traslado);
+    data.append("id_traslado", id_traslado);
 
     let EliminarTraslado = await ajax_function(data, "eliminarTraslado");
 
@@ -22,19 +22,19 @@ const EliminarTraslado = async (id_traslado) => {
 
         Iniciar();
         Swal.fire(
-				"Se ha eliminado el traslado",
-				"el traslado se elimino exitosamente",
-				"success"
-			)
+            "Se ha eliminado el traslado",
+            "el traslado se elimino exitosamente",
+            "success"
+        )
 
-        
-    }else{
 
-            Swal.fire(
-				"No se ha eliminado el traslado",
-				"El traslado no se elimino!",
-				"warning"
-			)
+    } else {
+
+        Swal.fire(
+            "No se ha eliminado el traslado",
+            "El traslado no se elimino!",
+            "warning"
+        )
 
     }
 }
@@ -44,31 +44,31 @@ const ImagenesDestino = async (arrayimagenes) => {
 
     let imagenes = arrayimagenes.split("/")
 
-    var Links=[];
-    var items1="";
+    var Links = [];
+    var items1 = "";
     for (let i = 0; i < imagenes.length; i++) {
-        
+
         const data = new FormData();
-        data.append("nombreDocumento",imagenes[i]);
-        data.append("tipo","fotoTrasladoDestino");
-        let ImagenOrigen = await ajax_function(data, "buscar_documento");        
+        data.append("nombreDocumento", imagenes[i]);
+        data.append("tipo", "fotoTrasladoDestino");
+        let ImagenOrigen = await ajax_function(data, "buscar_documento");
         var link = ImagenOrigen.data.link;
-        let separador="http://www.localhost:3000//"
+        let separador = base_path
 
         var link = link.split(separador);
-        link="http://www.localhost:3000/"+link[1];
+        link = base_path + link[1];
         Links.push(link);
-        
+
     }
 
 
-        if (Links.length==1) {
+    if (Links.length == 1) {
 
         items1 += `<div id="ModalImagenesOrigenAll" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">`;
-                items1 += `<div class="carousel-item active">`;
-                items1 += ` <img class="d-block w-100" src="${Links[0]}" alt="Slide"></div>`;
-                items1 += ` </div> 
+        items1 += `<div class="carousel-item active">`;
+        items1 += ` <img class="d-block w-100" src="${Links[0]}" alt="Slide"></div>`;
+        items1 += ` </div> 
                             <a class="carousel-control-prev" href="#ModalImagenesOrigenAll" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
@@ -78,25 +78,25 @@ const ImagenesDestino = async (arrayimagenes) => {
                                 <span class="sr-only">Next</span>
                             </a>
                             </div>`;
-            
-        
-    }
-    if(Links.length>1){
 
-                items1 += `<div id="carouselExampleIndicators4" class="carousel slide" data-ride="carousel">
+
+    }
+    if (Links.length > 1) {
+
+        items1 += `<div id="carouselExampleIndicators4" class="carousel slide" data-ride="carousel">
 
                     <div class="carousel-inner" id="contenidoCarruselTrasladoDestinoALL">`;
 
-                items1 += `<div class="carousel-item active">`;
-                items1 += ` <img class="d-block w-100" src="${Links[0]}" alt="Slide"></div>`;
+        items1 += `<div class="carousel-item active">`;
+        items1 += ` <img class="d-block w-100" src="${Links[0]}" alt="Slide"></div>`;
 
-                for (var i = 1; i < Links.length; i++) {
+        for (var i = 1; i < Links.length; i++) {
 
-                    items1 += `<div class="carousel-item">`;
-                    items1 += ` <img class="d-block w-100" src="${Links[i]}" alt="Slide"></div>`;
-                }
+            items1 += `<div class="carousel-item">`;
+            items1 += ` <img class="d-block w-100" src="${Links[i]}" alt="Slide"></div>`;
+        }
 
-                items1 += ` </div> 
+        items1 += ` </div> 
                             <a class="carousel-control-prev" href="#carouselExampleIndicators4" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
@@ -111,7 +111,7 @@ const ImagenesDestino = async (arrayimagenes) => {
 
     $("#bodyTrasladoCarruselAllDestino").html(items1);
 
-    
+
 
 
 }
@@ -122,32 +122,32 @@ const ImagenesOrigen = async (arrayimagenes) => {
 
     let imagenes = arrayimagenes.split("/")
 
-    var Links=[];
-    var items1="";
+    var Links = [];
+    var items1 = "";
     console.log(imagenes);
 
     for (let i = 0; i < imagenes.length; i++) {
-        
+
         const data = new FormData();
-        data.append("nombreDocumento",imagenes[i]);
-        data.append("tipo","fotoTrasladoOrigen");
-        let ImagenOrigen = await ajax_function(data, "buscar_documento");        
+        data.append("nombreDocumento", imagenes[i]);
+        data.append("tipo", "fotoTrasladoOrigen");
+        let ImagenOrigen = await ajax_function(data, "buscar_documento");
         var link = ImagenOrigen.data.link;
-        let separador="http://www.localhost:3000//"
+        let separador = base_path
 
         var link = link.split(separador);
-        link="http://www.localhost:3000/"+link[1];
+        link = base_path + link[1];
         Links.push(link);
-        
+
     }
 
-    if (Links.length==1) {
+    if (Links.length == 1) {
 
         items1 += `<div id="ModalImagenesOrigenAll" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">`;
-                items1 += `<div class="carousel-item active">`;
-                items1 += ` <img class="d-block w-100" src="${Links[0]}" alt="Slide"></div>`;
-                items1 += ` </div> 
+        items1 += `<div class="carousel-item active">`;
+        items1 += ` <img class="d-block w-100" src="${Links[0]}" alt="Slide"></div>`;
+        items1 += ` </div> 
                             <a class="carousel-control-prev" href="#ModalImagenesOrigenAll" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
@@ -157,25 +157,25 @@ const ImagenesOrigen = async (arrayimagenes) => {
                                 <span class="sr-only">Next</span>
                             </a>
                             </div>`;
-            
-        
-    }
-    if(Links.length>1){
 
-                items1 += `<div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
+
+    }
+    if (Links.length > 1) {
+
+        items1 += `<div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
 
                     <div class="carousel-inner" id="contenidoCarruselTrasladoOrigenALL">`;
 
-                items1 += `<div class="carousel-item active">`;
-                items1 += ` <img class="d-block w-100" src="${Links[0]}" alt="Slide"></div>`;
+        items1 += `<div class="carousel-item active">`;
+        items1 += ` <img class="d-block w-100" src="${Links[0]}" alt="Slide"></div>`;
 
-                for (var i = 1; i < Links.length; i++) {
+        for (var i = 1; i < Links.length; i++) {
 
-                    items1 += `<div class="carousel-item">`;
-                    items1 += ` <img class="d-block w-100" src="${Links[i]}" alt="Slide"></div>`;
-                }
+            items1 += `<div class="carousel-item">`;
+            items1 += ` <img class="d-block w-100" src="${Links[i]}" alt="Slide"></div>`;
+        }
 
-                items1 += ` </div> 
+        items1 += ` </div> 
                             <a class="carousel-control-prev" href="#carouselExampleIndicators3" role="button" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
@@ -197,18 +197,18 @@ const ActaTrasladoDestino = async (actaTrasladoDestino) => {
 
     const data = new FormData();
 
-
-    data.append("nombreDocumento",actaTrasladoDestino);
-    data.append("tipo","actaTrasladoDestino");
+    data.append("nombreDocumento", actaTrasladoDestino);
+    data.append("tipo", "actaTrasladoDestino");
 
     let Origen = await ajax_function(data, "buscar_documento");
-    var link = Origen.data.link;
-    let separador="http://www.localhost:3000//"
-
-    link = link.split(separador);
-    link="http://www.localhost:3000/"+link[1];
-
-    window.open(link)
+    /*  console.log(Origen);
+     var link = Origen.data.link;
+     let separador = "http://www.localhost:3000/"
+ 
+     link = link.split(separador);
+     link = "http://www.localhost:3000/" + link[1];
+  */
+    window.open(Origen.data.link)
 
 
 }
@@ -219,17 +219,17 @@ const ActaTrasladoOrigen = async (actaTrasladoDestino) => {
     const data = new FormData();
 
 
-    data.append("nombreDocumento",actaTrasladoDestino);
-    data.append("tipo","actaTrasladoOrigen");
+    data.append("nombreDocumento", actaTrasladoDestino);
+    data.append("tipo", "actaTrasladoOrigen");
 
     let Destino = await ajax_function(data, "buscar_documento");
-    var link = Destino.data.link;
-
-    let separador="http://www.localhost:3000//"
-
-    link = link.split(separador);
-    link="http://www.localhost:3000/"+link[1];
-    window.open(link)
+    /*    var link = Destino.data.link;
+   
+       let separador = "http://www.localhost:3000//"
+   
+       link = link.split(separador);
+       link = "http://www.localhost:3000/" + link[1]; */
+    window.open(Destino.data.link)
 }
 
 
@@ -241,77 +241,77 @@ const ActaTrasladoOrigen = async (actaTrasladoDestino) => {
 
 const Iniciar = async () => {
 
-        const TablaAllTraslados = $('#TablaAllTraslados').DataTable(config);
-        LimpiarTablaOrigen(TablaAllTraslados);
+    const TablaAllTraslados = $('#TablaAllTraslados').DataTable(config);
+    LimpiarTablaOrigen(TablaAllTraslados);
 
 
-        let fechaOrigenFormat="";
-        let fechaDestinoFormat="";
+    let fechaOrigenFormat = "";
+    let fechaDestinoFormat = "";
 
-        let Responsetraslados = await ajax_function(null, "obtenerTodosTraslados");
-        if (Responsetraslados.success) {
+    let Responsetraslados = await ajax_function(null, "obtenerTodosTraslados");
+    if (Responsetraslados.success) {
 
-            const traslados = Responsetraslados.data;
+        const traslados = Responsetraslados.data;
 
-            for (let i = 0; i < traslados.length; i++) {
+        for (let i = 0; i < traslados.length; i++) {
 
-                fechaDestinoFormat=moment(traslados[i].fechaTrasladoDestino).format('DD/MM/YYYY HH:mm');
-                fechaOrigenFormat=moment(traslados[i].fechaTrasladoOrigen).format('DD/MM/YYYY HH:mm');
+            fechaDestinoFormat = moment(traslados[i].fechaTrasladoDestino).format('DD/MM/YYYY HH:mm');
+            fechaOrigenFormat = moment(traslados[i].fechaTrasladoOrigen).format('DD/MM/YYYY HH:mm');
 
-                if (traslados[i].estado=="EN TRASLADO") {
-                    TablaAllTraslados
-                        .row
-                        .add([
-                            traslados[i].patente_vehiculo,
-                            traslados[i].nombreSucursalOrigen,
-                            traslados[i].nombreSucursalDestino,
-                            fechaOrigenFormat,
-                            fechaDestinoFormat,
-                            traslados[i].estado,
-                            `<button type="button" onClick="ActaTrasladoOrigen('${traslados[i].actaTrasladoOrigen}')"
+            if (traslados[i].estado == "EN TRASLADO") {
+                TablaAllTraslados
+                    .row
+                    .add([
+                        traslados[i].patente_vehiculo,
+                        traslados[i].nombreSucursalOrigen,
+                        traslados[i].nombreSucursalDestino,
+                        fechaOrigenFormat,
+                        fechaDestinoFormat,
+                        traslados[i].estado,
+                        `<button type="button" onClick="ActaTrasladoOrigen('${traslados[i].actaTrasladoOrigen}')"
                             class="btn btn-secondary btn-sm btn-block">Origen </button>`,
-                            `<center><button type="button" data-toggle="modal" data-target="#ModalImagenesOrigenAll" onClick="ImagenesOrigen('${traslados[i].arrayimagenesOrigen}')"
+                        `<center><button type="button" data-toggle="modal" data-target="#ModalImagenesOrigenAll" onClick="ImagenesOrigen('${traslados[i].arrayimagenesOrigen}')"
                             class="btn btn-secondary btn-sm btn-block">Origen </button></center>`
-                            ,
-                            `<center><button type="button" onClick="EliminarTraslado('${traslados[i].id_traslado}')"
+                        ,
+                        `<center><button type="button" onClick="EliminarTraslado('${traslados[i].id_traslado}')"
                         class="btn btn-danger"><i class="far fa-trash-alt"></i></button></center>`
-                        ])
-                        .draw(true);
-
-                    
-                }
-                if (traslados[i].estado=="FINALIZADO") {
-
-                     TablaAllTraslados
-                        .row
-                        .add([
-                            traslados[i].patente_vehiculo,
-                            traslados[i].nombreSucursalOrigen,
-                            traslados[i].nombreSucursalDestino,
-                            fechaOrigenFormat,
-                            fechaDestinoFormat,
-                            traslados[i].estado,
-                            `<button type="button" onClick="ActaTrasladoOrigen('${traslados[i].actaTrasladoOrigen}')"
-                            class="btn btn-secondary btn-sm btn-block"> Origen </button><br><button type="button" onClick="ActaTrasladoDestino('${traslados[i].actaTrasladoDestino}')"
-                            class="btn btn-secondary btn-sm btn-block">Destino</button>`,
-                            `<center><button type="button"   data-toggle="modal" data-target="#ModalImagenesOrigenAll"  onClick="ImagenesOrigen('${traslados[i].arrayimagenesOrigen}')"
-                            class="btn btn-secondary btn-sm btn-block">Origen </button></center> <br><center><button type="button"   data-toggle="modal" data-target="#ModalImagenesDestinoAll"  onClick="ImagenesDestino('${traslados[i].arrayimagenDestino}')"
-                            class="btn btn-secondary btn-sm btn-block">Destino</button></center>`
-                            ,
-                            `<br><center><button type="button" onClick="EliminarTraslado('${traslados[i].id_traslado}')"
-                        class="btn btn-danger"><i class="far fa-trash-alt"></i></button></center>`
-                        ])
-                        .draw(true);
-                    
-                }
-
-
+                    ])
+                    .draw(true);
 
 
             }
+            if (traslados[i].estado == "FINALIZADO") {
 
-            $("#TablaAllTraslados").show();
+                TablaAllTraslados
+                    .row
+                    .add([
+                        traslados[i].patente_vehiculo,
+                        traslados[i].nombreSucursalOrigen,
+                        traslados[i].nombreSucursalDestino,
+                        fechaOrigenFormat,
+                        fechaDestinoFormat,
+                        traslados[i].estado,
+                        `<button type="button" onClick="ActaTrasladoOrigen('${traslados[i].actaTrasladoOrigen}')"
+                            class="btn btn-secondary btn-sm btn-block"> Origen </button><br><button type="button" onClick="ActaTrasladoDestino('${traslados[i].actaTrasladoDestino}')"
+                            class="btn btn-secondary btn-sm btn-block">Destino</button>`,
+                        `<center><button type="button"   data-toggle="modal" data-target="#ModalImagenesOrigenAll"  onClick="ImagenesOrigen('${traslados[i].arrayimagenesOrigen}')"
+                            class="btn btn-secondary btn-sm btn-block">Origen </button></center> <br><center><button type="button"   data-toggle="modal" data-target="#ModalImagenesDestinoAll"  onClick="ImagenesDestino('${traslados[i].arrayimagenDestino}')"
+                            class="btn btn-secondary btn-sm btn-block">Destino</button></center>`
+                        ,
+                        `<br><center><button type="button" onClick="EliminarTraslado('${traslados[i].id_traslado}')"
+                        class="btn btn-danger"><i class="far fa-trash-alt"></i></button></center>`
+                    ])
+                    .draw(true);
+
+            }
+
+
+
+
         }
+
+        $("#TablaAllTraslados").show();
+    }
 }
 
 

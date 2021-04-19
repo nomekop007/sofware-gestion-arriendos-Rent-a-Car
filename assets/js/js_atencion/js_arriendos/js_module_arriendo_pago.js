@@ -244,7 +244,7 @@ $(document).ready(() => {
 					await guardarPago(data);
 				}
 				await cambiarEstadoArriendo($("#inputEstadoArriendo_pago").val(), $("#inputIdArriendo").val());
-				refrescarTabla();
+				refrescarTabla2();
 				Swal.fire("datos registrados con exito", "se registraron los datos pertinentes!", "success");
 				$("#modal_pago_arriendo").modal("toggle");
 			}

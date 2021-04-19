@@ -21,23 +21,23 @@ const buscarDanio = (id_danio) => {
 
 
 
-const EliminarRegistroDanio= async(id_)=>{
+const EliminarRegistroDanio = async (id_) => {
 
 	console.log(id_);
 
-	alertQuestion(async ()=>{
+	alertQuestion(async () => {
 
 		const data = new FormData();
 		const estado = new FormData();
-		data.append("id_danio",id_);  //si quiero pasar mas parametros añadirlos al data
-		data.append("estado","ANULADO");  
+		data.append("id_danio", id_);  //si quiero pasar mas parametros añadirlos al data
+		data.append("estado", "ANULADO");
 
-		let response = await ajax_function(data,"eliminar_danio_vehiculo_new");
+		let response = await ajax_function(data, "eliminar_danio_vehiculo_new");
 
 
-		if(response.success){
+		if (response.success) {
 
-		
+
 			Swal.fire(
 				"Se ha eliminado el registro de daños",
 				"el registro se ha borrado exitosamente",
@@ -45,8 +45,8 @@ const EliminarRegistroDanio= async(id_)=>{
 			)
 
 			location.reload();
-			
-		}else{
+
+		} else {
 			Swal.fire(
 				"Error eliminando el registro de daños",
 				"el registro no se ha eliminado",
@@ -236,8 +236,7 @@ $(document).ready(() => {
 					danio.estado_danioVehiculo,
 					danio.arriendo.sucursale.nombre_sucursal,
 					`<button  value='${danio.descripcion_danioVehiculo}'  onclick='mostrarDescripcion(this.value)' data-toggle='modal' data-target='#modal_mostrar_descripcion' class='btn btn-outline-info'><i class='far fa-eye color'></i></button>
-					<button  value='${danio.id_danioVehiculo}'  id='eliminar_danio'	onclick='EliminarRegistroDanio(this.value)' class='btn btn-outline-danger'><i class="fas fa-trash-alt"></i></i></button>
-					<button  value='${danio.documento_danioVehiculo}'  onclick='buscarDocumento(this.value,"fotosDañoVehiculo")' class='btn btn-outline-primary'><i class="fas fa-camera-retro"></i></button>
+						<button  value='${danio.documento_danioVehiculo}'  onclick='buscarDocumento(this.value,"fotosDañoVehiculo")' class='btn btn-outline-primary'><i class="fas fa-camera-retro"></i></button>
 						${comprobante}
 					`
 				])
@@ -250,15 +249,15 @@ $(document).ready(() => {
 
 
 
-	 /* ********************** Agregar Daño Vehicular - Esteban Mallea ************************** */
+	/* ********************** Agregar Daño Vehicular - Esteban Mallea ************************** */
 
 	// funcion para ocultar elemtos html mediante Jquery
 
-	
 
-	$("#cerrar_agregarDaño").click(async()=>{
 
-		$("#buscar_button").val('');	
+	$("#cerrar_agregarDaño").click(async () => {
+
+		$("#buscar_button").val('');
 		$("#nombre").val('');
 		$("#rut").val('');
 		$("#email").val('');
@@ -266,27 +265,27 @@ $(document).ready(() => {
 		$("#direccion").val('');
 	});
 
-	
 
-	$("#NuevodanioVehicular").click(async()=>{
+
+	$("#NuevodanioVehicular").click(async () => {
 
 		$('#div_observacion').hide();
 		$('#fotografia_recepcion_daño').hide();
 		$('#div_observacion').hide();
-		$('#registar_danio_vehicular').hide(); 
+		$('#registar_danio_vehicular').hide();
 		$('#Alerta_arriendo').hide();
 		$('#Alerta_arriendo_success').hide();
-	
+
 	});
 
 
-	$("#registar_danio_vehicular").click(async()=>{
+	$("#registar_danio_vehicular").click(async () => {
 
 
 		let input = $("#buscar_button");
 		let Input_observacion = $("#textareaObservacion");
-		let numero_arriendo1 = $(input).val();	
-		let Observacion1 = $(Input_observacion).val();	
+		let numero_arriendo1 = $(input).val();
+		let Observacion1 = $(Input_observacion).val();
 
 		console.log("dadas");
 
@@ -296,13 +295,13 @@ $(document).ready(() => {
 		console.log(Observacion1);
 
 		const data = new FormData();
-		data.append("id_danio",numero_arriendo);  //si quiero pasar mas parametros añadirlos al data
-		data.append("descripcion_danio",Observacion1);  
+		data.append("id_danio", numero_arriendo);  //si quiero pasar mas parametros añadirlos al data
+		data.append("descripcion_danio", Observacion1);
 
 
-		const response = await ajax_function(data,"registrar_danio_vehiculo_new");
+		const response = await ajax_function(data, "registrar_danio_vehiculo_new");
 
-		if(response.success){
+		if (response.success) {
 			$("#buscar_button").val('');
 			$("#nombre").val('');
 			$("#rut").val('');
@@ -321,71 +320,102 @@ $(document).ready(() => {
 				"el registro se guardado exitosamente",
 				"success"
 			)
-		}else{
+		} else {
 			Swal.fire(
 				"Error actualizando el registro de daños",
 				"el registro no se ha guardado",
 				"warning"
 			)
 		}
-		
-	});
-	
-	
-	
 
-	$("#buscar-Arriendo").click(async()=>{
+	});
+
+
+
+
+	$("#buscar-Arriendo").click(async () => {
 
 		$("#contenedorImagenes").empty();
 		$('#textareaObservacion').val('');
 		$('#Alerta_arriendo_success').hide();
 
-		$('.buscar_button1').on('input', function () { 
-			this.value = this.value.replace(/[^0-9]/g,'');
+		$('.buscar_button1').on('input', function () {
+			this.value = this.value.replace(/[^0-9]/g, '');
 		});
-	
+
 
 		let input = $("#buscar_button");
-  		let numero_arriendo = $(input).val();	
-		let base_url="http://localhost:3000/";
-		var items= "";
-		let variable=[];
+		let numero_arriendo = $(input).val();
+		let base_url = "https://www.imlchile.cl:3010/";
+		var items = "";
+		let variable = [];
 
 		const data = new FormData();
-		data.append("id_arriendo",parseInt(numero_arriendo));  //si quiero pasar mas parametros añadirlos al data
+		data.append("id_arriendo", parseInt(numero_arriendo));  //si quiero pasar mas parametros añadirlos al data
 
-		
-		if(parseInt(numero_arriendo)>0){
 
-		
+		if (parseInt(numero_arriendo) > 0) {
+
+
 			//registrar_danio_vehiculo
 
 			console.log(numero_arriendo);
-			const response = await ajax_function(data,"buscar_arriendo");
+			const response = await ajax_function(data, "buscar_arriendo");
 
 			console.log(response);
-			if(response.data.estado_arriendo == "RECEPCIONADO"){
-				
-				let i=0;
-				let imagenes_despacho=response.data.fotosDespachos;
-				let cantidad_fotografias=imagenes_despacho.length;
-				let nombre = response.data.cliente.nombre_cliente;
-				let rut = response.data.cliente.rut_cliente;
-				let email = response.data.cliente.correo_cliente;
-				let telefono = response.data.cliente.telefono_cliente;
-				let direccion = response.data.cliente.direccion_cliente;
+			if (response.data.estado_arriendo == "RECEPCIONADO") {
 
-				$("#nombre").prop({'value': nombre});
-				$("#rut").prop({'value': rut});
-				$("#email").prop({'value': email});
-				$("#telefono").prop({'value': telefono});
-				$("#direccion").prop({'value': direccion});
+				let nombre_cliente = '';
+				let rut_cliente = '';
+				let correo_cliente = '';
+				let telefono_cliente = '';
+				let direccion_cliente = '';
 
-		
+				switch (response.data.tipo_arriendo) {
+					case "PARTICULAR":
+						nombre_cliente = response.data.cliente.nombre_cliente;
+						rut_cliente = response.data.cliente.rut_cliente;
+						correo_cliente = response.data.cliente.correo_cliente;
+						telefono_cliente = response.data.cliente.telefono_cliente;
+						direccion_cliente = response.data.cliente.direccion_cliente;
+						break;
+					case "REEMPLAZO":
+						nombre_cliente = response.data.remplazo.cliente.nombre_cliente;
+						rut_cliente = response.data.remplazo.cliente.rut_cliente;
+						correo_cliente = response.data.remplazo.cliente.correo_cliente;
+						telefono_cliente = response.data.remplazo.cliente.telefono_cliente;
+						direccion_cliente = response.data.remplazo.cliente.direccion_cliente;
+						break;
+					case "EMPRESA":
+						nombre_cliente = response.data.empresa.nombre_empresa;
+						rut_cliente = response.data.empresa.rut_empresa;
+						correo_cliente = response.data.empresa.correo_empresa;
+						telefono_cliente = response.data.empresa.telefono_empresa;
+						direccion_cliente = response.data.empresa.direccion_empresa;
+						break;
+				}
 
-				
+
+				let i = 0;
+				let imagenes_despacho = response.data.fotosDespachos;
+				let cantidad_fotografias = imagenes_despacho.length;
+				let nombre = nombre_cliente
+				let rut = rut_cliente
+				let email = correo_cliente
+				let telefono = telefono_cliente
+				let direccion = direccion_cliente
+
+				$("#nombre").prop({ 'value': nombre });
+				$("#rut").prop({ 'value': rut });
+				$("#email").prop({ 'value': email });
+				$("#telefono").prop({ 'value': telefono });
+				$("#direccion").prop({ 'value': direccion });
+
+
+
+
 				for (i = 0; i < cantidad_fotografias; i++) {
-					variable.push(base_url+imagenes_despacho[i].url_fotoDespacho);
+					variable.push(base_url + imagenes_despacho[i].url_fotoDespacho);
 				}
 
 				items += `<div class="carousel-item active">
@@ -397,16 +427,16 @@ $(document).ready(() => {
 						</div>`;
 
 				for (i = 1; i < cantidad_fotografias; i++) {
-		
+
 					items += `<div class="carousel-item">
 								<img class="d-block w-100" src="${variable[i]}" />
 								<div class="carousel-caption d-none d-md-block">
-									<p>Imagenes de vehiculo N° ${i+1}</p>
+									<p>Imagenes de vehiculo N° ${i + 1}</p>
 								</div>
 								
 							  </div>`;
 				}
-		
+
 				$("#contenedorImagenes").html(items);
 				$('#div_observacion').show();
 				$('#Alerta_arriendo').hide(); // alerta de arriendo
@@ -414,9 +444,9 @@ $(document).ready(() => {
 				$('#fotografia_recepcion_daño').show(); // mostrar titulo de carrusel
 				$('#div_observacion').show(); // mostrar carrusel de fotofrafia
 				$('#registar_danio_vehicular').show(); //btn registrar
-				
 
-			}else{
+
+			} else {
 				$('#div_observacion').hide();
 				$('#registar_danio_vehicular').hide(); //btn registrar
 				$('#fotografia_recepcion_daño').hide(); // mostrar titulo de carrusel
@@ -424,7 +454,7 @@ $(document).ready(() => {
 				return;
 			}
 
-			
+
 
 		}
 
