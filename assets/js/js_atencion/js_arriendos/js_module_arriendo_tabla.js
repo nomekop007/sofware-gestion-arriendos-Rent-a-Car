@@ -1,7 +1,7 @@
 
 let config = lenguaje;
-config.paging = false;
 const tablaTotalArriendos = $("#tablaTotalArriendos").DataTable(config);
+config.paging = false;
 const tablaTotalArriendos2 = $("#tablaArriendosProceso").DataTable(config);
 
 
