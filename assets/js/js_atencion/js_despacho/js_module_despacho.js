@@ -144,22 +144,20 @@ $(document).ready(() => {
 			$("#btn_confirmar_actaEntrega").attr("disabled", true);
 			const form = $("#formActaEntrega")[0];
 			const data = new FormData(form);
-			const response = await guardarDatosDespacho(data);
-			console.log(response);
+			data.append("base64", base64_documentoDespacho);
+			data.append("kilometraje_vehiculo", $("#inputKilomentrajeVehiculoDespacho").val());
+
+			const response = await ajax_function(data, "confirmar_despachoArriendo");
 			if (response.success) {
-				const response2 = await guardarActaEntrega(data, response.id_despacho);
-				if (response2.success) {
-					await cambiarEstadoArriendo(data);
-					await cambiarEstadoVehiculo(data);
-					await enviarCorreoDespacho(data);
-					refrescarTabla();
-					Swal.fire("Acta de entrega Firmado!", "acta de entrega firmado y registrado con exito!", "success"
-					);
-					$("#modal_signature").modal("toggle");
-					$("#modal_despachar_arriendo").modal("toggle");
-				}
+				await enviarCorreoDespacho(data);
+				refrescarTabla();
+				Swal.fire("Acta de entrega Firmado!", "acta de entrega firmado y registrado con exito!", "success"
+				);
+				$("#modal_signature").modal("toggle");
+				$("#modal_despachar_arriendo").modal("toggle");
 			}
 			$("#btn_confirmar_actaEntrega").attr("disabled", false);
+			$("#spinner_btn_confirmarActaEntrega").hide();
 		})
 	});
 
@@ -327,34 +325,6 @@ $(document).ready(() => {
 		return matrizRecepcion;
 	};
 
-	const guardarDatosDespacho = async (data) => {
-		return await ajax_function(data, "registrar_despacho");
-	};
-
-	const guardarActaEntrega = async (data, id_despacho) => {
-		data.append("base64", base64_documentoDespacho);
-		data.append("inputIdDespacho", id_despacho);
-		return await ajax_function(data, "registrar_actaEntrega");
-	};
-
-	const cambiarEstadoArriendo = async (data) => {
-		data.append("id_arriendo", $("#inputIdArriendo").val());
-		data.append("estado", "ACTIVO");
-		await ajax_function(data, "cambiarEstado_arriendo");
-	};
-
-	const cambiarEstadoVehiculo = async (data) => {
-		data.append(
-			"inputPatenteVehiculo",
-			$("#inputPatenteVehiculoDespacho").val()
-		);
-		data.append("inputEstado", "ARRENDADO");
-		data.append(
-			"kilometraje_vehiculo",
-			$("#inputKilomentrajeVehiculoDespacho").val()
-		);
-		await ajax_function(data, "cambiarEstado_vehiculo");
-	};
 
 	const enviarCorreoDespacho = async (data) => {
 		await ajax_function(data, "enviar_correoActaEntrega");

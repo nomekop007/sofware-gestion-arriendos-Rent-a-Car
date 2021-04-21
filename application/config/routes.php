@@ -83,7 +83,9 @@ $route['guardar_fotosVehiculo'] = 'Despacho_controller/guardarFotosVehiculo';
 $route['guardar_fotoRecepcion'] = 'Despacho_controller/guardarFotoRecepcion';
 $route['eliminar_FotosRecepcion'] = 'Despacho_controller/eliminarFotosRecepcion';
 $route['eliminar_FotosDespacho'] = 'Despacho_controller/eliminarFotosDespacho';
+$route['confirmar_despachoArriendo'] = 'Despacho_controller/confirmarDespachoArriendo';
 $route['confirmar_recepcionArriendo'] = 'Despacho_controller/confirmarRecepcionArriendo';
+
 
 /* rutas de controller empresaRemplazo */
 $route['cargar_empresasRemplazo'] = 'EmpresaRemplazo_controller/cargarEmpresasRemplazo';

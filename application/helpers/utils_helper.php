@@ -49,5 +49,5 @@ function validarPermiso($id_permiso)
 function version()
 {
 	// return time();
-	return 365;
+	return 380;
 }

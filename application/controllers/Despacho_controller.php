@@ -167,4 +167,19 @@ class Despacho_controller extends CI_Controller
         ];
         echo post_function($dataArray, "despachos/confirmarRecepcionArriendo");
     }
+
+
+    public function confirmarDespachoArriendo()
+    {
+        $dataArray = [
+            "id_arriendo" => $this->input->post("inputIdArriendo"),
+            "id_despacho" => $this->input->post("inputIdArriendo"),
+            "observaciones_despacho" => $this->input->post("inputObservacionesDespacho"),
+            "nombreRecibidor_despacho" => $this->input->post("inputRecibidorDespacho"),
+            "nombreDespachador_despacho" => $this->input->post("inputEntregadorDespacho"),
+            "kilometraje_vehiculo" => $this->input->post("kilometraje_vehiculo"),
+            "base64" => $this->input->post("base64")
+        ];
+        echo post_function($dataArray, "despachos/confirmarDespachoArriendo");
+    }
 }
