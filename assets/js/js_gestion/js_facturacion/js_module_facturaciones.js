@@ -234,20 +234,47 @@ $(document).ready(() => {
 
 	const cargarPagoER = (pagosPendientes) => {
 		try {
+
+			let dias = pagosPendientes.pagosArriendo.dias_pagoArriendo;
+			let tarifa = pagosPendientes.neto_pago;
+			let copago = pagosPendientes.pagosArriendo.valorCopago_pagoArriendo;
+			let tagDiario = 0;
+			let otros = 0;
+			let traslados = 0;
+			let totalNeto = (tarifa - copago) * dias + (dias * tagDiario) + otros + traslados;
+
+
+			let nombreCarta = pagosPendientes.pagosArriendo.arriendo.requisito.cartaRemplazo_requisito;
+			let fechaInicio = pagosPendientes.pagosArriendo.arriendo.fechaEntrega_arriendo;
+
+
+			if (pagosPendientes.pagosArriendo.extencione) {
+				let extencion = pagosPendientes.pagosArriendo.extencione;
+				fechaInicio = extencion.fechaInicio_extencion;
+				//nombreCarta = extencion.carta_empresaReemplazo;
+				nombreCarta = '';
+			}
+
 			tabla_pagoER.row
 				.add([
 					`<input type="checkbox" onClick='calcularTotalFactura()' name="checkPago[]" value="${pagosPendientes.id_pago}" >`,
-					pagosPendientes.pagosArriendo.id_arriendo,
-					pagosPendientes.pagosArriendo.dias_pagoArriendo,
-					pagosPendientes.estado_pago,
-					"$ " + formatter.format(pagosPendientes.neto_pago),
-					"$ " + formatter.format(pagosPendientes.iva_pago),
-					"$ " + formatter.format(pagosPendientes.total_pago),
-					formatearFechaHora(pagosPendientes.createdAt),
+					`<button class='btn-sm btn btn-outline-primary'><i class="far fa-envelope"></i></button>`,
+					pagosPendientes.pagosArriendo.arriendo.patente_vehiculo,
+					pagosPendientes.pagosArriendo.arriendo.remplazo.cliente.nombre_cliente,
+					pagosPendientes.pagosArriendo.arriendo.remplazo.cliente.rut_cliente,
+					formatearFechaHora(fechaInicio),
+					"$ " + formatter.format(tarifa),
+					dias,
+					"$ " + formatter.format(copago),
+					"$ " + formatter.format(tagDiario),
+					"$ " + formatter.format(otros),
+					"$ " + formatter.format(traslados),
+					"$ " + formatter.format(totalNeto),
 					pagosPendientes.pagosArriendo.arriendo.sucursale.nombre_sucursal,
-					` <button value='${pagosPendientes.id_pago}' onclick='buscarPago(this.value)' data-toggle='modal' data-target='#modal_pagoArriendo' class='btn btn-outline-info'><i class='far fa-edit'></i></button>`,
-				])
-				.draw(false);
+					` <button value='${pagosPendientes.id_pago}' onclick='buscarPago(this.value)' data-toggle='modal' data-target='#modal_pagoArriendo' class=' btn-sm btn btn-outline-info'><i class='far fa-edit'></i></button>`,
+				]).draw(false);
+
+
 		} catch (error) {
 			console.log("error al cargar este pago")
 		}
