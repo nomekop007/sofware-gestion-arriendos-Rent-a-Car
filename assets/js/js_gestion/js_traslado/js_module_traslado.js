@@ -13,6 +13,8 @@ let cantidad_fotos_carrusel = "";
 let items = "";
 let items2 = "";
 $("#DivTablaVehiculosDispSucursal").hide();
+$("#m_traslado").addClass("active");
+$("#l_traslado").addClass("card");
 
 const LimpiarTablaOrigen = (TablaVehiculosDip) => {
     //limpia la tabla

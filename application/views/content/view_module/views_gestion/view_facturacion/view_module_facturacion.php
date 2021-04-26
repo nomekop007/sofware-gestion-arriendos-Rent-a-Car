@@ -30,24 +30,68 @@
                     <div class="form-row">
 
                         <br><br>
-                        <div class="col-md-4">
-                            <h6 for="inputCodigoEmpresaRemplazo">Empresas de reemplazo</h6>
+                        <div class="col-md-12">
+                            <h6 for="inputCodigoEmpresaRemplazo">Buscar pagos pendientes</h6>
                             <div class="form-group ">
                                 <div class="input-group">
                                     <select id="inputCodigoEmpresaRemplazo" name="inputCodigoEmpresaRemplazo" class="form-control">
                                     </select>
+                                    <select id="inputSucursal" name="inputSucursal" class="form-control">
+                                    </select>
+                                    <input placeholder="fecha inicio" type="text" class="form-control " readonly name="inputFechaInicio" id="inputFechaInicio" required />
+                                    <input placeholder="fecha fin" type="text" class="form-control" readonly name="inputFechaFin" id="inputFechaFin" required />
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" type="button" id="btn_buscarPagoEmpresa">
                                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner_empresa_remplazo"></span>
-                                            Buscar pagos pendientes</button>
+                                            Buscar </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <br><br>
-                        <div class="col-md-2">
 
+                        <div class="col-md-12">
+                            <div class="scroll">
+                                <table id="tabla_pagoPendienteRemplazo" class="table table-striped table-bordered" style="width:100%">
+                                    <thead class="btn-dark" style='font-size: 0.7rem;'>
+                                        <tr>
+                                            <th>carta</th>
+                                            <th>Patente</th>
+                                            <th>Nombre cliente</th>
+                                            <th>Rut</th>
+                                            <th>Fecha Entrega VDR</th>
+                                            <th>Tarifa diaria</th>
+                                            <th>dias</th>
+                                            <th>Copago</th>
+                                            <th>Tag diario</th>
+                                            <th>otros</th>
+                                            <th>traslados</th>
+                                            <th>Total neto</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style='font-size: 0.7rem;'>
+                                    </tbody>
+                                    <tfoot class="btn-dark" style='font-size: 0.7rem;'>
+                                        <tr>
+                                            <th>carta</th>
+                                            <th>Patente</th>
+                                            <th>Nombre cliente</th>
+                                            <th>Rut</th>
+                                            <th>Fecha Entrega VDR</th>
+                                            <th>Tarifa diaria</th>
+                                            <th>dias</th>
+                                            <th>Copago</th>
+                                            <th>Tag diario</th>
+                                            <th>otros</th>
+                                            <th>traslados</th>
+                                            <th>Total neto</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                         </div>
+
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Total neto</label>
@@ -66,84 +110,7 @@
                                 <input disabled maxLength="20" id="totalFactura" name="totalFactura" type="text" class="form-control" required>
                             </div>
                         </div>
-
-                        <div class="col-md-12">
-                            <div class="scroll">
-                                <table id="tabla_pagoPendienteRemplazo" class="table table-striped table-bordered" style="width:100%">
-                                    <thead class="btn-dark" style='font-size: 0.7rem;'>
-                                        <tr>
-                                            <th></th>
-                                            <th>carta</th>
-                                            <th>Patente</th>
-                                            <th>Nombre cliente</th>
-                                            <th>Rut</th>
-                                            <th>Fecha Entrega VDR</th>
-                                            <th>Tarifa diaria</th>
-                                            <th>dias</th>
-                                            <th>Copago neto</th>
-                                            <th>Tag diario</th>
-                                            <th>otros</th>
-                                            <th>traslados</th>
-                                            <th>Total valor neto</th>
-                                            <th>Sucursal</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody style='font-size: 0.7rem;'>
-                                    </tbody>
-                                    <tfoot class="btn-dark" style='font-size: 0.7rem;'>
-                                        <tr>
-                                            <th></th>
-                                            <th>carta</th>
-                                            <th>Patente</th>
-                                            <th>Nombre cliente</th>
-                                            <th>Rut</th>
-                                            <th>Fecha Entrega VDR</th>
-                                            <th>Tarifa diaria</th>
-                                            <th>dias</th>
-                                            <th>Copago neto</th>
-                                            <th>Tag diario</th>
-                                            <th>otros</th>
-                                            <th>traslados</th>
-                                            <th>Total valor neto</th>
-                                            <th>Sucursal</th>
-                                            <th></th>
-                                        </tr>
-                                    </tfoot>
-                                    <!--       <thead class="btn-dark">
-                                        <tr>
-                                            <th></th>
-                                            <th>Nº Arriendo</th>
-                                            <th>Dias</th>
-                                            <th>estado pago</th>
-                                            <th>neto</th>
-                                            <th>iva</th>
-                                            <th>total</th>
-                                            <th>fecha registro</th>
-                                            <th>Sucursal</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="vehiculos">
-                                    </tbody>
-                                    <tfoot class="btn-dark">
-                                        <tr>
-                                            <th></th>
-                                            <th>Nº Arriendo</th>
-                                            <th>Dias</th>
-                                            <th>estado pago</th>
-                                            <th>neto</th>
-                                            <th>iva</th>
-                                            <th>total</th>
-                                            <th>fecha registro</th>
-                                            <th>Sucursal</th>
-                                            <th></th>
-                                        </tr>
-                                    </tfoot> -->
-                                </table>
-                            </div>
-                        </div>
-                        <br>
+                        <br><br>
                         <div class="card col-md-12">
                             <div class="card-body col-md-12">
                                 <div class="col-md-12">

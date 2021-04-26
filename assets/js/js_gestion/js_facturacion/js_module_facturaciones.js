@@ -4,7 +4,7 @@ $("#spinner_empresa_remplazo").hide();
 $("#spinner_registrar_facturacion").hide();
 const formatter = new Intl.NumberFormat("CL");
 const arrayClaveER = [];
-
+let global_totalNeto = 0;
 
 const buscarPago = async (id_pago) => {
 	const data = new FormData();
@@ -36,12 +36,17 @@ const calcularTotalFactura = async () => {
 		data.append("arrayPagos", JSON.stringify(arrayCheck));
 		const response = await ajax_function(data, "calcularTotal_pago");
 		if (response.success) {
+
+			$("#totalNeto").val("$ " + formatter.format(response.data.total_factura));
+			$("#totalIva").val("$ " + formatter.format(response.data.total_factura));
 			$("#totalFactura").val("$ " + formatter.format(response.data.total_factura));
 		}
 	} else {
 		$("#totalFactura").val("$ " + formatter.format(0));
 	}
 }
+
+
 
 const cacturarCheckPago = () => {
 	const array = [];
@@ -70,6 +75,10 @@ const calcularIvaPagoERemplazo = () => {
 
 
 const limpiarCampos = () => {
+	global_totalNeto = 0;
+	$("#totalNeto").val("");
+	$("#totalIva").val("");
+	$("#totalFactura").val("");
 	$("#spinner_editar_factura").show();
 	$("#form_editar_factura").hide();
 	$("#form_editar_factura")[0].reset();
@@ -101,13 +110,32 @@ $(document).ready(() => {
 	const tabla_pagoER = $("#tabla_pagoPendienteRemplazo").DataTable(lenguaje);
 	$("#nav-pagos-tab").click(() => refrescarTabla());
 
+	cargarSelectSucursal("cargar_Sucursales", "inputSucursal");
+
+	$('#inputFechaInicio').datetimepicker({
+		format: 'd/m/Y'
+	});
+
+	$('#inputFechaFin').datetimepicker({
+		format: 'd/m/Y'
+	});
+
+
 
 	$("#btn_buscarPagoEmpresa").click(async () => {
-		$("#spinner_empresa_remplazo").show();
-		$("#totalFactura").val("");
-		let codigoEmpresa = $("#inputCodigoEmpresaRemplazo").val();
+		if ($("#inputFechaInicio").val().length == 0 || $("#inputFechaFin").val().length == 0) {
+			Swal.fire("faltan datos", "faltan colocar fecha inicio , fecha fin", "warning");
+			return;
+		}
+		limpiarCampos();
 		const data = new FormData();
-		data.append("clave_empresaRemplazo", codigoEmpresa);
+		data.append("clave_empresaRemplazo", $("#inputCodigoEmpresaRemplazo").val());
+
+		// FALTA FILTRAR
+		data.append("inputSucursal", $("#inputSucursal").val());
+		data.append("inputFechaFin", $("#inputFechaInicio").val());
+		data.append("inputFechaFin", $("#inputFechaFin").val());
+		$("#spinner_empresa_remplazo").show();
 		const response = await ajax_function(data, "buscar_pagoER");
 		if (response.success) {
 			//limpia la tabla
@@ -255,14 +283,20 @@ $(document).ready(() => {
 				nombreCarta = '';
 			}
 
+			global_totalNeto = global_totalNeto + totalNeto;
+			let totalIva = global_totalNeto * 0.19;
+			let totalBruto = global_totalNeto + totalIva;
+			$("#totalNeto").val("$ " + formatter.format(global_totalNeto));
+			$("#totalIva").val("$ " + formatter.format(totalIva));
+			$("#totalFactura").val("$ " + formatter.format(totalBruto));
+
 			tabla_pagoER.row
 				.add([
-					`<input type="checkbox" onClick='calcularTotalFactura()' name="checkPago[]" value="${pagosPendientes.id_pago}" >`,
 					`<button class='btn-sm btn btn-outline-primary'><i class="far fa-envelope"></i></button>`,
 					pagosPendientes.pagosArriendo.arriendo.patente_vehiculo,
 					pagosPendientes.pagosArriendo.arriendo.remplazo.cliente.nombre_cliente,
 					pagosPendientes.pagosArriendo.arriendo.remplazo.cliente.rut_cliente,
-					formatearFechaHora(fechaInicio),
+					formatearFecha(fechaInicio),
 					"$ " + formatter.format(tarifa),
 					dias,
 					"$ " + formatter.format(copago),
@@ -270,7 +304,6 @@ $(document).ready(() => {
 					"$ " + formatter.format(otros),
 					"$ " + formatter.format(traslados),
 					"$ " + formatter.format(totalNeto),
-					pagosPendientes.pagosArriendo.arriendo.sucursale.nombre_sucursal,
 					` <button value='${pagosPendientes.id_pago}' onclick='buscarPago(this.value)' data-toggle='modal' data-target='#modal_pagoArriendo' class=' btn-sm btn btn-outline-info'><i class='far fa-edit'></i></button>`,
 				]).draw(false);
 
