@@ -287,7 +287,6 @@ $(document).ready(() => {
 		let numero_arriendo1 = $(input).val();
 		let Observacion1 = $(Input_observacion).val();
 
-		console.log("dadas");
 
 		numero_arriendo = parseInt(numero_arriendo1);
 
@@ -359,10 +358,9 @@ $(document).ready(() => {
 
 			//registrar_danio_vehiculo
 
-			console.log(numero_arriendo);
+
 			const response = await ajax_function(data, "buscar_arriendo");
 
-			console.log(response);
 			if (response.data.estado_arriendo == "RECEPCIONADO") {
 
 				let nombre_cliente = '';

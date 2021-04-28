@@ -171,7 +171,9 @@ $route['buscarTarifasVehiculo'] = 'Vehiculo_controller/buscarTarifasVehiculo';
 $route['registrar_danio_vehiculo_new'] = 'Vehiculo_controller/registrarDanioVehiculo_new';
 $route['eliminar_danio_vehiculo_new'] = 'Vehiculo_controller/eliminarDanioVehiculo_new';
 
+// Rutas de Tarifas Empresas Reemplazo Creadas por Esteban Mallea
 
+$route['obtenerTarifasEmpresaSucursal'] = 'EmpresaRemplazo_controller/obtenerTarifasEmpresaSucursal';
 
 // Rutas de Traslado Creadas por Esteban Mallea
 $route['generar_actaOrigen'] = 'Sucursal_controller/generar_ActaTraslado';  //funcion create de traslados

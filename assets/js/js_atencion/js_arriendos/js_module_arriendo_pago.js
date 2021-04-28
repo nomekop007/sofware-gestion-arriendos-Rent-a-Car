@@ -2,7 +2,13 @@ const formatter = new Intl.NumberFormat("CL");
 
 
 const mostrarArriendoModalPago = async (arriendo) => {
+
+
 	limpiarCamposModalPago();
+
+
+
+
 	if (arriendo.estado_arriendo == "PENDIENTE" || arriendo.estado_arriendo == "EXTENDIDO") {
 		if (arriendo.tipoArriendo != "REEMPLAZO") {
 			const response = await buscarTarifaVehiculo(arriendo.patente_vehiculo, arriendo.diasActuales_arriendo);
@@ -31,6 +37,36 @@ const mostrarArriendoModalPago = async (arriendo) => {
 				$("#inputDeudor").val(arriendo.rut_cliente);
 				break;
 			case "REEMPLAZO":
+
+				//----------------------------------------------------------
+				const dataTarifasEmpresas = new FormData();
+				var sucursal=arriendo.id_sucursal;
+				var EmpresaReemplazo=arriendo.remplazo.empresasRemplazo.codigo_empresaRemplazo;
+				let HtmlSelectCategoria= ``;
+
+				dataTarifasEmpresas.append("codigoEmpresaReemplazo", EmpresaReemplazo);
+				dataTarifasEmpresas.append("id_sucursal", sucursal);
+
+				const responseTarifas_ = await ajax_function(dataTarifasEmpresas, "obtenerTarifasEmpresaSucursal");
+				var Tarifas = responseTarifas_.data;
+
+
+				var categorias=[];
+				for (let i = 0; i < Tarifas.length; i++) {
+					categorias.push({categoria:Tarifas[i].categoria,monto:Tarifas[i].valor});
+				}
+
+				HtmlSelectCategoria += ` <option disabled value="none" selected>Seleccione categoria</option>`;
+
+				for (let i = 0; i < categorias.length; i++) {
+					
+					HtmlSelectCategoria += `<option value="${categorias[i].monto}">${categorias[i].categoria} - Monto neto: $${categorias[i].monto}</option>`;
+					
+				}
+
+				$("#SelectCategoriasER").html(HtmlSelectCategoria);
+
+				//------------------------------------------------------------
 				$(".pago_empresa_remplazo").show();
 				$("#inputDeudor").val(arriendo.remplazo.rut_cliente);
 				$("#inputDeudorCopago").val(arriendo.remplazo.codigo_empresaRemplazo);
@@ -52,6 +88,7 @@ const mostrarArriendoModalPago = async (arriendo) => {
 	}
 	$("#formSpinnerPago").hide();
 };
+
 
 
 const buscarTarifaVehiculo = async (patente, dias) => {
@@ -144,13 +181,7 @@ const limpiarCamposModalPago = () => {
 	$("#metodo_pago").hide();
 }
 
-
-
-
-
 $(document).ready(() => {
-
-
 
 	cargarAccesorios = async () => {
 		const response = await ajax_function(null, "cargar_accesorios");
@@ -172,9 +203,6 @@ $(document).ready(() => {
 	}
 	cargarAccesorios();
 
-
-
-
 	$("#btn_registrar_pago").click(async () => {
 		const tipoPago = $('[name="customRadio1"]:checked').val();
 		const numeroFacturacion = $("#inputNumFacturacion").val().length;
@@ -191,7 +219,7 @@ $(document).ready(() => {
 			return;
 		}
 		if (
-			$("#inputPagoEmpresa").val().length == 0 ||
+		//	$("#inputPagoEmpresa").val().length == 0 ||
 			$("#inputValorCopago").val().length == 0 ||
 			$("#inputSubTotalArriendo").val().length == 0 ||
 			$("#inputDescuento").val().length == 0
@@ -232,15 +260,22 @@ $(document).ready(() => {
 				data.append("inputDeudor", $("#inputDeudor").val());
 				// se guarda el pago del cliente
 				await guardarPago(data);
+
 				// en caso de ser tipo remplazo , se guarda el pago PENDIENTE de la empresa remplazo
-				if ($("#textTipo").val() === "REEMPLAZO" && $("#inputPagoEmpresa").val() > 0) {
+				if ($("#textTipo").val() === "REEMPLAZO") {
+
+					let MontoNeto = Number($("#SelectCategoriasER").val());
+					let iva = MontoNeto*0.19;
+					let total = MontoNeto+iva;
+
+
 					const data = new FormData();
 					data.append("inputEstado", "PENDIENTE");
 					data.append("id_pagoArriendo", response.pagoArriendo.id_pagoArriendo);
 					data.append("inputDeudor", $("#inputDeudorCopago").val());
-					data.append("inputNeto", Number($("#inputPagoEmpresa").val()));
-					data.append("inputIVA", Number($("#inputPagoIvaEmpresa").val()));
-					data.append("inputTotal", Number($("#inputPagoTotalEmpresa").val()));
+					data.append("inputNeto", MontoNeto);
+					data.append("inputIVA",iva );
+					data.append("inputTotal",total );
 					await guardarPago(data);
 				}
 				await cambiarEstadoArriendo($("#inputEstadoArriendo_pago").val(), $("#inputIdArriendo").val());
@@ -252,8 +287,6 @@ $(document).ready(() => {
 			$("#spinner_btn_registrarPago").hide();
 		})
 	});
-
-
 
 	const guardarDocumentoFactura = async (data) => {
 		return await ajax_function(data, "guardar_documentoFacturacion");
@@ -296,6 +329,8 @@ $(document).ready(() => {
 	const guardarDatosFactura = async (data) => {
 		return await ajax_function(data, "registrar_facturacion");
 	};
+
+
 
 
 })

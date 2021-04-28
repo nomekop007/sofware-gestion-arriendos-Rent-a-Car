@@ -12,8 +12,6 @@ class EmpresaRemplazo_controller extends CI_Controller
         echo get_function("empresasRemplazo/cargarEmpresasRemplazo");
     }
 
-
-
     public function crearRemplazo()
     {
         $ArrayData = [
@@ -21,5 +19,14 @@ class EmpresaRemplazo_controller extends CI_Controller
             "rut_cliente" => $this->input->post("inputRutCliente"),
         ];
         echo post_function($ArrayData, "empresasRemplazo/registrarRemplazo");
+    }
+
+    public function obtenerTarifasEmpresaSucursal()
+    {
+        $ArrayData = [
+            "EmpresaReemplazo" => $this->input->post("codigoEmpresaReemplazo"),
+            "Id_sucursal" => $this->input->post("id_sucursal"),
+        ];
+        echo post_function($ArrayData, "empresasRemplazo/obtenerTarifasEmpresaSucursal");
     }
 }
