@@ -100,6 +100,8 @@ $route['modificar_pago'] = 'Pago_controller/modificarPago';
 $route['buscar_pagoCliente'] = 'Pago_controller/buscarPagoClientes';
 $route['cargar_pagosCliente'] = 'Pago_controller/cargarPagosClientes';
 $route['buscar_pagoER'] = 'Pago_controller/buscarPagoERpendientes';
+$route['buscar_pagoER_conFiltros'] = 'Pago_controller/buscarPagoERpendientesConFiltro';
+
 $route['aplicarDescuento_UltimoPago'] = 'Pago_controller/aplicarDescuentoPago';
 $route['calcularTotal_pago'] = 'Pago_controller/calcularTotalPagos';
 $route['buscar_pago'] = 'Pago_controller/buscarPago';

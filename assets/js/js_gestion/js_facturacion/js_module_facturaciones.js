@@ -29,34 +29,9 @@ const buscarPago = async (id_pago) => {
 	$("#spinner_editar_factura").hide();
 }
 
-const calcularTotalFactura = async () => {
-	const arrayCheck = cacturarCheckPago();
-	if (arrayCheck.length > 0) {
-		const data = new FormData();
-		data.append("arrayPagos", JSON.stringify(arrayCheck));
-		const response = await ajax_function(data, "calcularTotal_pago");
-		if (response.success) {
-
-			$("#totalNeto").val("$ " + formatter.format(response.data.total_factura));
-			$("#totalIva").val("$ " + formatter.format(response.data.total_factura));
-			$("#totalFactura").val("$ " + formatter.format(response.data.total_factura));
-		}
-	} else {
-		$("#totalFactura").val("$ " + formatter.format(0));
-	}
-}
 
 
 
-const cacturarCheckPago = () => {
-	const array = [];
-	$('[name="checkPago[]"]:checked')
-		.map(function () {
-			array.push(this.value)
-		})
-		.get()
-	return array;
-};
 
 
 const calcularIvaPagoERemplazo = () => {
@@ -133,10 +108,13 @@ $(document).ready(() => {
 
 		// FALTA FILTRAR
 		data.append("inputSucursal", $("#inputSucursal").val());
-		data.append("inputFechaFin", $("#inputFechaInicio").val());
+		data.append("inputEstado", $("#inputEstado").val());
+		data.append("inputFechaInicio", $("#inputFechaInicio").val());
 		data.append("inputFechaFin", $("#inputFechaFin").val());
 		$("#spinner_empresa_remplazo").show();
-		const response = await ajax_function(data, "buscar_pagoER");
+		//const response = await ajax_function(data, "buscar_pagoER");
+		const response = await ajax_function(data, "buscar_pagoER_conFiltros");
+
 		if (response.success) {
 			//limpia la tabla
 			tabla_pagoER.row().clear().draw(false);
@@ -149,37 +127,37 @@ $(document).ready(() => {
 
 
 	$("#btn_registrar_facturacion").click(() => {
-		const arrayCheck = cacturarCheckPago();
-		const inputNumFacturacion = $("#inputNumFacturacion").val();
-		const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
-		if (arrayCheck.length == 0 || inputNumFacturacion.length == 0 || $("#inputFileFacturacion").val().length == 0) {
-			Swal.fire("faltan datos", "faltan datos en el formulario", "warning");
-			return;
-		}
-		alertQuestion(async () => {
-			$("#btn_registrar_facturacion").attr("disabled", true);
-			$("#spinner_registrar_facturacion").show();
-			const form = $("#form_registrar_factura")[0];
-			const data = new FormData(form);
-			const responseFac = await guardarDatosFactura(data);
-			if (responseFac.success) {
-				data.append("inputEstado", "PAGADO");
-				data.append("inputDocumento", inputFileFacturacion);
-				data.append("id_facturacion", responseFac.data.id_facturacion);
-				data.append("arrayPagos", JSON.stringify(arrayCheck));
-				const responseDoc = await guardarDocumentoFactura(data);
-				if (responseDoc.success) {
-					const responsePago = await actualizarPagos(data);
-					if (responsePago.success) {
-						Swal.fire("factura generada!", "se a actualizado exitosamente el pago y la factura", "success")
-						tabla_pagoER.row().clear().draw(false);
-						$("#totalFactura").val("");
-					}
+		/* 		const arrayCheck = cacturarCheckPago();
+				const inputNumFacturacion = $("#inputNumFacturacion").val();
+				const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
+				if (arrayCheck.length == 0 || inputNumFacturacion.length == 0 || $("#inputFileFacturacion").val().length == 0) {
+					Swal.fire("faltan datos", "faltan datos en el formulario", "warning");
+					return;
 				}
-			}
-			$("#spinner_registrar_facturacion").hide();
-			$("#btn_registrar_facturacion").attr("disabled", false);
-		})
+				alertQuestion(async () => {
+					$("#btn_registrar_facturacion").attr("disabled", true);
+					$("#spinner_registrar_facturacion").show();
+					const form = $("#form_registrar_factura")[0];
+					const data = new FormData(form);
+					const responseFac = await guardarDatosFactura(data);
+					if (responseFac.success) {
+						data.append("inputEstado", "PAGADO");
+						data.append("inputDocumento", inputFileFacturacion);
+						data.append("id_facturacion", responseFac.data.id_facturacion);
+						data.append("arrayPagos", JSON.stringify(arrayCheck));
+						const responseDoc = await guardarDocumentoFactura(data);
+						if (responseDoc.success) {
+							const responsePago = await actualizarPagos(data);
+							if (responsePago.success) {
+								Swal.fire("factura generada!", "se a actualizado exitosamente el pago y la factura", "success")
+								tabla_pagoER.row().clear().draw(false);
+								$("#totalFactura").val("");
+							}
+						}
+					}
+					$("#spinner_registrar_facturacion").hide();
+					$("#btn_registrar_facturacion").attr("disabled", false);
+				}) */
 	});
 
 
@@ -271,16 +249,22 @@ $(document).ready(() => {
 			let traslados = 0;
 			let totalNeto = (tarifa - copago) * dias + (dias * tagDiario) + otros + traslados;
 
-
 			let nombreCarta = pagosPendientes.pagosArriendo.arriendo.requisito.cartaRemplazo_requisito;
 			let fechaInicio = pagosPendientes.pagosArriendo.arriendo.fechaEntrega_arriendo;
 
-
+			let btnCarta = `<button onClick="buscarDocumento('${nombreCarta}','requisito')"  class='btn-sm btn btn-outline-primary'><i class="far fa-envelope"></i></button>`;
+			// si entra a este if significa que este pago pertenece a una extencion , por ende es mejor que se carge la carte de reemplazo y la fecha de esta extencion
 			if (pagosPendientes.pagosArriendo.extencione) {
 				let extencion = pagosPendientes.pagosArriendo.extencione;
+
 				fechaInicio = extencion.fechaInicio_extencion;
+				/* primero se necesita que este el atributo  carta_empresaReemplazo en la tabla extencion para que funcione como debe ser */
 				//nombreCarta = extencion.carta_empresaReemplazo;
+				//btnCarta = `<button onClick="buscarDocumento('${nombreCarta}','requisito')"  class='btn-sm btn btn-outline-primary'><i class="far fa-envelope"></i></button>`;
+
+				//mientras... faltan	
 				nombreCarta = '';
+				btnCarta = '';
 			}
 
 			global_totalNeto = global_totalNeto + totalNeto;
@@ -290,9 +274,18 @@ $(document).ready(() => {
 			$("#totalIva").val("$ " + formatter.format(totalIva));
 			$("#totalFactura").val("$ " + formatter.format(totalBruto));
 
+			let estado = pagosPendientes.pagosArriendo.arriendo.estado_arriendo;
+			if (estado === "FINALIZADO" || estado == "RECEPCIONADO") {
+				estado = 'POR FACTURAR'
+			} else {
+				estado = 'NO RECEPCIONADO';
+			}
+
 			tabla_pagoER.row
 				.add([
-					`<button class='btn-sm btn btn-outline-primary'><i class="far fa-envelope"></i></button>`,
+					btnCarta,
+					pagosPendientes.pagosArriendo.arriendo.id_arriendo,
+					estado,
 					pagosPendientes.pagosArriendo.arriendo.patente_vehiculo,
 					pagosPendientes.pagosArriendo.arriendo.remplazo.cliente.nombre_cliente,
 					pagosPendientes.pagosArriendo.arriendo.remplazo.cliente.rut_cliente,

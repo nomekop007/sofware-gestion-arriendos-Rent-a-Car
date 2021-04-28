@@ -38,6 +38,11 @@
                                     </select>
                                     <select id="inputSucursal" name="inputSucursal" class="form-control">
                                     </select>
+                                    <select id="inputEstado" name="inputEstado" class="form-control">
+                                        <option value="TODOS">TODOS</option>
+                                        <option value="PORFACTURAR">POR FACTURAR</option>
+                                        <option value="NORECEPCIONADO">NO RECEPCIONADO</option>
+                                    </select>
                                     <input placeholder="fecha inicio" type="text" class="form-control " readonly name="inputFechaInicio" id="inputFechaInicio" required />
                                     <input placeholder="fecha fin" type="text" class="form-control" readonly name="inputFechaFin" id="inputFechaFin" required />
                                     <div class="input-group-append">
@@ -55,6 +60,8 @@
                                     <thead class="btn-dark" style='font-size: 0.7rem;'>
                                         <tr>
                                             <th>carta</th>
+                                            <th>Nº</th>
+                                            <th>estado</th>
                                             <th>Patente</th>
                                             <th>Nombre cliente</th>
                                             <th>Rut</th>
@@ -69,11 +76,13 @@
                                             <th></th>
                                         </tr>
                                     </thead>
-                                    <tbody style='font-size: 0.7rem;'>
+                                    <tbody style='font-size: 0.6rem;'>
                                     </tbody>
                                     <tfoot class="btn-dark" style='font-size: 0.7rem;'>
                                         <tr>
                                             <th>carta</th>
+                                            <th>Nº</th>
+                                            <th>estado</th>
                                             <th>Patente</th>
                                             <th>Nombre cliente</th>
                                             <th>Rut</th>

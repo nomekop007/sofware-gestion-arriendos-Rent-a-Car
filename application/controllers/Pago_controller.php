@@ -303,4 +303,16 @@ class Pago_controller extends CI_Controller
         ];
         echo post_function($dataArray, "pagos/registrarPagoDanio");
     }
+
+    public function buscarPagoERpendientesConFiltro()
+    {
+        $params = [
+            "inputSucursal" =>  $this->input->post("inputSucursal"),
+            "clave_empresaRemplazo" => $this->input->post("clave_empresaRemplazo"),
+            "inputEstado" =>  $this->input->post("inputEstado"),
+            "inputFechaInicio" =>  $this->input->post("inputFechaInicio"),
+            "inputFechaFin" =>  $this->input->post("inputFechaFin"),
+        ];
+        echo get_function("pagos/buscarPagoERpendientesConFiltro", $params);
+    }
 }
