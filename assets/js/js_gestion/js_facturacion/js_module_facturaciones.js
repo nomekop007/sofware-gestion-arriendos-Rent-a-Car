@@ -105,14 +105,11 @@ $(document).ready(() => {
 		limpiarCampos();
 		const data = new FormData();
 		data.append("clave_empresaRemplazo", $("#inputCodigoEmpresaRemplazo").val());
-
-		// FALTA FILTRAR
 		data.append("inputSucursal", $("#inputSucursal").val());
 		data.append("inputEstado", $("#inputEstado").val());
 		data.append("inputFechaInicio", $("#inputFechaInicio").val());
 		data.append("inputFechaFin", $("#inputFechaFin").val());
 		$("#spinner_empresa_remplazo").show();
-		//const response = await ajax_function(data, "buscar_pagoER");
 		const response = await ajax_function(data, "buscar_pagoER_conFiltros");
 
 		if (response.success) {
