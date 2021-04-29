@@ -59,9 +59,8 @@ const mostrarArriendoModalPago = async (arriendo) => {
 				HtmlSelectCategoria += ` <option disabled value="none" selected>Seleccione categoria</option>`;
 
 				for (let i = 0; i < categorias.length; i++) {
-					
-					HtmlSelectCategoria += `<option value="${categorias[i].monto}">${categorias[i].categoria} - Monto neto: $${categorias[i].monto}</option>`;
-					
+					let neto = formatter.format(categorias[i].monto)
+					HtmlSelectCategoria += `<option value="${categorias[i].monto}">${categorias[i].categoria} - Monto neto: $${neto}</option>`;
 				}
 
 				$("#SelectCategoriasER").html(HtmlSelectCategoria);

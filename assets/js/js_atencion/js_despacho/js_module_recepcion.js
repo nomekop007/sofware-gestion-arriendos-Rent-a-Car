@@ -39,6 +39,35 @@ const mostrarArriendoExtender = async (id_arriendo) => {
 				$("#inputDeudor_extenderPlazo").val(arriendo.rut_cliente);
 				break;
 			case "REEMPLAZO":
+
+			//----------------------------------------------------------
+
+				const dataTarifasEmpresas = new FormData();
+				var sucursal=arriendo.id_sucursal;
+				var EmpresaReemplazo=arriendo.remplazo.empresasRemplazo.codigo_empresaRemplazo;
+				let HtmlSelectCategoria= ``;
+
+				dataTarifasEmpresas.append("codigoEmpresaReemplazo", EmpresaReemplazo);
+				dataTarifasEmpresas.append("id_sucursal", sucursal);
+
+				const responseTarifas_ = await ajax_function(dataTarifasEmpresas, "obtenerTarifasEmpresaSucursal");
+				var Tarifas = responseTarifas_.data;
+
+				var categorias=[];
+				for (let i = 0; i < Tarifas.length; i++) {
+					categorias.push({categoria:Tarifas[i].categoria,monto:Tarifas[i].valor});
+				}
+
+				HtmlSelectCategoria += ` <option disabled value="none" selected>Seleccione categoria</option>`;
+
+				for (let i = 0; i < categorias.length; i++) {
+					let neto = formatter.format(categorias[i].monto)
+					HtmlSelectCategoria += `<option value="${categorias[i].monto}">${categorias[i].categoria} - Monto neto: $${neto}</option>`;
+				}
+				
+				$("#SelectCategoriasERExtension").html(HtmlSelectCategoria);
+
+				//------------------------------------------------------------
 				$("#inputDeudor_extenderPlazo").val(arriendo.remplazo.rut_cliente);
 				$("#inputDeudorCopago_extenderPlazo").val(arriendo.remplazo.codigo_empresaRemplazo);
 				$(".ventana_pago_empresa_remplazo").show();
@@ -766,11 +795,16 @@ $(document).ready(() => {
 
 
 	const guardarPagoRemplazo = async (data) => {
+
+		let MontoCategoria = $("#SelectCategoriasERExtension").val()
+		let Iva = MontoCategoria*0.19
+		let MontoTotal=MontoCategoria+Iva;
+
 		data.append("inputEstado", "PENDIENTE");
 		data.append("inputDeudor", $("#inputDeudorCopago_extenderPlazo").val());
-		data.append("inputNeto", $("#inputPagoEmpresa_extenderPlazo").val());
-		data.append("inputIVA", $("#inputPagoIvaEmpresa_extenderPlazo").val());
-		data.append("inputTotal", $("#inputPagoTotalEmpresa_extenderPlazo").val());
+		data.append("inputNeto", MontoCategoria);
+		data.append("inputIVA", Iva);
+		data.append("inputTotal", MontoTotal);
 		return await ajax_function(data, "registrar_pago");
 	}
 
