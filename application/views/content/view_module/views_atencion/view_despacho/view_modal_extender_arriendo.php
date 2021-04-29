@@ -140,7 +140,12 @@
                         <div class="col-lg-4 ">
                             <div class="ventana_pago_empresa_remplazo">
                                 <h5>Pago E. Remplazo</h5>
-                                <div class="form-group ">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Categorias de vehiculos</label>
+                                    <select class="form-control" id="SelectCategoriasERExtension">
+                                    </select>
+                                </div>
+                                <!-- <div class="form-group ">
                                     <label for="inputPagoEmpresa_extenderPlazo">Pago neto E. reemplazo <span id="lb_neto_er"></span></label>
                                     <input min="0" value="0" type="number" class="form-control" id="inputPagoEmpresa_extenderPlazo" maxLength="11" name="inputPagoEmpresa_extenderPlazo" oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
                                 </div>
@@ -151,7 +156,7 @@
                                 <div class="form-group ">
                                     <label for="inputPagoTotalEmpresa_extenderPlazo">Pago total E. reemplazo <span id="lb_total_er"></span></label>
                                     <input min="0" value="0" type="number" class="form-control" id="inputPagoTotalEmpresa_extenderPlazo" maxLength="11" name="inputPagoTotalEmpresa_extenderPlazo" oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

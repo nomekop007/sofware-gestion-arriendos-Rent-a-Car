@@ -97,7 +97,13 @@
                         <div class="col-lg-4 ">
                             <div class="pago_empresa_remplazo">
                                 <h5>Pago E. Remplazo</h5>
-                                <div class="form-group ">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Categorias de vehiculos</label>
+                                    <select class="form-control" id="SelectCategoriasER">
+                                    </select>
+                                </div>
+
+                                <!-- <div class="form-group ">
                                     <label for="inputPagoEmpresa">Pago neto E. reemplazo <span id="lb_neto_er"></span></label>
                                     <input min="0" value="0" type="number" class="form-control" id="inputPagoEmpresa" maxLength="11" name="inputPagoEmpresa" oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
                                 </div>
@@ -108,7 +114,7 @@
                                 <div class="form-group ">
                                     <label for="inputPagoTotalEmpresa">Pago total E. reemplazo <span id="lb_total_er"></span></label>
                                     <input min="0" value="0" type="number" class="form-control" id="inputPagoTotalEmpresa" maxLength="11" name="inputPagoTotalEmpresa" oninput="this.value = soloNumeros(this) ;calcularIvaPagoERemplazo()" required>
-                                </div>
+                                </div> -->
                             </div>
                             <div id="card_pago">
                                 <h5>Facturacion</h5>
