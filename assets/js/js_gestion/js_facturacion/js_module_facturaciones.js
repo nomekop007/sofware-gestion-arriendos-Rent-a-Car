@@ -87,13 +87,9 @@ $(document).ready(() => {
 
 	cargarSelectSucursal("cargar_Sucursales", "inputSucursal");
 
-	$('#inputFechaInicio').datetimepicker({
-		format: 'd/m/Y'
-	});
+	$('#inputFechaInicio').datetimepicker({});
 
-	$('#inputFechaFin').datetimepicker({
-		format: 'd/m/Y'
-	});
+	$('#inputFechaFin').datetimepicker({});
 
 
 
@@ -107,8 +103,6 @@ $(document).ready(() => {
 		data.append("clave_empresaRemplazo", $("#inputCodigoEmpresaRemplazo").val());
 		data.append("inputSucursal", $("#inputSucursal").val());
 		data.append("inputEstado", $("#inputEstado").val());
-		data.append("inputFechaInicio", $("#inputFechaInicio").val());
-		data.append("inputFechaFin", $("#inputFechaFin").val());
 		$("#spinner_empresa_remplazo").show();
 		const response = await ajax_function(data, "buscar_pagoER_conFiltros");
 
@@ -124,6 +118,9 @@ $(document).ready(() => {
 
 
 	$("#btn_registrar_facturacion").click(() => {
+
+		//QUEDA PENDIENTE
+
 		/* 		const arrayCheck = cacturarCheckPago();
 				const inputNumFacturacion = $("#inputNumFacturacion").val();
 				const inputFileFacturacion = $("#inputFileFacturacion")[0].files[0];
@@ -237,7 +234,6 @@ $(document).ready(() => {
 
 	const cargarPagoER = (pagosPendientes) => {
 		try {
-
 			let dias = pagosPendientes.pagosArriendo.dias_pagoArriendo;
 			let tarifa = pagosPendientes.neto_pago;
 			let copago = pagosPendientes.pagosArriendo.valorCopago_pagoArriendo;
@@ -264,41 +260,48 @@ $(document).ready(() => {
 				btnCarta = '';
 			}
 
-			global_totalNeto = global_totalNeto + totalNeto;
-			let totalIva = global_totalNeto * 0.19;
-			let totalBruto = global_totalNeto + totalIva;
-			$("#totalNeto").val("$ " + formatter.format(global_totalNeto));
-			$("#totalIva").val("$ " + formatter.format(totalIva));
-			$("#totalFactura").val("$ " + formatter.format(totalBruto));
 
-			let estado = pagosPendientes.pagosArriendo.arriendo.estado_arriendo;
-			if (estado === "FINALIZADO" || estado == "RECEPCIONADO") {
-				estado = 'POR FACTURAR'
-			} else {
-				estado = 'NO RECEPCIONADO';
+			let fechaSelectInicio = new Date($("#inputFechaInicio").val());
+			let fechaSelectFin = new Date($("#inputFechaFin").val());
+			console.log(fechaSelectFin);
+			fechaInicio = new Date(fechaInicio);
+			if (fechaInicio >= fechaSelectInicio && fechaInicio <= fechaSelectFin) {
+				console.log("object")
+				global_totalNeto = global_totalNeto + totalNeto;
+				let totalIva = global_totalNeto * 0.19;
+				let totalBruto = global_totalNeto + totalIva;
+				$("#totalNeto").val("$ " + formatter.format(global_totalNeto));
+				$("#totalIva").val("$ " + formatter.format(totalIva));
+				$("#totalFactura").val("$ " + formatter.format(totalBruto));
+
+				let estado = pagosPendientes.pagosArriendo.arriendo.estado_arriendo;
+				if (estado === "FINALIZADO" || estado == "RECEPCIONADO") {
+					estado = 'POR FACTURAR'
+				} else {
+					estado = 'NO RECEPCIONADO';
+				}
+
+				tabla_pagoER.row
+					.add([
+						btnCarta,
+						pagosPendientes.pagosArriendo.arriendo.id_arriendo,
+						estado,
+						pagosPendientes.pagosArriendo.arriendo.patente_vehiculo,
+						pagosPendientes.pagosArriendo.arriendo.remplazo.cliente.nombre_cliente,
+						pagosPendientes.pagosArriendo.arriendo.remplazo.cliente.rut_cliente,
+						formatearFecha(fechaInicio),
+						"$ " + formatter.format(tarifa),
+						dias,
+						"$ " + formatter.format(copago),
+						"$ " + formatter.format(tagDiario),
+						"$ " + formatter.format(otros),
+						"$ " + formatter.format(traslados),
+						"$ " + formatter.format(totalNeto),
+						` <button value='${pagosPendientes.id_pago}' onclick='buscarPago(this.value)' data-toggle='modal' data-target='#modal_pagoArriendo' class=' btn-sm btn btn-outline-info'><i class='far fa-edit'></i></button>`,
+					]).draw(false);
 			}
-
-			tabla_pagoER.row
-				.add([
-					btnCarta,
-					pagosPendientes.pagosArriendo.arriendo.id_arriendo,
-					estado,
-					pagosPendientes.pagosArriendo.arriendo.patente_vehiculo,
-					pagosPendientes.pagosArriendo.arriendo.remplazo.cliente.nombre_cliente,
-					pagosPendientes.pagosArriendo.arriendo.remplazo.cliente.rut_cliente,
-					formatearFecha(fechaInicio),
-					"$ " + formatter.format(tarifa),
-					dias,
-					"$ " + formatter.format(copago),
-					"$ " + formatter.format(tagDiario),
-					"$ " + formatter.format(otros),
-					"$ " + formatter.format(traslados),
-					"$ " + formatter.format(totalNeto),
-					` <button value='${pagosPendientes.id_pago}' onclick='buscarPago(this.value)' data-toggle='modal' data-target='#modal_pagoArriendo' class=' btn-sm btn btn-outline-info'><i class='far fa-edit'></i></button>`,
-				]).draw(false);
-
-
 		} catch (error) {
+			console.log(error)
 			console.log("error al cargar este pago")
 		}
 	}
