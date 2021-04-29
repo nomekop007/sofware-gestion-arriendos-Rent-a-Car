@@ -40,12 +40,12 @@ const mostrarArriendoExtender = async (id_arriendo) => {
 				break;
 			case "REEMPLAZO":
 
-			//----------------------------------------------------------
+				//----------------------------------------------------------
 
 				const dataTarifasEmpresas = new FormData();
-				var sucursal=arriendo.id_sucursal;
-				var EmpresaReemplazo=arriendo.remplazo.empresasRemplazo.codigo_empresaRemplazo;
-				let HtmlSelectCategoria= ``;
+				var sucursal = arriendo.id_sucursal;
+				var EmpresaReemplazo = arriendo.remplazo.empresasRemplazo.codigo_empresaRemplazo;
+				let HtmlSelectCategoria = ``;
 
 				dataTarifasEmpresas.append("codigoEmpresaReemplazo", EmpresaReemplazo);
 				dataTarifasEmpresas.append("id_sucursal", sucursal);
@@ -53,9 +53,9 @@ const mostrarArriendoExtender = async (id_arriendo) => {
 				const responseTarifas_ = await ajax_function(dataTarifasEmpresas, "obtenerTarifasEmpresaSucursal");
 				var Tarifas = responseTarifas_.data;
 
-				var categorias=[];
+				var categorias = [];
 				for (let i = 0; i < Tarifas.length; i++) {
-					categorias.push({categoria:Tarifas[i].categoria,monto:Tarifas[i].valor});
+					categorias.push({ categoria: Tarifas[i].categoria, monto: Tarifas[i].valor });
 				}
 
 				HtmlSelectCategoria += ` <option disabled value="none" selected>Seleccione categoria</option>`;
@@ -64,7 +64,7 @@ const mostrarArriendoExtender = async (id_arriendo) => {
 					let neto = formatter.format(categorias[i].monto)
 					HtmlSelectCategoria += `<option value="${categorias[i].monto}">${categorias[i].categoria} - Monto neto: $${neto}</option>`;
 				}
-				
+
 				$("#SelectCategoriasERExtension").html(HtmlSelectCategoria);
 
 				//------------------------------------------------------------
@@ -254,7 +254,7 @@ const calcularCopago = () => {
 }
 
 
-const calcularIvaPagoERemplazo = () => {
+/* const calcularIvaPagoERemplazo = () => {
 	let neto = Number($("#inputPagoEmpresa_extenderPlazo").val());
 	let iva = Number($("#inputPagoIvaEmpresa_extenderPlazo").val());
 	let total = Number($("#inputPagoTotalEmpresa_extenderPlazo").val());
@@ -265,7 +265,7 @@ const calcularIvaPagoERemplazo = () => {
 	$("#lb_neto_er").html("( $ " + formatter.format(neto) + " )");
 	$("#lb_iva_er").html("( $ " + formatter.format(Math.round(iva)) + " )");
 	$("#lb_total_er").html("( $ " + formatter.format(decimalAdjust(Math.round(total), 1)) + " )");
-}
+} */
 
 
 const calcularValores = () => {
@@ -483,7 +483,6 @@ $(document).ready(() => {
 			return;
 		}
 		if (
-			$("#inputPagoEmpresa_extenderPlazo").val().length == 0 ||
 			$("#inputValorCopago_extenderPlazo").val().length == 0 ||
 			$("#inputSubTotalArriendo_extenderPlazo").val().length == 0 ||
 			$("#inputDescuento_extenderPlazo").val().length == 0
@@ -510,7 +509,7 @@ $(document).ready(() => {
 						await ajax_function(data, "registrar_pagoAccesorios");
 					}
 					await guardarPagoCliente(data);
-					if ($("#inputTipoArriendo_extenderPlazo").val() === "REEMPLAZO" && $("#inputPagoEmpresa_extenderPlazo").val() > 0) {
+					if ($("#inputTipoArriendo_extenderPlazo").val() === "REEMPLAZO") {
 						await guardarPagoRemplazo(data);
 					}
 					const response3 = await guardarExtencion(data);
@@ -684,7 +683,8 @@ $(document).ready(() => {
 			data.append("base64", base64_documentoRecepcion);
 			const response = await ajax_function(data, "confirmar_recepcionArriendo");
 			if (response.success) {
-				await ajax_function(data, "registrar_bloqueoUsuario");
+				//SE DESACTIVARA EL MODULO DE BLOEQUEO HASTA
+				//	await ajax_function(data, "registrar_bloqueoUsuario");
 				$("#modal_ArriendoFinalizar").modal("toggle");
 				$("#modal_signature_actaRecepcion").modal("toggle");
 				Swal.fire("Arriendo Recepcionado!", "Arriendo Recepcionado con exito!", "success");
@@ -773,7 +773,11 @@ $(document).ready(() => {
 	const guardarPagoArriendo = async (data) => {
 		data.append("inputIdArriendo", $("#id_arriendo_extencion").val());
 		data.append("inputSubTotalArriendo", $("#inputSubTotalArriendo_extenderPlazo").val());
-		data.append("inputPagoEmpresa", $("#inputPagoEmpresa_extenderPlazo").val());
+		if ($("#SelectCategoriasERExtension").val() == 'null' || $("#SelectCategoriasERExtension").val() == null) {
+			data.append("inputPagoEmpresa", 0);
+		} else {
+			data.append("inputPagoEmpresa", $("#SelectCategoriasERExtension").val());
+		}
 		data.append("inputValorCopago", $("#inputValorCopago_extenderPlazo").val());
 		data.append("inputNeto", $("#inputNeto_extenderPlazo").val());
 		data.append("inputIVA", $("#inputIVA_extenderPlazo").val());
@@ -796,9 +800,14 @@ $(document).ready(() => {
 
 	const guardarPagoRemplazo = async (data) => {
 
-		let MontoCategoria = $("#SelectCategoriasERExtension").val()
-		let Iva = MontoCategoria*0.19
-		let MontoTotal=MontoCategoria+Iva;
+		let MontoCategoria = 0;
+		if ($("#SelectCategoriasERExtension").val() == 'null' || $("#SelectCategoriasERExtension").val() == null) {
+			MontoCategoria = 0;
+		} else {
+			MontoCategoria = Number($("#SelectCategoriasERExtension").val())
+		}
+		let Iva = MontoCategoria * 0.19
+		let MontoTotal = MontoCategoria + Iva;
 
 		data.append("inputEstado", "PENDIENTE");
 		data.append("inputDeudor", $("#inputDeudorCopago_extenderPlazo").val());

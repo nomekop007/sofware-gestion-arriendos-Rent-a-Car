@@ -630,7 +630,8 @@ $(document).ready(() => {
 		dataFormArriendo.append("selectSucursal", $("#selectSucursal").val());
 		const response = await ajax_function(dataFormArriendo, "registrar_arriendo");
 		if (response.success) {
-			await guardarBloqueoUsuario(response.data.id_arriendo);
+			//SE DESACTIVAN LOS BLOEQUEOS DE USUARIO
+			//await guardarBloqueoUsuario(response.data.id_arriendo);
 			await guardarDatosContacto(response.data.id_arriendo);
 			await cambiarEstadoVehiculo(response.data.patente_vehiculo);
 			Swal.fire("Arriendo Registrado", response.msg, "success");
