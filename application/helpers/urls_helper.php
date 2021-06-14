@@ -13,7 +13,7 @@ function path_url()
 
 function base_route()
 {
-    return "http://localhost/proyectos/rentacar/";
+    return "http://localhost/rentacar/";
 }
 
 function client_url()
