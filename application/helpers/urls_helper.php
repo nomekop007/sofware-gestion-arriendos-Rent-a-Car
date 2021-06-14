@@ -2,7 +2,7 @@
 
 function api_url()
 {
-    return "http://localhost:3000/rentacar/";
+    return "http://localhost:3000/";
 }
 
 function path_url()
@@ -13,7 +13,7 @@ function path_url()
 
 function base_route()
 {
-    return "http://localhost/rentacar/";
+    return "http://localhost/";
 }
 
 function client_url()
